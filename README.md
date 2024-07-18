@@ -1,5 +1,5 @@
 
-# Quản lý đặt vé tàu (Train Ticket Booking)
+# Quản lý đặt vé tàu (Train Ticket Booking Managerment)
 
 Build frontend webb with react typescript, try hard
 
@@ -10,19 +10,19 @@ Build frontend webb with react typescript, try hard
 
 ## Demo
 
-https://github.com/q-dat/Train-Ticket-Booking.git
+https://github.com/q-dat/FE-Train-Ticket-Booking-Managerment.git
 ## Run Project Here
 
 Clone the project
 
 ```bash
-  git clone https://github.com/q-dat/Train-Ticket-Booking.git
+  git clone https://github.com/q-dat/FE-Train-Ticket-Booking-Managerment.git
 ```
 
 Go to the project directory
 
 ```bash
-  cd Train-Ticket-Booking
+  cd FE-Train-Ticket-Booking-Managerment
 ```
 
 Install dependencies
