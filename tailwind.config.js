@@ -15,11 +15,6 @@ export default {
         sub: ["Roboto"],
       },
       colors: {
-        "chart-color-1": "#ff4757",
-        "chart-color-2": "#ff6348",
-        "chart-color-3": "#eccc68",
-        "chart-color-4": "#9980FA",
-        "chart-color-5": "#33d9b2",
         "link-hover": "#383838",
         "primary-hover":
           "color-mix(oklab, oklch(var(--btn-color, var(--b2)) / var(--tw-bg-opacity, 1)) 90%, black)",
@@ -37,9 +32,7 @@ export default {
       borderRadius: {
         modal: "16px",
       },
-      backgroundImage: {
-      
-      },
+      backgroundImage: {},
     },
   },
   plugins: [
@@ -52,26 +45,14 @@ export default {
     themes: [
       {
         mytheme: {
-          //dung primary text
-          primary: "#00B074",
-          "primary-content": "#00B074",
-          secondary: "#DF0404",
-          "secondary-content": "#DF0404",
-          accent: "#00E26B",
-          "accent-content": "#00E26B",
-          neutral: "#414141",
-          "neutral-content": "#666666",
-          "base-100": "#ffffff",
-          "base-200": "#f7f8fa",
-          "base-300": "#fbfbfb",
-          "base-400": "#f8f8f8",
-          "base-content": "#414141",
-          "text-base": "#FF4757",
+          primary: "#5e90cc",
+          "text-primary-content": "#5e90cc",
+          secondary: "#86aad7",
+          "text-secondary-content": "#86aad7",
           info: "#312e91",
           success: "#009485",
           warning: "#ff9900",
           error: "#e53e3e",
-          "info-content": "#5B5B5B",
         },
       },
     ],
