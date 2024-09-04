@@ -5,7 +5,7 @@ import NotificationPopup from '../components/NotificationPopup';
 
 const DefaultLayout: React.FC<{}> = () => {
   return (
-    <div className="">
+    <div className="bg-white dark:bg-gray-600">
       <Outlet />
       <ContactForm/>
       <NotificationPopup/>

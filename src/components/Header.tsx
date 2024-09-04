@@ -7,6 +7,7 @@ import { MdEmail } from "react-icons/md";
 import { LuSearchCheck } from "react-icons/lu";
 import { GiReturnArrow } from "react-icons/gi";
 import { IoTicket, IoTime } from "react-icons/io5";
+import DarkMode from "./DarkMode";
 
 interface MenuItem {
   name: string;
@@ -58,7 +59,7 @@ const Header: React.FC = () => {
   }, [location.pathname, menuItems]);
 
   return (
-    <div className="hidden xl:flex flex-row justify-center items-center bg-white bg-opacity-50 shadow-md fixed w-full z-[99999] uppercase">
+    <div className="hidden xl:flex flex-row justify-center items-center dark:bg-gray-700 dark:bg-opacity-50 bg-white bg-opacity-50 shadow-md fixed w-full z-[99999] uppercase">
       <Menu className="flex-row">
         {menuItems.map((item) => {
           const Icon = item.icon;
@@ -70,19 +71,19 @@ const Header: React.FC = () => {
                     btn rounded-none flex w-full items-center justify-center border-none relative pl-4
                     ${
                       item.name === activeItem
-                        ? "text-sm bg-primary bg-opacity-20 font-bold text-primary"
-                        : "text-sm border-none shadow-none font-light text-black hover:text-primary hover:bg-opacity-30 hover:bg-gray-50 hover:border hover:border-primary"
+                        ? "text-sm bg-primary bg-opacity-20 font-bold text-primary dark:bg-opacity-50 dark:text-white"
+                        : "text-sm border-none shadow-none font-light text-black hover:text-primary hover:bg-opacity-30 hover:bg-gray-50 hover:border hover:border-primary  dark:text-white"
                     }`}
               >
                 <>
                   {item.name === activeItem && (
-                    <div className="absolute left-0 bottom-0 h-[2px] w-full bg-primary" />
+                    <div className="absolute left-0 bottom-0 h-[2px] w-full bg-primary dark:bg-white" />
                   )}
                   {Icon && (
                     <Icon
                       className={
                         item.name === activeItem
-                          ? "h-5 w-5 text-primary"
+                          ? "h-5 w-5 text-primary dark:text-white"
                           : "h-5 w-5"
                       }
                     />
@@ -90,13 +91,14 @@ const Header: React.FC = () => {
                   <span className={Icon ? "" : ""}>{item.name}</span>
                 </>
               </NavLink>
+              {/* SubMenu */}
               {item.submenu && (
-                <Menu className="hidden shadow-mainMenu absolute w-[300px] top-full p-4 m-0 bg-white rounded-sm flex-col gap-2 group-hover:flex ">
+                <Menu className="hidden shadow-mainMenu absolute w-[300px] top-full p-4 m-0 bg-white dark:bg-gray-700 dark:bg-opacity-80 rounded-sm flex-col gap-2 group-hover:flex ">
                   {item.submenu.map((subItem) => (
                     <Link to={subItem.link} className="flex flex-row gap-0">
                       <Button
                         size="sm"
-                        className="text-sm uppercase  shadow-headerMenu flex flex-row justify-start items-center bg-primary w-full text-white border-none rounded-sm hover:bg-opacity-50 hover:bg-primary hover:text-black hover:h-[50px]"
+                        className="uppercase text-sm shadow-headerMenu flex flex-row justify-start items-center bg-primary w-full text-white dark:text-black border-none rounded-sm hover:bg-opacity-50 dark:hover:bg-opacity-70 hover:bg-primary hover:text-black dark:hover:text-white hover:h-[50px]"
                       >
                         {subItem.icon && <subItem.icon />}
                         {subItem.name}
@@ -108,6 +110,10 @@ const Header: React.FC = () => {
             </Menu.Item>
           );
         })}
+         {/* DarkMode Button */}
+         <div className="flex items-center">
+          <DarkMode />
+        </div>
       </Menu>
     </div>
   );

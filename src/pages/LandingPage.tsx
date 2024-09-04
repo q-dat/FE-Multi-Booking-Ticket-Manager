@@ -13,8 +13,8 @@ const LandingPage: React.FC = () => {
       {/* Banner */}
       <div className=" relative">
         <div className=" absolute top-[40%] left-[20%]">
-        <p className="font-bold text-[40px] text-white">Đặt Vé Tàu Hoả Online</p>
-        <p className="font-light text-md text-white">Sự Lựa Chọn Tốt Nhất Cho Hành Trình Của Bạn</p>
+        <p className="font-bold text-[40px] text-white dark:text-gray-700">Đặt Vé Tàu Hoả Online</p>
+        <p className="font-light text-md text-white dark:text-gray-700">Sự Lựa Chọn Tốt Nhất Cho Hành Trình Của Bạn</p>
         </div>
         <img
           className="w-full"
@@ -24,33 +24,36 @@ const LandingPage: React.FC = () => {
       </div>
       {/* Form */}
       <div className="flex flex-grow justify-center items-center  relative px-20 -top-10">
-        <div className="flex flex-row justify-center items-center   bg-white rounded-lg px-10 py-8 shadow-md">
+        <div className="flex flex-row justify-center items-center dark:bg-gray-500 bg-white rounded-lg px-10 py-8 shadow-md">
           <InputForm
             className=" rounded-r-none"
             type={""}
             placeholder="Điểm Khởi Hành"
           />
-          <MdOutlineArrowRightAlt />
+          <MdOutlineArrowRightAlt className="text-primary dark:text-white" />
           <InputForm
             className=" rounded-none"
             type={"text"}
             placeholder={"Điểm Đến"}
           />
-          <MdOutlineArrowRightAlt />
+          <MdOutlineArrowRightAlt className="text-primary dark:text-white" />
+          
           <InputForm
             className=" rounded-none"
             type={"date"}
             placeholder={"Ngày đi"}
           />
-          <MdOutlineArrowRightAlt />
+          <MdOutlineArrowRightAlt className="text-primary dark:text-white" />
+          
           <InputForm
             className=" rounded-none"
             type={"date"}
             placeholder={"Ngày về"}
           />{" "}
-          <MdOutlineArrowRightAlt />
+          <MdOutlineArrowRightAlt className="text-primary dark:text-white" />
+          
           <Select
-            className="rounded-l-none focus:outline-none border border-opacity-50 border-gray-50 focus:border-primary"
+            className="bg-white dark:bg-gray-500 text-black dark:text-white rounded-l-none focus:outline-none border border-opacity-50 border-gray-700 focus:border-primary dark:border-primary dark:focus:border-gray-700 "
             value={value}
             onChange={(event) => setValue(event.target.value)}
           >
@@ -61,7 +64,7 @@ const LandingPage: React.FC = () => {
             <option value={"Người Vừa"}>Người Vừa</option>
             <option value={"Người Lớn"}>Người Lớn</option>
           </Select>
-          <Button className="ml-3 bg-primary hover:bg-white text-sm hover:text-primary hover:border-primary text-white">
+          <Button className="ml-3 bg-primary hover:bg-white text-sm hover:text-primary hover:border-primary text-white dark:hover:bg-gray-700">
             <IoSearch />
             Tìm Kiếm
           </Button>
@@ -75,11 +78,11 @@ const LandingPage: React.FC = () => {
             src="https://www.omio.com/gcs-proxy/static_content_repo/web/content/lps/SeoHomePageAssets/sectionOne.svg"
             alt=""
           />
-          <p className="font-bold text-[#122969] text-xl">
+          <p className="font-bold dark:text-white text-[#122969] text-xl">
             So sánh giá vé máy bay và tàu hỏa giá rẻ với xe buýt
           </p>
           <br />
-          <p className="text-sm font-light">
+          <p className="text-sm font-light text-black dark:text-white">
             Với FPT Train, bạn có thể so sánh vé máy bay với vé tàu hỏa và vé xe buýt.
           </p>
         </div>
@@ -89,11 +92,11 @@ const LandingPage: React.FC = () => {
             src="https://www.omio.com/gcs-proxy/static_content_repo/web/content/lps/SeoHomePageAssets/sectionTwo.svg"
             alt=""
           />
-          <p className="font-bold text-[#122969] text-xl">
+          <p className="font-bold dark:text-white text-[#122969] text-xl">
             Tìm vé giá rẻ một cách dễ dàng
           </p>
           <br />
-          <p className="text-sm font-light">
+          <p className="text-sm font-light text-black dark:text-white">
             Tìm kiếm và đặt vé máy bay, xe buýt, phà và tàu hỏa giá rẻ! Khám phá
             những tấm vé tốt nhất dành cho bạn với  FPT Train.
           </p>
@@ -104,15 +107,19 @@ const LandingPage: React.FC = () => {
             src="https://www.omio.com/gcs-proxy/static_content_repo/web/content/lps/SeoHomePageAssets/sectionThree.svg"
             alt=""
           />
-          <p className="font-bold text-[#122969] text-xl">
+          <p className="font-bold dark:text-white text-[#122969] text-xl">
             Lịch trình và vé cho mọi nhu cầu du lịch của bạn
           </p>
           <br />
-          <p className="text-sm font-light">
+          <p className="text-sm font-light text-black dark:text-white">
             Chưa bao giờ việc đặt vé tàu, vé xe buýt, vé máy bay hoặc vé phà lại
             dễ dàng đến thế.
           </p>
         </div>
+      </div>
+      {/*  */}
+      <div className="h-[900px] bg-black">
+        HI
       </div>
     </div>
   );
