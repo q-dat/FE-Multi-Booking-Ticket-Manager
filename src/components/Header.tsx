@@ -4,6 +4,9 @@ import { FaHome, FaPhoneAlt } from "react-icons/fa";
 import { Link, NavLink, useLocation } from "react-router-dom";
 import { IconType } from "react-icons/lib";
 import { MdEmail } from "react-icons/md";
+import { LuSearchCheck } from "react-icons/lu";
+import { GiReturnArrow } from "react-icons/gi";
+import { IoTicket, IoTime } from "react-icons/io5";
 
 interface MenuItem {
   name: string;
@@ -24,10 +27,10 @@ const Header: React.FC = () => {
       name: "Thông tin đặt chỗ",
       link: "/",
       submenu: [
-        { name: "Tìm Vé", link: "/" },
-        { name: "Trả vé", link: "/" },
-        { name: "Kiểm tra vé", link: "/" },
-        { name: "Giờ tàu - Giá vé", link: "/" },
+        { name: "Tìm Vé",icon:LuSearchCheck, link: "/" },
+        { name: "Trả vé",icon: GiReturnArrow, link: "/" },
+        { name: "Kiểm tra vé",icon:IoTicket, link: "/" },
+        { name: "Giờ tàu - Giá vé",icon:IoTime, link: "/" },
       ],
     },
     { name: "Khuyến mại", link: "/" },
@@ -67,8 +70,8 @@ const Header: React.FC = () => {
                     btn rounded-none flex w-full items-center justify-center border-none relative pl-4
                     ${
                       item.name === activeItem
-                        ? "bg-primary bg-opacity-20 font-bold text-primary"
-                        : "border-none shadow-none font-light text-black hover:text-primary hover:bg-opacity-30 hover:bg-gray-50 hover:border hover:border-primary"
+                        ? "text-sm bg-primary bg-opacity-20 font-bold text-primary"
+                        : "text-sm border-none shadow-none font-light text-black hover:text-primary hover:bg-opacity-30 hover:bg-gray-50 hover:border hover:border-primary"
                     }`}
               >
                 <>
@@ -88,12 +91,12 @@ const Header: React.FC = () => {
                 </>
               </NavLink>
               {item.submenu && (
-                <Menu className=" shadow-mainMenu absolute w-[300px] top-full p-4 m-0 bg-white rounded-sm hidden flex-col gap-2 group-hover:flex ">
+                <Menu className="hidden shadow-mainMenu absolute w-[300px] top-full p-4 m-0 bg-white rounded-sm flex-col gap-2 group-hover:flex ">
                   {item.submenu.map((subItem) => (
                     <Link to={subItem.link} className="flex flex-row gap-0">
                       <Button
                         size="sm"
-                        className="uppercase shadow-headerMenu flex flex-row justify-start items-center bg-primary w-full text-white border-none rounded-sm hover:bg-opacity-50 hover:bg-primary hover:text-black hover:h-[50px]"
+                        className="text-sm uppercase  shadow-headerMenu flex flex-row justify-start items-center bg-primary w-full text-white border-none rounded-sm hover:bg-opacity-50 hover:bg-primary hover:text-black hover:h-[50px]"
                       >
                         {subItem.icon && <subItem.icon />}
                         {subItem.name}

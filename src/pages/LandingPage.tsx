@@ -61,7 +61,7 @@ const LandingPage: React.FC = () => {
             <option value={"Người Vừa"}>Người Vừa</option>
             <option value={"Người Lớn"}>Người Lớn</option>
           </Select>
-          <Button className="ml-3 bg-primary hover:bg-white hover:text-primary hover:border-primary text-white">
+          <Button className="ml-3 bg-primary hover:bg-white text-sm hover:text-primary hover:border-primary text-white">
             <IoSearch />
             Tìm Kiếm
           </Button>
