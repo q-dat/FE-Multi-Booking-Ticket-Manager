@@ -20,10 +20,10 @@ const ContactForm: React.FC = () => {
   return (
     <div className="fixed bottom-0 left-0 z-[99999]">
       <button
-        className="toggle-btn border border-white text-white bg-primary text-xs rounded-md ml-1 p-2 flex items-center"
+        className="text-white bg-primary text-xs rounded-md ml-1 p-2 flex items-center  shadow-mainMenu"
         onClick={toggleDropdown}
       >
-        {isExpanded ? "Thu gọn ▼" : "Liên hệ ▲"}
+        {isExpanded ? "THU GỌN ▼" : "LIÊN HỆ ▲"}
       </button>
       <div
         ref={dropdownContentRef}

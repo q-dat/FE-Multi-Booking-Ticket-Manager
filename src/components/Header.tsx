@@ -1,29 +1,22 @@
 import React, { useEffect, useState } from "react";
 import { Button, Menu } from "react-daisyui";
-import { FaHome } from "react-icons/fa";
-import { IconType } from "react-icons/lib";
+import { FaHome, FaPhoneAlt } from "react-icons/fa";
 import { Link, NavLink, useLocation } from "react-router-dom";
+import { IconType } from "react-icons/lib";
+import { MdEmail } from "react-icons/md";
 
 interface MenuItem {
   name: string;
   icon?: IconType;
   link: string;
-  submenu?: { name: string; link: string }[];
+  submenu?: { name: string; link: string; icon?: IconType }[];
 }
 const Header: React.FC = () => {
   const [activeItem, setActiveItem] = useState("Trang Chủ");
   const location = useLocation();
   const menuItems: MenuItem[] = [
     { name: "Trang Chủ", icon: FaHome, link: "/" },
-    {
-      name: "Tìm Vé",
-
-      link: "/",
-      submenu: [
-        { name: "Sub Item 1", link: "/#" },
-        { name: "Sub Item 2", link: "/#" },
-      ],
-    },
+    { name: "Tìm Vé", link: "/" },
     { name: "Thông tin đặt chỗ", link: "/" },
     { name: "Trả vé", link: "/" },
     { name: "Kiểm tra vé", link: "/" },
@@ -31,7 +24,14 @@ const Header: React.FC = () => {
     { name: "Khuyến mại", link: "/" },
     { name: "Các quy định", link: "/" },
     { name: "Hướng dẫn", link: "/" },
-    { name: "Liên hệ", link: "/" },
+    {
+      name: "Liên hệ",
+      link: "/",
+      submenu: [
+        { name: "Hotline:", icon: FaPhoneAlt, link: "/#" },
+        { name: "Email",icon: MdEmail, link: "/#" },
+      ],
+    },
   ];
   useEffect(() => {
     const pathname = location.pathname;
@@ -46,7 +46,7 @@ const Header: React.FC = () => {
   }, [location.pathname, menuItems]);
 
   return (
-    <div className="flex flex-row justify-center items-center uppercase ">
+    <div className="flex flex-row justify-center items-center uppercase bg-white bg-opacity-50 shadow-md fixed w-full">
       <Menu className="flex-row">
         {menuItems.map((item) => {
           const Icon = item.icon;
@@ -55,14 +55,12 @@ const Header: React.FC = () => {
               <NavLink
                 to={item.link}
                 className={`
-                    btn rounded-none flex w-full items-center justify-start border-none shadow-white
+                    btn rounded-none flex w-full items-center justify-start border-none relative pl-4
                     ${
                       item.name === activeItem
-                        ? "bg-gray-50 bg-opacity-20 font-bold text-primary"
-                        : "bg-transparent bg-white font-light text-black"
-                    }
-                    relative pl-4
-                  `}
+                        ? "bg-primary bg-opacity-20 font-bold text-primary"
+                        : "border-none shadow-none font-light text-black hover:text-primary hover:bg-opacity-30 hover:bg-gray-50 hover:border hover:border-primary"
+                    }`}
               >
                 <>
                   {item.name === activeItem && (
@@ -81,13 +79,14 @@ const Header: React.FC = () => {
                 </>
               </NavLink>
               {item.submenu && (
-                <Menu className="absolute top-full p-4  hidden flex-col gap-2 group-hover:flex shadow-headerMenu">
+                <Menu className="absolute w-32 top-full p-3 m-0 bg-white rounded-sm hidden flex-col gap-2 group-hover:flex shadow-headerMenu ">
                   {item.submenu.map((subItem) => (
-                    <Link to={subItem.link}>
+                    <Link to={subItem.link} className="flex flex-row gap-0">
                       <Button
                         size="sm"
-                        className="bg-primary shadow-mainMenu text-white border-none rounded-sm hover:bg-opacity-50 hover:bg-primary"
+                        className="bg-primary shadow-mainMenu text-white border-none rounded-sm hover:bg-opacity-50 hover:bg-primary "
                       >
+                        {subItem.icon && <subItem.icon />}
                         {subItem.name}
                       </Button>
                     </Link>
