@@ -10,6 +10,7 @@
   margin: 0;
   box-sizing: border-box;
 }
+/* Contact-Form */
 @keyframes zoomBorder {
   0%,
   100% {
@@ -42,4 +43,4 @@
   transform: translate(-50%, -50%) scale(1);
   transition: all 0.5s ease-in-out;
   animation: zoomBorder 2s infinite ease-in-out;
-}
+  }

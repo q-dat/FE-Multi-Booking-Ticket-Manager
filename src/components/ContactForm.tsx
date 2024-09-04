@@ -20,30 +20,20 @@ const ContactForm: React.FC = () => {
   return (
     <div className="fixed bottom-0 left-0 z-[99999]">
       <button
-        className="text-white bg-primary text-xs rounded-md ml-1 p-2 flex items-center  shadow-mainMenu"
+        className="mb-5 text-white bg-primary text-xs rounded-md ml-1 p-2 flex items-center  shadow-mainMenu"
         onClick={toggleDropdown}
       >
         {isExpanded ? "THU GỌN ▼" : "LIÊN HỆ ▲"}
       </button>
       <div
         ref={dropdownContentRef}
-        className="dropdown-content transition-[max-height] duration-300 ease-out overflow-hidden mb-7"
+        className="dropdown-content transition-[max-height] duration-300 ease-out overflow-hidden "
         style={{
           maxHeight: isExpanded
             ? `${dropdownContentRef.current?.scrollHeight}px`
             : "0",
         }}
       >
-        <Link className="ml-5 mt-5 relative inline-block" to="#">
-          <span className=" animation-zoomBorder" />
-          <img
-            src="https://mamnonanan.edu.vn/wp-content/uploads/2024/08/Thông-tin-học-phí.png"
-            alt="#"
-            width="40"
-            height="40"
-            className="rounded-full"
-          />
-        </Link>
         <div className="block ml-5 mb-1">
           <Link target="_blank" to="https://zalo.me/0333133050">
             <img
@@ -70,17 +60,21 @@ const ContactForm: React.FC = () => {
             />
           </Link>
         </div>
-        <div className="block ml-5 mb-1">
-          <Link target="_blank" to="tel:0333133050" rel="noopener noreferrer">
-            <img
-              src="https://mamnonanan.edu.vn/wp-content/uploads/2024/08/icon-phone.png"
-              alt="hotline-icon"
-              width="40"
-              height="40"
-              className="rounded-full"
-            />
-          </Link>
-        </div>
+        <Link
+          className="ml-5 mb-5 relative inline-block"
+          target="_blank"
+          to="tel:0333133050"
+          rel="noopener noreferrer"
+        >
+          <span className=" animation-zoomBorder" />
+          <img
+            src="https://mamnonanan.edu.vn/wp-content/uploads/2024/08/icon-phone.png"
+            alt="#"
+            width="40"
+            height="40"
+            className="rounded-full"
+          />
+        </Link>
       </div>
     </div>
   );

@@ -15,12 +15,21 @@ const Header: React.FC = () => {
   const [activeItem, setActiveItem] = useState("Trang Chủ");
   const location = useLocation();
   const menuItems: MenuItem[] = [
-    { name: "Trang Chủ", icon: FaHome, link: "/" },
-    { name: "Tìm Vé", link: "/" },
-    { name: "Thông tin đặt chỗ", link: "/" },
-    { name: "Trả vé", link: "/" },
-    { name: "Kiểm tra vé", link: "/" },
-    { name: "Giờ tàu - Giá vé", link: "/" },
+    {
+      name: "Trang Chủ",
+      icon: FaHome,
+      link: "/",
+    },
+    {
+      name: "Thông tin đặt chỗ",
+      link: "/",
+      submenu: [
+        { name: "Tìm Vé", link: "/" },
+        { name: "Trả vé", link: "/" },
+        { name: "Kiểm tra vé", link: "/" },
+        { name: "Giờ tàu - Giá vé", link: "/" },
+      ],
+    },
     { name: "Khuyến mại", link: "/" },
     { name: "Các quy định", link: "/" },
     { name: "Hướng dẫn", link: "/" },
@@ -29,7 +38,7 @@ const Header: React.FC = () => {
       link: "/",
       submenu: [
         { name: "Hotline:", icon: FaPhoneAlt, link: "/#" },
-        { name: "Email",icon: MdEmail, link: "/#" },
+        { name: "Email", icon: MdEmail, link: "/#" },
       ],
     },
   ];
@@ -46,7 +55,7 @@ const Header: React.FC = () => {
   }, [location.pathname, menuItems]);
 
   return (
-    <div className="flex flex-row justify-center items-center uppercase bg-white bg-opacity-50 shadow-md fixed w-full">
+    <div className="hidden xl:flex flex-row justify-center items-center bg-white bg-opacity-50 shadow-md fixed w-full z-[99999] uppercase">
       <Menu className="flex-row">
         {menuItems.map((item) => {
           const Icon = item.icon;
@@ -55,7 +64,7 @@ const Header: React.FC = () => {
               <NavLink
                 to={item.link}
                 className={`
-                    btn rounded-none flex w-full items-center justify-start border-none relative pl-4
+                    btn rounded-none flex w-full items-center justify-center border-none relative pl-4
                     ${
                       item.name === activeItem
                         ? "bg-primary bg-opacity-20 font-bold text-primary"
@@ -79,12 +88,12 @@ const Header: React.FC = () => {
                 </>
               </NavLink>
               {item.submenu && (
-                <Menu className="absolute w-32 top-full p-3 m-0 bg-white rounded-sm hidden flex-col gap-2 group-hover:flex shadow-headerMenu ">
+                <Menu className=" shadow-mainMenu absolute w-[300px] top-full p-4 m-0 bg-white rounded-sm hidden flex-col gap-2 group-hover:flex ">
                   {item.submenu.map((subItem) => (
                     <Link to={subItem.link} className="flex flex-row gap-0">
                       <Button
                         size="sm"
-                        className="bg-primary shadow-mainMenu text-white border-none rounded-sm hover:bg-opacity-50 hover:bg-primary "
+                        className="uppercase shadow-headerMenu flex flex-row justify-start items-center bg-primary w-full text-white border-none rounded-sm hover:bg-opacity-50 hover:bg-primary hover:text-black hover:h-[50px]"
                       >
                         {subItem.icon && <subItem.icon />}
                         {subItem.name}

@@ -19,7 +19,7 @@ const InputForm: React.FC<InputFormProps> = ({
   return (
     <div className="relative w-[150px]">
       <Input
-        className={`peer border border-primary w-full focus:outline-none focus:border-primary ${className}`}
+        className={`peer border border-gray-50 border-opacity-50 w-full focus:outline-none focus:border-primary ${className}`}
         type={type}
         placeholder=" "
         value={value}
