@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import Header from "../components/LadingPage/Header";
 import { Button, Select } from "react-daisyui";
 import InputForm from "../components/LadingPage/InputForm";
 import { IoSearch } from "react-icons/io5";
@@ -15,7 +14,6 @@ const LandingPage: React.FC = () => {
   const [value, setValue] = useState("default");
   return (
     <div>
-      <Header />
       {/* Banner */}
       <div className=" relative">
         <div className=" absolute top-[40%] left-[20%]">
