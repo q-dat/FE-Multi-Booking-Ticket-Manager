@@ -1,7 +1,7 @@
 import React from 'react';
 import { Outlet } from 'react-router-dom';
-import ContactForm from '../components/ContactForm';
-import NotificationPopup from '../components/NotificationPopup';
+import ContactForm from '../components/LadingPage/ContactForm';
+import NotificationPopup from '../components/LadingPage/NotificationPopup';
 
 const DefaultLayout: React.FC<{}> = () => {
   return (
