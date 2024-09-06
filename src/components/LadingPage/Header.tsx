@@ -9,7 +9,6 @@ import { GiReturnArrow } from "react-icons/gi";
 import { IoTicket, IoTime } from "react-icons/io5";
 import DarkMode from "../orther/darkmode/DarkMode";
 import { Logo } from "../../assets/images";
-import HeaderResponsive from "./HeaderResponsive";
 import DropdownLanguage from "../orther/translation/Dropdown-Language ";
 import { useTranslation } from "react-i18next";
 
@@ -93,10 +92,6 @@ const Header: React.FC = () => {
 
   return (
     <div>
-      {/* Mobile */}
-      <div>
-        <HeaderResponsive />
-      </div>
       {/* Desktop */}
       <div className="hidden xl:flex flex-row justify-evenly items-center dark:bg-gray-700 dark:bg-opacity-50 bg-white bg-opacity-50 shadow-md fixed w-full z-[99999] uppercase">
         <div>

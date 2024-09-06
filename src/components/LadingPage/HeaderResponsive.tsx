@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { ReactNode, useCallback, useEffect, useState } from "react";
 import { Button, Drawer, Input, Menu } from "react-daisyui";
 // Icon
 import { RxHamburgerMenu } from "react-icons/rx";
@@ -11,14 +11,18 @@ import { MdEmail } from "react-icons/md";
 import { IconType } from "react-icons/lib";
 import { Logo } from "../../assets/images";
 
+interface HeaderResponsiveProps {
+  Title_NavbarMobile: ReactNode;
+}
 interface MenuItem {
   name: string;
   icon?: IconType;
   link: string;
   submenu?: { name: string; link: string; icon?: IconType }[];
 }
-
-const HeaderResponsive: React.FC = () => {
+const HeaderResponsive: React.FC<HeaderResponsiveProps> = ({
+  Title_NavbarMobile,
+}) => {
   const [leftVisible, setLeftVisible] = useState(false);
   const [openSubmenu, setOpenSubmenu] = useState<string | null>(null);
 
@@ -84,7 +88,13 @@ const HeaderResponsive: React.FC = () => {
               <Menu className="fixed h-full w-[280px] bg-white dark:bg-gray-800">
                 {/* LOGO */}
                 <div className="flex justify-center items-center">
-                <img className="object-cover" width={120} loading="lazy" src={Logo} alt="LOGO" />
+                  <img
+                    className="object-cover"
+                    width={120}
+                    loading="lazy"
+                    src={Logo}
+                    alt="LOGO"
+                  />
                 </div>
                 {menuItems.map((item) => {
                   const Icon = item.icon;
@@ -163,7 +173,9 @@ const HeaderResponsive: React.FC = () => {
             </div>
           </Drawer>
         </div>
-        Title_NavbarMobile
+        <p className="uppercase text-primary text-base font-bold">
+          {Title_NavbarMobile}
+        </p>
       </div>
       {/* Input Search */}
       <div className="relative flex items-center">

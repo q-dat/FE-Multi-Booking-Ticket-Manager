@@ -10,6 +10,7 @@ import {
   sectionTwo,
 } from "../assets/image-represent";
 import { useTranslation } from "react-i18next";
+import HeaderResponsive from "../components/LadingPage/HeaderResponsive";
 
 const LandingPage: React.FC = () => {
   //Translation
@@ -18,6 +19,10 @@ const LandingPage: React.FC = () => {
   const [value, setValue] = useState("default");
   return (
     <div>
+      {/* Mobile */}
+      <div>
+        <HeaderResponsive Title_NavbarMobile="Trang Chủ" />
+      </div>
       {/* Banner */}
       <div className=" relative">
         <div className=" absolute top-[40%] left-[20%]">
