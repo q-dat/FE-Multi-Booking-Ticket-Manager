@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Button, Select } from "react-daisyui";
-import InputForm from "../components/LadingPage/InputForm";
+import InputForm from "../../components/LadingPage/InputForm";
 import { IoSearch } from "react-icons/io5";
 import { MdOutlineArrowRightAlt } from "react-icons/md";
 import {
@@ -8,9 +8,9 @@ import {
   sectionOne,
   sectionThree,
   sectionTwo,
-} from "../assets/image-represent";
+} from "../../assets/image-represent";
 import { useTranslation } from "react-i18next";
-import HeaderResponsive from "../components/LadingPage/HeaderResponsive";
+import HeaderResponsive from "../../components/LadingPage/HeaderResponsive";
 
 const LandingPage: React.FC = () => {
   //Translation

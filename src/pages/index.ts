@@ -1,5 +1,5 @@
 // landing page
-export { default as LandingPage } from './LandingPage';
+export { default as Home } from './user/Home';
 
 // 404
 export { default as NotFound } from './404/NotFound';

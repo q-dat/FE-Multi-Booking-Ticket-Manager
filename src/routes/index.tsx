@@ -3,10 +3,11 @@ import { lazy } from "react";
 import { Route, Routes } from "react-router-dom";
 import DefaultLayout from "../layout/DefaultLayout";
 
+// User page
+const User = lazy(() => import("../pages/user/User"));
+const Home = lazy(() => import("../pages/user/Home"));
 // admin
 const Admin = lazy(() => import("../pages/admin/Admin"));
-// landing page
-const LandingPage = lazy(() => import("../pages/LandingPage"));
 
 // not found page
 const NotFound = lazy(() => import("../pages/404/NotFound"));
@@ -16,7 +17,9 @@ export default function AppRoutes() {
       <Routes>
         {/* Landing page  */}
         <Route element={<DefaultLayout />}>
-          <Route index path="/" element={<LandingPage />} />
+          <Route path="/" element={<User />}>
+            <Route index path="" element={<Home />} />
+          </Route>
         </Route>
 
         {/* Admin */}
