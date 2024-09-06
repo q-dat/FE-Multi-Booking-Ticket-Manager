@@ -1,0 +1,10 @@
+{
+    "LanguageSwitch": {
+      "en": "English",
+      "vi": "Vietnamese"
+    },
+    "SelectLanguage": {
+      "language": "Select Language"
+    },
+    "TestConten":"Hello"
+  }

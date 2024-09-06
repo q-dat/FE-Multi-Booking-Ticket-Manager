@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { Button } from "react-daisyui";
 import { IoCloudyNightSharp } from "react-icons/io5";
 import { MdLightMode } from "react-icons/md";
 
@@ -22,11 +23,12 @@ const DarkMode: React.FC = () => {
   };
 
   return (
-    <div
+    <Button
+      size="md"
       onClick={toggleDarkMode}
-      className="bg-black bg-opacity-20 dark:bg-white dark:bg-opacity-20 shadow-md cursor-pointer rounded-md flex flex-row justify-center items-center text-black dark:text-white"
+      className="flex flex-row justify-center items-center border-none bg-white bg-opacity-20 dark:bg-black dark:bg-opacity-20 shadow-headerMenu cursor-pointer rounded-md text-black dark:text-white"
     >
-      <div className="cursor-pointer rounded-md p-2">
+      <div className="cursor-pointer rounded-md ">
         {darkMode ? (
           <div className="text-xl text-orange-400">
             <MdLightMode />
@@ -37,7 +39,7 @@ const DarkMode: React.FC = () => {
           </div>
         )}
       </div>
-    </div>
+    </Button>
   );
 };
 
