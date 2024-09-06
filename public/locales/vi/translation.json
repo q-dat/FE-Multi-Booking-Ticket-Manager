@@ -1,10 +1,43 @@
 {
-    "LanguageSwitch": {
-      "en": "Tiếng Anh",
-      "vi": "Tiếng Việt"
+  "LanguageSwitch": {
+    "en": "Tiếng Anh",
+    "vi": "Tiếng Việt"
+  },
+  "SelectLanguage": {
+    "language": "Chọn ngôn ngữ"
+  },
+  "LandingPage": {
+    "Collapse": "Thu Gọn",
+    "Contact":"Liên hệ",
+    "ContactConsulting": "Liên Hệ Tư Vấn",
+    "Navbar": {
+      "Home": "Trang Chủ",
+      "BookingInfo": "Thông tin đặt chỗ",
+      "FindTicket": "Tìm Vé",
+      "ReturnTicket": "Trả vé",
+      "CheckTicket": "Kiểm tra vé",
+      "TrainTimePrice": "Giờ tàu - Giá vé",
+      "Promotion": "Khuyến mại",
+      "Regulations": "Các quy định",
+      "Guidance": "Hướng dẫn",
+      "Contact": "Liên hệ",
+      "Hotline": "Hotline: 0333133050",
+      "Email": "Email: fpttrain@gmail.com"
     },
-    "SelectLanguage": {
-      "language": "Chọn ngôn ngữ"
-    },
-    "TestConten":"Xin chào"
+    "BannerTitle": "Đặt Vé Tàu Hoả Online",
+    "BannerSubtitle": "Sự Lựa Chọn Tốt Nhất Cho Hành Trình Của Bạn",
+    "SearchButton": "Tìm Kiếm",
+    "DeparturePlaceholder": "Điểm Khởi Hành",
+    "DestinationPlaceholder": "Điểm Đến",
+    "DepartureDatePlaceholder": "Ngày Đi",
+    "ReturnDatePlaceholder": "Ngày Về",
+    "AgeSelectDefault": "Chọn Lứa Tuổi",
+
+    "SectionOneTitle": "So Sánh Giá Vé Máy Bay Và Tàu Hỏa Giá Rẻ Với Xe Buýt",
+    "SectionOneDescription": "Với FPT Train, bạn có thể so sánh vé máy bay với vé tàu hỏa và vé xe buýt.",
+    "SectionTwoTitle": "Tìm Vé Giá Rẻ Một Cách Dễ Dàng",
+    "SectionTwoDescription": "Tìm kiếm và đặt vé máy bay, xe buýt, phà và tàu hỏa giá rẻ! Khám phá những tấm vé tốt nhất dành cho bạn với FPT Train.",
+    "SectionThreeTitle": "Lịch Trình Và Vé Cho Mọi Nhu Cầu Du Lịch Của Bạn",
+    "SectionThreeDescription": "Chưa bao giờ việc đặt vé tàu, vé xe buýt, vé máy bay hoặc vé phà lại dễ dàng đến thế."
   }
+}

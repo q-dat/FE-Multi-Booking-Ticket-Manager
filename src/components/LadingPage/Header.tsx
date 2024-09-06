@@ -11,6 +11,7 @@ import DarkMode from "../orther/darkmode/DarkMode";
 import { Logo } from "../../assets/images";
 import HeaderResponsive from "./HeaderResponsive";
 import DropdownLanguage from "../orther/translation/Dropdown-Language ";
+import { useTranslation } from "react-i18next";
 
 interface MenuItem {
   name: string;
@@ -19,33 +20,62 @@ interface MenuItem {
   submenu?: { name: string; link: string; icon?: IconType }[];
 }
 const Header: React.FC = () => {
-  const [activeItem, setActiveItem] = useState("Trang Chủ");
+  // Translation
+  const { t } = useTranslation();
+
+  const [activeItem, setActiveItem] = useState(
+    `${t("LandingPage.Navbar.Home")}`
+  );
   const location = useLocation();
   const menuItems: MenuItem[] = [
     {
-      name: "Trang Chủ",
+      name: `${t("LandingPage.Navbar.Home")}`,
       icon: FaHome,
       link: "/",
     },
     {
-      name: "Thông tin đặt chỗ",
+      name: `${t("LandingPage.Navbar.BookingInfo")}`,
       link: "/",
       submenu: [
-        { name: "Tìm Vé", icon: LuSearchCheck, link: "/" },
-        { name: "Trả vé", icon: GiReturnArrow, link: "/" },
-        { name: "Kiểm tra vé", icon: IoTicket, link: "/" },
-        { name: "Giờ tàu - Giá vé", icon: IoTime, link: "/" },
+        {
+          name: `${t("LandingPage.Navbar.FindTicket")}`,
+          icon: LuSearchCheck,
+          link: "/",
+        },
+        {
+          name: `${t("LandingPage.Navbar.ReturnTicket")}`,
+          icon: GiReturnArrow,
+          link: "/",
+        },
+        {
+          name: `${t("LandingPage.Navbar.CheckTicket")}`,
+          icon: IoTicket,
+          link: "/",
+        },
+        {
+          name: `${t("LandingPage.Navbar.TrainTimePrice")}`,
+          icon: IoTime,
+          link: "/",
+        },
       ],
     },
-    { name: "Khuyến mại", link: "/" },
-    { name: "Các quy định", link: "/" },
-    { name: "Hướng dẫn", link: "/" },
+    { name: `${t("LandingPage.Navbar.Promotion")}`, link: "/" },
+    { name: `${t("LandingPage.Navbar.Regulations")}`, link: "/" },
+    { name: `${t("LandingPage.Navbar.Guidance")}`, link: "/" },
     {
-      name: "Liên hệ",
+      name: `${t("LandingPage.Navbar.Contact")}`,
       link: "/",
       submenu: [
-        { name: "Hotline: 0333133050", icon: FaPhoneAlt, link: "tel:0333133050" },
-        { name: "Email: fpttrain@gmail.com", icon: MdEmail, link: "mailto:fpttrain@gmail.com" },
+        {
+          name: `${t("LandingPage.Navbar.Hotline")}`,
+          icon: FaPhoneAlt,
+          link: "tel:0333133050",
+        },
+        {
+          name: `${t("LandingPage.Navbar.Email")}`,
+          icon: MdEmail,
+          link: "mailto:fpttrain@gmail.com",
+        },
       ],
     },
   ];

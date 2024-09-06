@@ -1,7 +1,11 @@
 import React, { useEffect, useRef, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 
 const ContactForm: React.FC = () => {
+  // Translation
+  const { t } = useTranslation();
+
   const [isExpanded, setIsExpanded] = useState<boolean>(true);
   const dropdownContentRef = useRef<HTMLDivElement>(null);
 
@@ -23,7 +27,9 @@ const ContactForm: React.FC = () => {
         className="mb-5 text-white bg-primary text-xs rounded-md ml-1 p-2 flex items-center  shadow-mainMenu"
         onClick={toggleDropdown}
       >
-        {isExpanded ? "THU GỌN ▼" : "LIÊN HỆ ▲"}
+        {isExpanded
+          ? `${t("LandingPage.Collapse")} ▼`
+          : `${t("LandingPage.Contact")} ▲`}
       </button>
       <div
         ref={dropdownContentRef}

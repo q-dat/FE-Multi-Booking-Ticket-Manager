@@ -9,8 +9,12 @@ import {
   sectionThree,
   sectionTwo,
 } from "../assets/image-represent";
+import { useTranslation } from "react-i18next";
 
 const LandingPage: React.FC = () => {
+  //Translation
+  const { t } = useTranslation();
+
   const [value, setValue] = useState("default");
   return (
     <div>
@@ -18,10 +22,10 @@ const LandingPage: React.FC = () => {
       <div className=" relative">
         <div className=" absolute top-[40%] left-[20%]">
           <p className="font-bold text-[40px] text-transparent bg-clip-text bg-gradient-to-r from-white to-white dark:from-[#122969] dark:to-gray-100">
-            Đặt Vé Tàu Hoả Online
+            {t("LandingPage.BannerTitle")}
           </p>
           <p className="font-light text-md text-transparent bg-clip-text bg-gradient-to-r from-white to-white dark:from-[#122969] dark:to-[#122969] ">
-            Sự Lựa Chọn Tốt Nhất Cho Hành Trình Của Bạn
+            {t("LandingPage.BannerSubtitle")}
           </p>
         </div>
         {/* Banner IMG */}
@@ -33,25 +37,25 @@ const LandingPage: React.FC = () => {
           <InputForm
             className=" rounded-r-none"
             type={""}
-            placeholder="Điểm Khởi Hành"
+            placeholder={`${t("LandingPage.DeparturePlaceholder")}`}
           />
           <MdOutlineArrowRightAlt className="text-primary dark:text-white hidden md:block" />
           <InputForm
             className=" rounded-none"
             type={"text"}
-            placeholder={"Điểm Đến"}
+            placeholder={`${t("LandingPage.DestinationPlaceholder")}`}
           />
           <MdOutlineArrowRightAlt className="text-primary dark:text-white hidden md:block" />
           <InputForm
             className=" rounded-none"
             type={"date"}
-            placeholder={"Ngày đi"}
+            placeholder={`${t("LandingPage.DepartureDatePlaceholder")}`}
           />
           <MdOutlineArrowRightAlt className="text-primary dark:text-white hidden md:block" />
           <InputForm
             className=" rounded-none"
             type={"date"}
-            placeholder={"Ngày về"}
+            placeholder={`${t("LandingPage.ReturnDatePlaceholder")}`}
           />{" "}
           <MdOutlineArrowRightAlt className="text-primary dark:text-white hidden md:block" />
           <Select
@@ -60,7 +64,7 @@ const LandingPage: React.FC = () => {
             onChange={(event) => setValue(event.target.value)}
           >
             <option value={"default"} disabled>
-              Chọn Lứa Tuổi
+              {t("LandingPage.AgeSelectDefault")}
             </option>
             <option value={"Người Nhỏ"}>Người Nhỏ</option>
             <option value={"Người Vừa"}>Người Vừa</option>
@@ -69,7 +73,7 @@ const LandingPage: React.FC = () => {
           <div>
             <Button className="ml-3 bg-primary hover:bg-white text-sm hover:text-primary hover:border-primary text-white dark:hover:bg-gray-700">
               <IoSearch />
-              Tìm Kiếm
+              {t("LandingPage.SearchButton")}
             </Button>
           </div>
         </div>
@@ -79,34 +83,31 @@ const LandingPage: React.FC = () => {
         <div className="w-[350px]">
           <img width={300} src={sectionOne} alt="" />
           <p className="font-bold dark:text-white text-[#122969] text-xl">
-            So sánh giá vé máy bay và tàu hỏa giá rẻ với xe buýt
+            {t("LandingPage.SectionOneTitle")}
           </p>
           <br />
           <p className="text-sm font-light text-black dark:text-white">
-            Với FPT Train, bạn có thể so sánh vé máy bay với vé tàu hỏa và vé xe
-            buýt.
+            {t("LandingPage.SectionOneDescription")}
           </p>
         </div>
         <div className="w-[350px]">
           <img width={300} src={sectionTwo} alt="" />
           <p className="font-bold dark:text-white text-[#122969] text-xl">
-            Tìm vé giá rẻ một cách dễ dàng
+            {t("LandingPage.SectionTwoTitle")}
           </p>
           <br />
           <p className="text-sm font-light text-black dark:text-white">
-            Tìm kiếm và đặt vé máy bay, xe buýt, phà và tàu hỏa giá rẻ! Khám phá
-            những tấm vé tốt nhất dành cho bạn với FPT Train.
+            {t("LandingPage.SectionTwoDescription")}
           </p>
         </div>
         <div className="w-[350px]">
           <img width={300} src={sectionThree} alt="" />
           <p className="font-bold dark:text-white text-[#122969] text-xl">
-            Lịch trình và vé cho mọi nhu cầu du lịch của bạn
+            {t("LandingPage.SectionThreeTitle")}
           </p>
           <br />
           <p className="text-sm font-light text-black dark:text-white">
-            Chưa bao giờ việc đặt vé tàu, vé xe buýt, vé máy bay hoặc vé phà lại
-            dễ dàng đến thế.
+            {t("LandingPage.SectionThreeDescription")}
           </p>
         </div>
       </div>
