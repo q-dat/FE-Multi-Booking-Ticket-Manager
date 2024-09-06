@@ -10,6 +10,15 @@
   margin: 0;
   box-sizing: border-box;
 }
+.text-bg-image {
+  background-image: url("");
+  background-size: cover;
+  -webkit-background-clip: text; /* Đối với Chrome, Safari và các phiên bản cũ */
+  -moz-background-clip: text; /* Đối với Firefox, mặc dù không cần thiết cho các phiên bản mới */
+  background-clip: text; /* Thuộc tính chuẩn */
+  -webkit-text-fill-color: transparent; /* Đảm bảo màu chữ trong suốt */
+}
+
 /* Contact-Form */
 @keyframes zoomBorder {
   0%,

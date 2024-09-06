@@ -79,7 +79,7 @@ const HeaderResponsive: React.FC<HeaderResponsiveProps> = ({
 
   return (
     <div className="flex flex-col px-2 pb-6 xl:hidden xl:px-0">
-      <div className="mb-6 flex items-center justify-between">
+      <div className="flex items-center justify-between">
         <div className="z-50">
           <Drawer
             open={leftVisible}
