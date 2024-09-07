@@ -23,15 +23,19 @@ const DropdownLanguage: React.FC<{}> = () => {
         <Button
           size="md"
           className="flex flex-row justify-center items-center border-none bg-white bg-opacity-20 dark:bg-black dark:bg-opacity-20 shadow-headerMenu cursor-pointer rounded-md text-black dark:text-white"
->
+        >
           <ReactCountryFlag countryCode={currentLanguage.countryCode} svg />
           {t(`LanguageSwitch.${currentLanguage.key}` as any)}
         </Button>
-        <Dropdown.Menu className="justify-center bg-white">
+        <Dropdown.Menu className="flex items-center justify-center dark:bg-gray-700  dark:bg-opacity-50 dark:text-white bg-white w-40">
           <Dropdown.Item
             onClick={() => SwitchLanguge(lngs.en.key)}
             tabIndex={0}
-            className={i18next.language === lngs.en.key ? "bg-neutral-200" : ""}
+            className={
+              i18next.language === lngs.en.key
+                ? "dark:bg-gray-700 dark:text-white text-black bg-white"
+                : "dark:bg-gray-700  dark:bg-opacity-0 "
+            }
           >
             <ReactCountryFlag countryCode={lngs.en.countryCode} svg />
             {t("LanguageSwitch.en")}
@@ -39,7 +43,11 @@ const DropdownLanguage: React.FC<{}> = () => {
           <Dropdown.Item
             onClick={() => SwitchLanguge(lngs.vi.key)}
             tabIndex={0}
-            className={i18next.language === lngs.vi.key ? "bg-neutral-200" : ""}
+            className={
+              i18next.language === lngs.vi.key
+                ? "dark:bg-gray-700 dark:text-white text-black bg-white"
+                : "dark:bg-gray-700  dark:bg-opacity-0"
+            }
           >
             <ReactCountryFlag countryCode={lngs.vi.countryCode} svg />
             {t("LanguageSwitch.vi")}

@@ -93,16 +93,16 @@ const Header: React.FC = () => {
   return (
     <div>
       {/* Desktop */}
-      <div className="hidden xl:flex flex-row justify-evenly items-center dark:bg-gray-700 dark:bg-opacity-50 bg-white bg-opacity-50 shadow-md fixed w-full z-[99999] uppercase">
-        <div>
+      <div className="hidden py-2 xl:flex flex-row justify-evenly items-center dark:bg-gray-700 dark:bg-opacity-50 bg-white bg-opacity-50 shadow-md fixed w-full z-[99999] uppercase">
+        <Link to='/'>
           <img
             className="object-cover"
-            width={80}
+            width={60}
             loading="lazy"
             src={Logo}
             alt="LOGO"
           />
-        </div>
+        </Link>
         <Menu className="flex-row">
           {menuItems.map((item) => {
             const Icon = item.icon;

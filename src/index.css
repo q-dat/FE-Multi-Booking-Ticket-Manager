@@ -11,7 +11,7 @@
   box-sizing: border-box;
 }
 .text-bg-image {
-  background-image: url("");
+  background-image: url("../src/assets/image-represent/bg-text.jpg");
   background-size: cover;
   -webkit-background-clip: text; /* Đối với Chrome, Safari và các phiên bản cũ */
   -moz-background-clip: text; /* Đối với Firefox, mặc dù không cần thiết cho các phiên bản mới */

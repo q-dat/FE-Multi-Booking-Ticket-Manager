@@ -17,7 +17,7 @@ const InputForm: React.FC<InputFormProps> = ({
   onChange,
 }) => {
   return (
-    <div className="relative w-[150px]">
+    <div className="relative w-[170px]">
       <Input
         className={`peer bg-white text-black dark:bg-gray-700 dark:text-white border border-gray-700 border-opacity-50 w-full focus:outline-none focus:border-primary  dark:border-primary dark:focus:border-white ${className}`}
         type={type}
