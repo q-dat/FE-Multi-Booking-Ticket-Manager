@@ -39,7 +39,7 @@ const LandingPage: React.FC = () => {
         </div>
       </div>
       {/* Form */}
-      <div className=" flex flex-grow justify-center items-center  relative px-20 md:-top-3 xl:-top-10">
+      <div className="px-2 flex flex-grow justify-center items-center  relative  md:-top-3 xl:-top-10">
         <div
           className="flex flex-col-reverse md:flex-row justify-between md:justify-center items-center space-y-4 md:space-y-0
          p-5 xl:py-8 xl:px-10 bg-white dark:bg-gray-700 rounded-lg shadow-md"
