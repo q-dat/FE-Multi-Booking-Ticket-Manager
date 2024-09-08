@@ -1,9 +1,9 @@
 import React from "react";
 import { Outlet } from "react-router-dom";
-import Header from "../../components/LadingPage/Header";
-import Footer from "../../components/LadingPage/Footer";
-import ContactForm from "../../components/LadingPage/ContactForm";
-import NotificationPopup from "../../components/LadingPage/NotificationPopup";
+import Header from "../../components/UserPage/Header";
+import Footer from "../../components/UserPage/Footer";
+import ContactForm from "../../components/UserPage/ContactForm";
+import NotificationPopup from "../../components/UserPage/NotificationPopup";
 
 const User: React.FC = () => {
   return (

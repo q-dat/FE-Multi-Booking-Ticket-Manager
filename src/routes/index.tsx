@@ -2,6 +2,7 @@
 import { lazy } from "react";
 import { Route, Routes } from "react-router-dom";
 import DefaultLayout from "../layout/DefaultLayout";
+import DashboardPage from "../pages/admin/DashboardPage";
 
 // User page
 const User = lazy(() => import("../pages/user/User"));
@@ -26,8 +27,8 @@ export default function AppRoutes() {
 
         <Route element={<DefaultLayout />}>
           <Route path="/admin" element={<Admin />}>
-            {/* <Route index path="" element={<DashboardPage />} />
-            <Route path="chat" element={<ChatPage />} /> */}
+            <Route index path="" element={<DashboardPage />} />
+            {/* <Route path="chat" element={<ChatPage />} /> */}
           </Route>
         </Route>
         {/* 404 not found */}
