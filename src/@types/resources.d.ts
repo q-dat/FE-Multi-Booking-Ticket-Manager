@@ -7,6 +7,12 @@ interface Resources {
     "SelectLanguage": {
       "language": "Select Language"
     },
+    "NotFoundPage": {
+      "title": "404 NOT FOUND",
+      "message": "The page you are looking for does not exist, sorry for the inconvenience.",
+      "homeButton": "Home",
+      "loginButton": "Login"
+    },
     "LandingPage": {
       "Collapse": "Collapse",
       "Contact": "Contact",

@@ -6,6 +6,12 @@
   "SelectLanguage": {
     "language": "Chọn ngôn ngữ"
   },
+  "NotFoundPage": {
+    "title": "404 NOT FOUND",
+    "message": "Trang bạn tìm hiện không có, xin lỗi vì sự bất tiện này",
+    "homeButton": "Trang chính",
+    "loginButton": "Login"
+  },
   "LandingPage": {
     "Collapse": "Thu Gọn",
     "Contact":"Liên hệ",
