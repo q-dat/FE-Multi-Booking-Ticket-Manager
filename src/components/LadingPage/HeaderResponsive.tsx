@@ -204,13 +204,18 @@ const HeaderResponsive: React.FC<HeaderResponsiveProps> = ({
                   />
                 </div>
                 <div className="w-full space-y-5">
-                  <div className="flex flex-row justify-between items-center p-2 bg-opacity-20 bg-gray-700 rounded-2xl">
+                  <div className="flex flex-row justify-between items-center p-2 bg-opacity-20 bg-gray-700 rounded-md">
                     <p className="text-lg font-semibold text-black dark:text-white">
                      Giao diện
                     </p>
                     <DarkMode />
                   </div>
+                  <div className="flex flex-row justify-between items-center p-2 bg-opacity-20 bg-gray-700 rounded-md">
+                    <p className="text-lg font-semibold text-black dark:text-white">
+                     Giao diện
+                    </p>
                   <DropdownLanguage />
+                  </div>
                 </div>
               </Menu>
             }

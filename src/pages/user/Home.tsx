@@ -12,7 +12,7 @@ import {
 import { useTranslation } from "react-i18next";
 import HeaderResponsive from "../../components/LadingPage/HeaderResponsive";
 
-const LandingPage: React.FC = () => {
+const Home: React.FC = () => {
   //Translation
   const { t } = useTranslation();
 
@@ -39,47 +39,47 @@ const LandingPage: React.FC = () => {
         </div>
       </div>
       {/* Form */}
-      <div className="px-2 flex flex-grow justify-center items-center  relative  md:-top-3 xl:-top-10">
+      <div className="px-2 flex flex-grow justify-center items-center  relative top-1 md:-top-3 xl:-top-10">
         <div
-          className="flex flex-col-reverse md:flex-row justify-between md:justify-center items-center space-y-4 md:space-y-0
-         p-5 xl:py-8 xl:px-10 bg-white dark:bg-gray-700 rounded-lg shadow-md"
+          className="flex flex-col xl:flex-row border border-primary border-opacity-50
+         p-2 md:p-10 xl:py-8 xl:px-10 bg-white dark:bg-gray-700 rounded-lg shadow-headerMenu"
         >
           {/* Form Mobile 1 */}
-          <div className="flex md:flex-col xl:flex-row mt-4 md:mx-5 xl:mx-0 md:mt-0 justify-between w-full xl:justify-center items-center gap-2 xl:gap-0">
+          <div className="flex flex-grow xl:m-0 xl:gap-0 m-2 md:m-[10px] md:gap-[20px] gap-2 justify-between items-center">
             <InputForm
-              className=" xl:rounded-r-none"
+              className="w-[150px] md:w-[300px] lg:w-[400px] xl:w-full  xl:rounded-r-none"
               type={""}
               placeholder={`${t("LandingPage.DeparturePlaceholder")}`}
             />
-            <MdOutlineArrowRightAlt className="text-primary dark:text-white hidden xl:block" />
+            <MdOutlineArrowRightAlt className="text-primary dark:text-white hidden xl:flex" />
             <InputForm
-              className=" xl:rounded-none"
+              className="w-[150px] md:w-[300px] lg:w-[400px] xl:w-full  xl:rounded-none"
               type={"text"}
               placeholder={`${t("LandingPage.DestinationPlaceholder")}`}
             />
-            <MdOutlineArrowRightAlt className="text-primary dark:text-white hidden xl:block" />
+            <MdOutlineArrowRightAlt className="text-primary dark:text-white hidden xl:flex" />
           </div>
           {/* Form Mobile 2 */}
-          <div className="flex md:flex-col xl:flex-row mt-4 md:mx-5 xl:mx-0 md:mt-0 justify-between w-full xl:justify-center items-center gap-2 xl:gap-0">
+          <div className="flex flex-grow xl:m-0 xl:gap-0 m-2 md:m-[10px] md:gap-[20px] gap-2 justify-between items-center">
             {" "}
             <InputForm
-              className=" xl:rounded-none"
+              className="w-[150px] md:w-[300px] lg:w-[400px] xl:w-full xl:rounded-none"
               type={"date"}
               placeholder={`${t("LandingPage.DepartureDatePlaceholder")}`}
             />
-            <MdOutlineArrowRightAlt className="text-primary dark:text-white hidden xl:block" />
+            <MdOutlineArrowRightAlt className="text-primary dark:text-white hidden xl:flex" />
             <InputForm
-              className=" xl:rounded-none"
+              className="w-[150px] md:w-[300px] lg:w-[400px] xl:w-full  xl:rounded-none"
               type={"date"}
               placeholder={`${t("LandingPage.ReturnDatePlaceholder")}`}
             />{" "}
-            <MdOutlineArrowRightAlt className="text-primary dark:text-white hidden xl:block" />
+            <MdOutlineArrowRightAlt className="text-primary dark:text-white hidden xl:flex" />
           </div>
           {/* Form Mobile 3 */}
-          <div className="flex md:flex-col xl:flex-row mt-4 md:mx-5 xl:mx-0 md:mt-0 justify-between w-full md:justify-center items-end gap-2 xl:gap-0">
+          <div className="flex flex-grow xl:m-0 xl:gap-0 m-2 md:m-[10px] md:gap-[20px] gap-2 justify-between items-center">
             <div>
               <Select
-                className="xl:rounded-l-none bg-white dark:bg-gray-700 text-black dark:text-white focus:outline-none border border-opacity-50 border-gray-700 focus:border-primary dark:border-primary dark:focus:border-white "
+                className="w-[150px] md:w-[300px] lg:w-[400px] xl:w-full xl:rounded-l-none bg-white dark:bg-gray-700 text-black dark:text-white focus:outline-none border border-opacity-50 border-gray-700 focus:border-primary dark:border-primary dark:focus:border-white "
                 value={value}
                 onChange={(event) => setValue(event.target.value)}
               >
@@ -92,7 +92,7 @@ const LandingPage: React.FC = () => {
               </Select>
             </div>
             <div>
-              <Button className="xl:ml-3 bg-primary hover:bg-white text-sm hover:text-primary hover:border-primary text-white dark:hover:bg-gray-700">
+              <Button className="w-[150px] md:w-[300px] lg:w-[400px] xl:w-full xl:ml-3 bg-primary hover:bg-white text-sm hover:text-primary hover:border-primary text-white dark:hover:bg-gray-700">
                 <IoSearch />
                 {t("LandingPage.SearchButton")}
               </Button>
@@ -138,4 +138,4 @@ const LandingPage: React.FC = () => {
   );
 };
 
-export default LandingPage;
+export default Home;

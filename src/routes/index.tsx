@@ -15,7 +15,7 @@ export default function AppRoutes() {
   return (
     <>
       <Routes>
-        {/* Landing page  */}
+        {/* User page  */}
         <Route element={<DefaultLayout />}>
           <Route path="/" element={<User />}>
             <Route index path="" element={<Home />} />
