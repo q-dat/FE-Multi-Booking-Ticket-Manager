@@ -46,8 +46,7 @@ const LoginPage: React.FC<{}> = () => {
                 name="password"
               />
             </div>
-            <div className="flex w-full flex-col gap-[8px]">
-            </div>
+            <div className="flex w-full flex-col gap-[8px]"></div>
 
             <Link
               className="self-end font-sub text-[16px] font-[400] leading-[16px] text-primary"
@@ -55,17 +54,14 @@ const LoginPage: React.FC<{}> = () => {
             >
               {t('Auth.fgPassword')} ?
             </Link>
-            <Button
-              type="submit"
-              color="primary"
-              className="text-white"
-            >
+            <Button type="submit" color="primary" className="text-white">
+              {t('Auth.loginBtn')}
             </Button>
           </div>
         </form>
         <ServiceForm />
         <p className="text-center font-sub text-[18px] font-[400] leading-[28.8px] dark:text-white">
-          {t('Auth.notAccount')}{' '}
+          {t('Auth.notAccount')}
           <NavLink className="text-primary" to="/auth/register">
             {t('Auth.submitButton')}
           </NavLink>
