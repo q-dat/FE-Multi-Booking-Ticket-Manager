@@ -14,7 +14,7 @@
   },
   "LandingPage": {
     "Collapse": "Collapse",
-    "Contact":"Contact",
+    "Contact": "Contact",
     "ContactConsulting": "Contact Consulting",
     "Navbar": {
       "Home": "Home",
@@ -28,7 +28,9 @@
       "Guidance": "Guidance",
       "Contact": "Contact",
       "Hotline": "Hotline: 0333133050",
-      "Email": "Email: fpttrain@gmail.com"
+      "Email": "Email: fpttrain@gmail.com",
+      "Theme": "Theme",
+      "Translate": "Translate"
     },
     "BannerTitle": "Book Train Tickets Online",
     "BannerSubtitle": "The Best Choice for Your Journey",
@@ -38,7 +40,6 @@
     "DepartureDatePlaceholder": "Departure Date",
     "ReturnDatePlaceholder": "Return Date",
     "AgeSelectDefault": "Select Age Group",
-
     "SectionOneTitle": "Compare Cheap Train And Bus Tickets With Flights",
     "SectionOneDescription": "With FPT Train, you can compare flight tickets with train and bus tickets.",
     "SectionTwoTitle": "Easily Find Cheap Tickets",

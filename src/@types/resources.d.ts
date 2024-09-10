@@ -29,7 +29,9 @@ interface Resources {
         "Guidance": "Guidance",
         "Contact": "Contact",
         "Hotline": "Hotline: 0333133050",
-        "Email": "Email: fpttrain@gmail.com"
+        "Email": "Email: fpttrain@gmail.com",
+        "Theme": "Theme",
+        "Translate": "Translate"
       },
       "BannerTitle": "Book Train Tickets Online",
       "BannerSubtitle": "The Best Choice for Your Journey",

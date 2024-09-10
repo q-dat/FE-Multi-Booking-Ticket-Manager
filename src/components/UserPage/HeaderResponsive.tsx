@@ -12,6 +12,7 @@ import { IconType } from "react-icons/lib";
 import { Logo } from "../../assets/images";
 import DarkMode from "../orther/darkmode/DarkMode";
 import DropdownLanguage from "../orther/translation/Dropdown-Language ";
+import { useTranslation } from "react-i18next";
 
 interface HeaderResponsiveProps {
   Title_NavbarMobile: ReactNode;
@@ -25,6 +26,8 @@ interface MenuItem {
 const HeaderResponsive: React.FC<HeaderResponsiveProps> = ({
   Title_NavbarMobile,
 }) => {
+  // Translation
+  const { t } = useTranslation();
   //leftVisible
   const [leftVisible, setLeftVisible] = useState(false);
   const [openSubmenu, setOpenSubmenu] = useState<string | null>(null);
@@ -42,29 +45,29 @@ const HeaderResponsive: React.FC<HeaderResponsiveProps> = ({
   const location = useLocation();
   const menuItems: MenuItem[] = [
     {
-      name: "Trang Chủ",
+      name: `${t("LandingPage.Navbar.Home")}`,
       icon: FaHome,
       link: "/",
     },
     {
-      name: "Thông tin đặt chỗ",
+      name: `${t("LandingPage.Navbar.BookingInfo")}`,
       link: "/",
       submenu: [
-        { name: "Tìm Vé", icon: LuSearchCheck, link: "/" },
-        { name: "Trả vé", icon: GiReturnArrow, link: "/" },
-        { name: "Kiểm tra vé", icon: IoTicket, link: "/" },
-        { name: "Giờ tàu - Giá vé", icon: IoTime, link: "/" },
+        { name: `${t("LandingPage.Navbar.FindTicket")}`, icon: LuSearchCheck, link: "/" },
+        { name: `${t("LandingPage.Navbar.ReturnTicket")}`, icon: GiReturnArrow, link: "/" },
+        { name: `${t("LandingPage.Navbar.CheckTicket")}`, icon: IoTicket, link: "/" },
+        { name: `${t("LandingPage.Navbar.TrainTimePrice")}`, icon: IoTime, link: "/" },
       ],
     },
-    { name: "Khuyến mại", link: "/" },
-    { name: "Các quy định", link: "/" },
-    { name: "Hướng dẫn", link: "/" },
+    { name: `${t("LandingPage.Navbar.Promotion")}`, link: "/" },
+    { name: `${t("LandingPage.Navbar.Regulations")}`, link: "/" },
+    { name: `${t("LandingPage.Navbar.Guidance")}`, link: "/" },
     {
-      name: "Liên hệ",
+      name: `${t("LandingPage.Navbar.Contact")}`,
       link: "/",
       submenu: [
-        { name: "Hotline:", icon: FaPhoneAlt, link: "/#" },
-        { name: "Email", icon: MdEmail, link: "/#" },
+        { name: `${t("LandingPage.Navbar.Hotline")}`, icon: FaPhoneAlt, link: "/#" },
+        { name: `${t("LandingPage.Navbar.Email")}`, icon: MdEmail, link: "/#" },
       ],
     },
   ];
@@ -119,10 +122,9 @@ const HeaderResponsive: React.FC<HeaderResponsiveProps> = ({
                           to={item.link}
                           className={`
                             btn rounded-none flex flex-row w-full items-center justify-between border-none relative pl-4 pr-3 mt-2
-                            ${
-                              item.name === activeItem
-                                ? "text-sm bg-primary bg-opacity-30 font-bold text-primary dark:bg-opacity-50 dark:text-white"
-                                : "text-sm bg-primary bg-opacity-10 border-none shadow-headerMenu font-light text-black dark:text-white"
+                            ${item.name === activeItem
+                              ? "text-sm bg-primary bg-opacity-30 font-bold text-primary dark:bg-opacity-50 dark:text-white"
+                              : "text-sm bg-primary bg-opacity-10 border-none shadow-headerMenu font-light text-black dark:text-white"
                             }
                           `}
                         >
@@ -206,15 +208,15 @@ const HeaderResponsive: React.FC<HeaderResponsiveProps> = ({
                 <div className="w-full space-y-5">
                   <div className="flex flex-row justify-between items-center p-2 bg-opacity-20 bg-gray-700 rounded-md">
                     <p className="text-lg font-semibold text-black dark:text-white">
-                     Giao diện
+                      {t('LandingPage.Navbar.Theme')}
                     </p>
                     <DarkMode />
                   </div>
                   <div className="flex flex-row justify-between items-center p-2 bg-opacity-20 bg-gray-700 rounded-md">
                     <p className="text-lg font-semibold text-black dark:text-white">
-                     Giao diện
+                      {t('LandingPage.Navbar.Translate')}
                     </p>
-                  <DropdownLanguage />
+                    <DropdownLanguage />
                   </div>
                 </div>
               </Menu>
@@ -224,7 +226,7 @@ const HeaderResponsive: React.FC<HeaderResponsiveProps> = ({
               onClick={toggleRightVisible}
               className="flex flex-row items-center justify-center gap-2 py-4 text-2xl text-black dark:text-white xl:hidden"
             >
-              <IoSettingsSharp className="text-[25px] bg-primary glass text-white shadow-headerMenu dark:text-white rounded-md p-1"  />
+              <IoSettingsSharp className="text-[25px] bg-primary glass text-white shadow-headerMenu dark:text-white rounded-md p-1" />
             </div>
           </Drawer>
         </div>
