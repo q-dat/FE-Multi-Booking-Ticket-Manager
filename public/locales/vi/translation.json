@@ -14,7 +14,7 @@
   },
   "LandingPage": {
     "Collapse": "Thu Gọn",
-    "Contact":"Liên hệ",
+    "Contact": "Liên hệ",
     "ContactConsulting": "Liên Hệ Tư Vấn",
     "Navbar": {
       "Home": "Trang Chủ",
@@ -28,7 +28,9 @@
       "Guidance": "Hướng dẫn",
       "Contact": "Liên hệ",
       "Hotline": "Hotline: 0333133050",
-      "Email": "Email: fpttrain@gmail.com"
+      "Email": "Email: fpttrain@gmail.com",
+      "Theme": "Giao diện",
+      "Translate": "Ngôn ngữ"
     },
     "BannerTitle": "Đặt Vé Tàu Hoả Online",
     "BannerSubtitle": "Sự Lựa Chọn Tốt Nhất Cho Hành Trình Của Bạn",
@@ -38,7 +40,6 @@
     "DepartureDatePlaceholder": "Ngày Đi",
     "ReturnDatePlaceholder": "Ngày Về",
     "AgeSelectDefault": "Chọn Lứa Tuổi",
-
     "SectionOneTitle": "So Sánh Giá Vé Máy Bay Và Tàu Hỏa Giá Rẻ Với Xe Buýt",
     "SectionOneDescription": "Với FPT Train, bạn có thể so sánh vé máy bay với vé tàu hỏa và vé xe buýt.",
     "SectionTwoTitle": "Tìm Vé Giá Rẻ Một Cách Dễ Dàng",
