@@ -9,13 +9,10 @@ const ResetPasswordPage: React.FC = () => {
         <div className="mx-auto flex max-w-[342px] flex-col items-center gap-[16px] sm:mx-0 sm:max-w-full sm:items-start sm:gap-[28px]">
           <div className="flex items-center justify-center gap-4">
             <img width={80} src={Logo} alt="" />
-            <h1 className="hidden text-[36px] font-[600] leading-[36px] text-primary sm:block">
+            <h1 className="hidden text-[36px] font-[600]  text-primary sm:block">
               Reset Password
             </h1>
           </div>
-          <h1 className="block text-center text-[24px] font-[600] leading-[24px] text-primary sm:hidden">
-            Hello
-          </h1>
         </div>
         <div className="mt-10 flex w-full flex-col gap-[24px]">
           <div className="flex w-full flex-col gap-[8px]">
@@ -26,7 +23,7 @@ const ResetPasswordPage: React.FC = () => {
               name="password"
             />
           </div>
-          <div className="flex w-full flex-col gap-[8px]">
+          <div className="flex w-full flex-col gap-2">
             <label htmlFor="confirmPassword">Confirm Password</label>
             <Input
               placeholder="Confirm new password"
@@ -37,13 +34,15 @@ const ResetPasswordPage: React.FC = () => {
            
               </div>
           </div>
+          <div className='mt-10'>
           <Button
             type="submit"
             color="primary"
             className="text-white"
-          >
+            >
             Reset Password
           </Button>
+            </div>
       </form>
     </div>
   );

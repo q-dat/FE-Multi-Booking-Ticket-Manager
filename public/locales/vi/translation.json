@@ -13,8 +13,6 @@
     "loginButton": "Login"
   },
   "Auth": {
-    "hi": "Xin chào",
-    "beforeLogin": "Đăng nhập để quản lý danh sách công việc ngay bây giờ!",
     "userTitle": "Tên tài khoản",
     "passwordTitle": "Mật khẩu",
     "fgPassword": "Quên mật khẩu",
@@ -32,7 +30,6 @@
     "emailLabel": "Email",
     "phoneLabel": "Số điện thoại",
     "passwordLabel": "Mật khẩu",
-    "branchLabel": "Chi nhánh",
     "sexLabel": "Giới tính",
     "imageLabel": "Ảnh đại diện",
     "submitButton": "Đăng ký",
@@ -43,7 +40,6 @@
     "emailPlaceholder": "Email",
     "phonePlaceholder": "Số điện thoại",
     "passwordPlaceholder": "Mật khẩu",
-    "branchPlaceholder": "Vui lòng chọn địa chỉ",
     "sexPlaceholder": "Giới thiệu giới tính",
     "imagePlaceholder": "Chọn ảnh đại diện",
     "usernameError": "Vui lòng nhập tên tài khoản",
@@ -51,7 +47,6 @@
     "emailError": "Vui lòng nhập email",
     "phoneError": "Vui lòng nhập số điện thoại",
     "passwordError": "Vui lòng nhập mật khẩu",
-    "branchError": "Vui lòng chọn địa chỉ",
     "sexError": "Vui lòng chọn giới tính",
     "imageError": "Vui lòng cung cấp ảnh đại diện",
     "requestPasswordReset": "Yêu cầu đặt lại mật khẩu",
