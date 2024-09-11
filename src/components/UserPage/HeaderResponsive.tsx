@@ -55,6 +55,19 @@ const HeaderResponsive: React.FC<HeaderResponsiveProps> = ({
       link: '/'
     },
     {
+      name: `${t('LandingPage.Navbar.Trains')}`,
+      link: '/'
+    },
+    {
+      name: `${t('LandingPage.Navbar.Buses')}`,
+      link: '/'
+    },
+    {
+      name: `${t('LandingPage.Navbar.Flights')}`,
+      link: '/'
+    },
+
+    {
       name: `${t('LandingPage.Navbar.BookingInfo')}`,
       link: '/',
       submenu: [
