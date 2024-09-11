@@ -1,18 +1,23 @@
-import React, { ReactNode, useCallback, useEffect, useState } from "react";
-import { Button, Drawer, Input, Menu } from "react-daisyui";
+import React, { ReactNode, useCallback, useEffect, useState } from 'react';
+import { Button, Drawer, Input, Menu } from 'react-daisyui';
 // Icon
-import { RxHamburgerMenu } from "react-icons/rx";
-import { IoSearchOutline, IoSettingsSharp, IoTicket, IoTime } from "react-icons/io5";
-import { Link, NavLink, useLocation } from "react-router-dom";
-import { FaHome, FaPhoneAlt, FaChevronDown } from "react-icons/fa";
-import { LuSearchCheck } from "react-icons/lu";
-import { GiReturnArrow } from "react-icons/gi";
-import { MdEmail } from "react-icons/md";
-import { IconType } from "react-icons/lib";
-import { Logo } from "../../assets/images";
-import DarkMode from "../orther/darkmode/DarkMode";
-import DropdownLanguage from "../orther/translation/Dropdown-Language ";
-import { useTranslation } from "react-i18next";
+import { RxHamburgerMenu } from 'react-icons/rx';
+import {
+  IoSearchOutline,
+  IoSettingsSharp,
+  IoTicket,
+  IoTime
+} from 'react-icons/io5';
+import { Link, NavLink, useLocation } from 'react-router-dom';
+import { FaHome, FaPhoneAlt, FaChevronDown } from 'react-icons/fa';
+import { LuSearchCheck } from 'react-icons/lu';
+import { GiReturnArrow } from 'react-icons/gi';
+import { MdEmail } from 'react-icons/md';
+import { IconType } from 'react-icons/lib';
+import { Logo } from '../../assets/images';
+import DarkMode from '../orther/darkmode/DarkMode';
+import DropdownLanguage from '../orther/translation/Dropdown-Language ';
+import { useTranslation } from 'react-i18next';
 
 interface HeaderResponsiveProps {
   Title_NavbarMobile: ReactNode;
@@ -24,7 +29,7 @@ interface MenuItem {
   submenu?: { name: string; link: string; icon?: IconType }[];
 }
 const HeaderResponsive: React.FC<HeaderResponsiveProps> = ({
-  Title_NavbarMobile,
+  Title_NavbarMobile
 }) => {
   // Translation
   const { t } = useTranslation();
@@ -33,51 +38,68 @@ const HeaderResponsive: React.FC<HeaderResponsiveProps> = ({
   const [openSubmenu, setOpenSubmenu] = useState<string | null>(null);
 
   const toggleLeftVisible = useCallback(() => {
-    setLeftVisible((visible) => !visible);
+    setLeftVisible(visible => !visible);
   }, []);
   //rightVisible
   const [rightVisible, setRightVisible] = useState(false);
 
   const toggleRightVisible = useCallback(() => {
-    setRightVisible((visible) => !visible);
+    setRightVisible(visible => !visible);
   }, []);
-  const [activeItem, setActiveItem] = useState("Trang Chủ");
+  const [activeItem, setActiveItem] = useState('Trang Chủ');
   const location = useLocation();
   const menuItems: MenuItem[] = [
     {
-      name: `${t("LandingPage.Navbar.Home")}`,
+      name: `${t('LandingPage.Navbar.Home')}`,
       icon: FaHome,
-      link: "/",
+      link: '/'
     },
     {
-      name: `${t("LandingPage.Navbar.BookingInfo")}`,
-      link: "/",
+      name: `${t('LandingPage.Navbar.BookingInfo')}`,
+      link: '/',
       submenu: [
-        { name: `${t("LandingPage.Navbar.FindTicket")}`, icon: LuSearchCheck, link: "/" },
-        { name: `${t("LandingPage.Navbar.ReturnTicket")}`, icon: GiReturnArrow, link: "/" },
-        { name: `${t("LandingPage.Navbar.CheckTicket")}`, icon: IoTicket, link: "/" },
-        { name: `${t("LandingPage.Navbar.TrainTimePrice")}`, icon: IoTime, link: "/" },
-      ],
+        {
+          name: `${t('LandingPage.Navbar.FindTicket')}`,
+          icon: LuSearchCheck,
+          link: '/'
+        },
+        {
+          name: `${t('LandingPage.Navbar.ReturnTicket')}`,
+          icon: GiReturnArrow,
+          link: '/'
+        },
+        {
+          name: `${t('LandingPage.Navbar.CheckTicket')}`,
+          icon: IoTicket,
+          link: '/'
+        },
+        {
+          name: `${t('LandingPage.Navbar.TrainTimePrice')}`,
+          icon: IoTime,
+          link: '/'
+        }
+      ]
     },
-    { name: `${t("LandingPage.Navbar.Promotion")}`, link: "/" },
-    { name: `${t("LandingPage.Navbar.Regulations")}`, link: "/" },
-    { name: `${t("LandingPage.Navbar.Guidance")}`, link: "/" },
     {
-      name: `${t("LandingPage.Navbar.Contact")}`,
-      link: "/",
+      name: `${t('LandingPage.Navbar.Contact')}`,
+      link: '/',
       submenu: [
-        { name: `${t("LandingPage.Navbar.Hotline")}`, icon: FaPhoneAlt, link: "/#" },
-        { name: `${t("LandingPage.Navbar.Email")}`, icon: MdEmail, link: "/#" },
-      ],
-    },
+        {
+          name: `${t('LandingPage.Navbar.Hotline')}`,
+          icon: FaPhoneAlt,
+          link: '/#'
+        },
+        { name: `${t('LandingPage.Navbar.Email')}`, icon: MdEmail, link: '/#' }
+      ]
+    }
   ];
 
   useEffect(() => {
     const pathname = location.pathname;
     const foundItem = menuItems.find(
-      (item) =>
+      item =>
         item.link === pathname ||
-        item.submenu?.some((sub) => sub.link === pathname)
+        item.submenu?.some(sub => sub.link === pathname)
     );
     if (foundItem) {
       setActiveItem(foundItem.name);
@@ -85,7 +107,7 @@ const HeaderResponsive: React.FC<HeaderResponsiveProps> = ({
   }, [location.pathname, menuItems]);
 
   const handleMenuClick = (name: string) => {
-    setOpenSubmenu((prev) => (prev === name ? null : name));
+    setOpenSubmenu(prev => (prev === name ? null : name));
   };
 
   return (
@@ -98,7 +120,7 @@ const HeaderResponsive: React.FC<HeaderResponsiveProps> = ({
             side={
               <Menu className="fixed h-full w-[280px] bg-white dark:bg-gray-800">
                 {/* LOGO */}
-                <div className="flex justify-center items-center">
+                <div className="flex items-center justify-center">
                   <img
                     className="object-cover"
                     width={120}
@@ -108,43 +130,41 @@ const HeaderResponsive: React.FC<HeaderResponsiveProps> = ({
                   />
                 </div>
                 {/* Menu */}
-                {menuItems.map((item) => {
+                {menuItems.map(item => {
                   const Icon = item.icon;
                   return (
                     <div key={item.name} className="relative">
                       <Menu.Item
-                        className="relative group"
+                        className="group relative"
                         onClick={() =>
                           item.submenu && handleMenuClick(item.name)
                         }
                       >
                         <NavLink
                           to={item.link}
-                          className={`
-                            btn rounded-none flex flex-row w-full items-center justify-between border-none relative pl-4 pr-3 mt-2
-                            ${item.name === activeItem
-                              ? "text-sm bg-primary bg-opacity-30 font-bold text-primary dark:bg-opacity-50 dark:text-white"
-                              : "text-sm bg-primary bg-opacity-10 border-none shadow-headerMenu font-light text-black dark:text-white"
-                            }
-                          `}
+                          className={`btn relative mt-2 flex w-full flex-row items-center justify-between rounded-none border-none pl-4 pr-3 ${
+                            item.name === activeItem
+                              ? 'bg-primary bg-opacity-30 text-sm font-bold text-primary dark:bg-opacity-50 dark:text-white'
+                              : 'border-none bg-primary bg-opacity-10 text-sm font-light text-black shadow-headerMenu dark:text-white'
+                          } `}
                         >
                           <>
                             {item.name === activeItem && (
-                              <div className="absolute left-0 bottom-0 h-[2px] w-full bg-primary dark:bg-white" />
+                              <div className="absolute bottom-0 left-0 h-[2px] w-full bg-primary dark:bg-white" />
                             )}
                             {Icon && (
                               <Icon
                                 className={
                                   item.name === activeItem
-                                    ? "h-5 w-5 text-primary dark:text-white"
-                                    : "h-5 w-5"
+                                    ? 'h-5 w-5 text-primary dark:text-white'
+                                    : 'h-5 w-5'
                                 }
                               />
                             )}
-                            <span className={Icon ? "" : ""}>{item.name}</span>
+                            <span className={Icon ? '' : ''}>{item.name}</span>
                             {item.submenu && (
                               <FaChevronDown
-                                className={`ml-2 h-4 w-4 ${openSubmenu === item.name ? "rotate-180" : ""}`}
+                                className={`ml-2 h-4 w-4 ${openSubmenu === item.name ? 'rotate-180' : ''}`}
                               />
                             )}
                           </>
@@ -152,7 +172,7 @@ const HeaderResponsive: React.FC<HeaderResponsiveProps> = ({
                       </Menu.Item>
                       {/* SubMenu */}
                       {item.submenu && openSubmenu === item.name && (
-                        <div className="relative space-y-2 p-4 w-full bg-white dark:bg-gray-700 dark:bg-opacity-80 rounded-sm shadow-md">
+                        <div className="relative w-full space-y-2 rounded-sm bg-white p-4 shadow-md dark:bg-gray-700 dark:bg-opacity-80">
                           {item.submenu.map((subItem, index) => (
                             <Link
                               key={index}
@@ -161,7 +181,7 @@ const HeaderResponsive: React.FC<HeaderResponsiveProps> = ({
                             >
                               <Button
                                 size="sm"
-                                className="uppercase text-sm shadow-headerMenu flex flex-row justify-start items-center bg-primary w-full text-white dark:text-black border-none rounded-sm"
+                                className="flex w-full flex-row items-center justify-start rounded-sm border-none bg-primary text-sm uppercase text-white shadow-headerMenu dark:text-black"
                               >
                                 {subItem.icon && <subItem.icon />}
                                 {subItem.name}
@@ -180,12 +200,12 @@ const HeaderResponsive: React.FC<HeaderResponsiveProps> = ({
               onClick={toggleLeftVisible}
               className="flex flex-row items-center justify-center gap-2 py-4 text-2xl text-black dark:text-white xl:hidden"
             >
-              <RxHamburgerMenu className="text-[25px] bg-primary glass text-white shadow-headerMenu dark:text-white rounded-md p-1" />
+              <RxHamburgerMenu className="glass rounded-md bg-primary p-1 text-[25px] text-white shadow-headerMenu dark:text-white" />
             </div>
           </Drawer>
         </div>
         {/* Title */}
-        <p className="uppercase text-primary text-base font-bold">
+        <p className="text-base font-bold uppercase text-primary">
           {Title_NavbarMobile}
         </p>
         {/* RightVisible */}
@@ -196,7 +216,7 @@ const HeaderResponsive: React.FC<HeaderResponsiveProps> = ({
             side={
               <Menu className="fixed h-full w-[280px] bg-white dark:bg-gray-800">
                 {/* LOGO */}
-                <div className="flex justify-center items-center">
+                <div className="flex items-center justify-center">
                   <img
                     className="object-cover"
                     width={120}
@@ -206,13 +226,13 @@ const HeaderResponsive: React.FC<HeaderResponsiveProps> = ({
                   />
                 </div>
                 <div className="w-full space-y-5">
-                  <div className="flex flex-row justify-between items-center p-2 bg-opacity-20 bg-gray-700 rounded-md">
+                  <div className="flex flex-row items-center justify-between rounded-md bg-gray-700 bg-opacity-20 p-2">
                     <p className="text-lg font-semibold text-black dark:text-white">
                       {t('LandingPage.Navbar.Theme')}
                     </p>
                     <DarkMode />
                   </div>
-                  <div className="flex flex-row justify-between items-center p-2 bg-opacity-20 bg-gray-700 rounded-md">
+                  <div className="flex flex-row items-center justify-between rounded-md bg-gray-700 bg-opacity-20 p-2">
                     <p className="text-lg font-semibold text-black dark:text-white">
                       {t('LandingPage.Navbar.Translate')}
                     </p>
@@ -226,7 +246,7 @@ const HeaderResponsive: React.FC<HeaderResponsiveProps> = ({
               onClick={toggleRightVisible}
               className="flex flex-row items-center justify-center gap-2 py-4 text-2xl text-black dark:text-white xl:hidden"
             >
-              <IoSettingsSharp className="text-[25px] bg-primary glass text-white shadow-headerMenu dark:text-white rounded-md p-1" />
+              <IoSettingsSharp className="glass rounded-md bg-primary p-1 text-[25px] text-white shadow-headerMenu dark:text-white" />
             </div>
           </Drawer>
         </div>
@@ -244,3 +264,4 @@ const HeaderResponsive: React.FC<HeaderResponsiveProps> = ({
 };
 
 export default HeaderResponsive;
+

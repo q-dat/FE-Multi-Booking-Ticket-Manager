@@ -70,6 +70,9 @@ interface Resources {
       "ContactConsulting": "Contact Consulting",
       "Navbar": {
         "Home": "Home",
+        "Trains": "Trains",
+        "Buses": "Buses",
+        "Flights": "Flights",
         "BookingInfo": "Booking Information",
         "FindTicket": "Find Ticket",
         "ReturnTicket": "Return Ticket",
