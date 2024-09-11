@@ -12,9 +12,33 @@
     "homeButton": "Trang chính",
     "loginButton": "Login"
   },
+  "LoginBtn": "Đăng Nhập",
+  "RegisterBtn": "Đăng Ký",
   "Auth": {
-    "LabelForm": {},
-    "Placeholder": {}
+    "BackToHome": "Trở Về Trang Chủ",
+    "Login": "Đăng Nhập",
+    "Register": "Đăng Ký",
+    "Or": "Hoặc",
+    "LoginBy": "Đăng nhập bằng ",
+    "ForgotPassword": "Quên mật khẩu?",
+    "CreateAccount":"Bạn chưa có tài khoản?",
+    "LabelForm": {
+      "fullname": "Họ và Tên",
+      "username": "Tên tài khoản",
+      "password": "Mật khẩu",
+      "email": "Email",
+      "phone": "Số điện thoại",
+      "sex": "Chọn giới tính",
+      "avatar": "Ảnh đại diện"
+    },
+    "Placeholder": {
+      "fullname": "Họ và Tên",
+      "username": "Tên tài Khoản",
+      "password": "Mật khẩu",
+      "email": "Email",
+      "phone": "Số điện thoại",
+      "sex": "Chọn giới tính"
+    }
   },
   "LandingPage": {
     "Collapse": "Thu Gọn",

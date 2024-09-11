@@ -12,7 +12,7 @@ const ServiceForm: React.FC = () => {
       <div className="relative flex h-[36px] w-full flex-row items-center gap-[16px]">
         <span className="block h-[1px] w-full bg-[#CFDFE2]"></span>
         <p className="text-center font-sub text-[14px] font-[400]  dark:text-white sm:text-[16px]">
-          Hoặc
+          {t('Auth.Or')}
         </p>
         <span className="block h-[1px] w-full  bg-[#CFDFE2]"></span>
       </div>
@@ -24,7 +24,7 @@ const ServiceForm: React.FC = () => {
             alt=""
           />
           <span className="hidden text-black dark:text-white sm:block">
-           Đăng nhập bằng Google
+          {t('Auth.LoginBy')} Google
           </span>
           <span className="block text-black dark:text-white sm:hidden">
             Google
@@ -37,7 +37,7 @@ const ServiceForm: React.FC = () => {
             alt=""
           />
           <span className="hidden text-black dark:text-white sm:block">
-           Đăng nhập bằng Facebook
+          {t('Auth.LoginBy')} FaceBook
           </span>
           <span className="block text-black dark:text-white sm:hidden">
             Facebook

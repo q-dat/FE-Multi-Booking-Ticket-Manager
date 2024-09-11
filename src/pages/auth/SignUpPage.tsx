@@ -15,7 +15,7 @@ const SignUpPage: React.FC = () => {
       <div className="flex flex-col items-center justify-center">
         <img width={80} src={Logo} alt="" />
         <h1 className="block text-center text-2xl font-[600] text-primary">
-          Đăng Ký
+          {t('Auth.Register')}
         </h1>
       </div>
       <div className="mt-10">
@@ -23,60 +23,60 @@ const SignUpPage: React.FC = () => {
           <div className="flex w-full flex-col gap-5 md:flex-row">
             <div className="flex flex-col space-y-4">
               <div className="flex w-full flex-col gap-1">
-                <LabelForm title="Tài Khoản" />
+                <LabelForm title={t('Auth.LabelForm.username')} />
                 <Input
                   className="w-[350px] focus:outline-none xl:w-[300px]"
                   type="text"
-                  placeholder="Tên Tài Khoản"
+                  placeholder={t('Auth.Placeholder.username')}
                   name="username"
                 />
               </div>
 
               <div className="flex w-full flex-col gap-1">
-                <LabelForm title="Họ và Tên" />
+                <LabelForm title={t('Auth.LabelForm.fullname')} />
                 <Input
                   className="w-[350px] focus:outline-none xl:w-[300px]"
                   type="text"
-                  placeholder="Họ và Tên"
+                  placeholder={t('Auth.Placeholder.fullname')}
                   name="full_name"
                 />
               </div>
 
               <div className="flex w-full flex-col gap-1">
-                <LabelForm title="Email" />
+                <LabelForm title={t('Auth.LabelForm.email')} />
                 <Input
                   className="w-[350px] focus:outline-none xl:w-[300px]"
                   type="email"
-                  placeholder="Email"
+                  placeholder={t('Auth.Placeholder.email')}
                   name="email"
                 />
               </div>
 
               <div className="flex w-full flex-col gap-1">
-                <LabelForm title="Số điện thoại" />
+                <LabelForm title={t('Auth.LabelForm.phone')} />
                 <Input
                   className="w-[350px] focus:outline-none xl:w-[300px]"
                   type="text"
-                  placeholder="Số điện thoại"
+                  placeholder={t('Auth.Placeholder.phone')}
                   name="phone"
                 />
               </div>
             </div>
             <div className="flex flex-col space-y-4">
               <div className="flex w-full flex-col gap-1">
-                <LabelForm title="Mật khẩu" />
+                <LabelForm title={t('Auth.LabelForm.password')} />
                 <Input
                   className="w-[350px] focus:outline-none xl:w-[300px]"
                   type="password"
-                  placeholder="Mật Khẩu"
+                  placeholder={t('Auth.Placeholder.password')}
                   name="password"
                 />
               </div>
               <div className="flex w-full flex-col gap-1">
-                <LabelForm title="Giới tính" />
+                <LabelForm title={t('Auth.LabelForm.sex')} />
                 <Select className="w-[350px] focus:outline-none xl:w-[300px]">
                   <option hidden defaultValue={1} value="">
-                    Chọn giới tính
+                    {t('Auth.Placeholder.sex')}
                   </option>
 
                   <option>...</option>
@@ -84,7 +84,7 @@ const SignUpPage: React.FC = () => {
               </div>
 
               <div className="flex w-full flex-col gap-1">
-                <LabelForm title="Ảnh đại diện" />
+                <LabelForm title={t('Auth.LabelForm.avatar')} />
                 <Input
                   className="w-[350px] p-[7px] focus:outline-none xl:w-[300px]"
                   type="file"
@@ -97,7 +97,7 @@ const SignUpPage: React.FC = () => {
                   color="primary"
                   className="mt-[27px] text-white"
                 >
-                  Đăng Ký
+                  {t('Auth.Register')}
                 </Button>
               </div>
             </div>
@@ -105,9 +105,9 @@ const SignUpPage: React.FC = () => {
         </form>
         <ServiceForm />
         <p className="my-5 text-center font-sub text-base font-[400] dark:text-white">
-          Bạn chưa có tài khoản? &nbsp;{' '}
+          {t('Auth.CreateAccount')} &nbsp;{' '}
           <NavLink className="text-primary" to="/auth/login">
-            Đăng Nhập
+            {t('Auth.Login')}
           </NavLink>
         </p>
       </div>

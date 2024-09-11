@@ -189,12 +189,12 @@ const Header: React.FC = () => {
           {/* Account */}
           <div className="flex flex-row items-center justify-center space-x-2 text-xs font-light text-black dark:text-white">
             <Link to="auth/login" className="rounded-sm">
-              Đăng Nhập
+            {t('LoginBtn')}
             </Link>
             {/* Space */}
             <div className="h-6 w-[1px] bg-primary dark:bg-white"></div>
             <Link to="auth/register" className="rounded-sm">
-              Đăng Ký
+            {t('RegisterBtn')}
             </Link>
           </div>
           {/* DarkMode Button */}
