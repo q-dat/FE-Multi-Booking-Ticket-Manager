@@ -22,8 +22,12 @@ const ServiceForm: React.FC = () => {
             src={LogoGoogle}
             alt=""
           />
-          <span className="hidden sm:block">{t('Auth.loginBy')} Google</span>
-          <span className="block sm:hidden">Google</span>
+          <span className="hidden text-black dark:text-white sm:block">
+            {t('Auth.loginBy')} Google
+          </span>
+          <span className="block text-black dark:text-white sm:hidden">
+            Google
+          </span>
         </Button>
         <Button className="">
           <img
@@ -31,8 +35,12 @@ const ServiceForm: React.FC = () => {
             src={LogoFacebook}
             alt=""
           />
-          <span className="hidden sm:block">{t('Auth.loginBy')} Facebook</span>
-          <span className="block sm:hidden">Facebook</span>
+          <span className="hidden text-black dark:text-white sm:block">
+            {t('Auth.loginBy')} Facebook
+          </span>
+          <span className="block text-black dark:text-white sm:hidden">
+            Facebook
+          </span>
         </Button>
       </div>
     </div>

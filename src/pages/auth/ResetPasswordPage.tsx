@@ -8,7 +8,7 @@ const ResetPasswordPage: React.FC = () => {
       <form >
         <div className="mx-auto flex max-w-[342px] flex-col items-center gap-[16px] sm:mx-0 sm:max-w-full sm:items-start sm:gap-[28px]">
           <div className="flex items-center justify-center gap-4">
-            <img width={80} src={Logo} alt="Reski." />
+            <img width={80} src={Logo} alt="" />
             <h1 className="hidden text-[36px] font-[600] leading-[36px] text-primary sm:block">
               Reset Password
             </h1>

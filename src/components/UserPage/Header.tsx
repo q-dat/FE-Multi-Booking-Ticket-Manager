@@ -188,12 +188,12 @@ const Header: React.FC = () => {
         <div className="flex items-center justify-center gap-5">
           {/* Account */}
           <div className="flex flex-row items-center justify-center space-x-2 text-xs font-light text-black dark:text-white">
-            <Link to="" className="rounded-sm">
+            <Link to="auth/login" className="rounded-sm">
               Đăng Nhập
             </Link>
             {/* Space */}
             <div className="h-6 w-[1px] bg-primary dark:bg-white"></div>
-            <Link to="" className="rounded-sm">
+            <Link to="auth/register" className="rounded-sm">
               Đăng Ký
             </Link>
           </div>

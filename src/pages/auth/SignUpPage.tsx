@@ -13,7 +13,7 @@ const SignUpPage: React.FC = () => {
     <div className="mx-auto flex w-full max-w-[390px] flex-col gap-[48px] p-[32px] sm:max-w-[504px]">
       <div className="mx-auto flex flex-col items-center gap-[16px] sm:mx-0 sm:max-w-full sm:gap-[28px]">
         <div className="flex items-center justify-center gap-4">
-          <img width={80} src={Logo} alt="Reski." />
+          <img width={80} src={Logo} alt="" />
           <h1 className="block text-center text-[24px] font-[600] leading-[24px] text-primary sm:text-[36px]">
             {t('Auth.signupTitle')}
           </h1>
