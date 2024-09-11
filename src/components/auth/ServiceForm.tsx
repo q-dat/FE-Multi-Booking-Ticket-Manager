@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { LogoFacebook, LogoGoogle } from '../../assets/images';
 
 const ServiceForm: React.FC = () => {
+  // Translation
   const { t } = useTranslation();
 
   return (
@@ -11,7 +12,7 @@ const ServiceForm: React.FC = () => {
       <div className="relative flex h-[36px] w-full flex-row items-center gap-[16px]">
         <span className="block h-[1px] w-full bg-[#CFDFE2]"></span>
         <p className="text-center font-sub text-[14px] font-[400]  dark:text-white sm:text-[16px]">
-          {t('Auth.or')}
+          Hoặc
         </p>
         <span className="block h-[1px] w-full  bg-[#CFDFE2]"></span>
       </div>
@@ -23,7 +24,7 @@ const ServiceForm: React.FC = () => {
             alt=""
           />
           <span className="hidden text-black dark:text-white sm:block">
-            {t('Auth.loginBy')} Google
+           Đăng nhập bằng Google
           </span>
           <span className="block text-black dark:text-white sm:hidden">
             Google
@@ -36,7 +37,7 @@ const ServiceForm: React.FC = () => {
             alt=""
           />
           <span className="hidden text-black dark:text-white sm:block">
-            {t('Auth.loginBy')} Facebook
+           Đăng nhập bằng Facebook
           </span>
           <span className="block text-black dark:text-white sm:hidden">
             Facebook
