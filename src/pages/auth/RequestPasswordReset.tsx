@@ -1,12 +1,12 @@
 import React from 'react';
 import { Button, Input } from 'react-daisyui';
-import { useTranslation } from 'react-i18next';
+// import { useTranslation } from 'react-i18next';
 import 'react-toastify/dist/ReactToastify.css';
 import { Link } from 'react-router-dom';
 import { Logo } from '../../assets/images';
 
 const RequestPasswordReset: React.FC = () => {
-  const { t } = useTranslation();
+  // const { t } = useTranslation();
 
   return (
     <div className="mx-auto flex w-full max-w-[390px] flex-col gap-[48px] p-[32px] sm:max-w-[504px]">

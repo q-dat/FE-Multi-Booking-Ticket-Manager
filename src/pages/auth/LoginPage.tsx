@@ -17,26 +17,26 @@ const LoginPage: React.FC<{}> = () => {
       <div className="flex flex-col items-center justify-center">
         <img width={80} src={Logo} alt="" />
         <h1 className="block text-center text-2xl font-[600] text-primary">
-          Đăng Nhập
+          {t('Auth.Login')}
         </h1>
       </div>
       <div className="mt-10">
         <form>
           <div className="flex w-full flex-col space-y-4">
             <div className="flex w-full flex-col gap-1">
-              <LabelForm title="Tên taif khoản" />
+              <LabelForm title={t('Auth.LabelForm.username')} />
               <Input
                 className="w-[350px] focus:outline-none xl:w-[500px]"
-                placeholder="Tên tài khoản"
+                placeholder={t('Auth.Placeholder.username')}
                 type="text"
                 name="username"
               />
             </div>
             <div className="flex w-full flex-col gap-1">
-              <LabelForm title="Mật Khẩu"/>
+              <LabelForm title={t('Auth.LabelForm.password')} />
               <Input
                 className="w-[350px] focus:outline-none xl:w-[500px]"
-                placeholder="Mật Khẩu"
+                placeholder={t('Auth.Placeholder.password')}
                 type="password"
                 name="password"
               />
@@ -46,19 +46,19 @@ const LoginPage: React.FC<{}> = () => {
               className="self-end font-sub text-[16px] font-[400] text-primary"
               to="/auth/request-password-reset"
             >
-            Quên Mật Khẩu?
+              {t('Auth.ForgotPassword')}
             </Link>
 
             <Button type="submit" color="primary" className="text-white">
-            Đăng Nhập
+              {t('Auth.Login')}
             </Button>
           </div>
         </form>
         <ServiceForm />
         <p className="my-5 text-center font-sub text-base font-[400] dark:text-white">
-         Bạn chưa có tài khoản? &nbsp;
+          {t('Auth.CreateAccount')} &nbsp;
           <NavLink className="text-primary" to="/auth/register">
-           Đăng Ký
+            {t('Auth.Register')}
           </NavLink>
         </p>
       </div>

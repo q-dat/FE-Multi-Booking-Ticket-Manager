@@ -13,9 +13,33 @@ interface Resources {
       "homeButton": "Home",
       "loginButton": "Login"
     },
+    "LoginBtn": "Login",
+    "RegisterBtn": "Register",
     "Auth": {
-      "LabelForm": {},
-      "Placeholder": {}
+      "BackToHome": "Return To Home Page",
+      "Login": "Log In",
+      "Register": "Register",
+      "Or": "Or",
+      "LoginBy": "Login in with ",
+      "ForgotPassword": "Forgot Password?",
+      "CreateAccount": "Don’t have an account?",
+      "LabelForm": {
+        "fullname": "Full Name",
+        "username": "Username",
+        "password": "Password",
+        "email": "Email",
+        "phone": "Phone Number",
+        "sex": "Select Gender",
+        "avatar": "Profile Picture"
+      },
+      "Placeholder": {
+        "fullname": "Full Name",
+        "username": "Username",
+        "password": "Password",
+        "email": "Email",
+        "phone": "Phone Number",
+        "sex": "Select Gender"
+      }
     },
     "LandingPage": {
       "Collapse": "Collapse",
