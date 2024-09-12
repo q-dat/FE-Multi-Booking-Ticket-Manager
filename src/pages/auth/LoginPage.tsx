@@ -55,7 +55,7 @@ const LoginPage: React.FC<{}> = () => {
           </div>
         </form>
         <ServiceForm />
-        <p className="my-5 text-center font-sub text-base font-[400] dark:text-white">
+        <p className="my-5 text-center font-sub text-base font-[400]">
           {t('Auth.CreateAccount')} &nbsp;
           <NavLink className="text-primary" to="/auth/register">
             {t('Auth.Register')}

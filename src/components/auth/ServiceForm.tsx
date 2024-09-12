@@ -8,40 +8,36 @@ const ServiceForm: React.FC = () => {
   const { t } = useTranslation();
 
   return (
-    <div className="flex w-full flex-col gap-[24px]">
-      <div className="relative flex h-[36px] w-full flex-row items-center gap-[16px]">
+    <div className="flex w-full flex-col gap-6">
+      <div className="relative flex h-9 w-full flex-row items-center gap-4">
         <span className="block h-[1px] w-full bg-[#CFDFE2]"></span>
-        <p className="text-center font-sub text-[14px] font-[400]  dark:text-white sm:text-[16px]">
+        <p className="text-center font-sub text-sm font-light sm:text-lg">
           {t('Auth.Or')}
         </p>
-        <span className="block h-[1px] w-full  bg-[#CFDFE2]"></span>
+        <span className="block h-[1px] w-full bg-[#CFDFE2]"></span>
       </div>
       <div className="flex w-full flex-row justify-center gap-4 sm:flex-col">
         <Button>
           <img
-            className="max-w-[24px] sm:max-w-[28px]"
+            className="max-w-7"
             src={LogoGoogle}
             alt=""
           />
-          <span className="hidden text-black dark:text-white sm:block">
-          {t('Auth.LoginBy')} Google
+          <span className="hidden text-black sm:block">
+            {t('Auth.LoginBy')} Google
           </span>
-          <span className="block text-black dark:text-white sm:hidden">
-            Google
-          </span>
+          <span className="block text-black sm:hidden">Google</span>
         </Button>
         <Button className="">
           <img
-            className="max-w-[24px] sm:max-w-[28px]"
+            className="max-w-7"
             src={LogoFacebook}
             alt=""
           />
-          <span className="hidden text-black dark:text-white sm:block">
-          {t('Auth.LoginBy')} FaceBook
+          <span className="hidden text-black sm:block">
+            {t('Auth.LoginBy')} FaceBook
           </span>
-          <span className="block text-black dark:text-white sm:hidden">
-            Facebook
-          </span>
+          <span className="block text-black sm:hidden">Facebook</span>
         </Button>
       </div>
     </div>

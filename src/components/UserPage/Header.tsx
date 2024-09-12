@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Button, Menu } from 'react-daisyui';
-import { FaChevronDown, FaHome, FaPhoneAlt } from 'react-icons/fa';
+import { FaChevronDown, FaHome, FaPhoneAlt, FaUser } from 'react-icons/fa';
 import { Link, NavLink, useLocation } from 'react-router-dom';
 import { IconType } from 'react-icons/lib';
 import { MdEmail } from 'react-icons/md';
@@ -189,12 +189,9 @@ const Header: React.FC = () => {
           {/* Account */}
           <div className="flex flex-row items-center justify-center space-x-2 text-xs font-light text-black dark:text-white">
             <Link to="auth/login" className="rounded-sm">
-            {t('LoginBtn')}
-            </Link>
-            {/* Space */}
-            <div className="h-6 w-[1px] bg-primary dark:bg-white"></div>
-            <Link to="auth/register" className="rounded-sm">
-            {t('RegisterBtn')}
+              <Button className="flex cursor-pointer flex-row items-center justify-center rounded-md border-none bg-white bg-opacity-20 text-black shadow-headerMenu dark:bg-black dark:bg-opacity-20 dark:text-white">
+                <FaUser /> {t('LoginBtn')}
+              </Button>
             </Link>
           </div>
           {/* DarkMode Button */}

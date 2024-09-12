@@ -17,7 +17,7 @@ const RequestPasswordReset: React.FC = () => {
             Yêu cầu đặt lại mật khẩu!
           </h1>
         </div>
-        <p className="text-[16px] font-[400] dark:text-white sm:text-[20px]">
+        <p className="text-[16px] font-[400] sm:text-[20px]">
           Vui lòng nhập email của bạn để đặt lại mật khẩu.
         </p>
       </div>
