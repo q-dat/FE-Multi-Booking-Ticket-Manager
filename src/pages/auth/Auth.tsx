@@ -15,13 +15,16 @@ const Auth: React.FC = () => {
       <div className="inline-block w-full text-start text-primary">
         <div className="flex flex-grow items-center justify-between px-2 py-2 xl:px-10">
           <Link to="/">
-            <Button size="md">
+            <Button
+              size="md"
+              className="flex cursor-pointer flex-row items-center justify-center rounded-md border-none bg-white bg-opacity-20 text-black shadow-headerMenu"
+            >
               <RiArrowGoBackFill className='className="font-bold" inline-block text-xl' />
               {t('Auth.BackToHome')}
             </Button>
           </Link>
           <div className="flex flex-row items-center justify-center gap-2">
-            <DropdownLanguage />
+            <DropdownLanguage className="dark:bg-white dark:bg-opacity-20 dark:text-black" />
           </div>
         </div>
         <div className="block xl:hidden">

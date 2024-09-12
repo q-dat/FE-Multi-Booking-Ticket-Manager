@@ -195,7 +195,7 @@ const Header: React.FC = () => {
             </Link>
           </div>
           {/* DarkMode Button */}
-          <DropdownLanguage />
+          <DropdownLanguage className="" />
           <DarkMode />
         </div>
       </div>
