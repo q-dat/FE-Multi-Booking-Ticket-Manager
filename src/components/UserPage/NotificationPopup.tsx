@@ -28,7 +28,7 @@ const NotificationPopup: React.FC = () => {
 
           <div
             id="popup"
-            className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 glass rounded-lg shadow-lg z-50 max-w-[90%] max-h-[90%] overflow-auto"
+            className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white rounded-lg shadow-lg z-50 max-w-[90%] max-h-[90%] overflow-auto"
           >
             <div className="flex flex-col justify-center items-end  border border-white dark:border-opacity-50 rounded-lg">
               {/* IMAGE BANNER */}
@@ -44,7 +44,7 @@ const NotificationPopup: React.FC = () => {
                         Chào Mừng Bạn Đến Với FPT Train!
                       </h1>
                     </div>
-                    <p className="text-[10px] md:text-lg md:py-6 text-black dark:text-white py-1">
+                    <p className="text-[10px] md:text-lg md:py-6 text-black  py-1">
                       Chúng tôi rất vui mừng chào đón bạn! Tại đây, bạn có thể
                       dễ dàng tìm kiếm và đặt vé tàu hoả cho hành trình của
                       mình. Hãy khám phá các tuyến đường và ưu đãi đặc biệt. Nếu
