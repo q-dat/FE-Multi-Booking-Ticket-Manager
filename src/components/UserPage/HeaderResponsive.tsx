@@ -10,7 +10,6 @@ import {
 } from 'react-icons/io5';
 import { Link, NavLink, useLocation } from 'react-router-dom';
 import { FaHome, FaPhoneAlt, FaChevronDown } from 'react-icons/fa';
-import { LuSearchCheck } from 'react-icons/lu';
 import { GiReturnArrow } from 'react-icons/gi';
 import { MdEmail } from 'react-icons/md';
 import { IconType } from 'react-icons/lib';
@@ -71,11 +70,6 @@ const HeaderResponsive: React.FC<HeaderResponsiveProps> = ({
       name: `${t('LandingPage.Navbar.BookingInfo')}`,
       link: '/',
       submenu: [
-        {
-          name: `${t('LandingPage.Navbar.FindTicket')}`,
-          icon: LuSearchCheck,
-          link: '/'
-        },
         {
           name: `${t('LandingPage.Navbar.ReturnTicket')}`,
           icon: GiReturnArrow,
@@ -249,7 +243,7 @@ const HeaderResponsive: React.FC<HeaderResponsiveProps> = ({
                     <p className="text-lg font-semibold text-black dark:text-white">
                       {t('LandingPage.Navbar.Translate')}
                     </p>
-                    <DropdownLanguage />
+                    <DropdownLanguage className="" />
                   </div>
                 </div>
               </Menu>

@@ -4,7 +4,6 @@ import { FaChevronDown, FaHome, FaPhoneAlt, FaUser } from 'react-icons/fa';
 import { Link, NavLink, useLocation } from 'react-router-dom';
 import { IconType } from 'react-icons/lib';
 import { MdEmail } from 'react-icons/md';
-import { LuSearchCheck } from 'react-icons/lu';
 import { GiReturnArrow } from 'react-icons/gi';
 import { IoTicket, IoTime } from 'react-icons/io5';
 import DarkMode from '../orther/darkmode/DarkMode';
@@ -58,11 +57,6 @@ const Header: React.FC = () => {
       name: `${t('LandingPage.Navbar.BookingInfo')}`,
       link: '/',
       submenu: [
-        {
-          name: `${t('LandingPage.Navbar.FindTicket')}`,
-          icon: LuSearchCheck,
-          link: '/'
-        },
         {
           name: `${t('LandingPage.Navbar.ReturnTicket')}`,
           icon: GiReturnArrow,
