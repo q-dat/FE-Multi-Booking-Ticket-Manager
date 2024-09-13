@@ -38,45 +38,45 @@ const Header: React.FC = () => {
     {
       name: `${t('LandingPage.Navbar.Home')}`,
       icon: FaHome,
-      link: '/'
+      link: ''
     },
     {
       name: `${t('LandingPage.Navbar.Trains')}`,
-      link: '/'
+      link: ''
     },
     {
       name: `${t('LandingPage.Navbar.Buses')}`,
-      link: '/'
+      link: ''
     },
     {
       name: `${t('LandingPage.Navbar.Flights')}`,
-      link: '/'
+      link: ''
     },
 
     {
       name: `${t('LandingPage.Navbar.BookingInfo')}`,
-      link: '/',
+      link: '',
       submenu: [
         {
           name: `${t('LandingPage.Navbar.ReturnTicket')}`,
           icon: GiReturnArrow,
-          link: '/'
+          link: ''
         },
         {
           name: `${t('LandingPage.Navbar.CheckTicket')}`,
           icon: IoTicket,
-          link: '/'
+          link: 'check-ticket'
         },
         {
           name: `${t('LandingPage.Navbar.TrainTimePrice')}`,
           icon: IoTime,
-          link: '/'
+          link: ''
         }
       ]
     },
     {
       name: `${t('LandingPage.Navbar.Contact')}`,
-      link: '/',
+      link: '',
       submenu: [
         {
           name: `${t('LandingPage.Navbar.Hotline')}`,

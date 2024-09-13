@@ -51,52 +51,56 @@ const HeaderResponsive: React.FC<HeaderResponsiveProps> = ({
     {
       name: `${t('LandingPage.Navbar.Home')}`,
       icon: FaHome,
-      link: '/'
+      link: ''
     },
     {
       name: `${t('LandingPage.Navbar.Trains')}`,
-      link: '/'
+      link: ''
     },
     {
       name: `${t('LandingPage.Navbar.Buses')}`,
-      link: '/'
+      link: ''
     },
     {
       name: `${t('LandingPage.Navbar.Flights')}`,
-      link: '/'
+      link: ''
     },
 
     {
       name: `${t('LandingPage.Navbar.BookingInfo')}`,
-      link: '/',
+      link: '',
       submenu: [
         {
           name: `${t('LandingPage.Navbar.ReturnTicket')}`,
           icon: GiReturnArrow,
-          link: '/'
+          link: ''
         },
         {
           name: `${t('LandingPage.Navbar.CheckTicket')}`,
           icon: IoTicket,
-          link: '/'
+          link: '/check-ticket'
         },
         {
           name: `${t('LandingPage.Navbar.TrainTimePrice')}`,
           icon: IoTime,
-          link: '/'
+          link: ''
         }
       ]
     },
     {
       name: `${t('LandingPage.Navbar.Contact')}`,
-      link: '/',
+      link: '',
       submenu: [
         {
           name: `${t('LandingPage.Navbar.Hotline')}`,
           icon: FaPhoneAlt,
-          link: '/#'
+          link: 'tel:0333133050'
         },
-        { name: `${t('LandingPage.Navbar.Email')}`, icon: MdEmail, link: '/#' }
+        {
+          name: `${t('LandingPage.Navbar.Email')}`,
+          icon: MdEmail,
+          link: 'mailto:fpttrain@gmail.com'
+        }
       ]
     }
   ];
