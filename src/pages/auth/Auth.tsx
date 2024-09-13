@@ -11,9 +11,9 @@ const Auth: React.FC = () => {
   // Translation
   const { t } = useTranslation();
   return (
-    <div className="flex flex-col pb-[300px]">
-      <div>
-        <img src={BannerC} alt="" />
+    <div className="flex w-full flex-col">
+      <div className="hidden xl:block">
+        <img className='h-[140px] object-cover w-full' src={BannerC} alt="" />
       </div>
       {/* BackHome */}
       <div className="fixed z-[99999] hidden w-full flex-row items-center justify-evenly bg-white bg-opacity-50 py-2 uppercase shadow-md dark:bg-gray-700 dark:bg-opacity-50 xl:flex">
@@ -30,15 +30,11 @@ const Auth: React.FC = () => {
           </Link>
           <div className="flex flex-row items-center justify-center gap-2">
             <DropdownLanguage />
-
             <DarkMode />
           </div>
         </div>
-        <div className="block xl:hidden">
-          <img className="w-full" src={BannerC} alt="" />
-        </div>
       </div>
-      <div className="flex w-full flex-col items-center justify-center md:flex-row md:px-10">
+      <div>
         <Outlet />
       </div>
     </div>

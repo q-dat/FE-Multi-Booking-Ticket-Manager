@@ -5,3 +5,6 @@ export { default as sectionThree } from './sectionThree.svg';
 export { default as employee } from './employee.jpg';
 export { default as NotFounds } from './404.jpg';
 export { default as BannerC } from './Banner-c.jpg';
+export { default as BannerC1 } from './Banner-c1.jpg';
+export { default as BannerC2 } from './Banner-c2.jpg';
+export { default as BannerLogin } from './BannerLogin.jpg';

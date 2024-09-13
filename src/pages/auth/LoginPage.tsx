@@ -7,20 +7,23 @@ import 'react-toastify/dist/ReactToastify.css';
 import LabelForm from '../../components/auth/LabelForm';
 import ServiceForm from '../../components/auth/ServiceForm';
 import { Logo } from '../../assets/images';
+import HeaderAuth from '../../components/auth/HeaderAuth';
+import { BannerLogin } from '../../assets/image-represent';
 
 const LoginPage: React.FC<{}> = () => {
   // Translation
   const { t } = useTranslation();
 
   return (
-    <div>
+    <div className="xl:flex xl:flex-row xl:items-center xl:justify-center">
+      <HeaderAuth Title_NavbarMobile={t('Auth.Login')} />
       {/* Form */}
-      <div className="flex flex-col items-center justify-center">
-        <div className="flex flex-col items-center justify-center">
-          <img width={80} src={Logo} alt="" />
-          <h1 className="block text-center text-2xl font-[600] text-primary">
+      <div className="flex w-full flex-col items-center justify-center xl:w-1/2">
+        <div className="">
+          <h1 className="hidden text-center text-[40px] font-[600] text-primary xl:block">
             {t('Auth.Login')}
           </h1>
+          <img className="w-[180px] xl:hidden xl:w-[120px]" src={Logo} alt="" />
         </div>
         <div className="mt-10">
           <form>
@@ -28,7 +31,7 @@ const LoginPage: React.FC<{}> = () => {
               <div className="flex w-full flex-col gap-1">
                 <LabelForm title={t('Auth.LabelForm.username')} />
                 <Input
-                  className="w-[350px] focus:outline-none xl:w-[500px]"
+                  className="w-[350px] focus:outline-none md:w-[700px] xl:w-[500px]"
                   placeholder={t('Auth.Placeholder.username')}
                   type="text"
                   name="username"
@@ -37,7 +40,7 @@ const LoginPage: React.FC<{}> = () => {
               <div className="flex w-full flex-col gap-1">
                 <LabelForm title={t('Auth.LabelForm.password')} />
                 <Input
-                  className="w-[350px] focus:outline-none xl:w-[500px]"
+                  className="w-[350px] focus:outline-none md:w-[700px] xl:w-[500px]"
                   placeholder={t('Auth.Placeholder.password')}
                   type="password"
                   name="password"
@@ -64,6 +67,11 @@ const LoginPage: React.FC<{}> = () => {
             </NavLink>
           </p>
         </div>
+      </div>
+      {/* BoxImg */}
+      <div className="hidden w-1/2 p-10 xl:flex xl:flex-col xl:items-center xl:justify-center">
+        <img className="w-[130px]" src={Logo} alt="" />
+        <img className="w-full rounded-lg" src={BannerLogin} alt="" />
       </div>
     </div>
   );

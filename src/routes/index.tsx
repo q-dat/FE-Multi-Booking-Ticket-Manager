@@ -1,4 +1,3 @@
-// routes viết trong này, dùng lazy load đi kèm
 import { lazy } from 'react';
 import { Route, Routes } from 'react-router-dom';
 import DefaultLayout from '../layout/DefaultLayout';
@@ -8,10 +7,6 @@ const User = lazy(() => import('../pages/user/User'));
 const Home = lazy(() => import('../pages/user/Home'));
 //auth
 const Auth = lazy(() => import('../pages/auth/Auth'));
-const ResetPasswordPage = lazy(() => import('../pages/auth/ResetPasswordPage'));
-const RequestPasswordReset = lazy(
-  () => import('../pages/auth/RequestPasswordReset')
-);
 const SignUpPage = lazy(() => import('../pages/auth/SignUpPage'));
 const LoginPage = lazy(() => import('../pages/auth/LoginPage'));
 
@@ -33,14 +28,9 @@ export default function AppRoutes() {
 
         {/* Auth  */}
         <Route element={<DefaultLayout />}>
-            <Route path="/auth" element={<Auth />}>
-              <Route path="login" element={<LoginPage />} />
-              <Route path="register" element={<SignUpPage />} />
-              <Route
-                path="request-password-reset"
-                element={<RequestPasswordReset />}
-              />
-              <Route path="reset-password" element={<ResetPasswordPage />} />
+          <Route path="/auth" element={<Auth />}>
+            <Route path="login" element={<LoginPage />} />
+            <Route path="register" element={<SignUpPage />} />
           </Route>
         </Route>
 

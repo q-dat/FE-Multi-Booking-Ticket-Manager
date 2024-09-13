@@ -1,9 +1,8 @@
 import React, { ReactNode, useCallback, useEffect, useState } from 'react';
-import { Button, Drawer, Input, Menu } from 'react-daisyui';
+import { Button, Drawer, Menu } from 'react-daisyui';
 // Icon
 import { RxHamburgerMenu } from 'react-icons/rx';
 import {
-  IoSearchOutline,
   IoSettingsSharp,
   IoTicket,
   IoTime
@@ -27,7 +26,7 @@ interface MenuItem {
   link: string;
   submenu?: { name: string; link: string; icon?: IconType }[];
 }
-const HeaderResponsive: React.FC<HeaderResponsiveProps> = ({
+const HeaderAuth: React.FC<HeaderResponsiveProps> = ({
   Title_NavbarMobile
 }) => {
   // Translation
@@ -118,8 +117,7 @@ const HeaderResponsive: React.FC<HeaderResponsiveProps> = ({
   };
 
   return (
-    <div className="flex flex-col px-2 pb-6 xl:hidden xl:px-0">
-      <div className="flex items-center justify-between">
+      <div className=" px-2 pb-6 xl:hidden xl:px-0 flex items-center justify-between">
         <div className="z-50">
           <Drawer
             open={leftVisible}
@@ -258,17 +256,8 @@ const HeaderResponsive: React.FC<HeaderResponsiveProps> = ({
           </Drawer>
         </div>
       </div>
-      {/* Input Search */}
-      <div className="relative flex items-center">
-        <Input
-          className="w-full text-black focus:outline-none dark:border-white dark:bg-transparent dark:text-white"
-          type="text"
-        />
-        <IoSearchOutline className="absolute right-2 h-5 w-5 cursor-pointer text-gray-50" />
-      </div>
-    </div>
   );
 };
 
-export default HeaderResponsive;
+export default HeaderAuth;
 
