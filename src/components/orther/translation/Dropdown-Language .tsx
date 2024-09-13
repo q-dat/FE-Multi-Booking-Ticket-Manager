@@ -1,15 +1,12 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import i18next from 'i18next';
-import React, { ReactNode } from 'react';
+import React from 'react';
 import ReactCountryFlag from 'react-country-flag';
 import { Button, Dropdown } from 'react-daisyui';
 import { useTranslation } from 'react-i18next';
 import { lngs } from '../../../contants';
 
-interface DropdownLanguageProps {
-  className: ReactNode;
-}
-const DropdownLanguage: React.FC<DropdownLanguageProps> = ({ className }) => {
+const DropdownLanguage: React.FC = ({}) => {
   const { t, i18n } = useTranslation();
 
   const SwitchLanguge = (lng: string) => {
@@ -25,7 +22,7 @@ const DropdownLanguage: React.FC<DropdownLanguageProps> = ({ className }) => {
       <Dropdown>
         <Button
           size="md"
-          className={`flex cursor-pointer flex-row items-center justify-center rounded-md border-none bg-white bg-opacity-20 text-black shadow-headerMenu dark:bg-black dark:bg-opacity-20 dark:text-white ${className} `}
+          className="flex cursor-pointer flex-row items-center justify-center rounded-md border-none bg-white bg-opacity-20 text-black shadow-headerMenu dark:bg-black dark:bg-opacity-20 dark:text-white"
         >
           <ReactCountryFlag countryCode={currentLanguage.countryCode} svg />
           {t(`LanguageSwitch.${currentLanguage.key}` as any)}

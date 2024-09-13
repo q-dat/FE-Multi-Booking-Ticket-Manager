@@ -2,7 +2,7 @@ import React from 'react';
 
 const LabelForm: React.FC<{ title: string }> = ({ title }) => {
   return (
-    <label className="font-sub text-sm font-light  text-black sm:text-lg">
+    <label className="font-sub text-sm font-light text-black dark:text-white sm:text-lg">
       {title}
     </label>
   );

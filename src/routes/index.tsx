@@ -33,7 +33,6 @@ export default function AppRoutes() {
 
         {/* Auth  */}
         <Route element={<DefaultLayout />}>
-          <Route element={<DefaultLayout />}>
             <Route path="/auth" element={<Auth />}>
               <Route path="login" element={<LoginPage />} />
               <Route path="register" element={<SignUpPage />} />
@@ -42,7 +41,6 @@ export default function AppRoutes() {
                 element={<RequestPasswordReset />}
               />
               <Route path="reset-password" element={<ResetPasswordPage />} />
-            </Route>
           </Route>
         </Route>
 

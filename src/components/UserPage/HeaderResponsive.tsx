@@ -243,7 +243,7 @@ const HeaderResponsive: React.FC<HeaderResponsiveProps> = ({
                     <p className="text-lg font-semibold text-black dark:text-white">
                       {t('LandingPage.Navbar.Translate')}
                     </p>
-                    <DropdownLanguage className="" />
+                    <DropdownLanguage />
                   </div>
                 </div>
               </Menu>

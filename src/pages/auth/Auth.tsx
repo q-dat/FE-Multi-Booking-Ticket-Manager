@@ -4,15 +4,20 @@ import { Link, Outlet } from 'react-router-dom';
 import { RiArrowGoBackFill } from 'react-icons/ri';
 import { Button } from 'react-daisyui';
 import DropdownLanguage from '../../components/orther/translation/Dropdown-Language ';
-import { BannerTop } from '../../assets/image-represent';
+import { BannerC } from '../../assets/image-represent';
+import DarkMode from '../../components/orther/darkmode/DarkMode';
 
 const Auth: React.FC = () => {
   // Translation
   const { t } = useTranslation();
   return (
-    <div className="flex flex-col bg-white pb-[300px] text-black">
+    <div className="flex flex-col pb-[300px]">
+      <div>
+        <img src={BannerC} alt="" />
+      </div>
       {/* BackHome */}
-      <div className="inline-block w-full text-start text-primary">
+      <div className="fixed z-[99999] hidden w-full flex-row items-center justify-evenly bg-white bg-opacity-50 py-2 uppercase shadow-md dark:bg-gray-700 dark:bg-opacity-50 xl:flex">
+        {/* Navbar */}
         <div className="flex flex-grow items-center justify-between px-2 py-2 xl:px-10">
           <Link to="/">
             <Button
@@ -24,11 +29,13 @@ const Auth: React.FC = () => {
             </Button>
           </Link>
           <div className="flex flex-row items-center justify-center gap-2">
-            <DropdownLanguage className="dark:bg-white dark:bg-opacity-20 dark:text-black" />
+            <DropdownLanguage />
+
+            <DarkMode />
           </div>
         </div>
         <div className="block xl:hidden">
-          <img className="w-full" src={BannerTop} alt="" />
+          <img className="w-full" src={BannerC} alt="" />
         </div>
       </div>
       <div className="flex w-full flex-col items-center justify-center md:flex-row md:px-10">
