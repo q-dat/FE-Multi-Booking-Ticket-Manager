@@ -2,8 +2,11 @@ import React, { useEffect, useState } from "react";
 import { Button, Hero } from "react-daisyui";
 import { FaHeadphones } from "react-icons/fa";
 import { employee } from "../../assets/image-represent";
+import { useTranslation } from "react-i18next";
 
 const NotificationPopup: React.FC = () => {
+  // Translation
+  const {t} = useTranslation()
   const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
@@ -41,22 +44,19 @@ const NotificationPopup: React.FC = () => {
                   <div>
                     <div className="bg-primary bg-opacity-15 dark:bg-white dark:bg-opacity-25 shadow-headerMenu rounded-xl p-2">
                       <h1 className="text-md md:text-3xl xl:text-5xl font-bold text-bg-image ">
-                        Chào Mừng Bạn Đến Với FPT Train!
+                      {t('NotificationPopup.title')}
                       </h1>
                     </div>
                     <p className="text-[10px] md:text-lg md:py-6 text-black  py-1">
-                      Chúng tôi rất vui mừng chào đón bạn! Tại đây, bạn có thể
-                      dễ dàng tìm kiếm và đặt vé tàu hoả cho hành trình của
-                      mình. Hãy khám phá các tuyến đường và ưu đãi đặc biệt. Nếu
-                      cần hỗ trợ, đừng ngần ngại liên hệ với chúng tôi. Chúc bạn
-                      có một chuyến đi thú vị!
+                    {t('NotificationPopup.content')}
                     </p>
                     <Button
                       onClick={closePopup}
                       color="primary"
                       className="text-white border border-white  dark:border-opacity-50 float-end"
                     >
-                      Tư Vấn Khách Hàng <FaHeadphones />
+                    {t('NotificationPopup.CustomerService')}
+                       <FaHeadphones />
                     </Button>
                   </div>
                 </Hero.Content>

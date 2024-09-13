@@ -21,7 +21,7 @@
     "Or": "Hoặc",
     "LoginBy": "Đăng nhập bằng ",
     "ForgotPassword": "Quên mật khẩu?",
-    "CreateAccount":"Bạn chưa có tài khoản?",
+    "CreateAccount": "Bạn chưa có tài khoản?",
     "LabelForm": {
       "fullname": "Họ và Tên",
       "username": "Tên tài khoản",
@@ -74,5 +74,10 @@
     "SectionTwoDescription": "Tìm kiếm và đặt vé máy bay, xe buýt, phà và tàu hỏa giá rẻ! Khám phá những tấm vé tốt nhất dành cho bạn với FPT Train.",
     "SectionThreeTitle": "Lịch Trình Và Vé Cho Mọi Nhu Cầu Du Lịch Của Bạn",
     "SectionThreeDescription": "Chưa bao giờ việc đặt vé tàu, vé xe buýt, vé máy bay hoặc vé phà lại dễ dàng đến thế."
+  },
+  "NotificationPopup": {
+    "CustomerService":"Tư Vấn Khách Hàng",
+    "title": "Chào Mừng Bạn Đến Với LacLacTrip!",
+    "content": "Chúng tôi rất vui mừng chào đón bạn! Tại đây, bạn có thể dễ dàng tìm kiếm và đặt vé tàu hoả cho hành trình của mình. Hãy khám phá các tuyến đường và ưu đãi đặc biệt. Nếu cần hỗ trợ, đừng ngần ngại liên hệ với chúng tôi. Chúc bạn có một chuyến đi thú vị!"
   }
 }

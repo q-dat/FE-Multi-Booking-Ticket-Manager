@@ -75,6 +75,11 @@ interface Resources {
       "SectionTwoDescription": "Search and book cheap flights, buses, ferries, and trains! Find the best deals with FPT Train.",
       "SectionThreeTitle": "Schedules And Tickets For All Your Travel Needs",
       "SectionThreeDescription": "Booking train, bus, flight, or ferry tickets has never been easier."
+    },
+    "NotificationPopup": {
+      "CustomerService": "Customer Service",
+      "title": "Welcome to LacLacTrip!",
+      "content": "We are delighted to welcome you! Here, you can easily search for and book train tickets for your journey. Explore the routes and special offers. If you need assistance, don't hesitate to contact us. We wish you a pleasant trip!"
     }
   }
 }
