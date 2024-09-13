@@ -39,8 +39,8 @@ const Home: React.FC = () => {
         </div>
       </div>
       {/* Form */}
-      <div className="relative top-1 flex flex-grow items-center justify-center px-2 md:-top-3 xl:-top-10">
-        <div className="flex flex-col rounded-lg border border-primary border-opacity-50 bg-white p-2 shadow-headerMenu dark:bg-gray-700 md:p-10 xl:flex-row xl:px-10 xl:py-8">
+      <div className="relative top-1 flex flex-grow items-center justify-center px-2 pb-10 pt-5 md:-top-3 md:pt-0 xl:-top-10 xl:px-0">
+        <div className="flex flex-col rounded-lg border border-primary border-opacity-50 bg-white p-3 shadow-headerMenu dark:bg-gray-700 md:p-10 xl:flex-row xl:px-10 xl:py-8">
           {/* Form Mobile 1 */}
           <div className="m-2 flex flex-grow items-center justify-between gap-2 md:m-[10px] md:gap-[20px] xl:m-0 xl:gap-0">
             <InputForm
@@ -99,7 +99,7 @@ const Home: React.FC = () => {
       </div>
       {/* Section */}
       <div className="flex flex-col items-center justify-center px-2 md:flex-row md:gap-20 xl:px-0">
-        <div className="flex w-[350px] flex-col items-center justify-center">
+        <div className="xs:px-2 flex w-[350px] flex-col items-center justify-center sm:px-0">
           <img width={300} src={sectionOne} alt="" />
           <p className="text-xl font-bold text-[#122969] dark:text-white">
             {t('LandingPage.SectionOneTitle')}
@@ -109,7 +109,7 @@ const Home: React.FC = () => {
             {t('LandingPage.SectionOneDescription')}
           </p>
         </div>
-        <div className="flex w-[350px] flex-col items-center justify-center">
+        <div className="xs:px-2 flex w-[350px] flex-col items-center justify-center sm:px-0">
           <img width={300} src={sectionTwo} alt="" />
           <p className="text-xl font-bold text-[#122969] dark:text-white">
             {t('LandingPage.SectionTwoTitle')}
@@ -119,7 +119,7 @@ const Home: React.FC = () => {
             {t('LandingPage.SectionTwoDescription')}
           </p>
         </div>
-        <div className="flex w-[350px] flex-col items-center justify-center">
+        <div className="xs:px-2 flex w-[350px] flex-col items-center justify-center sm:px-0">
           <img width={300} src={sectionThree} alt="" />
           <p className="text-xl font-bold text-[#122969] dark:text-white">
             {t('LandingPage.SectionThreeTitle')}

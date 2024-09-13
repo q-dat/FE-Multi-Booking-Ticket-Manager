@@ -51,7 +51,7 @@ const HeaderResponsive: React.FC<HeaderResponsiveProps> = ({
     {
       name: `${t('LandingPage.Navbar.Home')}`,
       icon: FaHome,
-      link: ''
+      link: '/'
     },
     {
       name: `${t('LandingPage.Navbar.Trains')}`,
