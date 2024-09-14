@@ -1,9 +1,9 @@
 /* @tailwind base; */
-@import "tailwindcss/base";
+@import 'tailwindcss/base';
 /* @tailwind components; */
-@import "tailwindcss/components";
+@import 'tailwindcss/components';
 /* @tailwind utilities; */
-@import "tailwindcss/utilities";
+@import 'tailwindcss/utilities';
 /* ------------------------------------------------------------------------------------- */
 * {
   padding: 0;
@@ -11,7 +11,7 @@
   box-sizing: border-box;
 }
 .text-bg-image {
-  background-image: url("../src/assets/image-represent/bg-text.jpg");
+  background-image: url('../src/assets/image-represent/bg-text.jpg');
   background-size: cover;
   -webkit-background-clip: text; /* Đối với Chrome, Safari và các phiên bản cũ */
   -moz-background-clip: text; /* Đối với Firefox, mặc dù không cần thiết cho các phiên bản mới */
@@ -52,4 +52,18 @@
   transform: translate(-50%, -50%) scale(1);
   transition: all 0.5s ease-in-out;
   animation: zoomBorder 2s infinite ease-in-out;
+}
+@keyframes Marquee {
+  0% {
+    transform: translateX(100%);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}
+
+.marquee {
+  display: inline-block;
+  white-space: nowrap; 
+  animation: Marquee 30s linear infinite;
 }
