@@ -16,6 +16,7 @@
     "axios": "^1.7.3",
     "boring-avatars": "^1.10.2",
     "daisyui": "^4.12.10",
+    "datn": "file:",
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-prettier": "^5.2.1",
     "i18n": "^0.15.1",

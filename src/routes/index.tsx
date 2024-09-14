@@ -6,6 +6,7 @@ import DefaultLayout from '../layout/DefaultLayout';
 const User = lazy(() => import('../pages/user/User'));
 const Home = lazy(() => import('../pages/user/Home'));
 const CheckTicketPage = lazy(() => import('../pages/user/CheckTicketPage'));
+const ReturnTicketPage = lazy(() => import('../pages/user/ReturnTicketPage'));
 //auth
 const Auth = lazy(() => import('../pages/auth/Auth'));
 const SignUpPage = lazy(() => import('../pages/auth/SignUpPage'));
@@ -25,6 +26,7 @@ export default function AppRoutes() {
           <Route path="/" element={<User />}>
             <Route index path="" element={<Home />} />
             <Route index path="check-ticket" element={<CheckTicketPage />} />
+            <Route index path="return-ticket" element={<ReturnTicketPage />} />
           </Route>
         </Route>
 
