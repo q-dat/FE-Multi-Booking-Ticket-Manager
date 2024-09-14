@@ -73,7 +73,7 @@ const HeaderResponsive: React.FC<HeaderResponsiveProps> = ({
         {
           name: `${t('UserPage.Navbar.ReturnTicket')}`,
           icon: GiReturnArrow,
-          link: ''
+          link: '/return-ticket'
         },
         {
           name: `${t('UserPage.Navbar.CheckTicket')}`,
