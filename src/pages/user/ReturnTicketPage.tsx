@@ -2,7 +2,8 @@ import React from 'react';
 import HeaderResponsive from '../../components/UserPage/HeaderResponsive';
 import { BiBowlingBall } from "react-icons/bi";
 import InputForm from '../../components/UserPage/InputForm';
-import { Button, Link } from 'react-daisyui';
+import { Button } from 'react-daisyui';
+import { Link } from 'react-router-dom';
 
 const ReturnTicketPage: React.FC = () => {
     return (
@@ -67,11 +68,12 @@ const ReturnTicketPage: React.FC = () => {
                 {/* khung */}
                 <div className='bg-blue-200 h-auto border-2 border-blue-200  rounded-sm m-2'>
                     <p>Chú Ý:</p>
-                    <span>chính sách vé và quy định đổi trả của <p>Công Ty</p> vui lòng bấm <Link>Vào Đây</Link></span>
-                    <span>chính sách vé và quy định đổi trả của <p>Công Ty</p> vui lòng bấm <Link>Vào Đây</Link></span>
+                    <span>chính sách vé và quy định đổi trả của <p>Công Ty</p> vui lòng bấm <Link to={''}>Vào Đây</Link></span>
+                    <span>chính sách vé và quy định đổi trả của <p>Công Ty</p> vui lòng bấm <Link to={''}>Vào Đây</Link></span>
                 </div>
             </div>
         </div>
+        
 
     )
 }
