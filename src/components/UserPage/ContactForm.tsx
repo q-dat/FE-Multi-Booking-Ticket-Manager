@@ -28,8 +28,8 @@ const ContactForm: React.FC = () => {
         onClick={toggleDropdown}
       >
         {isExpanded
-          ? `${t("LandingPage.Collapse")} ▼`
-          : `${t("LandingPage.Contact")} ▲`}
+          ? `${t("UserPage.Collapse")} ▼`
+          : `${t("UserPage.Contact")} ▲`}
       </button>
       <div
         ref={dropdownContentRef}

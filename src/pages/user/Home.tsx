@@ -27,10 +27,10 @@ const Home: React.FC = () => {
       <div className="relative">
         <div className="absolute bottom-0 left-2 md:bottom-4 xl:left-[20%] xl:top-[40%]">
           <p className="text-md bg-gradient-to-r from-white to-white bg-clip-text font-bold text-transparent dark:from-[#122969] dark:to-gray-100 md:text-[40px]">
-            {t('LandingPage.BannerTitle')}
+            {t('UserPage.BannerTitle')}
           </p>
           <p className="text-md bg-gradient-to-r from-white to-white bg-clip-text font-light text-transparent dark:from-[#122969] dark:to-[#122969]">
-            {t('LandingPage.BannerSubtitle')}
+            {t('UserPage.BannerSubtitle')}
           </p>
         </div>
         {/* Banner IMG */}
@@ -46,13 +46,13 @@ const Home: React.FC = () => {
             <InputForm
               className="w-[150px] md:w-[300px] lg:w-[400px] xl:w-full xl:rounded-r-none"
               type={''}
-              placeholder={`${t('LandingPage.DeparturePlaceholder')}`}
+              placeholder={`${t('UserPage.DeparturePlaceholder')}`}
             />
             <MdOutlineArrowRightAlt className="hidden text-primary dark:text-white xl:flex" />
             <InputForm
               className="w-[150px] md:w-[300px] lg:w-[400px] xl:w-full xl:rounded-none"
               type={'text'}
-              placeholder={`${t('LandingPage.DestinationPlaceholder')}`}
+              placeholder={`${t('UserPage.DestinationPlaceholder')}`}
             />
             <MdOutlineArrowRightAlt className="hidden text-primary dark:text-white xl:flex" />
           </div>
@@ -62,13 +62,13 @@ const Home: React.FC = () => {
             <InputForm
               className="w-[150px] md:w-[300px] lg:w-[400px] xl:w-full xl:rounded-none"
               type={'date'}
-              placeholder={`${t('LandingPage.DepartureDatePlaceholder')}`}
+              placeholder={`${t('UserPage.DepartureDatePlaceholder')}`}
             />
             <MdOutlineArrowRightAlt className="hidden text-primary dark:text-white xl:flex" />
             <InputForm
               className="w-[150px] md:w-[300px] lg:w-[400px] xl:w-full xl:rounded-none"
               type={'date'}
-              placeholder={`${t('LandingPage.ReturnDatePlaceholder')}`}
+              placeholder={`${t('UserPage.ReturnDatePlaceholder')}`}
             />{' '}
             <MdOutlineArrowRightAlt className="hidden text-primary dark:text-white xl:flex" />
           </div>
@@ -81,7 +81,7 @@ const Home: React.FC = () => {
                 onChange={event => setValue(event.target.value)}
               >
                 <option value={'default'} disabled>
-                  {t('LandingPage.AgeSelectDefault')}
+                  {t('UserPage.AgeSelectDefault')}
                 </option>
                 <option value={'Người Nhỏ'}>Người Nhỏ</option>
                 <option value={'Người Vừa'}>Người Vừa</option>
@@ -91,7 +91,7 @@ const Home: React.FC = () => {
             <div>
               <Button className="w-[150px] bg-primary text-sm text-white hover:border-primary hover:bg-white hover:text-primary dark:hover:bg-gray-700 md:w-[300px] lg:w-[400px] xl:ml-3 xl:w-full">
                 <IoSearch />
-                {t('LandingPage.SearchButton')}
+                {t('UserPage.SearchButton')}
               </Button>
             </div>
           </div>
@@ -102,31 +102,31 @@ const Home: React.FC = () => {
         <div className="xs:px-2 flex w-[350px] flex-col items-center justify-center sm:px-0">
           <img width={300} src={sectionOne} alt="" />
           <p className="text-xl font-bold text-[#122969] dark:text-white">
-            {t('LandingPage.SectionOneTitle')}
+            {t('UserPage.SectionOneTitle')}
           </p>
           <br />
           <p className="text-sm font-light text-black dark:text-white">
-            {t('LandingPage.SectionOneDescription')}
+            {t('UserPage.SectionOneDescription')}
           </p>
         </div>
         <div className="xs:px-2 flex w-[350px] flex-col items-center justify-center sm:px-0">
           <img width={300} src={sectionTwo} alt="" />
           <p className="text-xl font-bold text-[#122969] dark:text-white">
-            {t('LandingPage.SectionTwoTitle')}
+            {t('UserPage.SectionTwoTitle')}
           </p>
           <br />
           <p className="text-sm font-light text-black dark:text-white">
-            {t('LandingPage.SectionTwoDescription')}
+            {t('UserPage.SectionTwoDescription')}
           </p>
         </div>
         <div className="xs:px-2 flex w-[350px] flex-col items-center justify-center sm:px-0">
           <img width={300} src={sectionThree} alt="" />
           <p className="text-xl font-bold text-[#122969] dark:text-white">
-            {t('LandingPage.SectionThreeTitle')}
+            {t('UserPage.SectionThreeTitle')}
           </p>
           <br />
           <p className="text-sm font-light text-black dark:text-white">
-            {t('LandingPage.SectionThreeDescription')}
+            {t('UserPage.SectionThreeDescription')}
           </p>
         </div>
       </div>

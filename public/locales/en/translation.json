@@ -40,7 +40,7 @@
       "sex": "Select Gender"
     }
   },
-  "LandingPage": {
+  "UserPage": {
     "Collapse": "Collapse",
     "Contact": "Contact",
     "ContactConsulting": "Contact Consulting",
@@ -73,10 +73,14 @@
     "SectionTwoTitle": "Easily Find Cheap Tickets",
     "SectionTwoDescription": "Search and book cheap flights, buses, ferries, and trains! Find the best deals with FPT Train.",
     "SectionThreeTitle": "Schedules And Tickets For All Your Travel Needs",
-    "SectionThreeDescription": "Booking train, bus, flight, or ferry tickets has never been easier."
+    "SectionThreeDescription": "Booking train, bus, flight, or ferry tickets has never been easier.",
+    "CheckTicketPage": {
+      "NotificationTitle": "Due to the complex developments of flooding, from September 12, the frequency of trains running on the Hanoi - Hai Phong route will be reduced."
+    },
+    "ReturnTicketPage": {}
   },
   "NotificationPopup": {
-    "CustomerService":"Customer Service",
+    "CustomerService": "Customer Service",
     "title": "Welcome to LacLacTrip!",
     "content": "We are delighted to welcome you! Here, you can easily search for and book train tickets for your journey. Explore the routes and special offers. If you need assistance, don't hesitate to contact us. We wish you a pleasant trip!"
   }

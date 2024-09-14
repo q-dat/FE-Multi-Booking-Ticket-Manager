@@ -41,7 +41,7 @@ interface Resources {
         "sex": "Select Gender"
       }
     },
-    "LandingPage": {
+    "UserPage": {
       "Collapse": "Collapse",
       "Contact": "Contact",
       "ContactConsulting": "Contact Consulting",
@@ -74,7 +74,10 @@ interface Resources {
       "SectionTwoTitle": "Easily Find Cheap Tickets",
       "SectionTwoDescription": "Search and book cheap flights, buses, ferries, and trains! Find the best deals with FPT Train.",
       "SectionThreeTitle": "Schedules And Tickets For All Your Travel Needs",
-      "SectionThreeDescription": "Booking train, bus, flight, or ferry tickets has never been easier."
+      "SectionThreeDescription": "Booking train, bus, flight, or ferry tickets has never been easier.",
+      "CheckTicketPage": {
+        "NotificationTitle": "Due to the complex developments of flooding, from September 12, the frequency of trains running on the Hanoi - Hai Phong route will be reduced."
+      }
     },
     "NotificationPopup": {
       "CustomerService": "Customer Service",

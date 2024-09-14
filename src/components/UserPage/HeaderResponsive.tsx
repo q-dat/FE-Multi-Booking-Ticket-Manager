@@ -49,55 +49,55 @@ const HeaderResponsive: React.FC<HeaderResponsiveProps> = ({
   const location = useLocation();
   const menuItems: MenuItem[] = [
     {
-      name: `${t('LandingPage.Navbar.Home')}`,
+      name: `${t('UserPage.Navbar.Home')}`,
       icon: FaHome,
       link: '/'
     },
     {
-      name: `${t('LandingPage.Navbar.Trains')}`,
+      name: `${t('UserPage.Navbar.Trains')}`,
       link: ''
     },
     {
-      name: `${t('LandingPage.Navbar.Buses')}`,
+      name: `${t('UserPage.Navbar.Buses')}`,
       link: ''
     },
     {
-      name: `${t('LandingPage.Navbar.Flights')}`,
+      name: `${t('UserPage.Navbar.Flights')}`,
       link: ''
     },
 
     {
-      name: `${t('LandingPage.Navbar.BookingInfo')}`,
+      name: `${t('UserPage.Navbar.BookingInfo')}`,
       link: '',
       submenu: [
         {
-          name: `${t('LandingPage.Navbar.ReturnTicket')}`,
+          name: `${t('UserPage.Navbar.ReturnTicket')}`,
           icon: GiReturnArrow,
           link: ''
         },
         {
-          name: `${t('LandingPage.Navbar.CheckTicket')}`,
+          name: `${t('UserPage.Navbar.CheckTicket')}`,
           icon: IoTicket,
           link: '/check-ticket'
         },
         {
-          name: `${t('LandingPage.Navbar.TrainTimePrice')}`,
+          name: `${t('UserPage.Navbar.TrainTimePrice')}`,
           icon: IoTime,
           link: ''
         }
       ]
     },
     {
-      name: `${t('LandingPage.Navbar.Contact')}`,
+      name: `${t('UserPage.Navbar.Contact')}`,
       link: '',
       submenu: [
         {
-          name: `${t('LandingPage.Navbar.Hotline')}`,
+          name: `${t('UserPage.Navbar.Hotline')}`,
           icon: FaPhoneAlt,
           link: 'tel:0333133050'
         },
         {
-          name: `${t('LandingPage.Navbar.Email')}`,
+          name: `${t('UserPage.Navbar.Email')}`,
           icon: MdEmail,
           link: 'mailto:fpttrain@gmail.com'
         }
@@ -239,13 +239,13 @@ const HeaderResponsive: React.FC<HeaderResponsiveProps> = ({
                 <div className="w-full space-y-5">
                   <div className="flex flex-row items-center justify-between rounded-md bg-gray-700 bg-opacity-20 p-2">
                     <p className="text-lg font-light text-black dark:text-white">
-                      {t('LandingPage.Navbar.Theme')}
+                      {t('UserPage.Navbar.Theme')}
                     </p>
                     <DarkMode />
                   </div>
                   <div className="flex flex-row items-center justify-between rounded-md bg-gray-700 bg-opacity-20 p-2">
                     <p className="text-lg font-light text-black dark:text-white">
-                      {t('LandingPage.Navbar.Translate')}
+                      {t('UserPage.Navbar.Translate')}
                     </p>
                     <DropdownLanguage />
                   </div>
