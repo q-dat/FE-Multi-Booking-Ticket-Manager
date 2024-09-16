@@ -58,18 +58,18 @@ const Header: React.FC = () => {
         {
           name: `${t('UserPage.Navbar.ReturnTicket')}`,
           icon: GiReturnArrow,
-          link: 'return-ticket'
+          link: '/return-ticket'
         },
         {
           name: `${t('UserPage.Navbar.CheckTicket')}`,
           icon: IoTicket,
-          link: 'check-ticket'
+          link: '/check-ticket'
         }
       ]
     },
     {
       name: `${t('UserPage.Navbar.Contact')}`,
-      link: '',
+      link: '/contact',
       submenu: [
         {
           name: `${t('UserPage.Navbar.Hotline')}`,
