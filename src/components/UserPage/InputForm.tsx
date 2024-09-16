@@ -1,5 +1,5 @@
-import React from "react";
-import { Input } from "react-daisyui";
+import React from 'react';
+import { Input } from 'react-daisyui';
 
 interface InputFormProps {
   className?: string;
@@ -7,28 +7,29 @@ interface InputFormProps {
   placeholder: string;
   value?: string;
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  classNameLabel: string;
 }
 
 const InputForm: React.FC<InputFormProps> = ({
-  className = "",
-  type = "text",
-  placeholder = "",
+  className = '',
+  type = 'text',
+  placeholder = '',
   value,
   onChange,
+  classNameLabel
 }) => {
   return (
     <div className="relative">
       <Input
-        className={`peer w-full bg-white text-black dark:bg-gray-700 dark:text-white border border-gray-700 border-opacity-50 focus:outline-none focus:border-primary  dark:border-primary dark:focus:border-white ${className}`}
+        className={`peer w-full focus:outline-none ${className}`}
         type={type}
         placeholder=" "
         value={value}
         onChange={onChange}
+        autoFocus
       />
       <label
-        className="absolute left-2 -top-2 dark:bg-gray-700 bg-white py-0 px-1 dark:text-white text-primary text-sm transition-all rounded-sm
-        peer-placeholder-shown:rounded-sm peer-placeholder-shown:top-3 peer-placeholder-shown:text-base peer-placeholder-shown:text-black peer-focus:-top-2 peer-focus:text-sm dark:peer-placeholder-shown:text-white dark:peer-focus:text-white peer-focus:text-primary
-        pointer-events-none"
+        className={`pointer-events-none absolute -top-2 left-2 rounded-sm px-1 py-0 text-sm text-primary transition-all duration-500 ease-in-out peer-placeholder-shown:top-3 peer-placeholder-shown:rounded-sm peer-placeholder-shown:text-base peer-placeholder-shown:text-black peer-focus:-top-2 peer-focus:text-sm peer-focus:text-primary dark:text-white dark:peer-placeholder-shown:text-white dark:peer-focus:text-white ${classNameLabel}`}
       >
         {placeholder}
       </label>
@@ -37,3 +38,4 @@ const InputForm: React.FC<InputFormProps> = ({
 };
 
 export default InputForm;
+

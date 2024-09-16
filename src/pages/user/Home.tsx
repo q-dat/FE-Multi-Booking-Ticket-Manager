@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Button, Select } from 'react-daisyui';
 import InputForm from '../../components/UserPage/InputForm';
 import { IoLocationOutline, IoSearch } from 'react-icons/io5';
@@ -17,12 +17,50 @@ import {
 } from '../../assets/image-represent';
 import { useTranslation } from 'react-i18next';
 import HeaderResponsive from '../../components/UserPage/HeaderResponsive';
-import { Link } from 'react-router-dom';
-
+import { Link, useLocation } from 'react-router-dom';
+import { ILocation } from '../../types/location/location';
 const Home: React.FC = () => {
   //Translation
   const { t } = useTranslation();
 
+  // Naviga Active
+  const [activeItem, setActiveItem] = useState('Hà Nội');
+  const location = useLocation();
+
+  useEffect(() => {
+    const pathname = location.pathname.split('/').pop();
+    const foundItem = FecthLocation.find(item => item.name === pathname);
+    if (foundItem) {
+      setActiveItem(foundItem.name);
+    }
+  }, [location.pathname]);
+
+  const FecthLocation: ILocation[] = [
+    {
+      name: 'Hà Nội',
+      _id: ''
+    },
+    {
+      name: 'Ninh Bình',
+      _id: ''
+    },
+    {
+      name: 'Thanh Hoá',
+      _id: ''
+    },
+    {
+      name: 'Vinh',
+      _id: ''
+    },
+    {
+      name: 'Đà Nẵng',
+      _id: ''
+    },
+    {
+      name: 'Huế',
+      _id: ''
+    }
+  ];
   const [value, setValue] = useState('default');
   return (
     <div>
@@ -51,15 +89,17 @@ const Home: React.FC = () => {
           {/* Form Mobile 1 */}
           <div className="m-2 flex flex-grow items-center justify-between gap-2 md:m-[10px] md:gap-[20px] xl:m-0 xl:gap-0">
             <InputForm
-              className="w-[150px] md:w-[300px] lg:w-[400px] xl:w-full xl:rounded-r-none"
+              className="w-[150px] border border-gray-700 border-opacity-50 bg-white text-black focus:border-primary focus:outline-none dark:border-primary dark:bg-gray-700 dark:text-white dark:focus:border-white md:w-[300px] lg:w-[400px] xl:w-full xl:rounded-r-none"
               type={'text'}
               placeholder={`${t('UserPage.DeparturePlaceholder')}`}
+              classNameLabel=" bg-white  dark:bg-gray-700"
             />
             <MdOutlineArrowRightAlt className="hidden text-primary dark:text-white xl:flex" />
             <InputForm
-              className="w-[150px] md:w-[300px] lg:w-[400px] xl:w-full xl:rounded-none"
+              className="w-[150px] border border-gray-700 border-opacity-50 bg-white text-black focus:border-primary focus:outline-none dark:border-primary dark:bg-gray-700 dark:text-white dark:focus:border-white md:w-[300px] lg:w-[400px] xl:w-full xl:rounded-none"
               type={'text'}
               placeholder={`${t('UserPage.DestinationPlaceholder')}`}
+              classNameLabel=" bg-white  dark:bg-gray-700"
             />
             <MdOutlineArrowRightAlt className="hidden text-primary dark:text-white xl:flex" />
           </div>
@@ -67,15 +107,17 @@ const Home: React.FC = () => {
           <div className="m-2 flex flex-grow items-center justify-between gap-2 md:m-[10px] md:gap-[20px] xl:m-0 xl:gap-0">
             {' '}
             <InputForm
-              className="w-[150px] md:w-[300px] lg:w-[400px] xl:w-full xl:rounded-none"
+              className="w-[150px] border border-gray-700 border-opacity-50 bg-white text-black focus:border-primary focus:outline-none dark:border-primary dark:bg-gray-700 dark:text-white dark:focus:border-white md:w-[300px] lg:w-[400px] xl:w-full xl:rounded-none"
               type={'date'}
               placeholder={`${t('UserPage.DepartureDatePlaceholder')}`}
+              classNameLabel=" bg-white  dark:bg-gray-700"
             />
             <MdOutlineArrowRightAlt className="hidden text-primary dark:text-white xl:flex" />
             <InputForm
-              className="w-[150px] md:w-[300px] lg:w-[400px] xl:w-full xl:rounded-none"
+              className="w-[150px] border border-gray-700 border-opacity-50 bg-white text-black focus:border-primary dark:border-primary dark:bg-gray-700 dark:text-white dark:focus:border-white md:w-[300px] lg:w-[400px] xl:w-full xl:rounded-none"
               type={'date'}
               placeholder={`${t('UserPage.ReturnDatePlaceholder')}`}
+              classNameLabel=" bg-white  dark:bg-gray-700"
             />{' '}
             <MdOutlineArrowRightAlt className="hidden text-primary dark:text-white xl:flex" />
           </div>
@@ -105,8 +147,8 @@ const Home: React.FC = () => {
         </div>
       </div>
       {/* Section */}
-      <div className="flex flex-col items-center justify-center px-2 md:flex-row md:gap-20 xl:px-0">
-        <div className="flex w-[350px] flex-col items-center justify-center xs:px-2 sm:px-0">
+      <div className="flex flex-col items-center justify-center px-2 md:flex-row md:gap-20 xl:px-[100px]">
+        <div className="flex w-full flex-col items-center justify-center xs:px-2 sm:px-0">
           <img width={300} src={sectionOne} alt="" />
           <p className="text-xl font-bold text-[#122969] dark:text-white">
             {t('UserPage.SectionOneTitle')}
@@ -116,7 +158,7 @@ const Home: React.FC = () => {
             {t('UserPage.SectionOneDescription')}
           </p>
         </div>
-        <div className="flex w-[350px] flex-col items-center justify-center xs:px-2 sm:px-0">
+        <div className="flex w-full flex-col items-center justify-center xs:px-2 sm:px-0">
           <img width={300} src={sectionTwo} alt="" />
           <p className="text-xl font-bold text-[#122969] dark:text-white">
             {t('UserPage.SectionTwoTitle')}
@@ -126,7 +168,7 @@ const Home: React.FC = () => {
             {t('UserPage.SectionTwoDescription')}
           </p>
         </div>
-        <div className="flex w-[350px] flex-col items-center justify-center xs:px-2 sm:px-0">
+        <div className="flex w-full flex-col items-center justify-center xs:px-2 sm:px-0">
           <img width={300} src={sectionThree} alt="" />
           <p className="text-xl font-bold text-[#122969] dark:text-white">
             {t('UserPage.SectionThreeTitle')}
@@ -218,17 +260,23 @@ const Home: React.FC = () => {
           </Link>
         </div>
       </div>
-      {/*  */}
+      {/* Location */}
       <div className="px-2 xl:px-[100px]">
         <div className="my-5 font-bold">Giá Vé Tàu Hoả</div>
-        <div className="flex flex-row gap-5">
-          <Button>Hà Nội</Button>
-          <Button>Ninh Bình</Button>
-          <Button>Thanh Hoá</Button>
-          <Button>Vinh</Button>
-          <Button>Đà Nẵng</Button>
-          <Button>Huế</Button>
-          <Button>Sài Gòn</Button>
+        <div className="grid grid-cols-2 gap-2 xl:grid-flow-col xl:grid-cols-none xl:grid-rows-1">
+          {FecthLocation.map(item => (
+            <Button
+              key={item._id}
+              className={`flex w-full items-center justify-center transition-all duration-500 ease-in-out ${
+                item.name === activeItem
+                  ? 'bg-primary text-white hover:bg-primary hover:text-white'
+                  : 'bg-white text-primary'
+              }`}
+              onClick={() => setActiveItem(item.name)}
+            >
+              <span>{item.name}</span>
+            </Button>
+          ))}
         </div>
         <div></div>
       </div>
@@ -237,4 +285,3 @@ const Home: React.FC = () => {
 };
 
 export default Home;
-
