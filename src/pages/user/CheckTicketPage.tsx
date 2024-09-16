@@ -2,32 +2,21 @@ import React from 'react';
 import HeaderResponsive from '../../components/UserPage/HeaderResponsive';
 import { Button } from 'react-daisyui';
 import InputForm from '../../components/UserPage/InputForm';
-import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 
 const CheckTicketPage: React.FC = () => {
   const { t } = useTranslation();
   return (
-    <div className="pb-[20px] xl:pt-[90px]">
+    <div className="pb-[20px] xl:pt-[80px]">
+      {/* Mobile */}
       <HeaderResponsive Title_NavbarMobile="Kiểm Tra Vé" />
-      <div className="">
-        {/* Heading */}
+      <div className="w-full">
+        {/*  */}
         <div className="my-4 text-center">
           <h1 className="text-2xl font-bold uppercase text-black dark:text-white">
             {t('UserPage.CheckTicketPage.NotificationTitle')}
           </h1>
         </div>
-
-        {/* Khung */}
-        <div className="mx-2 rounded-lg border border-blue-200 bg-blue-100 p-4 px-2 text-start text-blue-700 dark:bg-gray-700 dark:text-primary xl:px-10">
-          <p className="mb-4 text-lg">
-            {t('UserPage.CheckTicketPage.NotificationOne')}
-          </p>
-          <p className="text-lg">
-            {t('UserPage.CheckTicketPage.NotificationTwo')}
-          </p>
-        </div>
-
         {/* Form */}
         <div className="my-5 flex w-full flex-col items-center justify-center px-2">
           <div className="flex w-full flex-col items-center justify-center rounded-lg border border-primary bg-white p-4 dark:bg-gray-700 md:w-auto">
@@ -84,27 +73,13 @@ const CheckTicketPage: React.FC = () => {
             </Button>
           </div>
         </div>
-        {/* Khung */}
+        {/* Notification */}
         <div className="mx-2 rounded-lg border border-blue-200 bg-blue-100 p-4 px-2 text-start text-blue-700 dark:bg-gray-700 dark:text-primary xl:px-10">
           <p className="mb-4 text-lg">
-            - Chính sách giá vé và quy định đổi trả của
-            <span className="mx-1 font-bold dark:text-gray-100">
-              Công ty LacLacTrip Sài Gòn
-            </span>
-            vui lòng bấm
-            <span className="mx-1">
-              <Link to="">Vào đây</Link>
-            </span>
+            {t('UserPage.CheckTicketPage.NotificationOne')}
           </p>
           <p className="text-lg">
-            - Chính sách giá vé và quy định đổi trả của
-            <span className="mx-1 font-bold dark:text-gray-100">
-              Công ty LacLacTrip Hà Nội
-            </span>
-            vui lòng bấm
-            <span className="mx-1">
-              <Link to="">Vào đây</Link>
-            </span>
+            {t('UserPage.CheckTicketPage.NotificationTwo')}
           </p>
         </div>
       </div>

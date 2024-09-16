@@ -63,7 +63,7 @@ const Home: React.FC = () => {
   ];
   const [value, setValue] = useState('default');
   return (
-    <div>
+    <div className="pb-[20px] xl:pt-[80px]">
       {/* Mobile */}
       <div>
         <HeaderResponsive Title_NavbarMobile="Trang Chủ" />

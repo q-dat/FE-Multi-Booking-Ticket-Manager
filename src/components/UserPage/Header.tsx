@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { Button, Menu } from 'react-daisyui';
-import { FaChevronDown, FaHome, FaPhoneAlt, FaUser } from 'react-icons/fa';
+import { FaChevronDown, FaHome, FaUser } from 'react-icons/fa';
 import { Link, NavLink, useLocation } from 'react-router-dom';
 import { IconType } from 'react-icons/lib';
-import { MdEmail } from 'react-icons/md';
 import { GiReturnArrow } from 'react-icons/gi';
 import { IoTicket } from 'react-icons/io5';
 import DarkMode from '../orther/darkmode/DarkMode';
@@ -69,19 +68,7 @@ const Header: React.FC = () => {
     },
     {
       name: `${t('UserPage.Navbar.Contact')}`,
-      link: '/contact',
-      submenu: [
-        {
-          name: `${t('UserPage.Navbar.Hotline')}`,
-          icon: FaPhoneAlt,
-          link: 'tel:0333133050'
-        },
-        {
-          name: `${t('UserPage.Navbar.Email')}`,
-          icon: MdEmail,
-          link: 'mailto:fpttrain@gmail.com'
-        }
-      ]
+      link: '/contact'
     }
   ];
   useEffect(() => {
@@ -99,7 +86,7 @@ const Header: React.FC = () => {
   return (
     <div>
       {/* Desktop */}
-      <div className="fixed z-[99999] hidden h-[80px] w-full flex-row items-center justify-evenly bg-white bg-opacity-80 py-2 uppercase shadow-md dark:bg-gray-700 dark:bg-opacity-80 xl:flex">
+      <div className="fixed z-[99999] hidden h-[80px] w-full flex-row items-center justify-evenly bg-white py-2 uppercase shadow-md dark:bg-gray-700 xl:flex">
         <Menu className="flex flex-row items-center justify-center">
           <Link to="/">
             <img
@@ -191,3 +178,4 @@ const Header: React.FC = () => {
 };
 
 export default Header;
+

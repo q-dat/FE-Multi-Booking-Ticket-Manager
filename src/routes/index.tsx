@@ -4,7 +4,7 @@ import DefaultLayout from '../layout/DefaultLayout';
 
 // UserPage
 const User = lazy(() => import('../pages/user/User'));
-const Home = lazy(() => import('../pages/user/Home'));
+const HomePage = lazy(() => import('../pages/user/HomePage'));
 const CheckTicketPage = lazy(() => import('../pages/user/CheckTicketPage'));
 const ReturnTicketPage = lazy(() => import('../pages/user/ReturnTicketPage'));
 const ContactPage = lazy(() => import('../pages/user/ContactPage'));
@@ -26,7 +26,7 @@ export default function AppRoutes() {
         {/* User page  */}
         <Route element={<DefaultLayout />}>
           <Route path="/" element={<User />}>
-            <Route index path="" element={<Home />} />
+            <Route index path="" element={<HomePage />} />
             <Route path="check-ticket" element={<CheckTicketPage />} />
             <Route path="return-ticket" element={<ReturnTicketPage />} />
             <Route path="contact" element={<ContactPage />} />
