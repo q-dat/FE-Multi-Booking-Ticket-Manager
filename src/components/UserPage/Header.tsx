@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Button, Kbd, Menu } from 'react-daisyui';
+import { Button, Menu } from 'react-daisyui';
 import { FaChevronDown, FaHome, FaPhoneAlt, FaUser } from 'react-icons/fa';
 import { Link, NavLink, useLocation } from 'react-router-dom';
 import { IconType } from 'react-icons/lib';
@@ -10,7 +10,6 @@ import DarkMode from '../orther/darkmode/DarkMode';
 import { Logo } from '../../assets/images';
 import DropdownLanguage from '../orther/translation/Dropdown-Language ';
 import { useTranslation } from 'react-i18next';
-import { LuCommand } from 'react-icons/lu';
 
 interface MenuItem {
   name: string;
@@ -185,19 +184,6 @@ const Header: React.FC = () => {
           {/* DarkMode Button */}
           <DropdownLanguage />
           <DarkMode />
-        </div>
-      </div>
-      {/* NotificationSearchKey */}
-      <div className="fixed left-1 top-[85px] z-[99999] hidden flex-col items-start justify-center text-black dark:text-white xl:flex">
-        <p>Search...</p>
-        <div className="flex flex-row items-center justify-center gap-1">
-          <Kbd size="sm" className="rounded-md bg-white text-black">
-            <LuCommand />
-          </Kbd>
-          +
-          <Kbd size="sm" className="rounded-md bg-white text-black">
-            F
-          </Kbd>
         </div>
       </div>
     </div>

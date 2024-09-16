@@ -36,13 +36,13 @@ const CheckTicketPage: React.FC = () => {
                 <InputForm
                   type="text"
                   placeholder={`${t('UserPage.CheckTicketPage.SearchTicketCode')}`}
-                  className="border border-gray-300 bg-white dark:bg-gray-700 dark:text-white xs:w-[300px] sm:w-[350px] md:w-[650px] lg:w-[250px]"
+                  className="border border-gray-300 bg-white text-black focus:border-primary dark:bg-gray-700 dark:text-white xs:w-[300px] sm:w-[350px] md:w-[650px] lg:w-[250px]"
                   classNameLabel="bg-white dark:bg-gray-700"
                 />
                 <InputForm
                   type="text"
                   placeholder={`${t('UserPage.CheckTicketPage.SearchTrainCode')}`}
-                  className="border border-gray-300 bg-white dark:bg-gray-700 dark:text-white xs:w-[300px] sm:w-[350px] md:w-[650px] lg:w-[250px]"
+                  className="border border-gray-300 bg-white text-black focus:border-primary dark:bg-gray-700 dark:text-white xs:w-[300px] sm:w-[350px] md:w-[650px] lg:w-[250px]"
                   classNameLabel="bg-white dark:bg-gray-700"
                 />
               </div>
@@ -50,13 +50,13 @@ const CheckTicketPage: React.FC = () => {
                 <InputForm
                   type="text"
                   placeholder={`${t('UserPage.CheckTicketPage.SearchDepartureStation')}`}
-                  className="border border-gray-300 bg-white dark:bg-gray-700 dark:text-white xs:w-[300px] sm:w-[350px] md:w-[650px] lg:w-[250px]"
+                  className="border border-gray-300 bg-white text-black focus:border-primary dark:bg-gray-700 dark:text-white xs:w-[300px] sm:w-[350px] md:w-[650px] lg:w-[250px]"
                   classNameLabel="bg-white dark:bg-gray-700"
                 />
                 <InputForm
                   type="text"
                   placeholder={`${t('UserPage.CheckTicketPage.SearchArrivalStation')}`}
-                  className="border border-gray-300 bg-white dark:bg-gray-700 dark:text-white xs:w-[300px] sm:w-[350px] md:w-[650px] lg:w-[250px]"
+                  className="border border-gray-300 bg-white text-black focus:border-primary dark:bg-gray-700 dark:text-white xs:w-[300px] sm:w-[350px] md:w-[650px] lg:w-[250px]"
                   classNameLabel="bg-white dark:bg-gray-700"
                 />
               </div>
@@ -64,13 +64,13 @@ const CheckTicketPage: React.FC = () => {
                 <InputForm
                   type="text"
                   placeholder={`${t('UserPage.CheckTicketPage.SearchDepartureDate')}`}
-                  className="border border-gray-300 bg-white dark:bg-gray-700 dark:text-white xs:w-[300px] sm:w-[350px] md:w-[650px] lg:w-[250px]"
+                  className="border border-gray-300 bg-white text-black focus:border-primary dark:bg-gray-700 dark:text-white xs:w-[300px] sm:w-[350px] md:w-[650px] lg:w-[250px]"
                   classNameLabel="bg-white dark:bg-gray-700"
                 />
                 <InputForm
                   type="text"
                   placeholder={`${t('UserPage.CheckTicketPage.SearchDocumentNumber')}`}
-                  className="border border-gray-300 bg-white dark:bg-gray-700 dark:text-white xs:w-[300px] sm:w-[350px] md:w-[650px] lg:w-[250px]"
+                  className="border border-gray-300 bg-white text-black focus:border-primary dark:bg-gray-700 dark:text-white xs:w-[300px] sm:w-[350px] md:w-[650px] lg:w-[250px]"
                   classNameLabel="bg-white dark:bg-gray-700"
                 />
               </div>
