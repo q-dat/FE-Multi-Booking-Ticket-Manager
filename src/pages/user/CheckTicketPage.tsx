@@ -11,30 +11,23 @@ const CheckTicketPage: React.FC = () => {
     <div className="pb-[20px] xl:pt-[90px]">
       <HeaderResponsive Title_NavbarMobile="Kiểm Tra Vé" />
       <div className="">
-        {/* Marquee */}
-        <div className="marquee inline-block w-full overflow-hidden whitespace-nowrap pl-[100%] text-black dark:text-white">
-          {t('UserPage.CheckTicketPage.NotificationTitle')}
-        </div>
+
 
         {/* Heading */}
         <div className="my-4 text-center">
           <h1 className="text-2xl font-bold uppercase text-black dark:text-white">
-            Kiểm tra vé
+            {t('UserPage.CheckTicketPage.NotificationTitle')}
           </h1>
         </div>
 
         {/* Khung */}
         <div className="mx-2 rounded-lg border border-blue-200 bg-blue-100 p-4 px-2 text-start text-blue-700 dark:bg-gray-700 dark:text-primary xl:px-10">
           <p className="mb-4 text-lg">
-            Theo quy định của Tổng công ty Đường sắt Việt Nam, hành khách có
-            thông tin giấy tờ tùy thân trùng với thông tin trên vé điện tử mới{' '}
-            <br />
-            đủ điều kiện vào ga lên tàu.
+            {t('UserPage.CheckTicketPage.NotificationOne')}
           </p>
           <p className="text-lg">
-            Để đảm bảo quyền lợi cho hành khách, tránh mua phải vé giả, hoặc vé
-            không đúng với quy định, quý khách có thể kiểm tra lại vé điện tử
-            của mình bằng cách điền đầy đủ các thông tin dưới đây.
+            {t('UserPage.CheckTicketPage.NotificationTwo')}
+
           </p>
         </div>
 
@@ -45,36 +38,36 @@ const CheckTicketPage: React.FC = () => {
               <div className="mb-4 flex flex-col gap-4">
                 <InputForm
                   type="text"
-                  placeholder="Mã vé"
+                  placeholder={`${t('UserPage.CheckTicketPage.SearchTicketCode')}`}
                   className="xs:w-[300px] sm:w-[350px] md:w-[650px] lg:w-[250px]"
                 />
                 <InputForm
                   type="text"
-                  placeholder="Mã tàu"
-                  className="xs:w-[300px] sm:w-[350px] md:w-[650px] lg:w-[250px]"
-                />
-              </div>
-              <div className="mb-4 flex flex-col gap-4">
-                <InputForm
-                  type="text"
-                  placeholder="Ga đi"
-                  className="xs:w-[300px] sm:w-[350px] md:w-[650px] lg:w-[250px]"
-                />
-                <InputForm
-                  type="text"
-                  placeholder="Ga đến"
+                  placeholder={`${t('UserPage.CheckTicketPage.SearchTrainCode')}`}
                   className="xs:w-[300px] sm:w-[350px] md:w-[650px] lg:w-[250px]"
                 />
               </div>
               <div className="mb-4 flex flex-col gap-4">
                 <InputForm
                   type="text"
-                  placeholder="Ngày đi "
+                  placeholder={`${t('UserPage.CheckTicketPage.SearchDepartureStation')}`}
                   className="xs:w-[300px] sm:w-[350px] md:w-[650px] lg:w-[250px]"
                 />
                 <InputForm
                   type="text"
-                  placeholder="Số giấy tờ"
+                  placeholder={`${t('UserPage.CheckTicketPage.SearchArrivalStation')}`}
+                  className="xs:w-[300px] sm:w-[350px] md:w-[650px] lg:w-[250px]"
+                />
+              </div>
+              <div className="mb-4 flex flex-col gap-4">
+                <InputForm
+                  type="text"
+                  placeholder={`${t('UserPage.CheckTicketPage.SearchDepartureDate')}`}
+                  className="xs:w-[300px] sm:w-[350px] md:w-[650px] lg:w-[250px]"
+                />
+                <InputForm
+                  type="text"
+                  placeholder={`${t('UserPage.CheckTicketPage.SearchDocumentNumber')}`}
                   className="xs:w-[300px] sm:w-[350px] md:w-[650px] lg:w-[250px]"
                 />
               </div>
@@ -84,7 +77,7 @@ const CheckTicketPage: React.FC = () => {
               className="w-32 bg-primary text-sm text-white hover:border-primary hover:bg-white hover:text-primary dark:hover:bg-gray-700"
               size="md"
             >
-              KIỂM TRA
+              {t('UserPage.CheckTicketPage.SearchCheck')}
             </Button>
           </div>
         </div>
@@ -93,7 +86,7 @@ const CheckTicketPage: React.FC = () => {
           <p className="mb-4 text-lg">
             - Chính sách giá vé và quy định đổi trả của
             <span className="mx-1 font-bold dark:text-gray-100">
-              Công ty CPVTĐS Sài Gòn
+              Công ty LacLacTrip Sài Gòn
             </span>
             vui lòng bấm
             <span className="mx-1">
@@ -103,7 +96,7 @@ const CheckTicketPage: React.FC = () => {
           <p className="text-lg">
             - Chính sách giá vé và quy định đổi trả của
             <span className="mx-1 font-bold dark:text-gray-100">
-              Công ty CPVTĐS Hà Nội
+              Công ty LacLacTrip Hà Nội
             </span>
             vui lòng bấm
             <span className="mx-1">
