@@ -70,17 +70,22 @@ const Home: React.FC = () => {
       </div>
       {/* Banner */}
       <div className="relative">
-        <div className="absolute bottom-0 left-2 md:bottom-4 xl:left-[20%] xl:top-[40%]">
-          <p className="text-md bg-gradient-to-r from-white to-white bg-clip-text font-bold text-transparent dark:from-[#122969] dark:to-gray-100 md:text-[40px]">
+        <div className="absolute bottom-0 left-2 top-[50%] md:bottom-4 md:top-[30%] xl:left-[20%] xl:top-[40%]">
+          <p className="bg-gradient-to-r from-white to-white bg-clip-text text-[25px] font-bold text-transparent dark:from-[#122969] dark:to-gray-100 md:text-[40px]">
             {t('UserPage.BannerTitle')}
           </p>
-          <p className="text-md bg-gradient-to-r from-white to-white bg-clip-text font-light text-transparent dark:from-[#122969] dark:to-[#122969]">
+          <p className="bg-gradient-to-r from-white to-white bg-clip-text text-[15px] font-light text-transparent dark:from-[#122969] dark:to-[#122969]">
             {t('UserPage.BannerSubtitle')}
           </p>
         </div>
         {/* Banner IMG */}
         <div>
-          <img className="w-full" src={Banner} alt="Banner" />
+          <img src={Banner} className="hidden w-full xl:block" alt="Banner" />
+          <img
+            className="block h-[150px] w-full object-cover xl:hidden"
+            src={Banner}
+            alt="Banner"
+          />
         </div>
       </div>
       {/* Form */}
@@ -285,3 +290,4 @@ const Home: React.FC = () => {
 };
 
 export default Home;
+
