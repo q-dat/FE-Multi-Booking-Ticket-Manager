@@ -2,12 +2,7 @@ import React, { ReactNode, useCallback, useEffect, useState } from 'react';
 import { Button, Drawer, Input, Menu } from 'react-daisyui';
 // Icon
 import { RxHamburgerMenu } from 'react-icons/rx';
-import {
-  IoSearchOutline,
-  IoSettingsSharp,
-  IoTicket,
-  IoTime
-} from 'react-icons/io5';
+import { IoSearchOutline, IoSettingsSharp, IoTicket } from 'react-icons/io5';
 import { Link, NavLink, useLocation } from 'react-router-dom';
 import { FaHome, FaPhoneAlt, FaChevronDown } from 'react-icons/fa';
 import { GiReturnArrow } from 'react-icons/gi';
@@ -79,11 +74,6 @@ const HeaderResponsive: React.FC<HeaderResponsiveProps> = ({
           name: `${t('UserPage.Navbar.CheckTicket')}`,
           icon: IoTicket,
           link: '/check-ticket'
-        },
-        {
-          name: `${t('UserPage.Navbar.TrainTimePrice')}`,
-          icon: IoTime,
-          link: ''
         }
       ]
     },

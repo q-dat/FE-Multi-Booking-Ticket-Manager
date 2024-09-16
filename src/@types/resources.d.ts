@@ -54,7 +54,6 @@ interface Resources {
         "FindTicket": "Find Ticket",
         "ReturnTicket": "Return Ticket",
         "CheckTicket": "Check Ticket",
-        "TrainTimePrice": "Train Time & Price",
         "Contact": "Contact",
         "Hotline": "Hotline: 0333133050",
         "Email": "Email: fpttrain@gmail.com",

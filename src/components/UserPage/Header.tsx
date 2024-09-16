@@ -5,7 +5,7 @@ import { Link, NavLink, useLocation } from 'react-router-dom';
 import { IconType } from 'react-icons/lib';
 import { MdEmail } from 'react-icons/md';
 import { GiReturnArrow } from 'react-icons/gi';
-import { IoTicket, IoTime } from 'react-icons/io5';
+import { IoTicket } from 'react-icons/io5';
 import DarkMode from '../orther/darkmode/DarkMode';
 import { Logo } from '../../assets/images';
 import DropdownLanguage from '../orther/translation/Dropdown-Language ';
@@ -66,11 +66,6 @@ const Header: React.FC = () => {
           icon: IoTicket,
           link: 'check-ticket'
         },
-        {
-          name: `${t('UserPage.Navbar.TrainTimePrice')}`,
-          icon: IoTime,
-          link: ''
-        }
       ]
     },
     {
