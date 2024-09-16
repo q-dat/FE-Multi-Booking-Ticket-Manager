@@ -208,7 +208,7 @@ const Home: React.FC = () => {
           </Link>
         </div>
         {/*  */}
-        <div className="relative overflow-hidden rounded-lg xl:col-span-2 xl:w-[615px]">
+        <div className="relative overflow-hidden rounded-lg xl:col-span-2 xl:w-full">
           <Link to="">
             <img
               className="h-[200px] w-full cursor-pointer object-cover transition-transform duration-1000 ease-in-out hover:scale-125"
@@ -221,7 +221,7 @@ const Home: React.FC = () => {
           </Link>
         </div>
         {/*  */}
-        <div className="relative overflow-hidden rounded-lg xl:col-span-2 xl:w-[615px]">
+        <div className="relative overflow-hidden rounded-lg xl:col-span-2 xl:w-full">
           <Link to="">
             <img
               className="h-[200px] w-full cursor-pointer object-cover transition-transform duration-1000 ease-in-out hover:scale-125"
