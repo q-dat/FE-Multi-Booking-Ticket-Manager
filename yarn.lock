@@ -879,7 +879,6 @@ daisyui@^4.12.10:
     axios "^1.7.3"
     boring-avatars "^1.10.2"
     daisyui "^4.12.10"
-    datn "file:C:/Users/datng/AppData/Local/Yarn/Cache/v6/npm-datn-0.0.0-03eb14b1-5ee3-4578-b6a3-c896f6d060e5-1726309658264/node_modules/datn"
     eslint-config-prettier "^9.1.0"
     eslint-plugin-prettier "^5.2.1"
     i18n "^0.15.1"
