@@ -39,37 +39,31 @@ const CheckTicketPage: React.FC = () => {
                 <InputForm
                   type="text"
                   placeholder={`${t('UserPage.CheckTicketPage.SearchTicketCode')}`}
-                  className="xs:w-[300px] sm:w-[350px] md:w-[650px] lg:w-[250px]"
-                />
+                  className="xs:w-[300px] sm:w-[350px] md:w-[650px] lg:w-[250px]" classNameLabel={''}                />
                 <InputForm
                   type="text"
                   placeholder={`${t('UserPage.CheckTicketPage.SearchTrainCode')}`}
-                  className="xs:w-[300px] sm:w-[350px] md:w-[650px] lg:w-[250px]"
-                />
+                  className="xs:w-[300px] sm:w-[350px] md:w-[650px] lg:w-[250px]" classNameLabel={''}                />
               </div>
               <div className="mb-4 flex flex-col gap-4">
                 <InputForm
                   type="text"
                   placeholder={`${t('UserPage.CheckTicketPage.SearchDepartureStation')}`}
-                  className="xs:w-[300px] sm:w-[350px] md:w-[650px] lg:w-[250px]"
-                />
+                  className="xs:w-[300px] sm:w-[350px] md:w-[650px] lg:w-[250px]" classNameLabel={''}                />
                 <InputForm
                   type="text"
                   placeholder={`${t('UserPage.CheckTicketPage.SearchArrivalStation')}`}
-                  className="xs:w-[300px] sm:w-[350px] md:w-[650px] lg:w-[250px]"
-                />
+                  className="xs:w-[300px] sm:w-[350px] md:w-[650px] lg:w-[250px]" classNameLabel={''}                />
               </div>
               <div className="mb-4 flex flex-col gap-4">
                 <InputForm
                   type="text"
                   placeholder={`${t('UserPage.CheckTicketPage.SearchDepartureDate')}`}
-                  className="xs:w-[300px] sm:w-[350px] md:w-[650px] lg:w-[250px]"
-                />
+                  className="xs:w-[300px] sm:w-[350px] md:w-[650px] lg:w-[250px]" classNameLabel={''}                />
                 <InputForm
                   type="text"
                   placeholder={`${t('UserPage.CheckTicketPage.SearchDocumentNumber')}`}
-                  className="xs:w-[300px] sm:w-[350px] md:w-[650px] lg:w-[250px]"
-                />
+                  className="xs:w-[300px] sm:w-[350px] md:w-[650px] lg:w-[250px]" classNameLabel={''}                />
               </div>
             </div>
 
