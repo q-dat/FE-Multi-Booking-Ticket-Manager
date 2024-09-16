@@ -86,7 +86,17 @@ interface Resources {
         "SearchDocumentNumber": "Document Number",
         "SearchCheck": "CHECK"
       },
-      "ReturnTicketPage": {}
+      "ReturnTicketPage": {
+        "title": "Return Ticket",
+        "notification1": "Ticket returns only apply to customers who have paid online (via payment gateway, e-wallet, banking app) and provided an email when purchasing the ticket.",
+        "notification2": "If you paid in cash, via postpaid banking app or ATM, by bank transfer, or in case of ticket cancellation due to issues, please proceed with the return procedure at the ticket counters.",
+        "titlefrom": "To display the ticket to be returned, please enter the following 3 accurate details:",
+        "forminput1": "Booking Code",
+        "forminput2": "Email",
+        "forminput3": "Phone",
+        "buttonform": "Lookup",
+        "linkform": "Forgot booking code?"
+      }
     },
     "NotificationPopup": {
       "CustomerService": "Customer Service",
