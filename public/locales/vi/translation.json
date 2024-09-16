@@ -77,7 +77,18 @@
     "CheckTicketPage": {
       "NotificationTitle": "Do diễn biến phức tạp của mưa lũ, kể từ ngày 12/9 giảm tần suất chạy tàu trên tuyến Hà Nội - Hải Phòng."
     },
-    "ReturnTicketPage": {}
+    "ReturnTicketPage": {
+      "title":"Trả Vé",
+      "NotificationTitle": "Trả vé chỉ áp dụng với trường hợp khách hàng đã thanh toán trực tuyến (qua cổng thanh toán, ví điện tử, app ngân hàng) và có điền mail khi mua vé.",
+      "NotificationTitle2": "  Nếu quý khách thanh toán bằng tiền mặt, trả sau qua ứng dụng ngân hàng và atm, chuyển khoản hoặc trả vé khi có sự cố bãi bỏ vé vui lòng thực hiện thủ tục tại các quầy bán vé.",
+      "titlefrom":"Để hiển thị vé cần trả, vui lòng điền 3 thông tin chính xác dưới đây:",
+      "forminput1":"Mã Đặt Chỗ",
+      "forminput2":"Email",
+      "forminput3":"Điện Thoại",
+      "buttonform":"Tra Cứu",
+      "linkform":"Quên mã đặt chỗ?"
+
+    }
   },
   "NotificationPopup": {
     "CustomerService": "Tư Vấn Khách Hàng",
