@@ -30,7 +30,7 @@ const FooterFC: React.FC<{}> = () => {
         <Link className="hover:text-primary" to={""}>Điạ điểm du lịch</Link>
       </div>
       <div>
-        <Footer.Title>Phương Thanh Toán</Footer.Title>
+        <Footer.Title>Phương Thức Thanh Toán</Footer.Title>
         <div className="flex gap-2">
           <Link className="hover:text-primary text-[40px]" to={""}><FaCcVisa /></Link>
           <Link className="hover:text-primary text-[40px]" to={""}><FaCcApplePay /></Link>
