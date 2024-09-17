@@ -1,11 +1,5 @@
 
-# Quản lý đặt vé tàu (Train Ticket Booking Managerment)
-
-Build frontend webb with react typescript, try hard
-
-
-
-![App Screenshot]()
+# Building LacLacTrip Multimedia Ticket Booking Website (Train Ticket Booking Managerment)
 
 
 ## Demo
