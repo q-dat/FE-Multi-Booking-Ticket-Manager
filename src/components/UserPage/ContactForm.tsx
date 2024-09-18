@@ -1,6 +1,6 @@
-import React, { useEffect, useRef, useState } from "react";
-import { useTranslation } from "react-i18next";
-import { Link } from "react-router-dom";
+import React, { useEffect, useRef, useState } from 'react';
+import { useTranslation } from 'react-i18next';
+import { Link } from 'react-router-dom';
 
 const ContactForm: React.FC = () => {
   // Translation
@@ -17,30 +17,30 @@ const ContactForm: React.FC = () => {
     if (dropdownContentRef.current) {
       dropdownContentRef.current.style.maxHeight = isExpanded
         ? `${dropdownContentRef.current.scrollHeight}px`
-        : "0";
+        : '0';
     }
   }, [isExpanded]);
 
   return (
     <div className="fixed bottom-0 left-0 z-[99999]">
       <button
-        className="mb-5 text-white bg-primary text-xs rounded-md ml-1 p-2 flex items-center  shadow-mainMenu"
+        className="mb-5 ml-1 flex items-center rounded-md border border-white bg-primary p-2 text-xs text-white shadow-mainMenu"
         onClick={toggleDropdown}
       >
         {isExpanded
-          ? `${t("UserPage.Collapse")} ▼`
-          : `${t("UserPage.Contact")} ▲`}
+          ? `${t('UserPage.Collapse')} ▼`
+          : `${t('UserPage.Contact')} ▲`}
       </button>
       <div
         ref={dropdownContentRef}
-        className="dropdown-content transition-[max-height] duration-300 ease-out overflow-hidden "
+        className="dropdown-content overflow-hidden transition-[max-height] duration-300 ease-out"
         style={{
           maxHeight: isExpanded
             ? `${dropdownContentRef.current?.scrollHeight}px`
-            : "0",
+            : '0'
         }}
       >
-        <div className="block ml-5 mb-1">
+        <div className="mb-1 ml-5 block">
           <Link target="_blank" to="https://zalo.me/0333133050">
             <img
               src="https://mamnonanan.edu.vn/wp-content/uploads/2024/08/Icon_of_Zalo.webp"
@@ -51,7 +51,7 @@ const ContactForm: React.FC = () => {
             />
           </Link>
         </div>
-        <div className="block ml-5 mb-1">
+        <div className="mb-1 ml-5 block">
           <Link
             target="_blank"
             to="https://www.messenger.com/t/quocdatstore.vn"
@@ -67,12 +67,12 @@ const ContactForm: React.FC = () => {
           </Link>
         </div>
         <Link
-          className="ml-5 mb-5 relative inline-block"
+          className="relative mb-5 ml-5 inline-block"
           target="_blank"
           to="tel:0333133050"
           rel="noopener noreferrer"
         >
-          <span className=" animation-zoomBorder" />
+          <span className="animation-zoomBorder" />
           <img
             src="https://mamnonanan.edu.vn/wp-content/uploads/2024/08/icon-phone.png"
             alt="#"
@@ -87,3 +87,4 @@ const ContactForm: React.FC = () => {
 };
 
 export default ContactForm;
+
