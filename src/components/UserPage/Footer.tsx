@@ -4,7 +4,10 @@ import { FaCcVisa } from 'react-icons/fa6';
 import { FaCcApplePay } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 import { LogoTitle } from '../../assets/images';
-const FooterFC: React.FC<{}> = () => {
+import { useTranslation } from 'react-i18next';
+const FooterFC: React.FC = () => {
+  // Translation
+  const { t } = useTranslation();
   return (
     <div>
       <Footer className="item-center grid grid-cols-2 justify-between bg-primary p-10 px-2 text-white md:grid-cols-5 xl:px-[100px]">
@@ -12,39 +15,33 @@ const FooterFC: React.FC<{}> = () => {
           <img width={140} loading="lazy" src={LogoTitle} alt="LOGO" />
         </div>
         <div>
-          <Footer.Title>Dịch Vụ</Footer.Title>
+          <Footer.Title>{t('UserPage.Footer.Services')}</Footer.Title>
           <Link className="hover:text-secondary" to={''}>
-            Đặt vé
+            {t('UserPage.Footer.BookTickets')}
           </Link>
           <Link className="hover:text-secondary" to={''}>
-            Trả vé
+            {t('UserPage.Footer.ReturnTicket')}
           </Link>
           <Link className="hover:text-secondary" to={''}>
-            Kiểm tra vé
-          </Link>
-          <Link className="hover:text-secondary" to={''}>
-            Tư vấn khách hàng
+            {t('UserPage.Footer.CheckTicket')}
           </Link>
         </div>
         <div>
-          <Footer.Title>Về Chúng Tôi</Footer.Title>
+          <Footer.Title> {t('UserPage.Footer.AboutUs')}</Footer.Title>
           <Link className="hover:text-secondary" to={''}>
-            Giới thiệu
+            {t('UserPage.Footer.About')}{' '}
           </Link>
           <Link className="hover:text-secondary" to={''}>
-            Thông tin đặt vé
-          </Link>
-          <Link className="hover:text-secondary" to={''}>
-            Điạ điểm du lịch
+            {t('UserPage.Footer.BookingInfo')}
           </Link>
         </div>
         <div>
-          <Footer.Title>Liên Hệ</Footer.Title>
+          <Footer.Title>{t('UserPage.Footer.Contact')}</Footer.Title>
           <Link className="hover:text-secondary" to="tel:">
-            Hà Nội: 0123456789
+            {t('UserPage.Location.HaNoi')}: 0123456789
           </Link>
           <Link className="hover:text-secondary" to="tel:">
-            Sài Gòn: 0987654321
+            {t('UserPage.Location.SaiGon')}: 0987654321
           </Link>
           <Link className="hover:text-secondary" to="tel:0333133050">
             HotLine: 0333133050
@@ -57,7 +54,7 @@ const FooterFC: React.FC<{}> = () => {
           </Link>
         </div>
         <div>
-          <Footer.Title>Phương Thanh Toán</Footer.Title>
+          <Footer.Title>Phương Thức Thanh Toán</Footer.Title>
           <div className="flex gap-2">
             <Link className="text-[40px] hover:text-secondary" to={''}>
               <FaCcVisa />

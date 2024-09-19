@@ -52,13 +52,22 @@ interface Resources {
         "Trains": "Trains",
         "Buses": "Buses",
         "Flights": "Flights",
-        "BookingInfo": "Booking Information",
-        "FindTicket": "Find Ticket",
+        "BookingInfo": "Reservation information",
         "ReturnTicket": "Return Ticket",
         "CheckTicket": "Check Ticket",
         "Contact": "Contact",
         "Theme": "Theme",
         "Translate": "Translate"
+      },
+      "Footer": {
+        "Services": "Services",
+        "BookTickets": "Book Tickets",
+        "ReturnTicket": "Return Ticket",
+        "CheckTicket": "Check Ticket",
+        "AboutUs": "About Us",
+        "About": "About",
+        "BookingInfo": "Reservation information",
+        "Contact": "Contact"
       },
       "BannerTitle": "Book Train Tickets Online",
       "BannerSubtitle": "The Best Choice for Your Journey",
@@ -92,7 +101,8 @@ interface Resources {
         "ThanhHoa": "Thanh Hoa",
         "Vinh": "Vinh",
         "DaNang": "Đa Nang",
-        "Hue": "Hue"
+        "Hue": "Hue",
+        "SaiGon": "Sai Gon"
       },
       "ReturnTicketPage": {
         "title": "Return Ticket",

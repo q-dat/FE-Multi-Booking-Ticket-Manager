@@ -49,15 +49,24 @@
     "Navbar": {
       "Home": "Trang Chủ",
       "Trains": "Tàu Hoả",
-      "Buses": "Xe Buýt",
+      "Buses": "Xe Khách",
       "Flights": "Chuyến Bay",
-      "BookingInfo": "Thông tin đặt chỗ",
-      "FindTicket": "Tìm Vé",
+      "BookingInfo": "Thông tin đặt vé",
       "ReturnTicket": "Trả vé",
       "CheckTicket": "Kiểm tra vé",
       "Contact": "Liên hệ",
       "Theme": "Giao diện",
       "Translate": "Ngôn ngữ"
+    },
+    "Footer": {
+      "Services": "Dịch Vụ",
+      "BookTickets": "Đặt Vé",
+      "ReturnTicket": "Trả vé",
+      "CheckTicket": "Kiểm tra vé",
+      "AboutUs": "Về Chúng Tôi",
+      "About": "Giới Thiệu",
+      "BookingInfo": "Thông Tin Đặt Vé",
+      "Contact":"Liên hệ"
     },
     "BannerTitle": "Đặt Vé Tàu Hoả Online",
     "BannerSubtitle": "Sự Lựa Chọn Tốt Nhất Cho Hành Trình Của Bạn",
@@ -91,7 +100,8 @@
       "ThanhHoa": "Thanh Hoá",
       "Vinh": "Vinh",
       "DaNang": "Đà Nẵng",
-      "Hue": "Huế"
+      "Hue": "Huế",
+      "SaiGon": "Sài Gòn"
     },
     "ReturnTicketPage": {
       "title": "Trả Vé",
