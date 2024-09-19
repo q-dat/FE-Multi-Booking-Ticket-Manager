@@ -249,7 +249,8 @@ const Home: React.FC<Card> = () => {
               alt="HaNoi"
             />
             <span className="absolute right-2 top-2 flex items-center justify-center gap-1 rounded-md bg-white px-4 py-1 font-semibold text-primary">
-              <IoLocationOutline className="text-xl text-[#f7aaab]" /> Hà Nội
+              <IoLocationOutline className="text-xl text-[#f7aaab]" />
+              {t('UserPage.Location.HaNoi')}
             </span>
           </Link>
         </div>
@@ -262,7 +263,8 @@ const Home: React.FC<Card> = () => {
               alt="NinhBinh"
             />
             <span className="absolute right-2 top-2 flex items-center justify-center gap-1 rounded-md bg-white px-4 py-1 font-semibold text-primary">
-              <IoLocationOutline className="text-xl text-[#f7aaab]" /> Ninh Bình
+              <IoLocationOutline className="text-xl text-[#f7aaab]" />
+              {t('UserPage.Location.NinhBinh')}
             </span>
           </Link>
         </div>
@@ -275,7 +277,8 @@ const Home: React.FC<Card> = () => {
               alt="ThanhHoa"
             />
             <span className="absolute right-2 top-2 flex items-center justify-center gap-1 rounded-md bg-white px-4 py-1 font-semibold text-primary">
-              <IoLocationOutline className="text-xl text-[#f7aaab]" /> Thanh Hoá
+              <IoLocationOutline className="text-xl text-[#f7aaab]" />
+              {t('UserPage.Location.ThanhHoa')}
             </span>
           </Link>
         </div>
@@ -288,7 +291,8 @@ const Home: React.FC<Card> = () => {
               alt="Vinh"
             />
             <span className="absolute right-2 top-2 flex items-center justify-center gap-1 rounded-md bg-white px-4 py-1 font-semibold text-primary">
-              <IoLocationOutline className="text-xl text-[#f7aaab]" /> Vinh
+              <IoLocationOutline className="text-xl text-[#f7aaab]" />
+              {t('UserPage.Location.Vinh')}
             </span>
           </Link>
         </div>
@@ -301,7 +305,8 @@ const Home: React.FC<Card> = () => {
               alt="DaNang"
             />
             <span className="absolute right-2 top-2 flex items-center justify-center gap-1 rounded-md bg-white px-4 py-1 font-semibold text-primary">
-              <IoLocationOutline className="text-xl text-[#f7aaab]" /> Đà Nẵng
+              <IoLocationOutline className="text-xl text-[#f7aaab]" />
+              {t('UserPage.Location.DaNang')}
             </span>
           </Link>
         </div>
@@ -314,7 +319,8 @@ const Home: React.FC<Card> = () => {
               alt="Hue"
             />
             <span className="absolute right-2 top-2 flex items-center justify-center gap-1 rounded-md bg-white px-4 py-1 font-semibold text-primary">
-              <IoLocationOutline className="text-xl text-[#f7aaab]" /> Huế
+              <IoLocationOutline className="text-xl text-[#f7aaab]" />
+              {t('UserPage.Location.Hue')}
             </span>
           </Link>
         </div>
@@ -322,7 +328,7 @@ const Home: React.FC<Card> = () => {
       {/* Location */}
       <div className="px-2 xl:px-[100px]">
         <div className="my-5 font-bold text-primary dark:text-white">
-          Giá Vé Tàu Hoả
+          {t('UserPage.TicketPrice')}
         </div>
         <div className="grid grid-cols-2 gap-2 xl:grid-flow-col xl:grid-cols-none xl:grid-rows-1">
           {FecthLocation.map(item => (
@@ -365,10 +371,10 @@ const Home: React.FC<Card> = () => {
                     {card.description}
                   </p>
                   <Button
-                    className="w-full bg-primary font-light text-white hover:bg-secondary"
+                    className="w-full bg-primary font-light text-white hover:border-primary hover:bg-white hover:font-bold hover:text-primary"
                     aria-label={`View details for ${card.title}`}
                   >
-                    View Details
+                    {t('UserPage.Details')}
                   </Button>
                 </div>
               </div>

@@ -8,10 +8,10 @@ import { FaHome, FaPhoneAlt, FaChevronDown } from 'react-icons/fa';
 import { GiReturnArrow } from 'react-icons/gi';
 import { MdEmail } from 'react-icons/md';
 import { IconType } from 'react-icons/lib';
-import { Logo } from '../../assets/images';
 import DarkMode from '../orther/darkmode/DarkMode';
 import DropdownLanguage from '../orther/translation/Dropdown-Language ';
 import { useTranslation } from 'react-i18next';
+import { Logo, LogoTitle } from '../../assets/images';
 
 interface HeaderResponsiveProps {
   Title_NavbarMobile: ReactNode;
@@ -82,14 +82,14 @@ const HeaderResponsive: React.FC<HeaderResponsiveProps> = ({
       link: '',
       submenu: [
         {
-          name: `${t('UserPage.Navbar.Hotline')}`,
+          name: "Hotline: 0333133050",
           icon: FaPhoneAlt,
           link: 'tel:0333133050'
         },
         {
-          name: `${t('UserPage.Navbar.Email')}`,
+          name:"laclactrip@gmail.com",
           icon: MdEmail,
-          link: 'mailto:fpttrain@gmail.com'
+          link: 'mailto:laclactrip@gmail.com'
         }
       ]
     }
@@ -123,7 +123,14 @@ const HeaderResponsive: React.FC<HeaderResponsiveProps> = ({
                 {/* LOGO */}
                 <div className="flex items-center justify-center">
                   <img
-                    className="object-cover"
+                    className="hidden object-cover dark:block"
+                    width={120}
+                    loading="lazy"
+                    src={LogoTitle}
+                    alt="LOGO"
+                  />
+                  <img
+                    className="block object-cover dark:hidden"
                     width={120}
                     loading="lazy"
                     src={Logo}
@@ -219,7 +226,14 @@ const HeaderResponsive: React.FC<HeaderResponsiveProps> = ({
                 {/* LOGO */}
                 <div className="flex items-center justify-center">
                   <img
-                    className="object-cover"
+                    className="hidden object-cover dark:block"
+                    width={120}
+                    loading="lazy"
+                    src={LogoTitle}
+                    alt="LOGO"
+                  />
+                  <img
+                    className="block object-cover dark:hidden"
                     width={120}
                     loading="lazy"
                     src={Logo}

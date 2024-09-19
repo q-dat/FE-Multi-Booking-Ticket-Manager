@@ -134,8 +134,8 @@ const SignUpPage: React.FC = () => {
                     <option hidden defaultValue={1} value="">
                       {t('Auth.Placeholder.sex')}
                     </option>
-                    <option value="male">{t('Auth.Gender.Male')}</option>
-                    <option value="female">{t('Auth.Gender.Female')}</option>
+                    <option value="male">Nam</option>
+                    <option value="female">Nữ</option>
                   </Select>
                 </div>
 

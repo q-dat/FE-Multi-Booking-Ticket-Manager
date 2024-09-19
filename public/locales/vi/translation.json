@@ -44,6 +44,8 @@
     "Collapse": "Thu Gọn",
     "Contact": "Liên hệ",
     "ContactConsulting": "Liên Hệ Tư Vấn",
+    "Details": "Xem Chi Tiết",
+    "TicketPrice": "Giá Vé",
     "Navbar": {
       "Home": "Trang Chủ",
       "Trains": "Tàu Hoả",
@@ -54,8 +56,6 @@
       "ReturnTicket": "Trả vé",
       "CheckTicket": "Kiểm tra vé",
       "Contact": "Liên hệ",
-      "Hotline": "Hotline: 0333133050",
-      "Email": "Email: fpttrain@gmail.com",
       "Theme": "Giao diện",
       "Translate": "Ngôn ngữ"
     },
@@ -83,7 +83,15 @@
       "SearchArrivalStation": "Ga đến",
       "SearchDepartureDate": "Ngày đi",
       "SearchDocumentNumber": "Số giấy tờ",
-      "SearchCheck": "KIỂM TRA"
+      "SearchCheck": "Kiểm Tra"
+    },
+    "Location": {
+      "HaNoi": "Hà Nội",
+      "NinhBinh": "Ninh Bình",
+      "ThanhHoa": "Thanh Hoá",
+      "Vinh": "Vinh",
+      "DaNang": "Đà Nẵng",
+      "Hue": "Huế"
     },
     "ReturnTicketPage": {
       "title": "Trả Vé",

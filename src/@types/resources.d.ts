@@ -45,6 +45,8 @@ interface Resources {
       "Collapse": "Collapse",
       "Contact": "Contact",
       "ContactConsulting": "Contact Consulting",
+      "Details": "Details",
+      "TicketPrice": "Ticket Price",
       "Navbar": {
         "Home": "Home",
         "Trains": "Trains",
@@ -55,8 +57,6 @@ interface Resources {
         "ReturnTicket": "Return Ticket",
         "CheckTicket": "Check Ticket",
         "Contact": "Contact",
-        "Hotline": "Hotline: 0333133050",
-        "Email": "Email: fpttrain@gmail.com",
         "Theme": "Theme",
         "Translate": "Translate"
       },
@@ -84,7 +84,15 @@ interface Resources {
         "SearchArrivalStation": "Arrival Station",
         "SearchDepartureDate": "Departure Date",
         "SearchDocumentNumber": "Document Number",
-        "SearchCheck": "CHECK"
+        "SearchCheck": "Check"
+      },
+      "Location": {
+        "HaNoi": "Ha Noi",
+        "NinhBinh": "Ninh Binh",
+        "ThanhHoa": "Thanh Hoa",
+        "Vinh": "Vinh",
+        "DaNang": "Đa Nang",
+        "Hue": "Hue"
       },
       "ReturnTicketPage": {
         "title": "Return Ticket",
