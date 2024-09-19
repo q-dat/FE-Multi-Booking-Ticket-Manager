@@ -8,10 +8,10 @@ const ContactPage: React.FC = () => {
         <div className="xl:pt-[80px]">
             <HeaderResponsive Title_NavbarMobile="Liên Hệ" />
             <div className="my-4 text-center">
-                <p className="w-full text-[40px] font-bold uppercase text-primary">
+                <p className="w-full text-[40px] font-bold uppercase text-primary dark:text-white">
                     Liên hệ với chúng tôi
                 </p>
-                <p className="font-semibold text-primary">
+                <p className="font-semibold text-primary dark:text-white">
                     Với bất kì câu hỏi nào? Hãy để lại tin nhắn để được giải đáp thắc mắc.
                 </p>
             </div>

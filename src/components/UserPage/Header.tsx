@@ -86,7 +86,7 @@ const Header: React.FC = () => {
   return (
     <div>
       {/* Desktop */}
-      <div className="fixed z-[99999] hidden h-[80px] w-full flex-row items-center justify-evenly bg-white py-2 uppercase shadow-md dark:bg-gray-700 xl:flex">
+      <div className="fixed z-[99999] hidden h-[80px] w-full flex-row items-center justify-evenly bg-white py-2 uppercase shadow-md dark:bg-secondary xl:flex">
         <Menu className="flex flex-row items-center justify-center">
           <Link to="/">
             <img
