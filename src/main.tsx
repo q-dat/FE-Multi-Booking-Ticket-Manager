@@ -9,6 +9,7 @@ import ErrorBoundary from './components/orther/error/ErrorBoundary.tsx';
 import LoadingPage from './pages/LoadingPage/LoadingPage.tsx';
 import { PersistGate } from 'redux-persist/integration/react';
 import { persistor } from './redux/storage/store.ts';
+import { AuthProvider } from './context/AuthContext.tsx';
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
@@ -16,8 +17,10 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
       <BrowserRouter>
         <Suspense fallback={<LoadingPage loading={true} />}>
           <ErrorBoundary>
-            <ToastContainer />
-            <App />
+            <AuthProvider> {/* Bao bọc toàn bộ App với AuthProvider */}
+              <ToastContainer />
+              <App />
+            </AuthProvider>
           </ErrorBoundary>
         </Suspense>
       </BrowserRouter>
