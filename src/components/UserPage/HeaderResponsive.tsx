@@ -82,12 +82,12 @@ const HeaderResponsive: React.FC<HeaderResponsiveProps> = ({
       link: '',
       submenu: [
         {
-          name: "Hotline: 0333133050",
+          name: 'Hotline: 0333133050',
           icon: FaPhoneAlt,
           link: 'tel:0333133050'
         },
         {
-          name:"laclactrip@gmail.com",
+          name: 'laclactrip@gmail.com',
           icon: MdEmail,
           link: 'mailto:laclactrip@gmail.com'
         }
@@ -189,7 +189,7 @@ const HeaderResponsive: React.FC<HeaderResponsiveProps> = ({
                             >
                               <Button
                                 size="sm"
-                                className="flex w-full flex-row items-center justify-start rounded-sm border-none bg-primary text-sm uppercase text-white shadow-headerMenu dark:text-black"
+                                className="flex w-full flex-row items-center justify-start rounded-sm border-none bg-primary text-sm uppercase text-white shadow-headerMenu"
                               >
                                 {subItem.icon && <subItem.icon />}
                                 {subItem.name}

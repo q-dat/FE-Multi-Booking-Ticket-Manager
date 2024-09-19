@@ -146,7 +146,7 @@ const Header: React.FC = () => {
                       >
                         <Button
                           size="sm"
-                          className="flex w-full flex-row items-center justify-start rounded-sm border-none bg-primary text-sm text-white shadow-headerMenu hover:h-[50px] hover:bg-primary hover:bg-opacity-50 hover:text-black dark:text-black dark:hover:bg-opacity-70 dark:hover:text-white"
+                          className="flex w-full flex-row items-center justify-start rounded-sm border-none bg-primary text-sm text-white shadow-headerMenu hover:h-[50px] hover:bg-primary hover:bg-opacity-50 dark:hover:bg-opacity-70"
                         >
                           {subItem.icon && <subItem.icon />}
                           {subItem.name}

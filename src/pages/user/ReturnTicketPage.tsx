@@ -66,7 +66,7 @@ const ReturnTicketPage: React.FC = () => {
           </div>
         </form>
         {/* Notification */}
-        <div className="mx-2 rounded-lg border border-blue-200 bg-blue-100 p-4 px-2 text-start text-blue-700 dark:bg-gray-700 dark:text-primary xl:px-10">
+        <div className="mx-2 rounded-lg border border-blue-200 bg-blue-100 p-4 px-2 text-start text-blue-700 dark:bg-gray-700 dark:text-white xl:px-10">
           <p className="ml-8 p-2 text-lg">
             {t('UserPage.ReturnTicketPage.notification1')}
           </p>
