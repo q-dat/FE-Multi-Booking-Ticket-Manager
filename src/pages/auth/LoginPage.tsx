@@ -1,18 +1,40 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Button, Input } from 'react-daisyui';
-import { Link, NavLink } from 'react-router-dom';
+import { Link, NavLink, useNavigate } from 'react-router-dom';
 
 import { useTranslation } from 'react-i18next';
+import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import LabelForm from '../../components/auth/LabelForm';
 import ServiceForm from '../../components/auth/ServiceForm';
 import { Logo } from '../../assets/images';
 import HeaderAuth from '../../components/auth/HeaderAuth';
 import { BannerLogin } from '../../assets/image-represent';
+import { useAuth } from '../../context/AuthContext';
 
 const LoginPage: React.FC<{}> = () => {
-  // Translation
   const { t } = useTranslation();
+  const navigate = useNavigate();
+  const { login, user } = useAuth();
+
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+
+  const handleLogin = async (e: React.FormEvent) => {
+    e.preventDefault();
+
+    try {
+      await login(username, password);
+      toast.success('Đăng nhập thành công');
+      if (user?.role === 'user') {
+        navigate('/');
+      } else {
+        navigate('/dashboard');
+      }
+    } catch (error) {
+      toast.error('Đăng nhập thất bại. Vui lòng kiểm tra lại thông tin.');
+    }
+  };
 
   return (
     <div className="xl:flex xl:flex-row xl:items-center xl:justify-center">
@@ -26,7 +48,7 @@ const LoginPage: React.FC<{}> = () => {
           <img className="w-[180px] xl:hidden xl:w-[120px]" src={Logo} alt="" />
         </div>
         <div className="mt-10">
-          <form>
+          <form onSubmit={handleLogin}>
             <div className="flex w-full flex-col space-y-4">
               <div className="flex w-full flex-col gap-1">
                 <LabelForm title={t('Auth.LabelForm.username')} />
@@ -35,6 +57,8 @@ const LoginPage: React.FC<{}> = () => {
                   placeholder={t('Auth.Placeholder.username')}
                   type="text"
                   name="username"
+                  value={username}
+                  onChange={(e) => setUsername(e.target.value)}
                 />
               </div>
               <div className="flex w-full flex-col gap-1">
@@ -44,6 +68,8 @@ const LoginPage: React.FC<{}> = () => {
                   placeholder={t('Auth.Placeholder.password')}
                   type="password"
                   name="password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
                 />
               </div>
 
