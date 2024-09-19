@@ -5,7 +5,6 @@ import { RxHamburgerMenu } from 'react-icons/rx';
 import {
   IoSettingsSharp,
   IoTicket,
-  IoTime
 } from 'react-icons/io5';
 import { Link, NavLink, useLocation } from 'react-router-dom';
 import { FaHome, FaPhoneAlt, FaChevronDown } from 'react-icons/fa';
@@ -48,54 +47,53 @@ const HeaderAuth: React.FC<HeaderResponsiveProps> = ({
   const location = useLocation();
   const menuItems: MenuItem[] = [
     {
-      name: `${t('LandingPage.Navbar.Home')}`,
+      name: `${t('UserPage.Navbar.Home')}`,
       icon: FaHome,
       link: '/'
     },
     {
-      name: `${t('LandingPage.Navbar.Trains')}`,
-      link: '/'
+      name: `${t('UserPage.Navbar.Trains')}`,
+      link: ''
     },
     {
-      name: `${t('LandingPage.Navbar.Buses')}`,
-      link: '/'
+      name: `${t('UserPage.Navbar.Buses')}`,
+      link: ''
     },
     {
-      name: `${t('LandingPage.Navbar.Flights')}`,
-      link: '/'
+      name: `${t('UserPage.Navbar.Flights')}`,
+      link: ''
     },
 
     {
-      name: `${t('LandingPage.Navbar.BookingInfo')}`,
-      link: '/',
+      name: `${t('UserPage.Navbar.BookingInfo')}`,
+      link: '',
       submenu: [
         {
-          name: `${t('LandingPage.Navbar.ReturnTicket')}`,
+          name: `${t('UserPage.Navbar.ReturnTicket')}`,
           icon: GiReturnArrow,
-          link: '/'
+          link: '/return-ticket'
         },
         {
-          name: `${t('LandingPage.Navbar.CheckTicket')}`,
+          name: `${t('UserPage.Navbar.CheckTicket')}`,
           icon: IoTicket,
-          link: '/'
-        },
-        {
-          name: `${t('LandingPage.Navbar.TrainTimePrice')}`,
-          icon: IoTime,
-          link: '/'
+          link: '/check-ticket'
         }
       ]
     },
     {
-      name: `${t('LandingPage.Navbar.Contact')}`,
-      link: '/',
+      name: `${t('UserPage.Navbar.Contact')}`,
+      link: '',
       submenu: [
         {
-          name: `${t('LandingPage.Navbar.Hotline')}`,
+          name: 'Hotline: 0333133050',
           icon: FaPhoneAlt,
-          link: '/#'
+          link: 'tel:0333133050'
         },
-        { name: `${t('LandingPage.Navbar.Email')}`, icon: MdEmail, link: '/#' }
+        {
+          name: 'laclactrip@gmail.com',
+          icon: MdEmail,
+          link: 'mailto:laclactrip@gmail.com'
+        }
       ]
     }
   ];
