@@ -21,10 +21,10 @@ import { Link, useLocation } from 'react-router-dom';
 import { ILocation } from '../../types/location/location';
 import { FaChevronLeft, FaChevronRight } from 'react-icons/fa';
 interface Card {
-  id: number;
-  title: string;
-  description: string;
-  image: string;
+  id?: number;
+  title?: string;
+  description?: string;
+  image?: string;
 }
 
 const Home: React.FC<Card> = () => {

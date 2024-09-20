@@ -1,45 +1,6 @@
 import React, { createContext, useState, useEffect, useContext } from 'react';
 import axios from '../config/axiosConfig';
-
-interface User {
-  _id: string;
-  fullName: string;
-  username: string;
-  gender?: string;
-  role?: string;
-  bio?: string;
-  profession?: string;
-}
-
-interface AuthContextType {
-  user: User | null;
-  login: (username: string, password: string) => Promise<void>;
-  logout: () => Promise<void>;
-  register: (data: RegisterData) => Promise<void>;
-  updateUserProfile: (id: string, data: UpdateUserProfileData) => Promise<void>;
-  changePassword: (id: string, oldPassword: string, newPassword: string) => Promise<void>;
-  getAllUsers: () => Promise<User[]>;
-  getUserById: (id: string) => Promise<User>;
-}
-
-interface RegisterData {
-  username: string;
-  email: string;
-  password: string;
-  phone: string;
-  fullName: string;
-  gender: string;
-  profileImage?: File | null;
-}
-
-interface UpdateUserProfileData {
-  username: string;
-  email: string;
-  phone: string;
-  fullName: string;
-  gender: string;
-  profileImage?: string;
-}
+import { AuthContextType, RegisterData, UpdateUserProfileData, User } from '../types/auth/auth';
 
 const AuthContext = createContext<AuthContextType | null>(null);
 

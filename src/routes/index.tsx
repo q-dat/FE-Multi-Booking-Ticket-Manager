@@ -26,7 +26,7 @@ export default function AppRoutes() {
         {/* User page  */}
         <Route element={<DefaultLayout />}>
           <Route path="/" element={<User />}>
-            <Route index path="" element={<HomePage />} />
+            <Route index path="" element={<HomePage/>} />
             <Route path="check-ticket" element={<CheckTicketPage />} />
             <Route path="return-ticket" element={<ReturnTicketPage />} />
             <Route path="contact" element={<ContactPage />} />
