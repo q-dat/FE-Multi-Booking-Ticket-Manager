@@ -6,24 +6,28 @@ const AuthContext = createContext<AuthContextType | null>(null);
 
 export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [user, setUser] = useState<User | null>(null);
+  const [token, setToken] = useState<string | null>(null);
 
   useEffect(() => {
-    const fetchUser = async () => {
-      try {
-        const { data } = await axios.get('/api/auth/users');
-        setUser(data);
-      } catch (error) {
-        console.error('Error fetching user data', error);
-      }
-    };
+    const storedUser = localStorage.getItem('user');
+    const storedToken = localStorage.getItem('token');
 
-    fetchUser();
+    if (storedUser && storedToken) {
+      setUser(JSON.parse(storedUser));
+      setToken(storedToken);
+    }
   }, []);
 
   // Đăng nhập người dùng
   const login = async (username: string, password: string) => {
     const { data } = await axios.post('/api/auth/login', { username, password });
+
     setUser(data.user);
+    setToken(data.token);
+
+    // Lưu user và token vào localStorage
+    localStorage.setItem('user', JSON.stringify(data.user));
+    localStorage.setItem('token', data.token);
   };
 
   // Đăng ký người dùng mới
@@ -35,12 +39,21 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   const logout = async () => {
     await axios.post('/api/auth/logout');
     setUser(null);
+    setToken(null);
+
+    // Xóa user và token khỏi localStorage
+    localStorage.removeItem('user');
+    localStorage.removeItem('token');
   };
 
   // Cập nhật hồ sơ người dùng
   const updateUserProfile = async (id: string, updateData: UpdateUserProfileData) => {
     const { data } = await axios.put(`/api/users/${id}/profile`, updateData);
+
     setUser(data.user);
+
+    // Cập nhật user trong localStorage
+    localStorage.setItem('user', JSON.stringify(data.user));
   };
 
   // Đổi mật khẩu
@@ -60,11 +73,11 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     return data.user;
   };
 
-  // Lấy dữ liệu thì lấy dưới này qua phía trang cần dùng
   return (
     <AuthContext.Provider
       value={{
         user,
+        token,
         login,
         logout,
         register,
