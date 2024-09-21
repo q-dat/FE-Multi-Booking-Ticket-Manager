@@ -1,4 +1,7 @@
 export { default as Banner } from './banner.jpg';
+export { default as BannerTrain } from './Banner-Train.jpg';
+export { default as BannerBus } from './Banner-Bus.jpg';
+export { default as BannerFlight } from './Banner-Flight.jpg';
 export { default as sectionOne } from './sectionOne.svg';
 export { default as sectionTwo } from './sectionTwo.svg';
 export { default as sectionThree } from './sectionThree.svg';

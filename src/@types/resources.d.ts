@@ -69,7 +69,7 @@ interface Resources {
         "BookingInfo": "Reservation information",
         "Contact": "Contact"
       },
-      "BannerTitle": "Book Train Tickets Online",
+      "BannerTitle": "Book Tickets Online",
       "BannerSubtitle": "The Best Choice for Your Journey",
       "SearchButton": "Search",
       "DeparturePlaceholder": "Departure...",

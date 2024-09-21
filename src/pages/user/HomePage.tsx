@@ -7,13 +7,14 @@ import {
   Hue,
   Vinh,
   HaNoi,
-  Banner,
   DaNang,
   ThanhHoa,
   NinhBinh,
   sectionOne,
   sectionTwo,
-  sectionThree
+  sectionThree,
+  Banner,
+  BannerFlight,
 } from '../../assets/image-represent';
 import { useTranslation } from 'react-i18next';
 import HeaderResponsive from '../../components/UserPage/HeaderResponsive';
@@ -132,7 +133,8 @@ const Home: React.FC<Card> = () => {
         </div>
         {/* Banner IMG */}
         <div>
-          <img src={Banner} className="hidden w-full xl:block" alt="Banner" />
+          <img src={BannerFlight} className="hidden w-full xl:block dark:xl:hidden" alt="Banner" />
+          <img src={Banner} className="hidden w-full dark:xl:block" alt="Banner" />
           <img
             className="block h-[150px] w-full object-cover xl:hidden"
             src={Banner}
