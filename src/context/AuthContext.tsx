@@ -7,7 +7,6 @@ const AuthContext = createContext<AuthContextType | null>(null);
 export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [user, setUser] = useState<User | null>(null);
 
-  // Fetch user data from the backend if authenticated
   useEffect(() => {
     const fetchUser = async () => {
       try {
