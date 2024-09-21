@@ -39,5 +39,5 @@ export interface UpdateUserProfileData {
   phone: string;
   fullName: string;
   gender: string;
-  profileImage?: string;
+  profileImage?: File | null;
 }
