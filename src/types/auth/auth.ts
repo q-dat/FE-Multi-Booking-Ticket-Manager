@@ -41,3 +41,10 @@ export interface UpdateUserProfileData {
   profileImage?: File | null;
   profileImageUrl?: string;
 }
+export interface ILogoutError {
+  response?: {
+    data?: {
+      message?: string;
+    };
+  };
+}
