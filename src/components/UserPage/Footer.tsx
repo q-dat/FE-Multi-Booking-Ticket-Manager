@@ -54,7 +54,7 @@ const FooterFC: React.FC = () => {
           </Link>
         </div>
         <div>
-          <Footer.Title>Phương Thức Thanh Toán</Footer.Title>
+          <Footer.Title>{t('UserPage.Footer.PaymentMethod')}</Footer.Title>
           <div className="flex gap-2">
             <Link className="text-[40px] hover:text-secondary" to={''}>
               <FaCcVisa />
