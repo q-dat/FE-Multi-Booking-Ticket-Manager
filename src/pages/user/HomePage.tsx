@@ -21,7 +21,6 @@ import HeaderResponsive from '../../components/UserPage/HeaderResponsive';
 import { Link, useLocation } from 'react-router-dom';
 import { ILocation } from '../../types/location/location';
 import { FaChevronLeft, FaChevronRight } from 'react-icons/fa';
-
 interface Card {
   id?: number;
   title?: string;
@@ -32,7 +31,16 @@ interface Card {
 const Home: React.FC<Card> = () => {
   //Translation
   const { t } = useTranslation();
-
+  //anchorForm
+  const anchorForm = useLocation();
+  useEffect(() => {
+    if (location.hash === '#contact') {
+      const element = document.getElementById('contact');
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth' });
+      }
+    }
+  }, [anchorForm.hash]);
   // Naviga Active
   const [activeItem, setActiveItem] = useState('Hà Nội');
   const location = useLocation();
@@ -285,7 +293,16 @@ const Home: React.FC<Card> = () => {
         </div>
       </div>
       {/*Contact Form */}
-      <div className="mt-5 flex w-full items-center justify-center rounded-xl">
+      <div
+        id="contact"
+        className="flex w-full flex-col items-center justify-center rounded-xl pt-[100px]"
+      >
+        <p className="text-[40px] font-bold uppercase text-primary dark:text-white">
+          Liên hệ với chúng tôi
+        </p>
+        <p className="font-semibold text-primary dark:text-white">
+          Với bất kì câu hỏi nào? Hãy để lại tin nhắn để được giải đáp thắc mắc.
+        </p>
         <form
           ref={formRef}
           onSubmit={onSubmit}
@@ -311,7 +328,7 @@ const Home: React.FC<Card> = () => {
               </div>
               <div className="w-full">
                 <Button
-                  className="w-full bg-primary text-sm text-white hover:border-primary hover:bg-white hover:text-primary dark:hover:bg-gray-700"
+                  className="w-full bg-primary text-sm text-white hover:border-primary hover:bg-secondary hover:text-white dark:hover:bg-gray-700"
                   type="submit"
                 >
                   {t('UserPage.SentBtn')}
