@@ -53,7 +53,7 @@ const HeaderAuth: React.FC<HeaderResponsiveProps> = ({
     },
     {
       name: `${t('UserPage.Navbar.Trains')}`,
-      link: ''
+      link: 'trains'
     },
     {
       name: `${t('UserPage.Navbar.Buses')}`,
@@ -61,7 +61,7 @@ const HeaderAuth: React.FC<HeaderResponsiveProps> = ({
     },
     {
       name: `${t('UserPage.Navbar.Flights')}`,
-      link: ''
+      link: '/flights'
     },
 
     {

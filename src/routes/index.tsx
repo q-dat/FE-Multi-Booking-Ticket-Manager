@@ -11,6 +11,7 @@ const ReturnTicketPage = lazy(() => import('../pages/user/ReturnTicketPage'));
 const ContactPage = lazy(() => import('../pages/user/ContactPage'));
 const BusesPage = lazy(() => import('../pages/user/BusesPage'));
 
+
 //auth
 const Auth = lazy(() => import('../pages/auth/Auth'));
 const SignUpPage = lazy(() => import('../pages/auth/SignUpPage'));
