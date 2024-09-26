@@ -59,7 +59,7 @@ const HeaderResponsive: React.FC<HeaderResponsiveProps> = ({
     },
     {
       name: `${t('UserPage.Navbar.Buses')}`,
-      link: ''
+      link: '/buses'
     },
     {
       name: `${t('UserPage.Navbar.Flights')}`,
