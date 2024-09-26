@@ -56,7 +56,7 @@ const LoginPage: React.FC<{}> = () => {
                   type="text"
                   {...register('username', { required: true })}
                 />
-                {errors.username && <span className="text-red-500">Username is required</span>}
+                {errors.username && <span className="text-red-500">{t('Auth.Errors.usernameRequired')}</span>}
               </div>
               <div className="flex w-full flex-col gap-1">
                 <LabelForm title={t('Auth.LabelForm.password')} />
@@ -66,7 +66,7 @@ const LoginPage: React.FC<{}> = () => {
                   type="password"
                   {...register('password', { required: true })}
                 />
-                {errors.password && <span className="text-red-500">Password is required</span>}
+                {errors.username && <span className="text-red-500">{t('Auth.Errors.passwordRequired')}</span>}
               </div>
 
               <Link
