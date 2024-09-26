@@ -38,7 +38,17 @@ interface Resources {
         "password": "Password",
         "email": "Email",
         "phone": "Phone Number",
-        "sex": "Select Gender"
+        "sex": "Select Gender",
+        "genderMale": "Male",
+        "genderFemale": "Female"
+      },
+      "Errors": {
+        "usernameRequired": "Username is required",
+        "fullnameRequired": "Fullname is required",
+        "emailRequired": "Email is required",
+        "phoneRequired": "Phone is required",
+        "genderRequired": "Gender is required",
+        "passwordRequired": "Password is required"
       }
     },
     "UserPage": {
@@ -47,6 +57,9 @@ interface Resources {
       "ContactConsulting": "Contact Consulting",
       "Details": "Details",
       "TicketPrice": "Ticket Price",
+      "Email": "Email",
+      "SentBtn": "Sent",
+      "YourNameBtn": "Your Name",
       "Navbar": {
         "Home": "Home",
         "Trains": "Trains",
@@ -57,7 +70,9 @@ interface Resources {
         "CheckTicket": "Check Ticket",
         "Contact": "Contact",
         "Theme": "Theme",
-        "Translate": "Translate"
+        "Translate": "Translate",
+        "LoginBtn": "Login",
+        "LogoutBtn": "Logout"
       },
       "Footer": {
         "Services": "Services",
@@ -67,7 +82,8 @@ interface Resources {
         "AboutUs": "About Us",
         "About": "About",
         "BookingInfo": "Reservation information",
-        "Contact": "Contact"
+        "Contact": "Contact",
+        "PaymentMethod": "Payment Method"
       },
       "BannerTitle": "Book Tickets Online",
       "BannerSubtitle": "The Best Choice for Your Journey",

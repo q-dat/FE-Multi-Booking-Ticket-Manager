@@ -56,6 +56,9 @@
     "ContactConsulting": "Contact Consulting",
     "Details": "Details",
     "TicketPrice": "Ticket Price",
+    "Email": "Email",
+    "SentBtn": "Sent",
+    "YourNameBtn": "Your Name",
     "Navbar": {
       "Home": "Home",
       "Trains": "Trains",

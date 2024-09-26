@@ -14,7 +14,7 @@ import {
   sectionTwo,
   sectionThree,
   Banner,
-  BannerFlight,
+  BannerFlight
 } from '../../assets/image-represent';
 import { useTranslation } from 'react-i18next';
 import HeaderResponsive from '../../components/UserPage/HeaderResponsive';
@@ -44,7 +44,42 @@ const Home: React.FC<Card> = () => {
       setActiveItem(foundItem.name);
     }
   }, [location.pathname]);
+  //Contact Form
+  const [result, setResult] = React.useState<string>('');
+  const formRef = useRef<HTMLFormElement>(null);
 
+  const onSubmit = async (
+    event: React.FormEvent<HTMLFormElement>
+  ): Promise<void> => {
+    event.preventDefault();
+    setResult('Sending....');
+
+    const formData = new FormData(event.currentTarget);
+
+    formData.append('access_key', 'ef25da04-c229-4ec0-9b44-9d92550e4351');
+
+    try {
+      const response = await fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        body: formData
+      });
+
+      const data: { success: boolean; message: string } = await response.json();
+
+      if (data.success) {
+        setResult('Form Submitted Successfully');
+
+        // Reset form using formRef
+        formRef.current?.reset();
+      } else {
+        console.error('Error', data);
+        setResult(data.message);
+      }
+    } catch (error) {
+      console.error('Request failed', error);
+      setResult('There was an error submitting the form.');
+    }
+  };
   const FecthLocation: ILocation[] = [
     {
       name: 'Hà Nội',
@@ -134,8 +169,16 @@ const Home: React.FC<Card> = () => {
         </div>
         {/* Banner IMG */}
         <div>
-          <img src={BannerFlight} className="hidden w-full xl:block dark:xl:hidden" alt="Banner" />
-          <img src={Banner} className="hidden w-full dark:xl:block" alt="Banner" />
+          <img
+            src={BannerFlight}
+            className="hidden w-full xl:block dark:xl:hidden"
+            alt="Banner"
+          />
+          <img
+            src={Banner}
+            className="hidden w-full dark:xl:block"
+            alt="Banner"
+          />
           <img
             className="block h-[150px] w-full object-cover xl:hidden"
             src={Banner}
@@ -241,6 +284,44 @@ const Home: React.FC<Card> = () => {
           </p>
         </div>
       </div>
+      {/*Contact Form */}
+      <div className="mt-5 flex w-full items-center justify-center rounded-xl">
+        <form
+          ref={formRef}
+          onSubmit={onSubmit}
+          className="my-5 flex items-center justify-center rounded-xl border border-primary bg-white p-5 dark:bg-gray-500"
+        >
+          <div className="flex w-1/2 items-center justify-center">
+            <div className="flex flex-col gap-5">
+              <div className="flex flex-col gap-5 xl:flex-row">
+                <InputForm
+                  name="email"
+                  type="email"
+                  placeholder={t('UserPage.Email')}
+                  className="border border-gray-300 bg-white text-black focus:border-primary dark:bg-gray-700 dark:text-white xs:w-[300px] sm:w-[350px] md:w-[650px] xl:w-[500px]"
+                  classNameLabel="bg-white dark:bg-gray-700"
+                />
+                <InputForm
+                  name="name"
+                  type="text"
+                  className="border border-gray-300 bg-white text-black focus:border-primary dark:bg-gray-700 dark:text-white xs:w-[300px] sm:w-[350px] md:w-[650px] xl:w-[300px]"
+                  placeholder={t('UserPage.YourNameBtn')}
+                  classNameLabel="bg-white dark:bg-gray-700"
+                />
+              </div>
+              <div className="w-full">
+                <Button
+                  className="w-full bg-primary text-sm text-white hover:border-primary hover:bg-white hover:text-primary dark:hover:bg-gray-700"
+                  type="submit"
+                >
+                  {t('UserPage.SentBtn')}
+                </Button>
+                <span>{result}</span>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
       {/* Grid IMG */}
       <div className="mt-10 grid grid-cols-1 gap-3 px-2 md:grid-cols-3 xl:grid-cols-4 xl:px-[100px]">
         {/*  */}
@@ -337,10 +418,11 @@ const Home: React.FC<Card> = () => {
           {FecthLocation.map(item => (
             <Button
               key={item._id}
-              className={`flex w-full items-center justify-center transition-all duration-500 ease-in-out hover:rounded-badge hover:bg-secondary hover:text-white ${item.name === activeItem
+              className={`flex w-full items-center justify-center transition-all duration-500 ease-in-out hover:rounded-badge hover:bg-secondary hover:text-white ${
+                item.name === activeItem
                   ? 'bg-primary text-white hover:bg-primary hover:text-white'
                   : 'bg-white text-primary'
-                }`}
+              }`}
               onClick={() => setActiveItem(item.name)}
             >
               <span>{item.name}</span>

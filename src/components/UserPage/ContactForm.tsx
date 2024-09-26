@@ -1,6 +1,12 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
+import {
+  LogoEmail,
+  LogoMessenger,
+  LogoPhone,
+  LogoZalo
+} from '../../assets/images';
 
 const ContactForm: React.FC = () => {
   // Translation
@@ -40,10 +46,10 @@ const ContactForm: React.FC = () => {
             : '0'
         }}
       >
-        <div className="mb-1 ml-5 block">
-          <Link target="_blank" to="https://zalo.me/0333133050">
+        <div className="mb-1 ml-5 block" title="Email: laclactrip@gmail.com">
+          <Link target="_blank" to="mailto:laclactrip@gmail.com">
             <img
-              src="https://mamnonanan.edu.vn/wp-content/uploads/2024/08/Icon_of_Zalo.webp"
+              src={LogoEmail}
               alt="zalo-icon"
               width="40"
               height="40"
@@ -51,14 +57,25 @@ const ContactForm: React.FC = () => {
             />
           </Link>
         </div>
-        <div className="mb-1 ml-5 block">
+        <div className="mb-1 ml-5 block" title="Zalo">
+          <Link target="_blank" to="https://zalo.me/0333133050">
+            <img
+              src={LogoZalo}
+              alt="zalo-icon"
+              width="40"
+              height="40"
+              className="rounded-full"
+            />
+          </Link>
+        </div>
+        <div className="mb-1 ml-5 block" title="Messenger">
           <Link
             target="_blank"
             to="https://www.messenger.com/t/quocdatstore.vn"
             rel="noopener noreferrer"
           >
             <img
-              src="https://mamnonanan.edu.vn/wp-content/uploads/2024/08/icon-mess.webp"
+              src={LogoMessenger}
               alt="messenger-icon"
               width="40"
               height="40"
@@ -67,6 +84,7 @@ const ContactForm: React.FC = () => {
           </Link>
         </div>
         <Link
+          title="Hotline"
           className="relative mb-5 ml-5 inline-block"
           target="_blank"
           to="tel:0333133050"
@@ -74,7 +92,7 @@ const ContactForm: React.FC = () => {
         >
           <span className="animation-zoomBorder" />
           <img
-            src="https://mamnonanan.edu.vn/wp-content/uploads/2024/08/icon-phone.png"
+            src={LogoPhone}
             alt="#"
             width="40"
             height="40"
