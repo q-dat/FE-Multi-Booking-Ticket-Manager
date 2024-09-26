@@ -56,7 +56,9 @@
       "CheckTicket": "Kiểm tra vé",
       "Contact": "Liên hệ",
       "Theme": "Giao diện",
-      "Translate": "Ngôn ngữ"
+      "Translate": "Ngôn ngữ",
+      "LoginBtn": "Đăng Nhập",
+      "LogoutBtn": "Đăng xuất"
     },
     "Footer": {
       "Services": "Dịch Vụ",
@@ -66,8 +68,8 @@
       "AboutUs": "Về Chúng Tôi",
       "About": "Giới Thiệu",
       "BookingInfo": "Thông Tin Đặt Vé",
-      "Contact":"Liên hệ",
-      "PaymentMethod":"Phương Thức Thanh Toán"
+      "Contact": "Liên hệ",
+      "PaymentMethod": "Phương Thức Thanh Toán"
     },
     "BannerTitle": "Đặt Vé Trực Tuyến",
     "BannerSubtitle": "Sự Lựa Chọn Tốt Nhất Cho Hành Trình Của Bạn",

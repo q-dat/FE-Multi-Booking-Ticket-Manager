@@ -146,8 +146,8 @@ const HeaderAuth: React.FC<HeaderResponsiveProps> = ({
                       <NavLink
                         to={item.link}
                         className={`btn relative mt-2 flex w-full flex-row items-center justify-between rounded-none border-none pl-4 pr-3 ${item.name === activeItem
-                            ? 'bg-primary bg-opacity-30 text-sm font-bold text-primary dark:bg-opacity-50 dark:text-white'
-                            : 'border-none bg-primary bg-opacity-10 text-sm font-light text-black shadow-headerMenu dark:text-white'
+                          ? 'bg-primary bg-opacity-30 text-sm font-bold text-primary dark:bg-opacity-50 dark:text-white'
+                          : 'border-none bg-primary bg-opacity-10 text-sm font-light text-black shadow-headerMenu dark:text-white'
                           } `}
                       >
                         <>
@@ -230,13 +230,13 @@ const HeaderAuth: React.FC<HeaderResponsiveProps> = ({
               <div className="w-full space-y-5">
                 <div className="flex flex-row items-center justify-between rounded-md bg-gray-700 bg-opacity-20 p-2">
                   <p className="text-lg font-light text-black dark:text-white">
-                    {t('LandingPage.Navbar.Theme')}
+                    {t('UserPage.Navbar.Theme')}
                   </p>
                   <DarkMode />
                 </div>
                 <div className="flex flex-row items-center justify-between rounded-md bg-gray-700 bg-opacity-20 p-2">
                   <p className="text-lg font-light text-black dark:text-white">
-                    {t('LandingPage.Navbar.Translate')}
+                    {t('UserPage.Navbar.Translate')}
                   </p>
                   <DropdownLanguage />
                 </div>
