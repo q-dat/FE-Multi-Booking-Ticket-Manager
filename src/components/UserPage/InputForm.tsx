@@ -2,6 +2,7 @@ import React from 'react';
 import { Input } from 'react-daisyui';
 
 interface InputFormProps {
+  name?: string;
   className?: string;
   type: string;
   placeholder: string;
@@ -11,6 +12,7 @@ interface InputFormProps {
 }
 
 const InputForm: React.FC<InputFormProps> = ({
+  name,
   className = '',
   type = 'text',
   placeholder = '',
@@ -21,6 +23,7 @@ const InputForm: React.FC<InputFormProps> = ({
   return (
     <div className="relative">
       <Input
+        name={name}
         className={`peer w-full focus:outline-none ${className}`}
         type={type}
         placeholder=" "

@@ -37,7 +37,17 @@
       "password": "Password",
       "email": "Email",
       "phone": "Phone Number",
-      "sex": "Select Gender"
+      "sex": "Select Gender",
+      "genderMale": "Male",
+      "genderFemale": "Female"
+    },
+    "Errors": {
+      "usernameRequired": "Username is required",
+      "fullnameRequired": "Fullname is required",
+      "emailRequired": "Email is required",
+      "phoneRequired": "Phone is required",
+      "genderRequired": "Gender is required",
+      "passwordRequired": "Password is required"
     }
   },
   "UserPage": {

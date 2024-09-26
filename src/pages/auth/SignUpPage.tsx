@@ -2,7 +2,7 @@ import React from 'react';
 import { useForm } from 'react-hook-form';
 import { Button, Input, Select } from 'react-daisyui';
 import { useTranslation } from 'react-i18next';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import LabelForm from '../../components/auth/LabelForm';
 import { Logo } from '../../assets/images';
 import ServiceForm from '../../components/auth/ServiceForm';
@@ -13,6 +13,7 @@ import { useAuth } from '../../context/AuthContext';
 const SignUpPage: React.FC = () => {
   const { t } = useTranslation();
   const { register: registerUser } = useAuth();
+  const navigate = useNavigate()
 
   const {
     register,
@@ -24,6 +25,7 @@ const SignUpPage: React.FC = () => {
     try {
       await registerUser(data);
       alert('Đăng ký thành công!');
+      navigate("/login")
     } catch (error) {
       console.error('Đăng ký thất bại', error);
       alert('Đăng ký thất bại!');
@@ -52,7 +54,7 @@ const SignUpPage: React.FC = () => {
                     placeholder={t('Auth.Placeholder.username')}
                     {...register('username', { required: true })}
                   />
-                  {errors.username && <span className="text-red-500">Username is required</span>}
+                  {errors.username && <span className="text-red-500">{t('Auth.Errors.usernameRequired')}</span>}
                 </div>
 
                 <div className="flex w-full flex-col gap-1">
@@ -63,7 +65,7 @@ const SignUpPage: React.FC = () => {
                     placeholder={t('Auth.Placeholder.fullname')}
                     {...register('fullName', { required: true })}
                   />
-                  {errors.fullName && <span className="text-red-500">Fullname is required</span>}
+                  {errors.fullName && <span className="text-red-500">{t('Auth.Errors.fullnameRequired')}</span>}
                 </div>
 
                 <div className="flex w-full flex-col gap-1">
@@ -74,7 +76,7 @@ const SignUpPage: React.FC = () => {
                     placeholder={t('Auth.Placeholder.email')}
                     {...register('email', { required: true })}
                   />
-                  {errors.email && <span className="text-red-500">Email is required</span>}
+                  {errors.email && <span className="text-red-500">{t('Auth.Errors.emailRequired')}</span>}
                 </div>
               </div>
 
@@ -87,7 +89,7 @@ const SignUpPage: React.FC = () => {
                     placeholder={t('Auth.Placeholder.phone')}
                     {...register('phone', { required: true })}
                   />
-                  {errors.phone && <span className="text-red-500">Phone is required</span>}
+                  {errors.phone && <span className="text-red-500">{t('Auth.Errors.phoneRequired')}</span>}
                 </div>
                 <div className="flex w-full flex-col gap-1">
                   <LabelForm title={t('Auth.LabelForm.password')} />
@@ -97,7 +99,7 @@ const SignUpPage: React.FC = () => {
                     placeholder={t('Auth.Placeholder.password')}
                     {...register('password', { required: true })}
                   />
-                  {errors.password && <span>{t('Auth.Errors.passwordRequired')}</span>}
+                  {errors.username && <span className="text-red-500">{t('Auth.Errors.passwordRequired')}</span>}
                 </div>
                 <div className="flex w-full flex-col gap-1">
                   <LabelForm title={t('Auth.LabelForm.sex')} />
@@ -108,10 +110,10 @@ const SignUpPage: React.FC = () => {
                     <option hidden value="">
                       {t('Auth.Placeholder.sex')}
                     </option>
-                    <option value="male">Nam</option>
-                    <option value="female">Nữ</option>
+                    <option value="male">{t('Auth.Placeholder.genderMale')}</option>
+                    <option value="female">{t('Auth.Placeholder.genderFemale')}</option>
                   </Select>
-                  {errors.gender && <span>{t('Auth.Errors.genderRequired')}</span>}
+                  {errors.username && <span className="text-red-500">{t('Auth.Errors.genderRequired')}</span>}
                 </div>
               </div>
             </div>

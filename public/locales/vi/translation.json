@@ -37,7 +37,17 @@
       "password": "Mật khẩu",
       "email": "Email",
       "phone": "Số điện thoại",
-      "sex": "Chọn giới tính"
+      "sex": "Chọn giới tính",
+      "genderMale": "Nam",
+      "genderFemale": "Nữ"
+    },
+    "Errors": {
+      "usernameRequired": "Tên đăng nhập là bắt buộc",
+      "fullnameRequired": "Họ và tên là bắt buộc",
+      "emailRequired": "Email là bắt buộc",
+      "phoneRequired": "Số điện thoại là bắt buộc",
+      "genderRequired": "Giới tính là bắt buộc",
+      "passwordRequired": "Mật khẩu là bắt buộc"
     }
   },
   "UserPage": {
