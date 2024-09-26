@@ -28,8 +28,7 @@ export interface RegisterData {
   phone: string;
   fullName: string;
   gender: string;
-  profileImage?: File | null;
-  profileImageUrl?: string;
+  profileImage?: string;
 }
 
 export interface UpdateUserProfileData {
@@ -38,8 +37,7 @@ export interface UpdateUserProfileData {
   phone: string;
   fullName: string;
   gender: string;
-  profileImage?: File | null;
-  profileImageUrl?: string;
+  profileImage?: string;
 }
 export interface ILogoutError {
   response?: {

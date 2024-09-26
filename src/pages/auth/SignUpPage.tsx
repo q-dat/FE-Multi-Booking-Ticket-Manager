@@ -76,7 +76,9 @@ const SignUpPage: React.FC = () => {
                   />
                   {errors.email && <span className="text-red-500">Email is required</span>}
                 </div>
+              </div>
 
+              <div className="flex flex-col space-y-4">
                 <div className="flex w-full flex-col gap-1">
                   <LabelForm title={t('Auth.LabelForm.phone')} />
                   <Input
@@ -87,8 +89,6 @@ const SignUpPage: React.FC = () => {
                   />
                   {errors.phone && <span className="text-red-500">Phone is required</span>}
                 </div>
-              </div>
-              <div className="flex flex-col space-y-4">
                 <div className="flex w-full flex-col gap-1">
                   <LabelForm title={t('Auth.LabelForm.password')} />
                   <Input
@@ -113,21 +113,12 @@ const SignUpPage: React.FC = () => {
                   </Select>
                   {errors.gender && <span>{t('Auth.Errors.genderRequired')}</span>}
                 </div>
-
-                <div className="flex w-full flex-col gap-1">
-                  <LabelForm title={t('Auth.LabelForm.avatar')} />
-                  <Input
-                    className="w-[350px] p-[7px] focus:outline-none xl:w-[300px]"
-                    type="file"
-                    {...register('profileImage')}
-                  />
-                </div>
-                <div className="flex w-full flex-col gap-1">
-                  <Button type="submit" color="primary" className="mt-[27px] text-white">
-                    {t('Auth.Register')}
-                  </Button>
-                </div>
               </div>
+            </div>
+            <div className="flex w-full flex-col gap-1">
+              <Button type="submit" color="primary" className=" mt-[27px] text-white">
+                {t('Auth.Register')}
+              </Button>
             </div>
           </form>
           <ServiceForm />

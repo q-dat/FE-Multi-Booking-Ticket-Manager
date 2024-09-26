@@ -56,7 +56,9 @@
       "CheckTicket": "Check Ticket",
       "Contact": "Contact",
       "Theme": "Theme",
-      "Translate": "Translate"
+      "Translate": "Translate",
+      "LoginBtn": "Login",
+      "LogoutBtn": "Logout"
     },
     "Footer": {
       "Services": "Services",
@@ -67,7 +69,7 @@
       "About": "About",
       "BookingInfo": "Reservation information",
       "Contact": "Contact",
-      "PaymentMethod":"Payment Method"
+      "PaymentMethod": "Payment Method"
     },
     "BannerTitle": "Book Tickets Online",
     "BannerSubtitle": "The Best Choice for Your Journey",
