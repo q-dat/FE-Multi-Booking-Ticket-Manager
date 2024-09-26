@@ -48,7 +48,7 @@ const Header: React.FC = () => {
     },
     {
       name: `${t('UserPage.Navbar.Buses')}`,
-      link: ''
+      link: '/buses'
     },
     {
       name: `${t('UserPage.Navbar.Flights')}`,
