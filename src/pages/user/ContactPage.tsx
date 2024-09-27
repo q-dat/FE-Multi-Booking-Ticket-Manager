@@ -67,12 +67,12 @@ const ContactPage: React.FC = () => {
           src="https://static.vecteezy.com/system/resources/previews/009/731/085/non_2x/cosmetic-light-blue-background-minimal-and-premium-podium-display-for-product-presentation-branding-and-packaging-presentation-studio-stage-with-shadow-of-leaf-background-3d-illustration-design-vector.jpg"
           alt=""
         />
-        {/* Form */}
-        <div className="absolute top-2 flex w-full items-center justify-center">
+        {/*Contact Form */}
+        <div className=" absolute top-2 flex w-full flex-col items-center justify-center rounded-xl ">
           <form
             ref={formRef}
             onSubmit={onSubmit}
-            className="my-5 flex items-center justify-center rounded-xl bg-white p-10 dark:bg-gray-700"
+            className="my-5 flex items-center justify-center rounded-xl border border-primary bg-white p-5 dark:bg-gray-500"
           >
             <div className="flex w-1/2 items-center justify-center">
               <div className="flex flex-col gap-5">
@@ -81,25 +81,26 @@ const ContactPage: React.FC = () => {
                     name="email"
                     type="email"
                     placeholder={t('UserPage.Email')}
-                    className="border border-gray-300 bg-white text-black focus:border-primary dark:bg-gray-700 dark:text-white xs:w-[300px] sm:w-[350px] md:w-[650px] lg:w-[250px]"
+                    className="border border-gray-300 bg-white text-black focus:border-primary dark:bg-gray-700 dark:text-white xs:w-[300px] sm:w-[350px] md:w-[650px] xl:w-[500px]"
                     classNameLabel="bg-white dark:bg-gray-700"
                   />
                   <InputForm
                     name="name"
                     type="text"
-                    className="border border-gray-300 bg-white text-black focus:border-primary dark:bg-gray-700 dark:text-white xs:w-[300px] sm:w-[350px] md:w-[650px] lg:w-[250px]"
+                    className="border border-gray-300 bg-white text-black focus:border-primary dark:bg-gray-700 dark:text-white xs:w-[300px] sm:w-[350px] md:w-[650px] xl:w-[300px]"
                     placeholder={t('UserPage.YourNameBtn')}
                     classNameLabel="bg-white dark:bg-gray-700"
                   />
+
                 </div>
                 <Textarea
                   name="feedback"
-                  className="border border-gray-300 bg-white text-black focus:border-primary dark:bg-gray-700 dark:text-white xs:w-full sm:w-[350px] md:w-[650px] lg:w-full"
+                  className="border border-gray-300 bg-white text-black focus:border-primary focus:outline-none dark:bg-gray-700 dark:text-white xs:w-full sm:w-[350px] md:w-[650px] lg:w-full"
                   placeholder={t('UserPage.FeedbackBtn')}
                 />
                 <div className="w-full">
                   <Button
-                    className="w-full bg-primary text-sm text-white hover:border-primary hover:bg-white hover:text-primary dark:hover:bg-gray-700"
+                    className="w-full bg-primary text-sm text-white hover:border-primary hover:bg-secondary hover:text-white dark:hover:bg-gray-700"
                     type="submit"
                   >
                     {t('UserPage.SentBtn')}
