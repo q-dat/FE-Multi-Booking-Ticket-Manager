@@ -9,7 +9,7 @@ const HomePage = lazy(() => import('../pages/user/HomePage'));
 const CheckTicketPage = lazy(() => import('../pages/user/CheckTicketPage'));
 const ReturnTicketPage = lazy(() => import('../pages/user/ReturnTicketPage'));
 const ContactPage = lazy(() => import('../pages/user/ContactPage'));
-const BusesPage = lazy(() => import('../pages/user/BusesPage'));
+const BusesPage = lazy(() => import('../pages/user/Busespage'));
 
 
 //auth

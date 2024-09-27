@@ -1,6 +1,6 @@
 import React, { useRef } from 'react';
 import InputForm from '../../components/UserPage/InputForm';
-import { Button } from 'react-daisyui';
+import { Button, Textarea } from 'react-daisyui';
 import HeaderResponsive from '../../components/UserPage/HeaderResponsive';
 import { useTranslation } from 'react-i18next';
 
@@ -15,7 +15,7 @@ const ContactPage: React.FC = () => {
     event: React.FormEvent<HTMLFormElement>
   ): Promise<void> => {
     event.preventDefault();
-    setResult('Sending....');
+    setResult(t('UserPage.Sending'));
 
     const formData = new FormData(event.currentTarget);
 
@@ -30,7 +30,7 @@ const ContactPage: React.FC = () => {
       const data: { success: boolean; message: string } = await response.json();
 
       if (data.success) {
-        setResult('Form Submitted Successfully');
+        setResult(t('UserPage.Successfully'));
 
         // Reset form using formRef
         formRef.current?.reset();
@@ -49,10 +49,10 @@ const ContactPage: React.FC = () => {
       <HeaderResponsive Title_NavbarMobile="Liên Hệ" />
       <div className="my-4 text-center">
         <p className="w-full text-[40px] font-bold uppercase text-primary dark:text-white">
-          Liên hệ với chúng tôi
+          {t('UserPage.ContactUs')}
         </p>
         <p className="font-semibold text-primary dark:text-white">
-          Với bất kì câu hỏi nào? Hãy để lại tin nhắn để được giải đáp thắc mắc.
+          {t('UserPage.Questions')}
         </p>
       </div>
       {/* Banner */}
@@ -92,6 +92,11 @@ const ContactPage: React.FC = () => {
                     classNameLabel="bg-white dark:bg-gray-700"
                   />
                 </div>
+                <Textarea
+                  name="feedback"
+                  className="border border-gray-300 bg-white text-black focus:border-primary dark:bg-gray-700 dark:text-white xs:w-full sm:w-[350px] md:w-[650px] lg:w-full"
+                  placeholder={t('UserPage.FeedbackBtn')}
+                />
                 <div className="w-full">
                   <Button
                     className="w-full bg-primary text-sm text-white hover:border-primary hover:bg-white hover:text-primary dark:hover:bg-gray-700"

@@ -53,12 +53,17 @@
   "UserPage": {
     "Collapse": "Collapse",
     "Contact": "Contact",
+    "ContactUs": "Contact us",
+    "Questions": "If you have any questions, please leave a message to get your inquiries answered",
     "ContactConsulting": "Contact Consulting",
     "Details": "Details",
     "TicketPrice": "Ticket Price",
     "Email": "Email",
     "SentBtn": "Sent",
     "YourNameBtn": "Your Name",
+    "FeedbackBtn": "Do you want to ask any questions or provide any feedback?",
+    "Sending": "Sending...",
+    "Successfully": "Form Submitted Successfully",
     "Navbar": {
       "Home": "Home",
       "Trains": "Trains",
