@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { Button, Select } from 'react-daisyui';
+import { Button, Textarea } from 'react-daisyui';
 import InputForm from '../../components/UserPage/InputForm';
 import { IoLocationOutline, IoSearch } from 'react-icons/io5';
 import { MdOutlineArrowRightAlt } from 'react-icons/md';
@@ -60,7 +60,7 @@ const Home: React.FC<Card> = () => {
     event: React.FormEvent<HTMLFormElement>
   ): Promise<void> => {
     event.preventDefault();
-    setResult('Sending....');
+    setResult(t('UserPage.Sending'));
 
     const formData = new FormData(event.currentTarget);
 
@@ -75,7 +75,7 @@ const Home: React.FC<Card> = () => {
       const data: { success: boolean; message: string } = await response.json();
 
       if (data.success) {
-        setResult('Form Submitted Successfully');
+        setResult(t('UserPage.Successfully'));
 
         // Reset form using formRef
         formRef.current?.reset();
@@ -114,7 +114,7 @@ const Home: React.FC<Card> = () => {
       _id: ''
     }
   ];
-  const [value, setValue] = useState('default');
+  // const [value, setValue] = useState('default');
 
   // Sử dụng useRef với kiểu HTMLDivElement
   const scrollRef = useRef<HTMLDivElement>(null);
@@ -226,16 +226,16 @@ const Home: React.FC<Card> = () => {
               />
               <MdOutlineArrowRightAlt className="hidden text-primary dark:text-white xl:flex" />
               <InputForm
-                className="w-[150px] border border-gray-700 border-opacity-50 bg-white text-black focus:border-primary dark:border-secondary dark:bg-gray-700 dark:text-white dark:focus:border-white md:w-[300px] lg:w-[400px] xl:w-full xl:rounded-none"
+                className="w-[150px] border border-gray-700 border-opacity-50 bg-white text-black focus:border-primary dark:border-secondary dark:bg-gray-700 dark:text-white dark:focus:border-white md:w-[300px] lg:w-[400px] xl:w-full xl:rounded-l-none"
                 type={'date'}
                 placeholder={`${t('UserPage.ReturnDatePlaceholder')}`}
                 classNameLabel=" bg-white  dark:bg-gray-700"
               />{' '}
-              <MdOutlineArrowRightAlt className="hidden text-primary dark:text-white xl:flex" />
+              {/* <MdOutlineArrowRightAlt className="hidden text-primary dark:text-white xl:flex" /> */}
             </div>
             {/* Form Mobile 3 */}
             <div className="m-2 flex flex-grow items-center justify-between gap-2 md:m-[10px] md:gap-[20px] xl:m-0 xl:gap-0">
-              <div>
+              {/* <div>
                 <Select
                   className="w-[150px] border border-gray-700 border-opacity-50 bg-white text-black focus:border-primary focus:outline-none dark:border-secondary dark:bg-gray-700 dark:text-white dark:focus:border-white md:w-[300px] lg:w-[400px] xl:w-full xl:rounded-l-none"
                   value={value}
@@ -248,7 +248,7 @@ const Home: React.FC<Card> = () => {
                   <option value={'Người Vừa'}>Người Vừa</option>
                   <option value={'Người Lớn'}>Người Lớn</option>
                 </Select>
-              </div>
+              </div> */}
               <div>
                 <Button className="w-[150px] bg-primary text-sm text-white hover:border-primary hover:bg-white hover:text-primary dark:hover:bg-gray-700 md:w-[300px] lg:w-[400px] xl:ml-3 xl:w-full">
                   <IoSearch />
@@ -292,53 +292,7 @@ const Home: React.FC<Card> = () => {
           </p>
         </div>
       </div>
-      {/*Contact Form */}
-      <div
-        id="contact"
-        className="flex w-full flex-col items-center justify-center rounded-xl pt-[100px]"
-      >
-        <p className="text-[40px] font-bold uppercase text-primary dark:text-white">
-          Liên hệ với chúng tôi
-        </p>
-        <p className="font-semibold text-primary dark:text-white">
-          Với bất kì câu hỏi nào? Hãy để lại tin nhắn để được giải đáp thắc mắc.
-        </p>
-        <form
-          ref={formRef}
-          onSubmit={onSubmit}
-          className="my-5 flex items-center justify-center rounded-xl border border-primary bg-white p-5 dark:bg-gray-500"
-        >
-          <div className="flex w-1/2 items-center justify-center">
-            <div className="flex flex-col gap-5">
-              <div className="flex flex-col gap-5 xl:flex-row">
-                <InputForm
-                  name="email"
-                  type="email"
-                  placeholder={t('UserPage.Email')}
-                  className="border border-gray-300 bg-white text-black focus:border-primary dark:bg-gray-700 dark:text-white xs:w-[300px] sm:w-[350px] md:w-[650px] xl:w-[500px]"
-                  classNameLabel="bg-white dark:bg-gray-700"
-                />
-                <InputForm
-                  name="name"
-                  type="text"
-                  className="border border-gray-300 bg-white text-black focus:border-primary dark:bg-gray-700 dark:text-white xs:w-[300px] sm:w-[350px] md:w-[650px] xl:w-[300px]"
-                  placeholder={t('UserPage.YourNameBtn')}
-                  classNameLabel="bg-white dark:bg-gray-700"
-                />
-              </div>
-              <div className="w-full">
-                <Button
-                  className="w-full bg-primary text-sm text-white hover:border-primary hover:bg-secondary hover:text-white dark:hover:bg-gray-700"
-                  type="submit"
-                >
-                  {t('UserPage.SentBtn')}
-                </Button>
-                <span>{result}</span>
-              </div>
-            </div>
-          </div>
-        </form>
-      </div>
+
       {/* Grid IMG */}
       <div className="mt-10 grid grid-cols-1 gap-3 px-2 md:grid-cols-3 xl:grid-cols-4 xl:px-[100px]">
         {/*  */}
@@ -435,11 +389,10 @@ const Home: React.FC<Card> = () => {
           {FecthLocation.map(item => (
             <Button
               key={item._id}
-              className={`flex w-full items-center justify-center transition-all duration-500 ease-in-out hover:rounded-badge hover:bg-secondary hover:text-white ${
-                item.name === activeItem
-                  ? 'bg-primary text-white hover:bg-primary hover:text-white'
-                  : 'bg-white text-primary'
-              }`}
+              className={`flex w-full items-center justify-center transition-all duration-500 ease-in-out hover:rounded-badge hover:bg-secondary hover:text-white ${item.name === activeItem
+                ? 'bg-primary text-white hover:bg-primary hover:text-white'
+                : 'bg-white text-primary'
+                }`}
               onClick={() => setActiveItem(item.name)}
             >
               <span>{item.name}</span>
@@ -500,6 +453,59 @@ const Home: React.FC<Card> = () => {
           </div>
         </div>
         {/*  */}
+        {/*Contact Form */}
+        <div
+          id="contact"
+          className="flex w-full flex-col items-center justify-center rounded-xl xl:pt-[100px]"
+        >
+          <p className="text-[40px] font-bold uppercase text-primary dark:text-white">
+            {t('UserPage.ContactUs')}
+          </p>
+          <p className="font-semibold text-primary dark:text-white">
+            {t('UserPage.Questions')}
+          </p>
+          <form
+            ref={formRef}
+            onSubmit={onSubmit}
+            className="my-5 flex items-center justify-center rounded-xl border border-primary bg-white p-5 dark:bg-gray-500"
+          >
+            <div className="flex w-1/2 items-center justify-center">
+              <div className="flex flex-col gap-5">
+                <div className="flex flex-col gap-5 xl:flex-row">
+                  <InputForm
+                    name="email"
+                    type="email"
+                    placeholder={t('UserPage.Email')}
+                    className="border border-gray-300 bg-white text-black focus:border-primary dark:bg-gray-700 dark:text-white xs:w-[300px] sm:w-[350px] md:w-[650px] xl:w-[500px]"
+                    classNameLabel="bg-white dark:bg-gray-700"
+                  />
+                  <InputForm
+                    name="name"
+                    type="text"
+                    className="border border-gray-300 bg-white text-black focus:border-primary dark:bg-gray-700 dark:text-white xs:w-[300px] sm:w-[350px] md:w-[650px] xl:w-[300px]"
+                    placeholder={t('UserPage.YourNameBtn')}
+                    classNameLabel="bg-white dark:bg-gray-700"
+                  />
+
+                </div>
+                <Textarea
+                  name="feedback"
+                  className="border border-gray-300 bg-white text-black focus:border-primary focus:outline-none dark:bg-gray-700 dark:text-white xs:w-full sm:w-[350px] md:w-[650px] lg:w-full"
+                  placeholder={t('UserPage.FeedbackBtn')}
+                />
+                <div className="w-full">
+                  <Button
+                    className="w-full bg-primary text-sm text-white hover:border-primary hover:bg-secondary hover:text-white dark:hover:bg-gray-700"
+                    type="submit"
+                  >
+                    {t('UserPage.SentBtn')}
+                  </Button>
+                  <span>{result}</span>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
       </div>
     </div>
   );
