@@ -53,12 +53,17 @@
   "UserPage": {
     "Collapse": "Thu Gọn",
     "Contact": "Liên hệ",
+    "ContactUs": "Liên hệ với chúng tôi",
+    "Questions": "Với bất kì câu hỏi nào? Hãy để lại tin nhắn để được giải đáp thắc mắc",
     "ContactConsulting": "Liên Hệ Tư Vấn",
     "Details": "Xem Chi Tiết",
     "TicketPrice": "Giá Vé",
     "Email": "Email",
     "SentBtn": "Gửi",
     "YourNameBtn": "Tên của bạn",
+    "FeedbackBtn": "Bạn muốn đặt câu hỏi hay góp ý gì?",
+    "Sending": "Đang gửi...",
+    "Successfully": "Gửi biểu mẫu thành công",
     "Navbar": {
       "Home": "Trang Chủ",
       "Trains": "Tàu Hoả",
