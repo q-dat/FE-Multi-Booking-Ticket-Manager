@@ -52,7 +52,7 @@ const Header: React.FC = () => {
     },
     {
       name: `${t('UserPage.Navbar.Flights')}`,
-      link: ''
+      link: '/flights'
     },
 
     {

@@ -10,6 +10,7 @@ const CheckTicketPage = lazy(() => import('../pages/user/CheckTicketPage'));
 const ReturnTicketPage = lazy(() => import('../pages/user/ReturnTicketPage'));
 const ContactPage = lazy(() => import('../pages/user/ContactPage'));
 const BusesPage = lazy(() => import('../pages/user/Busespage'));
+const FlightsPage = lazy(() => import('../pages/user/FlightsPage'));
 
 
 //auth
@@ -31,6 +32,8 @@ export default function AppRoutes() {
           <Route path="/" element={<User />}>
             <Route index path="" element={<HomePage />} />
             <Route index path="buses" element={<BusesPage />} />
+            <Route index path="flights" element={<FlightsPage />} />
+
             <Route path="check-ticket" element={<CheckTicketPage />} />
             <Route path="return-ticket" element={<ReturnTicketPage />} />
             <Route path="contact" element={<ContactPage />} />
