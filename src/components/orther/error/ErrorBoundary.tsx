@@ -1,9 +1,9 @@
-import React, { Component } from "react";
-import { Button, Hero } from "react-daisyui";
+import React, { Component } from 'react';
+import { Button, Hero } from 'react-daisyui';
 import {
   ErrorBoundaryProps,
-  ErrorBoundaryState,
-} from "../../../types/type/error/error";
+  ErrorBoundaryState
+} from '../../../types/type/error/error';
 
 class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundaryState> {
   constructor(props: ErrorBoundaryProps) {
@@ -26,9 +26,7 @@ class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundaryState> {
           <Hero>
             <Hero.Content>
               <div>
-                <h1 className="text-5xl font-bold">
-                    Đã có bugs 🐞!!!
-                </h1>
+                <h1 className="text-5xl font-bold">Đã có bugs 🐞!!!</h1>
                 <p className="py-6">
                   <p className="text-red-500">
                     {this.state.error && this.state.error.toString()}

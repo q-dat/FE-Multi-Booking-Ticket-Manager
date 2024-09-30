@@ -68,7 +68,7 @@ const ContactPage: React.FC = () => {
           alt=""
         />
         {/*Contact Form */}
-        <div className=" absolute top-2 flex w-full flex-col items-center justify-center rounded-xl ">
+        <div className="absolute top-2 flex w-full flex-col items-center justify-center rounded-xl">
           <form
             ref={formRef}
             onSubmit={onSubmit}
@@ -91,7 +91,6 @@ const ContactPage: React.FC = () => {
                     placeholder={t('UserPage.YourNameBtn')}
                     classNameLabel="bg-white dark:bg-gray-700"
                   />
-
                 </div>
                 <Textarea
                   name="feedback"
@@ -117,4 +116,3 @@ const ContactPage: React.FC = () => {
 };
 
 export default ContactPage;
-

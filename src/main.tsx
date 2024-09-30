@@ -17,7 +17,9 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
       <BrowserRouter>
         <Suspense fallback={<LoadingPage loading={true} />}>
           <ErrorBoundary>
-            <AuthProvider> {/* Bao bọc toàn bộ App với AuthProvider */}
+            <AuthProvider>
+              {' '}
+              {/* Bao bọc toàn bộ App với AuthProvider */}
               <ToastContainer />
               <App />
             </AuthProvider>
@@ -27,4 +29,3 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
     </PersistGate>
   </React.StrictMode>
 );
-

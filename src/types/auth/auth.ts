@@ -16,7 +16,11 @@ export interface AuthContextType {
   logout: () => Promise<void>;
   register: (data: RegisterData) => Promise<void>;
   updateUserProfile: (id: string, data: UpdateUserProfileData) => Promise<void>;
-  changePassword: (id: string, oldPassword: string, newPassword: string) => Promise<void>;
+  changePassword: (
+    id: string,
+    oldPassword: string,
+    newPassword: string
+  ) => Promise<void>;
   getAllUsers: () => Promise<User[]>;
   getUserById: (id: string) => Promise<User>;
 }

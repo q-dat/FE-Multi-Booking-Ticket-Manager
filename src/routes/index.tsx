@@ -9,9 +9,8 @@ const HomePage = lazy(() => import('../pages/user/HomePage'));
 const CheckTicketPage = lazy(() => import('../pages/user/CheckTicketPage'));
 const ReturnTicketPage = lazy(() => import('../pages/user/ReturnTicketPage'));
 const ContactPage = lazy(() => import('../pages/user/ContactPage'));
-const BusesPage = lazy(() => import('../pages/user/Busespage'));
+const BusesPage = lazy(() => import('../pages/user/BusesPage'));
 const FlightsPage = lazy(() => import('../pages/user/FlightsPage'));
-
 
 //auth
 const Auth = lazy(() => import('../pages/auth/Auth'));
@@ -50,7 +49,14 @@ export default function AppRoutes() {
 
         {/* Admin */}
         <Route element={<DefaultLayout />}>
-          <Route path="/admin" element={<PrivateRouter><Admin /></PrivateRouter>}>
+          <Route
+            path="/admin"
+            element={
+              <PrivateRouter>
+                <Admin />
+              </PrivateRouter>
+            }
+          >
             <Route index path="" element={<DashboardPage />} />
             {/* <Route path="chat" element={<ChatPage />} /> */}
           </Route>
@@ -64,4 +70,3 @@ export default function AppRoutes() {
     </>
   );
 }
-

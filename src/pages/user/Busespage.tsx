@@ -251,4 +251,3 @@ const BusesPage: React.FC<Card> = () => {
 };
 
 export default BusesPage;
-

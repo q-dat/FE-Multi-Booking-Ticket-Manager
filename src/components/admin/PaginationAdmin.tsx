@@ -68,7 +68,7 @@ const PaginationAdmin: React.FC = () => {
   };
 
   return (
-    <div className=" flex flex-col items-center justify-between px-3 py-4 xl:flex-row">
+    <div className="flex flex-col items-center justify-between px-3 py-4 xl:flex-row">
       <div className="text-sm text-primary">
         <p>
           Dữ liệu trang {currentPage} trong {totalPages} trang

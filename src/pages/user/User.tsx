@@ -14,10 +14,9 @@ const User: React.FC = () => {
       <Outlet />
       <ContactForm />
       <NotificationPopup />
-      <FooterFC/>
+      <FooterFC />
     </div>
   );
 };
 
 export default User;
-

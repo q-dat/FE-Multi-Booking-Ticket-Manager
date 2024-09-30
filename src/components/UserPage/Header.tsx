@@ -124,10 +124,11 @@ const Header: React.FC = () => {
               >
                 <NavLink
                   to={item.link}
-                  className={`btn relative flex w-full items-center justify-center rounded-none border-none pl-4 ${item.name === activeItem
-                    ? 'bg-primary bg-opacity-20 text-sm font-bold text-primary dark:bg-opacity-50 dark:text-white'
-                    : 'border-none text-sm font-light text-black shadow-none hover:border hover:border-primary hover:bg-gray-50 hover:bg-opacity-30 hover:text-primary dark:text-white'
-                    }`}
+                  className={`btn relative flex w-full items-center justify-center rounded-none border-none pl-4 ${
+                    item.name === activeItem
+                      ? 'bg-primary bg-opacity-20 text-sm font-bold text-primary dark:bg-opacity-50 dark:text-white'
+                      : 'border-none text-sm font-light text-black shadow-none hover:border hover:border-primary hover:bg-gray-50 hover:bg-opacity-30 hover:text-primary dark:text-white'
+                  }`}
                 >
                   <>
                     {item.name === activeItem && (
@@ -179,7 +180,10 @@ const Header: React.FC = () => {
           {user && user.role === 'user' && (
             <div className="flex items-center">
               {/* <img alt='Avatar' className='h-8 w-8 rounded-full' /> */}
-              <Button onClick={handleLogout} className='flex cursor-pointer flex-row items-center justify-center rounded-md border-none bg-white bg-opacity-20 text-black shadow-headerMenu dark:bg-black dark:bg-opacity-20 dark:text-white'>
+              <Button
+                onClick={handleLogout}
+                className="flex cursor-pointer flex-row items-center justify-center rounded-md border-none bg-white bg-opacity-20 text-black shadow-headerMenu dark:bg-black dark:bg-opacity-20 dark:text-white"
+              >
                 <MdLogout /> Logout
               </Button>
             </div>
@@ -201,4 +205,3 @@ const Header: React.FC = () => {
 };
 
 export default Header;
-

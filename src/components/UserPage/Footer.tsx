@@ -74,4 +74,3 @@ const FooterFC: React.FC = () => {
 };
 
 export default FooterFC;
-

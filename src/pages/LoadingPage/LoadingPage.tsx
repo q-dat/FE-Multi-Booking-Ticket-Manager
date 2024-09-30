@@ -11,4 +11,3 @@ function LoadingPage({ loading }: { loading: boolean }) {
 }
 
 export default LoadingPage;
-

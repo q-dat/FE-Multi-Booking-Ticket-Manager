@@ -9,7 +9,7 @@ const InputForm: React.FC<{ placeholder: string; type: string }> = ({
     <Input
       type={type}
       placeholder={placeholder}
-      className="w-full  text-black focus:outline-none "
+      className="w-full text-black focus:outline-none"
     />
   );
 };

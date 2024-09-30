@@ -2,10 +2,7 @@ import React, { ReactNode, useCallback, useEffect, useState } from 'react';
 import { Button, Drawer, Menu } from 'react-daisyui';
 // Icon
 import { RxHamburgerMenu } from 'react-icons/rx';
-import {
-  IoSettingsSharp,
-  IoTicket,
-} from 'react-icons/io5';
+import { IoSettingsSharp, IoTicket } from 'react-icons/io5';
 import { Link, NavLink, useLocation } from 'react-router-dom';
 import { FaHome, FaPhoneAlt, FaChevronDown } from 'react-icons/fa';
 import { GiReturnArrow } from 'react-icons/gi';
@@ -115,7 +112,7 @@ const HeaderAuth: React.FC<HeaderResponsiveProps> = ({
   };
 
   return (
-    <div className=" px-2 pb-6 xl:hidden xl:px-0 flex items-center justify-between">
+    <div className="flex items-center justify-between px-2 pb-6 xl:hidden xl:px-0">
       <div className="z-50">
         <Drawer
           open={leftVisible}
@@ -139,16 +136,15 @@ const HeaderAuth: React.FC<HeaderResponsiveProps> = ({
                   <div key={item.name} className="relative">
                     <Menu.Item
                       className="group relative"
-                      onClick={() =>
-                        item.submenu && handleMenuClick(item.name)
-                      }
+                      onClick={() => item.submenu && handleMenuClick(item.name)}
                     >
                       <NavLink
                         to={item.link}
-                        className={`btn relative mt-2 flex w-full flex-row items-center justify-between rounded-none border-none pl-4 pr-3 ${item.name === activeItem
-                          ? 'bg-primary bg-opacity-30 text-sm font-bold text-primary dark:bg-opacity-50 dark:text-white'
-                          : 'border-none bg-primary bg-opacity-10 text-sm font-light text-black shadow-headerMenu dark:text-white'
-                          } `}
+                        className={`btn relative mt-2 flex w-full flex-row items-center justify-between rounded-none border-none pl-4 pr-3 ${
+                          item.name === activeItem
+                            ? 'bg-primary bg-opacity-30 text-sm font-bold text-primary dark:bg-opacity-50 dark:text-white'
+                            : 'border-none bg-primary bg-opacity-10 text-sm font-light text-black shadow-headerMenu dark:text-white'
+                        } `}
                       >
                         <>
                           {item.name === activeItem && (
@@ -176,11 +172,7 @@ const HeaderAuth: React.FC<HeaderResponsiveProps> = ({
                     {item.submenu && openSubmenu === item.name && (
                       <div className="relative w-full space-y-2 rounded-sm bg-white p-4 shadow-md dark:bg-gray-700 dark:bg-opacity-80">
                         {item.submenu.map((subItem, index) => (
-                          <Link
-                            key={index}
-                            to={subItem.link}
-                            className="block"
-                          >
+                          <Link key={index} to={subItem.link} className="block">
                             <Button
                               size="sm"
                               className="flex w-full flex-row items-center justify-start rounded-sm border-none bg-primary text-sm uppercase text-white shadow-headerMenu dark:text-black"
@@ -257,4 +249,3 @@ const HeaderAuth: React.FC<HeaderResponsiveProps> = ({
 };
 
 export default HeaderAuth;
-

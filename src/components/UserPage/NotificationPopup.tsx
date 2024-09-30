@@ -1,8 +1,10 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { Button, Hero, Textarea } from 'react-daisyui';
 import InputForm from './InputForm';
+import { useTranslation } from 'react-i18next';
 
 const NotificationPopup: React.FC = () => {
+  const { t } = useTranslation();
   const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
@@ -15,7 +17,7 @@ const NotificationPopup: React.FC = () => {
     setIsVisible(false);
     sessionStorage.setItem('popupShown', 'true');
   };
-
+  //Contact Form
   const [result, setResult] = React.useState<string>('');
   const formRef = useRef<HTMLFormElement>(null);
 
@@ -23,7 +25,7 @@ const NotificationPopup: React.FC = () => {
     event: React.FormEvent<HTMLFormElement>
   ): Promise<void> => {
     event.preventDefault();
-    setResult('Đang gửi...');
+    setResult(t('UserPage.Sending'));
 
     const formData = new FormData(event.currentTarget);
 
@@ -38,7 +40,7 @@ const NotificationPopup: React.FC = () => {
       const data: { success: boolean; message: string } = await response.json();
 
       if (data.success) {
-        setResult('Gửi thành công!');
+        setResult(t('UserPage.Successfully'));
 
         // Reset form using formRef
         formRef.current?.reset();
@@ -63,31 +65,35 @@ const NotificationPopup: React.FC = () => {
 
           <div
             id="popup"
-            className="fixed left-1/2 top-1/2 z-50 -translate-x-1/2 -translate-y-1/2 transform overflow-auto rounded-lg bg-white dark:bg-gray-700 shadow-lg"
+            className="fixed left-1/2 top-1/2 z-50 -translate-x-1/2 -translate-y-1/2 transform overflow-auto rounded-lg bg-white shadow-lg dark:bg-gray-700"
           >
             <div className="flex flex-col items-end justify-center rounded-lg border border-white dark:border-opacity-50">
               {/* IMAGE BANNER */}
               <Hero>
                 <Hero.Content>
-                  <div
-                    id="contact"
-                    className="flex w-full flex-col rounded-xl"
-                  >
-                    <div className='flex  flex-col items-end justify-center ' onClick={closePopup}>
-                      <p className='bg-red-500 px-4 text-white py-2 rounded-md'>X</p>
+                  <div id="contact" className="flex w-full flex-col rounded-xl">
+                    <div
+                      className="flex flex-col items-end justify-center"
+                      onClick={closePopup}
+                    >
+                      <p className="cursor-pointer rounded-md bg-red-500 px-4 py-2 text-white">
+                        X
+                      </p>
                     </div>
-                    <div className='flex  flex-col items-center justify-center '>
+                    <div className="flex flex-col items-center justify-center">
                       <p className="text-[40px] font-bold uppercase text-primary dark:text-white">
                         Thông tin liên hệ
                       </p>
                       <p className="font-semibold text-primary dark:text-white">
-                        Chúng Tôi Luôn Sẵn Sàng Lắng Nghe: Hãy Để Lại Lời Nhắn Của Bạn!                      </p>
+                        Chúng Tôi Luôn Sẵn Sàng Lắng Nghe: Hãy Để Lại Lời Nhắn
+                        Của Bạn!{' '}
+                      </p>
                     </div>
                     {/* Form */}
                     <form
                       ref={formRef}
                       onSubmit={onSubmit}
-                      className="my-5 flex items-center justify-center rounded-xl border border-primary dark:border-white bg-white p-5 dark:bg-gray-500"
+                      className="my-5 flex items-center justify-center rounded-xl border border-primary bg-white p-5 dark:border-white dark:bg-gray-500"
                     >
                       <div className="flex w-1/2 items-center justify-center">
                         <div className="flex flex-col gap-5">
@@ -95,7 +101,7 @@ const NotificationPopup: React.FC = () => {
                             <InputForm
                               name="email"
                               type="email"
-                              placeholder='Email'
+                              placeholder="Email"
                               className="border border-gray-300 bg-white text-black focus:border-primary dark:bg-gray-700 dark:text-white xs:w-[300px] sm:w-[350px] md:w-[650px] xl:w-[500px]"
                               classNameLabel="bg-white dark:bg-gray-700"
                             />
@@ -103,15 +109,14 @@ const NotificationPopup: React.FC = () => {
                               name="name"
                               type="text"
                               className="border border-gray-300 bg-white text-black focus:border-primary dark:bg-gray-700 dark:text-white xs:w-[300px] sm:w-[350px] md:w-[650px] xl:w-[300px]"
-                              placeholder='Tên của bạn'
+                              placeholder="Tên của bạn"
                               classNameLabel="bg-white dark:bg-gray-700"
                             />
-
                           </div>
                           <Textarea
                             name="feedback"
                             className="border border-gray-300 bg-white text-black focus:border-primary focus:outline-none dark:bg-gray-700 dark:text-white xs:w-full sm:w-[350px] md:w-[650px] lg:w-full"
-                            placeholder='Tin nhắn của bạn'
+                            placeholder="Tin nhắn của bạn"
                           />
                           <div className="w-full">
                             <Button
