@@ -1,5 +1,6 @@
 import React from 'react';
 import { Button } from 'react-daisyui';
+import InputModal from '../../InputModal';
 // import { useTranslation } from 'react-i18next';
 
 interface ModalCreateAdminProps {
@@ -7,7 +8,7 @@ interface ModalCreateAdminProps {
   onClose: () => void;
 }
 
-const ModalCreateLocationAdmin: React.FC<ModalCreateAdminProps> = ({
+const ModalCreateLocationPageAdmin: React.FC<ModalCreateAdminProps> = ({
   isOpen,
   onClose
 }) => {
@@ -37,7 +38,9 @@ const ModalCreateLocationAdmin: React.FC<ModalCreateAdminProps> = ({
           <p className="text-xl font-bold text-black dark:text-white">
             Tạo địa chỉ mới
           </p>
-          <div className="flex flex-col items-start justify-center space-x-10 md:flex-row"></div>
+          <div className="flex flex-col items-start justify-center space-x-10 md:flex-row">
+            <InputModal placeholder={'Tên địa chỉ'} type={'text'} name={'location'}/>
+          </div>
           {/* Modal Btn */}
           <div className="mt-4 space-x-5 text-center">
             <Button onClick={onClose} className="border-gray-50 text-black">
@@ -53,5 +56,5 @@ const ModalCreateLocationAdmin: React.FC<ModalCreateAdminProps> = ({
   );
 };
 
-export default ModalCreateLocationAdmin;
+export default ModalCreateLocationPageAdmin;
 

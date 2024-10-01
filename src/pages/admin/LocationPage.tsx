@@ -6,7 +6,9 @@ import { Button, Table } from 'react-daisyui';
 import { FaCircleInfo, FaPenToSquare } from 'react-icons/fa6';
 import { MdDelete } from 'react-icons/md';
 import { RiAddBoxLine } from 'react-icons/ri';
-import ModalCreateLocationAdmin from '../../components/admin/Modal/ModalLocation/ModalCreateLocationAdmin';
+import ModalCreateLocationPageAdmin from '../../components/admin/Modal/ModalLocation/ModalCreateLocationPageAdmin';
+import ModalDeleteLocationPageAdmin from '../../components/admin/Modal/ModalLocation/ModalDeleteLocationPageAdmin';
+import ModalEditLocationPageAdmin from '../../components/admin/Modal/ModalLocation/ModalEditLocationPageAdmin';
 
 interface Product {
   id: number;
@@ -30,6 +32,8 @@ const products: Product[] = [
 
 const LocationPage: React.FC = () => {
   const [isModalCreateOpen, setIsModalCreateOpen] = useState(false);
+  const [isModalEditOpen, setIsModalEditOpen] = useState(false);
+  const [isModalDeleteOpen, setIsModalDeleteOpen] = useState(false);
 
   const openModal = (
     modalSetter: React.Dispatch<React.SetStateAction<boolean>>
@@ -41,14 +45,6 @@ const LocationPage: React.FC = () => {
     modalSetter: React.Dispatch<React.SetStateAction<boolean>>
   ) => {
     modalSetter(false);
-  };
-  //
-  const handleOpenForm = (action: string, product: any) => {
-    console.log(`Open form to ${action} product`, product);
-  };
-
-  const handleDelete = (id: number) => {
-    console.log(`Delete product with id ${id}`);
   };
   return (
     <div className="w-full">
@@ -108,7 +104,7 @@ const LocationPage: React.FC = () => {
                         <Button
                           color="primary"
                           className="w-full max-w-[140px] text-sm font-light text-white"
-                          onClick={() => handleOpenForm('edit', row)}
+                          onClick={() => openModal(setIsModalEditOpen)}
                         >
                           <FaPenToSquare />
                           Cập nhật
@@ -116,7 +112,7 @@ const LocationPage: React.FC = () => {
                         <Button
                           color="secondary"
                           className="w-full max-w-[140px] text-sm font-light text-white"
-                          onClick={() => handleDelete(row.id)}
+                          onClick={() => openModal(setIsModalDeleteOpen)}
                         >
                           <MdDelete />
                           Xoá
@@ -130,9 +126,17 @@ const LocationPage: React.FC = () => {
           }
         />
       </div>
-      <ModalCreateLocationAdmin
+      <ModalCreateLocationPageAdmin
         isOpen={isModalCreateOpen}
         onClose={() => closeModal(setIsModalCreateOpen)}
+      />
+      <ModalDeleteLocationPageAdmin
+        isOpen={isModalDeleteOpen}
+        onClose={() => closeModal(setIsModalDeleteOpen)}
+      />
+      <ModalEditLocationPageAdmin
+        isOpen={isModalEditOpen}
+        onClose={() => closeModal(setIsModalEditOpen)}
       />
     </div>
   );
