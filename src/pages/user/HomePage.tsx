@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { Button } from 'react-daisyui';
+import { Button, Select } from 'react-daisyui';
 import InputForm from '../../components/UserPage/InputForm';
 import { IoLocationOutline, IoSearch } from 'react-icons/io5';
 import { MdOutlineArrowRightAlt } from 'react-icons/md';
@@ -78,7 +78,8 @@ const Home: React.FC<Card> = () => {
       _id: ''
     }
   ];
-  // const [value, setValue] = useState('default');
+  //Select
+  const [value, setValue] = useState('default');
 
   // Sử dụng useRef với kiểu HTMLDivElement
   const scrollRef = useRef<HTMLDivElement>(null);
@@ -190,29 +191,29 @@ const Home: React.FC<Card> = () => {
               />
               <MdOutlineArrowRightAlt className="hidden text-primary dark:text-white xl:flex" />
               <InputForm
-                className="w-[150px] border border-gray-700 border-opacity-50 bg-white text-black focus:border-primary dark:border-secondary dark:bg-gray-700 dark:text-white dark:focus:border-white md:w-[300px] lg:w-[400px] xl:w-full xl:rounded-l-none"
+                className="w-[150px] border border-gray-700 border-opacity-50 bg-white text-black focus:border-primary dark:border-secondary dark:bg-gray-700 dark:text-white dark:focus:border-white md:w-[300px] lg:w-[400px] xl:w-full xl:rounded-none"
                 type={'date'}
                 placeholder={`${t('UserPage.ReturnDatePlaceholder')}`}
                 classNameLabel=" bg-white  dark:bg-gray-700"
               />{' '}
-              {/* <MdOutlineArrowRightAlt className="hidden text-primary dark:text-white xl:flex" /> */}
+              <MdOutlineArrowRightAlt className="hidden text-primary dark:text-white xl:flex" />
             </div>
             {/* Form Mobile 3 */}
             <div className="m-2 flex flex-grow items-center justify-between gap-2 md:m-[10px] md:gap-[20px] xl:m-0 xl:gap-0">
-              {/* <div>
+              <div>
                 <Select
                   className="w-[150px] border border-gray-700 border-opacity-50 bg-white text-black focus:border-primary focus:outline-none dark:border-secondary dark:bg-gray-700 dark:text-white dark:focus:border-white md:w-[300px] lg:w-[400px] xl:w-full xl:rounded-l-none"
                   value={value}
                   onChange={event => setValue(event.target.value)}
                 >
                   <option value={'default'} disabled>
-                    {t('UserPage.AgeSelectDefault')}
+                    {t('UserPage.VehicleSelectDefault')}
                   </option>
-                  <option value={'Người Nhỏ'}>Người Nhỏ</option>
-                  <option value={'Người Vừa'}>Người Vừa</option>
-                  <option value={'Người Lớn'}>Người Lớn</option>
+                  <option value={'Tàu Hoả'}>Tàu Hoả</option>
+                  <option value={'Xe Khách'}>Xe Khách</option>
+                  <option value={'Máy Bay'}>Máy Bay</option>
                 </Select>
-              </div> */}
+              </div>
               <div>
                 <Button className="w-[150px] bg-primary text-sm text-white hover:border-primary hover:bg-white hover:text-primary dark:hover:bg-gray-700 md:w-[300px] lg:w-[400px] xl:ml-3 xl:w-full">
                   <IoSearch />
