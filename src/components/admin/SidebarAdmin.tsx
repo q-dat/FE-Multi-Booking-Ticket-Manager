@@ -2,8 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { Button, Menu } from 'react-daisyui';
 import { NavLink, useLocation } from 'react-router-dom';
 import { FaHome } from 'react-icons/fa';
-import {  IoLocation } from 'react-icons/io5';
-import { MdFastfood } from 'react-icons/md';
+import { IoLocation } from 'react-icons/io5';
+import { MdPostAdd } from 'react-icons/md';
 // import { useTranslation } from 'react-i18next';
 import DarkModeToggle from '../orther/darkmode/DarkMode';
 import { Logo, LogoTitle } from '../../assets/images';
@@ -31,9 +31,9 @@ const SidebarAdmin: React.FC<{}> = () => {
       //   toastify: listsData?.data.length
     },
     {
-      name: 'Ví Dụ',
-      icon: MdFastfood,
-      link: ''
+      name: 'Bài viết',
+      icon: MdPostAdd,
+      link: '/admin/blog'
     }
   ];
 

@@ -21,6 +21,7 @@ const LoginPage = lazy(() => import('../pages/auth/LoginPage'));
 const Admin = lazy(() => import('../pages/admin/Admin'));
 const DashboardPage = lazy(() => import('../pages/admin/DashboardPage'));
 const LocationPage = lazy(() => import('../pages/admin/LocationPage'));
+const BlogPage = lazy(() => import('../pages/admin/BlogPage'));
 // not found page
 const NotFound = lazy(() => import('../pages/404/NotFound'));
 export default function AppRoutes() {
@@ -50,13 +51,17 @@ export default function AppRoutes() {
 
         {/* Admin */}
         <Route element={<DefaultLayout />}>
-          <Route path="/admin" element={
-            <PrivateRouter>
-              <Admin />
-            </PrivateRouter>
-          }>
+          <Route
+            path="/admin"
+            element={
+              <PrivateRouter>
+                <Admin />
+              </PrivateRouter>
+            }
+          >
             <Route index path="" element={<DashboardPage />} />
             <Route path="location" element={<LocationPage />} />
+            <Route path="blog" element={<BlogPage />} />
           </Route>
         </Route>
         {/* 404 not found */}
