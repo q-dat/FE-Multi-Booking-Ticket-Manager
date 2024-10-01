@@ -127,7 +127,7 @@ const FlightsPage: React.FC<Card> = () => {
         </div>
         {/* Form */}
         <form>
-          <div className="relative top-1 flex flex-grow items-center justify-center px-2 pb-10 pt-5 md:-top-3 md:pt-0 xl:-top-10 xl:px-0">
+          <div className="relative top-1 flex flex-grow items-center justify-center px-2 pt-5 md:-top-3 md:pt-0 xl:-top-10 xl:px-0">
             <div className="flex flex-col rounded-lg border border-secondary border-opacity-50 bg-white p-3 shadow-headerMenu dark:bg-gray-700 md:p-10 xl:flex-row xl:px-10 xl:py-8">
               {/* Form Mobile 1 */}
               <div className="m-2 flex flex-grow items-center justify-between gap-2 md:m-[10px] md:gap-[20px] xl:m-0 xl:gap-0">
@@ -191,7 +191,7 @@ const FlightsPage: React.FC<Card> = () => {
           </div>
         </form>
         <div className="px-2 xl:px-[100px]">
-          <div className="my-5 font-bold text-primary dark:text-white">
+          <div className="mb-5 rounded-lg bg-primary py-2 text-center text-3xl font-bold text-white dark:text-white">
             {t('UserPage.TicketPrice')}
           </div>
           <div className="grid grid-cols-2 gap-2 xl:grid-flow-col xl:grid-cols-none xl:grid-rows-1">
