@@ -16,11 +16,11 @@ const NavigationBtn: React.FC<NavigationBtnProps> = ({
   onClick
 }) => {
   return (
-    <div onClick={onClick} className={`${style}  btn relative  text-[20px] `}>
+    <div onClick={onClick} className={`${style} btn relative text-[20px]`}>
       {Icons}
       {badgeNumber > 0 && (
         <span
-          className={`${bg_span} absolute right-[-10px] top-[-10px] flex h-7 w-7 items-center justify-center rounded-full border-[3px] border-white p-[3px] text-xs font-light text-white `}
+          className={`${bg_span} absolute right-[-10px] top-[-10px] flex h-7 w-7 items-center justify-center rounded-full border-[3px] border-white p-[3px] text-xs font-light text-white`}
         >
           {badgeNumber}
         </span>

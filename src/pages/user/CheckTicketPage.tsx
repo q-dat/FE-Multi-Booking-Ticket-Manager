@@ -90,4 +90,3 @@ const CheckTicketPage: React.FC = () => {
 };
 
 export default CheckTicketPage;
-

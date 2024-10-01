@@ -1,10 +1,9 @@
-
 # Building LacLacTrip Multimedia Ticket Booking Website (Train Ticket Booking Managerment)
-
 
 ## Demo
 
 https://github.com/q-dat/FE-Train-Ticket-Booking-Managerment.git
+
 ## Run Project Here
 
 Clone the project
@@ -30,4 +29,3 @@ Start the server
 ```bash
   yarn dev
 ```
-

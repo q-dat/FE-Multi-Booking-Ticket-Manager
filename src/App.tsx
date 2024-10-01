@@ -1,12 +1,12 @@
-import React from 'react'
-import AppRoutes from './routes'
+import React from 'react';
+import AppRoutes from './routes';
 
-const App:React.FC= () => {
+const App: React.FC = () => {
   return (
     <div>
-      <AppRoutes/>
+      <AppRoutes />
     </div>
-  )
-}
+  );
+};
 
-export default App
+export default App;

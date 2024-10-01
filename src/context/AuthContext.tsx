@@ -1,10 +1,17 @@
 import React, { createContext, useState, useEffect, useContext } from 'react';
 import axios from '../config/axiosConfig';
-import { AuthContextType, RegisterData, UpdateUserProfileData, User } from '../types/auth/auth';
+import {
+  AuthContextType,
+  RegisterData,
+  UpdateUserProfileData,
+  User
+} from '../types/auth/auth';
 
 const AuthContext = createContext<AuthContextType | null>(null);
 
-export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
+  children
+}) => {
   const [user, setUser] = useState<User | null>(null);
   const [token, setToken] = useState<string | null>(null);
 
@@ -20,7 +27,10 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
   // Đăng nhập người dùng
   const login = async (username: string, password: string) => {
-    const { data } = await axios.post('/api/auth/login', { username, password });
+    const { data } = await axios.post('/api/auth/login', {
+      username,
+      password
+    });
 
     setUser(data.user);
     setToken(data.token);
@@ -47,7 +57,10 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   };
 
   // Cập nhật hồ sơ người dùng
-  const updateUserProfile = async (id: string, updateData: UpdateUserProfileData) => {
+  const updateUserProfile = async (
+    id: string,
+    updateData: UpdateUserProfileData
+  ) => {
     const { data } = await axios.put(`/api/users/${id}/profile`, updateData);
 
     setUser(data.user);
@@ -57,7 +70,11 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   };
 
   // Đổi mật khẩu
-  const changePassword = async (id: string, oldPassword: string, newPassword: string) => {
+  const changePassword = async (
+    id: string,
+    oldPassword: string,
+    newPassword: string
+  ) => {
     await axios.put(`/api/users/${id}/password`, { oldPassword, newPassword });
   };
 
@@ -84,7 +101,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         updateUserProfile,
         changePassword,
         getAllUsers,
-        getUserById,
+        getUserById
       }}
     >
       {children}

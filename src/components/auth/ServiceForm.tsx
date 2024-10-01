@@ -11,7 +11,7 @@ const ServiceForm: React.FC = () => {
     <div className="flex w-full flex-col gap-6">
       <div className="relative flex h-9 w-full flex-row items-center gap-4">
         <span className="block h-[1px] w-full bg-[#CFDFE2]"></span>
-        <p className="text-center font-sub text-sm font-light sm:text-lg">
+        <p className="text-center font-sub text-sm font-light sm:text-lg text-black dark:text-white">
           {t('Auth.Or')}
         </p>
         <span className="block h-[1px] w-full bg-[#CFDFE2]"></span>

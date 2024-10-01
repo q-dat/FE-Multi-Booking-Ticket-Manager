@@ -1,28 +1,28 @@
-import React, { useCallback, useState } from "react";
-import {  Drawer, Input, Menu } from "react-daisyui";
+import React, { useCallback, useState } from 'react';
+import { Drawer, Input, Menu } from 'react-daisyui';
 //Icon
-import { RxHamburgerMenu } from "react-icons/rx";
-import { IoSearchOutline } from "react-icons/io5";
-import SidebarAdmin from "../../SidebarAdmin";
+import { RxHamburgerMenu } from 'react-icons/rx';
+import { IoSearchOutline } from 'react-icons/io5';
+import SidebarAdmin from '../../SidebarAdmin';
 
 const NavbarMobile: React.FC<{ Title_NavbarMobile: string }> = ({
-  Title_NavbarMobile,
+  Title_NavbarMobile
 }) => {
   const [leftVisible, setLeftVisible] = useState(false);
   const [rightVisible, setRightVisible] = useState(false);
 
   const toggleLeftVisible = useCallback(() => {
-    setLeftVisible((visible) => !visible);
+    setLeftVisible(visible => !visible);
   }, []);
 
   const toggleRightVisible = useCallback(() => {
-    setRightVisible((visible) => !visible);
+    setRightVisible(visible => !visible);
   }, []);
   return (
     <div className="flex flex-col px-2 pb-6 xl:hidden xl:px-0">
       <div className="mb-6 flex items-center justify-between">
         {/* Sidebar Left */}
-        <div className=" z-50">
+        <div className="z-50">
           <Drawer
             open={leftVisible}
             onClickOverlay={toggleLeftVisible}
@@ -38,7 +38,7 @@ const NavbarMobile: React.FC<{ Title_NavbarMobile: string }> = ({
           >
             <div
               onClick={toggleLeftVisible}
-              className="py-4 text-2xl text-black xl:hidden    "
+              className="py-4 text-2xl text-black xl:hidden"
             >
               <RxHamburgerMenu />
             </div>
@@ -46,12 +46,10 @@ const NavbarMobile: React.FC<{ Title_NavbarMobile: string }> = ({
         </div>
         {/* Title_NavbarMobile */}
         <div>
-          <p className="font-semibold text-black">
-            {Title_NavbarMobile}
-          </p>
+          <p className="font-semibold text-black">{Title_NavbarMobile}</p>
         </div>
         {/* Sidebar Right */}
-        <div className=" z-50">
+        <div className="z-50">
           <Drawer
             open={rightVisible}
             onClickOverlay={toggleRightVisible}
@@ -125,9 +123,9 @@ const NavbarMobile: React.FC<{ Title_NavbarMobile: string }> = ({
         </div>
       </div>
       {/* Input Search */}
-      <div className="relative  flex items-center">
+      <div className="relative flex items-center">
         <Input
-          className="w-full text-black focus:outline-none "
+          className="w-full text-black focus:outline-none"
           type="text"
           placeholder="Tìm Kiếm..."
         />

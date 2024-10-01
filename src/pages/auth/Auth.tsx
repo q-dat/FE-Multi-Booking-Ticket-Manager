@@ -13,7 +13,7 @@ const Auth: React.FC = () => {
   return (
     <div className="flex w-full flex-col">
       <div className="hidden xl:block">
-        <img className='h-[140px] object-cover w-full' src={BannerC} alt="" />
+        <img className="h-[140px] w-full object-cover" src={BannerC} alt="" />
       </div>
       {/* BackHome */}
       <div className="fixed z-[99999] hidden w-full flex-row items-center justify-evenly bg-white bg-opacity-50 py-2 uppercase shadow-md dark:bg-gray-700 dark:bg-opacity-50 xl:flex">

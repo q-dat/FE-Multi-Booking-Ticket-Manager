@@ -58,21 +58,21 @@ const ContactPage: React.FC = () => {
       {/* Banner */}
       <div className="relative w-full">
         <img
-          className="hidden h-[400px] w-full object-cover dark:block"
+          className="hidden h-[500px] w-full object-cover dark:block"
           src="https://static.vecteezy.com/system/resources/previews/004/941/847/original/cosmetic-background-for-product-branding-and-packaging-presentation-geometry-form-circle-molding-on-podium-stage-with-shadow-of-leaf-background-design-eps10-vector.jpg"
           alt=""
         />{' '}
         <img
-          className="block h-[400px] w-full object-cover dark:hidden"
+          className="block h-[500px] w-full object-cover dark:hidden"
           src="https://static.vecteezy.com/system/resources/previews/009/731/085/non_2x/cosmetic-light-blue-background-minimal-and-premium-podium-display-for-product-presentation-branding-and-packaging-presentation-studio-stage-with-shadow-of-leaf-background-3d-illustration-design-vector.jpg"
           alt=""
         />
         {/*Contact Form */}
-        <div className=" absolute top-2 flex w-full flex-col items-center justify-center rounded-xl ">
+        <div className="absolute top-2 flex w-full flex-col items-center justify-center rounded-xl">
           <form
             ref={formRef}
             onSubmit={onSubmit}
-            className="my-5 flex items-center justify-center rounded-xl border border-primary bg-white p-5 dark:bg-gray-500"
+            className="my-5 flex items-center justify-center rounded-xl border border-primary bg-white py-20 px-5 dark:bg-gray-500"
           >
             <div className="flex w-1/2 items-center justify-center">
               <div className="flex flex-col gap-5">
@@ -91,11 +91,10 @@ const ContactPage: React.FC = () => {
                     placeholder={t('UserPage.YourNameBtn')}
                     classNameLabel="bg-white dark:bg-gray-700"
                   />
-
                 </div>
                 <Textarea
                   name="feedback"
-                  className="border border-gray-300 bg-white text-black focus:border-primary focus:outline-none dark:bg-gray-700 dark:text-white xs:w-full sm:w-[350px] md:w-[650px] lg:w-full"
+                  className="border border-gray-300 bg-white pb-20 text-black focus:border-primary focus:outline-none dark:bg-gray-700 dark:text-white xs:w-full sm:w-[350px] md:w-[650px] lg:w-full"
                   placeholder={t('UserPage.FeedbackBtn')}
                 />
                 <div className="w-full">
@@ -117,4 +116,3 @@ const ContactPage: React.FC = () => {
 };
 
 export default ContactPage;
-

@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { Button, Textarea } from 'react-daisyui';
+import { Button, Select } from 'react-daisyui';
 import InputForm from '../../components/UserPage/InputForm';
 import { IoLocationOutline, IoSearch } from 'react-icons/io5';
 import { MdOutlineArrowRightAlt } from 'react-icons/md';
@@ -31,16 +31,16 @@ interface Card {
 const Home: React.FC<Card> = () => {
   //Translation
   const { t } = useTranslation();
-  //anchorForm
-  const anchorForm = useLocation();
-  useEffect(() => {
-    if (location.hash === '#contact') {
-      const element = document.getElementById('contact');
-      if (element) {
-        element.scrollIntoView({ behavior: 'smooth' });
-      }
-    }
-  }, [anchorForm.hash]);
+  // //anchorForm
+  // const anchorForm = useLocation();
+  // useEffect(() => {
+  //   if (location.hash === '#contact') {
+  //     const element = document.getElementById('contact');
+  //     if (element) {
+  //       element.scrollIntoView({ behavior: 'smooth' });
+  //     }
+  //   }
+  // }, [anchorForm.hash]);
   // Naviga Active
   const [activeItem, setActiveItem] = useState('Hà Nội');
   const location = useLocation();
@@ -52,42 +52,6 @@ const Home: React.FC<Card> = () => {
       setActiveItem(foundItem.name);
     }
   }, [location.pathname]);
-  //Contact Form
-  const [result, setResult] = React.useState<string>('');
-  const formRef = useRef<HTMLFormElement>(null);
-
-  const onSubmit = async (
-    event: React.FormEvent<HTMLFormElement>
-  ): Promise<void> => {
-    event.preventDefault();
-    setResult(t('UserPage.Sending'));
-
-    const formData = new FormData(event.currentTarget);
-
-    formData.append('access_key', 'ef25da04-c229-4ec0-9b44-9d92550e4351');
-
-    try {
-      const response = await fetch('https://api.web3forms.com/submit', {
-        method: 'POST',
-        body: formData
-      });
-
-      const data: { success: boolean; message: string } = await response.json();
-
-      if (data.success) {
-        setResult(t('UserPage.Successfully'));
-
-        // Reset form using formRef
-        formRef.current?.reset();
-      } else {
-        console.error('Error', data);
-        setResult(data.message);
-      }
-    } catch (error) {
-      console.error('Request failed', error);
-      setResult('There was an error submitting the form.');
-    }
-  };
   const FecthLocation: ILocation[] = [
     {
       name: 'Hà Nội',
@@ -114,7 +78,8 @@ const Home: React.FC<Card> = () => {
       _id: ''
     }
   ];
-  // const [value, setValue] = useState('default');
+  //Select
+  const [value, setValue] = useState('default');
 
   // Sử dụng useRef với kiểu HTMLDivElement
   const scrollRef = useRef<HTMLDivElement>(null);
@@ -151,7 +116,6 @@ const Home: React.FC<Card> = () => {
       description: 'Description for Card 5',
       image: `${HaNoi}`
     },
-    ,
     {
       id: 6,
       title: 'Card 5',
@@ -240,29 +204,29 @@ const Home: React.FC<Card> = () => {
               />
               <MdOutlineArrowRightAlt className="hidden text-primary dark:text-white xl:flex" />
               <InputForm
-                className="w-[150px] border border-gray-700 border-opacity-50 bg-white text-black focus:border-primary dark:border-secondary dark:bg-gray-700 dark:text-white dark:focus:border-white md:w-[300px] lg:w-[400px] xl:w-full xl:rounded-l-none"
+                className="w-[150px] border border-gray-700 border-opacity-50 bg-white text-black focus:border-primary dark:border-secondary dark:bg-gray-700 dark:text-white dark:focus:border-white md:w-[300px] lg:w-[400px] xl:w-full xl:rounded-none"
                 type={'date'}
                 placeholder={`${t('UserPage.ReturnDatePlaceholder')}`}
                 classNameLabel=" bg-white  dark:bg-gray-700"
               />{' '}
-              {/* <MdOutlineArrowRightAlt className="hidden text-primary dark:text-white xl:flex" /> */}
+              <MdOutlineArrowRightAlt className="hidden text-primary dark:text-white xl:flex" />
             </div>
             {/* Form Mobile 3 */}
             <div className="m-2 flex flex-grow items-center justify-between gap-2 md:m-[10px] md:gap-[20px] xl:m-0 xl:gap-0">
-              {/* <div>
+              <div>
                 <Select
                   className="w-[150px] border border-gray-700 border-opacity-50 bg-white text-black focus:border-primary focus:outline-none dark:border-secondary dark:bg-gray-700 dark:text-white dark:focus:border-white md:w-[300px] lg:w-[400px] xl:w-full xl:rounded-l-none"
                   value={value}
                   onChange={event => setValue(event.target.value)}
                 >
                   <option value={'default'} disabled>
-                    {t('UserPage.AgeSelectDefault')}
+                    {t('UserPage.VehicleSelectDefault')}
                   </option>
-                  <option value={'Người Nhỏ'}>Người Nhỏ</option>
-                  <option value={'Người Vừa'}>Người Vừa</option>
-                  <option value={'Người Lớn'}>Người Lớn</option>
+                  <option value={'Tàu Hoả'}>Tàu Hoả</option>
+                  <option value={'Xe Khách'}>Xe Khách</option>
+                  <option value={'Máy Bay'}>Máy Bay</option>
                 </Select>
-              </div> */}
+              </div>
               <div>
                 <Button className="w-[150px] bg-primary text-sm text-white hover:border-primary hover:bg-white hover:text-primary dark:hover:bg-gray-700 md:w-[300px] lg:w-[400px] xl:ml-3 xl:w-full">
                   <IoSearch />
@@ -396,17 +360,18 @@ const Home: React.FC<Card> = () => {
       </div>
       {/* Location */}
       <div className="px-2 xl:px-[100px]">
-        <div className="my-5 font-bold text-primary dark:text-white">
+        <div className="my-5 rounded-lg bg-primary py-2 text-center text-3xl font-bold text-white dark:bg-white dark:text-primary">
           {t('UserPage.TicketPrice')}
         </div>
         <div className="grid grid-cols-2 gap-2 xl:grid-flow-col xl:grid-cols-none xl:grid-rows-1">
           {FecthLocation.map(item => (
             <Button
               key={item._id}
-              className={`flex w-full items-center justify-center transition-all duration-500 ease-in-out hover:rounded-badge hover:bg-secondary hover:text-white ${item.name === activeItem
-                ? 'bg-primary text-white hover:bg-primary hover:text-white'
-                : 'bg-white text-primary'
-                }`}
+              className={`flex w-full items-center justify-center transition-all duration-500 ease-in-out hover:rounded-badge hover:bg-secondary hover:text-white ${
+                item.name === activeItem
+                  ? 'bg-primary text-white hover:bg-primary hover:text-white'
+                  : 'bg-white text-primary'
+              }`}
               onClick={() => setActiveItem(item.name)}
             >
               <span>{item.name}</span>
@@ -467,63 +432,9 @@ const Home: React.FC<Card> = () => {
           </div>
         </div>
         {/*  */}
-        {/*Contact Form */}
-        <div
-          id="contact"
-          className="flex w-full flex-col items-center justify-center rounded-xl xl:pt-[100px]"
-        >
-          <p className="text-[40px] font-bold uppercase text-primary dark:text-white">
-            {t('UserPage.ContactUs')}
-          </p>
-          <p className="font-semibold text-primary dark:text-white">
-            {t('UserPage.Questions')}
-          </p>
-          <form
-            ref={formRef}
-            onSubmit={onSubmit}
-            className="my-5 flex items-center justify-center rounded-xl border border-primary bg-white p-5 dark:bg-gray-500"
-          >
-            <div className="flex w-1/2 items-center justify-center">
-              <div className="flex flex-col gap-5">
-                <div className="flex flex-col gap-5 xl:flex-row">
-                  <InputForm
-                    name="email"
-                    type="email"
-                    placeholder={t('UserPage.Email')}
-                    className="border border-gray-300 bg-white text-black focus:border-primary dark:bg-gray-700 dark:text-white xs:w-[300px] sm:w-[350px] md:w-[650px] xl:w-[500px]"
-                    classNameLabel="bg-white dark:bg-gray-700"
-                  />
-                  <InputForm
-                    name="name"
-                    type="text"
-                    className="border border-gray-300 bg-white text-black focus:border-primary dark:bg-gray-700 dark:text-white xs:w-[300px] sm:w-[350px] md:w-[650px] xl:w-[300px]"
-                    placeholder={t('UserPage.YourNameBtn')}
-                    classNameLabel="bg-white dark:bg-gray-700"
-                  />
-
-                </div>
-                <Textarea
-                  name="feedback"
-                  className="border border-gray-300 bg-white text-black focus:border-primary focus:outline-none dark:bg-gray-700 dark:text-white xs:w-full sm:w-[350px] md:w-[650px] lg:w-full"
-                  placeholder={t('UserPage.FeedbackBtn')}
-                />
-                <div className="w-full">
-                  <Button
-                    className="w-full bg-primary text-sm text-white hover:border-primary hover:bg-secondary hover:text-white dark:hover:bg-gray-700"
-                    type="submit"
-                  >
-                    {t('UserPage.SentBtn')}
-                  </Button>
-                  <span>{result}</span>
-                </div>
-              </div>
-            </div>
-          </form>
-        </div>
       </div>
     </div>
   );
 };
 
 export default Home;
-

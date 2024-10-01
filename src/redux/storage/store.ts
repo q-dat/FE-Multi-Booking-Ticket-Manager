@@ -17,8 +17,8 @@ const persistConfig = {
 };
 
 const rootReducer = combineReducers({
-//   [authApi.reducerPath]: authApi.reducer,
-//   auth: authSlice,
+  //   [authApi.reducerPath]: authApi.reducer,
+  //   auth: authSlice,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
@@ -29,7 +29,7 @@ const store = configureStore({
     getDefaultMiddleware({
       serializableCheck: false
     }).concat(
-    //   authApi.middleware,
+      //   authApi.middleware,
       rtkQueryLogger
     ),
   devTools: import.meta.env.MODE !== 'production'

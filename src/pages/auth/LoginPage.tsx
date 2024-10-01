@@ -6,7 +6,7 @@ import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import LabelForm from '../../components/auth/LabelForm';
 import ServiceForm from '../../components/auth/ServiceForm';
-import { Logo } from '../../assets/images';
+import { Logo, LogoTitle } from '../../assets/images';
 import HeaderAuth from '../../components/auth/HeaderAuth';
 import { BannerLogin } from '../../assets/image-represent';
 import { useAuth } from '../../context/AuthContext';
@@ -22,7 +22,11 @@ const LoginPage: React.FC<{}> = () => {
   const navigate = useNavigate();
   const { login } = useAuth();
 
-  const { register, handleSubmit, formState: { errors } } = useForm<FormData>();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors }
+  } = useForm<FormData>();
 
   const onSubmit = async (data: FormData) => {
     try {
@@ -40,10 +44,11 @@ const LoginPage: React.FC<{}> = () => {
       {/* Form */}
       <div className="flex w-full flex-col items-center justify-center xl:w-1/2">
         <div>
-          <h1 className="hidden text-center text-[40px] font-[600] text-primary xl:block">
+          <h1 className="hidden text-center text-[40px] font-[600] text-primary xl:block dark:text-white">
             {t('Auth.Login')}
           </h1>
-          <img className="w-[180px] xl:hidden xl:w-[120px]" src={Logo} alt="" />
+          <img className="w-[180px] xl:hidden xl:w-[120px] dark:hidden" src={Logo} alt="" />
+          <img className="w-[180px] hidden xl:w-[120px] dark:xl:hidden dark:block" src={LogoTitle} alt="" />
         </div>
         <div className="mt-10">
           <form onSubmit={handleSubmit(onSubmit)}>
@@ -56,7 +61,11 @@ const LoginPage: React.FC<{}> = () => {
                   type="text"
                   {...register('username', { required: true })}
                 />
-                {errors.username && <span className="text-red-500">{t('Auth.Errors.usernameRequired')}</span>}
+                {errors.username && (
+                  <span className="text-red-500">
+                    {t('Auth.Errors.usernameRequired')}
+                  </span>
+                )}
               </div>
               <div className="flex w-full flex-col gap-1">
                 <LabelForm title={t('Auth.LabelForm.password')} />
@@ -66,33 +75,39 @@ const LoginPage: React.FC<{}> = () => {
                   type="password"
                   {...register('password', { required: true })}
                 />
-                {errors.username && <span className="text-red-500">{t('Auth.Errors.passwordRequired')}</span>}
+                {errors.username && (
+                  <span className="text-red-500">
+                    {t('Auth.Errors.passwordRequired')}
+                  </span>
+                )}
               </div>
 
               <Link
-                className="self-end font-sub text-[16px] font-[400] text-primary"
+                className="self-end font-sub text-[16px] font-[400] text-primary dark:text-white"
                 to="/auth/request-password-reset"
               >
                 {t('Auth.ForgotPassword')}
               </Link>
 
-              <Button type="submit" color="primary" className="text-white">
+              <Button type="submit" color="primary"
+               className="text-white border border-white">
                 {t('Auth.Login')}
               </Button>
             </div>
           </form>
           <ServiceForm />
-          <p className="my-5 text-center font-sub text-base font-[400]">
+          <p className="my-5 text-center font-sub text-base font-[400] text-black dark:text-white">
             {t('Auth.CreateAccount')} &nbsp;
-            <NavLink className="text-primary" to="/auth/register">
+            <NavLink className=" text-blue-500" to="/auth/register">
               {t('Auth.Register')}
             </NavLink>
           </p>
         </div>
       </div>
       {/* BoxImg */}
-      <div className="hidden w-1/2 p-10 xl:flex xl:flex-col xl:items-center xl:justify-center">
-        <img className="w-[130px]" src={Logo} alt="" />
+      <div className="hidden w-1/2 p-10 xl:flex xl:flex-col xl:items-center xl:justify-center gap-5">
+        <img className="w-[130px] block dark:hidden" src={Logo} alt="" />
+        <img className="w-[130px] hidden dark:block" src={LogoTitle} alt="" />
         <img className="w-full rounded-lg" src={BannerLogin} alt="" />
       </div>
     </div>

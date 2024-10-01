@@ -16,7 +16,6 @@ interface Card {
   description?: string;
   image?: string;
 }
-
 const BusesPage: React.FC<Card> = () => {
   //Translation
   const { t } = useTranslation();
@@ -109,19 +108,16 @@ const BusesPage: React.FC<Card> = () => {
       <div className="">
         {/* Banner */}
         <div className="relative">
-          <div className="absolute bottom-0 left-2 top-[50%] md:bottom-4 md:top-[30%] xl:left-[20%] xl:top-[40%]">
-            <p className="bg-gradient-to-r from-white to-white bg-clip-text text-[25px] font-bold text-transparent dark:from-primary dark:to-gray-100 md:text-[40px]">
-              {t('UserPage.BannerTitle')}
-            </p>
-            <p className="bg-gradient-to-r from-white to-white bg-clip-text text-[15px] font-light text-transparent dark:from-primary dark:to-primary">
-              {t('UserPage.BannerSubtitle')}
-            </p>
-          </div>
           {/* Banner IMG */}
           <div>
             <img
               src={BannerBus}
               className="hidden w-full xl:block dark:xl:hidden"
+              alt="Banner"
+            />
+            <img
+              src={BannerBus}
+              className="hidden w-full dark:xl:block"
               alt="Banner"
             />
             <img
@@ -133,7 +129,7 @@ const BusesPage: React.FC<Card> = () => {
         </div>
         {/* Form */}
         <form>
-          <div className="relative top-1 flex flex-grow items-center justify-center px-2 pb-10 pt-5 md:-top-3 md:pt-0 xl:-top-10 xl:px-0">
+          <div className="relative top-1 flex flex-grow items-center justify-center px-2 pt-5 md:-top-3 md:pt-0 xl:-top-10 xl:px-0">
             <div className="flex flex-col rounded-lg border border-secondary border-opacity-50 bg-white p-3 shadow-headerMenu dark:bg-gray-700 md:p-10 xl:flex-row xl:px-10 xl:py-8">
               {/* Form Mobile 1 */}
               <div className="m-2 flex flex-grow items-center justify-between gap-2 md:m-[10px] md:gap-[20px] xl:m-0 xl:gap-0">
@@ -172,18 +168,17 @@ const BusesPage: React.FC<Card> = () => {
           </div>
         </form>
         <div className="px-2 xl:px-[100px]">
-          <div className="my-5 font-bold text-primary dark:text-white">
+          <div className="my-5 xl:mt-0 rounded-lg bg-primary py-2 text-center text-3xl font-bold text-white dark:bg-white dark:text-primary">
             {t('UserPage.TicketPrice')}
           </div>
           <div className="grid grid-cols-2 gap-2 xl:grid-flow-col xl:grid-cols-none xl:grid-rows-1">
             {FecthLocation.map(item => (
               <Button
                 key={item._id}
-                className={`flex w-full items-center justify-center transition-all duration-500 ease-in-out hover:rounded-badge hover:bg-secondary hover:text-white ${
-                  item.name === activeItem
+                className={`flex w-full items-center justify-center transition-all duration-500 ease-in-out hover:rounded-badge hover:bg-secondary hover:text-white ${item.name === activeItem
                     ? 'bg-primary text-white hover:bg-primary hover:text-white'
                     : 'bg-white text-primary'
-                }`}
+                  }`}
                 onClick={() => setActiveItem(item.name)}
               >
                 <span>{item.name}</span>

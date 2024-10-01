@@ -1,7 +1,7 @@
-import React from "react";
-import { Table } from "react-daisyui";
-import NavtableAdmin from "./NavtableAdmin";
-import PaginationAdmin from "./PaginationAdmin";
+import React from 'react';
+import { Table } from 'react-daisyui';
+import NavtableAdmin from './NavtableAdmin';
+import PaginationAdmin from './PaginationAdmin';
 
 interface TableListAdminProps {
   table_head: React.ReactNode;
@@ -11,7 +11,7 @@ interface TableListAdminProps {
 const TableListAdmin: React.FC<TableListAdminProps> = ({
   table_head,
   table_body,
-  Title_TableListAdmin,
+  Title_TableListAdmin
 }) => {
   return (
     <div>
@@ -20,7 +20,7 @@ const TableListAdmin: React.FC<TableListAdminProps> = ({
         <NavtableAdmin Title_NavtableAdmin={Title_TableListAdmin} />
         <div className="w-screen overflow-x-auto border-8 border-transparent scrollbar-hide lg:w-full xl:px-4">
           {/* Phần Bảng */}
-          <Table className="w-full text-black " zebra>
+          <Table className="w-full text-black" zebra>
             {table_head}
             {table_body}
           </Table>

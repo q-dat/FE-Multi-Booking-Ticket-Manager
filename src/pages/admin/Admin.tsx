@@ -1,7 +1,7 @@
-import React from "react";
-import { Outlet } from "react-router-dom";
-import NavbarAdmin from "../../components/admin/NavbarAdmin";
-import SidebarAdmin from "../../components/admin/SidebarAdmin";
+import React from 'react';
+import { Outlet } from 'react-router-dom';
+import NavbarAdmin from '../../components/admin/NavbarAdmin';
+import SidebarAdmin from '../../components/admin/SidebarAdmin';
 const Admin: React.FC<{}> = () => {
   return (
     <div className="flex min-h-screen w-full flex-col bg-[#F3F2F7]">

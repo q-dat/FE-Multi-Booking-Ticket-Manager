@@ -63,7 +63,7 @@ const HeaderResponsive: React.FC<HeaderResponsiveProps> = ({
     },
     {
       name: `${t('UserPage.Navbar.Flights')}`,
-      link: ''
+      link: '/flights'
     },
 
     {
@@ -137,7 +137,7 @@ const HeaderResponsive: React.FC<HeaderResponsiveProps> = ({
             side={
               <Menu className="fixed h-full w-[280px] bg-white dark:bg-gray-800">
                 {/* LOGO */}
-                <div className="flex items-center justify-center">
+                <div className="mb-5 flex items-center justify-center">
                   <img
                     className="hidden object-cover dark:block"
                     width={120}
@@ -166,10 +166,11 @@ const HeaderResponsive: React.FC<HeaderResponsiveProps> = ({
                       >
                         <NavLink
                           to={item.link}
-                          className={`btn relative mt-2 flex w-full flex-row items-center justify-between rounded-none border-none pl-4 pr-3 ${item.name === activeItem
-                            ? 'bg-primary bg-opacity-30 text-sm font-bold text-primary dark:bg-opacity-50 dark:text-white'
-                            : 'border-none bg-primary bg-opacity-10 text-sm font-light text-black shadow-headerMenu dark:text-white'
-                            } `}
+                          className={`btn relative mt-2 flex w-full flex-row items-center justify-between rounded-none border-none pl-4 pr-3 ${
+                            item.name === activeItem
+                              ? 'bg-secondary bg-opacity-30 text-sm font-bold text-primary dark:bg-opacity-50 dark:text-white'
+                              : 'border-none bg-secondary bg-opacity-10 text-sm font-light text-black shadow-headerMenu dark:text-white'
+                          } `}
                         >
                           <>
                             {item.name === activeItem && (
@@ -195,7 +196,7 @@ const HeaderResponsive: React.FC<HeaderResponsiveProps> = ({
                       </Menu.Item>
                       {/* SubMenu */}
                       {item.submenu && openSubmenu === item.name && (
-                        <div className="relative w-full space-y-2 rounded-sm bg-white p-4 shadow-md dark:bg-gray-700 dark:bg-opacity-80">
+                        <div className="relative w-full space-y-2 rounded-sm bg-white p-4 shadow-md dark:bg-secondary dark:bg-opacity-50">
                           {item.submenu.map((subItem, index) => (
                             <Link
                               key={index}
@@ -228,7 +229,7 @@ const HeaderResponsive: React.FC<HeaderResponsiveProps> = ({
           </Drawer>
         </div>
         {/* Title */}
-        <p className="text-base font-bold uppercase text-primary">
+        <p className="text-base font-bold uppercase text-primary dark:text-white">
           {Title_NavbarMobile}
         </p>
         {/* RightVisible */}
@@ -239,7 +240,7 @@ const HeaderResponsive: React.FC<HeaderResponsiveProps> = ({
             side={
               <Menu className="fixed h-full w-[280px] bg-white dark:bg-gray-800">
                 {/* LOGO */}
-                <div className="flex items-center justify-center">
+                <div className="mb-5 flex items-center justify-center">
                   <img
                     className="hidden object-cover dark:block"
                     width={120}
@@ -256,39 +257,38 @@ const HeaderResponsive: React.FC<HeaderResponsiveProps> = ({
                   />
                 </div>
                 <div className="w-full space-y-5">
-                  {
-                    user && user.role === 'user' && (
-                      <div className="flex flex-row items-center justify-between rounded-md bg-gray-700 bg-opacity-20 p-2">
-                        <p className='text-lg font-light text-black dark:text-white'>
-                          {t('UserPage.Navbar.LogoutBtn')}
-                        </p>
-                        <Button onClick={handleLogout} className='flex cursor-pointer flex-row items-center justify-center rounded-md border-none bg-white bg-opacity-20 text-black shadow-headerMenu dark:bg-black dark:bg-opacity-20 dark:text-white'>
-                          <MdLogout />
+                  {user && user.role === 'user' && (
+                    <div className="flex flex-row items-center justify-between rounded-md bg-gray-700 bg-opacity-20 dark:bg-secondary dark:bg-opacity-10 p-2">
+                      <p className="text-lg font-light text-black dark:text-white">
+                        {t('UserPage.Navbar.LogoutBtn')}
+                      </p>
+                      <Button
+                        onClick={handleLogout}
+                        className="flex cursor-pointer flex-row items-center justify-center rounded-md border-none bg-white bg-opacity-20 text-black shadow-headerMenu dark:bg-black dark:bg-opacity-20 dark:text-white"
+                      >
+                        <MdLogout />
+                      </Button>
+                    </div>
+                  )}
+                  {!user && (
+                    <div className="flex flex-row items-center justify-between rounded-md bg-gray-700 bg-opacity-20 dark:bg-secondary dark:bg-opacity-10 p-2">
+                      <p className="text-lg font-light text-black dark:text-white">
+                        {t('UserPage.Navbar.LoginBtn')}
+                      </p>
+                      <Link to="auth/login">
+                        <Button className="flex cursor-pointer items-center justify-center rounded-md border-none bg-white bg-opacity-20 text-black shadow-headerMenu dark:bg-black dark:bg-opacity-20 dark:text-white">
+                          <FaUser />
                         </Button>
-                      </div>
-                    )
-                  }
-                  {
-                    !user && (
-                      <div className="flex flex-row items-center justify-between rounded-md bg-gray-700 bg-opacity-20 p-2">
-                        <p className='text-lg font-light text-black dark:text-white'>
-                          {t('UserPage.Navbar.LoginBtn')}
-                        </p>
-                        <Link to="auth/login">
-                          <Button className="flex cursor-pointer items-center justify-center rounded-md border-none bg-white bg-opacity-20 text-black shadow-headerMenu dark:bg-black dark:bg-opacity-20 dark:text-white">
-                            <FaUser />
-                          </Button>
-                        </Link>
-                      </div>
-                    )
-                  }
-                  <div className="flex flex-row items-center justify-between rounded-md bg-gray-700 bg-opacity-20 p-2">
+                      </Link>
+                    </div>
+                  )}
+                  <div className="flex flex-row items-center justify-between rounded-md bg-gray-700 bg-opacity-20 dark:bg-secondary dark:bg-opacity-10 p-2">
                     <p className="text-lg font-light text-black dark:text-white">
                       {t('UserPage.Navbar.Theme')}
                     </p>
                     <DarkMode />
                   </div>
-                  <div className="flex flex-row items-center justify-between rounded-md bg-gray-700 bg-opacity-20 p-2">
+                  <div className="flex flex-row items-center justify-between rounded-md bg-gray-700 bg-opacity-20 dark:bg-secondary dark:bg-opacity-10 p-2">
                     <p className="text-lg font-light text-black dark:text-white">
                       {t('UserPage.Navbar.Translate')}
                     </p>
@@ -319,5 +319,5 @@ const HeaderResponsive: React.FC<HeaderResponsiveProps> = ({
   );
 };
 
-export default HeaderResponsive;
 
+export default HeaderResponsive;
