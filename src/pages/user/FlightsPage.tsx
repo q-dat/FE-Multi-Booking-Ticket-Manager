@@ -191,7 +191,7 @@ const FlightsPage: React.FC<Card> = () => {
           </div>
         </form>
         <div className="px-2 xl:px-[100px]">
-          <div className="mb-5 rounded-lg bg-primary py-2 text-center text-3xl font-bold text-white dark:text-white">
+        <div className="mb-5 rounded-lg bg-primary py-2 text-center text-3xl font-bold text-white dark:bg-white dark:text-primary">
             {t('UserPage.TicketPrice')}
           </div>
           <div className="grid grid-cols-2 gap-2 xl:grid-flow-col xl:grid-cols-none xl:grid-rows-1">

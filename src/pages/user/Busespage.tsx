@@ -16,7 +16,6 @@ interface Card {
   description?: string;
   image?: string;
 }
-
 const BusesPage: React.FC<Card> = () => {
   //Translation
   const { t } = useTranslation();
@@ -109,7 +108,6 @@ const BusesPage: React.FC<Card> = () => {
       <div className="">
         {/* Banner */}
         <div className="relative">
-          
           {/* Banner IMG */}
           <div>
             <img
@@ -117,11 +115,11 @@ const BusesPage: React.FC<Card> = () => {
               className="hidden w-full xl:block dark:xl:hidden"
               alt="Banner"
             />
-             <img
-            src={BannerBus}
-            className="hidden w-full dark:xl:block"
-            alt="Banner"
-          />
+            <img
+              src={BannerBus}
+              className="hidden w-full dark:xl:block"
+              alt="Banner"
+            />
             <img
               className="block h-[150px] w-full object-cover xl:hidden"
               src={BannerBus}
@@ -131,7 +129,7 @@ const BusesPage: React.FC<Card> = () => {
         </div>
         {/* Form */}
         <form>
-          <div className="relative top-1 flex flex-grow items-center justify-center px-2  pt-5 md:-top-3 md:pt-0 xl:-top-10 xl:px-0">
+          <div className="relative top-1 flex flex-grow items-center justify-center px-2 pt-5 md:-top-3 md:pt-0 xl:-top-10 xl:px-0">
             <div className="flex flex-col rounded-lg border border-secondary border-opacity-50 bg-white p-3 shadow-headerMenu dark:bg-gray-700 md:p-10 xl:flex-row xl:px-10 xl:py-8">
               {/* Form Mobile 1 */}
               <div className="m-2 flex flex-grow items-center justify-between gap-2 md:m-[10px] md:gap-[20px] xl:m-0 xl:gap-0">
@@ -170,7 +168,7 @@ const BusesPage: React.FC<Card> = () => {
           </div>
         </form>
         <div className="px-2 xl:px-[100px]">
-        <div className="mb-5 rounded-lg bg-primary py-2 text-center text-3xl font-bold text-white dark:text-white">
+          <div className="mb-5 rounded-lg bg-primary py-2 text-center text-3xl font-bold text-white dark:bg-white dark:text-primary">
             {t('UserPage.TicketPrice')}
           </div>
           <div className="grid grid-cols-2 gap-2 xl:grid-flow-col xl:grid-cols-none xl:grid-rows-1">
@@ -249,3 +247,4 @@ const BusesPage: React.FC<Card> = () => {
 };
 
 export default BusesPage;
+
