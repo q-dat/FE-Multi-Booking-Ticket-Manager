@@ -124,6 +124,11 @@ const BusesPage: React.FC<Card> = () => {
               className="hidden w-full xl:block dark:xl:hidden"
               alt="Banner"
             />
+             <img
+            src={BannerBus}
+            className="hidden w-full dark:xl:block"
+            alt="Banner"
+          />
             <img
               className="block h-[150px] w-full object-cover xl:hidden"
               src={BannerBus}
