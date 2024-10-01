@@ -150,6 +150,20 @@ const Home: React.FC<Card> = () => {
       title: 'Card 5',
       description: 'Description for Card 5',
       image: `${HaNoi}`
+    },
+    ,
+    {
+      id: 6,
+      title: 'Card 5',
+      description: 'Description for Card 5',
+      image: `${HaNoi}`
+    }
+    ,
+    {
+      id: 7,
+      title: 'Card 5',
+      description: 'Description for Card 5',
+      image: `${HaNoi}`
     }
   ];
 
