@@ -11,6 +11,9 @@
     "interface": "i18next-resources-for-ts interface -i ./public/locales/en -o ./src/@types/resources.d.ts"
   },
   "dependencies": {
+    "@editorjs/editorjs": "^2.30.6",
+    "@editorjs/header": "^2.8.7",
+    "@editorjs/list": "^1.10.0",
     "@reduxjs/toolkit": "^2.2.6",
     "@tanstack/react-query": "^5.51.21",
     "axios": "^1.7.3",
