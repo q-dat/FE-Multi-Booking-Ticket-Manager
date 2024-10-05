@@ -9,7 +9,7 @@ import DarkMode from '../orther/darkmode/DarkMode';
 import { Logo } from '../../assets/images';
 import DropdownLanguage from '../orther/translation/Dropdown-Language ';
 import { useTranslation } from 'react-i18next';
-import { useAuth } from '../../context/AuthContext';
+import { useAuth } from '../../context/auth/AuthContext';
 import { MdLogout } from 'react-icons/md';
 
 interface MenuItem {

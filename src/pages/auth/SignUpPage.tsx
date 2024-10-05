@@ -8,7 +8,7 @@ import { Logo, LogoTitle } from '../../assets/images';
 import ServiceForm from '../../components/auth/ServiceForm';
 import HeaderAuth from '../../components/auth/HeaderAuth';
 import { BannerLogin } from '../../assets/image-represent';
-import { useAuth } from '../../context/AuthContext';
+import { useAuth } from '../../context/auth/AuthContext';
 
 const SignUpPage: React.FC = () => {
   const { t } = useTranslation();

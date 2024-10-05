@@ -11,7 +11,7 @@ import {
 import NavigationBtnAdmin from './NavigationBtnAdmin';
 import Avatar from 'boring-avatars';
 import { Button, Input } from 'react-daisyui';
-import { useAuth } from '../../context/AuthContext';
+import { useAuth } from '../../context/auth/AuthContext';
 import { RiUserUnfollowFill } from 'react-icons/ri';
 import { BiSolidUserRectangle } from 'react-icons/bi';
 import { Toastify } from '../../helper/Toastify';

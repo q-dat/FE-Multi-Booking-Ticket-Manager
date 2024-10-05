@@ -12,7 +12,7 @@ import DarkMode from '../orther/darkmode/DarkMode';
 import DropdownLanguage from '../orther/translation/Dropdown-Language ';
 import { useTranslation } from 'react-i18next';
 import { Logo, LogoTitle } from '../../assets/images';
-import { useAuth } from '../../context/AuthContext';
+import { useAuth } from '../../context/auth/AuthContext';
 
 interface HeaderResponsiveProps {
   Title_NavbarMobile: ReactNode;

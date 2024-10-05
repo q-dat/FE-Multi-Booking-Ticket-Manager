@@ -1,11 +1,11 @@
 import React, { createContext, useState, useEffect, useContext } from 'react';
-import axios from '../config/axiosConfig';
+import axios from '../../config/axiosConfig';
 import {
   AuthContextType,
   RegisterData,
   UpdateUserProfileData,
   User
-} from '../types/auth/auth';
+} from '../../types/auth/auth';
 
 const AuthContext = createContext<AuthContextType | null>(null);
 
