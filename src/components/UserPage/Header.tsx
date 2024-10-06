@@ -124,10 +124,11 @@ const Header: React.FC = () => {
               >
                 <NavLink
                   to={item.link}
-                  className={`btn relative flex w-full items-center justify-center rounded-none border-none pl-4 ${item.name === activeItem
+                  className={`btn relative flex w-full items-center justify-center rounded-none border-none pl-4 ${
+                    item.name === activeItem
                       ? 'bg-primary bg-opacity-20 text-sm font-bold text-primary dark:bg-opacity-50 dark:text-white'
                       : 'border-none text-sm font-light text-black shadow-none hover:border hover:border-primary hover:bg-gray-50 hover:bg-opacity-30 hover:text-primary dark:text-white'
-                    }`}
+                  }`}
                 >
                   <>
                     {item.name === activeItem && (

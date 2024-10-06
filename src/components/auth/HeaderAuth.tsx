@@ -23,9 +23,7 @@ interface MenuItem {
   link: string;
   submenu?: { name: string; link: string; icon?: IconType }[];
 }
-const HeaderAuth: React.FC<HeaderAuthProps> = ({
-  Title_NavbarMobile
-}) => {
+const HeaderAuth: React.FC<HeaderAuthProps> = ({ Title_NavbarMobile }) => {
   // Translation
   const { t } = useTranslation();
   //leftVisible
@@ -258,7 +256,7 @@ const HeaderAuth: React.FC<HeaderAuthProps> = ({
                 </div>
                 <div className="w-full space-y-5">
                   {user && user.role === 'user' && (
-                    <div className="flex flex-row items-center justify-between rounded-md bg-gray-700 bg-opacity-20 dark:bg-secondary dark:bg-opacity-10 p-2">
+                    <div className="flex flex-row items-center justify-between rounded-md bg-gray-700 bg-opacity-20 p-2 dark:bg-secondary dark:bg-opacity-10">
                       <p className="text-lg font-light text-black dark:text-white">
                         {t('UserPage.Navbar.LogoutBtn')}
                       </p>
@@ -271,7 +269,7 @@ const HeaderAuth: React.FC<HeaderAuthProps> = ({
                     </div>
                   )}
                   {!user && (
-                    <div className="flex flex-row items-center justify-between rounded-md bg-gray-700 bg-opacity-20 dark:bg-secondary dark:bg-opacity-10 p-2">
+                    <div className="flex flex-row items-center justify-between rounded-md bg-gray-700 bg-opacity-20 p-2 dark:bg-secondary dark:bg-opacity-10">
                       <p className="text-lg font-light text-black dark:text-white">
                         {t('UserPage.Navbar.LoginBtn')}
                       </p>
@@ -282,13 +280,13 @@ const HeaderAuth: React.FC<HeaderAuthProps> = ({
                       </Link>
                     </div>
                   )}
-                  <div className="flex flex-row items-center justify-between rounded-md bg-gray-700 bg-opacity-20 dark:bg-secondary dark:bg-opacity-10 p-2">
+                  <div className="flex flex-row items-center justify-between rounded-md bg-gray-700 bg-opacity-20 p-2 dark:bg-secondary dark:bg-opacity-10">
                     <p className="text-lg font-light text-black dark:text-white">
                       {t('UserPage.Navbar.Theme')}
                     </p>
                     <DarkMode />
                   </div>
-                  <div className="flex flex-row items-center justify-between rounded-md bg-gray-700 bg-opacity-20 dark:bg-secondary dark:bg-opacity-10 p-2">
+                  <div className="flex flex-row items-center justify-between rounded-md bg-gray-700 bg-opacity-20 p-2 dark:bg-secondary dark:bg-opacity-10">
                     <p className="text-lg font-light text-black dark:text-white">
                       {t('UserPage.Navbar.Translate')}
                     </p>

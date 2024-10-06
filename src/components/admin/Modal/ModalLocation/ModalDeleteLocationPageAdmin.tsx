@@ -62,4 +62,3 @@ const ModalDeleteLocationPageAdmin: React.FC<ModalDeleteAdminProps> = ({
 };
 
 export default ModalDeleteLocationPageAdmin;
-

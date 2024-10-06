@@ -258,7 +258,7 @@ const HeaderResponsive: React.FC<HeaderResponsiveProps> = ({
                 </div>
                 <div className="w-full space-y-5">
                   {user && user.role === 'user' && (
-                    <div className="flex flex-row items-center justify-between rounded-md bg-gray-700 bg-opacity-20 dark:bg-secondary dark:bg-opacity-10 p-2">
+                    <div className="flex flex-row items-center justify-between rounded-md bg-gray-700 bg-opacity-20 p-2 dark:bg-secondary dark:bg-opacity-10">
                       <p className="text-lg font-light text-black dark:text-white">
                         {t('UserPage.Navbar.LogoutBtn')}
                       </p>
@@ -271,7 +271,7 @@ const HeaderResponsive: React.FC<HeaderResponsiveProps> = ({
                     </div>
                   )}
                   {!user && (
-                    <div className="flex flex-row items-center justify-between rounded-md bg-gray-700 bg-opacity-20 dark:bg-secondary dark:bg-opacity-10 p-2">
+                    <div className="flex flex-row items-center justify-between rounded-md bg-gray-700 bg-opacity-20 p-2 dark:bg-secondary dark:bg-opacity-10">
                       <p className="text-lg font-light text-black dark:text-white">
                         {t('UserPage.Navbar.LoginBtn')}
                       </p>
@@ -282,13 +282,13 @@ const HeaderResponsive: React.FC<HeaderResponsiveProps> = ({
                       </Link>
                     </div>
                   )}
-                  <div className="flex flex-row items-center justify-between rounded-md bg-gray-700 bg-opacity-20 dark:bg-secondary dark:bg-opacity-10 p-2">
+                  <div className="flex flex-row items-center justify-between rounded-md bg-gray-700 bg-opacity-20 p-2 dark:bg-secondary dark:bg-opacity-10">
                     <p className="text-lg font-light text-black dark:text-white">
                       {t('UserPage.Navbar.Theme')}
                     </p>
                     <DarkMode />
                   </div>
-                  <div className="flex flex-row items-center justify-between rounded-md bg-gray-700 bg-opacity-20 dark:bg-secondary dark:bg-opacity-10 p-2">
+                  <div className="flex flex-row items-center justify-between rounded-md bg-gray-700 bg-opacity-20 p-2 dark:bg-secondary dark:bg-opacity-10">
                     <p className="text-lg font-light text-black dark:text-white">
                       {t('UserPage.Navbar.Translate')}
                     </p>
@@ -318,6 +318,5 @@ const HeaderResponsive: React.FC<HeaderResponsiveProps> = ({
     </div>
   );
 };
-
 
 export default HeaderResponsive;

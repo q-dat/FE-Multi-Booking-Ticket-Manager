@@ -7,7 +7,11 @@ interface ModalDeletePostProps {
   onDelete: () => void;
 }
 
-const ModalDeletePost: React.FC<ModalDeletePostProps> = ({ isOpen, onClose, onDelete }) => {
+const ModalDeletePost: React.FC<ModalDeletePostProps> = ({
+  isOpen,
+  onClose,
+  onDelete
+}) => {
   return (
     <Modal open={isOpen}>
       <Modal.Header>
@@ -21,21 +25,20 @@ const ModalDeletePost: React.FC<ModalDeletePostProps> = ({ isOpen, onClose, onDe
           <Button
             color="secondary"
             onClick={onDelete}
-            className="px-4 py-2 bg-red-600 text-white rounded-md hover:bg-red-700"
+            className="rounded-md bg-red-600 px-4 py-2 text-white hover:bg-red-700"
           >
             Xoá
           </Button>
           <Button
             type="button"
             onClick={onClose}
-            className="px-4 py-2 bg-gray-500 text-white rounded-md hover:bg-gray-600"
+            className="rounded-md bg-gray-500 px-4 py-2 text-white hover:bg-gray-600"
           >
             Huỷ
           </Button>
         </div>
       </Modal.Body>
     </Modal>
-
   );
 };
 

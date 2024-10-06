@@ -143,4 +143,3 @@ const LocationPage: React.FC = () => {
 };
 
 export default LocationPage;
-

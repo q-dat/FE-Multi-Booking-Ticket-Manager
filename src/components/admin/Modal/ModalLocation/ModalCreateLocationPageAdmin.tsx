@@ -39,7 +39,11 @@ const ModalCreateLocationPageAdmin: React.FC<ModalCreateAdminProps> = ({
             Tạo địa chỉ mới
           </p>
           <div className="flex flex-col items-start justify-center space-x-10 md:flex-row">
-            <InputModal placeholder={'Tên địa chỉ'} type={'text'} name={'location'}/>
+            <InputModal
+              placeholder={'Tên địa chỉ'}
+              type={'text'}
+              name={'location'}
+            />
           </div>
           {/* Modal Btn */}
           <div className="mt-4 space-x-5 text-center">
@@ -57,4 +61,3 @@ const ModalCreateLocationPageAdmin: React.FC<ModalCreateAdminProps> = ({
 };
 
 export default ModalCreateLocationPageAdmin;
-

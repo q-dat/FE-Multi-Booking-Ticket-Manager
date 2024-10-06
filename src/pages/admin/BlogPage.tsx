@@ -19,9 +19,30 @@ interface Post {
 }
 
 const initialPosts: Post[] = [
-  { id: 1, title: 'Bài viết A', date: '12-12-2024', category: 'Train', content: 'aaaa', img: 'a' },
-  { id: 2, title: 'Bài viết B', date: '12-12-2024', category: 'Train', content: 'aaaa', img: 'a' },
-  { id: 3, title: 'Bài viết C', date: '12-12-2024', category: 'Train', content: 'aaaa', img: 'a' },
+  {
+    id: 1,
+    title: 'Bài viết A',
+    date: '12-12-2024',
+    category: 'Train',
+    content: 'aaaa',
+    img: 'a'
+  },
+  {
+    id: 2,
+    title: 'Bài viết B',
+    date: '12-12-2024',
+    category: 'Train',
+    content: 'aaaa',
+    img: 'a'
+  },
+  {
+    id: 3,
+    title: 'Bài viết C',
+    date: '12-12-2024',
+    category: 'Train',
+    content: 'aaaa',
+    img: 'a'
+  }
 ];
 
 const BlogPage: React.FC = () => {
@@ -31,11 +52,15 @@ const BlogPage: React.FC = () => {
   const [isModalDeleteOpen, setIsModalDeleteOpen] = useState(false);
   const [selectedPost, setSelectedPost] = useState<Post | null>(null);
 
-  const openModal = (modalSetter: React.Dispatch<React.SetStateAction<boolean>>) => {
+  const openModal = (
+    modalSetter: React.Dispatch<React.SetStateAction<boolean>>
+  ) => {
     modalSetter(true);
   };
 
-  const closeModal = (modalSetter: React.Dispatch<React.SetStateAction<boolean>>) => {
+  const closeModal = (
+    modalSetter: React.Dispatch<React.SetStateAction<boolean>>
+  ) => {
     modalSetter(false);
   };
 
@@ -46,7 +71,11 @@ const BlogPage: React.FC = () => {
 
   const handleEdit = (data: Omit<Post, 'id'>) => {
     if (selectedPost) {
-      setPosts(posts.map(post => (post.id === selectedPost.id ? { ...post, ...data } : post)));
+      setPosts(
+        posts.map(post =>
+          post.id === selectedPost.id ? { ...post, ...data } : post
+        )
+      );
     }
   };
 

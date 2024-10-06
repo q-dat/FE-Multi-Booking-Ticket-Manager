@@ -36,10 +36,14 @@ const ModalEditLocationPageAdmin: React.FC<ModalCreateAdminProps> = ({
           className="mx-2 flex flex-col space-y-10 rounded-lg bg-white p-10 text-start shadow dark:bg-gray-800"
         >
           <p className="text-xl font-bold text-black dark:text-white">
-            Sửa địa chỉ 
+            Sửa địa chỉ
           </p>
           <div className="flex flex-col items-start justify-center space-x-10 md:flex-row">
-            <InputModal placeholder={'Tên địa chỉ'} type={'text'} name={'location'}/>
+            <InputModal
+              placeholder={'Tên địa chỉ'}
+              type={'text'}
+              name={'location'}
+            />
           </div>
           {/* Modal Btn */}
           <div className="mt-4 space-x-5 text-center">
@@ -56,5 +60,4 @@ const ModalEditLocationPageAdmin: React.FC<ModalCreateAdminProps> = ({
   );
 };
 
-
-export default ModalEditLocationPageAdmin
+export default ModalEditLocationPageAdmin;

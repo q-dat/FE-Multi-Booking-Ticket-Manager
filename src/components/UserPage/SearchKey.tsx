@@ -41,11 +41,7 @@ const SearchKey: React.FC = () => {
             <div className="flex items-center justify-between gap-2 text-base font-light">
               <div className="flex items-center justify-center gap-2 text-black dark:text-white">
                 Bấm
-                <Kbd
-                  className="bg-white px-3 text-black rounded-md"
-                >
-                  ESC
-                </Kbd>
+                <Kbd className="rounded-md bg-white px-3 text-black">ESC</Kbd>
                 để đóng!
               </div>
               <Button

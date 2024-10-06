@@ -21,9 +21,14 @@ interface ModalEditPostProps {
   defaultValues: FormData;
 }
 
-const ModalEditPost: React.FC<ModalEditPostProps> = ({ isOpen, onClose, onEdit, defaultValues }) => {
+const ModalEditPost: React.FC<ModalEditPostProps> = ({
+  isOpen,
+  onClose,
+  onEdit,
+  defaultValues
+}) => {
   const { register, handleSubmit, reset } = useForm<FormData>({
-    defaultValues,
+    defaultValues
   });
 
   const editorRef = useRef<EditorJS | null>(null);
@@ -34,9 +39,9 @@ const ModalEditPost: React.FC<ModalEditPostProps> = ({ isOpen, onClose, onEdit, 
         holder: 'editorjs',
         tools: {
           header: Header,
-          list: List,
+          list: List
         },
-        data: defaultValues.content,
+        data: defaultValues.content
       });
     }
 
@@ -70,22 +75,25 @@ const ModalEditPost: React.FC<ModalEditPostProps> = ({ isOpen, onClose, onEdit, 
             <label className="mb-1 text-lg font-semibold">Tiêu đề:</label>
             <input
               type="text"
-              {...register("title", { required: true })}
-              className="px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              {...register('title', { required: true })}
+              className="rounded-md border border-gray-300 px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
           </div>
 
           <div className="flex flex-col">
             <label className="mb-1 text-lg font-semibold">Nội dung:</label>
-            <div id="editorjs" className="border border-gray-300 rounded-md p-2" />
+            <div
+              id="editorjs"
+              className="rounded-md border border-gray-300 p-2"
+            />
           </div>
 
           <div className="flex flex-col">
             <label className="mb-1 text-lg font-semibold">Danh mục:</label>
             <input
               type="text"
-              {...register("category", { required: true })}
-              className="px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              {...register('category', { required: true })}
+              className="rounded-md border border-gray-300 px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
           </div>
 
@@ -93,16 +101,24 @@ const ModalEditPost: React.FC<ModalEditPostProps> = ({ isOpen, onClose, onEdit, 
             <label className="mb-1 text-lg font-semibold">Hình ảnh:</label>
             <input
               type="text"
-              {...register("img", { required: true })}
-              className="px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              {...register('img', { required: true })}
+              className="rounded-md border border-gray-300 px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
           </div>
 
           <div className="flex justify-end space-x-4">
-            <Button type="submit" color="primary" className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700">
+            <Button
+              type="submit"
+              color="primary"
+              className="rounded-md bg-blue-600 px-4 py-2 text-white hover:bg-blue-700"
+            >
               Cập nhật
             </Button>
-            <Button type="button" onClick={onClose} className="px-4 py-2 bg-gray-500 text-white rounded-md hover:bg-gray-600">
+            <Button
+              type="button"
+              onClick={onClose}
+              className="rounded-md bg-gray-500 px-4 py-2 text-white hover:bg-gray-600"
+            >
               Huỷ
             </Button>
           </div>

@@ -72,7 +72,7 @@ const ContactPage: React.FC = () => {
           <form
             ref={formRef}
             onSubmit={onSubmit}
-            className="my-5 flex items-center justify-center rounded-xl border border-primary bg-white py-20 px-5 dark:bg-gray-500"
+            className="my-5 flex items-center justify-center rounded-xl border border-primary bg-white px-5 py-20 dark:bg-gray-500"
           >
             <div className="flex w-1/2 items-center justify-center">
               <div className="flex flex-col gap-5">

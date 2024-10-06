@@ -191,17 +191,18 @@ const FlightsPage: React.FC<Card> = () => {
           </div>
         </form>
         <div className="px-2 xl:px-[100px]">
-          <div className="my-5 xl:mt-0 rounded-lg bg-primary py-2 text-center text-3xl font-bold text-white dark:bg-white dark:text-primary">
+          <div className="my-5 rounded-lg bg-primary py-2 text-center text-3xl font-bold text-white dark:bg-white dark:text-primary xl:mt-0">
             {t('UserPage.TicketPrice')}
           </div>
           <div className="grid grid-cols-2 gap-2 xl:grid-flow-col xl:grid-cols-none xl:grid-rows-1">
             {FecthLocation.map(item => (
               <Button
                 key={item._id}
-                className={`flex w-full items-center justify-center transition-all duration-500 ease-in-out hover:rounded-badge hover:bg-secondary hover:text-white ${item.name === activeItem
+                className={`flex w-full items-center justify-center transition-all duration-500 ease-in-out hover:rounded-badge hover:bg-secondary hover:text-white ${
+                  item.name === activeItem
                     ? 'bg-primary text-white hover:bg-primary hover:text-white'
                     : 'bg-white text-primary'
-                  }`}
+                }`}
                 onClick={() => setActiveItem(item.name)}
               >
                 <span>{item.name}</span>

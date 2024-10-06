@@ -44,11 +44,19 @@ const LoginPage: React.FC<{}> = () => {
       {/* Form */}
       <div className="flex w-full flex-col items-center justify-center xl:w-1/2">
         <div>
-          <h1 className="hidden text-center text-[40px] font-[600] text-primary xl:block dark:text-white">
+          <h1 className="hidden text-center text-[40px] font-[600] text-primary dark:text-white xl:block">
             {t('Auth.Login')}
           </h1>
-          <img className="w-[180px] xl:hidden xl:w-[120px] dark:hidden" src={Logo} alt="" />
-          <img className="w-[180px] hidden xl:w-[120px] dark:xl:hidden dark:block" src={LogoTitle} alt="" />
+          <img
+            className="w-[180px] dark:hidden xl:hidden xl:w-[120px]"
+            src={Logo}
+            alt=""
+          />
+          <img
+            className="hidden w-[180px] dark:block xl:w-[120px] dark:xl:hidden"
+            src={LogoTitle}
+            alt=""
+          />
         </div>
         <div className="mt-10">
           <form onSubmit={handleSubmit(onSubmit)}>
@@ -89,8 +97,11 @@ const LoginPage: React.FC<{}> = () => {
                 {t('Auth.ForgotPassword')}
               </Link>
 
-              <Button type="submit" color="primary"
-               className="text-white border border-white">
+              <Button
+                type="submit"
+                color="primary"
+                className="border border-white text-white"
+              >
                 {t('Auth.Login')}
               </Button>
             </div>
@@ -98,16 +109,16 @@ const LoginPage: React.FC<{}> = () => {
           <ServiceForm />
           <p className="my-5 text-center font-sub text-base font-[400] text-black dark:text-white">
             {t('Auth.CreateAccount')} &nbsp;
-            <NavLink className=" text-blue-500" to="/auth/register">
+            <NavLink className="text-blue-500" to="/auth/register">
               {t('Auth.Register')}
             </NavLink>
           </p>
         </div>
       </div>
       {/* BoxImg */}
-      <div className="hidden w-1/2 p-10 xl:flex xl:flex-col xl:items-center xl:justify-center gap-5">
-        <img className="w-[130px] block dark:hidden" src={Logo} alt="" />
-        <img className="w-[130px] hidden dark:block" src={LogoTitle} alt="" />
+      <div className="hidden w-1/2 gap-5 p-10 xl:flex xl:flex-col xl:items-center xl:justify-center">
+        <img className="block w-[130px] dark:hidden" src={Logo} alt="" />
+        <img className="hidden w-[130px] dark:block" src={LogoTitle} alt="" />
         <img className="w-full rounded-lg" src={BannerLogin} alt="" />
       </div>
     </div>

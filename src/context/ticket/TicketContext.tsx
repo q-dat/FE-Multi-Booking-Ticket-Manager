@@ -32,7 +32,7 @@ export const TicketProvider = ({ children }: { children: ReactNode }) => {
   const [isFetching, setIsFetching] = useState(false);
 
   const handleError = (err: any) => {
-    setError(err.response?.data?.message || 'An error occurred');
+    setError(err.response?.data?.message || 'Lỗi cục bộ!');
   };
 
   const fetchData = async (
@@ -50,14 +50,14 @@ export const TicketProvider = ({ children }: { children: ReactNode }) => {
       setLoading(false);
     }
   };
-//Search
+  //Search
   const searchTickets = (searchParams: Record<string, string>) => {
     fetchData(
       () => searchTicketsApi(searchParams),
       data => setTickets(data.tickets || [])
     );
   };
-//Get
+  //Get
   const getAllTickets = () => {
     if (isFetching) return;
     setIsFetching(true);
@@ -65,21 +65,21 @@ export const TicketProvider = ({ children }: { children: ReactNode }) => {
       () => setIsFetching(false)
     );
   };
-//Get By ID
+  //Get By ID
   const getTicketById = (id: string) => {
     fetchData(
       () => getTicketByIdApi(id),
       data => setTickets([data.ticket])
     );
   };
-//Post
+  //Post
   const createTicket = (ticket: ITicket) => {
     fetchData(
       () => createTicketApi(ticket),
       data => setTickets(prevTickets => [...prevTickets, data.ticket])
     );
   };
-//Put
+  //Put
   const updateTicket = (id: string, ticket: ITicket) => {
     fetchData(
       () => updateTicketApi(id, ticket),
@@ -89,7 +89,7 @@ export const TicketProvider = ({ children }: { children: ReactNode }) => {
         )
     );
   };
-//Delete
+  //Delete
   const deleteTicket = (id: string) => {
     fetchData(
       () => deleteTicketApi(id),
@@ -115,4 +115,3 @@ export const TicketProvider = ({ children }: { children: ReactNode }) => {
     </TicketContext.Provider>
   );
 };
-

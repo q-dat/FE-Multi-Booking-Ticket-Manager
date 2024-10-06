@@ -75,9 +75,9 @@ export interface SearchFormData {
   ticket_catalog_name: string;
   seat_name: string;
   departure_point_name: string; //Điểm Khởi Hành
-  destination_point_name: string;// Điểm Đến
-  departure_date: Date
-  arrival_date:Date
+  destination_point_name: string; // Điểm Đến
+  departure_date: Date;
+  arrival_date: Date;
 }
 
 export interface TicketContextType {

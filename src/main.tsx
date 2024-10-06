@@ -19,11 +19,11 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
         <Suspense fallback={<LoadingPage loading={true} />}>
           <ErrorBoundary>
             <AuthProvider>
-            <TicketProvider>
-              {' '}
-              {/* Bao bọc toàn bộ App với AuthProvider */}
-              <ToastContainer />
-              <App />
+              <TicketProvider>
+                {' '}
+                {/* Bao bọc toàn bộ App với AuthProvider */}
+                <ToastContainer />
+                <App />
               </TicketProvider>
             </AuthProvider>
           </ErrorBoundary>
