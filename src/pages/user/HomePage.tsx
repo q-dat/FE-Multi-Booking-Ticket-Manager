@@ -177,13 +177,15 @@ const Home: React.FC = () => {
                 className="w-[150px] border border-gray-700 border-opacity-50 bg-white text-black focus:border-primary focus:outline-none dark:border-secondary dark:bg-gray-700 dark:text-white dark:focus:border-white md:w-[300px] lg:w-[400px] xl:w-full xl:rounded-none"
                 type={'date'}
                 placeholder={`${t('UserPage.DepartureDatePlaceholder')}`}
+                {...register('departure_date')}
                 classNameLabel=" bg-white  dark:bg-gray-700"
               />
               <MdOutlineArrowRightAlt className="hidden text-primary dark:text-white xl:flex" />
               <InputForm
                 className="w-[150px] border border-gray-700 border-opacity-50 bg-white text-black focus:border-primary dark:border-secondary dark:bg-gray-700 dark:text-white dark:focus:border-white md:w-[300px] lg:w-[400px] xl:w-full xl:rounded-none"
                 type={'date'}
-                placeholder={`${t('UserPage.ReturnDatePlaceholder')}`}
+                placeholder={`${t('UserPage.ArrivalDatePlaceholder')}`}
+                {...register('arrival_date')}
                 classNameLabel=" bg-white  dark:bg-gray-700"
               />{' '}
               <MdOutlineArrowRightAlt className="hidden text-primary dark:text-white xl:flex" />

@@ -96,7 +96,7 @@ interface Resources {
       "DeparturePlaceholder": "Departure...",
       "DestinationPlaceholder": "Destination...",
       "DepartureDatePlaceholder": "Departure Date",
-      "ReturnDatePlaceholder": "Return Date",
+      "ArrivalDatePlaceholder": "Arrival Date",
       "VehicleSelectDefault": "Select Vehicle Group",
       "SectionOneTitle": "Compare Cheap Train And Bus Tickets With Flights",
       "SectionOneDescription": "With FPT Train, you can compare flight tickets with train and bus tickets.",
