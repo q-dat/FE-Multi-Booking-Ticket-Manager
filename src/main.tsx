@@ -10,6 +10,7 @@ import LoadingPage from './pages/LoadingPage/LoadingPage.tsx';
 import { PersistGate } from 'redux-persist/integration/react';
 import { persistor } from './redux/storage/store.ts';
 import { AuthProvider } from './context/auth/AuthContext.tsx';
+import { TicketProvider } from './context/ticket/TicketContext.tsx';
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
@@ -18,10 +19,12 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
         <Suspense fallback={<LoadingPage loading={true} />}>
           <ErrorBoundary>
             <AuthProvider>
+            <TicketProvider>
               {' '}
               {/* Bao bọc toàn bộ App với AuthProvider */}
               <ToastContainer />
               <App />
+              </TicketProvider>
             </AuthProvider>
           </ErrorBoundary>
         </Suspense>
