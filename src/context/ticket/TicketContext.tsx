@@ -13,7 +13,7 @@ interface TicketContextType {
   tickets: ITicket[];
   loading: boolean;
   error: string | null;
-  searchTickets: (searchParams: Record<string, string>) => void;
+  searchTickets: (searchParams: Record<string, string>) => Promise<ITicket[]>;
   getAllTickets: () => void;
   getTicketById: (id: string) => void;
   createTicket: (ticket: ITicket) => void;
@@ -51,12 +51,20 @@ export const TicketProvider = ({ children }: { children: ReactNode }) => {
     }
   };
   //Search
-  const searchTickets = (searchParams: Record<string, string>) => {
-    fetchData(
+  const searchTickets = async (
+    searchParams: Record<string, string>
+  ): Promise<ITicket[]> => {
+    let ticketsData: ITicket[] = [];
+    await fetchData(
       () => searchTicketsApi(searchParams),
-      data => setTickets(data.tickets || [])
+      data => {
+        ticketsData = data.tickets || [];
+        setTickets(ticketsData);
+      }
     );
+    return ticketsData;
   };
+
   //Get
   const getAllTickets = () => {
     if (isFetching) return;

@@ -18,7 +18,7 @@ import {
 } from '../../assets/image-represent';
 import { useTranslation } from 'react-i18next';
 import HeaderResponsive from '../../components/UserPage/HeaderResponsive';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { ILocation } from '../../types/location/location';
 import { FaChevronLeft, FaChevronRight } from 'react-icons/fa';
 import TicketResults from '../../components/UserPage/TicketResults';
@@ -29,16 +29,17 @@ import { ITicket, SearchFormData } from '../../types/type/ticket/ticket';
 const Home: React.FC = () => {
   //Translation
   const { t } = useTranslation();
+
   //Search Ticket
   const searchTicket = useContext(TicketContext);
+  const navigate = useNavigate();
   if (!searchTicket) {
     throw new Error('TicketSearchForm must be used within a TicketProvider');
   }
   const { searchTickets, loading, error } = searchTicket;
+
   const { register, handleSubmit } = useForm<SearchFormData>();
   const onSubmit: SubmitHandler<SearchFormData> = async data => {
-    console.log('Form data:', data);
-
     const searchParams: Record<string, string> = Object.entries(data).reduce(
       (acc, [key, value]) => {
         acc[key] = value;
@@ -46,8 +47,23 @@ const Home: React.FC = () => {
       },
       {} as Record<string, string>
     );
-    console.log('Search params:', searchParams);
-    await searchTickets(searchParams);
+
+    const tickets = await searchTickets(searchParams);
+
+    if (tickets.length > 0) {
+      const selectedTicket = tickets[0];
+      const vehicleType = selectedTicket.ticket_catalog_id.name;
+
+      if (vehicleType === 'Tàu Hoả') {
+        navigate('/trains');
+      } else if (vehicleType === 'Xe Khách') {
+        navigate('/buses');
+      } else if (vehicleType === 'Máy Bay') {
+        navigate('/flights');
+      }
+    } else {
+      console.log('Không có vé hợp lệ');
+    }
   };
 
   // Get Ticket
@@ -146,7 +162,6 @@ const Home: React.FC = () => {
         </div>
       </div>
       {/* Form */}
-      {/* <TicketSearchForm /> */}
       <TicketResults />
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className="relative top-1 flex flex-grow items-center justify-center px-2 pb-10 pt-5 md:-top-3 md:pt-0 xl:-top-10 xl:px-0">
@@ -349,9 +364,9 @@ const Home: React.FC = () => {
           {t('UserPage.TicketPrice')}
         </div>
         <div className="grid grid-cols-2 gap-2 xl:grid-flow-col xl:grid-cols-none xl:grid-rows-1">
-          {FecthLocation.map(location => (
+          {FecthLocation.map((location, index) => (
             <Button
-              key={location._id}
+              key={index}
               className={`flex w-full items-center justify-center transition-all duration-500 ease-in-out hover:rounded-badge hover:bg-secondary hover:text-white ${
                 location.name === activeItem
                   ? 'bg-primary text-white hover:bg-primary hover:text-white'
