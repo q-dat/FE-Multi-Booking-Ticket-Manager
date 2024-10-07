@@ -25,13 +25,13 @@ const SidebarAdmin: React.FC<{}> = () => {
       toastify: null
     },
     {
-      name: 'Địa chỉ',
+      name: 'Địa Điểm',
       icon: IoLocation,
       link: '/admin/location'
       //   toastify: listsData?.data.length
     },
     {
-      name: 'Bài viết',
+      name: 'Bài Viết',
       icon: MdPostAdd,
       link: '/admin/blog'
     }
