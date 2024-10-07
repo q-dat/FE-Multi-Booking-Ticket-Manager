@@ -101,15 +101,15 @@ const TicketResults: React.FC = () => {
             <p className="flex items-center">
               <FaCalendarAlt className="mr-1 text-blue-600" />
               <span>
-                <span className="font-semibold">Arrival Date:</span>{' '}
-                {new Date(ticketData.trip_id.arrival_date).toLocaleDateString()}
+                <span className="font-semibold">Return Date:</span>{' '}
+                {new Date(ticketData.trip_id.return_date).toLocaleDateString()}
               </span>
             </p>
             <p className="flex items-center">
               <FaClock className="mr-1 text-blue-600" />
               <span>
-                <span className="font-semibold">Arrival Time:</span>{' '}
-                {ticketData.trip_id.arrival_time}
+                <span className="font-semibold">Return Time:</span>{' '}
+                {ticketData.trip_id.return_time}
               </span>
             </p>
           </div>
