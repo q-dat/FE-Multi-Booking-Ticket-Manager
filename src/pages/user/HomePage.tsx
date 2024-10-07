@@ -200,7 +200,7 @@ const Home: React.FC = () => {
                 className="w-[150px] border border-gray-700 border-opacity-50 bg-white text-black focus:border-primary dark:border-secondary dark:bg-gray-700 dark:text-white dark:focus:border-white md:w-[300px] lg:w-[400px] xl:w-full xl:rounded-none"
                 type={'date'}
                 placeholder={`${t('UserPage.ReturnDatePlaceholder')}`}
-                {...register('arrival_date')}
+                {...register('return_date')}
                 classNameLabel=" bg-white  dark:bg-gray-700"
               />{' '}
               <MdOutlineArrowRightAlt className="hidden text-primary dark:text-white xl:flex" />
