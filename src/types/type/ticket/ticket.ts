@@ -25,8 +25,8 @@ export interface ITicket {
     price: number;
     departure_date: string;
     departure_time: string;
-    arrival_date: string;
-    arrival_time: string;
+    return_date: string;
+    return_time: string;
   };
   createAt: string;
   updateAt: string;
@@ -57,8 +57,8 @@ export interface Trip {
   price: number;
   departure_date: string;
   departure_time: string;
-  arrival_date: string;
-  arrival_time: string;
+  return_date: string;
+  return_time: string;
 }
 
 export interface Ticket {
@@ -77,7 +77,7 @@ export interface SearchFormData {
   departure_point_name: string; //Điểm Khởi Hành
   destination_point_name: string; // Điểm Đến
   departure_date: Date;
-  arrival_date: Date;
+  return_date: Date;
 }
 
 export interface TicketContextType {
