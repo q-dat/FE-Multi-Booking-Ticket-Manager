@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import NavtitleAdmin from '../../components/admin/NavtitleAdmin';
 import NavbarMobile from '../../components/admin/Reponsive/Mobile/NavbarMobile';
 import TableListAdmin from '../../components/admin/TablelistAdmin';
@@ -9,28 +9,23 @@ import { RiAddBoxLine } from 'react-icons/ri';
 import ModalCreateLocationPageAdmin from '../../components/admin/Modal/ModalLocation/ModalCreateLocationPageAdmin';
 import ModalDeleteLocationPageAdmin from '../../components/admin/Modal/ModalLocation/ModalDeleteLocationPageAdmin';
 import ModalEditLocationPageAdmin from '../../components/admin/Modal/ModalLocation/ModalEditLocationPageAdmin';
-
-interface Product {
-  id: number;
-  name: string;
-  img: string;
-  id_catalog: number;
-  price: number;
-}
-
-const products: Product[] = [
-  { id: 1, name: 'Sản phẩm A', img: 'productA.jpg', id_catalog: 1, price: 500 },
-  {
-    id: 2,
-    name: 'Sản phẩm B',
-    img: 'productB.jpg',
-    id_catalog: 2,
-    price: 1000
-  },
-  { id: 3, name: 'Sản phẩm C', img: 'productC.jpg', id_catalog: 1, price: 1500 }
-];
+import { LocationContext } from '../../context/location/LocationContext';
+import { ILocation } from '../../types/type/location/location';
 
 const LocationPage: React.FC = () => {
+  // Get Location
+  const getLocations = useContext(LocationContext);
+  const [locations, setLocations] = useState<ILocation[]>([]);
+  useEffect(() => {
+    const fetchData = async () => {
+      if (getLocations && locations.length === 0) {
+        await getLocations.getAllLocations();
+        setLocations(getLocations.locations);
+      }
+    };
+    fetchData();
+  }, [getLocations, locations]);
+
   const [isModalCreateOpen, setIsModalCreateOpen] = useState(false);
   const [isModalEditOpen, setIsModalEditOpen] = useState(false);
   const [isModalDeleteOpen, setIsModalDeleteOpen] = useState(false);
@@ -72,27 +67,16 @@ const LocationPage: React.FC = () => {
           table_head={
             <Table.Head className="bg-primary text-center text-white">
               <span>Số thứ tự</span>
-              <span>Hình ảnh</span>
-              <span>Tên sản phẩm</span>
-              <span>Giá</span>
-              <span>Trạng thái</span>
+              <span>Tên Địa Điểm</span>
+              <span>Trạng Thái</span>
             </Table.Head>
           }
           table_body={
             <Table.Body className="text-center text-sm">
-              {products.map((row, index) => (
-                <Table.Row key={row.id}>
+              {locations.map((location: ILocation, index: number) => (
+                <Table.Row key={location._id}>
                   <span className="line-clamp-1">#{index + 1}</span>
-                  <span className="line-clamp-1">
-                    <img
-                      width={80}
-                      height={80}
-                      src={`./products/${row.img}`}
-                      alt={row.name}
-                    />
-                  </span>
-                  <span className="line-clamp-1">{row.name}</span>
-                  <span className="line-clamp-1">{row.price}.000đ</span>
+                  <span className="line-clamp-1">{location.name}</span>
                   <span>
                     <details>
                       <summary className="inline cursor-pointer text-base text-warning">

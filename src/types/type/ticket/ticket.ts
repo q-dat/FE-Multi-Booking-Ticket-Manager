@@ -1,5 +1,3 @@
-import { createContext } from 'react';
-
 export interface ITicket {
   _id: string;
   ticket_catalog_id: {
@@ -28,8 +26,8 @@ export interface ITicket {
     return_date: string;
     return_time: string;
   };
-  createAt: string;
-  updateAt: string;
+  createAt?: string;
+  updateAt?: string;
   price: number;
 }
 export interface TicketCatalog {
@@ -85,7 +83,3 @@ export interface TicketContextType {
   loading: boolean;
   error: string | null;
 }
-
-export const TicketContext = createContext<TicketContextType | undefined>(
-  undefined
-);

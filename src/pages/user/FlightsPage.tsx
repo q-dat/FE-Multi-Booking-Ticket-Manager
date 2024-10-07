@@ -7,7 +7,7 @@ import { IoSearch } from 'react-icons/io5';
 import { MdOutlineArrowRightAlt } from 'react-icons/md';
 import { FaChevronLeft, FaChevronRight } from 'react-icons/fa';
 import { useLocation } from 'react-router-dom';
-import { ILocation } from '../../types/location/location';
+import { ILocation } from '../../types/type/location/location';
 import { BannerFlight, HaNoi } from '../../assets/image-represent';
 
 interface Card {
@@ -36,27 +36,39 @@ const FlightsPage: React.FC<Card> = () => {
   const FecthLocation: ILocation[] = [
     {
       name: 'Hà Nội',
-      _id: ''
+      _id: '',
+      createAt: '',
+      updateAt: ''
     },
     {
       name: 'Ninh Bình',
-      _id: ''
+      _id: '',
+      createAt: '',
+      updateAt: ''
     },
     {
       name: 'Thanh Hoá',
-      _id: ''
+      _id: '',
+      createAt: '',
+      updateAt: ''
     },
     {
       name: 'Vinh',
-      _id: ''
+      _id: '',
+      createAt: '',
+      updateAt: ''
     },
     {
       name: 'Đà Nẵng',
-      _id: ''
+      _id: '',
+      createAt: '',
+      updateAt: ''
     },
     {
       name: 'Huế',
-      _id: ''
+      _id: '',
+      createAt: '',
+      updateAt: ''
     }
   ];
 
