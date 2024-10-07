@@ -12,17 +12,17 @@ import { TicketProvider } from './context/ticket/TicketContext.tsx';
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
-      <BrowserRouter>
-        <Suspense fallback={<LoadingPage loading={true} />}>
-          <ErrorBoundary>
-            <AuthProvider>
-              <TicketProvider>
-                <ToastContainer />
-                <App />
-              </TicketProvider>
-            </AuthProvider>
-          </ErrorBoundary>
-        </Suspense>
-      </BrowserRouter>
+    <BrowserRouter>
+      <Suspense fallback={<LoadingPage loading={true} />}>
+        <ErrorBoundary>
+          <AuthProvider>
+            <TicketProvider>
+              <ToastContainer />
+              <App />
+            </TicketProvider>
+          </AuthProvider>
+        </ErrorBoundary>
+      </Suspense>
+    </BrowserRouter>
   </React.StrictMode>
 );

@@ -102,9 +102,7 @@ const TicketResults: React.FC = () => {
               <FaCalendarAlt className="mr-1 text-blue-600" />
               <span>
                 <span className="font-semibold">Arrival Date:</span>{' '}
-                {new Date(
-                  ticketData.trip_id.arrival_date
-                ).toLocaleDateString()}
+                {new Date(ticketData.trip_id.arrival_date).toLocaleDateString()}
               </span>
             </p>
             <p className="flex items-center">
@@ -122,4 +120,3 @@ const TicketResults: React.FC = () => {
 };
 
 export default TicketResults;
-

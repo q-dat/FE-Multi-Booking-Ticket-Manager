@@ -95,7 +95,7 @@
     "DeparturePlaceholder": "Điểm Khởi Hành...",
     "DestinationPlaceholder": "Điểm Đến...",
     "DepartureDatePlaceholder": "Ngày Đi",
-    "ArrivalDatePlaceholder": "Ngày Đến",
+    "ReturnDatePlaceholder": "Ngày Về",
     "VehicleSelectDefault": "Chọn Phương Tiện",
     "SectionOneTitle": "So Sánh Giá Vé Máy Bay Và Tàu Hỏa Giá Rẻ Với Xe Buýt",
     "SectionOneDescription": "Với FPT Train, bạn có thể so sánh vé máy bay với vé tàu hỏa và vé xe buýt.",
