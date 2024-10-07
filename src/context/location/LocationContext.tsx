@@ -1,4 +1,4 @@
-import { createContext, useState, ReactNode } from 'react';
+import { createContext, useState, ReactNode, useCallback, useEffect } from 'react';
 import { ILocation } from '../../types/type/location/location';
 import {
   createLocationApi,
@@ -14,9 +14,9 @@ interface LocationContextType {
   error: string | null;
   getAllLocations: () => void;
   getLocationById: (id: string) => void;
-  createLocation: (location: ILocation) => void;
-  updateLocation: (id: string, location: ILocation) => void;
-  deleteLocation: (id: string) => void;
+  createLocation: (location: ILocation) => Promise<void>;
+  updateLocation: (id: string, location: ILocation) => Promise<void>;
+  deleteLocation: (id: string) => Promise<void>;
 }
 
 const defaultContextValue: LocationContextType = {
@@ -25,19 +25,17 @@ const defaultContextValue: LocationContextType = {
   error: null,
   getAllLocations: () => {},
   getLocationById: () => {},
-  createLocation: () => {},
-  updateLocation: () => {},
-  deleteLocation: () => {}
+  createLocation: async () => {},
+  updateLocation: async () => {},
+  deleteLocation: async () => {}
 };
 
-export const LocationContext =
-  createContext<LocationContextType>(defaultContextValue);
+export const LocationContext = createContext<LocationContextType>(defaultContextValue);
 
 export const LocationProvider = ({ children }: { children: ReactNode }) => {
   const [locations, setLocations] = useState<ILocation[]>([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const [isFetching, setIsFetching] = useState(false);
 
   const handleError = (err: any) => {
     setError(err.response?.data?.message || 'Lỗi cục bộ!');
@@ -58,48 +56,48 @@ export const LocationProvider = ({ children }: { children: ReactNode }) => {
       setLoading(false);
     }
   };
-  //Get
-  const getAllLocations = () => {
-    if (isFetching) return;
-    setIsFetching(true);
-    fetchData(getAllLocationsApi, data =>
-      setLocations(data.locations || [])
-    ).finally(() => setIsFetching(false));
-  };
+
+  //Get All
+  const getAllLocations = useCallback(() => {
+    fetchData(getAllLocationsApi, data => setLocations(data.locations || []));
+  }, []);
+
   //Get By ID
-  const getLocationById = (id: string) => {
-    fetchData(
-      () => getLocationByIdApi(id),
-      data => setLocations([data.location])
-    );
-  };
+  const getLocationById = useCallback((id: string) => {
+    fetchData(() => getLocationByIdApi(id), data => {
+      setLocations([data.location]);
+    });
+  }, []);
+
   //Post
-  const createLocation = (location: ILocation): Promise<void> => {
-    return fetchData(
+  const createLocation = useCallback(async (location: ILocation): Promise<void> => {
+    await fetchData(
       () => createLocationApi(location),
       data => setLocations(prevLocations => [...prevLocations, data.location])
     );
-  };
+  }, []);
 
-  // Put
-  const updateLocation = (id: string, location: ILocation): Promise<void> => {
-    return fetchData(
+  //Put
+  const updateLocation = useCallback(async (id: string, location: ILocation): Promise<void> => {
+    await fetchData(
       () => updateLocationApi(id, location),
-      data =>
-        setLocations(prevLocations =>
-          prevLocations.map(t => (t._id === id ? data.location : t))
-        )
+      data => setLocations(prevLocations =>
+        prevLocations.map(location => (location._id === id ? data.location : location))
+      )
     );
-  };
+  }, []);
 
-  // Delete
-  const deleteLocation = (id: string): Promise<void> => {
-    return fetchData(
+  //Delete
+  const deleteLocation = useCallback(async (id: string): Promise<void> => {
+    await fetchData(
       () => deleteLocationApi(id),
-      () =>
-        setLocations(prevLocations => prevLocations.filter(t => t._id !== id))
+      () => setLocations(prevLocations => prevLocations.filter(location => location._id !== id))
     );
-  };
+  }, []);
+
+  useEffect(() => {
+    getAllLocations();
+  }, [getAllLocations]);
 
   return (
     <LocationContext.Provider
@@ -118,4 +116,3 @@ export const LocationProvider = ({ children }: { children: ReactNode }) => {
     </LocationContext.Provider>
   );
 };
-

@@ -1,4 +1,18 @@
+import { ISeat } from '../seat/seat';
+import { ITicketCatalog } from '../ticket-catalog/ticket-catalog';
+import { ITrip } from '../trip/trip';
+
 export interface ITicket {
+  _id: string;
+  ticket_catalog_id: ITicketCatalog;
+  seat_id: ISeat;
+  trip_id: ITrip;
+  price: number;
+  createAt?: string;
+  updateAt?: string;
+}
+
+export interface Ticket {
   _id: string;
   ticket_catalog_id: {
     _id: string;
@@ -21,54 +35,15 @@ export interface ITicket {
       name: string;
     };
     price: number;
-    departure_date: string;
+    departure_date: Date;
     departure_time: string;
-    return_date: string;
+    return_date: Date;
     return_time: string;
   };
+  price: number;
   createAt?: string;
   updateAt?: string;
-  price: number;
 }
-export interface TicketCatalog {
-  _id: string;
-  name: string;
-}
-
-export interface Seat {
-  _id: string;
-  name: string;
-  price: number;
-  status: string;
-}
-
-export interface Trip {
-  _id: string;
-  departure_point: {
-    _id: string;
-    name: string;
-  };
-  destination_point: {
-    _id: string;
-    name: string;
-  };
-  price: number;
-  departure_date: string;
-  departure_time: string;
-  return_date: string;
-  return_time: string;
-}
-
-export interface Ticket {
-  _id: string;
-  ticket_catalog_id: TicketCatalog;
-  seat_id: Seat;
-  trip_id: Trip;
-  createAt: string;
-  updateAt: string;
-  price: number;
-}
-//
 export interface SearchFormData {
   ticket_catalog_name: string;
   seat_name: string;
@@ -76,10 +51,4 @@ export interface SearchFormData {
   destination_point_name: string; // Điểm Đến
   departure_date: Date;
   return_date: Date;
-}
-
-export interface TicketContextType {
-  searchTickets: (data: SearchFormData) => void;
-  loading: boolean;
-  error: string | null;
 }

@@ -1,4 +1,10 @@
-import { createContext, useState, ReactNode } from 'react';
+import {
+  createContext,
+  useState,
+  ReactNode,
+  useCallback,
+  useEffect
+} from 'react';
 import { ITicket } from '../../types/type/ticket/ticket';
 import {
   createTicketApi,
@@ -16,9 +22,9 @@ interface TicketContextType {
   searchTickets: (searchParams: Record<string, string>) => Promise<ITicket[]>;
   getAllTickets: () => void;
   getTicketById: (id: string) => void;
-  createTicket: (ticket: ITicket) => void;
-  updateTicket: (id: string, ticket: ITicket) => void;
-  deleteTicket: (id: string) => void;
+  createTicket: (ticket: ITicket) => Promise<void>;
+  updateTicket: (id: string, ticket: ITicket) => Promise<void>;
+  deleteTicket: (id: string) => Promise<void>;
 }
 
 export const TicketContext = createContext<TicketContextType | undefined>(
@@ -29,7 +35,6 @@ export const TicketProvider = ({ children }: { children: ReactNode }) => {
   const [tickets, setTickets] = useState<ITicket[]>([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const [isFetching, setIsFetching] = useState(false);
 
   const handleError = (err: any) => {
     setError(err.response?.data?.message || 'Lỗi cục bộ!');
@@ -50,60 +55,69 @@ export const TicketProvider = ({ children }: { children: ReactNode }) => {
       setLoading(false);
     }
   };
-  //Search
-  const searchTickets = async (
-    searchParams: Record<string, string>
-  ): Promise<ITicket[]> => {
-    let ticketsData: ITicket[] = [];
-    await fetchData(
-      () => searchTicketsApi(searchParams),
-      data => {
-        ticketsData = data.tickets || [];
-        setTickets(ticketsData);
-      }
-    );
-    return ticketsData;
-  };
 
-  //Get
-  const getAllTickets = () => {
-    if (isFetching) return;
-    setIsFetching(true);
-    fetchData(getAllTicketsApi, data => setTickets(data.tickets || [])).finally(
-      () => setIsFetching(false)
-    );
-  };
-  //Get By ID
-  const getTicketById = (id: string) => {
+  //Search
+  const searchTickets = useCallback(
+    async (searchParams: Record<string, string>): Promise<ITicket[]> => {
+      let ticketsData: ITicket[] = [];
+      await fetchData(
+        () => searchTicketsApi(searchParams),
+        data => {
+          ticketsData = data.tickets || [];
+          setTickets(ticketsData);
+        }
+      );
+      return ticketsData;
+    },
+    []
+  );
+
+  //Get All
+  const getAllTickets = useCallback(() => {
+    fetchData(getAllTicketsApi, data => setTickets(data.tickets || []));
+  }, []);
+
+  // Get By ID
+  const getTicketById = useCallback((id: string) => {
     fetchData(
       () => getTicketByIdApi(id),
       data => setTickets([data.ticket])
     );
-  };
-  //Post
-  const createTicket = (ticket: ITicket): Promise<void> => {
-    return fetchData(
+  }, []);
+
+  // Post
+  const createTicket = useCallback(async (ticket: ITicket): Promise<void> => {
+    await fetchData(
       () => createTicketApi(ticket),
       data => setTickets(prevTickets => [...prevTickets, data.ticket])
     );
-  };
-  //Put
-  const updateTicket = (id: string, ticket: ITicket): Promise<void> => {
-    return fetchData(
-      () => updateTicketApi(id, ticket),
-      data =>
-        setTickets(prevTickets =>
-          prevTickets.map(t => (t._id === id ? data.ticket : t))
-        )
-    );
-  };
-  //Delete
-  const deleteTicket = (id: string): Promise<void> => {
-    return fetchData(
+  }, []);
+
+  // Put
+  const updateTicket = useCallback(
+    async (id: string, ticket: ITicket): Promise<void> => {
+      await fetchData(
+        () => updateTicketApi(id, ticket),
+        data =>
+          setTickets(prevTickets =>
+            prevTickets.map(ticket => (ticket._id === id ? data.ticket : ticket))
+          )
+      );
+    },
+    []
+  );
+
+  // Delete
+  const deleteTicket = useCallback(async (id: string): Promise<void> => {
+    await fetchData(
       () => deleteTicketApi(id),
-      () => setTickets(prevTickets => prevTickets.filter(t => t._id !== id))
+      () => setTickets(prevTickets => prevTickets.filter(ticket => ticket._id !== id))
     );
-  };
+  }, []);
+
+  useEffect(() => {
+    getAllTickets();
+  }, [getAllTickets]);
 
   return (
     <TicketContext.Provider
