@@ -26,10 +26,19 @@ interface TicketContextType {
   updateTicket: (id: string, ticket: ITicket) => Promise<void>;
   deleteTicket: (id: string) => Promise<void>;
 }
-
-export const TicketContext = createContext<TicketContextType | undefined>(
-  undefined
-);
+const defaultContextValue: TicketContextType = {
+  tickets: [],
+  loading: false,
+  error: null,
+  searchTickets: async () => [],
+  getAllTickets: () => {},
+  getTicketById: () => {},
+  createTicket: async () => {},
+  updateTicket: async () => {},
+  deleteTicket: async () => {}
+};
+export const TicketContext =
+  createContext<TicketContextType>(defaultContextValue);
 
 export const TicketProvider = ({ children }: { children: ReactNode }) => {
   const [tickets, setTickets] = useState<ITicket[]>([]);
@@ -100,7 +109,9 @@ export const TicketProvider = ({ children }: { children: ReactNode }) => {
         () => updateTicketApi(id, ticket),
         data =>
           setTickets(prevTickets =>
-            prevTickets.map(ticket => (ticket._id === id ? data.ticket : ticket))
+            prevTickets.map(ticket =>
+              ticket._id === id ? data.ticket : ticket
+            )
           )
       );
     },
@@ -111,7 +122,10 @@ export const TicketProvider = ({ children }: { children: ReactNode }) => {
   const deleteTicket = useCallback(async (id: string): Promise<void> => {
     await fetchData(
       () => deleteTicketApi(id),
-      () => setTickets(prevTickets => prevTickets.filter(ticket => ticket._id !== id))
+      () =>
+        setTickets(prevTickets =>
+          prevTickets.filter(ticket => ticket._id !== id)
+        )
     );
   }, []);
 
