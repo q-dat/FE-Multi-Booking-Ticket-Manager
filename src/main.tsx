@@ -9,6 +9,7 @@ import ErrorBoundary from './components/orther/error/ErrorBoundary.tsx';
 import LoadingPage from './pages/LoadingPage/LoadingPage.tsx';
 import { AuthProvider } from './context/auth/AuthContext.tsx';
 import { TicketProvider } from './context/ticket/TicketContext.tsx';
+import { LocationProvider } from './context/location/LocationContext.tsx';
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
@@ -17,8 +18,10 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
         <ErrorBoundary>
           <AuthProvider>
             <TicketProvider>
-              <ToastContainer />
-              <App />
+              <LocationProvider>
+                <ToastContainer />
+                <App />
+              </LocationProvider>
             </TicketProvider>
           </AuthProvider>
         </ErrorBoundary>

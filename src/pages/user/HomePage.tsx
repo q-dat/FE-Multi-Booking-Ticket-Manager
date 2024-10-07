@@ -19,7 +19,7 @@ import {
 import { useTranslation } from 'react-i18next';
 import HeaderResponsive from '../../components/UserPage/HeaderResponsive';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { ILocation } from '../../types/location/location';
+import { ILocation } from '../../types/type/location/location';
 import { FaChevronLeft, FaChevronRight } from 'react-icons/fa';
 import TicketResults from '../../components/UserPage/TicketResults';
 import { SubmitHandler, useForm } from 'react-hook-form';
@@ -93,27 +93,39 @@ const Home: React.FC = () => {
   const FecthLocation: ILocation[] = [
     {
       name: 'Hà Nội',
-      _id: ''
+      _id: '',
+      createAt: '',
+      updateAt: ''
     },
     {
       name: 'Ninh Bình',
-      _id: ''
+      _id: '',
+      createAt: '',
+      updateAt: ''
     },
     {
       name: 'Thanh Hoá',
-      _id: ''
+      _id: '',
+      createAt: '',
+      updateAt: ''
     },
     {
       name: 'Vinh',
-      _id: ''
+      _id: '',
+      createAt: '',
+      updateAt: ''
     },
     {
       name: 'Đà Nẵng',
-      _id: ''
+      _id: '',
+      createAt: '',
+      updateAt: ''
     },
     {
       name: 'Huế',
-      _id: ''
+      _id: '',
+      createAt: '',
+      updateAt: ''
     }
   ];
 
