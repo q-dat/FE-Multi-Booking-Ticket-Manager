@@ -81,15 +81,15 @@ export const TicketProvider = ({ children }: { children: ReactNode }) => {
     );
   };
   //Post
-  const createTicket = (ticket: ITicket) => {
-    fetchData(
+  const createTicket = (ticket: ITicket): Promise<void> => {
+    return fetchData(
       () => createTicketApi(ticket),
       data => setTickets(prevTickets => [...prevTickets, data.ticket])
     );
   };
   //Put
-  const updateTicket = (id: string, ticket: ITicket) => {
-    fetchData(
+  const updateTicket = (id: string, ticket: ITicket): Promise<void> => {
+    return fetchData(
       () => updateTicketApi(id, ticket),
       data =>
         setTickets(prevTickets =>
@@ -98,8 +98,8 @@ export const TicketProvider = ({ children }: { children: ReactNode }) => {
     );
   };
   //Delete
-  const deleteTicket = (id: string) => {
-    fetchData(
+  const deleteTicket = (id: string): Promise<void> => {
+    return fetchData(
       () => deleteTicketApi(id),
       () => setTickets(prevTickets => prevTickets.filter(t => t._id !== id))
     );
