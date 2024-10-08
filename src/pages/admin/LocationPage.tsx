@@ -5,7 +5,6 @@ import LoadingLocal from '../../components/orther/loading/LoadingLocal';
 import NavtitleAdmin from '../../components/admin/NavtitleAdmin';
 import { RiAddBoxLine } from 'react-icons/ri';
 import { Button, Table } from 'react-daisyui';
-import TableListAdmin from '../../components/admin/TablelistAdmin';
 import { ILocation } from '../../types/type/location/location';
 import ModalDeleteLocationPageAdmin from '../../components/admin/Modal/ModalLocation/ModalDeleteLocationPageAdmin';
 import ModalEditLocationPageAdmin from '../../components/admin/Modal/ModalLocation/ModalEditLocationPageAdmin';
@@ -13,14 +12,19 @@ import ModalCreateLocationPageAdmin from '../../components/admin/Modal/ModalLoca
 import { MdDelete } from 'react-icons/md';
 import ErrorLoading from '../../components/orther/error/ErrorLoading';
 import { FaCircleInfo, FaPenToSquare } from 'react-icons/fa6';
+import { isIErrorResponse } from '../../types/error/error';
+import TableListAdmin from '../../components/admin/TablelistAdmin';
 
-const LocationPage: React.FC<{}> = () => {
-  const { locations, loading, error, deleteLocation, getAllLocations } = useContext(LocationContext);
+const LocationPage: React.FC = () => {
+  const { locations, loading, error, deleteLocation, getAllLocations } =
+    useContext(LocationContext);
 
   const [isModalCreateOpen, setIsModalCreateOpen] = useState(false);
   const [isModalDeleteOpen, setIsModalDeleteOpen] = useState(false);
   const [isModalEditOpen, setIsModalEditOpen] = useState(false);
-  const [selectedLocationId, setSelectedLocationId] = useState<string | null>(null);
+  const [selectedLocationId, setSelectedLocationId] = useState<string | null>(
+    null
+  );
 
   const openModalCreateAdmin = () => setIsModalCreateOpen(true);
   const closeModalCreateAdmin = () => setIsModalCreateOpen(false);
@@ -40,13 +44,15 @@ const LocationPage: React.FC<{}> = () => {
   const handleDeleteLocation = async () => {
     if (selectedLocationId) {
       try {
-        await deleteLocation(selectedLocationId);
+        await deleteLocation(selectedLocationId); // Xóa địa điểm
         closeModalDeleteAdmin();
-        Toastify('Bạn đã xoá địa điểm thành công', 201);
-        getAllLocations(); // Refetch locations after deletion
+        Toastify('Bạn đã xoá địa chỉ thành công', 201);
+        getAllLocations(); // Cập nhật lại danh sách địa điểm
       } catch (error: unknown) {
-        const errorMessage = error instanceof Error ? error.message : 'Đã xảy ra lỗi không mong muốn';
-        Toastify(`Xoá địa điểm thất bại: ${errorMessage}`, 401);
+        const errorMessage = isIErrorResponse(error)
+          ? error.data?.message
+          : 'Xoá địa chỉ thất bại!';
+        Toastify(`Lỗi: ${errorMessage}`, 401);
       }
     }
   };
@@ -84,9 +90,9 @@ const LocationPage: React.FC<{}> = () => {
         table_body={
           <Table.Body className="text-center text-sm">
             {locations.map((location: ILocation, index: number) => (
-              <Table.Row key={location._id}>
+              <Table.Row key={index}>
                 <span className="line-clamp-1">#{index + 1}</span>
-                <span className="line-clamp-1">{location.name}</span>
+                <span className="line-clamp-1">{location?.name}</span>
                 <span>
                   <details>
                     <summary className="inline cursor-pointer text-base text-warning">
