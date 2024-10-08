@@ -88,8 +88,8 @@ const SidebarAdmin: React.FC<{}> = () => {
                       to={item.link}
                       className={`btn flex w-full items-center justify-start border-none shadow-white dark:bg-gray-800 dark:shadow-none ${
                         item.name === activeItem
-                          ? 'bg-base-200 font-bold text-primary dark:bg-white'
-                          : 'bg-transparent bg-white font-light text-black dark:text-white'
+                          ? 'bg-primary font-bold text-primary hover:bg-primary hover:bg-opacity-20 bg-opacity-30 dark:bg-white rounded-l-none'
+                          : 'bg-transparent bg-white font-light text-black hover:bg-primary hover:bg-opacity-20 dark:text-white  rounded-l-none'
                       } relative pl-4`}
                     >
                       <div className="flex w-full items-center justify-between">

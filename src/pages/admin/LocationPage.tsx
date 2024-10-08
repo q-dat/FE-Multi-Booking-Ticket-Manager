@@ -14,6 +14,7 @@ import ErrorLoading from '../../components/orther/error/ErrorLoading';
 import { FaCircleInfo, FaPenToSquare } from 'react-icons/fa6';
 import { isIErrorResponse } from '../../types/error/error';
 import TableListAdmin from '../../components/admin/TablelistAdmin';
+import NavbarMobile from '../../components/admin/Reponsive/Mobile/NavbarMobile';
 
 const LocationPage: React.FC = () => {
   const { locations, loading, error, deleteLocation, getAllLocations } = useContext(LocationContext);
@@ -60,6 +61,9 @@ const LocationPage: React.FC = () => {
 
   return (
     <div className="w-full">
+        <NavbarMobile Title_NavbarMobile="Địa Điểm" />
+      <div className="px-2 xl:px-0">
+
       <NavtitleAdmin
         Title_NavtitleAdmin="Quản Lý Địa Điểm"
         Btn_Create={
@@ -70,11 +74,13 @@ const LocationPage: React.FC = () => {
           >
             <div className="flex items-center space-x-1">
               <RiAddBoxLine className="text-xl" />
-              <p>Tạo mới</p>
+              <p>Thêm</p>
             </div>
           </Button>
         }
       />
+      </div>
+
 
       <TableListAdmin
         Title_TableListAdmin={`Danh Sách Địa Điểm (${locations.length})`}
@@ -108,9 +114,8 @@ const LocationPage: React.FC = () => {
                         Cập Nhật
                       </Button>
                       <Button
-                        color="secondary"
                         onClick={() => openModalDeleteAdmin(location._id ?? '')}
-                        className="w-full max-w-[140px] text-sm font-light text-white"
+                        className="w-full max-w-[140px] text-sm font-light text-white bg-red-600"
                       >
                         <MdDelete />
                         Xoá

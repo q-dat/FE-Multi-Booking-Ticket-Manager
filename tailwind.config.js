@@ -59,6 +59,7 @@ export default {
           success: "#009485",
           warning: "#ff9900",
           error: "#e53e3e",
+          delete:"#e53e3e"
         },
       },
     ],
