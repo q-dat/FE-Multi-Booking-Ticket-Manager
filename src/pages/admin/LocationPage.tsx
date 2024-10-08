@@ -17,30 +17,26 @@ import TableListAdmin from '../../components/admin/TablelistAdmin';
 
 const LocationPage: React.FC = () => {
   const { locations, loading, error, deleteLocation, getAllLocations } = useContext(LocationContext);
-
   const [isModalCreateOpen, setIsModalCreateOpen] = useState(false);
   const [isModalDeleteOpen, setIsModalDeleteOpen] = useState(false);
   const [isModalEditOpen, setIsModalEditOpen] = useState(false);
   const [selectedLocationId, setSelectedLocationId] = useState<string | null>(null);
-
-  useEffect(() => {
-    getAllLocations();
-  }, [getAllLocations]);
-
   const openModalCreateAdmin = () => setIsModalCreateOpen(true);
   const closeModalCreateAdmin = () => setIsModalCreateOpen(false);
-
   const openModalDeleteAdmin = (id: string) => {
     setSelectedLocationId(id);
     setIsModalDeleteOpen(true);
   };
   const closeModalDeleteAdmin = () => setIsModalDeleteOpen(false);
-
   const openModalEditAdmin = (id: string) => {
     setSelectedLocationId(id);
     setIsModalEditOpen(true);
   };
   const closeModalEditAdmin = () => setIsModalEditOpen(false);
+
+  useEffect(() => {
+    getAllLocations();
+  }, [getAllLocations]);
 
   const handleDeleteLocation = async () => {
     if (selectedLocationId) {
@@ -57,6 +53,7 @@ const LocationPage: React.FC = () => {
       }
     }
   };
+
 
   if (loading.getAll) return <LoadingLocal />; 
   if (error) return <ErrorLoading />; 

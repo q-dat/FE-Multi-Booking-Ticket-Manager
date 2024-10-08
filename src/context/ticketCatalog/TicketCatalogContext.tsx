@@ -1,4 +1,10 @@
-import { createContext, useState, ReactNode, useCallback, useEffect } from 'react';
+import {
+  createContext,
+  useState,
+  ReactNode,
+  useCallback,
+  useEffect
+} from 'react';
 import {
   createTicketCatalogApi,
   deleteTicketCatalogApi,

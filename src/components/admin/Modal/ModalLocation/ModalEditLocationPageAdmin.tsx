@@ -13,14 +13,12 @@ interface ModalEditLocationProps {
   onClose: () => void;
   locationId: string; 
 }
-
 const ModalEditLocation: React.FC<ModalEditLocationProps> = ({
   isOpen,
   onClose,
   locationId
 }) => {
-  const { updateLocation, getLocationById, locations } =
-    useContext(LocationContext);
+  const {getAllLocations, updateLocation, getLocationById, locations } = useContext(LocationContext);
   const { register, handleSubmit, reset, setValue } = useForm<ILocation>();
 
   useEffect(() => {
@@ -29,7 +27,6 @@ const ModalEditLocation: React.FC<ModalEditLocationProps> = ({
     }
   }, [locationId, getLocationById]);
   
-
   useEffect(() => {
     const locationData = locations.find(
       location => location._id === locationId
@@ -37,7 +34,6 @@ const ModalEditLocation: React.FC<ModalEditLocationProps> = ({
     if (locationData) {
       setValue('name', locationData.name); 
     }
-    
   }, [locations, locationId, setValue]);
 
   const onSubmit: SubmitHandler<ILocation> = async formData => {
@@ -45,6 +41,7 @@ const ModalEditLocation: React.FC<ModalEditLocationProps> = ({
       await updateLocation(locationId, formData);
       Toastify('Chỉnh sửa địa điểm thành công!', 200);
       reset(); 
+      getAllLocations()
       onClose(); 
     } catch (error: unknown) {
       const errorMessage = isIErrorResponse(error)
@@ -56,9 +53,7 @@ const ModalEditLocation: React.FC<ModalEditLocationProps> = ({
 
   if (!isOpen) return null;
 
-  const handleOverlayClick = (
-    e: React.MouseEvent<HTMLDivElement, MouseEvent>
-  ) => {
+  const handleOverlayClick = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
     if ((e.target as HTMLElement).classList.contains('modal-overlay')) {
       onClose();
     }
@@ -87,7 +82,6 @@ const ModalEditLocation: React.FC<ModalEditLocationProps> = ({
               {...register('name', { required: true })}
             />
           </div>
-          {/* Modal Btn */}
           <div className="mt-4 space-x-5 text-center">
             <Button onClick={onClose} className="border-gray-50 text-black">
               Huỷ bỏ

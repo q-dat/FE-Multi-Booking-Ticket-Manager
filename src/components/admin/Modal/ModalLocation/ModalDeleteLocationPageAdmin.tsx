@@ -1,6 +1,5 @@
 import React from 'react';
 import { Button } from 'react-daisyui';
-// import { useTranslation } from 'react-i18next';
 
 interface ModalDeleteAdminProps {
   isOpen: boolean;
