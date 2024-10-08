@@ -35,27 +35,39 @@ const BusesPage: React.FC<Card> = () => {
   const FecthLocation: ILocation[] = [
     {
       name: 'Hà Nội',
-      _id: ''
+      _id: '',
+      createAt: '',
+      updateAt: ''
     },
     {
       name: 'Ninh Bình',
-      _id: ''
+      _id: '',
+      createAt: '',
+      updateAt: ''
     },
     {
       name: 'Thanh Hoá',
-      _id: ''
+      _id: '',
+      createAt: '',
+      updateAt: ''
     },
     {
       name: 'Vinh',
-      _id: ''
+      _id: '',
+      createAt: '',
+      updateAt: ''
     },
     {
       name: 'Đà Nẵng',
-      _id: ''
+      _id: '',
+      createAt: '',
+      updateAt: ''
     },
     {
       name: 'Huế',
-      _id: ''
+      _id: '',
+      createAt: '',
+      updateAt: ''
     }
   ];
 
