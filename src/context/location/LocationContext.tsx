@@ -1,4 +1,10 @@
-import { createContext, useState, ReactNode, useCallback, useEffect } from 'react';
+import {
+  createContext,
+  useState,
+  ReactNode,
+  useCallback,
+  useEffect
+} from 'react';
 import { ILocation } from '../../types/type/location/location';
 import {
   createLocationApi,
@@ -13,10 +19,10 @@ interface LocationContextType {
   loading: boolean;
   error: string | null;
   getAllLocations: () => void;
-  getLocationById: (id: string) => void;
+  getLocationById: (_id: string) => void;
   createLocation: (location: ILocation) => Promise<void>;
-  updateLocation: (id: string, location: ILocation) => Promise<void>;
-  deleteLocation: (id: string) => Promise<void>;
+  updateLocation: (_id: string, location: ILocation) => Promise<void>;
+  deleteLocation: (_id: string) => Promise<void>;
 }
 
 const defaultContextValue: LocationContextType = {
@@ -30,9 +36,10 @@ const defaultContextValue: LocationContextType = {
   deleteLocation: async () => {}
 };
 
-export const LocationContext = createContext<LocationContextType>(defaultContextValue);
+export const LocationContext =
+  createContext<LocationContextType>(defaultContextValue);
 
-export const LocationProvider = ({ children }: { children: ReactNode }) => {
+export const LocationProv_ider = ({ children }: { children: ReactNode }) => {
   const [locations, setLocations] = useState<ILocation[]>([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -62,36 +69,51 @@ export const LocationProvider = ({ children }: { children: ReactNode }) => {
     fetchData(getAllLocationsApi, data => setLocations(data.locations || []));
   }, []);
 
-  //Get By ID
-  const getLocationById = useCallback((id: string) => {
-    fetchData(() => getLocationByIdApi(id), data => {
-      setLocations([data.location]);
-    });
+  //Get By _ID
+  const getLocationById = useCallback((_id: string) => {
+    fetchData(
+      () => getLocationByIdApi(_id),
+      data => {
+        setLocations([data.location]);
+      }
+    );
   }, []);
 
   //Post
-  const createLocation = useCallback(async (location: ILocation): Promise<void> => {
-    await fetchData(
-      () => createLocationApi(location),
-      data => setLocations(prevLocations => [...prevLocations, data.location])
-    );
-  }, []);
+  const createLocation = useCallback(
+    async (location: ILocation): Promise<void> => {
+      await fetchData(
+        () => createLocationApi(location),
+        data => setLocations(prevLocations => [...prevLocations, data.location])
+      );
+    },
+    []
+  );
 
   //Put
-  const updateLocation = useCallback(async (id: string, location: ILocation): Promise<void> => {
-    await fetchData(
-      () => updateLocationApi(id, location),
-      data => setLocations(prevLocations =>
-        prevLocations.map(location => (location._id === id ? data.location : location))
-      )
-    );
-  }, []);
+  const updateLocation = useCallback(
+    async (_id: string, location: ILocation): Promise<void> => {
+      await fetchData(
+        () => updateLocationApi(_id, location),
+        data =>
+          setLocations(prevLocations =>
+            prevLocations.map(location =>
+              location._id === _id ? data.location : location
+            )
+          )
+      );
+    },
+    []
+  );
 
   //Delete
-  const deleteLocation = useCallback(async (id: string): Promise<void> => {
+  const deleteLocation = useCallback(async (_id: string): Promise<void> => {
     await fetchData(
-      () => deleteLocationApi(id),
-      () => setLocations(prevLocations => prevLocations.filter(location => location._id !== id))
+      () => deleteLocationApi(_id),
+      () =>
+        setLocations(prevLocations =>
+          prevLocations.filter(location => location._id !== _id)
+        )
     );
   }, []);
 
@@ -116,3 +138,4 @@ export const LocationProvider = ({ children }: { children: ReactNode }) => {
     </LocationContext.Provider>
   );
 };
+
