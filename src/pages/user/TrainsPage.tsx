@@ -9,6 +9,7 @@ import { FaChevronLeft, FaChevronRight } from 'react-icons/fa';
 import { useLocation } from 'react-router-dom';
 import { ILocation } from '../../types/type/location/location';
 import { BannerTrain, HaNoi } from '../../assets/image-represent';
+import TicketResults from '../../components/UserPage/TicketResults';
 
 interface Card {
   id?: number;
@@ -35,27 +36,39 @@ const TrainsPage: React.FC<Card> = () => {
   const FecthLocation: ILocation[] = [
     {
       name: 'Hà Nội',
-      _id: ''
+      _id: '',
+      createAt: '',
+      updateAt: ''
     },
     {
       name: 'Ninh Bình',
-      _id: ''
+      _id: '',
+      createAt: '',
+      updateAt: ''
     },
     {
       name: 'Thanh Hoá',
-      _id: ''
+      _id: '',
+      createAt: '',
+      updateAt: ''
     },
     {
       name: 'Vinh',
-      _id: ''
+      _id: '',
+      createAt: '',
+      updateAt: ''
     },
     {
       name: 'Đà Nẵng',
-      _id: ''
+      _id: '',
+      createAt: '',
+      updateAt: ''
     },
     {
       name: 'Huế',
-      _id: ''
+      _id: '',
+      createAt: '',
+      updateAt: ''
     }
   ];
 
@@ -125,6 +138,7 @@ const TrainsPage: React.FC<Card> = () => {
           />
         </div>
         {/* Form */}
+      <TicketResults />
         <form>
           <div className="relative top-1 flex flex-grow items-center justify-center px-2 pt-5 md:-top-3 md:pt-0 xl:-top-10 xl:px-0">
             <div className="flex flex-col rounded-lg border border-secondary border-opacity-50 bg-white p-3 shadow-headerMenu dark:bg-gray-700 md:p-10 xl:flex-row xl:px-10 xl:py-8">

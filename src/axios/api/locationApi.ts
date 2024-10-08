@@ -25,3 +25,4 @@ export const updateLocationApi = (id: string, location: ILocation) => {
 export const deleteLocationApi = (id: string) => {
   return axios.delete(`/api/Locations/${id}`);
 };
+

@@ -19,24 +19,28 @@ import {
 import { useTranslation } from 'react-i18next';
 import HeaderResponsive from '../../components/UserPage/HeaderResponsive';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { ILocation } from '../../types/type/location/location';
 import { FaChevronLeft, FaChevronRight } from 'react-icons/fa';
-import TicketResults from '../../components/UserPage/TicketResults';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { TicketContext } from '../../context/ticket/TicketContext';
 import { ITicket, SearchFormData } from '../../types/type/ticket/ticket';
+import { LocationContext } from '../../context/location/LocationContext';
+import { TicketCatalogContext } from '../../context/ticketCatalog/TicketCatalogContext';
+import { ITicketCatalog } from '../../types/type/ticket-catalog/ticket-catalog';
 
 const Home: React.FC = () => {
   //Translation
   const { t } = useTranslation();
-
   //Search Ticket
   const searchTicket = useContext(TicketContext);
   const navigate = useNavigate();
   if (!searchTicket) {
     throw new Error('TicketSearchForm must be used within a TicketProvider');
   }
-  const { searchTickets, loading, error } = searchTicket;
+  const {
+    searchTickets,
+    loading: loadingTickets,
+    error: errorTickets
+  } = searchTicket;
 
   const { register, handleSubmit } = useForm<SearchFormData>();
   const onSubmit: SubmitHandler<SearchFormData> = async data => {
@@ -65,6 +69,18 @@ const Home: React.FC = () => {
       console.log('Không có vé hợp lệ');
     }
   };
+  //Get Ticket Catalog
+  const getTicketCatalogs = useContext(TicketCatalogContext);
+  const [ticketCatalogs, setTicketCatalogs] = useState<ITicketCatalog[]>([]);
+  useEffect(() => {
+    const fetchData = async () => {
+      if (getTickets) {
+        await getTickets.getAllTickets();
+        setTicketCatalogs(getTicketCatalogs.ticketCatalogs);
+      }
+    };
+    fetchData();
+  }, [getTicketCatalogs]);
 
   // Get Ticket
   const getTickets = useContext(TicketContext);
@@ -79,60 +95,18 @@ const Home: React.FC = () => {
     fetchData();
   }, [getTickets, tickets]);
 
-  // Naviga Active
+  //Get Location
   const [activeItem, setActiveItem] = useState('Hà Nội');
   const location = useLocation();
-
+  const { locations } = useContext(LocationContext);
   useEffect(() => {
     const pathname = location.pathname.split('/').pop();
-    const foundItem = FecthLocation.find(item => item.name === pathname);
+    const foundItem = locations.find(item => item.name === pathname);
     if (foundItem) {
       setActiveItem(foundItem.name);
     }
-  }, [location.pathname]);
-  const FecthLocation: ILocation[] = [
-    {
-      name: 'Hà Nội',
-      _id: '',
-      createAt: '',
-      updateAt: ''
-    },
-    {
-      name: 'Ninh Bình',
-      _id: '',
-      createAt: '',
-      updateAt: ''
-    },
-    {
-      name: 'Thanh Hoá',
-      _id: '',
-      createAt: '',
-      updateAt: ''
-    },
-    {
-      name: 'Vinh',
-      _id: '',
-      createAt: '',
-      updateAt: ''
-    },
-    {
-      name: 'Đà Nẵng',
-      _id: '',
-      createAt: '',
-      updateAt: ''
-    },
-    {
-      name: 'Huế',
-      _id: '',
-      createAt: '',
-      updateAt: ''
-    }
-  ];
-
-  // Sử dụng useRef với kiểu HTMLDivElement
+  }, [location.pathname, locations]);
   const scrollRef = useRef<HTMLDivElement>(null);
-
-  // Hàm cuộn theo hướng
   const scroll = (scrollOffset: number) => {
     if (scrollRef.current) {
       scrollRef.current.scrollLeft += scrollOffset;
@@ -174,27 +148,40 @@ const Home: React.FC = () => {
         </div>
       </div>
       {/* Form */}
-      <TicketResults />
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className="relative top-1 flex flex-grow items-center justify-center px-2 pb-10 pt-5 md:-top-3 md:pt-0 xl:-top-10 xl:px-0">
           <div className="flex flex-col rounded-lg border border-secondary border-opacity-50 bg-white p-3 shadow-headerMenu dark:bg-gray-700 md:p-10 xl:flex-row xl:px-10 xl:py-8">
             {/* Form Mobile 1 */}
             <div className="m-2 flex flex-grow items-center justify-between gap-2 md:m-[10px] md:gap-[20px] xl:m-0 xl:gap-0">
-              <InputForm
-                className="w-[150px] border border-gray-700 border-opacity-50 bg-white text-black focus:border-primary focus:outline-none dark:border-secondary dark:bg-gray-700 dark:text-white dark:focus:border-white md:w-[300px] lg:w-[400px] xl:w-full xl:rounded-r-none"
-                type={'text'}
-                placeholder={`${t('UserPage.DeparturePlaceholder')}`}
+              <Select
+                defaultValue=""
+                className="w-[150px] border border-gray-700 border-opacity-50 bg-white text-black focus:border-primary focus:outline-none dark:border-secondary dark:bg-gray-700 dark:text-white dark:focus:border-white md:w-[300px] lg:w-[400px] xl:w-full xl:rounded-l-none"
                 {...register('departure_point_name')}
-                classNameLabel="bg-white dark:bg-gray-700"
-              />
+              >
+                <option value="" disabled>
+                  {t('UserPage.DeparturePlaceholder')}
+                </option>
+                {locations.map(location => (
+                  <option key={location._id} value={location.name}>
+                    {location.name}
+                  </option>
+                ))}
+              </Select>
               <MdOutlineArrowRightAlt className="hidden text-primary dark:text-white xl:flex" />
-              <InputForm
-                className="w-[150px] border border-gray-700 border-opacity-50 bg-white text-black focus:border-primary focus:outline-none dark:border-secondary dark:bg-gray-700 dark:text-white dark:focus:border-white md:w-[300px] lg:w-[400px] xl:w-full xl:rounded-none"
-                type={'text'}
-                placeholder={`${t('UserPage.DestinationPlaceholder')}`}
+              <Select
+                defaultValue=""
+                className="w-[150px] border border-gray-700 border-opacity-50 bg-white text-black focus:border-primary focus:outline-none dark:border-secondary dark:bg-gray-700 dark:text-white dark:focus:border-white md:w-[300px] lg:w-[400px] xl:w-full xl:rounded-l-none"
                 {...register('destination_point_name')}
-                classNameLabel=" bg-white  dark:bg-gray-700"
-              />
+              >
+                <option value="" disabled>
+                  {t('UserPage.DestinationPlaceholder')}
+                </option>
+                {locations.map(location => (
+                  <option key={location._id} value={location.name}>
+                    {location.name}
+                  </option>
+                ))}
+              </Select>
               <MdOutlineArrowRightAlt className="hidden text-primary dark:text-white xl:flex" />
             </div>
             {/* Form Mobile 2 */}
@@ -221,29 +208,32 @@ const Home: React.FC = () => {
             <div className="m-2 flex flex-grow items-center justify-between gap-2 md:m-[10px] md:gap-[20px] xl:m-0 xl:gap-0">
               <div>
                 <Select
-                  {...register('ticket_catalog_name')}
+                  defaultValue=""
                   className="w-[150px] border border-gray-700 border-opacity-50 bg-white text-black focus:border-primary focus:outline-none dark:border-secondary dark:bg-gray-700 dark:text-white dark:focus:border-white md:w-[300px] lg:w-[400px] xl:w-full xl:rounded-l-none"
+                  {...register('ticket_catalog_name')}
                 >
-                  <option value={'default'} disabled>
+                  <option value="" disabled>
                     {t('UserPage.VehicleSelectDefault')}
                   </option>
-                  <option value={'Tàu Hoả'}>Tàu Hoả</option>
-                  <option value={'Xe Khách'}>Xe Khách</option>
-                  <option value={'Máy Bay'}>Máy Bay</option>
+                  {ticketCatalogs.map(ticketCatalog => (
+                    <option key={ticketCatalog._id} value={ticketCatalog.name}>
+                      {ticketCatalog.name}
+                    </option>
+                  ))}
                 </Select>
               </div>
               <div>
                 <Button
                   type="submit"
-                  disabled={loading}
+                  disabled={loadingTickets}
                   className="w-[150px] bg-primary text-sm text-white hover:border-primary hover:bg-white hover:text-primary dark:hover:bg-gray-700 md:w-[300px] lg:w-[400px] xl:ml-3 xl:w-full"
                 >
                   <IoSearch />
-                  {loading
+                  {loadingTickets
                     ? 'Đang tìm kiếm...'
                     : `${t('UserPage.SearchButton')}`}
                 </Button>
-                {error && <p style={{ color: 'red' }}>{error}</p>}
+                {errorTickets && <p style={{ color: 'red' }}>{errorTickets}</p>}
               </div>
             </div>
           </div>
@@ -376,7 +366,7 @@ const Home: React.FC = () => {
           {t('UserPage.TicketPrice')}
         </div>
         <div className="grid grid-cols-2 gap-2 xl:grid-flow-col xl:grid-cols-none xl:grid-rows-1">
-          {FecthLocation.map((location, index) => (
+          {locations.map((location, index) => (
             <Button
               key={index}
               className={`flex w-full items-center justify-center transition-all duration-500 ease-in-out hover:rounded-badge hover:bg-secondary hover:text-white ${
