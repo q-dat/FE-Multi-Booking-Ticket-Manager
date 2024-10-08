@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import { LocationContext } from '../../context/location/LocationContext';
 import { Toastify } from '../../helper/Toastify';
 import LoadingLocal from '../../components/orther/loading/LoadingLocal';
@@ -16,15 +16,16 @@ import { isIErrorResponse } from '../../types/error/error';
 import TableListAdmin from '../../components/admin/TablelistAdmin';
 
 const LocationPage: React.FC = () => {
-  const { locations, loading, error, deleteLocation, getAllLocations } =
-    useContext(LocationContext);
+  const { locations, loading, error, deleteLocation, getAllLocations } = useContext(LocationContext);
 
   const [isModalCreateOpen, setIsModalCreateOpen] = useState(false);
   const [isModalDeleteOpen, setIsModalDeleteOpen] = useState(false);
   const [isModalEditOpen, setIsModalEditOpen] = useState(false);
-  const [selectedLocationId, setSelectedLocationId] = useState<string | null>(
-    null
-  );
+  const [selectedLocationId, setSelectedLocationId] = useState<string | null>(null);
+
+  useEffect(() => {
+    getAllLocations();
+  }, [getAllLocations]);
 
   const openModalCreateAdmin = () => setIsModalCreateOpen(true);
   const closeModalCreateAdmin = () => setIsModalCreateOpen(false);
@@ -44,10 +45,10 @@ const LocationPage: React.FC = () => {
   const handleDeleteLocation = async () => {
     if (selectedLocationId) {
       try {
-        await deleteLocation(selectedLocationId); // Xóa địa điểm
+        await deleteLocation(selectedLocationId);
         closeModalDeleteAdmin();
         Toastify('Bạn đã xoá địa chỉ thành công', 201);
-        getAllLocations(); // Cập nhật lại danh sách địa điểm
+        getAllLocations();
       } catch (error: unknown) {
         const errorMessage = isIErrorResponse(error)
           ? error.data?.message
@@ -57,8 +58,8 @@ const LocationPage: React.FC = () => {
     }
   };
 
-  if (loading) return <LoadingLocal />;
-  if (error) return <ErrorLoading />;
+  if (loading.getAll) return <LoadingLocal />; 
+  if (error) return <ErrorLoading />; 
 
   return (
     <div className="w-full">

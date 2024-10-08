@@ -57,7 +57,7 @@ export default function AppRoutes() {
             element={
               <PrivateRouter>
                 <Admin />
-              // </PrivateRouter>
+              </PrivateRouter>
             }
           >
             <Route index path="" element={<DashboardPage />} />
