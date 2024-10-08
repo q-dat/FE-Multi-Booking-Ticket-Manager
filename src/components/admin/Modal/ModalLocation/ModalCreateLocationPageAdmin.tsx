@@ -1,31 +1,38 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import { Button } from 'react-daisyui';
+import { useForm, SubmitHandler } from 'react-hook-form';
 import InputModal from '../../InputModal';
-import { useForm } from 'react-hook-form';
 import { LocationContext } from '../../../../context/location/LocationContext';
 import { ILocation } from '../../../../types/type/location/location';
+import { isIErrorResponse } from '../../../../types/error/error';
+import { Toastify } from '../../../../helper/Toastify';
 
-interface ModalCreateAdminProps {
+interface ModalCreateLocationProps {
   isOpen: boolean;
   onClose: () => void;
 }
 
-const ModalCreateLocationPageAdmin: React.FC<ModalCreateAdminProps> = ({
+const ModalCreateLocation: React.FC<ModalCreateLocationProps> = ({
   isOpen,
   onClose
 }) => {
-  const { createLocation } = useContext(LocationContext);
-  const {
-    register,
-    handleSubmit,
-    formState: { errors }
-  } = useForm<ILocation>();
+  const { createLocation } = React.useContext(LocationContext); 
+  const { register, handleSubmit, reset } = useForm<ILocation>();
 
-  const onSubmit = (data: ILocation) => {
-    createLocation(data);
-    onClose();
+  const onSubmit: SubmitHandler<ILocation> = async formData => {
+    try {
+      await createLocation(formData); 
+      Toastify('Tạo địa điểm thành công!', 201); 
+      reset();
+      onClose();
+    } catch (error: unknown) {
+      const errorMessage = isIErrorResponse(error)
+        ? error.data?.message
+        : 'Lỗi khi tạo địa điểm!';
+      Toastify(`Lỗi: ${errorMessage}`, 401); 
+    }
   };
-  //
+
   if (!isOpen) return null;
 
   const handleOverlayClick = (
@@ -44,30 +51,25 @@ const ModalCreateLocationPageAdmin: React.FC<ModalCreateAdminProps> = ({
       >
         <div
           onClick={e => e.stopPropagation()}
-          className="mx-2 flex flex-col space-y-10 rounded-lg bg-white p-10 text-start shadow dark:bg-gray-800"
+          className="mx-2 flex w-[400px] flex-col rounded-lg bg-white p-5 text-start shadow dark:bg-gray-800"
         >
-          <p className="text-xl font-bold text-black dark:text-white">
-            Tạo địa chỉ mới
-          </p>
-
-          <div className="flex flex-col items-start justify-center space-x-10 md:flex-row">
+          <div>
+            <p className="font-bold text-black dark:text-white">
+              Tạo địa điểm mới
+            </p>
             <InputModal
-              placeholder="Tên địa chỉ"
-              type="text"
-              {...register('name', { required: 'Tên địa chỉ là bắt buộc' })}
+              type={'text'}
+              {...register('name', { required: true })}
+              placeholder="Tên địa điểm"
             />
-            {errors.name && (
-              <span className="text-red-500">{errors.name.message}</span>
-            )}
           </div>
 
-          {/* Modal Btn */}
-          <div className="mt-4 space-x-5 text-center">
+          <div className="space-x-5 text-center">
             <Button onClick={onClose} className="border-gray-50 text-black">
-              Huỷ
+              Hủy
             </Button>
             <Button color="primary" type="submit" className="text-white">
-              Xác Nhận
+              Xác nhận
             </Button>
           </div>
         </div>
@@ -76,4 +78,4 @@ const ModalCreateLocationPageAdmin: React.FC<ModalCreateAdminProps> = ({
   );
 };
 
-export default ModalCreateLocationPageAdmin;
+export default ModalCreateLocation;

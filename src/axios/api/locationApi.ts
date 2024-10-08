@@ -18,7 +18,7 @@ export const createLocationApi = (location: ILocation) => {
 
 // Put
 export const updateLocationApi = (id: string, location: ILocation) => {
-  return axios.put<{ location: ILocation }>(`/api/location/${id}`, location);
+  return axios.put<{ location: ILocation }>(`/api/locations/${id}`, location);
 };
 
 // Delete

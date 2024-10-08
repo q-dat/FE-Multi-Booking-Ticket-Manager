@@ -11,6 +11,8 @@ export { default as BannerC } from './Banner-c.jpg';
 export { default as BannerC1 } from './Banner-c1.jpg';
 export { default as BannerC2 } from './Banner-c2.jpg';
 export { default as BannerLogin } from './BannerLogin.jpg';
+export { default as IMG404 } from './404.jpg';
+
 // Travel
 export { default as HaNoi } from './travel/HaNoi.jpg';
 export { default as Hue } from './travel/Hue.jpg';

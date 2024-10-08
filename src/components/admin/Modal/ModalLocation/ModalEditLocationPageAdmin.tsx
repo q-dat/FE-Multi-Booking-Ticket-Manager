@@ -1,18 +1,59 @@
-import React from 'react';
-import { Button } from 'react-daisyui';
-import InputModal from '../../InputModal';
-// import { useTranslation } from 'react-i18next';
+import React, { useEffect, useContext } from 'react';
+import { useForm, SubmitHandler } from 'react-hook-form';
 
-interface ModalCreateAdminProps {
+import { ILocation } from '../../../../types/type/location/location';
+import { LocationContext } from '../../../../context/location/LocationContext';
+import { Toastify } from '../../../../helper/Toastify';
+import { isIErrorResponse } from '../../../../types/error/error';
+import InputModal from '../../InputModal';
+import { Button } from 'react-daisyui';
+
+interface ModalEditLocationProps {
   isOpen: boolean;
   onClose: () => void;
+  locationId: string; 
 }
 
-const ModalEditLocationPageAdmin: React.FC<ModalCreateAdminProps> = ({
+const ModalEditLocation: React.FC<ModalEditLocationProps> = ({
   isOpen,
-  onClose
+  onClose,
+  locationId
 }) => {
-  //
+  const { updateLocation, getLocationById, locations } =
+    useContext(LocationContext);
+  const { register, handleSubmit, reset, setValue } = useForm<ILocation>();
+
+  useEffect(() => {
+    if (locationId) {
+      getLocationById(locationId); 
+    }
+  }, [locationId, getLocationById]);
+  
+
+  useEffect(() => {
+    const locationData = locations.find(
+      location => location._id === locationId
+    );
+    if (locationData) {
+      setValue('name', locationData.name); 
+    }
+    
+  }, [locations, locationId, setValue]);
+
+  const onSubmit: SubmitHandler<ILocation> = async formData => {
+    try {
+      await updateLocation(locationId, formData);
+      Toastify('Chỉnh sửa địa điểm thành công!', 200);
+      reset(); 
+      onClose(); 
+    } catch (error: unknown) {
+      const errorMessage = isIErrorResponse(error)
+        ? error.data?.message
+        : 'Lỗi khi chỉnh sửa địa điểm!';
+      Toastify(`Lỗi: ${errorMessage}`, 401);
+    }
+  };
+
   if (!isOpen) return null;
 
   const handleOverlayClick = (
@@ -24,32 +65,35 @@ const ModalEditLocationPageAdmin: React.FC<ModalCreateAdminProps> = ({
   };
 
   return (
-    <form>
+    <form onSubmit={handleSubmit(onSubmit)}>
       <div
         onClick={handleOverlayClick}
         className="modal-overlay fixed inset-0 z-50 flex w-full items-center justify-center bg-black bg-opacity-40"
       >
         <div
           onClick={e => e.stopPropagation()}
-          className="mx-2 flex flex-col space-y-10 rounded-lg bg-white p-10 text-start shadow dark:bg-gray-800"
+          className="flex flex-col space-y-10 rounded-lg bg-white p-10 text-start shadow dark:bg-gray-800"
         >
           <p className="text-xl font-bold text-black dark:text-white">
-            Sửa địa chỉ
+            Chỉnh sửa địa điểm
           </p>
-          <div className="flex flex-col items-start justify-center space-x-10 md:flex-row">
+          <div>
+            <label className="block text-sm font-medium text-gray-700">
+              Tên địa điểm
+            </label>
             <InputModal
-              placeholder={'Tên địa chỉ'}
+              placeholder={'ví dụ: địa điểm A'}
               type={'text'}
-              name={'location'}
+              {...register('name', { required: true })}
             />
           </div>
           {/* Modal Btn */}
           <div className="mt-4 space-x-5 text-center">
             <Button onClick={onClose} className="border-gray-50 text-black">
-              Huỷ
+              Huỷ bỏ
             </Button>
             <Button color="primary" type="submit" className="text-white">
-              Xác Nhận
+              Xác nhận
             </Button>
           </div>
         </div>
@@ -58,4 +102,4 @@ const ModalEditLocationPageAdmin: React.FC<ModalCreateAdminProps> = ({
   );
 };
 
-export default ModalEditLocationPageAdmin;
+export default ModalEditLocation;
