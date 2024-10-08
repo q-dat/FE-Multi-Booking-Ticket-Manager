@@ -12,9 +12,7 @@ const ModalEditLocationPageAdmin: React.FC<ModalCreateAdminProps> = ({
   isOpen,
   onClose
 }) => {
-  //Translation
-  // const { t } = useTranslation();
-
+  //
   if (!isOpen) return null;
 
   const handleOverlayClick = (

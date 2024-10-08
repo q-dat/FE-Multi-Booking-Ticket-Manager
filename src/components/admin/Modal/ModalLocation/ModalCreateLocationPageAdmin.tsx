@@ -12,20 +12,20 @@ interface ModalCreateAdminProps {
 
 const ModalCreateLocationPageAdmin: React.FC<ModalCreateAdminProps> = ({
   isOpen,
-  onClose,
+  onClose
 }) => {
   const { createLocation } = useContext(LocationContext);
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: { errors }
   } = useForm<ILocation>();
 
   const onSubmit = (data: ILocation) => {
     createLocation(data);
-    onClose(); // Optional: Close modal after submission
+    onClose();
   };
-
+  //
   if (!isOpen) return null;
 
   const handleOverlayClick = (
@@ -43,7 +43,7 @@ const ModalCreateLocationPageAdmin: React.FC<ModalCreateAdminProps> = ({
         className="modal-overlay fixed inset-0 z-50 flex w-full items-center justify-center bg-black bg-opacity-40"
       >
         <div
-          onClick={(e) => e.stopPropagation()}
+          onClick={e => e.stopPropagation()}
           className="mx-2 flex flex-col space-y-10 rounded-lg bg-white p-10 text-start shadow dark:bg-gray-800"
         >
           <p className="text-xl font-bold text-black dark:text-white">

@@ -25,7 +25,19 @@ const LocationPage: React.FC = () => {
     };
     fetchData();
   }, [getLocations, locations]);
-
+  //Delete
+  const [locationToDelete, setLocationToDelete] = useState<ILocation | null>(
+    null
+  );
+  const handleDelete = async () => {
+    if (locationToDelete) {
+      await getLocations.deleteLocation(locationToDelete._id);
+      setLocations(locations.filter(loc => loc._id !== locationToDelete._id));
+      setLocationToDelete(null);
+      closeModal(setIsModalDeleteOpen);
+    }
+  };
+  //
   const [isModalCreateOpen, setIsModalCreateOpen] = useState(false);
   const [isModalEditOpen, setIsModalEditOpen] = useState(false);
   const [isModalDeleteOpen, setIsModalDeleteOpen] = useState(false);
@@ -96,7 +108,10 @@ const LocationPage: React.FC = () => {
                         <Button
                           color="secondary"
                           className="w-full max-w-[140px] text-sm font-light text-white"
-                          onClick={() => openModal(setIsModalDeleteOpen)}
+                          onClick={() => {
+                            setLocationToDelete(location);
+                            openModal(setIsModalDeleteOpen);
+                          }}
                         >
                           <MdDelete />
                           Xoá
@@ -117,6 +132,7 @@ const LocationPage: React.FC = () => {
       <ModalDeleteLocationPageAdmin
         isOpen={isModalDeleteOpen}
         onClose={() => closeModal(setIsModalDeleteOpen)}
+        onConfirm={handleDelete}
       />
       <ModalEditLocationPageAdmin
         isOpen={isModalEditOpen}

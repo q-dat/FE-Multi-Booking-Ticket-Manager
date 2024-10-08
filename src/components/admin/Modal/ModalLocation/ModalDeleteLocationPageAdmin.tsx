@@ -5,16 +5,15 @@ import { Button } from 'react-daisyui';
 interface ModalDeleteAdminProps {
   isOpen: boolean;
   onClose: () => void;
-  // onConfirm: () => void;
+  onConfirm: () => void;
 }
 
 const ModalDeleteLocationPageAdmin: React.FC<ModalDeleteAdminProps> = ({
   isOpen,
-  onClose
-  // onConfirm
+  onClose,
+  onConfirm
 }) => {
-  //Translation
-  // const { t } = useTranslation();
+//
   if (!isOpen) return null;
   const handleOverlayClick = (
     e: React.MouseEvent<HTMLDivElement, MouseEvent>
@@ -47,7 +46,7 @@ const ModalDeleteLocationPageAdmin: React.FC<ModalDeleteAdminProps> = ({
             color="primary"
             type="submit"
             className="text-white"
-            // onClick={onConfirm}
+            onClick={onConfirm}
           >
             Xác Nhận
           </Button>
