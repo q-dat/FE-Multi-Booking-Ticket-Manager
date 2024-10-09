@@ -57,7 +57,7 @@ const Header: React.FC = () => {
 
     {
       name: `${t('UserPage.Navbar.BookingInfo')}`,
-      link: '',
+      link: '/check-ticket',
       submenu: [
         {
           name: `${t('UserPage.Navbar.ReturnTicket')}`,
