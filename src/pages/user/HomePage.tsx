@@ -58,7 +58,7 @@ const Home: React.FC = () => {
       const vehicleType = selectedTicket.ticket_catalog_id.name;
 
       if (vehicleType === 'Tàu Hoả') {
-        navigate('/trains');
+        navigate('/ticket-trains-results');
       } else if (vehicleType === 'Xe Khách') {
         navigate('/buses');
       } else if (vehicleType === 'Máy Bay') {
@@ -84,7 +84,6 @@ const Home: React.FC = () => {
 
   //Get Location
   const [activeItem, setActiveItem] = useState('Hà Nội');
-  //Get Location
   const { locations, getAllLocations } = useContext(LocationContext);
   useEffect(() => {
     getAllLocations();
