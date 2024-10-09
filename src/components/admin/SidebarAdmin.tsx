@@ -4,6 +4,7 @@ import { NavLink, useLocation } from 'react-router-dom';
 import { FaHome } from 'react-icons/fa';
 import { IoLocation } from 'react-icons/io5';
 import { MdPostAdd } from 'react-icons/md';
+import { FaTrainSubway } from "react-icons/fa6";
 // import { useTranslation } from 'react-i18next';
 import DarkModeToggle from '../orther/darkmode/DarkMode';
 import { Logo, LogoTitle } from '../../assets/images';
@@ -34,6 +35,11 @@ const SidebarAdmin: React.FC<{}> = () => {
       name: 'Bài Viết',
       icon: MdPostAdd,
       link: '/admin/blog'
+    },
+    {
+      name: 'Phương Tiện',
+      icon: FaTrainSubway,
+      link: '/admin/vehicle'
     }
   ];
 

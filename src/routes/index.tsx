@@ -3,6 +3,7 @@ import { Route, Routes } from 'react-router-dom';
 import DefaultLayout from '../layout/DefaultLayout';
 import PrivateRouter from './PrivateRouter';
 
+
 // UserPage
 const User = lazy(() => import('../pages/user/User'));
 const HomePage = lazy(() => import('../pages/user/HomePage'));
@@ -22,6 +23,7 @@ const Admin = lazy(() => import('../pages/admin/Admin'));
 const DashboardPage = lazy(() => import('../pages/admin/DashboardPage'));
 const LocationPage = lazy(() => import('../pages/admin/LocationPage'));
 const BlogPage = lazy(() => import('../pages/admin/BlogPage'));
+const VehiclePage = lazy(() => import('../pages/admin/VehiclePage'));
 // not found page
 const NotFound = lazy(() => import('../pages/404/NotFound'));
 export default function AppRoutes() {
@@ -63,6 +65,7 @@ export default function AppRoutes() {
             <Route index path="" element={<DashboardPage />} />
             <Route path="location" element={<LocationPage />} />
             <Route path="blog" element={<BlogPage />} />
+            <Route path="vehicle" element={<VehiclePage />} />
           </Route>
         </Route>
         {/* 404 not found */}
