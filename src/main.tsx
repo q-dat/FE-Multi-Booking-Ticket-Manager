@@ -11,6 +11,7 @@ import { AuthProvider } from './context/auth/AuthContext.tsx';
 import { TicketCatalogProvider } from './context/ticketCatalog/TicketCatalogContext.tsx';
 import { TicketProvider } from './context/ticket/TicketContext.tsx';
 import { LocationProvider } from './context/location/LocationContext.tsx';
+import { VehicleProvider } from './context/vehicle/VehicleContext.tsx';
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
@@ -19,12 +20,14 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
         <ErrorBoundary>
           <AuthProvider>
             <TicketCatalogProvider>
-            <TicketProvider>
-              <LocationProvider>
-                <ToastContainer />
-                <App />
-              </LocationProvider>
-            </TicketProvider>
+              <TicketProvider>
+                <LocationProvider>
+                  <VehicleProvider>
+                    <ToastContainer />
+                    <App />
+                  </VehicleProvider>
+                </LocationProvider>
+              </TicketProvider>
             </TicketCatalogProvider>
           </AuthProvider>
         </ErrorBoundary>
