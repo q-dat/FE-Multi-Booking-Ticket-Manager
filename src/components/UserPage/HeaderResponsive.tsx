@@ -4,9 +4,9 @@ import { Button, Drawer, Input, Menu } from 'react-daisyui';
 import { RxHamburgerMenu } from 'react-icons/rx';
 import { IoSearchOutline, IoSettingsSharp, IoTicket } from 'react-icons/io5';
 import { Link, NavLink, useLocation, useNavigate } from 'react-router-dom';
-import { FaHome, FaPhoneAlt, FaChevronDown, FaUser } from 'react-icons/fa';
+import { FaHome,  FaChevronDown, FaUser } from 'react-icons/fa';
 import { GiReturnArrow } from 'react-icons/gi';
-import { MdEmail, MdLogout } from 'react-icons/md';
+import {  MdLogout } from 'react-icons/md';
 import { IconType } from 'react-icons/lib';
 import DarkMode from '../orther/darkmode/DarkMode';
 import DropdownLanguage from '../orther/translation/Dropdown-Language ';
@@ -84,19 +84,19 @@ const HeaderResponsive: React.FC<HeaderResponsiveProps> = ({
     },
     {
       name: `${t('UserPage.Navbar.Contact')}`,
-      link: '',
-      submenu: [
-        {
-          name: 'Hotline: 0333133050',
-          icon: FaPhoneAlt,
-          link: 'tel:0333133050'
-        },
-        {
-          name: 'laclactrip@gmail.com',
-          icon: MdEmail,
-          link: 'mailto:laclactrip@gmail.com'
-        }
-      ]
+      link: '/contact',
+      // submenu: [
+      //   {
+      //     name: 'Hotline: 0333133050',
+      //     icon: FaPhoneAlt,
+      //     link: 'tel:0333133050'
+      //   },
+      //   {
+      //     name: 'laclactrip@gmail.com',
+      //     icon: MdEmail,
+      //     link: 'mailto:laclactrip@gmail.com'
+      //   }
+      // ]
     }
   ];
 

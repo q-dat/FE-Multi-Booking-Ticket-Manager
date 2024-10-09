@@ -7,12 +7,16 @@ import NotificationPopup from '../../components/UserPage/NotificationPopup';
 
 const User: React.FC = () => {
   return (
-    <div>
-      <Header />
-      <Outlet />
-      <ContactForm />
-      <NotificationPopup />
-      <FooterFC />
+    <div className='flex flex-col justify-between h-screen'>
+      <div>
+        <Header />
+        <Outlet />
+        <ContactForm />
+        <NotificationPopup />
+      </div>
+      <div>
+        <FooterFC />
+      </div>
     </div>
   );
 };
