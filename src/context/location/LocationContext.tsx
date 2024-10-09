@@ -10,7 +10,6 @@ import {
   createLocationApi,
   deleteLocationApi,
   getAllLocationsApi,
-  getLocationByIdApi,
   updateLocationApi
 } from '../../axios/api/locationApi';
 
@@ -18,14 +17,13 @@ interface LocationContextType {
   locations: ILocation[];
   loading: {
     getAll: boolean;
-    getById: boolean;
     create: boolean;
     update: boolean;
     delete: boolean;
   };
   error: string | null;
   getAllLocations: () => void;
-  getLocationById: (_id: string) => void;
+  getLocationById: (_id: string) => ILocation | undefined;
   createLocation: (location: ILocation) => Promise<void>;
   updateLocation: (_id: string, location: ILocation) => Promise<void>;
   deleteLocation: (_id: string) => Promise<void>;
@@ -35,14 +33,13 @@ const defaultContextValue: LocationContextType = {
   locations: [],
   loading: {
     getAll: false,
-    getById: false,
     create: false,
     update: false,
     delete: false
   },
   error: null,
   getAllLocations: () => {},
-  getLocationById: () => {},
+  getLocationById: () => undefined,
   createLocation: async () => {},
   updateLocation: async () => {},
   deleteLocation: async () => {}
@@ -55,13 +52,11 @@ export const LocationProvider = ({ children }: { children: ReactNode }) => {
   const [locations, setLocations] = useState<ILocation[]>([]);
   const [loading, setLoading] = useState<{
     getAll: boolean;
-    getById: boolean;
     create: boolean;
     update: boolean;
     delete: boolean;
   }>({
     getAll: false,
-    getById: false,
     create: false,
     update: false,
     delete: false
@@ -75,7 +70,7 @@ export const LocationProvider = ({ children }: { children: ReactNode }) => {
   const fetchData = async (
     apiCall: () => Promise<any>,
     onSuccess: (data: any) => void,
-    requestType: keyof typeof loading // 'getAll', 'getById', 'create', 'update', 'delete'
+    requestType: keyof typeof loading // 'getAll', 'create', 'update', 'delete'
   ) => {
     setLoading(prev => ({ ...prev, [requestType]: true }));
     setError(null);
@@ -91,27 +86,19 @@ export const LocationProvider = ({ children }: { children: ReactNode }) => {
 
   // Get All
   const getAllLocations = useCallback(() => {
-    fetchData(getAllLocationsApi, data => setLocations(data.locations || []), 'getAll');
-  }, []);
-
-  // Get By ID
-  const getLocationById = useCallback((id: string) => {
     fetchData(
-      () => getLocationByIdApi(id),
-      data => {
-        setLocations(prevLocations => {
-          const existingLocation = prevLocations.find(location => location._id === id);
-          if (!existingLocation) {
-            return [...prevLocations, data.location];
-          }
-          return prevLocations.map(location =>
-            location._id === id ? data.location : location
-          );
-        });
-      },
-      'getById'
+      getAllLocationsApi,
+      data => setLocations(data.locations || []),
+      'getAll'
     );
   }, []);
+  //Get By Id
+  const getLocationById = useCallback(
+    (id: string) => {
+      return locations.find(location => location._id === id);
+    },
+    [locations]
+  );
 
   // Post
   const createLocation = useCallback(
@@ -120,7 +107,10 @@ export const LocationProvider = ({ children }: { children: ReactNode }) => {
         () => createLocationApi(location),
         data => {
           if (data.savedLocation) {
-            setLocations(prevLocations => [...prevLocations, data.savedLocation]);
+            setLocations(prevLocations => [
+              ...prevLocations,
+              data.savedLocation
+            ]);
           }
         },
         'create'
@@ -151,7 +141,10 @@ export const LocationProvider = ({ children }: { children: ReactNode }) => {
   const deleteLocation = useCallback(async (id: string): Promise<void> => {
     await fetchData(
       () => deleteLocationApi(id),
-      () => setLocations(prevLocations => prevLocations.filter(location => location._id !== id)),
+      () =>
+        setLocations(prevLocations =>
+          prevLocations.filter(location => location._id !== id)
+        ),
       'delete'
     );
   }, []);
@@ -177,3 +170,4 @@ export const LocationProvider = ({ children }: { children: ReactNode }) => {
     </LocationContext.Provider>
   );
 };
+

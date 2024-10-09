@@ -9,7 +9,6 @@ import {
   createTicketCatalogApi,
   deleteTicketCatalogApi,
   getAllTicketCatalogsApi,
-  getTicketCatalogByIdApi,
   updateTicketCatalogApi
 } from '../../axios/api/ticketCatalogApi';
 import { ITicketCatalog } from '../../types/type/ticket-catalog/ticket-catalog';
@@ -25,9 +24,12 @@ interface TicketCatalogContextType {
   };
   error: string | null;
   getAllTicketCatalogs: () => void;
-  getTicketCatalogById: (_id: string) => void;
+  getTicketCatalogById: (_id: string) => ITicketCatalog | undefined;
   createTicketCatalog: (ticketCatalog: ITicketCatalog) => Promise<void>;
-  updateTicketCatalog: (_id: string, ticketCatalog: ITicketCatalog) => Promise<void>;
+  updateTicketCatalog: (
+    _id: string,
+    ticketCatalog: ITicketCatalog
+  ) => Promise<void>;
   deleteTicketCatalog: (_id: string) => Promise<void>;
 }
 
@@ -42,15 +44,20 @@ const defaultContextValue: TicketCatalogContextType = {
   },
   error: null,
   getAllTicketCatalogs: () => {},
-  getTicketCatalogById: () => {},
+  getTicketCatalogById: () => undefined,
   createTicketCatalog: async () => {},
   updateTicketCatalog: async () => {},
   deleteTicketCatalog: async () => {}
 };
 
-export const TicketCatalogContext = createContext<TicketCatalogContextType>(defaultContextValue);
+export const TicketCatalogContext =
+  createContext<TicketCatalogContextType>(defaultContextValue);
 
-export const TicketCatalogProvider = ({ children }: { children: ReactNode }) => {
+export const TicketCatalogProvider = ({
+  children
+}: {
+  children: ReactNode;
+}) => {
   const [ticketCatalogs, setTicketCatalogs] = useState<ITicketCatalog[]>([]);
   const [loading, setLoading] = useState<{
     getAll: boolean;
@@ -90,61 +97,68 @@ export const TicketCatalogProvider = ({ children }: { children: ReactNode }) => 
 
   // Get All
   const getAllTicketCatalogs = useCallback(() => {
-    fetchData(getAllTicketCatalogsApi, data => setTicketCatalogs(data.ticketCatalogs || []), 'getAll');
+    fetchData(
+      getAllTicketCatalogsApi,
+      data => setTicketCatalogs(data.ticketCatalogs || []),
+      'getAll'
+    );
   }, []);
 
   // Get By ID
-  const getTicketCatalogById = useCallback((id: string) => {
-    fetchData(
-      () => getTicketCatalogByIdApi(id),
-      data => {
-        setTicketCatalogs(prevCatalogs => {
-          const existingCatalog = prevCatalogs.find(catalog => catalog._id === id);
-          if (!existingCatalog) {
-            return [...prevCatalogs, data.ticketCatalog];
-          }
-          return prevCatalogs.map(catalog =>
-            catalog._id === id ? data.ticketCatalog : catalog
-          );
-        });
-      },
-      'getById'
-    );
-  }, []);
+  const getTicketCatalogById = useCallback(
+    (id: string) => {
+      return ticketCatalogs.find(ticketCatalog => ticketCatalog._id === id);
+    },
+    [ticketCatalogs]
+  );
 
   // Post
-  const createTicketCatalog = useCallback(async (ticketCatalog: ITicketCatalog): Promise<void> => {
-    await fetchData(
-      () => createTicketCatalogApi(ticketCatalog),
-      data => {
-        if (data.savedTicketCatalog) {
-          setTicketCatalogs(prevCatalogs => [...prevCatalogs, data.savedTicketCatalog]);
-        }
-      },
-      'create'
-    );
-  }, []);
+  const createTicketCatalog = useCallback(
+    async (ticketCatalog: ITicketCatalog): Promise<void> => {
+      await fetchData(
+        () => createTicketCatalogApi(ticketCatalog),
+        data => {
+          if (data.savedTicketCatalog) {
+            setTicketCatalogs(prevCatalogs => [
+              ...prevCatalogs,
+              data.savedTicketCatalog
+            ]);
+          }
+        },
+        'create'
+      );
+    },
+    []
+  );
 
   // Put
-  const updateTicketCatalog = useCallback(async (id: string, ticketCatalog: ITicketCatalog): Promise<void> => {
-    await fetchData(
-      () => updateTicketCatalogApi(id, ticketCatalog),
-      data => {
-        if (data.ticketCatalog) {
-          setTicketCatalogs(prevCatalogs =>
-            prevCatalogs.map(catalog => (catalog._id === id ? data.ticketCatalog : catalog))
-          );
-        }
-      },
-      'update'
-    );
-  }, []);
+  const updateTicketCatalog = useCallback(
+    async (id: string, ticketCatalog: ITicketCatalog): Promise<void> => {
+      await fetchData(
+        () => updateTicketCatalogApi(id, ticketCatalog),
+        data => {
+          if (data.ticketCatalog) {
+            setTicketCatalogs(prevCatalogs =>
+              prevCatalogs.map(catalog =>
+                catalog._id === id ? data.ticketCatalog : catalog
+              )
+            );
+          }
+        },
+        'update'
+      );
+    },
+    []
+  );
 
   // Delete
   const deleteTicketCatalog = useCallback(async (id: string): Promise<void> => {
     await fetchData(
       () => deleteTicketCatalogApi(id),
-      () => setTicketCatalogs(prevCatalogs => prevCatalogs.filter(catalog => catalog._id !== id)),
+      () =>
+        setTicketCatalogs(prevCatalogs =>
+          prevCatalogs.filter(catalog => catalog._id !== id)
+        ),
       'delete'
     );
   }, []);
@@ -170,3 +184,4 @@ export const TicketCatalogProvider = ({ children }: { children: ReactNode }) => 
     </TicketCatalogContext.Provider>
   );
 };
+

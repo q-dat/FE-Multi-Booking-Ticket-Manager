@@ -10,7 +10,6 @@ import {
   createTicketApi,
   deleteTicketApi,
   getAllTicketsApi,
-  getTicketByIdApi,
   searchTicketsApi,
   updateTicketApi
 } from '../../axios/api/ticketApi';
@@ -21,22 +20,24 @@ interface TicketContextType {
   error: string | null;
   searchTickets: (searchParams: Record<string, string>) => Promise<ITicket[]>;
   getAllTickets: () => void;
-  getTicketById: (_id: string) => void;
+  getTicketById: (_id: string) => ITicket | undefined; // Không gọi API nữa, chỉ trả về từ state
   createTicket: (ticket: ITicket) => Promise<void>;
   updateTicket: (_id: string, ticket: ITicket) => Promise<void>;
   deleteTicket: (_id: string) => Promise<void>;
 }
+
 const defaultContextValue: TicketContextType = {
   tickets: [],
   loading: false,
   error: null,
   searchTickets: async () => [],
   getAllTickets: () => {},
-  getTicketById: () => {},
+  getTicketById: () => undefined,
   createTicket: async () => {},
   updateTicket: async () => {},
   deleteTicket: async () => {}
 };
+
 export const TicketContext =
   createContext<TicketContextType>(defaultContextValue);
 
@@ -65,7 +66,7 @@ export const TicketProvider = ({ children }: { children: ReactNode }) => {
     }
   };
 
-  //Search
+  // Search
   const searchTickets = useCallback(
     async (searchParams: Record<string, string>): Promise<ITicket[]> => {
       let ticketsData: ITicket[] = [];
@@ -81,18 +82,17 @@ export const TicketProvider = ({ children }: { children: ReactNode }) => {
     []
   );
 
-  //Get All
+  // Get All
   const getAllTickets = useCallback(() => {
     fetchData(getAllTicketsApi, data => setTickets(data.tickets || []));
   }, []);
-
-  // Get By ID
-  const getTicketById = useCallback((id: string) => {
-    fetchData(
-      () => getTicketByIdApi(id),
-      data => setTickets([data.ticket])
-    );
-  }, []);
+  //Get By ID
+  const getTicketById = useCallback(
+    (id: string) => {
+      return tickets.find(ticket => ticket._id === id);
+    },
+    [tickets]
+  );
 
   // Post
   const createTicket = useCallback(async (ticket: ITicket): Promise<void> => {
@@ -109,9 +109,7 @@ export const TicketProvider = ({ children }: { children: ReactNode }) => {
         () => updateTicketApi(id, ticket),
         data =>
           setTickets(prevTickets =>
-            prevTickets.map(ticket =>
-              ticket._id === id ? data.ticket : ticket
-            )
+            prevTickets.map(t => (t._id === id ? data.ticket : t))
           )
       );
     },
