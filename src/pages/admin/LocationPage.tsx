@@ -15,13 +15,17 @@ import { FaCircleInfo, FaPenToSquare } from 'react-icons/fa6';
 import { isIErrorResponse } from '../../types/error/error';
 import TableListAdmin from '../../components/admin/TablelistAdmin';
 import NavbarMobile from '../../components/admin/Reponsive/Mobile/NavbarMobile';
+import { useNavigate } from 'react-router-dom';
 
 const LocationPage: React.FC = () => {
-  const { locations, loading, error, deleteLocation, getAllLocations } = useContext(LocationContext);
+  const { locations, loading, error, deleteLocation, getAllLocations } =
+    useContext(LocationContext);
   const [isModalCreateOpen, setIsModalCreateOpen] = useState(false);
   const [isModalDeleteOpen, setIsModalDeleteOpen] = useState(false);
   const [isModalEditOpen, setIsModalEditOpen] = useState(false);
-  const [selectedLocationId, setSelectedLocationId] = useState<string | null>(null);
+  const [selectedLocationId, setSelectedLocationId] = useState<string | null>(
+    null
+  );
   const openModalCreateAdmin = () => setIsModalCreateOpen(true);
   const closeModalCreateAdmin = () => setIsModalCreateOpen(false);
   const openModalDeleteAdmin = (id: string) => {
@@ -39,6 +43,7 @@ const LocationPage: React.FC = () => {
     getAllLocations();
   }, [getAllLocations]);
 
+  const navigate = useNavigate();
   const handleDeleteLocation = async () => {
     if (selectedLocationId) {
       try {
@@ -46,7 +51,8 @@ const LocationPage: React.FC = () => {
         closeModalDeleteAdmin();
         Toastify('Bạn đã xoá địa chỉ thành công', 201);
         getAllLocations();
-      } catch (error: unknown) {
+        navigate('/admin/location');
+      } catch (error) {
         const errorMessage = isIErrorResponse(error)
           ? error.data?.message
           : 'Xoá địa chỉ thất bại!';
@@ -55,32 +61,29 @@ const LocationPage: React.FC = () => {
     }
   };
 
-
-  if (loading.getAll) return <LoadingLocal />; 
-  if (error) return <ErrorLoading />; 
+  if (loading.getAll) return <LoadingLocal />;
+  if (error) return <ErrorLoading />;
 
   return (
     <div className="w-full">
-        <NavbarMobile Title_NavbarMobile="Địa Điểm" />
+      <NavbarMobile Title_NavbarMobile="Địa Điểm" />
       <div className="px-2 xl:px-0">
-
-      <NavtitleAdmin
-        Title_NavtitleAdmin="Quản Lý Địa Điểm"
-        Btn_Create={
-          <Button
-            color="primary"
-            onClick={openModalCreateAdmin}
-            className="text-sm font-light text-white"
-          >
-            <div className="flex items-center space-x-1">
-              <RiAddBoxLine className="text-xl" />
-              <p>Thêm</p>
-            </div>
-          </Button>
-        }
-      />
+        <NavtitleAdmin
+          Title_NavtitleAdmin="Quản Lý Địa Điểm"
+          Btn_Create={
+            <Button
+              color="primary"
+              onClick={openModalCreateAdmin}
+              className="text-sm font-light text-white"
+            >
+              <div className="flex items-center space-x-1">
+                <RiAddBoxLine className="text-xl" />
+                <p>Thêm</p>
+              </div>
+            </Button>
+          }
+        />
       </div>
-
 
       <TableListAdmin
         Title_TableListAdmin={`Danh Sách Địa Điểm (${locations.length})`}
@@ -115,7 +118,7 @@ const LocationPage: React.FC = () => {
                       </Button>
                       <Button
                         onClick={() => openModalDeleteAdmin(location._id ?? '')}
-                        className="w-full max-w-[140px] text-sm font-light text-white bg-red-600"
+                        className="w-full max-w-[140px] bg-red-600 text-sm font-light text-white"
                       >
                         <MdDelete />
                         Xoá
