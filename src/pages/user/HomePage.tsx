@@ -18,14 +18,13 @@ import {
 } from '../../assets/image-represent';
 import { useTranslation } from 'react-i18next';
 import HeaderResponsive from '../../components/UserPage/HeaderResponsive';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { FaChevronLeft, FaChevronRight } from 'react-icons/fa';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { TicketContext } from '../../context/ticket/TicketContext';
 import { ITicket, SearchFormData } from '../../types/type/ticket/ticket';
 import { LocationContext } from '../../context/location/LocationContext';
 import { TicketCatalogContext } from '../../context/ticketCatalog/TicketCatalogContext';
-import { ITicketCatalog } from '../../types/type/ticket-catalog/ticket-catalog';
 
 const Home: React.FC = () => {
   //Translation
@@ -69,43 +68,28 @@ const Home: React.FC = () => {
       console.log('Không có vé hợp lệ');
     }
   };
+
   //Get Ticket Catalog
-  const getTicketCatalogs = useContext(TicketCatalogContext);
-  const [ticketCatalogs, setTicketCatalogs] = useState<ITicketCatalog[]>([]);
+  const { ticketCatalogs, getAllTicketCatalogs } =
+    useContext(TicketCatalogContext);
   useEffect(() => {
-    const fetchData = async () => {
-      if (getTickets) {
-        await getTickets.getAllTickets();
-        setTicketCatalogs(getTicketCatalogs.ticketCatalogs);
-      }
-    };
-    fetchData();
-  }, [getTicketCatalogs]);
+    getAllTicketCatalogs();
+  }, []);
 
   // Get Ticket
-  const getTickets = useContext(TicketContext);
-  const [tickets, setTickets] = useState<ITicket[]>([]);
+  const { tickets, getAllTickets } = useContext(TicketContext);
   useEffect(() => {
-    const fetchData = async () => {
-      if (getTickets && tickets.length === 0) {
-        await getTickets.getAllTickets();
-        setTickets(getTickets.tickets);
-      }
-    };
-    fetchData();
-  }, [getTickets, tickets]);
+    getAllTickets();
+  }, []);
 
   //Get Location
   const [activeItem, setActiveItem] = useState('Hà Nội');
-  const location = useLocation();
-  const { locations } = useContext(LocationContext);
+  //Get Location
+  const { locations, getAllLocations } = useContext(LocationContext);
   useEffect(() => {
-    const pathname = location.pathname.split('/').pop();
-    const foundItem = locations.find(item => item.name === pathname);
-    if (foundItem) {
-      setActiveItem(foundItem.name);
-    }
-  }, [location.pathname, locations]);
+    getAllLocations();
+  }, []);
+  // scrollRef
   const scrollRef = useRef<HTMLDivElement>(null);
   const scroll = (scrollOffset: number) => {
     if (scrollRef.current) {
