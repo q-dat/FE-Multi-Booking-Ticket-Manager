@@ -8,6 +8,7 @@ import { FaTrainSubway } from "react-icons/fa6";
 // import { useTranslation } from 'react-i18next';
 import DarkModeToggle from '../orther/darkmode/DarkMode';
 import { Logo, LogoTitle } from '../../assets/images';
+import { PiSeatFill } from "react-icons/pi";
 
 const SidebarAdmin: React.FC<{}> = () => {
   //Translation
@@ -40,6 +41,11 @@ const SidebarAdmin: React.FC<{}> = () => {
       name: 'Phương Tiện',
       icon: FaTrainSubway,
       link: '/admin/vehicle'
+    },
+    {
+      name: 'Ghế Ngồi',
+      icon: PiSeatFill,
+      link: '/admin/seat'
     }
   ];
 
