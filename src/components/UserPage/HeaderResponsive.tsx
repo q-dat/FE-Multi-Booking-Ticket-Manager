@@ -4,9 +4,9 @@ import { Button, Drawer, Input, Menu } from 'react-daisyui';
 import { RxHamburgerMenu } from 'react-icons/rx';
 import { IoSearchOutline, IoSettingsSharp, IoTicket } from 'react-icons/io5';
 import { Link, NavLink, useLocation, useNavigate } from 'react-router-dom';
-import { FaHome,  FaChevronDown, FaUser } from 'react-icons/fa';
+import { FaHome, FaChevronDown, FaUser } from 'react-icons/fa';
 import { GiReturnArrow } from 'react-icons/gi';
-import {  MdLogout } from 'react-icons/md';
+import { MdLogout } from 'react-icons/md';
 import { IconType } from 'react-icons/lib';
 import DarkMode from '../orther/darkmode/DarkMode';
 import DropdownLanguage from '../orther/translation/Dropdown-Language ';
@@ -84,7 +84,7 @@ const HeaderResponsive: React.FC<HeaderResponsiveProps> = ({
     },
     {
       name: `${t('UserPage.Navbar.Contact')}`,
-      link: '/contact',
+      link: '/contact'
       // submenu: [
       //   {
       //     name: 'Hotline: 0333133050',
