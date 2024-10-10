@@ -12,6 +12,7 @@ import { TicketCatalogProvider } from './context/ticketCatalog/TicketCatalogCont
 import { TicketProvider } from './context/ticket/TicketContext.tsx';
 import { LocationProvider } from './context/location/LocationContext.tsx';
 import { VehicleProvider } from './context/vehicle/VehicleContext.tsx';
+import { SeatProvider } from './context/seat/SeatContext.tsx';
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
@@ -23,8 +24,10 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
               <TicketProvider>
                 <LocationProvider>
                   <VehicleProvider>
+                  <SeatProvider>
                     <ToastContainer />
                     <App />
+                  </SeatProvider>
                   </VehicleProvider>
                 </LocationProvider>
               </TicketProvider>

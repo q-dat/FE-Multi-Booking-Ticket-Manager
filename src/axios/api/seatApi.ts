@@ -1,6 +1,5 @@
-
-import axios from '../config/axiosConfig';
-import { ISeat } from '../types/type/seat/seat';
+import axios from "../../config/axiosConfig";
+import { ISeat } from "../../types/type/seat/seat";
 
 // Get All
 export const getSeatsApi = () => {

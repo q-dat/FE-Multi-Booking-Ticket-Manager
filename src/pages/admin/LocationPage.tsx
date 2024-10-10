@@ -99,7 +99,7 @@ const LocationPage: React.FC = () => {
             {locations.map((location: ILocation, index: number) => (
               <Table.Row key={index}>
                 <span className="line-clamp-1">#{index + 1}</span>
-                <span className="line-clamp-1">{location?.name}</span>
+                <span className="line-clamp-1">{location.name}</span>
                 <span>
                   <details>
                     <summary className="inline cursor-pointer text-base text-warning">

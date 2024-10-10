@@ -4,9 +4,9 @@ import LoadingLocal from '../../components/orther/loading/LoadingLocal';
 import NavtitleAdmin from '../../components/admin/NavtitleAdmin';
 import { RiAddBoxLine } from 'react-icons/ri';
 import { Button, Table } from 'react-daisyui';
-import ModalDeleteLocationPageAdmin from '../../components/admin/Modal/ModalLocation/ModalDeleteLocationPageAdmin';
-import ModalEditLocationPageAdmin from '../../components/admin/Modal/ModalLocation/ModalEditLocationPageAdmin';
-import ModalCreateLocationPageAdmin from '../../components/admin/Modal/ModalLocation/ModalCreateLocationPageAdmin';
+import ModalDeleteSeatPageAdmin from '../../components/admin/Modal/ModalSeat/ModalDeleteSeatPageAdmin';
+import ModalEditSeatPageAdmin from '../../components/admin/Modal/ModalSeat/ModalEditSeatPageAdmin';
+import ModalCreateSeatPageAdmin from '../../components/admin/Modal/ModalSeat/ModalCreateSeatPageAdmin';
 import { MdDelete } from 'react-icons/md';
 import ErrorLoading from '../../components/orther/error/ErrorLoading';
 import { FaCircleInfo, FaPenToSquare } from 'react-icons/fa6';
@@ -52,7 +52,7 @@ const SeatPage: React.FC = () => {
           closeModalDeleteAdmin();
           Toastify('Bạn đã xoá phương tiện thành công', 201);
           getAllSeats();
-          navigate('/admin/vehicle');
+          navigate('/admin/seat');
         } catch (error) {
           const errorMessage = isIErrorResponse(error)
             ? error.data?.message
@@ -103,10 +103,7 @@ const SeatPage: React.FC = () => {
             {seats.map((seat: ISeat, index: number) => (
               <Table.Row key={index}>
                 <span className="line-clamp-1">#{index + 1}</span>
-                <span className="line-clamp-1">{seat?.name}</span>
-                <span className="line-clamp-1">{seat?.name}</span>
-                <span className="line-clamp-1">{seat?.name}</span>
-                <span className="line-clamp-1">{seat?.name}</span>
+                <span className="line-clamp-1">{seat.name}</span>
                 <span>
                   <details>
                     <summary className="inline cursor-pointer text-base text-warning">
@@ -138,19 +135,19 @@ const SeatPage: React.FC = () => {
           </Table.Body>
         }
       />
-      <ModalCreateLocationPageAdmin
+      <ModalCreateSeatPageAdmin
         isOpen={isModalCreateOpen}
         onClose={closeModalCreateAdmin}
       />
-      <ModalDeleteLocationPageAdmin
+      <ModalDeleteSeatPageAdmin
         isOpen={isModalDeleteOpen}
         onClose={closeModalDeleteAdmin}
         onConfirm={handleDeleteSeat}
       />
-      <ModalEditLocationPageAdmin
+      <ModalEditSeatPageAdmin
         isOpen={isModalEditOpen}
         onClose={closeModalEditAdmin}
-        locationId={selectedSeatId ?? ''}
+        seatId={selectedSeatId ?? ''}
       />
     </div>
   )

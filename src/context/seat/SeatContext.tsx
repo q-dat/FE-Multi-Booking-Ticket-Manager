@@ -6,7 +6,7 @@ import {
     useEffect
   } from 'react';
   import { ISeat } from '../../types/type/seat/seat';
-import { createSeatApi, deleteSeatApi, getSeatsApi, updateSeatApi } from '../../axios/seatApi';
+import { createSeatApi, deleteSeatApi, getSeatsApi, updateSeatApi } from '../../axios/api/seatApi';
   
   
   interface SeatContextType {
