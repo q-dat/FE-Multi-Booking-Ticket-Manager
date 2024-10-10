@@ -18,53 +18,51 @@ import { SeatContext } from '../../context/seat/SeatContext';
 import { ISeat } from '../../types/type/seat/seat';
 
 const SeatPage: React.FC = () => {
-    console.log('Seats rendering');
-    const { seats, loading, error, deleteSeat, getAllSeats } =
-      useContext(SeatContext);
-    const [isModalCreateOpen, setIsModalCreateOpen] = useState(false);
-    const [isModalDeleteOpen, setIsModalDeleteOpen] = useState(false);
-    const [isModalEditOpen, setIsModalEditOpen] = useState(false);
-    const [selectedSeatId, setSelectedSeatId] = useState<string | null>(
-      null
-    );
-    const openModalCreateAdmin = () => setIsModalCreateOpen(true);
-    const closeModalCreateAdmin = () => setIsModalCreateOpen(false);
-    const openModalDeleteAdmin = (id: string) => {
-        setSelectedSeatId(id);
-      setIsModalDeleteOpen(true);
-    };
-    const closeModalDeleteAdmin = () => setIsModalDeleteOpen(false);
-    const openModalEditAdmin = (id: string) => {
-        setSelectedSeatId(id);
-      setIsModalEditOpen(true);
-    };
-    const closeModalEditAdmin = () => setIsModalEditOpen(false);
-  
-    useEffect(() => {
-      getAllSeats();
-    }, [getAllSeats]);
-  
-    const navigate = useNavigate();
-    const handleDeleteSeat = async () => {
-      if (selectedSeatId) {
-        try {
-          await deleteSeat(selectedSeatId);
-          closeModalDeleteAdmin();
-          Toastify('Bạn đã xoá phương tiện thành công', 201);
-          getAllSeats();
-          navigate('/admin/seat');
-        } catch (error) {
-          const errorMessage = isIErrorResponse(error)
-            ? error.data?.message
-            : 'Xoá phương tiện thất bại!';
-          Toastify(`Lỗi: ${errorMessage}`, 401);
-        }
+  console.log('Seats rendering');
+  const { seats, loading, error, deleteSeat, getAllSeats } =
+    useContext(SeatContext);
+  const [isModalCreateOpen, setIsModalCreateOpen] = useState(false);
+  const [isModalDeleteOpen, setIsModalDeleteOpen] = useState(false);
+  const [isModalEditOpen, setIsModalEditOpen] = useState(false);
+  const [selectedSeatId, setSelectedSeatId] = useState<string | null>(null);
+  const openModalCreateAdmin = () => setIsModalCreateOpen(true);
+  const closeModalCreateAdmin = () => setIsModalCreateOpen(false);
+  const openModalDeleteAdmin = (id: string) => {
+    setSelectedSeatId(id);
+    setIsModalDeleteOpen(true);
+  };
+  const closeModalDeleteAdmin = () => setIsModalDeleteOpen(false);
+  const openModalEditAdmin = (id: string) => {
+    setSelectedSeatId(id);
+    setIsModalEditOpen(true);
+  };
+  const closeModalEditAdmin = () => setIsModalEditOpen(false);
+
+  useEffect(() => {
+    getAllSeats();
+  }, [getAllSeats]);
+
+  const navigate = useNavigate();
+  const handleDeleteSeat = async () => {
+    if (selectedSeatId) {
+      try {
+        await deleteSeat(selectedSeatId);
+        closeModalDeleteAdmin();
+        Toastify('Bạn đã xoá phương tiện thành công', 201);
+        getAllSeats();
+        navigate('/admin/seat');
+      } catch (error) {
+        const errorMessage = isIErrorResponse(error)
+          ? error.data?.message
+          : 'Xoá phương tiện thất bại!';
+        Toastify(`Lỗi: ${errorMessage}`, 401);
       }
-    };
-  
-    if (loading.getAll) return <LoadingLocal />;
-    if (error) return <ErrorLoading />;
-  
+    }
+  };
+
+  if (loading.getAll) return <LoadingLocal />;
+  if (error) return <ErrorLoading />;
+
   return (
     <div className="w-full">
       <NavbarMobile Title_NavbarMobile="Ghế Ngồi" />
@@ -150,7 +148,7 @@ const SeatPage: React.FC = () => {
         seatId={selectedSeatId ?? ''}
       />
     </div>
-  )
-}
+  );
+};
 
 export default SeatPage;

@@ -1,36 +1,38 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { Button, Menu } from 'react-daisyui';
 import { NavLink, useLocation } from 'react-router-dom';
 import { FaHome } from 'react-icons/fa';
 import { IoLocation } from 'react-icons/io5';
 import { MdPostAdd } from 'react-icons/md';
-import { FaTrainSubway } from "react-icons/fa6";
+import { FaTrainSubway } from 'react-icons/fa6';
 // import { useTranslation } from 'react-i18next';
 import DarkModeToggle from '../orther/darkmode/DarkMode';
 import { Logo, LogoTitle } from '../../assets/images';
-import { PiSeatFill } from "react-icons/pi";
+import { PiSeatFill } from 'react-icons/pi';
+import { LocationContext } from '../../context/location/LocationContext';
+import { SeatContext } from '../../context/seat/SeatContext';
+import { VehicleContext } from '../../context/vehicle/VehicleContext';
 
 const SidebarAdmin: React.FC<{}> = () => {
-  //Translation
-  //   const { t } = useTranslation();
+  const { locations } = useContext(LocationContext);
+  const { seats } = useContext(SeatContext);
+  const { vehicles } = useContext(VehicleContext);
 
   const [activeItem, setActiveItem] = useState('Dashboard');
 
   const location = useLocation();
 
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   const menuItems = [
     {
       name: 'Dashboard',
       icon: FaHome,
       link: '/admin',
-      toastify: null
     },
     {
       name: 'Địa Điểm',
       icon: IoLocation,
-      link: '/admin/location'
-      //   toastify: listsData?.data.length
+      link: '/admin/location',
+      toastify: locations.length 
     },
     {
       name: 'Bài Viết',
@@ -40,12 +42,16 @@ const SidebarAdmin: React.FC<{}> = () => {
     {
       name: 'Phương Tiện',
       icon: FaTrainSubway,
-      link: '/admin/vehicle'
+      link: '/admin/vehicle',
+      toastify: seats.length 
+
     },
     {
       name: 'Ghế Ngồi',
       icon: PiSeatFill,
-      link: '/admin/seat'
+      link: '/admin/seat',
+      toastify: vehicles.length 
+
     }
   ];
 
@@ -100,8 +106,8 @@ const SidebarAdmin: React.FC<{}> = () => {
                       to={item.link}
                       className={`btn flex w-full items-center justify-start border-none shadow-white dark:bg-gray-800 dark:shadow-none ${
                         item.name === activeItem
-                          ? 'bg-primary font-bold text-primary hover:bg-primary hover:bg-opacity-20 bg-opacity-30 dark:bg-white rounded-l-none'
-                          : 'bg-transparent bg-white font-light text-black hover:bg-primary hover:bg-opacity-20 dark:text-white  rounded-l-none'
+                        ? 'bg-base-200 font-bold text-primary dark:bg-white'
+                        : 'bg-transparent bg-white font-light text-black dark:text-white'
                       } relative pl-4`}
                     >
                       <div className="flex w-full items-center justify-between">
@@ -125,7 +131,9 @@ const SidebarAdmin: React.FC<{}> = () => {
                         <div className="">
                           {item.toastify ? (
                             <div className="flex w-[22px] justify-center rounded-md bg-green-500 py-1">
-                              <p className="text-[.8rem] font-light text-white"></p>
+                              <p className="text-[.8rem] font-light text-white">
+                                {item.toastify > 99 ? '99+' : item.toastify}
+                              </p>
                             </div>
                           ) : (
                             ''
