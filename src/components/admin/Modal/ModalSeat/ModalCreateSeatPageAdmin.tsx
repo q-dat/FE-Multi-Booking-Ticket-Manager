@@ -16,20 +16,20 @@ const ModalCreateSeat: React.FC<ModalCreateSeatProps> = ({
   isOpen,
   onClose
 }) => {
-  const { createSeat } = React.useContext(SeatContext); 
+  const { createSeat } = React.useContext(SeatContext);
   const { register, handleSubmit, reset } = useForm<ISeat>();
 
   const onSubmit: SubmitHandler<ISeat> = async formData => {
     try {
-      await createSeat(formData); 
-      Toastify('Tạo ghế thành công!', 201); 
+      await createSeat(formData);
+      Toastify('Tạo ghế thành công!', 201);
       reset();
       onClose();
     } catch (error: unknown) {
       const errorMessage = isIErrorResponse(error)
         ? error.data?.message
         : 'Lỗi khi tạo ghế!';
-      Toastify(`Lỗi: ${errorMessage}`, 401); 
+      Toastify(`Lỗi: ${errorMessage}`, 401);
     }
   };
 
@@ -54,12 +54,10 @@ const ModalCreateSeat: React.FC<ModalCreateSeatProps> = ({
           className="mx-2 flex w-[400px] flex-col rounded-lg bg-white p-5 text-start shadow dark:bg-gray-800"
         >
           <div>
-            <p className="font-bold text-black dark:text-white">
-              Tạo ghế mới
-            </p>
+            <p className="font-bold text-black dark:text-white">Tạo ghế mới</p>
             <InputModal
               type={'text'}
-              {...register('name', { required: true })} 
+              {...register('name', { required: true })}
               placeholder="Tên ghế"
             />
           </div>

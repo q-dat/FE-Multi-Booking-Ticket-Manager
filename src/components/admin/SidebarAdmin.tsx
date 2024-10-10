@@ -26,13 +26,13 @@ const SidebarAdmin: React.FC<{}> = () => {
     {
       name: 'Dashboard',
       icon: FaHome,
-      link: '/admin',
+      link: '/admin'
     },
     {
       name: 'Địa Điểm',
       icon: IoLocation,
       link: '/admin/location',
-      toastify: locations.length 
+      toastify: locations.length
     },
     {
       name: 'Bài Viết',
@@ -43,15 +43,13 @@ const SidebarAdmin: React.FC<{}> = () => {
       name: 'Phương Tiện',
       icon: FaTrainSubway,
       link: '/admin/vehicle',
-      toastify: seats.length 
-
+      toastify: seats.length
     },
     {
       name: 'Ghế Ngồi',
       icon: PiSeatFill,
       link: '/admin/seat',
-      toastify: vehicles.length 
-
+      toastify: vehicles.length
     }
   ];
 
@@ -106,8 +104,8 @@ const SidebarAdmin: React.FC<{}> = () => {
                       to={item.link}
                       className={`btn flex w-full items-center justify-start border-none shadow-white dark:bg-gray-800 dark:shadow-none ${
                         item.name === activeItem
-                        ? 'bg-base-200 font-bold text-primary dark:bg-white'
-                        : 'bg-transparent bg-white font-light text-black dark:text-white'
+                          ? 'bg-base-200 font-bold text-primary dark:bg-white'
+                          : 'bg-transparent bg-white font-light text-black dark:text-white'
                       } relative pl-4`}
                     >
                       <div className="flex w-full items-center justify-between">

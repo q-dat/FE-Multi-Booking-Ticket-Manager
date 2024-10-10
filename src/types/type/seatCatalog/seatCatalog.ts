@@ -7,4 +7,3 @@ export interface ISeatCatalog {
   createAt: string;
   updateAt: string;
 }
-

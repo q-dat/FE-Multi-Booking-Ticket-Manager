@@ -12,7 +12,7 @@ const ModalDeleteLocationPageAdmin: React.FC<ModalDeleteAdminProps> = ({
   onClose,
   onConfirm
 }) => {
-//
+  //
   if (!isOpen) return null;
   const handleOverlayClick = (
     e: React.MouseEvent<HTMLDivElement, MouseEvent>

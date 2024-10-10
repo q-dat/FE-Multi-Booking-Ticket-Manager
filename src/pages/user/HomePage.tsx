@@ -382,7 +382,9 @@ const Home: React.FC = () => {
                 className="w-full flex-none transform overflow-hidden rounded-lg bg-white text-black shadow-md shadow-primary transition-transform duration-300 ease-in-out hover:scale-105 sm:w-80"
               >
                 <div className="flex flex-col gap-1 p-4 font-light">
-                  <p className='text-center font-semibold text-xl mb-5'>{ticket.ticket_catalog_id.name}</p>
+                  <p className="mb-5 text-center text-xl font-semibold">
+                    {ticket.ticket_catalog_id.name}
+                  </p>
                   <p>
                     Từ: &nbsp;
                     <span className="font-semibold">
@@ -412,7 +414,7 @@ const Home: React.FC = () => {
                     <span className="font-bold text-red-500">
                       {ticket.price}
                     </span>
-                     .VNĐ
+                    .VNĐ
                   </p>
                   <Button
                     className="w-full bg-primary font-light text-white hover:border-primary hover:bg-white hover:font-bold hover:text-primary"

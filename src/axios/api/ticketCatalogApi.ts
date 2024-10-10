@@ -38,4 +38,3 @@ export const updateTicketCatalogApi = (
 export const deleteTicketCatalogApi = (id: string) => {
   return axios.delete(`/api/ticket-catalogs/${id}`);
 };
-

@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { Button, Hero, Textarea } from 'react-daisyui';
 import InputForm from './InputForm';
 import { useTranslation } from 'react-i18next';
-import { MdOutlineCancel } from "react-icons/md";
+import { MdOutlineCancel } from 'react-icons/md';
 
 const NotificationPopup: React.FC = () => {
   const { t } = useTranslation();
@@ -76,7 +76,7 @@ const NotificationPopup: React.FC = () => {
                       className="flex flex-col items-end justify-center"
                       onClick={closePopup}
                     >
-                      <p className="cursor-pointer rounded-full p-[2px] font-bold text-3xl text-red-500 shadow-mainMenu shadow-primary bg-white  hover:scale-90">
+                      <p className="cursor-pointer rounded-full bg-white p-[2px] text-3xl font-bold text-red-500 shadow-mainMenu shadow-primary hover:scale-90">
                         <MdOutlineCancel />
                       </p>
                     </div>
@@ -92,7 +92,7 @@ const NotificationPopup: React.FC = () => {
                     <form
                       ref={formRef}
                       onSubmit={onSubmit}
-                      className="my-5 flex items-center justify-center rounded-xl shadow-headerMenu  shadow-primary dark:shadow-white bg-white p-5 dark:border-white dark:bg-gray-500"
+                      className="my-5 flex items-center justify-center rounded-xl bg-white p-5 shadow-headerMenu shadow-primary dark:border-white dark:bg-gray-500 dark:shadow-white"
                     >
                       <div className="flex w-1/2 items-center justify-center">
                         <div className="flex flex-col gap-5">

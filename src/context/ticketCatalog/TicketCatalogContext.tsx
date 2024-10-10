@@ -184,4 +184,3 @@ export const TicketCatalogProvider = ({
     </TicketCatalogContext.Provider>
   );
 };
-

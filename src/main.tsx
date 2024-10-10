@@ -24,10 +24,10 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
               <TicketProvider>
                 <LocationProvider>
                   <VehicleProvider>
-                  <SeatProvider>
-                    <ToastContainer />
-                    <App />
-                  </SeatProvider>
+                    <SeatProvider>
+                      <ToastContainer />
+                      <App />
+                    </SeatProvider>
                   </VehicleProvider>
                 </LocationProvider>
               </TicketProvider>

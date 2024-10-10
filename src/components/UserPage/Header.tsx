@@ -106,14 +106,14 @@ const Header: React.FC = () => {
         <Menu className="flex flex-row items-center justify-center">
           <Link to="/">
             <img
-              className="mr-[200px] object-cover block dark:hidden"
+              className="mr-[200px] block object-cover dark:hidden"
               width={60}
               loading="lazy"
               src={Logo}
               alt="LOGO"
             />
-                 <img
-              className="mr-[200px] object-cover hidden dark:block"
+            <img
+              className="mr-[200px] hidden object-cover dark:block"
               width={60}
               loading="lazy"
               src={LogoTitle}
@@ -134,7 +134,7 @@ const Header: React.FC = () => {
                   className={`btn relative flex w-full items-center justify-center rounded-none border-none pl-4 ${
                     item.name === activeItem
                       ? 'bg-primary bg-opacity-20 text-sm font-bold text-primary dark:bg-secondary dark:bg-opacity-40 dark:text-white'
-                      : 'bg-transparent border-none text-sm font-light text-black shadow-none hover:border hover:border-primary hover:bg-gray-50 hover:bg-opacity-30 hover:text-primary dark:text-white'
+                      : 'border-none bg-transparent text-sm font-light text-black shadow-none hover:border hover:border-primary hover:bg-gray-50 hover:bg-opacity-30 hover:text-primary dark:text-white'
                   }`}
                 >
                   <>

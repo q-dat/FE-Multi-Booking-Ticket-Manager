@@ -3,7 +3,6 @@ import { Route, Routes } from 'react-router-dom';
 import DefaultLayout from '../layout/DefaultLayout';
 import PrivateRouter from './PrivateRouter';
 
-
 // UserPage
 const User = lazy(() => import('../pages/user/User'));
 const HomePage = lazy(() => import('../pages/user/HomePage'));
@@ -13,7 +12,9 @@ const ContactPage = lazy(() => import('../pages/user/ContactPage'));
 const FlightsPage = lazy(() => import('../pages/user/FlightsPage'));
 const BusPage = lazy(() => import('../pages/user/BusPage'));
 const TrainsPage = lazy(() => import('../pages/user/TrainsPage'));
-const TicketTrainsResultsPage = lazy(() => import('../pages/user/TicketTrainsResultsPage'));
+const TicketTrainsResultsPage = lazy(
+  () => import('../pages/user/TicketTrainsResultsPage')
+);
 //auth
 const Auth = lazy(() => import('../pages/auth/Auth'));
 const SignUpPage = lazy(() => import('../pages/auth/SignUpPage'));
