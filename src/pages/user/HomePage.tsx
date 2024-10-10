@@ -373,27 +373,47 @@ const Home: React.FC = () => {
         <div className="my-5">
           <div
             ref={scrollRef}
-            className="flex space-x-4 overflow-x-auto scroll-smooth pb-4 scrollbar-hide"
+            className="flex space-x-4 overflow-x-auto scroll-smooth p-5 scrollbar-hide"
             style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
           >
             {tickets.map((ticket: ITicket) => (
               <div
                 key={ticket._id}
-                className="w-full flex-none transform overflow-hidden rounded-lg bg-white text-black shadow-md transition-transform duration-300 ease-in-out hover:scale-105 hover:bg-secondary hover:text-white sm:w-80"
+                className="w-full flex-none transform overflow-hidden rounded-lg bg-white text-black shadow-md shadow-primary transition-transform duration-300 ease-in-out hover:scale-105 sm:w-80"
               >
-                <div className="p-4">
-                  <p className="mb-2 truncate text-lg font-semibold">
-                    {ticket.ticket_catalog_id.name}{' '}
+                <div className="flex flex-col gap-1 p-4 font-light">
+                  <p className='text-center font-semibold text-xl mb-5'>{ticket.ticket_catalog_id.name}</p>
+                  <p>
+                    Từ: &nbsp;
+                    <span className="font-semibold">
+                      {ticket.trip_id.departure_point.name}
+                    </span>
+                    - Đến: &nbsp;
+                    <span className="font-semibold">
+                      {ticket.trip_id.destination_point.name}{' '}
+                    </span>
                   </p>
-                  <p className="mb-2 text-sm">Ghế: {ticket.seat_id.name}</p>
-                  <p className="mb-2 text-sm">
-                    Giá ghế: {ticket.seat_id.price}
+                  <p>
+                    Phương tiện: &nbsp;
+                    <span className="font-semibold">
+                      {ticket.seat_id.seat_catalog_id.vehicle_id.name}
+                    </span>
                   </p>
-                  <p className="mb-4 text-sm">
-                    Từ: {ticket.trip_id.departure_point.name} - Đến:{' '}
-                    {ticket.trip_id.destination_point.name}{' '}
+                  <p>
+                    Ghế: &nbsp;
+                    <span className="font-semibold">{ticket.seat_id.name}</span>
+                    &nbsp;
+                    <span className="font-semibold">
+                      ({ticket.seat_id.seat_catalog_id.name})
+                    </span>
                   </p>
-                  <p className="mb-4 text-sm">Giá vé: {ticket.price}</p>
+                  <p>
+                    Giá vé: &nbsp;
+                    <span className="font-bold text-red-500">
+                      {ticket.price}
+                    </span>
+                     .VNĐ
+                  </p>
                   <Button
                     className="w-full bg-primary font-light text-white hover:border-primary hover:bg-white hover:font-bold hover:text-primary"
                     aria-label={`View details for ${ticket.ticket_catalog_id.name}`}
@@ -409,15 +429,13 @@ const Home: React.FC = () => {
           <div className="flex w-full items-center justify-between space-x-2">
             <Button
               onClick={() => scroll(-200)}
-              className="text-primary dark:text-white"
-              aria-label="Scroll left"
+              className="bg-primary text-white dark:bg-white dark:text-primary"
             >
               <FaChevronLeft className="h-5 w-5" />
             </Button>
             <Button
               onClick={() => scroll(200)}
-              className="text-primary dark:text-white"
-              aria-label="Scroll right"
+              className="bg-primary text-white dark:bg-white dark:text-primary"
             >
               <FaChevronRight className="h-5 w-5" />
             </Button>

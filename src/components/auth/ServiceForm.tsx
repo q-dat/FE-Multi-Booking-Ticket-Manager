@@ -19,19 +19,19 @@ const ServiceForm: React.FC = () => {
       <div className="flex w-full flex-row justify-center gap-4 text-black dark:text-white sm:flex-col">
         <Button>
           <img className="max-w-7" src={LogoGoogle} alt="" />
-          <span className="hidden text-black dark:text-white sm:block">
+          <span className="hidden text-black dark:text-black sm:block">
             {t('Auth.LoginBy')} Google
           </span>
-          <span className="block text-black dark:text-white sm:hidden">
+          <span className="block text-black dark:text-black sm:hidden">
             Google
           </span>
         </Button>
         <Button className="">
           <img className="max-w-7" src={LogoFacebook} alt="" />
-          <span className="hidden text-black dark:text-white sm:block">
+          <span className="hidden text-black dark:text-black sm:block">
             {t('Auth.LoginBy')} FaceBook
           </span>
-          <span className="block text-black dark:text-white sm:hidden">
+          <span className="block text-black dark:text-black sm:hidden">
             Facebook
           </span>
         </Button>

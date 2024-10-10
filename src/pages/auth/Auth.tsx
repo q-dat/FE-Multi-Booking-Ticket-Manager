@@ -11,7 +11,7 @@ const Auth: React.FC = () => {
   // Translation
   const { t } = useTranslation();
   return (
-    <div className="flex w-full flex-col">
+    <div className="flex w-full flex-col bg-white dark:bg-[#0e3043]">
       <div className="hidden xl:block">
         <img className="h-[140px] w-full object-cover" src={BannerC} alt="" />
       </div>

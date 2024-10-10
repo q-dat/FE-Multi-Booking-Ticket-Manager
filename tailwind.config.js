@@ -63,6 +63,7 @@ export default {
           accent: "#00E26B",
           "accent-content": "#00E26B",
           neutral: "#414141",
+          "darkbg":'#0e3043',
           "neutral-content": "#666666",
           "base-100": "#ffffff",
           "base-200": "#f7f8fa",

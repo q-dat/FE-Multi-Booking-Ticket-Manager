@@ -8,7 +8,7 @@ import NotificationPopup from '../../components/UserPage/NotificationPopup';
 const User: React.FC = () => {
   return (
     <div className='flex flex-col justify-between h-screen'>
-      <div>
+    <div className="bg-white dark:bg-[#0e3043]">
         <Header />
         <Outlet />
         <ContactForm />

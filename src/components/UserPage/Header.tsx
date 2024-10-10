@@ -6,7 +6,7 @@ import { IconType } from 'react-icons/lib';
 import { GiReturnArrow } from 'react-icons/gi';
 import { IoTicket } from 'react-icons/io5';
 import DarkMode from '../orther/darkmode/DarkMode';
-import { Logo } from '../../assets/images';
+import { Logo, LogoTitle } from '../../assets/images';
 import DropdownLanguage from '../orther/translation/Dropdown-Language ';
 import { useTranslation } from 'react-i18next';
 import { useAuth } from '../../context/auth/AuthContext';
@@ -102,14 +102,21 @@ const Header: React.FC = () => {
   return (
     <div>
       {/* Desktop */}
-      <div className="fixed z-[99999] hidden h-[80px] w-full flex-row items-center justify-evenly bg-white py-2 uppercase shadow-md dark:bg-secondary xl:flex">
+      <div className="fixed z-[99999] hidden h-[80px] w-full flex-row items-center justify-evenly bg-white bg-opacity-90 py-2 uppercase shadow-md dark:bg-black dark:bg-opacity-80 xl:flex">
         <Menu className="flex flex-row items-center justify-center">
           <Link to="/">
             <img
-              className="mr-[200px] object-cover"
+              className="mr-[200px] object-cover block dark:hidden"
               width={60}
               loading="lazy"
               src={Logo}
+              alt="LOGO"
+            />
+                 <img
+              className="mr-[200px] object-cover hidden dark:block"
+              width={60}
+              loading="lazy"
+              src={LogoTitle}
               alt="LOGO"
             />
           </Link>
@@ -126,8 +133,8 @@ const Header: React.FC = () => {
                   to={item.link}
                   className={`btn relative flex w-full items-center justify-center rounded-none border-none pl-4 ${
                     item.name === activeItem
-                      ? 'bg-primary bg-opacity-20 text-sm font-bold text-primary dark:bg-opacity-50 dark:text-white'
-                      : 'border-none text-sm font-light text-black shadow-none hover:border hover:border-primary hover:bg-gray-50 hover:bg-opacity-30 hover:text-primary dark:text-white'
+                      ? 'bg-primary bg-opacity-20 text-sm font-bold text-primary dark:bg-secondary dark:bg-opacity-40 dark:text-white'
+                      : 'bg-transparent border-none text-sm font-light text-black shadow-none hover:border hover:border-primary hover:bg-gray-50 hover:bg-opacity-30 hover:text-primary dark:text-white'
                   }`}
                 >
                   <>
