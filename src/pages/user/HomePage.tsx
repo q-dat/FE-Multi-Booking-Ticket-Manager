@@ -25,6 +25,7 @@ import { TicketContext } from '../../context/ticket/TicketContext';
 import { ITicket, SearchFormData } from '../../types/type/ticket/ticket';
 import { LocationContext } from '../../context/location/LocationContext';
 import { TicketCatalogContext } from '../../context/ticketCatalog/TicketCatalogContext';
+import { Toastify } from '../../helper/Toastify';
 
 const Home: React.FC = () => {
   //Translation
@@ -64,8 +65,9 @@ const Home: React.FC = () => {
       } else if (vehicleType === 'Máy Bay') {
         navigate('/flights');
       }
+      Toastify('Tìm kiếm vé thành công', 200);
     } else {
-      console.log('Không có vé hợp lệ');
+      Toastify(`Lỗi: ${errorTickets}`, 404);
     }
   };
 
@@ -216,7 +218,6 @@ const Home: React.FC = () => {
                     ? 'Đang tìm kiếm...'
                     : `${t('UserPage.SearchButton')}`}
                 </Button>
-                {errorTickets && <p style={{ color: 'red' }}>{errorTickets}</p>}
               </div>
             </div>
           </div>

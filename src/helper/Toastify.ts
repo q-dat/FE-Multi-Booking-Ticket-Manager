@@ -13,7 +13,10 @@ export const Toastify = (
     pauseOnHover: true,
     draggable: true,
     progress: undefined,
-    theme: 'light'
+    theme: 'light',
+    style: {
+      zIndex: 99999
+    }
   };
 
   const showToast = (message: string) => {
