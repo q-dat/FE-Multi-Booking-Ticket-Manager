@@ -34,7 +34,7 @@ const Home: React.FC = () => {
   const searchTicket = useContext(TicketContext);
   const navigate = useNavigate();
   if (!searchTicket) {
-    throw new Error('TicketSearchForm must be used within a TicketProvider');
+    console.log('Home phải được sử dụng trong TicketProvider');
   }
   const {
     searchTickets,
@@ -52,22 +52,26 @@ const Home: React.FC = () => {
       {} as Record<string, string>
     );
 
-    const tickets = await searchTickets(searchParams);
+    const searchResults: ITicket[] = await searchTickets(searchParams);
+    if (!loadingTickets) {
+      if (searchResults && searchResults.length > 0) {
+        const selectedTicket = searchResults[0];
+        const vehicleType = selectedTicket.ticket_catalog_id.name;
 
-    if (tickets.length > 0) {
-      const selectedTicket = tickets[0];
-      const vehicleType = selectedTicket.ticket_catalog_id.name;
+        if (vehicleType === 'Tàu Hoả') {
+          navigate('/ticket-trains-results');
+        } else if (vehicleType === 'Xe Khách') {
+          navigate('/buses');
+        } else if (vehicleType === 'Máy Bay') {
+          navigate('/flights');
+        }
 
-      if (vehicleType === 'Tàu Hoả') {
-        navigate('/ticket-trains-results');
-      } else if (vehicleType === 'Xe Khách') {
-        navigate('/buses');
-      } else if (vehicleType === 'Máy Bay') {
-        navigate('/flights');
+        Toastify('Tìm kiếm vé thành công', 200);
+      } else {
+        Toastify(`Lỗi: ${errorTickets || 'Không tìm thấy vé nào'}`, 404);
       }
-      Toastify('Tìm kiếm vé thành công', 200);
     } else {
-      Toastify(`Lỗi: ${errorTickets}`, 404);
+      console.log('Vẫn đang tải dữ liệu, vui lòng đợi.');
     }
   };
 
