@@ -11,28 +11,29 @@ import { Button } from 'react-daisyui';
 interface ModalEditLocationProps {
   isOpen: boolean;
   onClose: () => void;
-  locationId: string; 
+  locationId: string;
 }
 const ModalEditLocation: React.FC<ModalEditLocationProps> = ({
   isOpen,
   onClose,
   locationId
 }) => {
-  const {getAllLocations, updateLocation, getLocationById, locations } = useContext(LocationContext);
+  const { getAllLocations, updateLocation, getLocationById, locations } =
+    useContext(LocationContext);
   const { register, handleSubmit, reset, setValue } = useForm<ILocation>();
 
   useEffect(() => {
     if (locationId) {
-      getLocationById(locationId); 
+      getLocationById(locationId);
     }
   }, [locationId, getLocationById]);
-  
+
   useEffect(() => {
     const locationData = locations.find(
       location => location._id === locationId
     );
     if (locationData) {
-      setValue('name', locationData.name); 
+      setValue('name', locationData.name);
     }
   }, [locations, locationId, setValue]);
 
@@ -40,9 +41,9 @@ const ModalEditLocation: React.FC<ModalEditLocationProps> = ({
     try {
       await updateLocation(locationId, formData);
       Toastify('Chỉnh sửa địa điểm thành công!', 200);
-      reset(); 
-      getAllLocations()
-      onClose(); 
+      reset();
+      getAllLocations();
+      onClose();
     } catch (error: unknown) {
       const errorMessage = isIErrorResponse(error)
         ? error.data?.message
@@ -53,7 +54,9 @@ const ModalEditLocation: React.FC<ModalEditLocationProps> = ({
 
   if (!isOpen) return null;
 
-  const handleOverlayClick = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+  const handleOverlayClick = (
+    e: React.MouseEvent<HTMLDivElement, MouseEvent>
+  ) => {
     if ((e.target as HTMLElement).classList.contains('modal-overlay')) {
       onClose();
     }

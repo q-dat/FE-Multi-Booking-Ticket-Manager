@@ -10,28 +10,27 @@ import { ISeat } from '../../../../types/type/seat/seat';
 interface ModalEditSeatProps {
   isOpen: boolean;
   onClose: () => void;
-  seatId: string; 
+  seatId: string;
 }
 const ModalEditSeat: React.FC<ModalEditSeatProps> = ({
   isOpen,
   onClose,
   seatId
 }) => {
-  const {getAllSeats, updateSeat, getSeatById, seats } = useContext(SeatContext);
+  const { getAllSeats, updateSeat, getSeatById, seats } =
+    useContext(SeatContext);
   const { register, handleSubmit, reset, setValue } = useForm<ISeat>();
 
   useEffect(() => {
     if (seatId) {
-        getSeatById(seatId); 
+      getSeatById(seatId);
     }
   }, [seatId, getSeatById]);
-  
+
   useEffect(() => {
-    const seatData = seats.find(
-      seat => seat._id === seatId
-    );
+    const seatData = seats.find(seat => seat._id === seatId);
     if (seatData) {
-      setValue('name', seatData.name); 
+      setValue('name', seatData.name);
     }
   }, [seats, seatId, setValue]);
 
@@ -39,9 +38,9 @@ const ModalEditSeat: React.FC<ModalEditSeatProps> = ({
     try {
       await updateSeat(seatId, formData);
       Toastify('Chỉnh sửa địa điểm thành công!', 200);
-      reset(); 
-      getAllSeats()
-      onClose(); 
+      reset();
+      getAllSeats();
+      onClose();
     } catch (error: unknown) {
       const errorMessage = isIErrorResponse(error)
         ? error.data?.message
@@ -52,7 +51,9 @@ const ModalEditSeat: React.FC<ModalEditSeatProps> = ({
 
   if (!isOpen) return null;
 
-  const handleOverlayClick = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+  const handleOverlayClick = (
+    e: React.MouseEvent<HTMLDivElement, MouseEvent>
+  ) => {
     if ((e.target as HTMLElement).classList.contains('modal-overlay')) {
       onClose();
     }

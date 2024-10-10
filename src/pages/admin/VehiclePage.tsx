@@ -18,7 +18,7 @@ import NavbarMobile from '../../components/admin/Reponsive/Mobile/NavbarMobile';
 import { useNavigate } from 'react-router-dom';
 
 const VehiclePage: React.FC = () => {
-    console.log('VehiclePage rendering');
+  console.log('VehiclePage rendering');
   const { vehicles, loading, error, deleteVehicle, getAllVehicles } =
     useContext(VehicleContext);
   const [isModalCreateOpen, setIsModalCreateOpen] = useState(false);

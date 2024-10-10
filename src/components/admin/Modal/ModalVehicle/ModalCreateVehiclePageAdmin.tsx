@@ -35,7 +35,9 @@ const ModalCreateVehicle: React.FC<ModalCreateVehicleProps> = ({
 
   if (!isOpen) return null;
 
-  const handleOverlayClick = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+  const handleOverlayClick = (
+    e: React.MouseEvent<HTMLDivElement, MouseEvent>
+  ) => {
     if ((e.target as HTMLElement).classList.contains('modal-overlay')) {
       onClose();
     }
@@ -60,14 +62,17 @@ const ModalCreateVehicle: React.FC<ModalCreateVehicleProps> = ({
               {...register('name', { required: true })}
               placeholder="Tên phương tiện"
             />
-            <select {...register('status', { required: true })} className="w-full rounded-md border p-2 mt-2">
+            <select
+              {...register('status', { required: true })}
+              className="mt-2 w-full rounded-md border p-2"
+            >
               <option value="active">Hoạt động</option>
               <option value="inactive">Không hoạt động</option>
               <option value="maintenance">Bảo trì</option>
             </select>
           </div>
 
-          <div className="space-x-5 text-center mt-4">
+          <div className="mt-4 space-x-5 text-center">
             <Button onClick={onClose} className="border-gray-50 text-black">
               Hủy
             </Button>

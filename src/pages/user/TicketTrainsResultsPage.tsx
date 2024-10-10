@@ -19,13 +19,15 @@ const TicketTrainsResultsPage: React.FC = () => {
   const ticketContext = useContext(TicketContext);
 
   if (!ticketContext) {
-    console.log('TicketTrainsResultsPage phải được sử dụng trong TicketProvider');
+    console.log(
+      'TicketTrainsResultsPage phải được sử dụng trong TicketProvider'
+    );
   }
 
   const { tickets, loading, error } = ticketContext;
 
   if (loading) {
-    return  <LoadingLocal />;
+    return <LoadingLocal />;
   }
 
   if (error) {
@@ -33,8 +35,8 @@ const TicketTrainsResultsPage: React.FC = () => {
   }
 
   if (tickets.length === 0) {
-    Toastify('Không tìm thấy vé! ',404)
-    return
+    Toastify('Không tìm thấy vé! ', 404);
+    return;
   }
 
   return (
@@ -47,34 +49,45 @@ const TicketTrainsResultsPage: React.FC = () => {
               <FaTicketAlt /> Ticket ID: {ticketData._id}
             </h4>
             <p>
-              <strong>Ticket Catalog:</strong> {ticketData.ticket_catalog_id.name}
+              <strong>Ticket Catalog:</strong>{' '}
+              {ticketData.ticket_catalog_id.name}
             </p>
             <p>
-              <strong>Seat:</strong> {ticketData.seat_id.name} 
+              <strong>Seat:</strong> {ticketData.seat_id.name}
               <strong> (Price: {ticketData.seat_id.price})</strong>
               <strong> (Status: {ticketData.seat_id.status.trim()})</strong>
-              <strong> (Ordinal Number: {ticketData.seat_id.ordinal_numbers})</strong>
+              <strong>
+                {' '}
+                (Ordinal Number: {ticketData.seat_id.ordinal_numbers})
+              </strong>
             </p>
             <p>
-              <FaMapMarkerAlt /> <strong>Departure:</strong> {ticketData.trip_id.departure_point.name}
+              <FaMapMarkerAlt /> <strong>Departure:</strong>{' '}
+              {ticketData.trip_id.departure_point.name}
             </p>
             <p>
-              <FaMapMarkerAlt /> <strong>Destination:</strong> {ticketData.trip_id.destination_point.name}
+              <FaMapMarkerAlt /> <strong>Destination:</strong>{' '}
+              {ticketData.trip_id.destination_point.name}
             </p>
             <p>
-              <FaMoneyBillWave /> <strong>Total Price:</strong> {ticketData.price}
+              <FaMoneyBillWave /> <strong>Total Price:</strong>{' '}
+              {ticketData.price}
             </p>
             <p>
-              <FaCalendarAlt /> <strong>Departure Date:</strong> {new Date(ticketData.trip_id.departure_date).toLocaleDateString()}
+              <FaCalendarAlt /> <strong>Departure Date:</strong>{' '}
+              {new Date(ticketData.trip_id.departure_date).toLocaleDateString()}
             </p>
             <p>
-              <FaClock /> <strong>Departure Time:</strong> {ticketData.trip_id.departure_time}
+              <FaClock /> <strong>Departure Time:</strong>{' '}
+              {ticketData.trip_id.departure_time}
             </p>
             <p>
-              <FaCalendarAlt /> <strong>Return Date:</strong> {new Date(ticketData.trip_id.return_date).toLocaleDateString()}
+              <FaCalendarAlt /> <strong>Return Date:</strong>{' '}
+              {new Date(ticketData.trip_id.return_date).toLocaleDateString()}
             </p>
             <p>
-              <FaClock /> <strong>Return Time:</strong> {ticketData.trip_id.return_time}
+              <FaClock /> <strong>Return Time:</strong>{' '}
+              {ticketData.trip_id.return_time}
             </p>
           </li>
         ))}

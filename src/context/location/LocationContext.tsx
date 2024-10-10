@@ -170,4 +170,3 @@ export const LocationProvider = ({ children }: { children: ReactNode }) => {
     </LocationContext.Provider>
   );
 };
-

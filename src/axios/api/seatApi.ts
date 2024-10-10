@@ -1,5 +1,5 @@
-import axios from "../../config/axiosConfig";
-import { ISeat } from "../../types/type/seat/seat";
+import axios from '../../config/axiosConfig';
+import { ISeat } from '../../types/type/seat/seat';
 
 // Get All
 export const getSeatsApi = () => {
@@ -25,4 +25,3 @@ export const updateSeatApi = (id: string, location: ISeat) => {
 export const deleteSeatApi = (id: string) => {
   return axios.delete(`/api/seats/${id}`);
 };
-

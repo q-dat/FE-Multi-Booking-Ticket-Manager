@@ -18,7 +18,8 @@ const ModalEditVehicle: React.FC<ModalEditVehicleProps> = ({
   onClose,
   vehicleId
 }) => {
-  const { getAllVehicles, updateVehicle, getVehicleById, vehicles } = useContext(VehicleContext);
+  const { getAllVehicles, updateVehicle, getVehicleById, vehicles } =
+    useContext(VehicleContext);
   const { register, handleSubmit, reset, setValue } = useForm<IVehicle>();
 
   useEffect(() => {
@@ -26,7 +27,7 @@ const ModalEditVehicle: React.FC<ModalEditVehicleProps> = ({
       getVehicleById(vehicleId);
     }
   }, [vehicleId, getVehicleById]);
-  
+
   useEffect(() => {
     const vehicleData = vehicles.find(vehicle => vehicle._id === vehicleId);
     if (vehicleData) {
@@ -52,7 +53,9 @@ const ModalEditVehicle: React.FC<ModalEditVehicleProps> = ({
 
   if (!isOpen) return null;
 
-  const handleOverlayClick = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+  const handleOverlayClick = (
+    e: React.MouseEvent<HTMLDivElement, MouseEvent>
+  ) => {
     if ((e.target as HTMLElement).classList.contains('modal-overlay')) {
       onClose();
     }
@@ -85,7 +88,10 @@ const ModalEditVehicle: React.FC<ModalEditVehicleProps> = ({
             <label className="block text-sm font-medium text-gray-700">
               Trạng thái
             </label>
-            <select {...register('status', { required: true })} className="w-full rounded-md border p-2">
+            <select
+              {...register('status', { required: true })}
+              className="w-full rounded-md border p-2"
+            >
               <option value="active">Hoạt động</option>
               <option value="inactive">Không hoạt động</option>
               <option value="maintenance">Bảo trì</option>
