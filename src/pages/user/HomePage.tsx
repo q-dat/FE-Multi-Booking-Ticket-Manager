@@ -26,6 +26,7 @@ import { ITicket, SearchFormData } from '../../types/type/ticket/ticket';
 import { LocationContext } from '../../context/location/LocationContext';
 import { TicketCatalogContext } from '../../context/ticketCatalog/TicketCatalogContext';
 import { Toastify } from '../../helper/Toastify';
+import { VehicleCatalogContext } from '../../context/vehicleCatalog/VehicleCatalogContext';
 
 const Home: React.FC = () => {
   //Translation
@@ -55,15 +56,16 @@ const Home: React.FC = () => {
     const searchResults: ITicket[] = await searchTickets(searchParams);
     if (!loadingTickets) {
       if (searchResults && searchResults.length > 0) {
-        const selectedTicket = searchResults[0];
-        const vehicleType = selectedTicket.ticket_catalog_id.name;
+        const selectedVehicle = searchResults[0];
+        //
+        const vehicleType = selectedVehicle.vehicle_catalog_id.name;
         sessionStorage.setItem('searchResults', JSON.stringify(searchResults));
-        if (vehicleType === 'Tàu Hoả') {
+        if (vehicleType === 'Tàu hoả') {
           navigate('/ticket-trains-results');
-        } else if (vehicleType === 'Xe Khách') {
-          navigate('/buses');
-        } else if (vehicleType === 'Máy Bay') {
-          navigate('/flights');
+        } else if (vehicleType === 'Xe khách') {
+          navigate('/ticket-buses-results');
+        } else if (vehicleType === 'Máy bay') {
+          navigate('/ticket-flight-results');
         }
 
         Toastify('Tìm kiếm vé thành công', 200);
@@ -74,6 +76,13 @@ const Home: React.FC = () => {
       console.log('Vẫn đang tải dữ liệu, vui lòng đợi.');
     }
   };
+  //Get Vehicle Catalog
+  const { vehicleCatalogs, getAllVehicleCatalogs } = useContext(
+    VehicleCatalogContext
+  );
+  useEffect(() => {
+    getAllVehicleCatalogs();
+  }, []);
 
   //Get Ticket Catalog
   const { ticketCatalogs, getAllTicketCatalogs } =
@@ -198,11 +207,11 @@ const Home: React.FC = () => {
               <div>
                 <Select
                   defaultValue=""
-                  className="w-[150px] border border-gray-700 border-opacity-50 bg-white text-black focus:border-primary focus:outline-none dark:border-secondary dark:bg-gray-700 dark:text-white dark:focus:border-white md:w-[300px] lg:w-[400px] xl:w-full xl:rounded-l-none"
+                  className="w-[150px] border border-gray-700 border-opacity-50 bg-white text-black focus:border-primary focus:outline-none dark:border-secondary dark:bg-gray-700 dark:text-white dark:focus:border-white md:w-[300px] lg:w-[400px] xl:w-full xl:rounded-none"
                   {...register('ticket_catalog_name')}
                 >
                   <option value="" disabled>
-                    {t('UserPage.VehicleSelectDefault')}
+                    {t('UserPage.TicketSelectDefault')}
                   </option>
                   {ticketCatalogs.map(ticketCatalog => (
                     <option key={ticketCatalog._id} value={ticketCatalog.name}>
@@ -211,6 +220,29 @@ const Home: React.FC = () => {
                   ))}
                 </Select>
               </div>
+              <MdOutlineArrowRightAlt className="hidden text-primary dark:text-white xl:flex" />
+              <div>
+                <Select
+                  defaultValue=""
+                  className="w-[150px] border border-gray-700 border-opacity-50 bg-white text-black focus:border-primary focus:outline-none dark:border-secondary dark:bg-gray-700 dark:text-white dark:focus:border-white md:w-[300px] lg:w-[400px] xl:w-full xl:rounded-l-none"
+                  {...register('vehicle_catalog_name')}
+                >
+                  <option value="" disabled>
+                    {t('UserPage.VehicleSelectDefault')}
+                  </option>
+                  {vehicleCatalogs.map(vehicleCatalogs => (
+                    <option
+                      key={vehicleCatalogs._id}
+                      value={vehicleCatalogs.name}
+                    >
+                      {vehicleCatalogs.name}
+                    </option>
+                  ))}
+                </Select>
+              </div>
+            </div>
+            {/* Form Mobile 4 */}
+            <div className="m-2 flex flex-grow items-center justify-between gap-2 md:m-[10px] md:gap-[20px] xl:m-0 xl:gap-0">
               <div>
                 <Button
                   type="submit"
