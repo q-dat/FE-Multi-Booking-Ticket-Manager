@@ -1,41 +1,29 @@
 import React from 'react';
 import { Button, Modal } from 'react-daisyui';
+import { Post } from '../../../../types/post/post.type';
 
 interface ModalDeletePostProps {
   isOpen: boolean;
   onClose: () => void;
-  onDelete: () => void;
+  onDelete: () => Promise<void>;
+  post?: Post;
 }
 
-const ModalDeletePost: React.FC<ModalDeletePostProps> = ({
-  isOpen,
-  onClose,
-  onDelete
-}) => {
+const ModalDeletePost: React.FC<ModalDeletePostProps> = ({ isOpen, onClose, onDelete, post }) => {
+  if (!post) {
+    return null;
+  }
+
   return (
     <Modal open={isOpen}>
       <Modal.Header>
-        <h2 className="text-2xl font-bold">Xoá Bài Viết</h2>
+        <h2 className="text-2xl font-bold">Xóa Bài Viết</h2>
       </Modal.Header>
-      <Modal.Body className="space-y-6">
-        <p className="text-lg text-gray-700">
-          Bạn có chắc chắn muốn xoá bài viết này không?
-        </p>
-        <div className="flex justify-end space-x-4">
-          <Button
-            color="secondary"
-            onClick={onDelete}
-            className="rounded-md bg-red-600 px-4 py-2 text-white hover:bg-red-700"
-          >
-            Xoá
-          </Button>
-          <Button
-            type="button"
-            onClick={onClose}
-            className="rounded-md bg-gray-500 px-4 py-2 text-white hover:bg-gray-600"
-          >
-            Huỷ
-          </Button>
+      <Modal.Body>
+        <p>Bạn có chắc chắn muốn xóa bài viết: <strong>{post.title}</strong>?</p>
+        <div>
+          <Button color="primary" className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700" onClick={onDelete}>Xóa</Button>
+          <Button className="px-4 py-2 bg-gray-500 text-white rounded-md hover:bg-gray-600" onClick={onClose}>Huỷ</Button>
         </div>
       </Modal.Body>
     </Modal>

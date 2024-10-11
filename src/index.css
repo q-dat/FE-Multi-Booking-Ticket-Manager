@@ -10,10 +10,6 @@
   margin: 0;
   box-sizing: border-box;
 }
-.Toastify__toast-container {
-  z-index: 9999999 !important;
-}
-
 .text-bg-image {
   background-image: url('../src/assets/image-represent/bg-text.jpg');
   background-size: cover;
@@ -57,3 +53,12 @@
   transition: all 0.5s ease-in-out;
   animation: zoomBorder 2s infinite ease-in-out;
 }
+
+#editorjs {
+  min-height: 200px;
+  width: 100%;
+  border: 1px solid #ccc;
+  padding: 10px;
+}
+
+

@@ -11,8 +11,8 @@ import { AuthProvider } from './context/auth/AuthContext.tsx';
 import { TicketCatalogProvider } from './context/ticketCatalog/TicketCatalogContext.tsx';
 import { TicketProvider } from './context/ticket/TicketContext.tsx';
 import { LocationProvider } from './context/location/LocationContext.tsx';
-import { VehicleProvider } from './context/vehicle/VehicleContext.tsx';
-import { SeatProvider } from './context/seat/SeatContext.tsx';
+import { PostProvider } from './context/post/PostContext.tsx';
+import { PostCatalogProvider } from './context/post/PostCatalogContext.tsx';
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
@@ -22,14 +22,14 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
           <AuthProvider>
             <TicketCatalogProvider>
               <TicketProvider>
-                <LocationProvider>
-                  <VehicleProvider>
-                    <SeatProvider>
+                <PostProvider>
+                  <PostCatalogProvider>
+                    <LocationProvider>
                       <ToastContainer />
                       <App />
-                    </SeatProvider>
-                  </VehicleProvider>
-                </LocationProvider>
+                    </LocationProvider>
+                  </PostCatalogProvider>
+                </PostProvider>
               </TicketProvider>
             </TicketCatalogProvider>
           </AuthProvider>
