@@ -5,7 +5,7 @@ import { VehicleContext } from '../../../../context/vehicle/VehicleContext';
 import { Toastify } from '../../../../helper/Toastify';
 import { isIErrorResponse } from '../../../../types/error/error';
 import InputModal from '../../InputModal';
-import { Button } from 'react-daisyui';
+import { Button, Select } from 'react-daisyui';
 
 interface ModalEditVehicleProps {
   isOpen: boolean;
@@ -13,7 +13,7 @@ interface ModalEditVehicleProps {
   vehicleId: string;
 }
 
-const ModalEditVehicle: React.FC<ModalEditVehicleProps> = ({
+const ModalEditVehiclePageAdmin: React.FC<ModalEditVehicleProps> = ({
   isOpen,
   onClose,
   vehicleId
@@ -85,17 +85,18 @@ const ModalEditVehicle: React.FC<ModalEditVehicleProps> = ({
             />
           </div>
           <div>
-            <label className="block text-sm font-medium text-gray-700">
-              Trạng thái
-            </label>
-            <select className="mb-5 w-full border border-gray-700 border-opacity-50 bg-white text-black focus:border-primary focus:outline-none dark:border-secondary dark:bg-gray-700 dark:text-white dark:focus:border-white"
+            <Select
+              defaultValue=""
+              className="mb-5 w-full border border-gray-700 border-opacity-50 bg-white text-black focus:border-primary focus:outline-none dark:border-secondary dark:bg-gray-700 dark:text-white dark:focus:border-white"
               {...register('status', { required: true })}
-              
             >
-              <option value="active">Hoạt động</option>
-              <option value="inactive">Không hoạt động</option>
-              <option value="maintenance">Bảo trì</option>
-            </select>
+              <option value="" disabled>
+                Chọn trạng thái
+              </option>
+              <option value="Đang hoạt động">Đang hoạt động</option>
+              <option value="Không hoạt động">Không hoạt động</option>
+              <option value="Đang bảo trì">Đang bảo trì</option>
+            </Select>
           </div>
           <div className="mt-4 space-x-5 text-center">
             <Button onClick={onClose} className="border-gray-50 text-black">
@@ -111,4 +112,4 @@ const ModalEditVehicle: React.FC<ModalEditVehicleProps> = ({
   );
 };
 
-export default ModalEditVehicle;
+export default ModalEditVehiclePageAdmin;

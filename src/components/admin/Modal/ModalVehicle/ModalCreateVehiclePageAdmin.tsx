@@ -12,7 +12,7 @@ interface ModalCreateVehicleProps {
   onClose: () => void;
 }
 
-const ModalCreateVehicle: React.FC<ModalCreateVehicleProps> = ({
+const ModalCreateVehiclePageAdmin: React.FC<ModalCreateVehicleProps> = ({
   isOpen,
   onClose
 }) => {
@@ -91,4 +91,4 @@ const ModalCreateVehicle: React.FC<ModalCreateVehicleProps> = ({
   );
 };
 
-export default ModalCreateVehicle;
+export default ModalCreateVehiclePageAdmin;
