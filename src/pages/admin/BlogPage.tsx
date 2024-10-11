@@ -3,86 +3,47 @@ import NavbarMobile from '../../components/admin/Reponsive/Mobile/NavbarMobile';
 import NavtitleAdmin from '../../components/admin/NavtitleAdmin';
 import { Button, Table } from 'react-daisyui';
 import { RiAddBoxLine } from 'react-icons/ri';
-import ModalCreatePost from '../../components/admin/Modal/ModalBlogs/ModalCreatePost.tsx';
-import ModalDeletePost from '../../components/admin/Modal/ModalBlogs/ModalDeletePost.tsx';
-import ModalEditPost from '../../components/admin/Modal/ModalBlogs/ModalEditPost.tsx';
+import ModalCreatePost from '../../components/admin/Modal/ModalBlogs/ModalCreatePost';
+import ModalDeletePost from '../../components/admin/Modal/ModalBlogs/ModalDeletePost';
+import ModalEditPost from '../../components/admin/Modal/ModalBlogs/ModalEditPost';
 import { MdDelete } from 'react-icons/md';
 import { FaPenToSquare } from 'react-icons/fa6';
-
-interface Post {
-  id: number;
-  title: string;
-  content: any;
-  category: string;
-  date?: string;
-  img: string;
-}
-
-const initialPosts: Post[] = [
-  {
-    id: 1,
-    title: 'Bài viết A',
-    date: '12-12-2024',
-    category: 'Train',
-    content: 'aaaa',
-    img: 'a'
-  },
-  {
-    id: 2,
-    title: 'Bài viết B',
-    date: '12-12-2024',
-    category: 'Train',
-    content: 'aaaa',
-    img: 'a'
-  },
-  {
-    id: 3,
-    title: 'Bài viết C',
-    date: '12-12-2024',
-    category: 'Train',
-    content: 'aaaa',
-    img: 'a'
-  }
-];
+import { usePostContext } from '../../context/post/PostContext';
+import { Post } from '../../types/post/post.type';
 
 const BlogPage: React.FC = () => {
-  const [posts, setPosts] = useState<Post[]>(initialPosts);
+  const { posts, createPost, updatePost, deletePost } = usePostContext();
   const [isModalCreateOpen, setIsModalCreateOpen] = useState(false);
   const [isModalEditOpen, setIsModalEditOpen] = useState(false);
   const [isModalDeleteOpen, setIsModalDeleteOpen] = useState(false);
   const [selectedPost, setSelectedPost] = useState<Post | null>(null);
 
-  const openModal = (
-    modalSetter: React.Dispatch<React.SetStateAction<boolean>>
-  ) => {
+  const openModal = (modalSetter: React.Dispatch<React.SetStateAction<boolean>>) => {
     modalSetter(true);
   };
 
-  const closeModal = (
-    modalSetter: React.Dispatch<React.SetStateAction<boolean>>
-  ) => {
+  const closeModal = (modalSetter: React.Dispatch<React.SetStateAction<boolean>>) => {
     modalSetter(false);
   };
 
-  const handleCreate = (data: Omit<Post, 'id'>) => {
-    const newPost = { ...data, id: posts.length + 1 }; // Tự động tạo ID mới
-    setPosts([...posts, newPost]);
+  const handleCreate = async (data: Omit<Post, '_id'>) => {
+    await createPost(data);
+    closeModal(setIsModalCreateOpen);
   };
 
-  const handleEdit = (data: Omit<Post, 'id'>) => {
+  const handleEdit = async (data: Omit<Post, '_id'>) => {
     if (selectedPost) {
-      setPosts(
-        posts.map(post =>
-          post.id === selectedPost.id ? { ...post, ...data } : post
-        )
-      );
+      await updatePost(selectedPost._id, data);
+      closeModal(setIsModalEditOpen);
+      setSelectedPost(null);
     }
   };
 
-  const handleDelete = () => {
+  const handleDelete = async () => {
     if (selectedPost) {
-      setPosts(posts.filter(post => post.id !== selectedPost.id));
+      await deletePost(selectedPost._id);
       setSelectedPost(null);
+      closeModal(setIsModalDeleteOpen);
     }
   };
 
@@ -91,7 +52,7 @@ const BlogPage: React.FC = () => {
       <NavbarMobile Title_NavbarMobile="Blog" />
       <div className="px-2 xl:px-0">
         <NavtitleAdmin
-          Title_NavtitleAdmin={'Quản lý Bài Viết'}
+          Title_NavtitleAdmin="Quản lý Bài Viết"
           Btn_Create={
             <Button
               color="primary"
@@ -116,12 +77,12 @@ const BlogPage: React.FC = () => {
             <span>Thao tác</span>
           </Table.Head>
           <Table.Body className="text-center text-sm">
-            {posts.map((post, index) => (
-              <Table.Row key={post.id}>
+            {posts?.map((post, index) => (
+              <Table.Row key={post._id}>
                 <span className="line-clamp-1">{index + 1}</span>
                 <span className="line-clamp-1">{post.title}</span>
-                <span className="line-clamp-1">{post.date}</span>
-                <span className="line-clamp-1">{post.content}</span>
+                <span className="line-clamp-1">{new Date(post.createAt).toLocaleDateString()}</span>
+                <span className="line-clamp-1">{post.post_catalog_id.name}</span>
                 <span className="space-x-3">
                   <Button
                     color="info"
@@ -147,6 +108,8 @@ const BlogPage: React.FC = () => {
           </Table.Body>
         </Table>
       </div>
+
+      {/* Modals */}
       <ModalCreatePost
         isOpen={isModalCreateOpen}
         onClose={() => closeModal(setIsModalCreateOpen)}
@@ -155,23 +118,14 @@ const BlogPage: React.FC = () => {
       <ModalEditPost
         isOpen={isModalEditOpen}
         onClose={() => closeModal(setIsModalEditOpen)}
-        onEdit={handleEdit}
-        defaultValues={
-          selectedPost || {
-            id: 0,
-            title: '',
-            content: '',
-            img: '',
-            category: '',
-            date: ''
-          }
-        }
+        onUpdate={handleEdit}
+        post={selectedPost!}
       />
-
       <ModalDeletePost
         isOpen={isModalDeleteOpen}
         onClose={() => closeModal(setIsModalDeleteOpen)}
         onDelete={handleDelete}
+        post={selectedPost!}
       />
     </div>
   );
