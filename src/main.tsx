@@ -18,6 +18,7 @@ import { PostProvider } from './context/post/PostContext.tsx';
 import { PostCatalogProvider } from './context/post/PostCatalogContext.tsx';
 import { SeatCatalogProvider } from './context/seatCatalog/SeatCatalogContext.tsx';
 import { AgeProvider } from './context/age/AgeContext.tsx';
+import { ServiceProvider } from './context/service/ServiceContext.tsx';
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
@@ -35,8 +36,10 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
                           <PostCatalogProvider>
                             <PostProvider>
                               <AgeProvider>
-                                <ToastContainer />
-                                <App />
+                                <ServiceProvider>
+                                  <ToastContainer />
+                                  <App />
+                                </ServiceProvider>
                               </AgeProvider>
                             </PostProvider>
                           </PostCatalogProvider>
