@@ -17,6 +17,7 @@ import { VehicleCatalogProvider } from './context/vehicleCatalog/VehicleCatalogC
 import { PostProvider } from './context/post/PostContext.tsx';
 import { PostCatalogProvider } from './context/post/PostCatalogContext.tsx';
 import { SeatCatalogProvider } from './context/seatCatalog/SeatCatalogContext.tsx';
+import { AgeProvider } from './context/age/AgeContext.tsx';
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
@@ -30,14 +31,16 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
                   <VehicleCatalogProvider>
                     <VehicleProvider>
                       <SeatCatalogProvider>
-                      <SeatProvider>
-                        <PostCatalogProvider>
-                          <PostProvider>
-                            <ToastContainer />
-                            <App />
-                          </PostProvider>
-                        </PostCatalogProvider>
-                      </SeatProvider>
+                        <SeatProvider>
+                          <PostCatalogProvider>
+                            <PostProvider>
+                              <AgeProvider>
+                                <ToastContainer />
+                                <App />
+                              </AgeProvider>
+                            </PostProvider>
+                          </PostCatalogProvider>
+                        </SeatProvider>
                       </SeatCatalogProvider>
                     </VehicleProvider>
                   </VehicleCatalogProvider>
