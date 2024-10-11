@@ -43,13 +43,13 @@ const SidebarAdmin: React.FC<{}> = () => {
       name: 'Phương Tiện',
       icon: FaTrainSubway,
       link: '/admin/vehicle',
-      toastify: seats.length
+      toastify: vehicles.length
     },
     {
       name: 'Ghế Ngồi',
       icon: PiSeatFill,
       link: '/admin/seat',
-      toastify: vehicles.length
+      toastify: seats.length
     }
   ];
 

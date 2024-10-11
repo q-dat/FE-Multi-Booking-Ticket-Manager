@@ -91,8 +91,9 @@ const SeatPage: React.FC = () => {
             <span>STT</span>
             <span>Ghế Ngồi</span>
             <span>Giá</span>
-            <span>Mô Tả</span>
+            <span>Số Ghế</span>
             <span>Trạng Thái</span>
+            <span>Mô Tả</span>
             <span>Hành Động</span>
           </Table.Head>
         }
@@ -102,6 +103,12 @@ const SeatPage: React.FC = () => {
               <Table.Row key={index}>
                 <span className="line-clamp-1">#{index + 1}</span>
                 <span className="line-clamp-1">{seat.name}</span>
+                <span className="line-clamp-1">{seat.price}</span>
+                <span className="line-clamp-1">{seat.ordinal_numbers}</span>
+                <span className="line-clamp-1">{seat.status}</span>
+                <span className="line-clamp-1">
+                  {seat.des || 'Không có mô tả!'}
+                </span>
                 <span>
                   <details>
                     <summary className="inline cursor-pointer text-base text-warning">

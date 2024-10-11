@@ -12,7 +12,7 @@ interface ModalEditSeatProps {
   onClose: () => void;
   seatId: string;
 }
-const ModalEditSeat: React.FC<ModalEditSeatProps> = ({
+const ModalEditSeatPageAdmin: React.FC<ModalEditSeatProps> = ({
   isOpen,
   onClose,
   seatId
@@ -96,4 +96,4 @@ const ModalEditSeat: React.FC<ModalEditSeatProps> = ({
   );
 };
 
-export default ModalEditSeat;
+export default ModalEditSeatPageAdmin;

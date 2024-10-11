@@ -1,24 +1,29 @@
-import React from 'react';
-import { Button } from 'react-daisyui';
+import React, { useContext, useEffect } from 'react';
+import { Button, Select, Textarea } from 'react-daisyui';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import InputModal from '../../InputModal';
 import { ISeat } from '../../../../types/type/seat/seat'; // Sửa kiểu thành ISeat
 import { isIErrorResponse } from '../../../../types/error/error';
 import { Toastify } from '../../../../helper/Toastify';
 import { SeatContext } from '../../../../context/seat/SeatContext';
+import { SeatCatalogContext } from '../../../../context/seatCatalog/SeatCatalogContext';
 
 interface ModalCreateSeatProps {
   isOpen: boolean;
   onClose: () => void;
 }
 
-const ModalCreateSeat: React.FC<ModalCreateSeatProps> = ({
+const ModalCreateSeatPageAdmin: React.FC<ModalCreateSeatProps> = ({
   isOpen,
   onClose
 }) => {
+  const { seatCatalogs, getAllSeatCatalogs } = useContext(SeatCatalogContext);
   const { createSeat } = React.useContext(SeatContext);
   const { register, handleSubmit, reset } = useForm<ISeat>();
 
+  useEffect(() => {
+    getAllSeatCatalogs();
+  }, []);
   const onSubmit: SubmitHandler<ISeat> = async formData => {
     try {
       await createSeat(formData);
@@ -60,6 +65,46 @@ const ModalCreateSeat: React.FC<ModalCreateSeatProps> = ({
               {...register('name', { required: true })}
               placeholder="Tên ghế"
             />
+            <InputModal
+              type={'text'}
+              {...register('price', { required: true })}
+              placeholder="Giá"
+            />
+               <InputModal
+              type={'text'}
+              {...register('ordinal_numbers', { required: true })}
+              placeholder="Số ghế"
+            />
+            <Textarea
+              className="my-5 w-full pb-10 focus:outline-none"
+              {...register('des')}
+              placeholder="Mô tả (Không bắt buộc!)"
+            />
+            <Select
+              defaultValue=""
+              className="mb-5 w-full border border-gray-700 border-opacity-50 bg-white text-black focus:border-primary focus:outline-none dark:border-secondary dark:bg-gray-700 dark:text-white dark:focus:border-white"
+              {...register('status')}
+            >
+              <option value="" disabled>
+                Chọn Trạng Thái
+              </option>
+              <option value="Còn chỗ">Còn Chỗ</option>
+              <option value="Hết chỗ">Hết Chỗ</option>
+            </Select>
+            <Select
+              defaultValue=""
+              className="mb-5 w-full border border-gray-700 border-opacity-50 bg-white text-black focus:border-primary focus:outline-none dark:border-secondary dark:bg-gray-700 dark:text-white dark:focus:border-white"
+              {...register('seat_catalog_id')}
+            >
+              <option value="" disabled>
+                Chọn danh mục
+              </option>
+              {seatCatalogs.map(seatCatalog => (
+                <option key={seatCatalog._id} value={seatCatalog._id}>
+                  {seatCatalog.name}
+                </option>
+              ))}
+            </Select>
           </div>
 
           <div className="space-x-5 text-center">
@@ -76,4 +121,4 @@ const ModalCreateSeat: React.FC<ModalCreateSeatProps> = ({
   );
 };
 
-export default ModalCreateSeat;
+export default ModalCreateSeatPageAdmin;
