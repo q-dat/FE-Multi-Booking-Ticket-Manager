@@ -3,7 +3,7 @@ import { useForm, SubmitHandler } from 'react-hook-form';
 import { Toastify } from '../../../../helper/Toastify';
 import { isIErrorResponse } from '../../../../types/error/error';
 import InputModal from '../../InputModal';
-import { Button } from 'react-daisyui';
+import { Button, Select } from 'react-daisyui';
 import { SeatContext } from '../../../../context/seat/SeatContext';
 import { ISeat } from '../../../../types/type/seat/seat';
 
@@ -31,20 +31,24 @@ const ModalEditSeatPageAdmin: React.FC<ModalEditSeatProps> = ({
     const seatData = seats.find(seat => seat._id === seatId);
     if (seatData) {
       setValue('name', seatData.name);
+      setValue('price', seatData.price);
+      setValue('des', seatData.des);
+      setValue('status', seatData.status);
+      setValue('ordinal_numbers', seatData.ordinal_numbers);
     }
   }, [seats, seatId, setValue]);
 
   const onSubmit: SubmitHandler<ISeat> = async formData => {
     try {
       await updateSeat(seatId, formData);
-      Toastify('Chỉnh sửa địa điểm thành công!', 200);
+      Toastify('Chỉnh sửa Ghế thành công!', 200);
       reset();
       getAllSeats();
       onClose();
     } catch (error: unknown) {
       const errorMessage = isIErrorResponse(error)
         ? error.data?.message
-        : 'Lỗi khi chỉnh sửa địa điểm!';
+        : 'Lỗi khi chỉnh sửa ghế!';
       Toastify(`Lỗi: ${errorMessage}`, 401);
     }
   };
@@ -65,22 +69,65 @@ const ModalEditSeatPageAdmin: React.FC<ModalEditSeatProps> = ({
         onClick={handleOverlayClick}
         className="modal-overlay fixed inset-0 z-50 flex w-full items-center justify-center bg-black bg-opacity-40"
       >
-        <div
-          onClick={e => e.stopPropagation()}
-          className="flex flex-col space-y-10 rounded-lg bg-white p-10 text-start shadow dark:bg-gray-800"
-        >
+        <div className='space-y-10 rounded-lg bg-white p-10 text-start shadow dark:bg-gray-800 '>
           <p className="text-xl font-bold text-black dark:text-white">
-            Chỉnh sửa địa điểm
+            Chỉnh sửa Ghế
           </p>
-          <div>
-            <label className="block text-sm font-medium text-gray-700">
-              Tên địa điểm
-            </label>
-            <InputModal
-              placeholder={'ví dụ: địa điểm A'}
-              type={'text'}
-              {...register('name', { required: true })}
-            />
+          <div
+            onClick={e => e.stopPropagation()}
+            className="grid grid-cols-2 "
+          >
+            <div className='mr-3'>
+
+              <label className="block text-sm font-medium text-gray-700">
+                Tên Ghế
+              </label>
+              <InputModal
+                placeholder={'ví dụ: địa điểm A'}
+                type={'text'}
+                {...register('name', { required: true })}
+              />
+              <label className="block text-sm font-medium text-gray-700">
+                Giá
+              </label>
+              <InputModal
+                placeholder={'ví dụ: địa điểm A'}
+                type={'text'}
+                {...register('price', { required: true })}
+              />
+              <label className="block text-sm font-medium text-gray-700">
+                Số Ghế
+              </label>
+              <InputModal
+                placeholder={'ví dụ: địa điểm A'}
+                type={'text'}
+                {...register('ordinal_numbers', { required: true })}
+              />
+            </div>
+            <div className='ml-3'>
+              <label className="block text-sm font-medium text-gray-700">
+                Mô Tả
+              </label>
+              <InputModal
+                placeholder={'ví dụ: địa điểm A'}
+                type={'text'}
+                {...register('des')}
+              />
+              <label className="block text-sm font-medium text-gray-700">
+                Trạng Thái
+              </label>
+              <Select
+                defaultValue=""
+                className="mb-5 w-full border border-gray-700 border-opacity-50 bg-white text-black focus:border-primary focus:outline-none dark:border-secondary dark:bg-gray-700 dark:text-white dark:focus:border-white"
+                {...register('status')}
+              >
+                <option value="" disabled>
+                  Chọn Trạng Thái
+                </option>
+                <option value="Còn chỗ">Còn Chỗ</option>
+                <option value="Hết chỗ">Hết Chỗ</option>
+              </Select>
+            </div>
           </div>
           <div className="mt-4 space-x-5 text-center">
             <Button onClick={onClose} className="border-gray-50 text-black">
