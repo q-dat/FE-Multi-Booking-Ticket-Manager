@@ -1,13 +1,27 @@
-import axiosClient from '../../config/axiosConfig';
+import axios from '../../config/axiosConfig';
 import { IVehicle } from '../../types/type/vehicle/vehicle';
 
-export const getAllVehiclesApi = () => axiosClient.get('api/vehicles');
+// Get All
+export const getAllVehiclesApi = () => {
+  return axios.get<{ vehicles: IVehicle[] }>('/api/vehicles');
+};
 
-export const createVehicleApi = (vehicle: IVehicle) =>
-  axiosClient.post('/vehicles', vehicle);
+// Get By ID
+export const getVehicleByIdApi = (id: string) => {
+  return axios.get<{ vehicle: IVehicle }>(`/api/vehicles/${id}`);
+};
 
-export const updateVehicleApi = (id: string, vehicle: IVehicle) =>
-  axiosClient.put(`/vehicles/${id}`, vehicle);
+// Post
+export const createVehicleApi = (Vehicle: IVehicle) => {
+  return axios.post<{ vehicle: IVehicle }>('/api/vehicles', Vehicle);
+};
 
-export const deleteVehicleApi = (id: string) =>
-  axiosClient.delete(`/vehicles/${id}`);
+// Put
+export const updateVehicleApi = (id: string, Vehicle: IVehicle) => {
+  return axios.put<{ vehicle: IVehicle }>(`/api/vehicles/${id}`, Vehicle);
+};
+
+// Delete
+export const deleteVehicleApi = (id: string) => {
+  return axios.delete(`/api/vehicles/${id}`);
+};

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button } from 'react-daisyui';
+import { Button, Select } from 'react-daisyui';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import InputModal from '../../InputModal';
 import { VehicleContext } from '../../../../context/vehicle/VehicleContext';
@@ -62,14 +62,18 @@ const ModalCreateVehicle: React.FC<ModalCreateVehicleProps> = ({
               {...register('name', { required: true })}
               placeholder="Tên phương tiện"
             />
-            <select
+            <Select
+              defaultValue=""
               {...register('status', { required: true })}
               className="mt-2 w-full rounded-md border p-2"
             >
+              <option value="" disabled>
+                Chọn trạng thái
+              </option>
               <option value="active">Hoạt động</option>
               <option value="inactive">Không hoạt động</option>
               <option value="maintenance">Bảo trì</option>
-            </select>
+            </Select>
           </div>
 
           <div className="mt-4 space-x-5 text-center">
