@@ -12,7 +12,7 @@ interface ModalCreateLocationProps {
   onClose: () => void;
 }
 
-const ModalCreateLocation: React.FC<ModalCreateLocationProps> = ({
+const ModalCreateLocationPageAdmin: React.FC<ModalCreateLocationProps> = ({
   isOpen,
   onClose
 }) => {
@@ -78,4 +78,4 @@ const ModalCreateLocation: React.FC<ModalCreateLocationProps> = ({
   );
 };
 
-export default ModalCreateLocation;
+export default ModalCreateLocationPageAdmin;

@@ -28,7 +28,7 @@ const NavbarAdmin: React.FC<{}> = () => {
   const handleLogout = async () => {
     try {
       await logout();
-      alert('Đăng xuất thành công');
+      Toastify('Đăng xuất thành công',200);
     } catch (error) {
       const err = error as ILogoutError;
       if (err.response?.data?.message === 'Không tìm thấy session để xóa') {

@@ -63,7 +63,6 @@ export const SeatProvider = ({ children }: { children: ReactNode }) => {
   const [error, setError] = useState<string | null>(null);
 
   const handleError = (err: any) => {
-    console.log('Error: ', err); // In lỗi ra console
     setError(err.response?.data?.message || 'Lỗi cục bộ!');
   };
 

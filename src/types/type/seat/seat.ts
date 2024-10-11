@@ -7,6 +7,7 @@ export interface ISeat {
   price: number;
   status: string;
   ordinal_numbers: number;
+  des?: string;
   createAt: string;
   updateAt: string;
 }

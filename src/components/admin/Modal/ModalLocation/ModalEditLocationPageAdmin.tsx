@@ -13,7 +13,7 @@ interface ModalEditLocationProps {
   onClose: () => void;
   locationId: string;
 }
-const ModalEditLocation: React.FC<ModalEditLocationProps> = ({
+const ModalEditLocationPageAdmin: React.FC<ModalEditLocationProps> = ({
   isOpen,
   onClose,
   locationId
@@ -99,4 +99,4 @@ const ModalEditLocation: React.FC<ModalEditLocationProps> = ({
   );
 };
 
-export default ModalEditLocation;
+export default ModalEditLocationPageAdmin;
