@@ -88,9 +88,9 @@ const ModalEditVehicle: React.FC<ModalEditVehicleProps> = ({
             <label className="block text-sm font-medium text-gray-700">
               Trạng thái
             </label>
-            <select
+            <select className="mb-5 w-full border border-gray-700 border-opacity-50 bg-white text-black focus:border-primary focus:outline-none dark:border-secondary dark:bg-gray-700 dark:text-white dark:focus:border-white"
               {...register('status', { required: true })}
-              className="w-full rounded-md border p-2"
+              
             >
               <option value="active">Hoạt động</option>
               <option value="inactive">Không hoạt động</option>
