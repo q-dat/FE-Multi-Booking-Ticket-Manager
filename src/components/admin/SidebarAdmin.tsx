@@ -12,6 +12,7 @@ import { PiSeatFill } from 'react-icons/pi';
 import { LocationContext } from '../../context/location/LocationContext';
 import { SeatContext } from '../../context/seat/SeatContext';
 import { VehicleContext } from '../../context/vehicle/VehicleContext';
+import { MdGroupAdd } from "react-icons/md";
 
 const SidebarAdmin: React.FC<{}> = () => {
   const { locations } = useContext(LocationContext);
@@ -49,6 +50,12 @@ const SidebarAdmin: React.FC<{}> = () => {
       name: 'Ghế Ngồi',
       icon: PiSeatFill,
       link: '/admin/seat',
+      toastify: seats.length
+    },
+    {
+      name: 'Tuổi',
+      icon: MdGroupAdd,
+      link: '/admin/age',
       toastify: seats.length
     }
   ];
