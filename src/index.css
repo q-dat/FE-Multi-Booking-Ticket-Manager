@@ -10,6 +10,9 @@
   margin: 0;
   box-sizing: border-box;
 }
+.Toastify__toast-container {
+  z-index: 999999 !important; 
+}
 .text-bg-image {
   background-image: url('../src/assets/image-represent/bg-text.jpg');
   background-size: cover;
