@@ -62,9 +62,9 @@ const ModalCreateVehicle: React.FC<ModalCreateVehicleProps> = ({
               {...register('name', { required: true })}
               placeholder="Tên phương tiện"
             />
-            <select
+            <select className="mb-5 w-full border border-gray-700 border-opacity-50 bg-white text-black focus:border-primary focus:outline-none dark:border-secondary dark:bg-gray-700 dark:text-white dark:focus:border-white"
               {...register('status', { required: true })}
-              className="mt-2 w-full rounded-md border p-2"
+              
             >
               <option value="active">Hoạt động</option>
               <option value="inactive">Không hoạt động</option>
