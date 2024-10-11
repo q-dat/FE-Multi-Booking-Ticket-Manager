@@ -7,14 +7,12 @@ import NotificationPopup from '../../components/UserPage/NotificationPopup';
 
 const User: React.FC = () => {
   return (
-    <div className="flex h-screen flex-col justify-between">
-      <div className="bg-white dark:bg-[#0e3043]">
+    <div className="flex h-full flex-col justify-between bg-white dark:bg-[#0e3043]">
+      <div className="">
         <Header />
         <Outlet />
         <ContactForm />
         <NotificationPopup />
-      </div>
-      <div>
         <FooterFC />
       </div>
     </div>
