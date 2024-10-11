@@ -57,7 +57,7 @@ const Home: React.FC = () => {
       if (searchResults && searchResults.length > 0) {
         const selectedTicket = searchResults[0];
         const vehicleType = selectedTicket.ticket_catalog_id.name;
-
+        sessionStorage.setItem('searchResults', JSON.stringify(searchResults));
         if (vehicleType === 'Tàu Hoả') {
           navigate('/ticket-trains-results');
         } else if (vehicleType === 'Xe Khách') {
@@ -144,7 +144,7 @@ const Home: React.FC = () => {
             <div className="m-2 flex flex-grow items-center justify-between gap-2 md:m-[10px] md:gap-[20px] xl:m-0 xl:gap-0">
               <Select
                 defaultValue=""
-                className="w-[150px] border border-gray-700 border-opacity-50 bg-white text-black focus:border-primary focus:outline-none dark:border-secondary dark:bg-gray-700 dark:text-white dark:focus:border-white md:w-[300px] lg:w-[400px] xl:w-full xl:rounded-l-none"
+                className="w-[150px] border border-gray-700 border-opacity-50 bg-white text-black focus:border-primary focus:outline-none dark:border-secondary dark:bg-gray-700 dark:text-white dark:focus:border-white md:w-[300px] lg:w-[400px] xl:w-full xl:rounded-r-none"
                 {...register('departure_point_name')}
               >
                 <option value="" disabled>
@@ -159,7 +159,7 @@ const Home: React.FC = () => {
               <MdOutlineArrowRightAlt className="hidden text-primary dark:text-white xl:flex" />
               <Select
                 defaultValue=""
-                className="w-[150px] border border-gray-700 border-opacity-50 bg-white text-black focus:border-primary focus:outline-none dark:border-secondary dark:bg-gray-700 dark:text-white dark:focus:border-white md:w-[300px] lg:w-[400px] xl:w-full xl:rounded-l-none"
+                className="w-[150px] border border-gray-700 border-opacity-50 bg-white text-black focus:border-primary focus:outline-none dark:border-secondary dark:bg-gray-700 dark:text-white dark:focus:border-white md:w-[300px] lg:w-[400px] xl:w-full xl:rounded-none"
                 {...register('destination_point_name')}
               >
                 <option value="" disabled>
