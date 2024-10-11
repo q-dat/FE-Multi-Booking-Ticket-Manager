@@ -1,32 +1,50 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { Button, Modal } from 'react-daisyui';
 import EditorJS from '@editorjs/editorjs';
 import Header from '@editorjs/header';
 import List from '@editorjs/list';
+import axios from 'axios';
+import { Post } from '../../../../types/post/post.type';
 
 interface FormData {
-  id: number;
   title: string;
   content: any;
-  category: string;
-  date?: string;
+  post_catalog_id: {
+    _id: string;
+    name: string;
+  };
   img: string;
+}
+
+interface PostCatalog {
+  _id: string;
+  name: string;
 }
 
 interface ModalCreatePostProps {
   isOpen: boolean;
   onClose: () => void;
-  onCreate: (data: FormData) => void;
+  onCreate: (data: Omit<Post, '_id'>) => Promise<void>;
 }
 
-const ModalCreatePost: React.FC<ModalCreatePostProps> = ({
-  isOpen,
-  onClose,
-  onCreate
-}) => {
+const ModalCreatePost: React.FC<ModalCreatePostProps> = ({ isOpen, onClose, onCreate }) => {
   const { register, handleSubmit, reset } = useForm<FormData>();
   const editorRef = useRef<EditorJS | null>(null);
+  const [catalogs, setCatalogs] = useState<PostCatalog[]>([]);
+
+  useEffect(() => {
+    const fetchCatalogs = async () => {
+      try {
+        const response = await axios.get('/api/cate-blogs/post-catalogs');
+        setCatalogs(response.data.postCatalogs);
+      } catch (error) {
+        console.error('Error fetching catalogs:', error);
+      }
+    };
+
+    fetchCatalogs();
+  }, []);
 
   useEffect(() => {
     if (isOpen) {
@@ -34,8 +52,8 @@ const ModalCreatePost: React.FC<ModalCreatePostProps> = ({
         holder: 'editorjs',
         tools: {
           header: Header,
-          list: List
-        }
+          list: List,
+        },
       });
     }
 
@@ -50,7 +68,15 @@ const ModalCreatePost: React.FC<ModalCreatePostProps> = ({
   const onSubmit = async (data: FormData) => {
     try {
       const outputData = await editorRef.current?.save();
-      onCreate({ ...data, content: outputData });
+      const content = outputData ? JSON.stringify(outputData) : '';
+
+      const newPost: Omit<Post, '_id'> = {
+        ...data,
+        content,
+        createAt: new Date().toISOString(),
+      };
+
+      await onCreate(newPost);
       reset();
       onClose();
     } catch (error) {
@@ -69,53 +95,48 @@ const ModalCreatePost: React.FC<ModalCreatePostProps> = ({
             <label className="mb-1 text-lg font-semibold">Tiêu đề:</label>
             <input
               type="text"
-              {...register('title', { required: true })}
+              {...register("title", { required: true })}
               required
-              className="rounded-md border border-gray-300 px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
           </div>
 
           <div className="flex flex-col">
             <label className="mb-1 text-lg font-semibold">Nội dung:</label>
-            <div
-              id="editorjs"
-              className="rounded-md border border-gray-300 p-2"
-            />
+            <div id="editorjs" className="border border-gray-300 rounded-md p-2" />
           </div>
 
           <div className="flex flex-col">
             <label className="mb-1 text-lg font-semibold">Danh mục:</label>
-            <input
-              type="text"
-              {...register('category', { required: true })}
-              required
-              className="rounded-md border border-gray-300 px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
-            />
+            <select
+              {...register("post_catalog_id", { required: true })}
+              className="px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              defaultValue=""
+            >
+              <option value="" disabled>Chọn danh mục</option>
+              {catalogs.map((catalog) => (
+                <option key={catalog._id} value={catalog._id}>
+                  {catalog.name}
+                </option>
+              ))}
+            </select>
           </div>
 
           <div className="flex flex-col">
             <label className="mb-1 text-lg font-semibold">Hình ảnh:</label>
             <input
               type="text"
-              {...register('img', { required: true })}
+              {...register("img", { required: true })}
               required
-              className="rounded-md border border-gray-300 px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
           </div>
 
           <div className="flex justify-end space-x-4">
-            <Button
-              type="submit"
-              color="primary"
-              className="rounded-md bg-blue-600 px-4 py-2 text-white hover:bg-blue-700"
-            >
+            <Button type="submit" color="primary" className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700">
               Thêm
             </Button>
-            <Button
-              type="button"
-              onClick={onClose}
-              className="rounded-md bg-gray-500 px-4 py-2 text-white hover:bg-gray-600"
-            >
+            <Button type="button" onClick={onClose} className="px-4 py-2 bg-gray-500 text-white rounded-md hover:bg-gray-600">
               Huỷ
             </Button>
           </div>

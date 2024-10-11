@@ -14,6 +14,8 @@ import { LocationProvider } from './context/location/LocationContext.tsx';
 import { VehicleProvider } from './context/vehicle/VehicleContext.tsx';
 import { SeatProvider } from './context/seat/SeatContext.tsx';
 import { VehicleCatalogProvider } from './context/vehicleCatalog/VehicleCatalogContext.tsx';
+import { PostProvider } from './context/post/PostContext.tsx';
+import { PostCatalogProvider } from './context/post/PostCatalogContext.tsx';
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
@@ -25,12 +27,16 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
               <TicketProvider>
                 <LocationProvider>
                   <VehicleCatalogProvider>
-                  <VehicleProvider>
-                    <SeatProvider>
-                      <ToastContainer />
-                      <App />
-                    </SeatProvider>
-                  </VehicleProvider>
+                    <VehicleProvider>
+                      <SeatProvider>
+                        <PostCatalogProvider>
+                          <PostProvider>
+                            <ToastContainer />
+                            <App />
+                          </PostProvider>
+                        </PostCatalogProvider>
+                      </SeatProvider>
+                    </VehicleProvider>
                   </VehicleCatalogProvider>
                 </LocationProvider>
               </TicketProvider>
