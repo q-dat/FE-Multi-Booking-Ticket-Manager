@@ -448,12 +448,6 @@ const Home: React.FC = () => {
                     </span>
                     .VNĐ
                   </p>
-                  <Button
-                    className="w-full bg-primary font-light text-white hover:border-primary hover:bg-white hover:font-bold hover:text-primary"
-                    aria-label={`View details for ${ticket.ticket_catalog_id.name}`}
-                  >
-                    {t('UserPage.Details')}
-                  </Button>
                 </div>
               </div>
             ))}
