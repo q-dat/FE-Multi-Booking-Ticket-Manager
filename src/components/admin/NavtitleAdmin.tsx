@@ -1,7 +1,7 @@
 import React from 'react';
 
 //Icon
-import { FiCalendar } from 'react-icons/fi';
+// import { FiCalendar } from 'react-icons/fi';
 
 interface NavtitleAdminProps {
   Title_NavtitleAdmin: string;
@@ -11,7 +11,7 @@ const NavtitleAdmin: React.FC<NavtitleAdminProps> = ({
   Title_NavtitleAdmin,
   Btn_Create
 }) => {
-  const [value, setValue] = React.useState('default');
+  // const [value, setValue] = React.useState('default');
 
   return (
     <div className="mt-5 justify-between px-2 py-5 md:flex xl:px-0">
@@ -27,7 +27,7 @@ const NavtitleAdmin: React.FC<NavtitleAdminProps> = ({
         {/* Create Modal */}
         <div className="mr-3"> {Btn_Create}</div>
         <div className="flex items-center justify-center space-x-2 rounded-md bg-white">
-          <p className="m-2 rounded bg-[#2D9CDB26] p-2 text-[#2D9CDB]">
+          {/* <p className="m-2 rounded bg-[#2D9CDB26] p-2 text-[#2D9CDB]">
             <FiCalendar />
           </p>
           <div className="">
@@ -42,7 +42,7 @@ const NavtitleAdmin: React.FC<NavtitleAdminProps> = ({
               <option>2024</option>
               <option>2023</option>
             </select>
-          </div>
+          </div> */}
         </div>
       </div>
     </div>

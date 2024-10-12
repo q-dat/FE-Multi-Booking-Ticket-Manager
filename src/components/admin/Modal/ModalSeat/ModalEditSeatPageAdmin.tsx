@@ -6,6 +6,7 @@ import InputModal from '../../InputModal';
 import { Button, Select } from 'react-daisyui';
 import { SeatContext } from '../../../../context/seat/SeatContext';
 import { ISeat } from '../../../../types/type/seat/seat';
+import { SeatCatalogContext } from '../../../../context/seatCatalog/SeatCatalogContext';
 
 interface ModalEditSeatProps {
   isOpen: boolean;
@@ -19,6 +20,8 @@ const ModalEditSeatPageAdmin: React.FC<ModalEditSeatProps> = ({
 }) => {
   const { getAllSeats, updateSeat, getSeatById, seats } =
     useContext(SeatContext);
+    // 
+    const { seatCatalogs} = useContext(SeatCatalogContext);
   const { register, handleSubmit, reset, setValue } = useForm<ISeat>();
 
   useEffect(() => {
@@ -126,6 +129,23 @@ const ModalEditSeatPageAdmin: React.FC<ModalEditSeatProps> = ({
                 </option>
                 <option value="Còn chỗ">Còn Chỗ</option>
                 <option value="Hết chỗ">Hết Chỗ</option>
+              </Select>
+              <label className="block text-sm font-medium text-gray-700">
+                Danh Mục
+              </label>
+              <Select
+                defaultValue=""
+                className="mb-5 w-full border border-gray-700 border-opacity-50 bg-white text-black focus:border-primary focus:outline-none dark:border-secondary dark:bg-gray-700 dark:text-white dark:focus:border-white"
+                {...register('seat_catalog_id')}
+              >
+                <option value="" disabled>
+                  Chọn Danh Mục
+                </option>
+                {seatCatalogs.map(seatCatalog => (
+                  <option key={seatCatalog._id} value={seatCatalog._id}>
+                    {seatCatalog.name}
+                  </option>
+                ))}
               </Select>
             </div>
           </div>
