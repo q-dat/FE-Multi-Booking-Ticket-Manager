@@ -85,7 +85,7 @@ const ModalEditSeatPageAdmin: React.FC<ModalEditSeatProps> = ({
               <InputModal
                 placeholder={'ví dụ: địa điểm A'}
                 type={'text'}
-                {...register('name', { required: true })}
+                {...register('name')}
               />
               <label className="block text-sm font-medium text-gray-700">
                 Giá
@@ -93,7 +93,7 @@ const ModalEditSeatPageAdmin: React.FC<ModalEditSeatProps> = ({
               <InputModal
                 placeholder={'ví dụ: địa điểm A'}
                 type={'text'}
-                {...register('price', { required: true })}
+                {...register('price')}
               />
               <label className="block text-sm font-medium text-gray-700">
                 Số Ghế
@@ -101,7 +101,7 @@ const ModalEditSeatPageAdmin: React.FC<ModalEditSeatProps> = ({
               <InputModal
                 placeholder={'ví dụ: địa điểm A'}
                 type={'text'}
-                {...register('ordinal_numbers', { required: true })}
+                {...register('ordinal_numbers')}
               />
             </div>
             <div className='ml-3'>

@@ -102,7 +102,17 @@ const VehiclePage: React.FC = () => {
               <Table.Row key={index}>
                 <span className="line-clamp-1">#{index + 1}</span>
                 <span className="line-clamp-1">{vehicle?.name}</span>
-                <span className="line-clamp-1">{vehicle?.status}</span>
+                <span
+                  className={`inline-block w-[140px] rounded-lg px-4 py-2 font-medium text-white ${
+                    vehicle?.status === 'Đang hoạt động'
+                      ? 'border border-green-600 bg-[#a6e3d5] text-green-600'
+                      : vehicle?.status === 'Đang bảo trì'
+                        ? 'border border-yellow-600 bg-yellow-200 text-yellow-600'
+                        : 'border border-red-700 bg-red-300 text-red-700'
+                  }`}
+                >
+                  {vehicle?.status}
+                </span>
                 <span>
                   <details>
                     <summary className="inline cursor-pointer text-base text-warning">

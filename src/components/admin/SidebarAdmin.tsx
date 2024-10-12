@@ -50,7 +50,7 @@ const SidebarAdmin: React.FC<{}> = () => {
       toastify: vehicles.length
     },
     {
-      name: 'Ghế Ngồi',
+      name: 'Ghế Tàu',
       icon: PiSeatFill,
       link: '/admin/seat',
       toastify: seats.length
@@ -78,7 +78,7 @@ const SidebarAdmin: React.FC<{}> = () => {
   }, [location.pathname, menuItems]);
 
   return (
-    <div className="flex h-screen flex-col items-center justify-between bg-white dark:bg-gray-800 xl:fixed xl:w-64 xl:shadow-lg">
+    <div className="flex h-full flex-col items-center justify-between bg-white dark:bg-gray-800 xl:fixed xl:w-64 xl:shadow-lg">
       <div className="w-full">
         <div className="mt-8 flex w-full items-center justify-between px-2">
           <div className="flex items-center gap-2">
@@ -110,7 +110,7 @@ const SidebarAdmin: React.FC<{}> = () => {
           </div>
         </div>
         <div className="relative flex w-full flex-col justify-between bg-white dark:bg-gray-800 dark:text-white">
-          <div className="mb-2 mt-5 h-[300px] overflow-y-scroll scrollbar-hide md:h-[400px]">
+          <div className="mb-2 mt-5 h-[250px] overflow-y-scroll scrollbar-hide md:h-[400px]">
             <Menu className="flex-grow">
               {menuItems.map(item => {
                 const Icon = item.icon;

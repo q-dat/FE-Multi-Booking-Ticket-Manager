@@ -85,7 +85,7 @@ const ModalEditAgePageAdmin: React.FC<ModalEditAgeProps> = ({
               <InputModal
                 placeholder={'ví dụ: nhóm tuổi A'}
                 type={'text'}
-                {...register('name', { required: true })}
+                {...register('name')}
               />
               <label className="block text-sm font-medium text-gray-700">
                 Giá
@@ -93,7 +93,7 @@ const ModalEditAgePageAdmin: React.FC<ModalEditAgeProps> = ({
               <InputModal
                 placeholder={'ví dụ: giá A'}
                 type={'text'}
-                {...register('price', { required: true })}
+                {...register('price')}
               />
               <label className="block text-sm font-medium text-gray-700">
                 Mô Tả

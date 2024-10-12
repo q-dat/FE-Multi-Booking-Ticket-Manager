@@ -81,14 +81,14 @@ const ModalEditVehiclePageAdmin: React.FC<ModalEditVehicleProps> = ({
             <InputModal
               placeholder={'ví dụ: Xe buýt A'}
               type={'text'}
-              {...register('name', { required: true })}
+              {...register('name')}
             />
           </div>
           <div>
             <Select
               defaultValue=""
               className="mb-5 w-full border border-gray-700 border-opacity-50 bg-white text-black focus:border-primary focus:outline-none dark:border-secondary dark:bg-gray-700 dark:text-white dark:focus:border-white"
-              {...register('status', { required: true })}
+              {...register('status')}
             >
               <option value="" disabled>
                 Chọn trạng thái

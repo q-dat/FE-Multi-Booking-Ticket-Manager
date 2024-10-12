@@ -100,8 +100,8 @@ const ServicePage: React.FC = () => {
             {services.map((service: IService, index: number) => (
               <Table.Row key={index}>
                 <span className="line-clamp-1">#{index + 1}</span>
-                <span className="line-clamp-1">{service.name}</span>
-                <span className="line-clamp-1">{service.price}</span>
+                <span className="line-clamp-1">{service?.name}</span>
+                <span className="line-clamp-1">{service?.price}</span>
                 <span>
                   <details>
                     <summary className="inline cursor-pointer text-base text-warning">

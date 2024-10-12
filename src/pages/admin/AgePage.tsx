@@ -100,9 +100,9 @@ const AgePage: React.FC = () => {
             {ages.map((age: IAge, index: number) => (
               <Table.Row key={index}>
                 <span className="line-clamp-1">#{index + 1}</span>
-                <span className="line-clamp-1">{age.name}</span>
-                <span className="line-clamp-1">{age.price}</span>
-                <span className="line-clamp-1">{age.des}</span>
+                <span className="line-clamp-1">{age?.name}</span>
+                <span className="line-clamp-1">{age?.price}</span>
+                <span className="line-clamp-1">{age?.des}</span>
                 <span>
                   <details>
                     <summary className="inline cursor-pointer text-base text-warning">

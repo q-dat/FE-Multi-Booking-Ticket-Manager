@@ -34,6 +34,7 @@ const ModalEditServicePageAdmin: React.FC<ModalEditServiceProps> = ({
     );
     if (serviceData) {
       setValue('name', serviceData.name);
+      setValue('price', serviceData.price);
     }
   }, [services, serviceId, setValue]);
 
@@ -82,13 +83,16 @@ const ModalEditServicePageAdmin: React.FC<ModalEditServiceProps> = ({
             <InputModal
               placeholder={'ví dụ: dịch vụ A'}
               type={'text'}
-              {...register('name', { required: true })}
+              {...register('name')}
             />
-            <InputModal
-              placeholder={'ví dụ: 20000'}
-              type={'number'}
-              {...register('price', { required: true })}
-            />
+           <label className="block text-sm font-medium text-gray-700">
+                Giá
+              </label>
+              <InputModal
+                placeholder={'ví dụ: 100'}
+                type={'text'}
+                {...register('price')}
+              />
           </div>
           <div className="mt-4 space-x-5 text-center">
             <Button onClick={onClose} className="border-gray-50 text-black">

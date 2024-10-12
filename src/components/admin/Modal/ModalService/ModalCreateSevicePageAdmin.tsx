@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Button } from 'react-daisyui';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import InputModal from '../../InputModal';
@@ -16,7 +16,7 @@ const ModalCreateServicePageAdmin: React.FC<ModalCreateServiceProps> = ({
   isOpen,
   onClose
 }) => {
-  const { createService } = React.useContext(ServiceContext);
+  const { getAllServices,createService } = useContext(ServiceContext);
   const { register, handleSubmit, reset } = useForm<IService>();
 
   const onSubmit: SubmitHandler<IService> = async formData => {
@@ -25,6 +25,7 @@ const ModalCreateServicePageAdmin: React.FC<ModalCreateServiceProps> = ({
       Toastify('Tạo dịch vụ thành công!', 201);
       reset();
       onClose();
+      getAllServices()
     } catch (error: unknown) {
       const errorMessage = isIErrorResponse(error)
         ? error.data?.message

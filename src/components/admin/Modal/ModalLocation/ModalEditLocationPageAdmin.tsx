@@ -82,7 +82,7 @@ const ModalEditLocationPageAdmin: React.FC<ModalEditLocationProps> = ({
             <InputModal
               placeholder={'ví dụ: địa điểm A'}
               type={'text'}
-              {...register('name', { required: true })}
+              {...register('name')}
             />
           </div>
           <div className="mt-4 space-x-5 text-center">
