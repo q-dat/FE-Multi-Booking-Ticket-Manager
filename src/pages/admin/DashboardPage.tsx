@@ -75,7 +75,7 @@ const DashboardPage: React.FC<{}> = () => {
 
         {/* Title */}
         <div className="flex flex-col py-6">
-          <h1 className="text-[25px] font-bold text-black">
+          <h1 className="text-[25px] font-bold text-black dark:text-white">
             Danh sách tạo gần đây
           </h1>
           <p className="text-xs text-gray-500">Xem danh sách tạo gần đây.</p>

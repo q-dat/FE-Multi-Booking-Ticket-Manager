@@ -16,7 +16,7 @@ const NavtitleAdmin: React.FC<NavtitleAdminProps> = ({
   return (
     <div className="mt-5 justify-between px-2 py-5 md:flex xl:px-0">
       <div className="hidden flex-col md:flex">
-        <h1 className="text-[25px] font-bold text-black">
+        <h1 className="text-[25px] font-bold text-black dark:text-white">
           {Title_NavtitleAdmin}
         </h1>
         <p className="text-xs text-gray-500">

@@ -93,7 +93,7 @@ const NavbarAdmin: React.FC<{}> = () => {
               />
             </div>
           </nav>
-          <div className="text-black">
+          <div className="text-black dark:text-white">
             Hello,
             <span className="font-semibold text-red-500">
               {user?.username || 'admin'}{' '}

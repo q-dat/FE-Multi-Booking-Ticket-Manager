@@ -174,7 +174,7 @@ const SidebarAdmin: React.FC<{}> = () => {
             +Thêm Danh Mục
           </Button>
         </div>
-        <div className="py-4 text-xs text-black">
+        <div className="py-4 text-xs text-black dark:text-white">
           <p className="font-bold">Quản trị LacLacTrip </p>
           <p className="font-light">© 2024 đã đăng ký bản quyền</p>
         </div>
