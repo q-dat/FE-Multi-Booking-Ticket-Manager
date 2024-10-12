@@ -4,7 +4,7 @@ import { Toastify } from '../../helper/Toastify';
 import LoadingLocal from '../../components/orther/loading/LoadingLocal';
 import NavtitleAdmin from '../../components/admin/NavtitleAdmin';
 import { RiAddBoxLine } from 'react-icons/ri';
-import { Button, Table } from 'react-daisyui';
+import { Button, Input, Table } from 'react-daisyui';
 import { IAge } from '../../types/type/age/age';
 import ModalDeleteAgePageAdmin from '../../components/admin/Modal/ModalAge/ModalDeleteAgePageAdmin';
 import ModalEditAgePageAdmin from '../../components/admin/Modal/ModalAge/ModalEditAgePageAdmin';
@@ -16,6 +16,7 @@ import { isIErrorResponse } from '../../types/error/error';
 import TableListAdmin from '../../components/admin/TablelistAdmin';
 import NavbarMobile from '../../components/admin/Reponsive/Mobile/NavbarMobile';
 import { useNavigate } from 'react-router-dom';
+import { IoSearchOutline } from 'react-icons/io5';
 
 const AgePage: React.FC = () => {
   const { ages, loading, error, deleteAge, getAllAges } =
@@ -24,6 +25,8 @@ const AgePage: React.FC = () => {
   const [isModalDeleteOpen, setIsModalDeleteOpen] = useState(false);
   const [isModalEditOpen, setIsModalEditOpen] = useState(false);
   const [selectedAgeId, setSelectedAgeId] = useState<string | null>(null);
+  const [searchQuery, setSearchQuery] = useState('');
+
 
   const openModalCreateAdmin = () => setIsModalCreateOpen(true);
   const closeModalCreateAdmin = () => setIsModalCreateOpen(false);
@@ -59,7 +62,11 @@ const AgePage: React.FC = () => {
       }
     }
   };
-
+  const filtereAge = ages.filter(
+    seat =>
+      seat.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      seat.des?.toLowerCase().includes(searchQuery.toLowerCase())
+  );
   if (loading.getAll) return <LoadingLocal />;
   if (error) return <ErrorLoading />;
 
@@ -70,16 +77,27 @@ const AgePage: React.FC = () => {
         <NavtitleAdmin
           Title_NavtitleAdmin="Quản Lý Độ Tuổi"
           Btn_Create={
-            <Button
-              color="primary"
-              onClick={openModalCreateAdmin}
-              className="text-sm font-light text-white"
-            >
-              <div className="flex items-center space-x-1">
-                <RiAddBoxLine className="text-xl" />
-                <p>Thêm</p>
+            <div className="flex flex-row items-center gap-2 md:flex-row">
+              <div className="relative mr-4 flex items-center">
+                <Input
+                  className="w-full bg-white text-black focus:outline-none"
+                  type="text"
+                  placeholder="Vd: Vé Tàu Hoả..."
+                  onChange={e => setSearchQuery(e.target.value)}
+                />
+                <IoSearchOutline className="absolute right-2 h-5 w-5 cursor-pointer" />
               </div>
-            </Button>
+              <Button
+                color="primary"
+                onClick={openModalCreateAdmin}
+                className="w-[100px] text-sm font-light text-white"
+              >
+                <div className="flex items-center space-x-1">
+                  <RiAddBoxLine className="text-xl" />
+                  <p>Thêm</p>
+                </div>
+              </Button>
+              </div>
           }
         />
       </div>
@@ -97,7 +115,7 @@ const AgePage: React.FC = () => {
         }
         table_body={
           <Table.Body className="text-center text-sm">
-            {ages.map((age: IAge, index: number) => (
+            {filtereAge.map((age: IAge, index: number) => (
               <Table.Row key={index}>
                 <span className="line-clamp-1">#{index + 1}</span>
                 <span className="line-clamp-1">{age?.name}</span>
