@@ -9,20 +9,22 @@ import { FaTrainSubway } from 'react-icons/fa6';
 import DarkModeToggle from '../orther/darkmode/DarkMode';
 import { Logo, LogoTitle } from '../../assets/images';
 import { PiSeatFill } from 'react-icons/pi';
-import { MdHomeRepairService } from "react-icons/md";
+import { MdHomeRepairService } from 'react-icons/md';
 import { LocationContext } from '../../context/location/LocationContext';
 import { SeatContext } from '../../context/seat/SeatContext';
 import { VehicleContext } from '../../context/vehicle/VehicleContext';
 import { ServiceContext } from '../../context/service/ServiceContext';
-import { MdGroupAdd } from "react-icons/md";
+import { MdGroupAdd } from 'react-icons/md';
 import { usePostContext } from '../../context/post/PostContext';
+import { AgeContext } from '../../context/age/AgeContext';
 
 const SidebarAdmin: React.FC<{}> = () => {
   const { locations } = useContext(LocationContext);
   const { seats } = useContext(SeatContext);
   const { vehicles } = useContext(VehicleContext);
   const { services } = useContext(ServiceContext);
-  const { posts } = usePostContext()
+  const { ages } = useContext(AgeContext);
+  const { posts } = usePostContext();
 
   const [activeItem, setActiveItem] = useState('Dashboard');
 
@@ -62,7 +64,7 @@ const SidebarAdmin: React.FC<{}> = () => {
       name: 'Tuổi',
       icon: MdGroupAdd,
       link: '/admin/age',
-      toastify: seats.length
+      toastify: ages.length
     },
     {
       name: 'Dịch Vụ',
@@ -121,10 +123,11 @@ const SidebarAdmin: React.FC<{}> = () => {
                   <Menu.Item key={item.name} className="relative">
                     <NavLink
                       to={item.link}
-                      className={`btn flex w-full items-center justify-start border-none shadow-white dark:bg-gray-800 dark:shadow-none ${item.name === activeItem
-                        ? 'bg-base-200 font-bold text-primary dark:bg-white'
-                        : 'bg-transparent bg-white font-light text-black dark:text-white'
-                        } relative pl-4`}
+                      className={`btn flex w-full items-center justify-start border-none shadow-white dark:bg-gray-800 dark:shadow-none ${
+                        item.name === activeItem
+                          ? 'bg-base-200 font-bold text-primary dark:bg-white'
+                          : 'bg-transparent bg-white font-light text-black dark:text-white'
+                      } relative pl-4`}
                     >
                       <div className="flex w-full items-center justify-between">
                         <div className="flex items-center">
