@@ -10,9 +10,10 @@ import { MdDelete } from 'react-icons/md';
 import { FaPenToSquare } from 'react-icons/fa6';
 import { usePostContext } from '../../context/post/PostContext';
 import { Post } from '../../types/post/post.type';
+import TableListAdmin from '../../components/admin/TablelistAdmin';
 
 const BlogPage: React.FC = () => {
-  const { posts, createPost, updatePost, deletePost } = usePostContext();
+  const { posts, createPost, updatePost, deletePost, fetchPosts } = usePostContext();
   const [isModalCreateOpen, setIsModalCreateOpen] = useState(false);
   const [isModalEditOpen, setIsModalEditOpen] = useState(false);
   const [isModalDeleteOpen, setIsModalDeleteOpen] = useState(false);
@@ -28,12 +29,14 @@ const BlogPage: React.FC = () => {
 
   const handleCreate = async (data: Omit<Post, '_id'>) => {
     await createPost(data);
+    await fetchPosts();
     closeModal(setIsModalCreateOpen);
   };
 
   const handleEdit = async (data: Omit<Post, '_id'>) => {
     if (selectedPost) {
       await updatePost(selectedPost._id, data);
+      await fetchPosts();
       closeModal(setIsModalEditOpen);
       setSelectedPost(null);
     }
@@ -42,6 +45,7 @@ const BlogPage: React.FC = () => {
   const handleDelete = async () => {
     if (selectedPost) {
       await deletePost(selectedPost._id);
+      await fetchPosts();
       setSelectedPost(null);
       closeModal(setIsModalDeleteOpen);
     }
@@ -68,45 +72,50 @@ const BlogPage: React.FC = () => {
         />
       </div>
       <div>
-        <Table>
-          <Table.Head className="bg-primary text-center text-white">
-            <span>NO.</span>
-            <span>Tiêu đề</span>
-            <span>Ngày đăng</span>
-            <span>Danh mục</span>
-            <span>Thao tác</span>
-          </Table.Head>
-          <Table.Body className="text-center text-sm">
-            {posts?.map((post, index) => (
-              <Table.Row key={post._id}>
-                <span className="line-clamp-1">{index + 1}</span>
-                <span className="line-clamp-1">{post.title}</span>
-                <span className="line-clamp-1">{new Date(post.createAt).toLocaleDateString()}</span>
-                <span className="line-clamp-1">{post.post_catalog_id.name}</span>
-                <span className="space-x-3">
-                  <Button
-                    color="info"
-                    onClick={() => {
-                      setSelectedPost(post);
-                      openModal(setIsModalEditOpen);
-                    }}
-                  >
-                    <FaPenToSquare />
-                  </Button>
-                  <Button
-                    color="error"
-                    onClick={() => {
-                      setSelectedPost(post);
-                      openModal(setIsModalDeleteOpen);
-                    }}
-                  >
-                    <MdDelete />
-                  </Button>
-                </span>
-              </Table.Row>
-            ))}
-          </Table.Body>
-        </Table>
+        <TableListAdmin
+          Title_TableListAdmin={`Danh Sách Bài Viết (${posts.length})`}
+          table_head={
+            <Table.Head className="bg-primary text-center text-white">
+              <span>STT</span>
+              <span>Tiêu đề</span>
+              <span>Ngày đăng</span>
+              <span>Danh mục</span>
+              <span>Thao tác</span>
+            </Table.Head>
+          }
+          table_body={
+            <Table.Body className="text-center text-sm">
+              {posts?.map((post, index) => (
+                <Table.Row key={post._id}>
+                  <span className="line-clamp-1">#{index + 1}</span>
+                  <span className="line-clamp-1">{post.title}</span>
+                  <span className="line-clamp-1">{new Date(post.createAt).toLocaleDateString()}</span>
+                  <span className="line-clamp-1">{post.post_catalog_id.name}</span>
+                  <span className="space-x-3">
+                    <Button
+                      color="info"
+                      onClick={() => {
+                        setSelectedPost(post);
+                        openModal(setIsModalEditOpen);
+                      }}
+                    >
+                      <FaPenToSquare />
+                    </Button>
+                    <Button
+                      color="error"
+                      onClick={() => {
+                        setSelectedPost(post);
+                        openModal(setIsModalDeleteOpen);
+                      }}
+                    >
+                      <MdDelete />
+                    </Button>
+                  </span>
+                </Table.Row>
+              ))}
+            </Table.Body>
+          }
+        />
       </div>
 
       {/* Modals */}

@@ -6,6 +6,7 @@ import Header from '@editorjs/header';
 import List from '@editorjs/list';
 import axios from 'axios';
 import { Post } from '../../../../types/post/post.type';
+import { useNavigate } from 'react-router-dom';
 
 interface FormData {
   title: string;
@@ -25,13 +26,14 @@ interface ModalEditPostProps {
   isOpen: boolean;
   onClose: () => void;
   onUpdate: (data: Omit<Post, '_id'>) => Promise<void>;
-  post: Post | null; // Có thể là null nếu không có post
+  post: Post | null;
 }
 
 const ModalEditPost: React.FC<ModalEditPostProps> = ({ isOpen, onClose, onUpdate, post }) => {
   const { register, handleSubmit, reset } = useForm<FormData>();
   const editorRef = useRef<EditorJS | null>(null);
   const [catalogs, setCatalogs] = useState<PostCatalog[]>([]);
+  const navigate = useNavigate()
 
   useEffect(() => {
     const fetchCatalogs = async () => {
@@ -48,7 +50,7 @@ const ModalEditPost: React.FC<ModalEditPostProps> = ({ isOpen, onClose, onUpdate
 
   const isValidJSON = (str: string) => {
     if (!str || typeof str !== 'string') {
-      return false; // Trả về false nếu chuỗi không hợp lệ
+      return false;
     }
 
     try {
@@ -61,16 +63,14 @@ const ModalEditPost: React.FC<ModalEditPostProps> = ({ isOpen, onClose, onUpdate
 
   useEffect(() => {
     if (isOpen && post) {
-      // Hủy EditorJS trước khi khởi tạo lại
       if (editorRef.current) {
         editorRef.current.destroy();
         editorRef.current = null;
       }
 
-      // Chờ DOM hoàn tất render trước khi khởi tạo EditorJS
       setTimeout(() => {
         const editorElement = document.getElementById('editorjs');
-        console.log('EditorJS element:', editorElement); // Kiểm tra xem element có tồn tại không
+        console.log('EditorJS element:', editorElement);
 
         if (editorElement && isValidJSON(post.content)) {
           editorRef.current = new EditorJS({
@@ -94,7 +94,6 @@ const ModalEditPost: React.FC<ModalEditPostProps> = ({ isOpen, onClose, onUpdate
       }, 100);
     }
 
-    // Cleanup EditorJS khi modal đóng
     return () => {
       if (editorRef.current) {
         editorRef.current.destroy();
@@ -119,8 +118,9 @@ const ModalEditPost: React.FC<ModalEditPostProps> = ({ isOpen, onClose, onUpdate
       };
 
       await onUpdate(updatedPost);
-      reset(); // Chỉ reset form sau khi submit thành công
-      onClose(); // Đóng modal sau khi xử lý thành công
+      reset();
+      onClose();
+      navigate('/admin/blog')
     } catch (error) {
       console.error('Error saving EditorJS data:', error);
     }
@@ -129,7 +129,7 @@ const ModalEditPost: React.FC<ModalEditPostProps> = ({ isOpen, onClose, onUpdate
 
 
   if (!post) {
-    return null; // Không hiển thị modal nếu không có post
+    return null;
   }
 
   return (
@@ -145,7 +145,6 @@ const ModalEditPost: React.FC<ModalEditPostProps> = ({ isOpen, onClose, onUpdate
               type="text"
               defaultValue={post.title}
               {...register("title", { required: true })}
-              required
               className="px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
           </div>
@@ -158,9 +157,9 @@ const ModalEditPost: React.FC<ModalEditPostProps> = ({ isOpen, onClose, onUpdate
           <div className="flex flex-col">
             <label className="mb-1 text-lg font-semibold">Danh mục:</label>
             <select
-              {...register("post_catalog_id", { required: true })}
+              {...register("post_catalog_id")}
               className="px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-              defaultValue={post.post_catalog_id._id} // Set default value to the current catalog
+              defaultValue={post.post_catalog_id._id}
             >
               <option value="" disabled>Chọn danh mục</option>
               {catalogs.map((catalog) => (
@@ -178,7 +177,6 @@ const ModalEditPost: React.FC<ModalEditPostProps> = ({ isOpen, onClose, onUpdate
               type="text"
               defaultValue={post.img}
               {...register("img", { required: true })}
-              required
               className="px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
           </div>

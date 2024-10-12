@@ -15,12 +15,14 @@ import { SeatContext } from '../../context/seat/SeatContext';
 import { VehicleContext } from '../../context/vehicle/VehicleContext';
 import { ServiceContext } from '../../context/service/ServiceContext';
 import { MdGroupAdd } from "react-icons/md";
+import { usePostContext } from '../../context/post/PostContext';
 
 const SidebarAdmin: React.FC<{}> = () => {
   const { locations } = useContext(LocationContext);
   const { seats } = useContext(SeatContext);
   const { vehicles } = useContext(VehicleContext);
   const { services } = useContext(ServiceContext);
+  const { posts } = usePostContext()
 
   const [activeItem, setActiveItem] = useState('Dashboard');
 
@@ -41,7 +43,8 @@ const SidebarAdmin: React.FC<{}> = () => {
     {
       name: 'Bài Viết',
       icon: MdPostAdd,
-      link: '/admin/blog'
+      link: '/admin/blog',
+      toastify: posts.length
     },
     {
       name: 'Phương Tiện',
