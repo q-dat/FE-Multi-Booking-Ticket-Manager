@@ -20,7 +20,7 @@ interface TicketContextType {
   error: string | null;
   searchTickets: (searchParams: Record<string, string>) => Promise<ITicket[]>;
   getAllTickets: () => void;
-  getTicketById: (_id: string) => ITicket | undefined; // Không gọi API nữa, chỉ trả về từ state
+  getTicketById: (_id: string) => ITicket | undefined; 
   createTicket: (ticket: ITicket) => Promise<void>;
   updateTicket: (_id: string, ticket: ITicket) => Promise<void>;
   deleteTicket: (_id: string) => Promise<void>;

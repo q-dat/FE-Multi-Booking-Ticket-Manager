@@ -2,9 +2,9 @@ import React, { useState, useEffect, useContext } from 'react';
 import { Button, Menu } from 'react-daisyui';
 import { NavLink, useLocation } from 'react-router-dom';
 import { FaHome } from 'react-icons/fa';
-import { IoLocation } from 'react-icons/io5';
+import { IoLocation, IoTicket } from 'react-icons/io5';
 import { MdPostAdd } from 'react-icons/md';
-import { FaTicket, FaTrainSubway } from 'react-icons/fa6';
+import { FaTicket } from 'react-icons/fa6';
 // import { useTranslation } from 'react-i18next';
 import DarkModeToggle from '../orther/darkmode/DarkMode';
 import { Logo, LogoTitle } from '../../assets/images';
@@ -14,11 +14,13 @@ import { LocationContext } from '../../context/location/LocationContext';
 import { SeatContext } from '../../context/seat/SeatContext';
 import { VehicleContext } from '../../context/vehicle/VehicleContext';
 import { ServiceContext } from '../../context/service/ServiceContext';
-import { MdGroupAdd } from 'react-icons/md';
 import { usePostContext } from '../../context/post/PostContext';
 import { AgeContext } from '../../context/age/AgeContext';
 import { TicketCatalogContext } from '../../context/ticketCatalog/TicketCatalogContext';
 import { VehicleCatalogContext } from '../../context/vehicleCatalog/VehicleCatalogContext';
+import { IoIosTrain } from "react-icons/io";
+import { GiAges } from 'react-icons/gi';
+import { TicketContext } from '../../context/ticket/TicketContext';
 const SidebarAdmin: React.FC<{}> = () => {
   const { locations } = useContext(LocationContext);
   const { seats } = useContext(SeatContext);
@@ -28,7 +30,7 @@ const SidebarAdmin: React.FC<{}> = () => {
   const { posts } = usePostContext();
   const { ticketCatalogs } = useContext(TicketCatalogContext);
   const { vehicleCatalogs } = useContext(VehicleCatalogContext);
-
+const {tickets} =useContext(TicketContext)
   const [activeItem, setActiveItem] = useState('Dashboard');
 
   const location = useLocation();
@@ -53,7 +55,7 @@ const SidebarAdmin: React.FC<{}> = () => {
     },
     {
       name: 'Phương Tiện',
-      icon: FaTrainSubway,
+      icon: IoIosTrain,
       link: '/admin/vehicle',
       toastify: vehicles.length
     },
@@ -64,8 +66,8 @@ const SidebarAdmin: React.FC<{}> = () => {
       toastify: seats.length
     },
     {
-      name: 'Tuổi',
-      icon: MdGroupAdd,
+      name: 'Lứa Tuổi',
+      icon: GiAges,
       link: '/admin/age',
       toastify: ages.length
     },
@@ -80,6 +82,12 @@ const SidebarAdmin: React.FC<{}> = () => {
       icon: FaTicket,
       link: '/admin/ticket-catalog',
       toastify: ticketCatalogs.length
+    },
+    {
+      name: 'Các Vé',
+      icon: IoTicket,
+      link: '/admin/ticket',
+      toastify: tickets.length
     },
     {
       name: 'Loại Phương Tiện',

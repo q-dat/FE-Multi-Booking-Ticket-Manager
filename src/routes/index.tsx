@@ -2,7 +2,6 @@ import { lazy } from 'react';
 import { Route, Routes } from 'react-router-dom';
 import DefaultLayout from '../layout/DefaultLayout';
 import PrivateRouter from './PrivateRouter';
-import TicketCatalogPage from '../pages/admin/TicketCatalogPage';
 
 // UserPage
 const User = lazy(() => import('../pages/user/User'));
@@ -30,7 +29,13 @@ const VehiclePage = lazy(() => import('../pages/admin/VehiclePage'));
 const SeatPage = lazy(() => import('../pages/admin/SeatPage'));
 const AgePage = lazy(() => import('../pages/admin/AgePage'));
 const ServicePage = lazy(() => import('../pages/admin/ServicePage'));
-const VehicleCatalogPage = lazy(() => import('../pages/admin/VehicleCatalogPage'));
+const VehicleCatalogPage = lazy(
+  () => import('../pages/admin/VehicleCatalogPage')
+);
+const TicketCatalogPage = lazy(
+  () => import('../pages/admin/TicketCatalogPage')
+);
+const TicketPage = lazy(() => import('../pages/admin/TicketPage'));
 
 // not found page
 const NotFound = lazy(() => import('../pages/404/NotFound'));
@@ -83,6 +88,7 @@ export default function AppRoutes() {
             <Route path="service" element={<ServicePage />} />
             <Route path="ticket-catalog" element={<TicketCatalogPage />} />
             <Route path="vehicle-catalog" element={<VehicleCatalogPage />} />
+            <Route path="ticket" element={<TicketPage />} />
           </Route>
         </Route>
         {/* 404 not found */}
