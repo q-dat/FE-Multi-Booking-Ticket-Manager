@@ -7,7 +7,7 @@ import ModalCreatePost from '../../components/admin/Modal/ModalBlogs/ModalCreate
 import ModalDeletePost from '../../components/admin/Modal/ModalBlogs/ModalDeletePost';
 import ModalEditPost from '../../components/admin/Modal/ModalBlogs/ModalEditPost';
 import { MdDelete } from 'react-icons/md';
-import { FaPenToSquare } from 'react-icons/fa6';
+import { FaCircleInfo, FaPenToSquare } from 'react-icons/fa6';
 import { usePostContext } from '../../context/post/PostContext';
 import { Post } from '../../types/post/post.type';
 import TableListAdmin from '../../components/admin/TablelistAdmin';
@@ -80,7 +80,7 @@ const BlogPage: React.FC = () => {
               <span>Tiêu đề</span>
               <span>Ngày đăng</span>
               <span>Danh mục</span>
-              <span>Thao tác</span>
+              <span>Hành động</span>
             </Table.Head>
           }
           table_body={
@@ -91,25 +91,37 @@ const BlogPage: React.FC = () => {
                   <span className="line-clamp-1">{post.title}</span>
                   <span className="line-clamp-1">{new Date(post.createAt).toLocaleDateString()}</span>
                   <span className="line-clamp-1">{post.post_catalog_id.name}</span>
-                  <span className="space-x-3">
-                    <Button
-                      color="info"
-                      onClick={() => {
-                        setSelectedPost(post);
-                        openModal(setIsModalEditOpen);
-                      }}
-                    >
-                      <FaPenToSquare />
-                    </Button>
-                    <Button
-                      color="error"
-                      onClick={() => {
-                        setSelectedPost(post);
-                        openModal(setIsModalDeleteOpen);
-                      }}
-                    >
-                      <MdDelete />
-                    </Button>
+                  <span>
+                    <details>
+                      <summary className="inline cursor-pointer text-base text-warning">
+                        <div className="flex items-center justify-center px-[55px] py-2">
+                          <FaCircleInfo />
+                        </div>
+                      </summary>
+                      <div className="flex flex-col items-center justify-center space-y-2">
+                        <Button
+                          color="success"
+                          onClick={() => {
+                            setSelectedPost(post);
+                            openModal(setIsModalEditOpen);
+                          }}
+                          className="w-full max-w-[140px] text-sm font-light text-white"
+                        >
+                          <FaPenToSquare />
+                          Cập Nhật
+                        </Button>
+                        <Button
+                          onClick={() => {
+                            setSelectedPost(post);
+                            openModal(setIsModalDeleteOpen);
+                          }}
+                          className="w-full max-w-[140px] bg-red-600 text-sm font-light text-white"
+                        >
+                          <MdDelete />
+                          Xoá
+                        </Button>
+                      </div>
+                    </details>
                   </span>
                 </Table.Row>
               ))}
