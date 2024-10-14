@@ -1,4 +1,4 @@
-import { ISeatCatalog } from "../seat-catalog/seat-catalog";
+import { ISeatCatalog } from '../seat-catalog/seat-catalog';
 export interface ISeat {
   _id: string;
   seat_catalog_id: ISeatCatalog;

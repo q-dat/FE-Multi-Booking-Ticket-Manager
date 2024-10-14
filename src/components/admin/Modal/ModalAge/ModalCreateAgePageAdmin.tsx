@@ -1,13 +1,13 @@
-import React, { useContext,  } from 'react';
-import { Button, } from 'react-daisyui';
+import React, { useContext } from 'react';
+import { Button } from 'react-daisyui';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import InputModal from '../../InputModal';
-import { IAge } from '../../../../types/type/age/age'; 
+import { IAge } from '../../../../types/type/age/age';
 import { isIErrorResponse } from '../../../../types/error/error';
 import { Toastify } from '../../../../helper/Toastify';
-import { AgeContext } from '../../../../context/age/AgeContext'; 
+import { AgeContext } from '../../../../context/age/AgeContext';
 
-interface ModalCreateAgeProps {  
+interface ModalCreateAgeProps {
   isOpen: boolean;
   onClose: () => void;
 }
@@ -16,22 +16,20 @@ const ModalCreateAgePageAdmin: React.FC<ModalCreateAgeProps> = ({
   isOpen,
   onClose
 }) => {
-  const { createAge } = useContext(AgeContext); 
+  const { createAge } = useContext(AgeContext);
   const { register, handleSubmit, reset } = useForm<IAge>();
 
-  
-
-  const onSubmit: SubmitHandler<IAge> = async formData => { 
+  const onSubmit: SubmitHandler<IAge> = async formData => {
     try {
-      await createAge(formData); 
-      Toastify('Tạo độ tuổi thành công!', 201); 
+      await createAge(formData);
+      Toastify('Tạo độ tuổi thành công!', 201);
       reset();
       onClose();
     } catch (error: unknown) {
       const errorMessage = isIErrorResponse(error)
         ? error.data?.message
         : 'Lỗi khi tạo độ tuổi!';
-      Toastify(`Lỗi: ${errorMessage}`, 401); 
+      Toastify(`Lỗi: ${errorMessage}`, 401);
     }
   };
 
@@ -56,25 +54,25 @@ const ModalCreateAgePageAdmin: React.FC<ModalCreateAgeProps> = ({
           className="mx-2 flex w-[400px] flex-col rounded-lg bg-white p-5 text-start shadow dark:bg-gray-800"
         >
           <div>
-            <p className="font-bold text-black dark:text-white">Tạo độ tuổi mới</p> {/* Updated label */}
+            <p className="font-bold text-black dark:text-white">
+              Tạo độ tuổi mới
+            </p>{' '}
+            {/* Updated label */}
             <InputModal
               type={'text'}
               {...register('name', { required: true })}
-              placeholder=  {"Tên độ tuổi"}
+              placeholder={'Tên độ tuổi'}
             />
             <InputModal
               type={'text'}
               {...register('price', { required: true })}
-              placeholder="Giá"  
+              placeholder="Giá"
             />
             <InputModal
               type={'text'}
               {...register('des', { required: true })}
-              placeholder=  {"Mô tả"}
+              placeholder={'Mô tả'}
             />
-            
-            
-            
           </div>
 
           <div className="space-x-5 text-center">

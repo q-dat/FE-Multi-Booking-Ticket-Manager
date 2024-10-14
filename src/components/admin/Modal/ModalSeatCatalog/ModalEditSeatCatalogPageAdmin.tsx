@@ -17,12 +17,16 @@ interface ModalEditSeatCatalogProps {
 const ModalEditSeatCatalogPageAdmin: React.FC<ModalEditSeatCatalogProps> = ({
   isOpen,
   onClose,
-  seatCatalogId,
+  seatCatalogId
 }) => {
-  const { getAllSeatCatalogs, updateSeatCatalog, getSeatCatalogById, seatCatalogs } =
-    useContext(SeatCatalogContext);
+  const {
+    getAllSeatCatalogs,
+    updateSeatCatalog,
+    getSeatCatalogById,
+    seatCatalogs
+  } = useContext(SeatCatalogContext);
   const { register, handleSubmit, reset, setValue } = useForm<ISeatCatalog>();
-  const { vehicles } = useContext( VehicleContext);
+  const { vehicles } = useContext(VehicleContext);
   useEffect(() => {
     if (seatCatalogId) {
       getSeatCatalogById(seatCatalogId);
@@ -31,14 +35,14 @@ const ModalEditSeatCatalogPageAdmin: React.FC<ModalEditSeatCatalogProps> = ({
 
   useEffect(() => {
     const seatCatalogData = seatCatalogs.find(
-      (catalog) => catalog._id === seatCatalogId
+      catalog => catalog._id === seatCatalogId
     );
     if (seatCatalogData) {
       setValue('name', seatCatalogData.name);
     }
   }, [seatCatalogs, seatCatalogId, setValue]);
 
-  const onSubmit: SubmitHandler<ISeatCatalog> = async (formData) => {
+  const onSubmit: SubmitHandler<ISeatCatalog> = async formData => {
     try {
       await updateSeatCatalog(seatCatalogId, formData);
       Toastify('Chỉnh sửa danh mục ghế thành công!', 200);
@@ -70,7 +74,7 @@ const ModalEditSeatCatalogPageAdmin: React.FC<ModalEditSeatCatalogProps> = ({
         className="modal-overlay fixed inset-0 z-50 flex w-full items-center justify-center bg-black bg-opacity-40"
       >
         <div
-          onClick={(e) => e.stopPropagation()}
+          onClick={e => e.stopPropagation()}
           className="flex flex-col space-y-10 rounded-lg bg-white p-10 text-start shadow dark:bg-gray-800"
         >
           <p className="text-xl font-bold text-black dark:text-white">
@@ -85,7 +89,7 @@ const ModalEditSeatCatalogPageAdmin: React.FC<ModalEditSeatCatalogProps> = ({
               type="text"
               {...register('name')}
             />
-             <Select
+            <Select
               defaultValue=""
               className="mb-5 w-full border border-gray-700 border-opacity-50 bg-white text-black focus:border-primary focus:outline-none dark:border-secondary dark:bg-gray-700 dark:text-white dark:focus:border-white"
               {...register('vehicle_id')}

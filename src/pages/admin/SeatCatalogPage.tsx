@@ -27,7 +27,9 @@ const SeatCatalogPage: React.FC = () => {
   const [isModalCreateOpen, setIsModalCreateOpen] = useState(false);
   const [isModalDeleteOpen, setIsModalDeleteOpen] = useState(false);
   const [isModalEditOpen, setIsModalEditOpen] = useState(false);
-  const [selectedSeatCatalogId, setSelectedSeatCatalogId] = useState<string | null>(null);
+  const [selectedSeatCatalogId, setSelectedSeatCatalogId] = useState<
+    string | null
+  >(null);
 
   const openModalCreateAdmin = () => setIsModalCreateOpen(true);
   const closeModalCreateAdmin = () => setIsModalCreateOpen(false);

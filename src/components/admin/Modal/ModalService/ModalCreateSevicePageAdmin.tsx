@@ -16,7 +16,7 @@ const ModalCreateServicePageAdmin: React.FC<ModalCreateServiceProps> = ({
   isOpen,
   onClose
 }) => {
-  const { getAllServices,createService } = useContext(ServiceContext);
+  const { getAllServices, createService } = useContext(ServiceContext);
   const { register, handleSubmit, reset } = useForm<IService>();
 
   const onSubmit: SubmitHandler<IService> = async formData => {
@@ -25,7 +25,7 @@ const ModalCreateServicePageAdmin: React.FC<ModalCreateServiceProps> = ({
       Toastify('Tạo dịch vụ thành công!', 201);
       reset();
       onClose();
-      getAllServices()
+      getAllServices();
     } catch (error: unknown) {
       const errorMessage = isIErrorResponse(error)
         ? error.data?.message

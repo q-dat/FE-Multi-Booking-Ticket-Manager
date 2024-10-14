@@ -14,14 +14,14 @@ interface ModalCreateTicketProps {
 
 const ModalCreateTicketPageAdmin: React.FC<ModalCreateTicketProps> = ({
   isOpen,
-  onClose,
+  onClose
 }) => {
   const { createTicket } = useContext(TicketContext);
   const { register, handleSubmit, reset } = useForm<ITicket>();
 
   const onSubmit: SubmitHandler<ITicket> = async formData => {
     try {
-      await createTicket(formData); 
+      await createTicket(formData);
       Toastify('Tạo vé thành công!', 201);
       reset();
       onClose();
@@ -56,7 +56,7 @@ const ModalCreateTicketPageAdmin: React.FC<ModalCreateTicketProps> = ({
           <p className="text-xl font-bold text-black dark:text-white">
             Tạo vé mới
           </p>
-          
+
           <div>
             <label className="block text-sm font-medium text-gray-700">
               Mã Danh Mục Vé
@@ -64,7 +64,7 @@ const ModalCreateTicketPageAdmin: React.FC<ModalCreateTicketProps> = ({
             <InputModal
               placeholder={'ví dụ: Mã vé ABC'}
               type={'text'}
-              {...register('ticket_catalog_id')} 
+              {...register('ticket_catalog_id')}
             />
           </div>
 
@@ -75,7 +75,7 @@ const ModalCreateTicketPageAdmin: React.FC<ModalCreateTicketProps> = ({
             <InputModal
               placeholder={'ví dụ: Mã xe XYZ'}
               type={'text'}
-              {...register('vehicle_catalog_id')} 
+              {...register('vehicle_catalog_id')}
             />
           </div>
 
@@ -86,7 +86,7 @@ const ModalCreateTicketPageAdmin: React.FC<ModalCreateTicketProps> = ({
             <InputModal
               placeholder={'ví dụ: Ghế 1A'}
               type={'text'}
-              {...register('seat_id')} 
+              {...register('seat_id')}
             />
           </div>
 
@@ -97,7 +97,7 @@ const ModalCreateTicketPageAdmin: React.FC<ModalCreateTicketProps> = ({
             <InputModal
               placeholder={'ví dụ: Chuyến đi 123'}
               type={'text'}
-              {...register('trip_id')} 
+              {...register('trip_id')}
             />
           </div>
 

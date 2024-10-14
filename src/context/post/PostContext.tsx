@@ -1,7 +1,12 @@
-import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
+import React, {
+  createContext,
+  useContext,
+  useState,
+  useEffect,
+  ReactNode
+} from 'react';
 import axios from '../../config/axiosConfig';
 import { Post } from '../../types/post/post.type';
-
 
 interface PostContextType {
   posts: Post[];
@@ -11,7 +16,9 @@ interface PostContextType {
   deletePost: (id: string) => Promise<void>;
 }
 
-export const PostContext = createContext<PostContextType | undefined>(undefined);
+export const PostContext = createContext<PostContextType | undefined>(
+  undefined
+);
 
 // Hook sử dụng context
 export const usePostContext = () => {
@@ -22,7 +29,9 @@ export const usePostContext = () => {
   return context;
 };
 
-export const PostProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
+export const PostProvider: React.FC<{ children: ReactNode }> = ({
+  children
+}) => {
   const [posts, setPosts] = useState<Post[]>([]);
 
   const fetchPosts = async () => {
@@ -41,7 +50,7 @@ export const PostProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
   const createPost = async (newPost: Omit<Post, '_id'>) => {
     try {
       const response = await axios.post('/api/blogs/posts', newPost);
-      setPosts((prev) => [...prev, response.data.savedPost]);
+      setPosts(prev => [...prev, response.data.savedPost]);
     } catch (error) {
       console.error('Lỗi khi tạo bài viết:', error);
     }
@@ -50,8 +59,8 @@ export const PostProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
   const updatePost = async (id: string, updatedPost: Omit<Post, '_id'>) => {
     try {
       const response = await axios.put(`/api/blogs/posts/${id}`, updatedPost);
-      setPosts((prev) =>
-        prev.map((post) => (post._id === id ? response.data.updatedPost : post))
+      setPosts(prev =>
+        prev.map(post => (post._id === id ? response.data.updatedPost : post))
       );
     } catch (error) {
       console.error('Lỗi khi cập nhật bài viết:', error);
@@ -61,7 +70,7 @@ export const PostProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
   const deletePost = async (id: string) => {
     try {
       await axios.delete(`/api/blogs/posts/${id}`);
-      setPosts((prev) => prev.filter((post) => post._id !== id));
+      setPosts(prev => prev.filter(post => post._id !== id));
     } catch (error) {
       console.error('Lỗi khi xoá bài viết:', error);
     }
@@ -72,7 +81,9 @@ export const PostProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
   }, []);
 
   return (
-    <PostContext.Provider value={{ posts, fetchPosts, createPost, updatePost, deletePost }}>
+    <PostContext.Provider
+      value={{ posts, fetchPosts, createPost, updatePost, deletePost }}
+    >
       {children}
     </PostContext.Provider>
   );

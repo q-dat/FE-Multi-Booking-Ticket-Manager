@@ -22,7 +22,6 @@ interface SeatContextType {
     update: boolean;
     delete: boolean;
     search: boolean;
-
   };
   error: string | null;
   getAllSeats: () => void;
@@ -41,7 +40,6 @@ const defaultContextValue: SeatContextType = {
     update: false,
     delete: false,
     search: false
-
   },
   error: null,
   getAllSeats: () => {},
@@ -62,14 +60,12 @@ export const SeatProvider = ({ children }: { children: ReactNode }) => {
     update: boolean;
     delete: boolean;
     search: boolean;
-
   }>({
     getAll: false,
     create: false,
     update: false,
     delete: false,
     search: false
-
   });
   const [error, setError] = useState<string | null>(null);
 
@@ -172,7 +168,6 @@ export const SeatProvider = ({ children }: { children: ReactNode }) => {
         updateSeat,
         deleteSeat,
         searchSeatsByName
-
       }}
     >
       {children}

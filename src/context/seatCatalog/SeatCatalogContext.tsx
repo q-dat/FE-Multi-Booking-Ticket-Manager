@@ -26,10 +26,7 @@ interface SeatCatalogContextType {
   getAllSeatCatalogs: () => void;
   getSeatCatalogById: (_id: string) => ISeatCatalog | undefined;
   createSeatCatalog: (seatCatalog: ISeatCatalog) => Promise<void>;
-  updateSeatCatalog: (
-    _id: string,
-    seatCatalog: ISeatCatalog
-  ) => Promise<void>;
+  updateSeatCatalog: (_id: string, seatCatalog: ISeatCatalog) => Promise<void>;
   deleteSeatCatalog: (_id: string) => Promise<void>;
 }
 
@@ -43,18 +40,18 @@ const defaultContextValue: SeatCatalogContextType = {
     delete: false
   },
   error: null,
-  getAllSeatCatalogs: () => { },
+  getAllSeatCatalogs: () => {},
   getSeatCatalogById: () => undefined,
-  createSeatCatalog: async () => { },
-  updateSeatCatalog: async () => { },
-  deleteSeatCatalog: async () => { }
+  createSeatCatalog: async () => {},
+  updateSeatCatalog: async () => {},
+  deleteSeatCatalog: async () => {}
 };
 
 export const SeatCatalogContext =
   createContext<SeatCatalogContextType>(defaultContextValue);
 
 export const SeatCatalogProvider = ({ children }: { children: ReactNode }) => {
-  const [seatCatalogs, setSeatCatalogs] = useState<ISeatCatalog[]>([]); 
+  const [seatCatalogs, setSeatCatalogs] = useState<ISeatCatalog[]>([]);
   const [loading, setLoading] = useState<{
     getAll: boolean;
     getById: boolean;

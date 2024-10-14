@@ -18,7 +18,8 @@ import ModalDeleteTicketPageAdmin from '../../components/admin/Modal/ModalTicket
 import ModalEditTicketPageAdmin from '../../components/admin/Modal/ModalTicket/ModalEditTicketPageAdmin';
 
 const TicketPage: React.FC = () => {
-  const { tickets, loading, error, deleteTicket, getAllTickets } = useContext(TicketContext);
+  const { tickets, loading, error, deleteTicket, getAllTickets } =
+    useContext(TicketContext);
   const [isModalCreateOpen, setIsModalCreateOpen] = useState(false);
   const [isModalDeleteOpen, setIsModalDeleteOpen] = useState(false);
   const [isModalEditOpen, setIsModalEditOpen] = useState(false);
@@ -38,7 +39,7 @@ const TicketPage: React.FC = () => {
   const closeModalEditAdmin = () => setIsModalEditOpen(false);
 
   useEffect(() => {
-    getAllTickets(); 
+    getAllTickets();
   }, [getAllTickets]);
 
   const navigate = useNavigate();
@@ -48,10 +49,12 @@ const TicketPage: React.FC = () => {
         await deleteTicket(selectedTicketId);
         closeModalDeleteAdmin();
         Toastify('Bạn đã xoá vé thành công', 201);
-        getAllTickets(); 
+        getAllTickets();
         navigate('/admin/ticket');
       } catch (error) {
-        const errorMessage = isIErrorResponse(error) ? error.data?.message : 'Xoá vé thất bại!';
+        const errorMessage = isIErrorResponse(error)
+          ? error.data?.message
+          : 'Xoá vé thất bại!';
         Toastify(`Lỗi: ${errorMessage}`, 401);
       }
     }
@@ -99,10 +102,18 @@ const TicketPage: React.FC = () => {
             {tickets.map((ticket: ITicket, index: number) => (
               <Table.Row key={ticket._id}>
                 <span className="line-clamp-1">#{index + 1}</span>
-                <span className="line-clamp-1">{ticket.ticket_catalog_id?.name}</span>
-                <span className="line-clamp-1">{ticket.trip_id?.departure_point?.name}</span>
-                <span className="line-clamp-1">{ticket.trip_id?.destination_point?.name}</span>
-                <span className="line-clamp-1">{ticket.trip_id?.departure_time}</span>
+                <span className="line-clamp-1">
+                  {ticket.ticket_catalog_id?.name}
+                </span>
+                <span className="line-clamp-1">
+                  {ticket.trip_id?.departure_point?.name}
+                </span>
+                <span className="line-clamp-1">
+                  {ticket.trip_id?.destination_point?.name}
+                </span>
+                <span className="line-clamp-1">
+                  {ticket.trip_id?.departure_time}
+                </span>
                 <span className="line-clamp-1">{ticket.price} đ</span>
                 <span>
                   <details>

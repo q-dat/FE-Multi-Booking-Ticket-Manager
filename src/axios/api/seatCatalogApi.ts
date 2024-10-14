@@ -31,4 +31,3 @@ export const updateSeatCatalogApi = (id: string, seatCatalog: ISeatCatalog) => {
 export const deleteSeatCatalogApi = (id: string) => {
   return axios.delete(`/api/seat-catalogs/${id}`);
 };
-

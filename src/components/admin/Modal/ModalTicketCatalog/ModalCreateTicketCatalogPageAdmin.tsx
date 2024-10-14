@@ -12,14 +12,13 @@ interface ModalCreateTicketCatalogProps {
   onClose: () => void;
 }
 
-const ModalCreateTicketCatalogPageAdmin: React.FC<ModalCreateTicketCatalogProps> = ({
-  isOpen,
-  onClose,
-}) => {
+const ModalCreateTicketCatalogPageAdmin: React.FC<
+  ModalCreateTicketCatalogProps
+> = ({ isOpen, onClose }) => {
   const { createTicketCatalog } = useContext(TicketCatalogContext);
   const { register, handleSubmit, reset } = useForm<ITicketCatalog>();
 
-  const onSubmit: SubmitHandler<ITicketCatalog> = async (formData) => {
+  const onSubmit: SubmitHandler<ITicketCatalog> = async formData => {
     try {
       await createTicketCatalog(formData);
       Toastify('Tạo danh mục vé thành công!', 201);
@@ -50,7 +49,7 @@ const ModalCreateTicketCatalogPageAdmin: React.FC<ModalCreateTicketCatalogProps>
         className="modal-overlay fixed inset-0 z-50 flex w-full items-center justify-center bg-black bg-opacity-40"
       >
         <div
-          onClick={(e) => e.stopPropagation()}
+          onClick={e => e.stopPropagation()}
           className="mx-2 flex w-[400px] flex-col rounded-lg bg-white p-5 text-start shadow dark:bg-gray-800"
         >
           <div>

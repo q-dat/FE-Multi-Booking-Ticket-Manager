@@ -13,13 +13,15 @@ interface ModalEditTicketCatalogProps {
   ticketCatalogId: string;
 }
 
-const ModalEditTicketCatalogPageAdmin: React.FC<ModalEditTicketCatalogProps> = ({
-  isOpen,
-  onClose,
-  ticketCatalogId,
-}) => {
-  const { getAllTicketCatalogs, updateTicketCatalog, getTicketCatalogById, ticketCatalogs } =
-    useContext(TicketCatalogContext);
+const ModalEditTicketCatalogPageAdmin: React.FC<
+  ModalEditTicketCatalogProps
+> = ({ isOpen, onClose, ticketCatalogId }) => {
+  const {
+    getAllTicketCatalogs,
+    updateTicketCatalog,
+    getTicketCatalogById,
+    ticketCatalogs
+  } = useContext(TicketCatalogContext);
   const { register, handleSubmit, reset, setValue } = useForm<ITicketCatalog>();
 
   useEffect(() => {
@@ -30,14 +32,14 @@ const ModalEditTicketCatalogPageAdmin: React.FC<ModalEditTicketCatalogProps> = (
 
   useEffect(() => {
     const ticketCatalogData = ticketCatalogs.find(
-      (catalog) => catalog._id === ticketCatalogId
+      catalog => catalog._id === ticketCatalogId
     );
     if (ticketCatalogData) {
       setValue('name', ticketCatalogData.name);
     }
   }, [ticketCatalogs, ticketCatalogId, setValue]);
 
-  const onSubmit: SubmitHandler<ITicketCatalog> = async (formData) => {
+  const onSubmit: SubmitHandler<ITicketCatalog> = async formData => {
     try {
       await updateTicketCatalog(ticketCatalogId, formData);
       Toastify('Chỉnh sửa danh mục vé thành công!', 200);
@@ -69,7 +71,7 @@ const ModalEditTicketCatalogPageAdmin: React.FC<ModalEditTicketCatalogProps> = (
         className="modal-overlay fixed inset-0 z-50 flex w-full items-center justify-center bg-black bg-opacity-40"
       >
         <div
-          onClick={(e) => e.stopPropagation()}
+          onClick={e => e.stopPropagation()}
           className="flex flex-col space-y-10 rounded-lg bg-white p-10 text-start shadow dark:bg-gray-800"
         >
           <p className="text-xl font-bold text-black dark:text-white">

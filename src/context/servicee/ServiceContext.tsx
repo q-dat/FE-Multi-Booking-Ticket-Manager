@@ -107,10 +107,7 @@ export const ServiceProvider = ({ children }: { children: ReactNode }) => {
         () => createServiceApi(service),
         data => {
           if (data.savedservice) {
-            setServices(prevServices => [
-              ...prevServices,
-              data.savedService
-            ]);
+            setServices(prevServices => [...prevServices, data.savedService]);
           }
         },
         'create'

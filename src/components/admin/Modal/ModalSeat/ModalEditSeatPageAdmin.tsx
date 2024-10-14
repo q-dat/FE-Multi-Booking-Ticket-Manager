@@ -20,8 +20,8 @@ const ModalEditSeatPageAdmin: React.FC<ModalEditSeatProps> = ({
 }) => {
   const { getAllSeats, updateSeat, getSeatById, seats } =
     useContext(SeatContext);
-    // 
-    const { seatCatalogs} = useContext(SeatCatalogContext);
+  //
+  const { seatCatalogs } = useContext(SeatCatalogContext);
   const { register, handleSubmit, reset, setValue } = useForm<ISeat>();
 
   useEffect(() => {
@@ -72,16 +72,12 @@ const ModalEditSeatPageAdmin: React.FC<ModalEditSeatProps> = ({
         onClick={handleOverlayClick}
         className="modal-overlay fixed inset-0 z-50 flex w-full items-center justify-center bg-black bg-opacity-40"
       >
-        <div className='space-y-10 rounded-lg bg-white p-10 text-start shadow dark:bg-gray-800 '>
+        <div className="space-y-10 rounded-lg bg-white p-10 text-start shadow dark:bg-gray-800">
           <p className="text-xl font-bold text-black dark:text-white">
             Chỉnh sửa Ghế
           </p>
-          <div
-            onClick={e => e.stopPropagation()}
-            className="grid grid-cols-2 "
-          >
-            <div className='mr-3'>
-
+          <div onClick={e => e.stopPropagation()} className="grid grid-cols-2">
+            <div className="mr-3">
               <label className="block text-sm font-medium text-gray-700">
                 Tên Ghế
               </label>
@@ -107,7 +103,7 @@ const ModalEditSeatPageAdmin: React.FC<ModalEditSeatProps> = ({
                 {...register('ordinal_numbers')}
               />
             </div>
-            <div className='ml-3'>
+            <div className="ml-3">
               <label className="block text-sm font-medium text-gray-700">
                 Mô Tả
               </label>
