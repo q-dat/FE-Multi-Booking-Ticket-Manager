@@ -19,6 +19,7 @@ import { PostCatalogProvider } from './context/post/PostCatalogContext.tsx';
 import { SeatCatalogProvider } from './context/seatCatalog/SeatCatalogContext.tsx';
 import { AgeProvider } from './context/age/AgeContext.tsx';
 import { ServiceProvider } from './context/service/ServiceContext.tsx';
+import { CartProvider } from './context/cart/CartContext.tsx';
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
@@ -26,6 +27,7 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
       <Suspense fallback={<LoadingPage loading={true} />}>
         <ErrorBoundary>
           <AuthProvider>
+            <CartProvider>
             <TicketCatalogProvider>
               <TicketProvider>
                 <LocationProvider>
@@ -50,6 +52,7 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
                 </LocationProvider>
               </TicketProvider>
             </TicketCatalogProvider>
+            </CartProvider>
           </AuthProvider>
         </ErrorBoundary>
       </Suspense>

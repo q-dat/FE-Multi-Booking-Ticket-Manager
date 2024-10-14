@@ -4,6 +4,8 @@ import { useTranslation } from 'react-i18next';
 import LoadingLocal from '../../components/orther/loading/LoadingLocal';
 import ErrorLoading from '../../components/orther/error/ErrorLoading';
 import { ITicket } from '../../types/type/ticket/ticket';
+import { useCart } from '../../context/cart/CartContext';
+import CartPage from './CartPage';
 
 const TicketTrainsResultsPage: React.FC = () => {
   const { t } = useTranslation();
@@ -11,6 +13,7 @@ const TicketTrainsResultsPage: React.FC = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [selectedTrain, setSelectedTrain] = useState<string | null>(null);
+  const { addSeat, selectedSeats } = useCart(); 
 
   useEffect(() => {
     const storedTickets = sessionStorage.getItem('searchResults');
@@ -26,6 +29,17 @@ const TicketTrainsResultsPage: React.FC = () => {
     setLoading(false);
   }, []);
 
+  // useEffect theo dõi sự thay đổi của selectedSeats
+  useEffect(() => {
+    const storedTickets = sessionStorage.getItem('searchResults');
+    if (storedTickets) {
+      const parsedTickets = JSON.parse(storedTickets) as ITicket[];
+      setTickets(parsedTickets);
+    } else {
+      setTickets([]); // Reset vé nếu không có dữ liệu
+    }
+  }, [selectedSeats]); // Phụ thuộc vào selectedSeats
+
   if (loading) {
     return <LoadingLocal />;
   }
@@ -37,6 +51,7 @@ const TicketTrainsResultsPage: React.FC = () => {
   if (tickets.length === 0) {
     return <div className="text-center text-red-500">Không tìm thấy vé!</div>;
   }
+
   const tripInfo = tickets[0]?.trip_id;
   const ticketsByTrain = tickets.reduce(
     (acc: { [key: string]: ITicket[] }, ticket) => {
@@ -64,10 +79,24 @@ const TicketTrainsResultsPage: React.FC = () => {
       )
     : {};
 
+  const handleSeatClick = (ticket: ITicket) => {
+    addSeat(ticket);
+
+    const updatedTickets = tickets.map(t =>
+      t._id === ticket._id
+        ? { ...t, seat_id: { ...t.seat_id, status: 'Hết chỗ' } }
+        : t
+    );
+
+    sessionStorage.setItem('searchResults', JSON.stringify(updatedTickets));
+    setTickets(updatedTickets);
+  };
+
   return (
     <div className="pb-[20px] xl:pt-[90px]">
       <HeaderResponsive Title_NavbarMobile={t('UserPage.Navbar.Trains')} />
       <div className="mb-4 text-center">
+        <CartPage />
         <h1 className="text-2xl">
           Chuyến đi từ <strong>{tripInfo.departure_point.name}</strong> đến{' '}
           <strong>{tripInfo.destination_point.name}</strong>
@@ -127,6 +156,7 @@ const TicketTrainsResultsPage: React.FC = () => {
 
                   return (
                     <div
+                      onClick={() => handleSeatClick(ticket)}
                       key={index}
                       className={`relative flex h-14 w-14 cursor-pointer items-center justify-center rounded-md border transition-all duration-200 ease-in-out ${
                         seatStatus === 'Còn chỗ'
