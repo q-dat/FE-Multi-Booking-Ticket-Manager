@@ -23,8 +23,6 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({
   children
 }) => {
   const [selectedSeats, setSelectedSeats] = useState<ITicket[]>([]);
-
-  // Khôi phục giỏ hàng từ sessionStorage khi component được mount
   useEffect(() => {
     const storedCart = sessionStorage.getItem('cart');
     if (storedCart) {
@@ -32,7 +30,7 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({
       setSelectedSeats(parsedCart);
     }
   }, []);
-
+  //Add To Cart
   const addSeat = useCallback(
     async (ticket: ITicket) => {
       const isSeatSelected = selectedSeats.some(
@@ -46,7 +44,6 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({
           const updatedSelectedSeats = [...selectedSeats, ticket];
           setSelectedSeats(updatedSelectedSeats);
           sessionStorage.setItem('cart', JSON.stringify(updatedSelectedSeats));
-          // Cập nhật trạng thái ghế trong session searchResults
           const storedTickets = sessionStorage.getItem('searchResults');
           if (storedTickets) {
             const parsedTickets = JSON.parse(storedTickets) as ITicket[];
@@ -75,7 +72,7 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({
     },
     [selectedSeats]
   );
-
+  //Delete
   const removeSeat = useCallback(
     async (ticketId: string, seatId: string) => {
       const ticket = selectedSeats.find(seat => seat._id === ticketId);
@@ -84,17 +81,13 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({
       try {
         const updatedSeat = { ...ticket.seat_id, status: 'Còn chỗ' };
         await updateSeatApi(seatId, updatedSeat);
-
-        // Cập nhật selectedSeats và session
         setSelectedSeats(prev => {
           const newSelectedSeats = prev.filter(seat => seat._id !== ticketId);
 
-          // Cập nhật sessionStorage với giỏ hàng mới
           sessionStorage.setItem('cart', JSON.stringify(newSelectedSeats));
           return newSelectedSeats;
         });
 
-        // Cập nhật trạng thái trong session searchResults
         const storedTickets = sessionStorage.getItem('searchResults');
         if (storedTickets) {
           const parsedTickets = JSON.parse(storedTickets) as ITicket[];
@@ -116,7 +109,7 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({
     },
     [selectedSeats]
   );
-
+  //Delete All
   const clearSeats = useCallback(async () => {
     try {
       for (const ticket of selectedSeats) {
@@ -124,8 +117,6 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({
         await updateSeatApi(ticket.seat_id._id, updatedSeat);
       }
       setSelectedSeats([]);
-
-      // Cập nhật trạng thái trong session searchResults
       const storedTickets = sessionStorage.getItem('searchResults');
       if (storedTickets) {
         const parsedTickets = JSON.parse(storedTickets) as ITicket[];
@@ -136,15 +127,14 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({
         sessionStorage.setItem('searchResults', JSON.stringify(updatedTickets));
       }
 
-      // Cập nhật session giỏ hàng
       sessionStorage.setItem('cart', JSON.stringify([]));
-      console.log('Trạng thái của ghế đã được cập nhật!')
+      console.log('Trạng thái của ghế đã được cập nhật!');
       Toastify('Đã xóa tất cả ghế khỏi giỏ hàng!', 200);
     } catch (error) {
       console.log('Lỗi: Không thể cập nhật trạng thái ghế khi xoá tất cả!');
     }
   }, [selectedSeats]);
-
+  //
   const totalPrice = selectedSeats.reduce(
     (total, ticket) => total + ticket.price,
     0

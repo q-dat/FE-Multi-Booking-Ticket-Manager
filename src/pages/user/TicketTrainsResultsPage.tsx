@@ -29,16 +29,15 @@ const TicketTrainsResultsPage: React.FC = () => {
     setLoading(false);
   }, []);
 
-  // useEffect theo dõi sự thay đổi của selectedSeats
   useEffect(() => {
     const storedTickets = sessionStorage.getItem('searchResults');
     if (storedTickets) {
       const parsedTickets = JSON.parse(storedTickets) as ITicket[];
       setTickets(parsedTickets);
     } else {
-      setTickets([]); // Reset vé nếu không có dữ liệu
+      setTickets([]); 
     }
-  }, [selectedSeats]); // Phụ thuộc vào selectedSeats
+  }, [selectedSeats]); 
 
   if (loading) {
     return <LoadingLocal />;

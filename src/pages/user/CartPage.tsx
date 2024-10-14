@@ -1,8 +1,49 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useCart } from '../../context/cart/CartContext';
 
 const CartPage: React.FC = () => {
   const { selectedSeats, removeSeat, clearSeats, totalPrice } = useCart();
+  const [countdowns, setCountdowns] = useState<{ [key: string]: number }>({});
+
+  useEffect(() => {
+    const newCountdowns: { [key: string]: number } = {};
+
+    selectedSeats.forEach(ticket => {
+      if (!countdowns[ticket._id]) {
+        newCountdowns[ticket._id] = 6;
+      } else {
+        newCountdowns[ticket._id] = countdowns[ticket._id];
+      }
+    }, []);
+
+    setCountdowns(newCountdowns);
+
+    const intervalId = setInterval(() => {
+      setCountdowns(prevCountdowns => {
+        const updatedCountdowns = { ...prevCountdowns };
+        let allRemoved = true;
+
+        Object.keys(updatedCountdowns).forEach(ticketId => {
+          if (updatedCountdowns[ticketId] > 1) {
+            updatedCountdowns[ticketId] -= 1;
+            allRemoved = false;
+          } else {
+            const seatId = selectedSeats.find(ticket => ticket._id === ticketId)
+              ?.seat_id._id;
+            if (seatId) {
+              removeSeat(ticketId, seatId);
+            }
+            delete updatedCountdowns[ticketId];
+          }
+        });
+
+        if (allRemoved) clearInterval(intervalId);
+        return updatedCountdowns;
+      });
+    }, 1000);
+
+    return () => clearInterval(intervalId);
+  }, [selectedSeats, removeSeat]);
 
   return (
     <div className="cart">
@@ -13,15 +54,29 @@ const CartPage: React.FC = () => {
         <div>
           <ul>
             {selectedSeats.map(ticket => (
-              <li key={ticket._id} className="flex justify-between">
+              <li
+                key={ticket._id}
+                className="flex items-center justify-between"
+              >
                 <span>
                   {ticket.seat_id.name} - {ticket.price} VND
                 </span>
-                <button
-                  onClick={() => removeSeat(ticket._id, ticket.seat_id._id)}
-                >
-                  Xóa
-                </button>
+                <div className="flex items-center">
+                  <button
+                    onClick={() => {
+                      const seatId = ticket.seat_id._id;
+                      if (seatId) {
+                        removeSeat(ticket._id, seatId);
+                      }
+                    }}
+                    className="mr-2"
+                  >
+                    Xóa
+                  </button>
+                  <span className="text-red-500">
+                    {countdowns[ticket._id]} giây
+                  </span>
+                </div>
               </li>
             ))}
           </ul>
