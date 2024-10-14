@@ -108,6 +108,7 @@ const SeatPage: React.FC = () => {
                 <label className="flex items-center">
                   <input
                     type="checkbox"
+                    className="cursor-pointer"
                     checked={checkboxCategory === 'Tàu'}
                     onChange={() => {
                       setCheckboxCategory('Tàu');
@@ -119,6 +120,7 @@ const SeatPage: React.FC = () => {
                 <label className="flex items-center">
                   <input
                     type="checkbox"
+                    className="cursor-pointer"
                     checked={checkboxCategory === 'Máy Bay'}
                     onChange={() => {
                       setCheckboxCategory('Máy Bay');
@@ -130,13 +132,14 @@ const SeatPage: React.FC = () => {
                 <label className="flex items-center">
                   <input
                     type="checkbox"
+                    className="cursor-pointer"
                     checked={checkboxCategory === 'Xe khách'}
                     onChange={() => {
                       setCheckboxCategory('Xe khách');
                       handleSearchByCategory('Xe khách');
                     }}
                   />
-                  <span className="ml-2">Xe khách</span>
+                  <span className="ml-2">Xe Khách</span>
                 </label>
               </div>
 

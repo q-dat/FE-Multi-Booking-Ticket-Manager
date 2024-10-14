@@ -18,14 +18,13 @@ import NavbarMobile from '../../components/admin/Reponsive/Mobile/NavbarMobile';
 import { useNavigate } from 'react-router-dom';
 
 const AgePage: React.FC = () => {
-  const { ages, loading, error, deleteAge, getAllAges,searchAgesByName } =
+  const { ages, loading, error, deleteAge, getAllAges, searchAgesByName } =
     useContext(AgeContext);
   const [isModalCreateOpen, setIsModalCreateOpen] = useState(false);
   const [isModalDeleteOpen, setIsModalDeleteOpen] = useState(false);
   const [isModalEditOpen, setIsModalEditOpen] = useState(false);
   const [selectedAgeId, setSelectedAgeId] = useState<string | null>(null);
   const [checkboxCategory, setCheckboxCategory] = useState<string | null>(null);
-
 
   const openModalCreateAdmin = () => setIsModalCreateOpen(true);
   const closeModalCreateAdmin = () => setIsModalCreateOpen(false);
@@ -63,8 +62,9 @@ const AgePage: React.FC = () => {
   };
   //
   const handleSearchByCategory = async (category: string) => {
-    await searchAgesByName(category);}
-    
+    await searchAgesByName(category);
+  };
+
   if (loading.getAll) return <LoadingLocal />;
   if (error) return <ErrorLoading />;
 
@@ -80,6 +80,7 @@ const AgePage: React.FC = () => {
                 <label className="flex items-center">
                   <input
                     type="checkbox"
+                    className="cursor-pointer"
                     checked={checkboxCategory === 'Tàu'}
                     onChange={() => {
                       setCheckboxCategory('Tàu');
@@ -91,6 +92,7 @@ const AgePage: React.FC = () => {
                 <label className="flex items-center">
                   <input
                     type="checkbox"
+                    className="cursor-pointer"
                     checked={checkboxCategory === 'Máy Bay'}
                     onChange={() => {
                       setCheckboxCategory('Máy Bay');
@@ -102,6 +104,7 @@ const AgePage: React.FC = () => {
                 <label className="flex items-center">
                   <input
                     type="checkbox"
+                    className="cursor-pointer"
                     checked={checkboxCategory === 'Xe khách'}
                     onChange={() => {
                       setCheckboxCategory('Xe khách');
@@ -121,7 +124,7 @@ const AgePage: React.FC = () => {
                   <p>Thêm</p>
                 </div>
               </Button>
-              </div>
+            </div>
           }
         />
       </div>
