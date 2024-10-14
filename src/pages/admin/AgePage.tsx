@@ -4,7 +4,7 @@ import { Toastify } from '../../helper/Toastify';
 import LoadingLocal from '../../components/orther/loading/LoadingLocal';
 import NavtitleAdmin from '../../components/admin/NavtitleAdmin';
 import { RiAddBoxLine } from 'react-icons/ri';
-import { Button, Input, Table } from 'react-daisyui';
+import { Button, Table } from 'react-daisyui';
 import { IAge } from '../../types/type/age/age';
 import ModalDeleteAgePageAdmin from '../../components/admin/Modal/ModalAge/ModalDeleteAgePageAdmin';
 import ModalEditAgePageAdmin from '../../components/admin/Modal/ModalAge/ModalEditAgePageAdmin';
@@ -16,7 +16,6 @@ import { isIErrorResponse } from '../../types/error/error';
 import TableListAdmin from '../../components/admin/TablelistAdmin';
 import NavbarMobile from '../../components/admin/Reponsive/Mobile/NavbarMobile';
 import { useNavigate } from 'react-router-dom';
-import { IoSearchOutline } from 'react-icons/io5';
 
 const AgePage: React.FC = () => {
   const { ages, loading, error, deleteAge, getAllAges,searchAgesByName } =
