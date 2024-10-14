@@ -101,8 +101,7 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({
             JSON.stringify(updatedTickets)
           );
         }
-
-        Toastify(`Đã xoá ghế khỏi giỏ hàng!`, 200);
+        console.log('Đã xoá ghế khỏi giỏ hàng!');
       } catch (error) {
         Toastify(`Lỗi: Không thể cập nhật trạng thái ghế khi xoá!`, 401);
       }
