@@ -12,8 +12,8 @@ import { TicketCatalogProvider } from './context/ticketCatalog/TicketCatalogCont
 import { TicketProvider } from './context/ticket/TicketContext.tsx';
 import { LocationProvider } from './context/location/LocationContext.tsx';
 import { VehicleProvider } from './context/vehicle/VehicleContext.tsx';
-import { SeatProvider } from './context/seat/SeatContext.tsx';
 import { VehicleCatalogProvider } from './context/vehicleCatalog/VehicleCatalogContext.tsx';
+import { SeatProvider } from './context/seat/SeatContext.tsx';
 import { PostProvider } from './context/post/PostContext.tsx';
 import { PostCatalogProvider } from './context/post/PostCatalogContext.tsx';
 import { SeatCatalogProvider } from './context/seatCatalog/SeatCatalogContext.tsx';

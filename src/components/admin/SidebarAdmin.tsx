@@ -18,7 +18,7 @@ import { MdGroupAdd } from 'react-icons/md';
 import { usePostContext } from '../../context/post/PostContext';
 import { AgeContext } from '../../context/age/AgeContext';
 import { TicketCatalogContext } from '../../context/ticketCatalog/TicketCatalogContext';
-
+import { VehicleCatalogContext } from '../../context/vehicleCatalog/VehicleCatalogContext';
 const SidebarAdmin: React.FC<{}> = () => {
   const { locations } = useContext(LocationContext);
   const { seats } = useContext(SeatContext);
@@ -27,6 +27,7 @@ const SidebarAdmin: React.FC<{}> = () => {
   const { ages } = useContext(AgeContext);
   const { posts } = usePostContext();
   const { ticketCatalogs } = useContext(TicketCatalogContext);
+  const { vehicleCatalogs } = useContext(VehicleCatalogContext);
 
   const [activeItem, setActiveItem] = useState('Dashboard');
 
@@ -79,6 +80,12 @@ const SidebarAdmin: React.FC<{}> = () => {
       icon: FaTicket,
       link: '/admin/ticket-catalog',
       toastify: ticketCatalogs.length
+    },
+    {
+      name: 'Loại Phương Tiện',
+      icon: FaTicket,
+      link: '/admin/vehicle-catalog',
+      toastify: vehicleCatalogs.length
     }
   ];
 
