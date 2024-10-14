@@ -70,7 +70,7 @@ const ModalCreateAgePageAdmin: React.FC<ModalCreateAgeProps> = ({
             <InputModal
               type={'text'}
               {...register('des', { required: true })}
-              placeholder=  {"mô tả"}
+              placeholder=  {"Mô tả"}
             />
             
             
