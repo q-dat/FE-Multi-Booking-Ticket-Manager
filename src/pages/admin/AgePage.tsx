@@ -75,7 +75,7 @@ const AgePage: React.FC = () => {
         <NavtitleAdmin
           Title_NavtitleAdmin="Quản Lý Độ Tuổi"
           Btn_Create={
-            <div className="flex flex-row items-center gap-2 md:flex-row">
+            <div className="flex flex-col items-start justify-center gap-2 md:flex-row md:items-end">
               <div className="flex gap-4">
                 <label className="flex items-center">
                   <input
