@@ -184,7 +184,6 @@ const Home: React.FC = () => {
             </div>
             {/* Form Mobile 2 */}
             <div className="m-2 flex flex-grow items-center justify-between gap-2 md:m-[10px] md:gap-[20px] xl:m-0 xl:gap-0">
-              {' '}
               <InputForm
                 className="w-[150px] border border-gray-700 border-opacity-50 bg-white text-black focus:border-primary focus:outline-none dark:border-secondary dark:bg-gray-700 dark:text-white dark:focus:border-white md:w-[300px] lg:w-[400px] xl:w-full xl:rounded-none"
                 type={'date'}
@@ -199,9 +198,9 @@ const Home: React.FC = () => {
                 placeholder={`${t('UserPage.ReturnDatePlaceholder')}`}
                 {...register('return_date')}
                 classNameLabel=" bg-white  dark:bg-gray-700"
-              />{' '}
+              />
               <MdOutlineArrowRightAlt className="hidden text-primary dark:text-white xl:flex" /> */}
-                <div>
+              <div>
                 <Select
                   defaultValue=""
                   className="w-[150px] border border-gray-700 border-opacity-50 bg-white text-black focus:border-primary focus:outline-none dark:border-secondary dark:bg-gray-700 dark:text-white dark:focus:border-white md:w-[300px] lg:w-[400px] xl:w-full xl:rounded-none"
@@ -217,11 +216,9 @@ const Home: React.FC = () => {
                   ))}
                 </Select>
               </div>
-
             </div>
             {/* Form Mobile 3 */}
             <div className="m-2 flex flex-grow items-center justify-between gap-2 md:m-[10px] md:gap-[20px] xl:m-0 xl:gap-0">
-            
               <MdOutlineArrowRightAlt className="hidden text-primary dark:text-white xl:flex" />
               <div>
                 <Select
@@ -423,7 +420,7 @@ const Home: React.FC = () => {
                     </span>
                     - Đến: &nbsp;
                     <span className="font-semibold">
-                      {ticket.trip_id.destination_point.name}{' '}
+                      {ticket.trip_id.destination_point.name}
                     </span>
                   </p>
                   <p>
@@ -443,9 +440,9 @@ const Home: React.FC = () => {
                   <p>
                     Giá vé: &nbsp;
                     <span className="font-bold text-red-500">
-                      {ticket.price}
+                      {(ticket.price * 1000).toLocaleString('vi-VN')} &nbsp;
                     </span>
-                    .VNĐ
+                    VND
                   </p>
                 </div>
               </div>

@@ -13,7 +13,7 @@ const TicketTrainsResultsPage: React.FC = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [selectedTrain, setSelectedTrain] = useState<string | null>(null);
-  const { addSeat, selectedSeats } = useCart(); 
+  const { addSeat, selectedSeats } = useCart();
 
   useEffect(() => {
     const storedTickets = sessionStorage.getItem('searchResults');
@@ -35,9 +35,9 @@ const TicketTrainsResultsPage: React.FC = () => {
       const parsedTickets = JSON.parse(storedTickets) as ITicket[];
       setTickets(parsedTickets);
     } else {
-      setTickets([]); 
+      setTickets([]);
     }
-  }, [selectedSeats]); 
+  }, [selectedSeats]);
 
   if (loading) {
     return <LoadingLocal />;
@@ -119,13 +119,13 @@ const TicketTrainsResultsPage: React.FC = () => {
                 Ngày đi:
                 {new Date(
                   trainTickets[0].trip_id.departure_date
-                ).toLocaleDateString()}
+                ).toLocaleDateString('vi-VN')}
               </p>
               <p>
                 Ngày về:
                 {new Date(
                   trainTickets[0].trip_id.return_date
-                ).toLocaleDateString()}
+                ).toLocaleDateString('vi-VN')}
               </p>
               <p>Giờ đi: {trainTickets[0].trip_id.departure_time}</p>
               <p>Giờ về: {trainTickets[0].trip_id.return_time}</p>
@@ -157,10 +157,10 @@ const TicketTrainsResultsPage: React.FC = () => {
                     <div
                       onClick={() => handleSeatClick(ticket)}
                       key={index}
-                      className={`relative flex h-14 w-14  items-center justify-center rounded-md border transition-all duration-200 ease-in-out ${
+                      className={`relative flex h-14 w-14 items-center justify-center rounded-md border transition-all duration-200 ease-in-out ${
                         seatStatus === 'Còn chỗ'
-                          ? 'border-green-700 bg-green-500 text-white hover:bg-green-600 cursor-pointer'
-                          : 'border-red-700 bg-red-500 text-white cursor-not-allowed'
+                          ? 'cursor-pointer border-green-700 bg-green-500 text-white hover:bg-green-600'
+                          : 'cursor-not-allowed border-red-700 bg-red-500 text-white'
                       } group`}
                     >
                       {ticket.seat_id.ordinal_numbers}
@@ -172,8 +172,9 @@ const TicketTrainsResultsPage: React.FC = () => {
                           <>
                             <strong>{ticket.seat_id.name}</strong>
                             <p>
-                              <strong>Giá:</strong>
-                              {ticket.price}
+                              <strong>Giá:</strong>{' '}
+                              {(ticket.price * 1000).toLocaleString('vi-VN')}{' '}
+                              VNĐ
                             </p>
                           </>
                         ) : (

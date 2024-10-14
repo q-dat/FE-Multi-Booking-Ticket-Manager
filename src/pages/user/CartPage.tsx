@@ -81,7 +81,10 @@ const CartPage: React.FC = () => {
             ))}
           </ul>
           <div className="mt-4">
-            <strong>Tổng tiền: {totalPrice} VND</strong>
+            <strong>
+              Tổng tiền: {(totalPrice * 1000).toLocaleString('vi-VN')}
+              &nbsp;VND
+            </strong>
           </div>
           <button onClick={clearSeats} className="mt-4 bg-red-500 text-white">
             Xóa tất cả
