@@ -158,10 +158,10 @@ const TicketTrainsResultsPage: React.FC = () => {
                     <div
                       onClick={() => handleSeatClick(ticket)}
                       key={index}
-                      className={`relative flex h-14 w-14 cursor-pointer items-center justify-center rounded-md border transition-all duration-200 ease-in-out ${
+                      className={`relative flex h-14 w-14  items-center justify-center rounded-md border transition-all duration-200 ease-in-out ${
                         seatStatus === 'Còn chỗ'
-                          ? 'border-green-700 bg-green-500 text-white hover:bg-green-600'
-                          : 'border-red-700 bg-red-500 text-white'
+                          ? 'border-green-700 bg-green-500 text-white hover:bg-green-600 cursor-pointer'
+                          : 'border-red-700 bg-red-500 text-white cursor-not-allowed'
                       } group`}
                     >
                       {ticket.seat_id.ordinal_numbers}
