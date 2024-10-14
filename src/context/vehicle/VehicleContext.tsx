@@ -6,8 +6,12 @@ import {
   useEffect
 } from 'react';
 import { IVehicle } from '../../types/type/vehicle/vehicle';
-import { createVehicleApi, deleteVehicleApi, getAllVehiclesApi, updateVehicleApi } from '../../axios/api/vehicleApi';
-
+import {
+  createVehicleApi,
+  deleteVehicleApi,
+  getAllVehiclesApi,
+  updateVehicleApi
+} from '../../axios/api/vehicleApi';
 
 interface VehicleContextType {
   vehicles: IVehicle[];

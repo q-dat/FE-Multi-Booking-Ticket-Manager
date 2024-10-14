@@ -24,41 +24,40 @@ const ModalDeleteTicketPageAdmin: React.FC<ModalDeleteAdminProps> = ({
 
   return (
     <div
-    onClick={handleOverlayClick}
-    className="modal-overlay fixed inset-0 z-50 flex w-full items-center justify-center bg-black bg-opacity-40"
-  >
-    <div
-      onClick={e => e.stopPropagation()}
-      className="flex flex-col items-center rounded-lg bg-white p-5 shadow dark:bg-gray-800"
+      onClick={handleOverlayClick}
+      className="modal-overlay fixed inset-0 z-50 flex w-full items-center justify-center bg-black bg-opacity-40"
     >
-      <div className="">
-        <p className="font-bold text-black dark:text-white">
-          Địa chỉ này sẽ bị xoá!
-          <label className="pl-1 text-secondary">{/*  */}</label>
-        </p>
-      </div>
-      <div className="w-[300px] py-5 text-center text-gray-50">
-        sau khi bận nhấn
-        <label className="font-bold text-primary">"Xác Nhận"</label>
-      </div>
-      <div className="flex w-64 flex-col space-y-3 text-center">
-        <Button
-          color="primary"
-          type="submit"
-          className="text-white"
-          onClick={onConfirm}
-        >
-          Xác Nhận
-        </Button>
+      <div
+        onClick={e => e.stopPropagation()}
+        className="flex flex-col items-center rounded-lg bg-white p-5 shadow dark:bg-gray-800"
+      >
+        <div className="">
+          <p className="font-bold text-black dark:text-white">
+            Địa chỉ này sẽ bị xoá!
+            <label className="pl-1 text-secondary">{/*  */}</label>
+          </p>
+        </div>
+        <div className="w-[300px] py-5 text-center text-gray-50">
+          sau khi bận nhấn
+          <label className="font-bold text-primary">"Xác Nhận"</label>
+        </div>
+        <div className="flex w-64 flex-col space-y-3 text-center">
+          <Button
+            color="primary"
+            type="submit"
+            className="text-white"
+            onClick={onConfirm}
+          >
+            Xác Nhận
+          </Button>
 
-        <Button onClick={onClose} className="border-gray-50 text-black">
-          Huỷ
-        </Button>
+          <Button onClick={onClose} className="border-gray-50 text-black">
+            Huỷ
+          </Button>
+        </div>
       </div>
     </div>
-  </div>
   );
 };
 
 export default ModalDeleteTicketPageAdmin;
-

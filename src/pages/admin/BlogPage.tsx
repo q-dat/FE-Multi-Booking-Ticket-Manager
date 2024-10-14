@@ -13,17 +13,22 @@ import { Post } from '../../types/post/post.type';
 import TableListAdmin from '../../components/admin/TablelistAdmin';
 
 const BlogPage: React.FC = () => {
-  const { posts, createPost, updatePost, deletePost, fetchPosts } = usePostContext();
+  const { posts, createPost, updatePost, deletePost, fetchPosts } =
+    usePostContext();
   const [isModalCreateOpen, setIsModalCreateOpen] = useState(false);
   const [isModalEditOpen, setIsModalEditOpen] = useState(false);
   const [isModalDeleteOpen, setIsModalDeleteOpen] = useState(false);
   const [selectedPost, setSelectedPost] = useState<Post | null>(null);
 
-  const openModal = (modalSetter: React.Dispatch<React.SetStateAction<boolean>>) => {
+  const openModal = (
+    modalSetter: React.Dispatch<React.SetStateAction<boolean>>
+  ) => {
     modalSetter(true);
   };
 
-  const closeModal = (modalSetter: React.Dispatch<React.SetStateAction<boolean>>) => {
+  const closeModal = (
+    modalSetter: React.Dispatch<React.SetStateAction<boolean>>
+  ) => {
     modalSetter(false);
   };
 
@@ -89,8 +94,12 @@ const BlogPage: React.FC = () => {
                 <Table.Row key={post._id}>
                   <span className="line-clamp-1">#{index + 1}</span>
                   <span className="line-clamp-1">{post.title}</span>
-                  <span className="line-clamp-1">{new Date(post.createAt).toLocaleDateString()}</span>
-                  <span className="line-clamp-1">{post.post_catalog_id.name}</span>
+                  <span className="line-clamp-1">
+                    {new Date(post.createAt).toLocaleDateString()}
+                  </span>
+                  <span className="line-clamp-1">
+                    {post.post_catalog_id.name}
+                  </span>
                   <span>
                     <details>
                       <summary className="inline cursor-pointer text-base text-warning">

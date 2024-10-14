@@ -12,14 +12,20 @@ interface PostCatalog {
 interface PostCatalogContextType {
   postCatalogs: PostCatalog[];
   getAllPostCatalogs: () => Promise<void>;
-  createPostCatalog: (data: Omit<PostCatalog, '_id' | 'createAt' | 'updateAt'>) => Promise<void>;
+  createPostCatalog: (
+    data: Omit<PostCatalog, '_id' | 'createAt' | 'updateAt'>
+  ) => Promise<void>;
   updatePostCatalog: (id: string, data: Partial<PostCatalog>) => Promise<void>;
   deletePostCatalog: (id: string) => Promise<void>;
 }
 
-const PostCatalogContext = createContext<PostCatalogContextType | undefined>(undefined);
+const PostCatalogContext = createContext<PostCatalogContextType | undefined>(
+  undefined
+);
 
-export const PostCatalogProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+export const PostCatalogProvider: React.FC<{ children: React.ReactNode }> = ({
+  children
+}) => {
   const [postCatalogs, setPostCatalogs] = useState<PostCatalog[]>([]);
 
   // Get all post catalogs
@@ -33,10 +39,12 @@ export const PostCatalogProvider: React.FC<{ children: React.ReactNode }> = ({ c
   };
 
   // Create post catalog
-  const createPostCatalog = async (data: Omit<PostCatalog, '_id' | 'createAt' | 'updateAt'>) => {
+  const createPostCatalog = async (
+    data: Omit<PostCatalog, '_id' | 'createAt' | 'updateAt'>
+  ) => {
     try {
       const response = await axios.post('/api/cate-blogs/post-catalogs', data);
-      setPostCatalogs((prev) => [...prev, response.data.savedPostCatalog]);
+      setPostCatalogs(prev => [...prev, response.data.savedPostCatalog]);
     } catch (error) {
       console.error('Error creating post catalog:', error);
     }
@@ -45,9 +53,14 @@ export const PostCatalogProvider: React.FC<{ children: React.ReactNode }> = ({ c
   // Update post catalog
   const updatePostCatalog = async (id: string, data: Partial<PostCatalog>) => {
     try {
-      const response = await axios.put(`/api/cate-blogs/post-catalogs/${id}`, data);
-      setPostCatalogs((prev) =>
-        prev.map((catalog) => (catalog._id === id ? response.data.updatedPostCatalog : catalog))
+      const response = await axios.put(
+        `/api/cate-blogs/post-catalogs/${id}`,
+        data
+      );
+      setPostCatalogs(prev =>
+        prev.map(catalog =>
+          catalog._id === id ? response.data.updatedPostCatalog : catalog
+        )
       );
     } catch (error) {
       console.error('Error updating post catalog:', error);
@@ -58,7 +71,7 @@ export const PostCatalogProvider: React.FC<{ children: React.ReactNode }> = ({ c
   const deletePostCatalog = async (id: string) => {
     try {
       await axios.delete(`/api/cate-blogs/post-catalogs/${id}`);
-      setPostCatalogs((prev) => prev.filter((catalog) => catalog._id !== id));
+      setPostCatalogs(prev => prev.filter(catalog => catalog._id !== id));
     } catch (error) {
       console.error('Error deleting post catalog:', error);
     }
@@ -75,7 +88,7 @@ export const PostCatalogProvider: React.FC<{ children: React.ReactNode }> = ({ c
         getAllPostCatalogs,
         createPostCatalog,
         updatePostCatalog,
-        deletePostCatalog,
+        deletePostCatalog
       }}
     >
       {children}

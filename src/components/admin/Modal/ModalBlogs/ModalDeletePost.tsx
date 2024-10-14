@@ -9,7 +9,12 @@ interface ModalDeletePostProps {
   post?: Post;
 }
 
-const ModalDeletePost: React.FC<ModalDeletePostProps> = ({ isOpen, onClose, onDelete, post }) => {
+const ModalDeletePost: React.FC<ModalDeletePostProps> = ({
+  isOpen,
+  onClose,
+  onDelete,
+  post
+}) => {
   if (!post) {
     return null;
   }
@@ -20,10 +25,23 @@ const ModalDeletePost: React.FC<ModalDeletePostProps> = ({ isOpen, onClose, onDe
         <h2 className="text-2xl font-bold">Xóa Bài Viết</h2>
       </Modal.Header>
       <Modal.Body>
-        <p>Bạn có chắc chắn muốn xóa bài viết: <strong>{post.title}</strong>?</p>
+        <p>
+          Bạn có chắc chắn muốn xóa bài viết: <strong>{post.title}</strong>?
+        </p>
         <div>
-          <Button color="primary" className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700" onClick={onDelete}>Xóa</Button>
-          <Button className="px-4 py-2 bg-gray-500 text-white rounded-md hover:bg-gray-600" onClick={onClose}>Huỷ</Button>
+          <Button
+            color="primary"
+            className="rounded-md bg-blue-600 px-4 py-2 text-white hover:bg-blue-700"
+            onClick={onDelete}
+          >
+            Xóa
+          </Button>
+          <Button
+            className="rounded-md bg-gray-500 px-4 py-2 text-white hover:bg-gray-600"
+            onClick={onClose}
+          >
+            Huỷ
+          </Button>
         </div>
       </Modal.Body>
     </Modal>

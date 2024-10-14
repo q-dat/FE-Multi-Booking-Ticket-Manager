@@ -29,9 +29,7 @@ const ModalEditServicePageAdmin: React.FC<ModalEditServiceProps> = ({
   }, [serviceId, getServiceById]);
 
   useEffect(() => {
-    const serviceData = services.find(
-      service => service._id === serviceId
-    );
+    const serviceData = services.find(service => service._id === serviceId);
     if (serviceData) {
       setValue('name', serviceData.name);
       setValue('price', serviceData.price);
@@ -85,14 +83,14 @@ const ModalEditServicePageAdmin: React.FC<ModalEditServiceProps> = ({
               type={'text'}
               {...register('name')}
             />
-           <label className="block text-sm font-medium text-gray-700">
-                Giá
-              </label>
-              <InputModal
-                placeholder={'ví dụ: 100'}
-                type={'text'}
-                {...register('price')}
-              />
+            <label className="block text-sm font-medium text-gray-700">
+              Giá
+            </label>
+            <InputModal
+              placeholder={'ví dụ: 100'}
+              type={'text'}
+              {...register('price')}
+            />
           </div>
           <div className="mt-4 space-x-5 text-center">
             <Button onClick={onClose} className="border-gray-50 text-black">

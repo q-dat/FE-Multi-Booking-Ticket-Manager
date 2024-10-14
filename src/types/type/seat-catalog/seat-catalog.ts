@@ -1,4 +1,4 @@
-import { IVehicle } from "../vehicle/vehicle";
+import { IVehicle } from '../vehicle/vehicle';
 export interface ISeatCatalog {
   _id: string;
   name: string;

@@ -70,7 +70,7 @@ const ModalCreateSeatPageAdmin: React.FC<ModalCreateSeatProps> = ({
               {...register('price', { required: true })}
               placeholder="Giá"
             />
-               <InputModal
+            <InputModal
               type={'text'}
               {...register('ordinal_numbers', { required: true })}
               placeholder="Số ghế"

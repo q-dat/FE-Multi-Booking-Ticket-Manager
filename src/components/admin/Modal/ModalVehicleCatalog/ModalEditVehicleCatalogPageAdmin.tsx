@@ -13,14 +13,17 @@ interface ModalEditVehicleCatalogProps {
   vehicleCatalogId: string;
 }
 
-const ModalEditVehicleCatalogPageAdmin: React.FC<ModalEditVehicleCatalogProps> = ({
-  isOpen,
-  onClose,
-  vehicleCatalogId,
-}) => {
-  const { getAllVehicleCatalogs, updateVehicleCatalog, getVehicleCatalogById, vehicleCatalogs } =
-    useContext(VehicleCatalogContext);
-  const { register, handleSubmit, reset, setValue } = useForm<IVehicleCatalog>();
+const ModalEditVehicleCatalogPageAdmin: React.FC<
+  ModalEditVehicleCatalogProps
+> = ({ isOpen, onClose, vehicleCatalogId }) => {
+  const {
+    getAllVehicleCatalogs,
+    updateVehicleCatalog,
+    getVehicleCatalogById,
+    vehicleCatalogs
+  } = useContext(VehicleCatalogContext);
+  const { register, handleSubmit, reset, setValue } =
+    useForm<IVehicleCatalog>();
 
   useEffect(() => {
     if (vehicleCatalogId) {
@@ -30,14 +33,14 @@ const ModalEditVehicleCatalogPageAdmin: React.FC<ModalEditVehicleCatalogProps> =
 
   useEffect(() => {
     const vehicleCatalogData = vehicleCatalogs.find(
-      (catalog) => catalog._id === vehicleCatalogId
+      catalog => catalog._id === vehicleCatalogId
     );
     if (vehicleCatalogData) {
       setValue('name', vehicleCatalogData.name);
     }
   }, [vehicleCatalogs, vehicleCatalogId, setValue]);
 
-  const onSubmit: SubmitHandler<IVehicleCatalog> = async (formData) => {
+  const onSubmit: SubmitHandler<IVehicleCatalog> = async formData => {
     try {
       await updateVehicleCatalog(vehicleCatalogId, formData);
       Toastify('Chỉnh sửa danh mục phương tiện  thành công!', 200);
@@ -69,15 +72,15 @@ const ModalEditVehicleCatalogPageAdmin: React.FC<ModalEditVehicleCatalogProps> =
         className="modal-overlay fixed inset-0 z-50 flex w-full items-center justify-center bg-black bg-opacity-40"
       >
         <div
-          onClick={(e) => e.stopPropagation()}
+          onClick={e => e.stopPropagation()}
           className="flex flex-col space-y-10 rounded-lg bg-white p-10 text-start shadow dark:bg-gray-800"
         >
           <p className="text-xl font-bold text-black dark:text-white">
-            Chỉnh sửa danh mục phương tiện 
+            Chỉnh sửa danh mục phương tiện
           </p>
           <div>
             <label className="block text-sm font-medium text-gray-700">
-              Tên danh mục phương tiện 
+              Tên danh mục phương tiện
             </label>
             <InputModal
               placeholder="ví dụ: Danh mục A"

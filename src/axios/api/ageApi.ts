@@ -1,7 +1,6 @@
 import axios from '../../config/axiosConfig';
 import { IAge } from '../../types/type/age/age';
 
-
 // Get All
 export const getAllAgesApi = () => {
   return axios.get<{ ages: IAge[] }>('/api/ages');

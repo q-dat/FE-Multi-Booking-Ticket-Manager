@@ -13,14 +13,13 @@ interface ModalCreateSeatCatalogProps {
   onClose: () => void;
 }
 
-const ModalCreateSeatCatalogPageAdmin: React.FC<ModalCreateSeatCatalogProps> = ({
-  isOpen,
-  onClose,
-}) => {
+const ModalCreateSeatCatalogPageAdmin: React.FC<
+  ModalCreateSeatCatalogProps
+> = ({ isOpen, onClose }) => {
   const { createSeatCatalog } = useContext(SeatCatalogContext);
   const { register, handleSubmit, reset } = useForm<ISeatCatalog>();
-  const { vehicles } = useContext( VehicleContext);
-  const onSubmit: SubmitHandler<ISeatCatalog> = async (formData) => {
+  const { vehicles } = useContext(VehicleContext);
+  const onSubmit: SubmitHandler<ISeatCatalog> = async formData => {
     try {
       await createSeatCatalog(formData);
       Toastify('Tạo danh mục phương tiện thành công!', 201);
@@ -51,7 +50,7 @@ const ModalCreateSeatCatalogPageAdmin: React.FC<ModalCreateSeatCatalogProps> = (
         className="modal-overlay fixed inset-0 z-50 flex w-full items-center justify-center bg-black bg-opacity-40"
       >
         <div
-          onClick={(e) => e.stopPropagation()}
+          onClick={e => e.stopPropagation()}
           className="mx-2 flex w-[400px] flex-col rounded-lg bg-white p-5 text-start shadow dark:bg-gray-800"
         >
           <div>

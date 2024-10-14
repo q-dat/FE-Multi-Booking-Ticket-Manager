@@ -28,30 +28,30 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
         <ErrorBoundary>
           <AuthProvider>
             <CartProvider>
-            <TicketCatalogProvider>
-              <TicketProvider>
-                <LocationProvider>
-                  <VehicleCatalogProvider>
-                    <VehicleProvider>
-                      <SeatCatalogProvider>
-                        <SeatProvider>
-                          <PostCatalogProvider>
-                            <PostProvider>
-                              <AgeProvider>
-                                <ServiceProvider>
-                                  <ToastContainer />
-                                  <App />
-                                </ServiceProvider>
-                              </AgeProvider>
-                            </PostProvider>
-                          </PostCatalogProvider>
-                        </SeatProvider>
-                      </SeatCatalogProvider>
-                    </VehicleProvider>
-                  </VehicleCatalogProvider>
-                </LocationProvider>
-              </TicketProvider>
-            </TicketCatalogProvider>
+              <TicketCatalogProvider>
+                <TicketProvider>
+                  <LocationProvider>
+                    <VehicleCatalogProvider>
+                      <VehicleProvider>
+                        <SeatCatalogProvider>
+                          <SeatProvider>
+                            <PostCatalogProvider>
+                              <PostProvider>
+                                <AgeProvider>
+                                  <ServiceProvider>
+                                    <ToastContainer />
+                                    <App />
+                                  </ServiceProvider>
+                                </AgeProvider>
+                              </PostProvider>
+                            </PostCatalogProvider>
+                          </SeatProvider>
+                        </SeatCatalogProvider>
+                      </VehicleProvider>
+                    </VehicleCatalogProvider>
+                  </LocationProvider>
+                </TicketProvider>
+              </TicketCatalogProvider>
             </CartProvider>
           </AuthProvider>
         </ErrorBoundary>

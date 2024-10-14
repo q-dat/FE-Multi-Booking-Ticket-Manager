@@ -19,7 +19,7 @@ import { AgeContext } from '../../context/age/AgeContext';
 import { TicketCatalogContext } from '../../context/ticketCatalog/TicketCatalogContext';
 import { VehicleCatalogContext } from '../../context/vehicleCatalog/VehicleCatalogContext';
 import { SeatCatalogContext } from '../../context/seatCatalog/SeatCatalogContext';
-import { IoIosTrain } from "react-icons/io";
+import { IoIosTrain } from 'react-icons/io';
 import { GiAges } from 'react-icons/gi';
 import { TicketContext } from '../../context/ticket/TicketContext';
 const SidebarAdmin: React.FC<{}> = () => {
@@ -32,7 +32,7 @@ const SidebarAdmin: React.FC<{}> = () => {
   const { ticketCatalogs } = useContext(TicketCatalogContext);
   const { vehicleCatalogs } = useContext(VehicleCatalogContext);
   const { seatCatalogs } = useContext(SeatCatalogContext);
-  const { tickets } = useContext(TicketContext)
+  const { tickets } = useContext(TicketContext);
   const [activeItem, setActiveItem] = useState('Dashboard');
 
   const location = useLocation();
@@ -154,10 +154,11 @@ const SidebarAdmin: React.FC<{}> = () => {
                   <Menu.Item key={item.name} className="relative">
                     <NavLink
                       to={item.link}
-                      className={`btn flex w-full items-center justify-start border-none shadow-white dark:bg-gray-800 dark:shadow-none ${item.name === activeItem
-                        ? 'bg-base-200 font-bold text-primary dark:bg-white'
-                        : 'bg-transparent bg-white font-light text-black dark:text-white'
-                        } relative pl-4`}
+                      className={`btn flex w-full items-center justify-start border-none shadow-white dark:bg-gray-800 dark:shadow-none ${
+                        item.name === activeItem
+                          ? 'bg-base-200 font-bold text-primary dark:bg-white'
+                          : 'bg-transparent bg-white font-light text-black dark:text-white'
+                      } relative pl-4`}
                     >
                       <div className="flex w-full items-center justify-between">
                         <div className="flex items-center">

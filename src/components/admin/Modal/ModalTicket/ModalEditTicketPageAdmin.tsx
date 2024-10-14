@@ -16,16 +16,16 @@ interface ModalEditTicketProps {
 const ModalEditTicketPageAdmin: React.FC<ModalEditTicketProps> = ({
   isOpen,
   onClose,
-  ticketId,
+  ticketId
 }) => {
   const { getAllTickets, updateTicket, getTicketById, tickets } =
-    useContext(TicketContext); 
+    useContext(TicketContext);
 
   const { register, handleSubmit, reset, setValue } = useForm<ITicket>();
 
   useEffect(() => {
     if (ticketId) {
-      getTicketById(ticketId); 
+      getTicketById(ticketId);
     }
   }, [ticketId, getTicketById]);
 
@@ -42,16 +42,16 @@ const ModalEditTicketPageAdmin: React.FC<ModalEditTicketProps> = ({
 
   const onSubmit: SubmitHandler<ITicket> = async formData => {
     try {
-      await updateTicket(ticketId, formData); 
+      await updateTicket(ticketId, formData);
       Toastify('Chỉnh sửa vé thành công!', 200);
       reset();
-      getAllTickets(); 
+      getAllTickets();
       onClose();
     } catch (error: unknown) {
       const errorMessage = isIErrorResponse(error)
         ? error.data?.message
         : 'Lỗi khi chỉnh sửa vé!';
-      Toastify(`Lỗi: ${errorMessage}`, 401); 
+      Toastify(`Lỗi: ${errorMessage}`, 401);
     }
   };
 
@@ -76,7 +76,7 @@ const ModalEditTicketPageAdmin: React.FC<ModalEditTicketProps> = ({
           className="flex flex-col space-y-10 rounded-lg bg-white p-10 text-start shadow dark:bg-gray-800"
         >
           <p className="text-xl font-bold text-black dark:text-white">
-            Chỉnh sửa vé 
+            Chỉnh sửa vé
           </p>
 
           <div>
