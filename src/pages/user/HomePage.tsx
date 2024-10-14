@@ -193,18 +193,15 @@ const Home: React.FC = () => {
                 classNameLabel=" bg-white  dark:bg-gray-700"
               />
               <MdOutlineArrowRightAlt className="hidden text-primary dark:text-white xl:flex" />
-              <InputForm
+              {/* <InputForm
                 className="w-[150px] border border-gray-700 border-opacity-50 bg-white text-black focus:border-primary dark:border-secondary dark:bg-gray-700 dark:text-white dark:focus:border-white md:w-[300px] lg:w-[400px] xl:w-full xl:rounded-none"
                 type={'date'}
                 placeholder={`${t('UserPage.ReturnDatePlaceholder')}`}
                 {...register('return_date')}
                 classNameLabel=" bg-white  dark:bg-gray-700"
               />{' '}
-              <MdOutlineArrowRightAlt className="hidden text-primary dark:text-white xl:flex" />
-            </div>
-            {/* Form Mobile 3 */}
-            <div className="m-2 flex flex-grow items-center justify-between gap-2 md:m-[10px] md:gap-[20px] xl:m-0 xl:gap-0">
-              <div>
+              <MdOutlineArrowRightAlt className="hidden text-primary dark:text-white xl:flex" /> */}
+                <div>
                 <Select
                   defaultValue=""
                   className="w-[150px] border border-gray-700 border-opacity-50 bg-white text-black focus:border-primary focus:outline-none dark:border-secondary dark:bg-gray-700 dark:text-white dark:focus:border-white md:w-[300px] lg:w-[400px] xl:w-full xl:rounded-none"
@@ -220,6 +217,11 @@ const Home: React.FC = () => {
                   ))}
                 </Select>
               </div>
+
+            </div>
+            {/* Form Mobile 3 */}
+            <div className="m-2 flex flex-grow items-center justify-between gap-2 md:m-[10px] md:gap-[20px] xl:m-0 xl:gap-0">
+            
               <MdOutlineArrowRightAlt className="hidden text-primary dark:text-white xl:flex" />
               <div>
                 <Select
@@ -240,9 +242,6 @@ const Home: React.FC = () => {
                   ))}
                 </Select>
               </div>
-            </div>
-            {/* Form Mobile 4 */}
-            <div className="m-2 flex flex-grow items-center justify-between gap-2 md:m-[10px] md:gap-[20px] xl:m-0 xl:gap-0">
               <div>
                 <Button
                   type="submit"
