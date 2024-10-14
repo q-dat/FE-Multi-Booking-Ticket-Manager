@@ -1,20 +1,18 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { Button, Modal } from 'react-daisyui';
+import { Button, Modal, Select } from 'react-daisyui';
 import EditorJS from '@editorjs/editorjs';
 import Header from '@editorjs/header';
 import List from '@editorjs/list';
 import axios from 'axios';
 import { Post } from '../../../../types/post/post.type';
 import { useNavigate } from 'react-router-dom';
+import InputModal from '../../InputModal';
 
 interface FormData {
   title: string;
   content: any;
-  post_catalog_id: {
-    _id: string;
-    name: string;
-  };
+  post_catalog_id: string;
   img: string;
 }
 interface PostCatalog {
@@ -63,23 +61,31 @@ const ModalEditPost: React.FC<ModalEditPostProps> = ({ isOpen, onClose, onUpdate
 
   useEffect(() => {
     if (isOpen && post) {
+      reset({
+        title: post.title || '',
+        post_catalog_id: post.post_catalog_id._id || '',
+        img: post.img || '',
+      });
+    }
+  }, [isOpen, post, reset]);
+
+  useEffect(() => {
+    if (isOpen && post && isValidJSON(post.content)) {
       if (editorRef.current) {
         editorRef.current.destroy();
         editorRef.current = null;
       }
 
-      setTimeout(() => {
-        const editorElement = document.getElementById('editorjs');
-        console.log('EditorJS element:', editorElement);
-
-        if (editorElement && isValidJSON(post.content)) {
+      const initializeEditor = () => {
+        try {
+          const data = JSON.parse(post.content);
           editorRef.current = new EditorJS({
             holder: 'editorjs',
             tools: {
               header: Header,
               list: List,
             },
-            data: JSON.parse(post.content),
+            data: data,
             onReady: () => {
               console.log('EditorJS is ready!');
             },
@@ -88,10 +94,12 @@ const ModalEditPost: React.FC<ModalEditPostProps> = ({ isOpen, onClose, onUpdate
               console.log('EditorJS data changed:', savedData);
             },
           });
-        } else {
-          console.error('Invalid JSON content or editor element is missing.');
+        } catch (error) {
+          console.error('Failed to initialize EditorJS:', error);
         }
-      }, 100);
+      };
+
+      setTimeout(initializeEditor, 500);
     }
 
     return () => {
@@ -102,8 +110,6 @@ const ModalEditPost: React.FC<ModalEditPostProps> = ({ isOpen, onClose, onUpdate
     };
   }, [isOpen, post]);
 
-
-
   const onSubmit = async (data: FormData) => {
     try {
       const outputData = await editorRef.current?.save();
@@ -111,22 +117,23 @@ const ModalEditPost: React.FC<ModalEditPostProps> = ({ isOpen, onClose, onUpdate
         ? JSON.stringify(outputData)
         : '';
 
+      const selectedCatalog = catalogs.find((catalog) => catalog._id === data.post_catalog_id);
+
       const updatedPost: Omit<Post, '_id'> = {
         ...data,
         content,
         createAt: post?.createAt || new Date().toISOString(),
+        post_catalog_id: selectedCatalog ? { _id: selectedCatalog._id, name: selectedCatalog.name } : { _id: '', name: '' },
       };
 
       await onUpdate(updatedPost);
       reset();
       onClose();
-      navigate('/admin/blog')
+      navigate('/admin/blog');
     } catch (error) {
       console.error('Error saving EditorJS data:', error);
     }
   };
-
-
 
   if (!post) {
     return null;
@@ -140,44 +147,38 @@ const ModalEditPost: React.FC<ModalEditPostProps> = ({ isOpen, onClose, onUpdate
       <Modal.Body>
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
           <div className="flex flex-col">
-            <label className="mb-1 text-lg font-semibold">Tiêu đề:</label>
-            <input
-              type="text"
-              defaultValue={post.title}
-              {...register("title", { required: true })}
-              className="px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+            <label className="block text-sm font-medium text-gray-700">Tiêu đề:</label>
+            <InputModal
+              placeholder={'ví dụ: địa điểm A'}
+              type={"text"}
+              {...register("title")}
             />
           </div>
 
           <div className="flex flex-col">
-            <label className="mb-1 text-lg font-semibold">Nội dung:</label>
+            <label className="block text-sm font-medium text-gray-700">Nội dung:</label>
             <div id="editorjs" className="border border-gray-300 rounded-md p-2 text-black" />
+
           </div>
 
           <div className="flex flex-col">
-            <label className="mb-1 text-lg font-semibold">Danh mục:</label>
-            <select
-              {...register("post_catalog_id")}
-              className="px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-              defaultValue={post.post_catalog_id._id}
-            >
+            <label className="block text-sm font-medium text-gray-700">Danh mục:</label>
+            <Select {...register("post_catalog_id")} defaultValue={post?.post_catalog_id._id || ''}>
               <option value="" disabled>Chọn danh mục</option>
               {catalogs.map((catalog) => (
                 <option key={catalog._id} value={catalog._id}>
                   {catalog.name}
                 </option>
               ))}
-            </select>
-
+            </Select>
           </div>
 
           <div className="flex flex-col">
-            <label className="mb-1 text-lg font-semibold">Hình ảnh:</label>
-            <input
-              type="text"
-              defaultValue={post.img}
-              {...register("img", { required: true })}
-              className="px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+            <label className="block text-sm font-medium text-gray-700">Hình ảnh:</label>
+            <InputModal
+              placeholder={'ví dụ: địa điểm A'}
+              type={"text"}
+              {...register("img")}
             />
           </div>
 
