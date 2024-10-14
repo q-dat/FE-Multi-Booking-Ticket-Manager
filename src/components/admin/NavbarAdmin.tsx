@@ -102,7 +102,7 @@ const NavbarAdmin: React.FC<{}> = () => {
           <div className="ml-4 cursor-pointer" onClick={handleAvatarClick}>
             <Avatar name={user?.username || ''} />
             {dropdownVisible && (
-              <div className="absolute right-6 mt-1 flex flex-col gap-[1px] bg-white font-light shadow">
+              <div className="absolute z-50 right-6 mt-1 flex flex-col gap-[1px] bg-white font-light shadow">
                 <Button
                   size="md"
                   className="text-md flex w-full items-center justify-start rounded-none border-b-[0.5px] border-b-gray-50"
