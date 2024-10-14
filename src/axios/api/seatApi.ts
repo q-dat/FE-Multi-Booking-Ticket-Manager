@@ -25,3 +25,9 @@ export const updateSeatApi = (id: string, location: ISeat) => {
 export const deleteSeatApi = (id: string) => {
   return axios.delete(`/api/seats/${id}`);
 };
+//Search
+export const searchSeatsByNameApi = (name: string) => {
+  return axios.get<{ seats: ISeat[] }>('/api/seat/search', {
+    params: { name }
+  });
+};

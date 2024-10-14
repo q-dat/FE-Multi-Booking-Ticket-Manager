@@ -3,7 +3,7 @@ import { Toastify } from '../../helper/Toastify';
 import LoadingLocal from '../../components/orther/loading/LoadingLocal';
 import NavtitleAdmin from '../../components/admin/NavtitleAdmin';
 import { RiAddBoxLine, RiListSettingsLine } from 'react-icons/ri';
-import { Button, Input, Table } from 'react-daisyui';
+import { Button, Table } from 'react-daisyui';
 import ModalDeleteSeatPageAdmin from '../../components/admin/Modal/ModalSeat/ModalDeleteSeatPageAdmin';
 import ModalEditSeatPageAdmin from '../../components/admin/Modal/ModalSeat/ModalEditSeatPageAdmin';
 import ModalCreateSeatPageAdmin from '../../components/admin/Modal/ModalSeat/ModalCreateSeatPageAdmin';
@@ -16,17 +16,17 @@ import NavbarMobile from '../../components/admin/Reponsive/Mobile/NavbarMobile';
 import { useNavigate } from 'react-router-dom';
 import { SeatContext } from '../../context/seat/SeatContext';
 import { ISeat } from '../../types/type/seat/seat';
-import { IoSearchOutline } from 'react-icons/io5';
 
 const SeatPage: React.FC = () => {
   console.log('Seats rendering');
-  const { seats, loading, error, deleteSeat, getAllSeats } =
+  const { seats, loading, error, deleteSeat, getAllSeats, searchSeatsByName } =
     useContext(SeatContext);
   const [isModalCreateOpen, setIsModalCreateOpen] = useState(false);
   const [isModalDeleteOpen, setIsModalDeleteOpen] = useState(false);
   const [isModalEditOpen, setIsModalEditOpen] = useState(false);
   const [selectedSeatId, setSelectedSeatId] = useState<string | null>(null);
-  const [searchQuery, setSearchQuery] = useState('');
+  const [checkboxCategory, setCheckboxCategory] = useState<string | null>(null);
+
   //
   const openModalCreateAdmin = () => setIsModalCreateOpen(true);
   const closeModalCreateAdmin = () => setIsModalCreateOpen(false);
@@ -90,11 +90,9 @@ const SeatPage: React.FC = () => {
     });
   };
   //
-  const filteredSeats = seats.filter(
-    seat =>
-      seat.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      seat.des?.toLowerCase().includes(searchQuery.toLowerCase())
-  );
+  const handleSearchByCategory = async (category: string) => {
+    await searchSeatsByName(category);
+  };
   if (loading.getAll) return <LoadingLocal />;
   if (error) return <ErrorLoading />;
 
@@ -105,56 +103,85 @@ const SeatPage: React.FC = () => {
         <NavtitleAdmin
           Title_NavtitleAdmin="Quản Lý Ghế Ngồi"
           Btn_Create={
-            <div className="flex flex-row items-center gap-2 md:flex-row">
-              <div className="relative mr-4 flex items-center">
-                <Input
-                  className="w-full bg-white text-black focus:outline-none"
-                  type="text"
-                  placeholder="Vd: Ghế tàu ..."
-                  onChange={e => setSearchQuery(e.target.value)}
-                />
-                <IoSearchOutline className="absolute right-2 h-5 w-5 cursor-pointer" />
+            <div className="flex flex-col items-start justify-center gap-2 md:flex-row md:items-end">
+              <div className="flex gap-4">
+                <label className="flex items-center">
+                  <input
+                    type="checkbox"
+                    checked={checkboxCategory === 'Tàu'}
+                    onChange={() => {
+                      setCheckboxCategory('Tàu');
+                      handleSearchByCategory('Tàu');
+                    }}
+                  />
+                  <span className="ml-2">Tàu</span>
+                </label>
+                <label className="flex items-center">
+                  <input
+                    type="checkbox"
+                    checked={checkboxCategory === 'Máy Bay'}
+                    onChange={() => {
+                      setCheckboxCategory('Máy Bay');
+                      handleSearchByCategory('Máy Bay');
+                    }}
+                  />
+                  <span className="ml-2">Máy Bay</span>
+                </label>
+                <label className="flex items-center">
+                  <input
+                    type="checkbox"
+                    checked={checkboxCategory === 'Xe khách'}
+                    onChange={() => {
+                      setCheckboxCategory('Xe khách');
+                      handleSearchByCategory('Xe khách');
+                    }}
+                  />
+                  <span className="ml-2">Xe khách</span>
+                </label>
               </div>
-              <Button
-                color="primary"
-                onClick={openModalCreateAdmin}
-                className="w-[100px] text-sm font-light text-white"
-              >
-                <div className="flex items-center space-x-1">
-                  <RiAddBoxLine className="text-xl" />
-                  <p>Thêm</p>
-                </div>
-              </Button>
-              {/*  */}
-              <div className="dropdown dropdown-hover relative flex h-12 w-[100px] flex-col items-center justify-center rounded-md bg-primary text-white">
-                <p className="flex flex-row items-center justify-center gap-1">
-                  <RiListSettingsLine className="text-xl" />
-                  Lọc
-                </p>
-                <div className="dropdown-content absolute top-[100%] z-10 w-52 space-y-1 bg-slate-50 drop-shadow-md">
-                  {list.map((items, index) => (
-                    <div className="flex">
-                      <label key={index} className="ml-2 flex h-8 items-center">
-                        <input
-                          className="h-5 w-5 hover:text-red-400"
-                          type="checkbox"
-                          defaultChecked={true}
-                          onClick={() => {
-                            if (items === fillter[index]) {
-                              replaceItem(index, 'show');
-                            } else {
-                              replaceItem(index, list[index]);
-                            }
 
-                            console.log(items);
-                          }}
-                        />
-                        <span className="ml-2 text-primary hover:text-secondary">
-                          {items}
-                        </span>
-                      </label>
-                    </div>
-                  ))}
+              <div className="flex flex-row gap-2">
+                <Button
+                  color="primary"
+                  onClick={openModalCreateAdmin}
+                  className="w-[100px] text-sm font-light text-white"
+                >
+                  <div className="flex items-center space-x-1">
+                    <RiAddBoxLine className="text-xl" />
+                    <p>Thêm</p>
+                  </div>
+                </Button>
+
+                {/*  */}
+                <div className="dropdown dropdown-hover relative flex h-12 w-[100px] flex-col items-center justify-center rounded-md bg-primary text-white">
+                  <p className="flex flex-row items-center justify-center gap-1">
+                    <RiListSettingsLine className="text-xl" />
+                  </p>
+                  <div className="dropdown-content absolute top-[100%] z-10 w-52 space-y-1 bg-slate-50 drop-shadow-md">
+                    {list.map((items, index) => (
+                      <div className="flex">
+                        <label key={index} className="flex h-8 items-center">
+                          <input
+                            className="h-5 w-5 hover:text-red-400"
+                            type="checkbox"
+                            defaultChecked={true}
+                            onClick={() => {
+                              if (items === fillter[index]) {
+                                replaceItem(index, 'show');
+                              } else {
+                                replaceItem(index, list[index]);
+                              }
+
+                              console.log(items);
+                            }}
+                          />
+                          <span className="text-primary hover:text-secondary">
+                            {items}
+                          </span>
+                        </label>
+                      </div>
+                    ))}
+                  </div>
                 </div>
               </div>
             </div>
@@ -178,7 +205,7 @@ const SeatPage: React.FC = () => {
         }
         table_body={
           <Table.Body className="text-center text-sm">
-            {filteredSeats.map((seat: ISeat, index: number) => (
+            {seats.map((seat: ISeat, index: number) => (
               <Table.Row key={index}>
                 {fillter[0] === 'STT' ? (
                   <span className="line-clamp-1">#{index + 1}</span>

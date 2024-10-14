@@ -10,7 +10,8 @@ import {
   createSeatApi,
   deleteSeatApi,
   getSeatsApi,
-  updateSeatApi
+  updateSeatApi,
+  searchSeatsByNameApi
 } from '../../axios/api/seatApi';
 
 interface SeatContextType {
@@ -20,6 +21,8 @@ interface SeatContextType {
     create: boolean;
     update: boolean;
     delete: boolean;
+    search: boolean;
+
   };
   error: string | null;
   getAllSeats: () => void;
@@ -27,6 +30,7 @@ interface SeatContextType {
   createSeat: (seat: ISeat) => Promise<void>;
   updateSeat: (_id: string, seat: ISeat) => Promise<void>;
   deleteSeat: (_id: string) => Promise<void>;
+  searchSeatsByName: (name: string) => void;
 }
 
 const defaultContextValue: SeatContextType = {
@@ -35,14 +39,17 @@ const defaultContextValue: SeatContextType = {
     getAll: false,
     create: false,
     update: false,
-    delete: false
+    delete: false,
+    search: false
+
   },
   error: null,
   getAllSeats: () => {},
   getSeatById: () => undefined,
   createSeat: async () => {},
   updateSeat: async () => {},
-  deleteSeat: async () => {}
+  deleteSeat: async () => {},
+  searchSeatsByName: () => {}
 };
 
 export const SeatContext = createContext<SeatContextType>(defaultContextValue);
@@ -54,11 +61,15 @@ export const SeatProvider = ({ children }: { children: ReactNode }) => {
     create: boolean;
     update: boolean;
     delete: boolean;
+    search: boolean;
+
   }>({
     getAll: false,
     create: false,
     update: false,
-    delete: false
+    delete: false,
+    search: false
+
   });
   const [error, setError] = useState<string | null>(null);
 
@@ -136,6 +147,15 @@ export const SeatProvider = ({ children }: { children: ReactNode }) => {
     );
   }, []);
 
+  // Search by name
+  const searchSeatsByName = useCallback((name: string) => {
+    fetchData(
+      () => searchSeatsByNameApi(name),
+      data => setSeats(data.seats || []),
+      'search'
+    );
+  }, []);
+
   useEffect(() => {
     getAllSeats();
   }, [getAllSeats]);
@@ -150,7 +170,9 @@ export const SeatProvider = ({ children }: { children: ReactNode }) => {
         getSeatById,
         createSeat,
         updateSeat,
-        deleteSeat
+        deleteSeat,
+        searchSeatsByName
+
       }}
     >
       {children}
