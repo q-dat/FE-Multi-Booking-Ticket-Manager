@@ -3,7 +3,7 @@ import { Button, Menu } from 'react-daisyui';
 import { NavLink, useLocation } from 'react-router-dom';
 import { FaHome } from 'react-icons/fa';
 import { IoLocation, IoTicket } from 'react-icons/io5';
-import { MdPostAdd } from 'react-icons/md';
+import { MdEventSeat, MdPostAdd } from 'react-icons/md';
 import { FaTicket } from 'react-icons/fa6';
 // import { useTranslation } from 'react-i18next';
 import DarkModeToggle from '../orther/darkmode/DarkMode';
@@ -18,6 +18,7 @@ import { usePostContext } from '../../context/post/PostContext';
 import { AgeContext } from '../../context/age/AgeContext';
 import { TicketCatalogContext } from '../../context/ticketCatalog/TicketCatalogContext';
 import { VehicleCatalogContext } from '../../context/vehicleCatalog/VehicleCatalogContext';
+import { SeatCatalogContext } from '../../context/seatCatalog/SeatCatalogContext';
 import { IoIosTrain } from "react-icons/io";
 import { GiAges } from 'react-icons/gi';
 import { TicketContext } from '../../context/ticket/TicketContext';
@@ -30,7 +31,8 @@ const SidebarAdmin: React.FC<{}> = () => {
   const { posts } = usePostContext();
   const { ticketCatalogs } = useContext(TicketCatalogContext);
   const { vehicleCatalogs } = useContext(VehicleCatalogContext);
-const {tickets} =useContext(TicketContext)
+  const { seatCatalogs } = useContext(SeatCatalogContext);
+  const { tickets } = useContext(TicketContext)
   const [activeItem, setActiveItem] = useState('Dashboard');
 
   const location = useLocation();
@@ -94,6 +96,12 @@ const {tickets} =useContext(TicketContext)
       icon: FaTicket,
       link: '/admin/vehicle-catalog',
       toastify: vehicleCatalogs.length
+    },
+    {
+      name: 'Loại Ghế',
+      icon: MdEventSeat,
+      link: '/admin/seat-catalog',
+      toastify: seatCatalogs.length
     }
   ];
 
