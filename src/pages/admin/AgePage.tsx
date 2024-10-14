@@ -19,13 +19,13 @@ import { useNavigate } from 'react-router-dom';
 import { IoSearchOutline } from 'react-icons/io5';
 
 const AgePage: React.FC = () => {
-  const { ages, loading, error, deleteAge, getAllAges } =
+  const { ages, loading, error, deleteAge, getAllAges,searchAgesByName } =
     useContext(AgeContext);
   const [isModalCreateOpen, setIsModalCreateOpen] = useState(false);
   const [isModalDeleteOpen, setIsModalDeleteOpen] = useState(false);
   const [isModalEditOpen, setIsModalEditOpen] = useState(false);
   const [selectedAgeId, setSelectedAgeId] = useState<string | null>(null);
-  const [searchQuery, setSearchQuery] = useState('');
+  const [checkboxCategory, setCheckboxCategory] = useState<string | null>(null);
 
 
   const openModalCreateAdmin = () => setIsModalCreateOpen(true);
@@ -62,11 +62,10 @@ const AgePage: React.FC = () => {
       }
     }
   };
-  const filtereAge = ages.filter(
-    seat =>
-      seat.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      seat.des?.toLowerCase().includes(searchQuery.toLowerCase())
-  );
+  //
+  const handleSearchByCategory = async (category: string) => {
+    await searchAgesByName(category);}
+    
   if (loading.getAll) return <LoadingLocal />;
   if (error) return <ErrorLoading />;
 
@@ -78,14 +77,40 @@ const AgePage: React.FC = () => {
           Title_NavtitleAdmin="Quản Lý Độ Tuổi"
           Btn_Create={
             <div className="flex flex-row items-center gap-2 md:flex-row">
-              <div className="relative mr-4 flex items-center">
-                <Input
-                  className="w-full bg-white text-black focus:outline-none"
-                  type="text"
-                  placeholder="Vd: Vé Tàu Hoả..."
-                  onChange={e => setSearchQuery(e.target.value)}
-                />
-                <IoSearchOutline className="absolute right-2 h-5 w-5 cursor-pointer" />
+              <div className="flex gap-4">
+                <label className="flex items-center">
+                  <input
+                    type="checkbox"
+                    checked={checkboxCategory === 'Tàu'}
+                    onChange={() => {
+                      setCheckboxCategory('Tàu');
+                      handleSearchByCategory('Tàu');
+                    }}
+                  />
+                  <span className="ml-2">Tàu</span>
+                </label>
+                <label className="flex items-center">
+                  <input
+                    type="checkbox"
+                    checked={checkboxCategory === 'Máy Bay'}
+                    onChange={() => {
+                      setCheckboxCategory('Máy Bay');
+                      handleSearchByCategory('Máy Bay');
+                    }}
+                  />
+                  <span className="ml-2">Máy Bay</span>
+                </label>
+                <label className="flex items-center">
+                  <input
+                    type="checkbox"
+                    checked={checkboxCategory === 'Xe khách'}
+                    onChange={() => {
+                      setCheckboxCategory('Xe khách');
+                      handleSearchByCategory('Xe khách');
+                    }}
+                  />
+                  <span className="ml-2">Xe khách</span>
+                </label>
               </div>
               <Button
                 color="primary"
@@ -115,7 +140,7 @@ const AgePage: React.FC = () => {
         }
         table_body={
           <Table.Body className="text-center text-sm">
-            {filtereAge.map((age: IAge, index: number) => (
+            {ages.map((age: IAge, index: number) => (
               <Table.Row key={index}>
                 <span className="line-clamp-1">#{index + 1}</span>
                 <span className="line-clamp-1">{age?.name}</span>

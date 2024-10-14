@@ -26,3 +26,9 @@ export const updateAgeApi = (id: string, age: IAge) => {
 export const deleteAgeApi = (id: string) => {
   return axios.delete(`/api/ages/${id}`);
 };
+//Search
+export const searchAgesByNameApi = (name: string) => {
+  return axios.get<{ ages: IAge[] }>('/api/age/search', {
+    params: { name }
+  });
+};
