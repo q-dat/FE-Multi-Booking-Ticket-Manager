@@ -30,6 +30,7 @@ const VehiclePage = lazy(() => import('../pages/admin/VehiclePage'));
 const SeatPage = lazy(() => import('../pages/admin/SeatPage'));
 const AgePage = lazy(() => import('../pages/admin/AgePage'));
 const ServicePage = lazy(() => import('../pages/admin/ServicePage'));
+const VehicleCatalogPage = lazy(() => import('../pages/admin/VehicleCatalogPage'));
 
 // not found page
 const NotFound = lazy(() => import('../pages/404/NotFound'));
@@ -81,6 +82,7 @@ export default function AppRoutes() {
             <Route path="age" element={<AgePage />} />
             <Route path="service" element={<ServicePage />} />
             <Route path="ticket-catalog" element={<TicketCatalogPage />} />
+            <Route path="vehicle-catalog" element={<VehicleCatalogPage />} />
           </Route>
         </Route>
         {/* 404 not found */}
