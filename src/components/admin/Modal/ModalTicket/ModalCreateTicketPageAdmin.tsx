@@ -4,8 +4,14 @@ import { ITicket } from '../../../../types/type/ticket/ticket';
 import { TicketContext } from '../../../../context/ticket/TicketContext';
 import { Toastify } from '../../../../helper/Toastify';
 import { isIErrorResponse } from '../../../../types/error/error';
-import InputModal from '../../InputModal';
-import { Button } from 'react-daisyui';
+import InputForm from '../../InputForm';
+import { Button, Select } from 'react-daisyui';
+import { TicketCatalogContext } from '../../../../context/ticketCatalog/TicketCatalogContext';
+import LabelForm from '../../LabelForm';
+import { VehicleContext } from '../../../../context/vehicle/VehicleContext';
+import { VehicleCatalogContext } from '../../../../context/vehicleCatalog/VehicleCatalogContext';
+import { SeatContext } from '../../../../context/seat/SeatContext';
+import { SeatCatalogContext } from '../../../../context/seatCatalog/SeatCatalogContext';
 
 interface ModalCreateTicketProps {
   isOpen: boolean;
@@ -18,6 +24,12 @@ const ModalCreateTicketPageAdmin: React.FC<ModalCreateTicketProps> = ({
 }) => {
   const { createTicket } = useContext(TicketContext);
   const { register, handleSubmit, reset } = useForm<ITicket>();
+  //
+  const { ticketCatalogs } = useContext(TicketCatalogContext);
+  const { vehicles } = useContext(VehicleContext);
+  const { vehicleCatalogs } = useContext(VehicleCatalogContext);
+  const { seats } = useContext(SeatContext);
+  const { seatCatalogs } = useContext(SeatCatalogContext);
 
   const onSubmit: SubmitHandler<ITicket> = async formData => {
     try {
@@ -42,83 +54,133 @@ const ModalCreateTicketPageAdmin: React.FC<ModalCreateTicketProps> = ({
       onClose();
     }
   };
-
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <div
         onClick={handleOverlayClick}
-        className="modal-overlay fixed inset-0 z-50 flex w-full items-center justify-center bg-black bg-opacity-40"
+        className="modal-overlay fixed inset-0 z-50 flex w-full items-center justify-center bg-black bg-opacity-40 px-2"
       >
         <div
           onClick={e => e.stopPropagation()}
-          className="flex flex-col space-y-10 rounded-lg bg-white p-10 text-start shadow dark:bg-gray-800"
+          className="flex flex-col gap-5 rounded-lg bg-white p-10 text-start shadow dark:bg-gray-800"
         >
           <p className="text-xl font-bold text-black dark:text-white">
             Tạo vé mới
           </p>
+          <div className="flex flex-row items-start justify-center gap-2 md:gap-5">
+            <div className="flex flex-col gap-2">
+              {/*  */}
+              <LabelForm title={'Loại Phương Tiện'} />
+              <Select
+                defaultValue=""
+                className="w-full border border-gray-700 border-opacity-50 bg-white text-black focus:border-primary focus:outline-none dark:border-secondary dark:bg-gray-700 dark:text-white dark:focus:border-white"
+                {...register('vehicle_catalog_id')}
+              >
+                <option disabled value="">
+                  Chọn Loại Phương Tiện
+                </option>
+                {vehicleCatalogs.map(vehicleCatalog => (
+                  <option value={vehicleCatalog._id} key={vehicleCatalog._id}>
+                    {vehicleCatalog.name}
+                  </option>
+                ))}
+              </Select>
+              {/*  */}
 
-          <div>
-            <label className="block text-sm font-medium text-gray-700">
-              Mã Danh Mục Vé
-            </label>
-            <InputModal
-              placeholder={'ví dụ: Mã vé ABC'}
-              type={'text'}
-              {...register('ticket_catalog_id')}
-            />
+              <LabelForm title={'Phương Tiện'} />
+              <Select
+                defaultValue=""
+                className="w-full border border-gray-700 border-opacity-50 bg-white text-black focus:border-primary focus:outline-none dark:border-secondary dark:bg-gray-700 dark:text-white dark:focus:border-white"
+                {...register('seat_id.seat_catalog_id.vehicle_id')}
+              >
+                <option disabled value="">
+                  Chọn Phương Tiện
+                </option>
+                {vehicles.map(vehicle => (
+                  <option value={vehicle._id} key={vehicle._id}>
+                    {vehicle.name}
+                  </option>
+                ))}
+              </Select>
+              {/*  */}
+              <LabelForm title={'Khoang(Toa)'} />
+              <Select
+                defaultValue=""
+                className="w-full border border-gray-700 border-opacity-50 bg-white text-black focus:border-primary focus:outline-none dark:border-secondary dark:bg-gray-700 dark:text-white dark:focus:border-white"
+                {...register('seat_id.seat_catalog_id.vehicle_id')}
+              >
+                <option disabled value="">
+                  Chọn Khoang(Toa)
+                </option>
+                {seatCatalogs.map(seatCatalog => (
+                  <option value={seatCatalog._id} key={seatCatalog._id}>
+                    {seatCatalog.name}
+                  </option>
+                ))}
+              </Select>
+            </div>
+            {/*  */}
+            <div className="flex flex-col gap-2">
+              {/*  */}
+              <LabelForm title={'Loại Vé'} />
+              <Select
+                defaultValue=""
+                className="w-full border border-gray-700 border-opacity-50 bg-white text-black focus:border-primary focus:outline-none dark:border-secondary dark:bg-gray-700 dark:text-white dark:focus:border-white"
+                {...register('ticket_catalog_id')}
+              >
+                <option disabled value="">
+                  Chọn Loại Vé
+                </option>
+                {ticketCatalogs.map(ticketCatalog => (
+                  <option key={ticketCatalog._id} value={ticketCatalog._id}>
+                    {ticketCatalog.name}
+                  </option>
+                ))}
+              </Select>
+              {/*  */}
+              <LabelForm title={'Chuyến Đi'} />
+              <Select
+                defaultValue=""
+                className="w-full border border-gray-700 border-opacity-50 bg-white text-black focus:border-primary focus:outline-none dark:border-secondary dark:bg-gray-700 dark:text-white dark:focus:border-white"
+              >
+                <option disabled value="">
+                  Chọn Chuyến Đi
+                </option>
+                <option value=""></option>
+              </Select>
+              {/*  */}
+              <LabelForm title={'Giá Vé'} />
+              <InputForm
+                placeholder={'vd: 1000'}
+                type={''}
+                {...register('_id')}
+              ></InputForm>
+            </div>
           </div>
-
-          <div>
-            <label className="block text-sm font-medium text-gray-700">
-              Mã Danh Mục Xe
-            </label>
-            <InputModal
-              placeholder={'ví dụ: Mã xe XYZ'}
-              type={'text'}
-              {...register('vehicle_catalog_id')}
-            />
-          </div>
-
-          <div>
-            <label className="block text-sm font-medium text-gray-700">
-              Mã Ghế
-            </label>
-            <InputModal
-              placeholder={'ví dụ: Ghế 1A'}
-              type={'text'}
-              {...register('seat_id')}
-            />
-          </div>
-
-          <div>
-            <label className="block text-sm font-medium text-gray-700">
-              Mã Chuyến Đi
-            </label>
-            <InputModal
-              placeholder={'ví dụ: Chuyến đi 123'}
-              type={'text'}
-              {...register('trip_id')}
-            />
-          </div>
-
-          <div>
-            <label className="block text-sm font-medium text-gray-700">
-              Giá vé
-            </label>
-            <InputModal
-              placeholder={'ví dụ: 500'}
-              type={'number'}
-              {...register('price')}
-            />
-          </div>
-
-          <div className="mt-4 space-x-5 text-center">
-            <Button onClick={onClose} className="border-gray-50 text-black">
-              Huỷ bỏ
-            </Button>
-            <Button color="primary" type="submit" className="text-white">
-              Xác nhận
-            </Button>
+          <div className="mt-4 flex flex-col gap-5 text-center">
+            {/*  */}
+            <Select
+              defaultValue=""
+              className="w-full border border-gray-700 border-opacity-50 bg-white text-black focus:border-primary focus:outline-none dark:border-secondary dark:bg-gray-700 dark:text-white dark:focus:border-white"
+            >
+              <option disabled value="">
+                Chọn Chỗ Ngồi
+              </option>
+              {seats.map(seat => (
+                <option value={seat._id} key={seat._id}>
+                  {seat.name}
+                </option>
+              ))}
+            </Select>
+            {/*  */}
+            <div className="flex flex-row items-center justify-center gap-5">
+              <Button onClick={onClose} className="border-gray-50 text-black">
+                Huỷ bỏ
+              </Button>
+              <Button color="primary" type="submit" className="text-white">
+                Xác nhận
+              </Button>
+            </div>
           </div>
         </div>
       </div>
@@ -127,3 +189,4 @@ const ModalCreateTicketPageAdmin: React.FC<ModalCreateTicketProps> = ({
 };
 
 export default ModalCreateTicketPageAdmin;
+

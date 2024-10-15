@@ -5,7 +5,7 @@ interface InputModalProps {
   placeholder: string;
   type: string;
   value?: string | number;
-  name: string;
+  name?: string;
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
