@@ -35,7 +35,6 @@ const ModalEditTripPageAdmin: React.FC<ModalEditTripProps> = ({
       setValue('departure_point', tripData.departure_point);
       setValue('destination_point', tripData.destination_point);
       setValue('departure_date', tripData.departure_date);
-      setValue('arrivalDate', tripData.arrivalDate);
       setValue('price', tripData.price);
     }
   }, [trips, tripId, setValue]);
@@ -106,11 +105,7 @@ const ModalEditTripPageAdmin: React.FC<ModalEditTripProps> = ({
             <label className="block text-sm font-medium text-gray-700">
               Ngày đến
             </label>
-            <InputModal
-              placeholder={''}
-              type="date"
-              {...register('arrivalDate')}
-            />
+           
             <label className="block text-sm font-medium text-gray-700">
               Giá
             </label>
