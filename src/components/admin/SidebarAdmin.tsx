@@ -5,6 +5,7 @@ import { FaHome } from 'react-icons/fa';
 import { IoLocation, IoTicket } from 'react-icons/io5';
 import { MdEventSeat, MdPostAdd } from 'react-icons/md';
 import { FaTicket } from 'react-icons/fa6';
+import { GiTripleGate } from "react-icons/gi";
 // import { useTranslation } from 'react-i18next';
 import DarkModeToggle from '../orther/darkmode/DarkMode';
 import { Logo, LogoTitle } from '../../assets/images';
@@ -22,6 +23,7 @@ import { SeatCatalogContext } from '../../context/seatCatalog/SeatCatalogContext
 import { IoIosTrain } from 'react-icons/io';
 import { GiAges } from 'react-icons/gi';
 import { TicketContext } from '../../context/ticket/TicketContext';
+import { TripContext } from '../../context/trip/TripContext';
 
 const SidebarAdmin: React.FC<{}> = () => {
   const { locations } = useContext(LocationContext);
@@ -34,6 +36,7 @@ const SidebarAdmin: React.FC<{}> = () => {
   const { vehicleCatalogs } = useContext(VehicleCatalogContext);
   const { seatCatalogs } = useContext(SeatCatalogContext);
   const { tickets } = useContext(TicketContext);
+  const { trips } = useContext(TripContext);
   const [activeItem, setActiveItem] = useState('Dashboard');
 
   const location = useLocation();
@@ -103,6 +106,12 @@ const SidebarAdmin: React.FC<{}> = () => {
       icon: FaTicket,
       link: '/admin/ticket-catalog',
       toastify: ticketCatalogs.length
+    },
+    {
+      name: 'Chuyến đi',
+      icon: GiTripleGate,
+      link: '/admin/trip',
+      toastify: trips.length
     }
   ];
 
