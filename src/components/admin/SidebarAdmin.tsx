@@ -4,9 +4,7 @@ import { NavLink, useLocation } from 'react-router-dom';
 import { FaHome } from 'react-icons/fa';
 import { IoLocation, IoTicket } from 'react-icons/io5';
 import { MdEventSeat, MdPostAdd } from 'react-icons/md';
-import { FaTicket } from 'react-icons/fa6';
-import { GiTripleGate } from "react-icons/gi";
-// import { useTranslation } from 'react-i18next';
+import { FaMapLocationDot, FaTicket } from 'react-icons/fa6';
 import DarkModeToggle from '../orther/darkmode/DarkMode';
 import { Logo, LogoTitle } from '../../assets/images';
 import { PiSeatFill } from 'react-icons/pi';
@@ -109,7 +107,7 @@ const SidebarAdmin: React.FC<{}> = () => {
     },
     {
       name: 'Chuyến đi',
-      icon: GiTripleGate,
+      icon: FaMapLocationDot,
       link: '/admin/trip',
       toastify: trips.length
     }
@@ -124,7 +122,7 @@ const SidebarAdmin: React.FC<{}> = () => {
   }, [location.pathname, menuItems]);
 
   return (
-    <div className="flex min-h-screen xl:h-full flex-col items-center justify-between gap-10 bg-white dark:bg-gray-800 xl:fixed xl:w-64 xl:shadow-lg">
+    <div className="flex min-h-screen flex-col items-center justify-between gap-10 bg-white dark:bg-gray-800 xl:fixed xl:h-full xl:w-64 xl:shadow-lg">
       <div className="w-full">
         {/*  */}
         <div className="mt-8 flex w-full items-center justify-between px-2">

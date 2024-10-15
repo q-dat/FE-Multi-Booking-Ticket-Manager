@@ -1,4 +1,3 @@
-// src/context/trip/TripContext.tsx
 import {
   createContext,
   useState,
@@ -10,7 +9,7 @@ import { ITrip } from '../../types/type/trip/trip';
 import {
   createTripApi,
   deleteTripApi,
-  getAllTripApi,
+  getAllTripsApi,
   updateTripApi
 } from '../../axios/api/tripApi';
 
@@ -70,7 +69,7 @@ export const TripProvider = ({ children }: { children: ReactNode }) => {
   const fetchData = async (
     apiCall: () => Promise<any>,
     onSuccess: (data: any) => void,
-    requestType: keyof typeof loading
+    requestType: keyof typeof loading // 'getAll', 'create', 'update', 'delete'
   ) => {
     setLoading(prev => ({ ...prev, [requestType]: true }));
     setError(null);
@@ -86,7 +85,11 @@ export const TripProvider = ({ children }: { children: ReactNode }) => {
 
   // Get All
   const getAllTrips = useCallback(() => {
-    fetchData(getAllTripApi, data => setTrips(data.trips || []), 'getAll');
+    fetchData(
+      getAllTripsApi,
+      data => setTrips(data.trips || []),
+      'getAll'
+    );
   }, []);
 
   // Get By Id
@@ -98,17 +101,20 @@ export const TripProvider = ({ children }: { children: ReactNode }) => {
   );
 
   // Post
-  const createTrip = useCallback(async (trip: ITrip): Promise<void> => {
-    await fetchData(
-      () => createTripApi(trip),
-      data => {
-        if (data.savedTrip) {
-          setTrips(prevTrips => [...prevTrips, data.savedTrip]);
-        }
-      },
-      'create'
-    );
-  }, []);
+  const createTrip = useCallback(
+    async (trip: ITrip): Promise<void> => {
+      await fetchData(
+        () => createTripApi(trip),
+        data => {
+          if (data.savedTrip) {
+            setTrips(prevTrips => [...prevTrips, data.savedTrip]);
+          }
+        },
+        'create'
+      );
+    },
+    []
+  );
 
   // Put
   const updateTrip = useCallback(
@@ -116,11 +122,9 @@ export const TripProvider = ({ children }: { children: ReactNode }) => {
       await fetchData(
         () => updateTripApi(id, trip),
         data => {
-          if (data.updatedTrip) {
+          if (data.trip) {
             setTrips(prevTrips =>
-              prevTrips.map(existingTrip =>
-                existingTrip._id === id ? data.updatedTrip : existingTrip
-              )
+              prevTrips.map(trp => (trp._id === id ? data.trip : trp))
             );
           }
         },
@@ -134,7 +138,10 @@ export const TripProvider = ({ children }: { children: ReactNode }) => {
   const deleteTrip = useCallback(async (id: string): Promise<void> => {
     await fetchData(
       () => deleteTripApi(id),
-      () => setTrips(prevTrips => prevTrips.filter(trip => trip._id !== id)),
+      () =>
+        setTrips(prevTrips =>
+          prevTrips.filter(trip => trip._id !== id)
+        ),
       'delete'
     );
   }, []);

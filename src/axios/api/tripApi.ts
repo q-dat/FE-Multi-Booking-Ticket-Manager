@@ -2,8 +2,8 @@ import axios from '../../config/axiosConfig';
 import { ITrip } from '../../types/type/trip/trip';
 
 // Get All
-export const getAllTripApi = () => {
-  return axios.get<{ trip: ITrip[] }>('/api/trips');
+export const getAllTripsApi = () => {
+  return axios.get<{ trips: ITrip[] }>('/api/trips');
 };
 
 // Get By ID
@@ -18,7 +18,7 @@ export const createTripApi = (trip: ITrip) => {
 
 // Put
 export const updateTripApi = (id: string, trip: ITrip) => {
-  return axios.put<{ trip: ITrip }>(`/api/trip/${id}`, trip);
+  return axios.put<{ trip: ITrip }>(`/api/trips/${id}`, trip);
 };
 
 // Delete

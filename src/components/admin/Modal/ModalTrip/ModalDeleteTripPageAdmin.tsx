@@ -1,21 +1,18 @@
 import React from 'react';
 import { Button } from 'react-daisyui';
-import { ITrip } from '../../../../types/type/trip/trip';
 
-interface ModalDeleteTripProps {
+interface ModalDeleteAdminProps {
   isOpen: boolean;
   onClose: () => void;
-  onConfirm: () => Promise<void>;
-  trip?: ITrip; 
+  onConfirm: () => void;
 }
 
-const ModalDeleteTripPageAdmin: React.FC<ModalDeleteTripProps> = ({
+const ModalDeleteTripPageAdmin: React.FC<ModalDeleteAdminProps> = ({
   isOpen,
   onClose,
-  onConfirm,
-  trip
+  onConfirm
 }) => {
-  if (!isOpen || !trip) return null;
+  if (!isOpen) return null;
 
   const handleOverlayClick = (
     e: React.MouseEvent<HTMLDivElement, MouseEvent>
@@ -34,14 +31,15 @@ const ModalDeleteTripPageAdmin: React.FC<ModalDeleteTripProps> = ({
         onClick={e => e.stopPropagation()}
         className="flex flex-col items-center rounded-lg bg-white p-5 shadow dark:bg-gray-800"
       >
-        <div>
+        <div className="">
           <p className="font-bold text-black dark:text-white">
-            Chuyến đi này sẽ bị xóa: <strong>{trip.departure_point.name} - {trip.destination_point.name}</strong>!
+            Chuyến đi này sẽ bị xoá!
+            <label className="pl-1 text-secondary">{/*  */}</label>
           </p>
         </div>
         <div className="w-[300px] py-5 text-center text-gray-50">
           Sau khi bạn nhấn
-          <label className="font-bold text-primary"> "Xác Nhận" </label>
+          <label className="font-bold text-primary">"Xác Nhận"</label>
         </div>
         <div className="flex w-64 flex-col space-y-3 text-center">
           <Button
