@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
-import { ITicket } from '../../../../types/type/ticket/ticket'; // Import ITicket type
+import { ITicket } from '../../../../types/type/ticket/ticket';
 import { TicketContext } from '../../../../context/ticket/TicketContext';
 import { Toastify } from '../../../../helper/Toastify';
 import { isIErrorResponse } from '../../../../types/error/error';

@@ -8,7 +8,7 @@ const NavtableAdmin: React.FC<{ Title_NavtableAdmin: string }> = ({
 }) => {
   // const [value, setValue] = React.useState('default');
   return (
-    <div className="hidden items-center justify-between bg-white px-4 py-5 md:flex">
+    <div className="hidden items-center justify-between rounded-l-md rounded-r-md bg-white px-4 py-5 md:flex">
       <div>
         <h2 className="text-lg font-bold text-black">{Title_NavtableAdmin}</h2>
         <p className="mt-1 text-sm text-primary">Đang sử dụng</p>
