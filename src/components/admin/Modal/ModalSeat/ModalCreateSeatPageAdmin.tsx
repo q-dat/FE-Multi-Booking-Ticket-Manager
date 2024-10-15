@@ -2,7 +2,7 @@ import React, { useContext, useEffect } from 'react';
 import { Button, Select, Textarea } from 'react-daisyui';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import InputModal from '../../InputModal';
-import { ISeat } from '../../../../types/type/seat/seat'; // Sửa kiểu thành ISeat
+import { ISeat } from '../../../../types/type/seat/seat';
 import { isIErrorResponse } from '../../../../types/error/error';
 import { Toastify } from '../../../../helper/Toastify';
 import { SeatContext } from '../../../../context/seat/SeatContext';
@@ -70,7 +70,7 @@ const ModalCreateSeatPageAdmin: React.FC<ModalCreateSeatProps> = ({
               {...register('price', { required: true })}
               placeholder="Giá"
             />
-               <InputModal
+            <InputModal
               type={'text'}
               {...register('ordinal_numbers', { required: true })}
               placeholder="Số ghế"

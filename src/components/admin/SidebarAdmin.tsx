@@ -60,6 +60,12 @@ const {tickets} =useContext(TicketContext)
       toastify: vehicles.length
     },
     {
+      name: 'Loại Phương Tiện',
+      icon: IoIosTrain,
+      link: '/admin/vehicle-catalog',
+      toastify: vehicleCatalogs.length
+    },
+    {
       name: 'Ghế Tàu',
       icon: PiSeatFill,
       link: '/admin/seat',
@@ -78,22 +84,16 @@ const {tickets} =useContext(TicketContext)
       toastify: services.length
     },
     {
-      name: 'Loại Vé',
-      icon: FaTicket,
-      link: '/admin/ticket-catalog',
-      toastify: ticketCatalogs.length
-    },
-    {
       name: 'Các Vé',
       icon: IoTicket,
       link: '/admin/ticket',
       toastify: tickets.length
     },
     {
-      name: 'Loại Phương Tiện',
+      name: 'Loại Vé',
       icon: FaTicket,
-      link: '/admin/vehicle-catalog',
-      toastify: vehicleCatalogs.length
+      link: '/admin/ticket-catalog',
+      toastify: ticketCatalogs.length
     }
   ];
 
