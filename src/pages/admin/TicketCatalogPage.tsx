@@ -54,11 +54,11 @@ const TicketCatalogPage: React.FC = () => {
       try {
         await deleteTicketCatalog(selectedTicketCatalogId);
         closeModalDeleteAdmin();
-        Toastify('Bạn đã xoá hạng vé thành công', 201);
+        Toastify('Bạn đã xoá loại vé thành công', 201);
         getAllTicketCatalogs();
         navigate('/admin/ticket-catalog');
       } catch (error) {
-        Toastify('Xoá hạng vé thất bại!', 401);
+        Toastify('Xoá loại vé thất bại!', 401);
       }
     }
   };
@@ -68,10 +68,10 @@ const TicketCatalogPage: React.FC = () => {
 
   return (
     <div className="w-full">
-      <NavbarMobile Title_NavbarMobile="Hạng Vé" />
+      <NavbarMobile Title_NavbarMobile="Loại Vé" />
       <div className="px-2 xl:px-0">
         <NavtitleAdmin
-          Title_NavtitleAdmin="Quản Lý Hạng Vé"
+          Title_NavtitleAdmin="Quản Lý Loại Vé"
           Btn_Create={
             <Button
               color="primary"
@@ -88,11 +88,11 @@ const TicketCatalogPage: React.FC = () => {
       </div>
 
       <TableListAdmin
-        Title_TableListAdmin={`Danh Sách Hạng Vé (${ticketCatalogs.length})`}
+        Title_TableListAdmin={`Danh Sách Loại Vé (${ticketCatalogs.length})`}
         table_head={
           <Table.Head className="bg-primary text-center text-white">
             <span>STT</span>
-            <span>Tên Hạng Vé</span>
+            <span>Tên Loại Vé</span>
             <span>Hành Động</span>
           </Table.Head>
         }
