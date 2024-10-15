@@ -29,7 +29,7 @@ const ModalCreateSeatCatalogPageAdmin: React.FC<
       const errorMessage = isIErrorResponse(error)
         ? error.data?.message
         : 'Lỗi khi tạo danh mục phương tiện!';
-      Toastify(`Lỗi: ${errorMessage}`, 401);
+      Toastify(`Lỗi: ${errorMessage}`, 500);
     }
   };
 

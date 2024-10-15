@@ -49,7 +49,7 @@ const ModalEditAgePageAdmin: React.FC<ModalEditAgeProps> = ({
       const errorMessage = isIErrorResponse(error)
         ? error.data?.message
         : 'Lỗi khi chỉnh sửa độ tuổi!';
-      Toastify(`Lỗi: ${errorMessage}`, 401);
+      Toastify(`Lỗi: ${errorMessage}`, 500);
     }
   };
 

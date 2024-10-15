@@ -47,7 +47,7 @@ const ModalEditVehiclePageAdmin: React.FC<ModalEditVehicleProps> = ({
       const errorMessage = isIErrorResponse(error)
         ? error.data?.message
         : 'Lỗi khi chỉnh sửa phương tiện!';
-      Toastify(`Lỗi: ${errorMessage}`, 401);
+      Toastify(`Lỗi: ${errorMessage}`, 500);
     }
   };
 

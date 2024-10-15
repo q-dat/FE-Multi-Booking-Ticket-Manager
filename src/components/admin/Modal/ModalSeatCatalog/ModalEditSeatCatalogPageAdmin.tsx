@@ -53,7 +53,7 @@ const ModalEditSeatCatalogPageAdmin: React.FC<ModalEditSeatCatalogProps> = ({
       const errorMessage = isIErrorResponse(error)
         ? error.data?.message
         : 'Lỗi khi chỉnh sửa danh mục ghế!';
-      Toastify(`Lỗi: ${errorMessage}`, 401);
+      Toastify(`Lỗi: ${errorMessage}`, 500);
     }
   };
 

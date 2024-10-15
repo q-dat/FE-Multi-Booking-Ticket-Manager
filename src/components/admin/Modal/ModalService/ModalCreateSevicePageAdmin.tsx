@@ -30,7 +30,7 @@ const ModalCreateServicePageAdmin: React.FC<ModalCreateServiceProps> = ({
       const errorMessage = isIErrorResponse(error)
         ? error.data?.message
         : 'Lỗi khi tạo dịch vụ!';
-      Toastify(`Lỗi: ${errorMessage}`, 401);
+      Toastify(`Lỗi: ${errorMessage}`, 500);
     }
   };
 

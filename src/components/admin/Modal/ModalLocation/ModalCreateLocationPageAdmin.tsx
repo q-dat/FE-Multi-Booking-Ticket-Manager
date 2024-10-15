@@ -29,7 +29,7 @@ const ModalCreateLocationPageAdmin: React.FC<ModalCreateLocationProps> = ({
       const errorMessage = isIErrorResponse(error)
         ? error.data?.message
         : 'Lỗi khi tạo địa điểm!';
-      Toastify(`Lỗi: ${errorMessage}`, 401);
+      Toastify(`Lỗi: ${errorMessage}`, 500);
     }
   };
 

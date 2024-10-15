@@ -52,7 +52,7 @@ const ModalEditSeatPageAdmin: React.FC<ModalEditSeatProps> = ({
       const errorMessage = isIErrorResponse(error)
         ? error.data?.message
         : 'Lỗi khi chỉnh sửa ghế!';
-      Toastify(`Lỗi: ${errorMessage}`, 401);
+      Toastify(`Lỗi: ${errorMessage}`, 500);
     }
   };
 

@@ -29,7 +29,7 @@ const ModalCreateAgePageAdmin: React.FC<ModalCreateAgeProps> = ({
       const errorMessage = isIErrorResponse(error)
         ? error.data?.message
         : 'Lỗi khi tạo độ tuổi!';
-      Toastify(`Lỗi: ${errorMessage}`, 401);
+      Toastify(`Lỗi: ${errorMessage}`, 500);
     }
   };
 

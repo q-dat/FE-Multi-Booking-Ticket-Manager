@@ -47,7 +47,7 @@ const ModalEditServicePageAdmin: React.FC<ModalEditServiceProps> = ({
       const errorMessage = isIErrorResponse(error)
         ? error.data?.message
         : 'Lỗi khi chỉnh sửa dịch vụ!';
-      Toastify(`Lỗi: ${errorMessage}`, 401);
+      Toastify(`Lỗi: ${errorMessage}`, 200);
     }
   };
 

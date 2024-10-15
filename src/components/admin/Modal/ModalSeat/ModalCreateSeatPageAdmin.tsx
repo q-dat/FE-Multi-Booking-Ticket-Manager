@@ -34,7 +34,7 @@ const ModalCreateSeatPageAdmin: React.FC<ModalCreateSeatProps> = ({
       const errorMessage = isIErrorResponse(error)
         ? error.data?.message
         : 'Lỗi khi tạo ghế!';
-      Toastify(`Lỗi: ${errorMessage}`, 401);
+      Toastify(`Lỗi: ${errorMessage}`, 500);
     }
   };
 

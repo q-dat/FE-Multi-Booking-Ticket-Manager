@@ -29,7 +29,7 @@ const ModalCreateVehiclePageAdmin: React.FC<ModalCreateVehicleProps> = ({
       const errorMessage = isIErrorResponse(error)
         ? error.data?.message
         : 'Lỗi khi tạo phương tiện!';
-      Toastify(`Lỗi: ${errorMessage}`, 401);
+      Toastify(`Lỗi: ${errorMessage}`, 500);
     }
   };
 

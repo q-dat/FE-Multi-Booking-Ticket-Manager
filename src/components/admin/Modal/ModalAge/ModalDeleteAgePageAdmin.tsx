@@ -35,14 +35,13 @@ const ModalDeleteAgePageAdmin: React.FC<ModalDeleteAdminProps> = ({
           <p className="font-bold text-black dark:text-white">
             Độ tuổi này sẽ bị xoá!
             <label className="pl-1 text-secondary">
-              {/* Placeholder for future text */}
+              {/* */}
             </label>
           </p>
         </div>
         <div className="w-[300px] py-5 text-center text-gray-50">
-          Sau khi bạn nhấn
-          <label className="font-bold text-primary">"Xác Nhận"</label>, dữ liệu
-          sẽ bị xoá vĩnh viễn.
+          sau khi bận nhấn
+          <label className="font-bold text-primary">"Xác Nhận"</label>
         </div>
         <div className="flex w-64 flex-col space-y-3 text-center">
           <Button
