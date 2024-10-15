@@ -239,12 +239,12 @@ const SeatPage: React.FC = () => {
                 )}
                 {fillter[5] === 'Trạng Thái' ? (
                   <span
-                    className={`inline-block w-[140px] rounded-lg px-4 py-2 font-medium text-white ${
+                    className={`inline-block w-[150px] rounded-lg px-4 py-2 font-medium text-white ${
                       seat?.status === 'Còn chỗ'
-                        ? 'border border-green-600 bg-[#a6e3d5] text-green-600'
+                        ? 'border border-green-600 bg-[#a6e3d5] text-green-700'
                         : seat?.status === 'Đang bảo trì'
-                          ? 'border border-yellow-600 bg-yellow-200 text-yellow-600'
-                          : 'border border-red-700 bg-red-300 text-red-700'
+                          ? 'border border-yellow-600 bg-yellow-200 text-yellow-700'
+                          : 'border border-red-600 bg-red-200 text-red-600'
                     }`}
                   >
                     {seat?.status}
