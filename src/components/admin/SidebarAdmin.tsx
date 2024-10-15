@@ -3,7 +3,7 @@ import { Button, Menu } from 'react-daisyui';
 import { NavLink, useLocation } from 'react-router-dom';
 import { FaHome } from 'react-icons/fa';
 import { IoLocation, IoTicket } from 'react-icons/io5';
-import { MdPostAdd } from 'react-icons/md';
+import { MdEventSeat, MdPostAdd } from 'react-icons/md';
 import { FaTicket } from 'react-icons/fa6';
 // import { useTranslation } from 'react-i18next';
 import DarkModeToggle from '../orther/darkmode/DarkMode';
@@ -18,7 +18,8 @@ import { usePostContext } from '../../context/post/PostContext';
 import { AgeContext } from '../../context/age/AgeContext';
 import { TicketCatalogContext } from '../../context/ticketCatalog/TicketCatalogContext';
 import { VehicleCatalogContext } from '../../context/vehicleCatalog/VehicleCatalogContext';
-import { IoIosTrain } from "react-icons/io";
+import { SeatCatalogContext } from '../../context/seatCatalog/SeatCatalogContext';
+import { IoIosTrain } from 'react-icons/io';
 import { GiAges } from 'react-icons/gi';
 import { TicketContext } from '../../context/ticket/TicketContext';
 const SidebarAdmin: React.FC<{}> = () => {
@@ -30,7 +31,8 @@ const SidebarAdmin: React.FC<{}> = () => {
   const { posts } = usePostContext();
   const { ticketCatalogs } = useContext(TicketCatalogContext);
   const { vehicleCatalogs } = useContext(VehicleCatalogContext);
-const {tickets} =useContext(TicketContext)
+  const { seatCatalogs } = useContext(SeatCatalogContext);
+  const { tickets } = useContext(TicketContext);
   const [activeItem, setActiveItem] = useState('Dashboard');
 
   const location = useLocation();
@@ -94,6 +96,12 @@ const {tickets} =useContext(TicketContext)
       icon: FaTicket,
       link: '/admin/ticket-catalog',
       toastify: ticketCatalogs.length
+    },
+    {
+      name: 'Loại Ghế',
+      icon: MdEventSeat,
+      link: '/admin/seat-catalog',
+      toastify: seatCatalogs.length
     }
   ];
 
@@ -146,10 +154,11 @@ const {tickets} =useContext(TicketContext)
                   <Menu.Item key={item.name} className="relative">
                     <NavLink
                       to={item.link}
-                      className={`btn flex w-full items-center justify-start border-none shadow-white dark:bg-gray-800 dark:shadow-none ${item.name === activeItem
-                        ? 'bg-base-200 font-bold text-primary dark:bg-white'
-                        : 'bg-transparent bg-white font-light text-black dark:text-white'
-                        } relative pl-4`}
+                      className={`btn flex w-full items-center justify-start border-none shadow-white dark:bg-gray-800 dark:shadow-none ${
+                        item.name === activeItem
+                          ? 'bg-base-200 font-bold text-primary dark:bg-white'
+                          : 'bg-transparent bg-white font-light text-black dark:text-white'
+                      } relative pl-4`}
                     >
                       <div className="flex w-full items-center justify-between">
                         <div className="flex items-center">

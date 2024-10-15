@@ -1,64 +1,64 @@
 import React, { useContext, useState, useEffect } from 'react';
-import { TicketCatalogContext } from '../../context/ticketCatalog/TicketCatalogContext';
+import { SeatCatalogContext } from '../../context/seatCatalog/SeatCatalogContext';
 import { Toastify } from '../../helper/Toastify';
 import LoadingLocal from '../../components/orther/loading/LoadingLocal';
 import NavtitleAdmin from '../../components/admin/NavtitleAdmin';
 import { RiAddBoxLine } from 'react-icons/ri';
 import { Button, Table } from 'react-daisyui';
-import { ITicketCatalog } from '../../types/type/ticket-catalog/ticket-catalog';
 import { MdDelete } from 'react-icons/md';
 import ErrorLoading from '../../components/orther/error/ErrorLoading';
 import { FaCircleInfo, FaPenToSquare } from 'react-icons/fa6';
 import TableListAdmin from '../../components/admin/TablelistAdmin';
 import NavbarMobile from '../../components/admin/Reponsive/Mobile/NavbarMobile';
 import { useNavigate } from 'react-router-dom';
-import ModalCreateTicketCatalogPageAdmin from '../../components/admin/Modal/ModalTicketCatalog/ModalCreateTicketCatalogPageAdmin';
-import ModalDeleteTicketCatalogPageAdmin from '../../components/admin/Modal/ModalTicketCatalog/ModalDeleteTicketCatalogPageAdmin';
-import ModalEditTicketCatalogPageAdmin from '../../components/admin/Modal/ModalTicketCatalog/ModalEditTicketCatalogPageAdmin';
+import ModalDeleteSeatCatalogPageAdmin from '../../components/admin/Modal/ModalSeatCatalog/ModalDeleteSeatCatalogPageAdmin';
+import ModalEditSeatCatalogPageAdmin from '../../components/admin/Modal/ModalSeatCatalog/ModalEditSeatCatalogPageAdmin';
+import ModalCreateSeatCatalogPageAdmin from '../../components/admin/Modal/ModalSeatCatalog/ModalCreateSeatCatalogPageAdmin';
+import { ISeatCatalog } from '../../types/type/seat-catalog/seat-catalog';
 
-const TicketCatalogPage: React.FC = () => {
+const SeatCatalogPage: React.FC = () => {
   const {
-    ticketCatalogs,
+    seatCatalogs,
     loading,
     error,
-    deleteTicketCatalog,
-    getAllTicketCatalogs
-  } = useContext(TicketCatalogContext);
+    deleteSeatCatalog,
+    getAllSeatCatalogs
+  } = useContext(SeatCatalogContext);
   const [isModalCreateOpen, setIsModalCreateOpen] = useState(false);
   const [isModalDeleteOpen, setIsModalDeleteOpen] = useState(false);
   const [isModalEditOpen, setIsModalEditOpen] = useState(false);
-  const [selectedTicketCatalogId, setSelectedTicketCatalogId] = useState<
+  const [selectedSeatCatalogId, setSelectedSeatCatalogId] = useState<
     string | null
   >(null);
 
   const openModalCreateAdmin = () => setIsModalCreateOpen(true);
   const closeModalCreateAdmin = () => setIsModalCreateOpen(false);
   const openModalDeleteAdmin = (id: string) => {
-    setSelectedTicketCatalogId(id);
+    setSelectedSeatCatalogId(id);
     setIsModalDeleteOpen(true);
   };
   const closeModalDeleteAdmin = () => setIsModalDeleteOpen(false);
   const openModalEditAdmin = (id: string) => {
-    setSelectedTicketCatalogId(id);
+    setSelectedSeatCatalogId(id);
     setIsModalEditOpen(true);
   };
   const closeModalEditAdmin = () => setIsModalEditOpen(false);
 
   useEffect(() => {
-    getAllTicketCatalogs();
-  }, [getAllTicketCatalogs]);
+    getAllSeatCatalogs();
+  }, [getAllSeatCatalogs]);
 
   const navigate = useNavigate();
-  const handleDeleteTicketCatalog = async () => {
-    if (selectedTicketCatalogId) {
+  const handleDeleteSeatCatalog = async () => {
+    if (selectedSeatCatalogId) {
       try {
-        await deleteTicketCatalog(selectedTicketCatalogId);
+        await deleteSeatCatalog(selectedSeatCatalogId);
         closeModalDeleteAdmin();
-        Toastify('Bạn đã xoá hạng vé thành công', 201);
-        getAllTicketCatalogs();
-        navigate('/admin/ticket-catalog');
+        Toastify('Bạn đã xoá loại ghế thành công', 201);
+        getAllSeatCatalogs();
+        navigate('/admin/seat-catalog');
       } catch (error) {
-        Toastify('Xoá hạng vé thất bại!', 401);
+        Toastify('Xoá loại ghế thất bại!', 401);
       }
     }
   };
@@ -68,10 +68,10 @@ const TicketCatalogPage: React.FC = () => {
 
   return (
     <div className="w-full">
-      <NavbarMobile Title_NavbarMobile="Hạng Vé" />
+      <NavbarMobile Title_NavbarMobile="Loại Ghế" />
       <div className="px-2 xl:px-0">
         <NavtitleAdmin
-          Title_NavtitleAdmin="Quản Lý Hạng Vé"
+          Title_NavtitleAdmin="Quản Lý Loại Ghế"
           Btn_Create={
             <Button
               color="primary"
@@ -88,20 +88,22 @@ const TicketCatalogPage: React.FC = () => {
       </div>
 
       <TableListAdmin
-        Title_TableListAdmin={`Danh Sách Hạng Vé (${ticketCatalogs.length})`}
+        Title_TableListAdmin={`Danh Sách loại ghế (${seatCatalogs.length})`}
         table_head={
           <Table.Head className="bg-primary text-center text-white">
             <span>STT</span>
-            <span>Tên Hạng Vé</span>
+            <span>Tên Loại Ghế</span>
+            <span>Danh Mục</span>
             <span>Hành Động</span>
           </Table.Head>
         }
         table_body={
           <Table.Body className="text-center text-sm">
-            {ticketCatalogs.map((catalog: ITicketCatalog, index: number) => (
+            {seatCatalogs.map((catalog: ISeatCatalog, index: number) => (
               <Table.Row key={index}>
                 <span className="line-clamp-1">#{index + 1}</span>
                 <span className="line-clamp-1">{catalog?.name}</span>
+                <span className="line-clamp-1">{catalog?.vehicle_id.name}</span>
                 <span>
                   <details>
                     <summary className="inline cursor-pointer text-base text-warning">
@@ -134,22 +136,22 @@ const TicketCatalogPage: React.FC = () => {
         }
       />
 
-      <ModalCreateTicketCatalogPageAdmin
+      <ModalCreateSeatCatalogPageAdmin
         isOpen={isModalCreateOpen}
         onClose={closeModalCreateAdmin}
       />
-      <ModalDeleteTicketCatalogPageAdmin
+      <ModalDeleteSeatCatalogPageAdmin
         isOpen={isModalDeleteOpen}
         onClose={closeModalDeleteAdmin}
-        onConfirm={handleDeleteTicketCatalog}
+        onConfirm={handleDeleteSeatCatalog}
       />
-      <ModalEditTicketCatalogPageAdmin
+      <ModalEditSeatCatalogPageAdmin
         isOpen={isModalEditOpen}
         onClose={closeModalEditAdmin}
-        ticketCatalogId={selectedTicketCatalogId ?? ''}
+        seatCatalogId={selectedSeatCatalogId ?? ''}
       />
     </div>
   );
 };
 
-export default TicketCatalogPage;
+export default SeatCatalogPage;

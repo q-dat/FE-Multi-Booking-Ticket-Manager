@@ -7,13 +7,13 @@ interface ModalDeleteAdminProps {
   onConfirm: () => void;
 }
 
-const ModalDeleteTicketPageAdmin: React.FC<ModalDeleteAdminProps> = ({
+const ModalDeleteSeatCatalogPageAdmin: React.FC<ModalDeleteAdminProps> = ({
   isOpen,
   onClose,
   onConfirm
 }) => {
+  //
   if (!isOpen) return null;
-
   const handleOverlayClick = (
     e: React.MouseEvent<HTMLDivElement, MouseEvent>
   ) => {
@@ -21,7 +21,6 @@ const ModalDeleteTicketPageAdmin: React.FC<ModalDeleteAdminProps> = ({
       onClose();
     }
   };
-
   return (
     <div
       onClick={handleOverlayClick}
@@ -33,7 +32,7 @@ const ModalDeleteTicketPageAdmin: React.FC<ModalDeleteAdminProps> = ({
       >
         <div className="">
           <p className="font-bold text-black dark:text-white">
-            Địa chỉ này sẽ bị xoá!
+            Loại ghế này sẽ bị xoá!
             <label className="pl-1 text-secondary">{/*  */}</label>
           </p>
         </div>
@@ -60,4 +59,4 @@ const ModalDeleteTicketPageAdmin: React.FC<ModalDeleteAdminProps> = ({
   );
 };
 
-export default ModalDeleteTicketPageAdmin;
+export default ModalDeleteSeatCatalogPageAdmin;

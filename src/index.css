@@ -11,7 +11,7 @@
   box-sizing: border-box;
 }
 .Toastify__toast-container {
-  z-index: 999999 !important; 
+  z-index: 999999 !important;
 }
 .text-bg-image {
   background-image: url('../src/assets/image-represent/bg-text.jpg');
@@ -63,5 +63,3 @@
   border: 1px solid #ccc;
   padding: 10px;
 }
-
-

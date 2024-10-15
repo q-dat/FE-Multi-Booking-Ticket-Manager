@@ -1,33 +1,34 @@
 import React, { useContext } from 'react';
-import { Button } from 'react-daisyui';
+import { Button, Select } from 'react-daisyui';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import InputModal from '../../InputModal';
-import { TicketCatalogContext } from '../../../../context/ticketCatalog/TicketCatalogContext';
 import { isIErrorResponse } from '../../../../types/error/error';
 import { Toastify } from '../../../../helper/Toastify';
-import { ITicketCatalog } from '../../../../types/type/ticket-catalog/ticket-catalog';
+import { SeatCatalogContext } from '../../../../context/seatCatalog/SeatCatalogContext';
+import { ISeatCatalog } from '../../../../types/type/seat-catalog/seat-catalog';
+import { VehicleContext } from '../../../../context/vehicle/VehicleContext';
 
-interface ModalCreateTicketCatalogProps {
+interface ModalCreateSeatCatalogProps {
   isOpen: boolean;
   onClose: () => void;
 }
 
-const ModalCreateTicketCatalogPageAdmin: React.FC<
-  ModalCreateTicketCatalogProps
+const ModalCreateSeatCatalogPageAdmin: React.FC<
+  ModalCreateSeatCatalogProps
 > = ({ isOpen, onClose }) => {
-  const { createTicketCatalog } = useContext(TicketCatalogContext);
-  const { register, handleSubmit, reset } = useForm<ITicketCatalog>();
-
-  const onSubmit: SubmitHandler<ITicketCatalog> = async formData => {
+  const { createSeatCatalog } = useContext(SeatCatalogContext);
+  const { register, handleSubmit, reset } = useForm<ISeatCatalog>();
+  const { vehicles } = useContext(VehicleContext);
+  const onSubmit: SubmitHandler<ISeatCatalog> = async formData => {
     try {
-      await createTicketCatalog(formData);
-      Toastify('Tạo danh mục vé thành công!', 201);
+      await createSeatCatalog(formData);
+      Toastify('Tạo danh mục phương tiện thành công!', 201);
       reset();
       onClose();
     } catch (error: unknown) {
       const errorMessage = isIErrorResponse(error)
         ? error.data?.message
-        : 'Lỗi khi tạo danh mục vé!';
+        : 'Lỗi khi tạo danh mục phương tiện!';
       Toastify(`Lỗi: ${errorMessage}`, 401);
     }
   };
@@ -54,13 +55,27 @@ const ModalCreateTicketCatalogPageAdmin: React.FC<
         >
           <div>
             <p className="font-bold text-black dark:text-white">
-              Tạo danh mục vé mới
+              Tạo danh mục phương tiện mới
             </p>
             <InputModal
               type="text"
               {...register('name', { required: true })}
-              placeholder="Tên loại vé"
+              placeholder="Tên loại phương tiện"
             />
+            <Select
+              defaultValue=""
+              className="mb-5 w-full border border-gray-700 border-opacity-50 bg-white text-black focus:border-primary focus:outline-none dark:border-secondary dark:bg-gray-700 dark:text-white dark:focus:border-white"
+              {...register('vehicle_id')}
+            >
+              <option value="" disabled>
+                Chọn danh mục
+              </option>
+              {vehicles.map(vehicle => (
+                <option key={vehicle._id} value={vehicle._id}>
+                  {vehicle.name}
+                </option>
+              ))}
+            </Select>
           </div>
 
           <div className="space-x-5 text-center">
@@ -77,4 +92,4 @@ const ModalCreateTicketCatalogPageAdmin: React.FC<
   );
 };
 
-export default ModalCreateTicketCatalogPageAdmin;
+export default ModalCreateSeatCatalogPageAdmin;

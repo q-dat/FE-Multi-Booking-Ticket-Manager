@@ -38,4 +38,3 @@ export const updateVehicleCatalogApi = (
 export const deleteVehicleCatalogApi = (id: string) => {
   return axios.delete(`/api/vehicle-catalogs/${id}`);
 };
-

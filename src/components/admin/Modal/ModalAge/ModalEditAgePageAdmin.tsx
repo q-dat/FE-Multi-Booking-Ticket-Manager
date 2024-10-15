@@ -35,7 +35,6 @@ const ModalEditAgePageAdmin: React.FC<ModalEditAgeProps> = ({
       setValue('des', ageData.des);
       setValue('createAt', ageData.createAt);
       setValue('updateAt', ageData.updateAt);
-     
     }
   }, [ages, ageId, setValue]);
 
@@ -70,15 +69,12 @@ const ModalEditAgePageAdmin: React.FC<ModalEditAgeProps> = ({
         onClick={handleOverlayClick}
         className="modal-overlay fixed inset-0 z-50 flex w-full items-center justify-center bg-black bg-opacity-40"
       >
-        <div className='space-y-10 rounded-lg bg-white p-10 text-start shadow dark:bg-gray-800'>
+        <div className="space-y-10 rounded-lg bg-white p-10 text-start shadow dark:bg-gray-800">
           <p className="text-xl font-bold text-black dark:text-white">
             Chỉnh sửa Độ tuổi
           </p>
-          <div
-            onClick={e => e.stopPropagation()}
-            className="grid grid-cols-2"
-          >
-            <div className='mr-3'>
+          <div onClick={e => e.stopPropagation()} className="grid grid-cols-2">
+            <div className="mr-3">
               <label className="block text-sm font-medium text-gray-700">
                 Tên Độ Tuổi
               </label>
@@ -104,7 +100,6 @@ const ModalEditAgePageAdmin: React.FC<ModalEditAgeProps> = ({
                 {...register('des')}
               />
             </div>
-            
           </div>
           <div className="mt-4 space-x-5 text-center">
             <Button onClick={onClose} className="border-gray-50 text-black">

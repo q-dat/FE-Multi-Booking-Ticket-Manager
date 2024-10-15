@@ -27,11 +27,16 @@ interface ModalEditPostProps {
   post: Post | null;
 }
 
-const ModalEditPost: React.FC<ModalEditPostProps> = ({ isOpen, onClose, onUpdate, post }) => {
+const ModalEditPost: React.FC<ModalEditPostProps> = ({
+  isOpen,
+  onClose,
+  onUpdate,
+  post
+}) => {
   const { register, handleSubmit, reset } = useForm<FormData>();
   const editorRef = useRef<EditorJS | null>(null);
   const [catalogs, setCatalogs] = useState<PostCatalog[]>([]);
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchCatalogs = async () => {
@@ -64,7 +69,7 @@ const ModalEditPost: React.FC<ModalEditPostProps> = ({ isOpen, onClose, onUpdate
       reset({
         title: post.title || '',
         post_catalog_id: post.post_catalog_id._id || '',
-        img: post.img || '',
+        img: post.img || ''
       });
     }
   }, [isOpen, post, reset]);
@@ -83,7 +88,7 @@ const ModalEditPost: React.FC<ModalEditPostProps> = ({ isOpen, onClose, onUpdate
             holder: 'editorjs',
             tools: {
               header: Header,
-              list: List,
+              list: List
             },
             data: data,
             onReady: () => {
@@ -92,7 +97,7 @@ const ModalEditPost: React.FC<ModalEditPostProps> = ({ isOpen, onClose, onUpdate
             onChange: async () => {
               const savedData = await editorRef.current?.save();
               console.log('EditorJS data changed:', savedData);
-            },
+            }
           });
         } catch (error) {
           console.error('Failed to initialize EditorJS:', error);
@@ -113,17 +118,22 @@ const ModalEditPost: React.FC<ModalEditPostProps> = ({ isOpen, onClose, onUpdate
   const onSubmit = async (data: FormData) => {
     try {
       const outputData = await editorRef.current?.save();
-      const content = outputData && Object.keys(outputData).length > 0
-        ? JSON.stringify(outputData)
-        : '';
+      const content =
+        outputData && Object.keys(outputData).length > 0
+          ? JSON.stringify(outputData)
+          : '';
 
-      const selectedCatalog = catalogs.find((catalog) => catalog._id === data.post_catalog_id);
+      const selectedCatalog = catalogs.find(
+        catalog => catalog._id === data.post_catalog_id
+      );
 
       const updatedPost: Omit<Post, '_id'> = {
         ...data,
         content,
         createAt: post?.createAt || new Date().toISOString(),
-        post_catalog_id: selectedCatalog ? { _id: selectedCatalog._id, name: selectedCatalog.name } : { _id: '', name: '' },
+        post_catalog_id: selectedCatalog
+          ? { _id: selectedCatalog._id, name: selectedCatalog.name }
+          : { _id: '', name: '' }
       };
 
       await onUpdate(updatedPost);
@@ -147,25 +157,38 @@ const ModalEditPost: React.FC<ModalEditPostProps> = ({ isOpen, onClose, onUpdate
       <Modal.Body>
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
           <div className="flex flex-col">
-            <label className="block text-sm font-medium text-gray-700">Tiêu đề:</label>
+            <label className="block text-sm font-medium text-gray-700">
+              Tiêu đề:
+            </label>
             <InputModal
               placeholder={'ví dụ: địa điểm A'}
-              type={"text"}
-              {...register("title")}
+              type={'text'}
+              {...register('title')}
             />
           </div>
 
           <div className="flex flex-col">
-            <label className="block text-sm font-medium text-gray-700">Nội dung:</label>
-            <div id="editorjs" className="border border-gray-300 rounded-md p-2 text-black" />
-
+            <label className="block text-sm font-medium text-gray-700">
+              Nội dung:
+            </label>
+            <div
+              id="editorjs"
+              className="rounded-md border border-gray-300 p-2 text-black"
+            />
           </div>
 
           <div className="flex flex-col">
-            <label className="block text-sm font-medium text-gray-700">Danh mục:</label>
-            <Select {...register("post_catalog_id")} defaultValue={post?.post_catalog_id._id || ''}>
-              <option value="" disabled>Chọn danh mục</option>
-              {catalogs.map((catalog) => (
+            <label className="block text-sm font-medium text-gray-700">
+              Danh mục:
+            </label>
+            <Select
+              {...register('post_catalog_id')}
+              defaultValue={post?.post_catalog_id._id || ''}
+            >
+              <option value="" disabled>
+                Chọn danh mục
+              </option>
+              {catalogs.map(catalog => (
                 <option key={catalog._id} value={catalog._id}>
                   {catalog.name}
                 </option>
@@ -174,19 +197,29 @@ const ModalEditPost: React.FC<ModalEditPostProps> = ({ isOpen, onClose, onUpdate
           </div>
 
           <div className="flex flex-col">
-            <label className="block text-sm font-medium text-gray-700">Hình ảnh:</label>
+            <label className="block text-sm font-medium text-gray-700">
+              Hình ảnh:
+            </label>
             <InputModal
               placeholder={'ví dụ: địa điểm A'}
-              type={"text"}
-              {...register("img")}
+              type={'text'}
+              {...register('img')}
             />
           </div>
 
           <div className="flex justify-end space-x-4">
-            <Button type="submit" color="primary" className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700">
+            <Button
+              type="submit"
+              color="primary"
+              className="rounded-md bg-blue-600 px-4 py-2 text-white hover:bg-blue-700"
+            >
               Cập nhật
             </Button>
-            <Button type="button" onClick={onClose} className="px-4 py-2 bg-gray-500 text-white rounded-md hover:bg-gray-600">
+            <Button
+              type="button"
+              onClick={onClose}
+              className="rounded-md bg-gray-500 px-4 py-2 text-white hover:bg-gray-600"
+            >
               Huỷ
             </Button>
           </div>
