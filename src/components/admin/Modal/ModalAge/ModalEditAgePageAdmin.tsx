@@ -74,7 +74,7 @@ const ModalEditAgePageAdmin: React.FC<ModalEditAgeProps> = ({
           <p className="text-xl font-bold text-black dark:text-white">
             Chỉnh sửa lứa tuổi
           </p>
-          <div onClick={e => e.stopPropagation()} >
+          <div onClick={e => e.stopPropagation()}>
             <div className="mr-3">
               <LabelForm title={'Lứa Tuổi'} />
               <InputModal

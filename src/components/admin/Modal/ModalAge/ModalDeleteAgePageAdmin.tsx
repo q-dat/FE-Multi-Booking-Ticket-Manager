@@ -34,9 +34,7 @@ const ModalDeleteAgePageAdmin: React.FC<ModalDeleteAdminProps> = ({
         <div>
           <p className="font-bold text-black dark:text-white">
             Lứa tuổi này sẽ bị xoá!
-            <label className="pl-1 text-secondary">
-              {/* */}
-            </label>
+            <label className="pl-1 text-secondary">{/* */}</label>
           </p>
         </div>
         <div className="w-[300px] py-5 text-center text-gray-50">

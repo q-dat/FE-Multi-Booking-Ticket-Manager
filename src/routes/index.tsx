@@ -3,7 +3,6 @@ import { Route, Routes } from 'react-router-dom';
 import DefaultLayout from '../layout/DefaultLayout';
 import PrivateRouter from './PrivateRouter';
 
-
 // UserPage
 const User = lazy(() => import('../pages/user/User'));
 const HomePage = lazy(() => import('../pages/user/HomePage'));

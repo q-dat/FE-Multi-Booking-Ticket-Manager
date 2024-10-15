@@ -77,7 +77,7 @@ const ModalEditLocationPageAdmin: React.FC<ModalEditLocationProps> = ({
             Chỉnh sửa địa điểm
           </p>
           <div>
-        <LabelForm title={'Địa Điểm'}/>
+            <LabelForm title={'Địa Điểm'} />
             <InputModal
               placeholder={'Tên Địa Điểm'}
               type={'text'}

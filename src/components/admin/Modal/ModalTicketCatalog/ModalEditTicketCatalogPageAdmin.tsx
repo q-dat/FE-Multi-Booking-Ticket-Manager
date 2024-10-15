@@ -79,7 +79,7 @@ const ModalEditTicketCatalogPageAdmin: React.FC<
             Chỉnh sửa danh mục vé
           </p>
           <div>
-          <LabelForm title={'Loại Vé'}/>
+            <LabelForm title={'Loại Vé'} />
             <InputModal
               placeholder="Tên Loại Vé"
               type="text"

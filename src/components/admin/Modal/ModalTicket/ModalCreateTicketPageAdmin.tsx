@@ -189,4 +189,3 @@ const ModalCreateTicketPageAdmin: React.FC<ModalCreateTicketProps> = ({
 };
 
 export default ModalCreateTicketPageAdmin;
-

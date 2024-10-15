@@ -82,7 +82,7 @@ const ModalEditSeatCatalogPageAdmin: React.FC<ModalEditSeatCatalogProps> = ({
             Chỉnh sửa danh mục ghế
           </p>
           <div>
-         <LabelForm title={'Khoang(Toa)'}/>
+            <LabelForm title={'Khoang(Toa)'} />
             <InputModal
               placeholder="Tên Khoang(Toa)"
               type="text"

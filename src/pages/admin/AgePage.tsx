@@ -146,7 +146,9 @@ const AgePage: React.FC = () => {
               <Table.Row key={index}>
                 <span className="line-clamp-1">#{index + 1}</span>
                 <span className="line-clamp-1">{age?.name}</span>
-                <span className="line-clamp-1">{(age?.price*1000).toLocaleString('vi-VN')}&nbsp;VND</span>
+                <span className="line-clamp-1">
+                  {(age?.price * 1000).toLocaleString('vi-VN')}&nbsp;VND
+                </span>
                 <span className="line-clamp-1">{age?.des}</span>
                 <span>
                   <details>

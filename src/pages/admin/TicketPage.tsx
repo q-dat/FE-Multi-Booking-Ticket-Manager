@@ -184,4 +184,3 @@ const TicketPage: React.FC = () => {
 };
 
 export default TicketPage;
-
