@@ -89,10 +89,14 @@ const TicketPage: React.FC = () => {
         table_head={
           <Table.Head className="bg-primary text-center text-white">
             <span>STT</span>
-            <span>Tên Vé</span>
+            <span>Loại Vé</span>
+            <span>Phương Tiện</span>
+            <span>Khoang(Toa)</span>
+            <span>Chỗ Ngồi</span>
             <span>Điểm Khởi Hành</span>
             <span>Điểm Đến</span>
-            <span>Thời Gian Khởi Hành</span>
+            <span>Thời gian đi</span>
+            <span>Thời gian về</span>
             <span>Giá Vé</span>
             <span>Hành Động</span>
           </Table.Head>
@@ -105,6 +109,10 @@ const TicketPage: React.FC = () => {
                 <span className="line-clamp-1">
                   {ticket.ticket_catalog_id?.name}
                 </span>
+                <span>{ticket.seat_id?.seat_catalog_id?.vehicle_id?.name}</span>
+                <span>{ticket.seat_id?.seat_catalog_id?.name}</span>
+                <span>{ticket.seat_id?.name}</span>
+
                 <span className="line-clamp-1">
                   {ticket.trip_id?.departure_point?.name}
                 </span>
@@ -112,9 +120,20 @@ const TicketPage: React.FC = () => {
                   {ticket.trip_id?.destination_point?.name}
                 </span>
                 <span className="line-clamp-1">
-                  {ticket.trip_id?.departure_time}
+                  {ticket.trip_id?.departure_time}-
+                  {new Date(ticket.trip_id?.departure_date).toLocaleDateString(
+                    'vi-VN'
+                  )}
                 </span>
-                <span className="line-clamp-1">{ticket.price} đ</span>
+                <span className="line-clamp-1">
+                  {ticket.trip_id?.return_time}-
+                  {new Date(ticket.trip_id?.return_date).toLocaleDateString(
+                    'vi-VN'
+                  )}
+                </span>
+                <span className="line-clamp-1">
+                  {ticket.price.toLocaleString('vi-VN')}{' '}
+                </span>
                 <span>
                   <details>
                     <summary className="inline cursor-pointer text-base text-warning">
@@ -165,3 +184,4 @@ const TicketPage: React.FC = () => {
 };
 
 export default TicketPage;
+

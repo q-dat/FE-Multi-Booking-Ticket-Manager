@@ -9,9 +9,9 @@ export interface ITrip {
     name: string;
   };
   price: number;
-  departure_date: Date;
+  departure_date: string;
   departure_time: string;
-  return_date: Date;
+  return_date: string;
   return_time: string;
   createAt: string;
   updateAt: string;
