@@ -92,7 +92,7 @@ const SeatCatalogPage: React.FC = () => {
         table_head={
           <Table.Head className="bg-primary text-center text-white">
             <span>STT</span>
-            <span>Tên Loại Ghế</span>
+            <span>Khoang(Toa)</span>
             <span>Danh Mục</span>
             <span>Hành Động</span>
           </Table.Head>

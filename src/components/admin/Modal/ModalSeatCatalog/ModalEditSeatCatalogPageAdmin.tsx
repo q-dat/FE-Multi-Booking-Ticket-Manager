@@ -7,6 +7,7 @@ import { Button, Select } from 'react-daisyui';
 import { SeatCatalogContext } from '../../../../context/seatCatalog/SeatCatalogContext';
 import { ISeatCatalog } from '../../../../types/type/seat-catalog/seat-catalog';
 import { VehicleContext } from '../../../../context/vehicle/VehicleContext';
+import LabelForm from '../../LabelForm';
 
 interface ModalEditSeatCatalogProps {
   isOpen: boolean;
@@ -81,11 +82,9 @@ const ModalEditSeatCatalogPageAdmin: React.FC<ModalEditSeatCatalogProps> = ({
             Chỉnh sửa danh mục ghế
           </p>
           <div>
-            <label className="block text-sm font-medium text-gray-700">
-              Tên danh mục ghế
-            </label>
+         <LabelForm title={'Khoang(Toa)'}/>
             <InputModal
-              placeholder="ví dụ: Danh mục A"
+              placeholder="Tên Khoang(Toa)"
               type="text"
               {...register('name')}
             />

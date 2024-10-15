@@ -221,7 +221,9 @@ const SeatPage: React.FC = () => {
                   <></>
                 )}
                 {fillter[2] === 'Giá' ? (
-                  <span className="line-clamp-1">{seat?.price}</span>
+                  <span className="line-clamp-1">
+                    {(seat?.price * 1000).toLocaleString('vi-VN')}&nbsp;VND
+                  </span>
                 ) : (
                   <></>
                 )}

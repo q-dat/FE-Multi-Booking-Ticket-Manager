@@ -1,32 +1,26 @@
-// src/components/admin/Modal/ModalTrip/ModalCreateTripPageAdmin.tsx
-import React, { useContext, useEffect } from 'react';
-import { Button, Select } from 'react-daisyui';
+import React, { useContext } from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
-import InputModal from '../../InputModal';
-import { ITrip } from '../../../../types/type/trip/trip';
-import { isIErrorResponse } from '../../../../types/error/error';
 import { Toastify } from '../../../../helper/Toastify';
-import { LocationContext } from '../../../../context/location/LocationContext';
+import { isIErrorResponse } from '../../../../types/error/error';
+import { Button, Select } from 'react-daisyui';
 import LabelForm from '../../LabelForm';
+import { ITrip } from '../../../../types/type/trip/trip';
+import { LocationContext } from '../../../../context/location/LocationContext';
 import { TripContext } from '../../../../context/trip/TripContext';
+import InputModal from '../../InputModal';
 
-
-interface ModalCreateTripProps {
+interface ModalCreateTicketProps {
   isOpen: boolean;
   onClose: () => void;
 }
 
-const ModalCreateTripPageAdmin: React.FC<ModalCreateTripProps> = ({
+const ModalCreateTripPageAdmin: React.FC<ModalCreateTicketProps> = ({
   isOpen,
   onClose
 }) => {
-  const { createTrip } = useContext(TripContext);
-  const { locations, getAllLocations } = useContext(LocationContext);
   const { register, handleSubmit, reset } = useForm<ITrip>();
-
-  useEffect(() => {
-    getAllLocations();
-  }, [getAllLocations]);
+  const { createTrip } = useContext(TripContext);
+  const { locations } = useContext(LocationContext);
 
   const onSubmit: SubmitHandler<ITrip> = async formData => {
     try {
@@ -51,76 +45,98 @@ const ModalCreateTripPageAdmin: React.FC<ModalCreateTripProps> = ({
       onClose();
     }
   };
-
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <div
         onClick={handleOverlayClick}
-        className="modal-overlay fixed inset-0 z-50 flex w-full items-center justify-center bg-black bg-opacity-40"
+        className="modal-overlay fixed inset-0 z-50 flex w-full items-center justify-center bg-black bg-opacity-40 px-2"
       >
         <div
           onClick={e => e.stopPropagation()}
-          className="mx-2 flex w-[400px] flex-col rounded-lg bg-white p-5 text-start shadow dark:bg-gray-800"
+          className="flex flex-col gap-5 rounded-lg bg-white p-10 text-start shadow dark:bg-gray-800"
         >
-          <div>
-          <LabelForm title={'Điểm Khởi Hành'}/>
-            <Select
-              defaultValue=""
-              className="mb-5 w-full border border-gray-700 border-opacity-50 bg-white text-black focus:border-primary focus:outline-none dark:border-secondary dark:bg-gray-700 dark:text-white dark:focus:border-white"
-              {...register('departure_point', { required: true })}
-            >
-              <option value="" disabled>
-                Chọn danh mục
-              </option>
-              {locations.map(location => (
-                <option key={location._id} value={location._id}>
-                  {location.name}
+          <p className="text-xl font-bold text-black dark:text-white">
+            Tạo vé mới
+          </p>
+          <div className="flex flex-row items-center justify-center gap-2 md:gap-5">
+            <div className="flex flex-col">
+              <LabelForm title={'Điểm Khởi Hành'} />
+              <Select
+                defaultValue=""
+                className="mb-5 w-full border border-gray-700 border-opacity-50 bg-white text-black focus:border-primary focus:outline-none dark:border-secondary dark:bg-gray-700 dark:text-white dark:focus:border-white"
+                {...register('departure_point', { required: true })}
+              >
+                <option value="" disabled>
+                  Chọn Điểm Khởi Hành
                 </option>
-              ))}
-            </Select>
-
-            <LabelForm title={'Điểm Đến'}/>
-            <Select
-              defaultValue=""
-              className="mb-5 w-full border border-gray-700 border-opacity-50 bg-white text-black focus:border-primary focus:outline-none dark:border-secondary dark:bg-gray-700 dark:text-white dark:focus:border-white"
-              {...register('destination_point', { required: true })}
-            >
-              <option value="" disabled>
-                Chọn danh mục
-              </option>
-              {locations.map(location => (
-                <option key={location._id} value={location._id}>
-                  {location.name}
+                {locations.map(location => (
+                  <option key={location._id} value={location._id}>
+                    {location.name}
+                  </option>
+                ))}
+              </Select>
+              <LabelForm title={'Ngày Đi'} />
+              <InputModal
+                type={'date'}
+                {...register('departure_date', { required: true })}
+                placeholder="Ngày Đi"
+              />
+              <LabelForm title={'Thời Gian Đi'} />
+              <InputModal
+                type={'text'}
+                {...register('departure_time', { required: true })}
+                placeholder="vd: 06:00"
+              />
+            </div>
+            <div className="flex flex-col">
+              <LabelForm title={'Điểm Đến'} />
+              <Select
+                defaultValue=""
+                className="mb-5 w-full border border-gray-700 border-opacity-50 bg-white text-black focus:border-primary focus:outline-none dark:border-secondary dark:bg-gray-700 dark:text-white dark:focus:border-white"
+                {...register('destination_point', { required: true })}
+              >
+                <option value="" disabled>
+                  Chọn Điểm Đến
                 </option>
-              ))}
-            </Select>
-           
-            
-            <InputModal
-              type={'date'}
-              {...register('departure_date', { required: true })}
-              placeholder="Ngày khởi hành"
-            />
-            <InputModal
-              type={'date'}
-              {...register('arrivalDate', { required: true })}
-              placeholder="Ngày đến"
-            />
-            <InputModal
-              type={'number'}
-              {...register('price', { required: true })}
-              placeholder="Giá"
-            />
-        
+                {locations.map(location => (
+                  <option key={location._id} value={location._id}>
+                    {location.name}
+                  </option>
+                ))}
+              </Select>
+              <LabelForm title={'Ngày Về'} />
+              <InputModal
+                type={'date'}
+                {...register('return_date', { required: true })}
+                placeholder="Ngày Về"
+              />
+              <LabelForm title={'Thời Gian Về'} />
+              <InputModal
+                type={'text'}
+                {...register('return_time', { required: true })}
+                placeholder="vd: 12:00"
+              />
+            </div>
           </div>
-
-          <div className="space-x-5 text-center">
-            <Button onClick={onClose} className="border-gray-50 text-black">
-              Hủy
-            </Button>
-            <Button color="primary" type="submit" className="text-white">
-              Xác nhận
-            </Button>
+          <div className="mt-4 flex flex-col gap-5 text-center">
+            {/*  */}
+            <div className="text-start">
+              <LabelForm title={'Giá vé'} />
+              <InputModal
+                placeholder={'vd: 1000'}
+                type={'number'}
+                {...register('price', { required: true })}
+              />
+            </div>
+            {/*  */}
+            <div className="flex flex-row items-center justify-center gap-5">
+              <Button onClick={onClose} className="border-gray-50 text-black">
+                Huỷ bỏ
+              </Button>
+              <Button color="primary" type="submit" className="text-white">
+                Xác nhận
+              </Button>
+            </div>
           </div>
         </div>
       </div>

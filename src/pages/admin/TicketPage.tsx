@@ -132,7 +132,7 @@ const TicketPage: React.FC = () => {
                   )}
                 </span>
                 <span className="line-clamp-1">
-                  {ticket.price.toLocaleString('vi-VN')}{' '}
+                  {(ticket.price * 1000).toLocaleString('vi-VN')}&nbsp;VND
                 </span>
                 <span>
                   <details>

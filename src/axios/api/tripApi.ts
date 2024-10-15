@@ -3,17 +3,17 @@ import { ITrip } from '../../types/type/trip/trip';
 
 // Get All
 export const getAllTripApi = () => {
-  return axios.get<{ trip: ITrip[] }>('/api/trip');
+  return axios.get<{ trip: ITrip[] }>('/api/trips');
 };
 
 // Get By ID
 export const getTripByIdApi = (id: string) => {
-  return axios.get<{ trip: ITrip }>(`/api/trip/${id}`);
+  return axios.get<{ trip: ITrip }>(`/api/trips/${id}`);
 };
 
 // Post
 export const createTripApi = (trip: ITrip) => {
-  return axios.post<{ trip: ITrip }>('/api/trip', trip);
+  return axios.post<{ trip: ITrip }>('/api/trips', trip);
 };
 
 // Put
@@ -23,5 +23,5 @@ export const updateTripApi = (id: string, trip: ITrip) => {
 
 // Delete
 export const deleteTripApi = (id: string) => {
-  return axios.delete(`/api/trip/${id}`);
+  return axios.delete(`/api/trips/${id}`);
 };

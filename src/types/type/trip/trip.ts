@@ -1,13 +1,9 @@
-import { ILocation } from "../location/location";
+import { ILocation } from '../location/location';
 
 export interface ITrip {
-  arrivalDate: string | number | Date;
   _id: string;
-  departure_point: 
-  ILocation;
-  destination_point: 
-   ILocation
-;
+  departure_point: ILocation;
+  destination_point: ILocation;
   price: number;
   departure_date: string;
   departure_time: string;

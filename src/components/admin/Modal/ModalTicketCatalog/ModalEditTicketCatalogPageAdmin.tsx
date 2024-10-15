@@ -6,6 +6,7 @@ import InputModal from '../../InputModal';
 import { Button } from 'react-daisyui';
 import { TicketCatalogContext } from '../../../../context/ticketCatalog/TicketCatalogContext';
 import { ITicketCatalog } from '../../../../types/type/ticket-catalog/ticket-catalog';
+import LabelForm from '../../LabelForm';
 
 interface ModalEditTicketCatalogProps {
   isOpen: boolean;
@@ -78,11 +79,9 @@ const ModalEditTicketCatalogPageAdmin: React.FC<
             Chỉnh sửa danh mục vé
           </p>
           <div>
-            <label className="block text-sm font-medium text-gray-700">
-              Tên danh mục vé
-            </label>
+          <LabelForm title={'Loại Vé'}/>
             <InputModal
-              placeholder="ví dụ: Danh mục A"
+              placeholder="Tên Loại Vé"
               type="text"
               {...register('name')}
             />

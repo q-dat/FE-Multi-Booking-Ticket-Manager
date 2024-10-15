@@ -4,7 +4,6 @@ import { ITicket } from '../../../../types/type/ticket/ticket';
 import { TicketContext } from '../../../../context/ticket/TicketContext';
 import { Toastify } from '../../../../helper/Toastify';
 import { isIErrorResponse } from '../../../../types/error/error';
-import InputForm from '../../InputForm';
 import { Button, Select } from 'react-daisyui';
 import { TicketCatalogContext } from '../../../../context/ticketCatalog/TicketCatalogContext';
 import LabelForm from '../../LabelForm';
@@ -12,6 +11,7 @@ import { VehicleContext } from '../../../../context/vehicle/VehicleContext';
 import { VehicleCatalogContext } from '../../../../context/vehicleCatalog/VehicleCatalogContext';
 import { SeatContext } from '../../../../context/seat/SeatContext';
 import { SeatCatalogContext } from '../../../../context/seatCatalog/SeatCatalogContext';
+import InputModal from '../../InputModal';
 
 interface ModalCreateTicketProps {
   isOpen: boolean;
@@ -70,7 +70,7 @@ const ModalCreateTicketPageAdmin: React.FC<ModalCreateTicketProps> = ({
           <div className="flex flex-row items-start justify-center gap-2 md:gap-5">
             <div className="flex flex-col gap-2">
               {/*  */}
-              <LabelForm title={'Loại Phương Tiện'} />
+              <LabelForm title={'Loại phương tiện'} />
               <Select
                 defaultValue=""
                 className="w-full border border-gray-700 border-opacity-50 bg-white text-black focus:border-primary focus:outline-none dark:border-secondary dark:bg-gray-700 dark:text-white dark:focus:border-white"
@@ -87,7 +87,7 @@ const ModalCreateTicketPageAdmin: React.FC<ModalCreateTicketProps> = ({
               </Select>
               {/*  */}
 
-              <LabelForm title={'Phương Tiện'} />
+              <LabelForm title={'Phương tiện'} />
               <Select
                 defaultValue=""
                 className="w-full border border-gray-700 border-opacity-50 bg-white text-black focus:border-primary focus:outline-none dark:border-secondary dark:bg-gray-700 dark:text-white dark:focus:border-white"
@@ -103,7 +103,7 @@ const ModalCreateTicketPageAdmin: React.FC<ModalCreateTicketProps> = ({
                 ))}
               </Select>
               {/*  */}
-              <LabelForm title={'Khoang(Toa)'} />
+              <LabelForm title={'Khoang(toa)'} />
               <Select
                 defaultValue=""
                 className="w-full border border-gray-700 border-opacity-50 bg-white text-black focus:border-primary focus:outline-none dark:border-secondary dark:bg-gray-700 dark:text-white dark:focus:border-white"
@@ -122,7 +122,7 @@ const ModalCreateTicketPageAdmin: React.FC<ModalCreateTicketProps> = ({
             {/*  */}
             <div className="flex flex-col gap-2">
               {/*  */}
-              <LabelForm title={'Loại Vé'} />
+              <LabelForm title={'Loại vé'} />
               <Select
                 defaultValue=""
                 className="w-full border border-gray-700 border-opacity-50 bg-white text-black focus:border-primary focus:outline-none dark:border-secondary dark:bg-gray-700 dark:text-white dark:focus:border-white"
@@ -138,7 +138,7 @@ const ModalCreateTicketPageAdmin: React.FC<ModalCreateTicketProps> = ({
                 ))}
               </Select>
               {/*  */}
-              <LabelForm title={'Chuyến Đi'} />
+              <LabelForm title={'Chuyến đi'} />
               <Select
                 defaultValue=""
                 className="w-full border border-gray-700 border-opacity-50 bg-white text-black focus:border-primary focus:outline-none dark:border-secondary dark:bg-gray-700 dark:text-white dark:focus:border-white"
@@ -149,12 +149,12 @@ const ModalCreateTicketPageAdmin: React.FC<ModalCreateTicketProps> = ({
                 <option value=""></option>
               </Select>
               {/*  */}
-              <LabelForm title={'Giá Vé'} />
-              <InputForm
+              <LabelForm title={'Giá vé'} />
+              <InputModal
                 placeholder={'vd: 1000'}
-                type={''}
+                type={'number'}
                 {...register('_id')}
-              ></InputForm>
+              ></InputModal>
             </div>
           </div>
           <div className="mt-4 flex flex-col gap-5 text-center">

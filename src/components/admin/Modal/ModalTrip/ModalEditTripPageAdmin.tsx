@@ -1,13 +1,11 @@
-// src/components/admin/Modal/ModalTrip/ModalEditTripPageAdmin.tsx
 import React, { useEffect, useContext } from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { Toastify } from '../../../../helper/Toastify';
 import { isIErrorResponse } from '../../../../types/error/error';
 import InputModal from '../../InputModal';
-import { Button} from 'react-daisyui';
+import { Button } from 'react-daisyui';
 import { ITrip } from '../../../../types/type/trip/trip';
 import { TripContext } from '../../../../context/trip/TripContext';
-
 
 interface ModalEditTripProps {
   isOpen: boolean;
@@ -20,12 +18,8 @@ const ModalEditTripPageAdmin: React.FC<ModalEditTripProps> = ({
   onClose,
   tripId
 }) => {
-  const {
-    getAllTrips,
-    updateTrip,
-    getTripById,
-    trips
-  } = useContext(TripContext);
+  const { getAllTrips, updateTrip, getTripById, trips } =
+    useContext(TripContext);
 
   const { register, handleSubmit, reset, setValue } = useForm<ITrip>();
 
@@ -43,7 +37,6 @@ const ModalEditTripPageAdmin: React.FC<ModalEditTripProps> = ({
       setValue('departure_date', tripData.departure_date);
       setValue('arrivalDate', tripData.arrivalDate);
       setValue('price', tripData.price);
-
     }
   }, [trips, tripId, setValue]);
 
@@ -106,14 +99,18 @@ const ModalEditTripPageAdmin: React.FC<ModalEditTripProps> = ({
               Ngày khởi hành
             </label>
             <InputModal
-                          placeholder={''} type="date"
-                          {...register('departure_date')}            />
+              placeholder={''}
+              type="date"
+              {...register('departure_date')}
+            />
             <label className="block text-sm font-medium text-gray-700">
               Ngày đến
             </label>
             <InputModal
-                          placeholder={''} type="date"
-                          {...register('arrivalDate')}            />
+              placeholder={''}
+              type="date"
+              {...register('arrivalDate')}
+            />
             <label className="block text-sm font-medium text-gray-700">
               Giá
             </label>
@@ -122,7 +119,6 @@ const ModalEditTripPageAdmin: React.FC<ModalEditTripProps> = ({
               {...register('price')}
               placeholder="Giá"
             />
-            
           </div>
           <div className="mt-4 space-x-5 text-center">
             <Button onClick={onClose} className="border-gray-50 text-black">

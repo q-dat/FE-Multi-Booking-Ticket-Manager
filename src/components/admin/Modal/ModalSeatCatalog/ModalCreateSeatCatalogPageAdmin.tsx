@@ -55,12 +55,12 @@ const ModalCreateSeatCatalogPageAdmin: React.FC<
         >
           <div>
             <p className="font-bold text-black dark:text-white">
-              Tạo danh mục phương tiện mới
+              Tạo khoang(toa) mới
             </p>
             <InputModal
               type="text"
               {...register('name', { required: true })}
-              placeholder="Tên loại phương tiện"
+              placeholder="Tên khoang(toa)"
             />
             <Select
               defaultValue=""

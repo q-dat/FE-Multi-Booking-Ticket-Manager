@@ -66,9 +66,9 @@ const ModalCreateSeatPageAdmin: React.FC<ModalCreateSeatProps> = ({
               placeholder="Tên ghế"
             />
             <InputModal
-              type={'text'}
+              placeholder={'vd: 1000'}
+              type={'number'}
               {...register('price', { required: true })}
-              placeholder="Giá"
             />
             <InputModal
               type={'text'}
@@ -78,7 +78,7 @@ const ModalCreateSeatPageAdmin: React.FC<ModalCreateSeatProps> = ({
             <Textarea
               className="my-5 w-full pb-10 focus:outline-none"
               {...register('des')}
-              placeholder="Mô tả (Không bắt buộc!)"
+              placeholder="Mô tả (Không bắt buộc)"
             />
             <Select
               defaultValue=""

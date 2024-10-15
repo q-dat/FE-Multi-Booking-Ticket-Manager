@@ -6,6 +6,7 @@ import InputModal from '../../InputModal';
 import { Button } from 'react-daisyui';
 import { AgeContext } from '../../../../context/age/AgeContext';
 import { IAge } from '../../../../types/type/age/age';
+import LabelForm from '../../LabelForm';
 
 interface ModalEditAgeProps {
   isOpen: boolean;
@@ -71,31 +72,27 @@ const ModalEditAgePageAdmin: React.FC<ModalEditAgeProps> = ({
       >
         <div className="space-y-10 rounded-lg bg-white p-10 text-start shadow dark:bg-gray-800">
           <p className="text-xl font-bold text-black dark:text-white">
-            Chỉnh sửa Độ tuổi
+            Chỉnh sửa lứa tuổi
           </p>
-          <div onClick={e => e.stopPropagation()} className="grid grid-cols-2">
+          <div onClick={e => e.stopPropagation()} >
             <div className="mr-3">
-              <label className="block text-sm font-medium text-gray-700">
-                Tên Độ Tuổi
-              </label>
+              <LabelForm title={'Lứa Tuổi'} />
               <InputModal
-                placeholder={'ví dụ: nhóm tuổi A'}
+                placeholder={'Lứa Tuổi'}
                 type={'text'}
                 {...register('name')}
               />
-              <label className="block text-sm font-medium text-gray-700">
-                Giá
-              </label>
+              <LabelForm title={'Giá'} />
+
               <InputModal
-                placeholder={'ví dụ: giá A'}
-                type={'text'}
+                placeholder={'vd: 1000'}
+                type={'number'}
                 {...register('price')}
               />
-              <label className="block text-sm font-medium text-gray-700">
-                Mô Tả
-              </label>
+              <LabelForm title={'Mô Tả'} />
+
               <InputModal
-                placeholder={'ví dụ: số thứ tự A'}
+                placeholder={'Mô Tả'}
                 type={'text'}
                 {...register('des')}
               />

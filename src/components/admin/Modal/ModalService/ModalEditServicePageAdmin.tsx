@@ -7,6 +7,7 @@ import { Toastify } from '../../../../helper/Toastify';
 import { isIErrorResponse } from '../../../../types/error/error';
 import InputModal from '../../InputModal';
 import { Button } from 'react-daisyui';
+import LabelForm from '../../LabelForm';
 
 interface ModalEditServiceProps {
   isOpen: boolean;
@@ -75,20 +76,16 @@ const ModalEditServicePageAdmin: React.FC<ModalEditServiceProps> = ({
             Chỉnh sửa dịch vụ
           </p>
           <div>
-            <label className="block text-sm font-medium text-gray-700">
-              Tên dịch vụ
-            </label>
+            <LabelForm title={'Dịch Vụ'} />
             <InputModal
-              placeholder={'ví dụ: dịch vụ A'}
+              placeholder={'Tên Dịch Vụ'}
               type={'text'}
               {...register('name')}
             />
-            <label className="block text-sm font-medium text-gray-700">
-              Giá
-            </label>
+            <LabelForm title={'Giá'} />
             <InputModal
-              placeholder={'ví dụ: 100'}
-              type={'text'}
+              placeholder={'vd: 1000'}
+              type={'number'}
               {...register('price')}
             />
           </div>
@@ -107,3 +104,4 @@ const ModalEditServicePageAdmin: React.FC<ModalEditServiceProps> = ({
 };
 
 export default ModalEditServicePageAdmin;
+

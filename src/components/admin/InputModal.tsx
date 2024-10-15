@@ -18,7 +18,7 @@ const InputModal = forwardRef<HTMLInputElement, InputModalProps>(
           value={value}
           type={type}
           name={name}
-          className="w-full rounded-md border-none bg-white p-0 text-sm font-light text-black focus:outline-none dark:bg-gray-800 dark:text-white md:w-64"
+          className="w-full rounded-md border-none bg-white p-0 text-sm font-light text-black  focus:outline-none dark:bg-gray-800 dark:text-white md:w-64"
           placeholder={placeholder}
           onChange={onChange}
         />

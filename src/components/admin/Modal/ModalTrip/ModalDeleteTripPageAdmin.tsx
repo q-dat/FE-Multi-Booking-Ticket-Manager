@@ -1,4 +1,3 @@
-// src/components/admin/Modal/ModalTrip/ModalDeleteTripPageAdmin.tsx
 import React from 'react';
 import { Button } from 'react-daisyui';
 import { ITrip } from '../../../../types/type/trip/trip';
@@ -7,7 +6,7 @@ interface ModalDeleteTripProps {
   isOpen: boolean;
   onClose: () => void;
   onConfirm: () => Promise<void>;
-  trip?: ITrip; // Thông tin chuyến đi cần xóa
+  trip?: ITrip; 
 }
 
 const ModalDeleteTripPageAdmin: React.FC<ModalDeleteTripProps> = ({

@@ -7,6 +7,7 @@ import { Button, Select } from 'react-daisyui';
 import { SeatContext } from '../../../../context/seat/SeatContext';
 import { ISeat } from '../../../../types/type/seat/seat';
 import { SeatCatalogContext } from '../../../../context/seatCatalog/SeatCatalogContext';
+import LabelForm from '../../LabelForm';
 
 interface ModalEditSeatProps {
   isOpen: boolean;
@@ -76,45 +77,38 @@ const ModalEditSeatPageAdmin: React.FC<ModalEditSeatProps> = ({
           <p className="text-xl font-bold text-black dark:text-white">
             Chỉnh sửa Ghế
           </p>
-          <div onClick={e => e.stopPropagation()} className="grid grid-cols-2">
-            <div className="mr-3">
-              <label className="block text-sm font-medium text-gray-700">
-                Tên Ghế
-              </label>
+          <div onClick={e => e.stopPropagation()} className=" ">
+            <div className="">
+              <LabelForm title={'Tên Ghế  '} />
+
               <InputModal
-                placeholder={'ví dụ: địa điểm A'}
+                placeholder={'Tên Ghế'}
                 type={'text'}
                 {...register('name')}
               />
-              <label className="block text-sm font-medium text-gray-700">
-                Giá
-              </label>
+              <LabelForm title={'      Giá     '} />
+
               <InputModal
-                placeholder={'ví dụ: địa điểm A'}
-                type={'text'}
+                placeholder={'vd: 1000'}
+                type={'number'}
                 {...register('price')}
               />
-              <label className="block text-sm font-medium text-gray-700">
-                Số Ghế
-              </label>
+              <LabelForm title={'Số Ghế    '} />
+
               <InputModal
-                placeholder={'ví dụ: địa điểm A'}
+                placeholder={'Số Ghế'}
                 type={'text'}
                 {...register('ordinal_numbers')}
               />
             </div>
-            <div className="ml-3">
-              <label className="block text-sm font-medium text-gray-700">
-                Mô Tả
-              </label>
+            <div className="">
+              <LabelForm title={'Mô Tả    '} />
               <InputModal
-                placeholder={'ví dụ: địa điểm A'}
+                placeholder={'Mô Tả(Không Bắt Buộc)'}
                 type={'text'}
                 {...register('des')}
               />
-              <label className="block text-sm font-medium text-gray-700">
-                Trạng Thái
-              </label>
+              <LabelForm title={'       Trạng Thái'} />
               <Select
                 defaultValue=""
                 className="mb-5 w-full border border-gray-700 border-opacity-50 bg-white text-black focus:border-primary focus:outline-none dark:border-secondary dark:bg-gray-700 dark:text-white dark:focus:border-white"
@@ -126,9 +120,8 @@ const ModalEditSeatPageAdmin: React.FC<ModalEditSeatProps> = ({
                 <option value="Còn chỗ">Còn Chỗ</option>
                 <option value="Hết chỗ">Hết Chỗ</option>
               </Select>
-              <label className="block text-sm font-medium text-gray-700">
-                Danh Mục
-              </label>
+              <LabelForm title={''} />
+              Danh Mục
               <Select
                 defaultValue=""
                 className="mb-5 w-full border border-gray-700 border-opacity-50 bg-white text-black focus:border-primary focus:outline-none dark:border-secondary dark:bg-gray-700 dark:text-white dark:focus:border-white"

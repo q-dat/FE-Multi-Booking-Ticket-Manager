@@ -20,6 +20,7 @@ import { PostCatalogProvider } from './context/post/PostCatalogContext.tsx';
 import { AgeProvider } from './context/age/AgeContext.tsx';
 import { ServiceProvider } from './context/service/ServiceContext.tsx';
 import { CartProvider } from './context/cart/CartContext.tsx';
+import { TripProvider } from './context/trip/TripContext.tsx';
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
@@ -33,20 +34,22 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
                   <LocationProvider>
                     <VehicleCatalogProvider>
                       <VehicleProvider>
-                        <SeatCatalogProvider>
-                          <SeatProvider>
-                            <PostCatalogProvider>
-                              <PostProvider>
-                                <AgeProvider>
-                                  <ServiceProvider>
-                                    <ToastContainer />
-                                    <App />
-                                  </ServiceProvider>
-                                </AgeProvider>
-                              </PostProvider>
-                            </PostCatalogProvider>
-                          </SeatProvider>
-                        </SeatCatalogProvider>
+                        <TripProvider>
+                          <SeatCatalogProvider>
+                            <SeatProvider>
+                              <PostCatalogProvider>
+                                <PostProvider>
+                                  <AgeProvider>
+                                    <ServiceProvider>
+                                      <ToastContainer />
+                                      <App />
+                                    </ServiceProvider>
+                                  </AgeProvider>
+                                </PostProvider>
+                              </PostCatalogProvider>
+                            </SeatProvider>
+                          </SeatCatalogProvider>
+                        </TripProvider>
                       </VehicleProvider>
                     </VehicleCatalogProvider>
                   </LocationProvider>

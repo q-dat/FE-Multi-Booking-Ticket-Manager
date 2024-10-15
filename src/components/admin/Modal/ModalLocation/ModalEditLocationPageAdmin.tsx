@@ -7,6 +7,7 @@ import { Toastify } from '../../../../helper/Toastify';
 import { isIErrorResponse } from '../../../../types/error/error';
 import InputModal from '../../InputModal';
 import { Button } from 'react-daisyui';
+import LabelForm from '../../LabelForm';
 
 interface ModalEditLocationProps {
   isOpen: boolean;
@@ -76,11 +77,9 @@ const ModalEditLocationPageAdmin: React.FC<ModalEditLocationProps> = ({
             Chỉnh sửa địa điểm
           </p>
           <div>
-            <label className="block text-sm font-medium text-gray-700">
-              Tên địa điểm
-            </label>
+        <LabelForm title={'Địa Điểm'}/>
             <InputModal
-              placeholder={'ví dụ: địa điểm A'}
+              placeholder={'Tên Địa Điểm'}
               type={'text'}
               {...register('name')}
             />
