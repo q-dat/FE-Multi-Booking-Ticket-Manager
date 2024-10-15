@@ -22,6 +22,7 @@ import { SeatCatalogContext } from '../../context/seatCatalog/SeatCatalogContext
 import { IoIosTrain } from 'react-icons/io';
 import { GiAges } from 'react-icons/gi';
 import { TicketContext } from '../../context/ticket/TicketContext';
+
 const SidebarAdmin: React.FC<{}> = () => {
   const { locations } = useContext(LocationContext);
   const { seats } = useContext(SeatContext);
@@ -114,8 +115,9 @@ const SidebarAdmin: React.FC<{}> = () => {
   }, [location.pathname, menuItems]);
 
   return (
-    <div className="flex h-full flex-col items-center justify-between bg-white dark:bg-gray-800 xl:fixed xl:w-64 xl:shadow-lg">
+    <div className="flex min-h-screen xl:h-full flex-col items-center justify-between gap-10 bg-white dark:bg-gray-800 xl:fixed xl:w-64 xl:shadow-lg">
       <div className="w-full">
+        {/*  */}
         <div className="mt-8 flex w-full items-center justify-between px-2">
           <div className="flex items-center gap-2">
             <img
@@ -145,6 +147,7 @@ const SidebarAdmin: React.FC<{}> = () => {
             <DarkModeToggle />
           </div>
         </div>
+        {/*  */}
         <div className="relative flex w-full flex-col justify-between bg-white dark:bg-gray-800 dark:text-white">
           <div className="mb-2 mt-5 h-[250px] overflow-y-scroll scrollbar-hide md:h-[400px]">
             <Menu className="flex-grow">
@@ -198,7 +201,7 @@ const SidebarAdmin: React.FC<{}> = () => {
           </div>
         </div>
       </div>
-      <div className="mx-2 flex flex-col items-center"></div>
+      {/*  */}
       <div className="flex flex-col items-center">
         <div className="rounded-lg bg-primary p-4 text-center text-white">
           <p className="w-40 text-center text-xs">
