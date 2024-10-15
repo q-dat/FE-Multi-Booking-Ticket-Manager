@@ -74,6 +74,12 @@ const SidebarAdmin: React.FC<{}> = () => {
       toastify: seats.length
     },
     {
+      name: 'Loại Ghế',
+      icon: MdEventSeat,
+      link: '/admin/seat-catalog',
+      toastify: seatCatalogs.length
+    },
+    {
       name: 'Lứa Tuổi',
       icon: GiAges,
       link: '/admin/age',
@@ -96,12 +102,6 @@ const SidebarAdmin: React.FC<{}> = () => {
       icon: FaTicket,
       link: '/admin/ticket-catalog',
       toastify: ticketCatalogs.length
-    },
-    {
-      name: 'Loại Ghế',
-      icon: MdEventSeat,
-      link: '/admin/seat-catalog',
-      toastify: seatCatalogs.length
     }
   ];
 
