@@ -6,7 +6,15 @@ export const searchTicketsApi = (searchParams: Record<string, string>) => {
   const query = new URLSearchParams(searchParams).toString();
   return axios.get<{ tickets: ITicket[] }>(`/api/ticket/search?${query}`);
 };
-
+//Fillter
+export const fillterTicketsApi = (fillterParams: Record<string, string>) => {
+  const query = new URLSearchParams(fillterParams).toString();
+  return axios.get<{ tickets: ITicket[] }>(`/api/ticket/fillter?${query}`);
+};
+//Get By Catalog (Ticket Catalog)
+export const getByCatalogTicketsApi = (id: string) => {
+  return axios.get<{ tickets: ITicket[] }>(`/api/tickets/category/${id}`);
+};
 // Get All
 export const getAllTicketsApi = () => {
   return axios.get<{ tickets: ITicket[] }>('/api/tickets');
