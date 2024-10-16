@@ -66,7 +66,7 @@ const ModalCreateSeatPageAdmin: React.FC<ModalCreateSeatProps> = ({
               placeholder="Tên ghế"
             />
             <InputModal
-              placeholder={'vd: 1000'}
+              placeholder={'Giá (vd: 1000)'}
               type={'number'}
               {...register('price', { required: true })}
             />
