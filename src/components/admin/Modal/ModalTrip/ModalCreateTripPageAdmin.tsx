@@ -18,15 +18,16 @@ const ModalCreateTripPageAdmin: React.FC<ModalCreateTicketProps> = ({
   isOpen,
   onClose
 }) => {
-  const { register, handleSubmit, reset } = useForm<ITrip>();
-  const { createTrip } = useContext(TripContext);
+  const { createTrip, getAllTrips } = useContext(TripContext);
   const { locations } = useContext(LocationContext);
+  const { register, handleSubmit, reset } = useForm<ITrip>();
 
   const onSubmit: SubmitHandler<ITrip> = async formData => {
     try {
       await createTrip(formData);
       Toastify('Tạo chuyến đi thành công!', 201);
       reset();
+      getAllTrips();
       onClose();
     } catch (error: unknown) {
       const errorMessage = isIErrorResponse(error)

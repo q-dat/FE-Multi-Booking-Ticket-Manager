@@ -37,6 +37,9 @@ const ModalEditTripPageAdmin: React.FC<ModalEditTripProps> = ({
       setValue('departure_point', tripData.departure_point);
       setValue('destination_point', tripData.destination_point);
       setValue('departure_date', tripData.departure_date);
+      setValue('departure_time', tripData.departure_time);
+      setValue('return_date', tripData.return_date);
+      setValue('return_time', tripData.return_time);
       setValue('price', tripData.price);
     }
   }, [trips, tripId, setValue]);
@@ -85,7 +88,7 @@ const ModalEditTripPageAdmin: React.FC<ModalEditTripProps> = ({
               <Select
                 defaultValue=""
                 className="mb-5 w-full border border-gray-700 border-opacity-50 bg-white text-black focus:border-primary focus:outline-none dark:border-secondary dark:bg-gray-700 dark:text-white dark:focus:border-white"
-                {...register('departure_point', { required: true })}
+                {...register('departure_point')}
               >
                 <option value="" disabled>
                   Chọn Điểm Khởi Hành
@@ -99,13 +102,13 @@ const ModalEditTripPageAdmin: React.FC<ModalEditTripProps> = ({
               <LabelForm title={'Ngày Đi'} />
               <InputModal
                 type={'date'}
-                {...register('departure_date', { required: true })}
+                {...register('departure_date')}
                 placeholder="Ngày Đi"
               />
               <LabelForm title={'Thời Gian Đi'} />
               <InputModal
                 type={'text'}
-                {...register('departure_time', { required: true })}
+                {...register('departure_time')}
                 placeholder="vd: 06:00"
               />
             </div>
@@ -114,7 +117,7 @@ const ModalEditTripPageAdmin: React.FC<ModalEditTripProps> = ({
               <Select
                 defaultValue=""
                 className="mb-5 w-full border border-gray-700 border-opacity-50 bg-white text-black focus:border-primary focus:outline-none dark:border-secondary dark:bg-gray-700 dark:text-white dark:focus:border-white"
-                {...register('destination_point', { required: true })}
+                {...register('destination_point')}
               >
                 <option value="" disabled>
                   Chọn Điểm Đến
@@ -128,13 +131,13 @@ const ModalEditTripPageAdmin: React.FC<ModalEditTripProps> = ({
               <LabelForm title={'Ngày Về'} />
               <InputModal
                 type={'date'}
-                {...register('return_date', { required: true })}
+                {...register('return_date')}
                 placeholder="Ngày Về"
               />
               <LabelForm title={'Thời Gian Về'} />
               <InputModal
                 type={'text'}
-                {...register('return_time', { required: true })}
+                {...register('return_time')}
                 placeholder="vd: 12:00"
               />
             </div>
@@ -146,7 +149,7 @@ const ModalEditTripPageAdmin: React.FC<ModalEditTripProps> = ({
               <InputModal
                 placeholder={'vd: 1000'}
                 type={'number'}
-                {...register('price', { required: true })}
+                {...register('price')}
               />
             </div>
             {/*  */}
