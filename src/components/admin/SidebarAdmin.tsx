@@ -76,7 +76,7 @@ const SidebarAdmin: React.FC<{}> = () => {
       toastify: seats.length
     },
     {
-      name: 'Khoang(Toa)',
+      name: 'Khoang/Toa',
       icon: MdEventSeat,
       link: '/admin/seat-catalog',
       toastify: seatCatalogs.length
@@ -106,7 +106,7 @@ const SidebarAdmin: React.FC<{}> = () => {
       toastify: ticketCatalogs.length
     },
     {
-      name: 'Chuyến đi',
+      name: 'Chuyến Đi',
       icon: FaMapLocationDot,
       link: '/admin/trip',
       toastify: trips.length

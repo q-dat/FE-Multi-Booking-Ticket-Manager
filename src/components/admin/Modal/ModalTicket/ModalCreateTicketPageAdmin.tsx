@@ -117,7 +117,7 @@ const ModalCreateTicketPageAdmin: React.FC<ModalCreateTicketProps> = ({
                 })}
               >
                 <option disabled value="">
-                  Chọn Khoang(Toa)
+                  Chọn Khoang/Toa
                 </option>
                 {seatCatalogs.map(seatCatalog => (
                   <option value={seatCatalog._id} key={seatCatalog._id}>

@@ -156,14 +156,17 @@ const SeatPage: React.FC = () => {
                 </Button>
 
                 {/*  */}
-                <div className="dropdown dropdown-hover relative flex h-12 w-[100px] flex-col items-center justify-center rounded-md bg-primary text-white">
+                <div className="dropdown dropdown-hover relative flex h-12 w-[100px] cursor-pointer flex-col items-center justify-center rounded-md bg-primary text-white">
                   <p className="flex flex-row items-center justify-center gap-1">
                     <RiListSettingsLine className="text-xl" />
                   </p>
-                  <div className="dropdown-content absolute top-[100%] z-10 w-52 space-y-1 bg-slate-50 drop-shadow-md">
+                  <div className="dropdown-content absolute top-[100%] z-10 w-52 space-y-1 rounded-md bg-slate-50 p-2 shadow-headerMenu drop-shadow-md">
                     {list.map((items, index) => (
                       <div className="flex">
-                        <label key={index} className="flex h-8 items-center">
+                        <label
+                          key={index}
+                          className="flex h-8 cursor-pointer items-center"
+                        >
                           <input
                             className="h-5 w-5 hover:text-red-400"
                             type="checkbox"
@@ -209,7 +212,7 @@ const SeatPage: React.FC = () => {
         table_body={
           <Table.Body className="text-center text-sm">
             {seats.map((seat: ISeat, index: number) => (
-              <Table.Row key={index}>
+              <Table.Row key={seat._id}>
                 {fillter[0] === 'STT' ? (
                   <span className="line-clamp-1">#{index + 1}</span>
                 ) : (

@@ -3,7 +3,7 @@ import { TicketContext } from '../../context/ticket/TicketContext';
 import { Toastify } from '../../helper/Toastify';
 import LoadingLocal from '../../components/orther/loading/LoadingLocal';
 import NavtitleAdmin from '../../components/admin/NavtitleAdmin';
-import { RiAddBoxLine } from 'react-icons/ri';
+import { RiAddBoxLine, RiListSettingsLine } from 'react-icons/ri';
 import { Button, Table } from 'react-daisyui';
 import { ITicket } from '../../types/type/ticket/ticket';
 import { MdDelete } from 'react-icons/md';
@@ -59,6 +59,39 @@ const TicketPage: React.FC = () => {
       }
     }
   };
+  const [fillter, setFillter] = useState<string[]>([
+    'STT',
+    'Loại Vé',
+    'Phương Tiện',
+    'Khoang/Toa',
+    'Chỗ Ngồi',
+    'Điểm Khởi Hành',
+    'Điểm Đến',
+    'Thời Gian Đi',
+    'Thời Gian Về',
+    'Giá Vé',
+    'Hành Động'
+  ]);
+  const list = [
+    'STT',
+    'Loại Vé',
+    'Phương Tiện',
+    'Khoang/Toa',
+    'Chỗ Ngồi',
+    'Điểm Khởi Hành',
+    'Điểm Đến',
+    'Thời Gian Đi',
+    'Thời Gian Về',
+    'Giá Vé',
+    'Hành Động'
+  ];
+  const replaceItem = (index: number, newValue: string) => {
+    setFillter(prevItems => {
+      const newItems = [...prevItems];
+      newItems[index] = newValue;
+      return newItems;
+    });
+  };
 
   if (loading) return <LoadingLocal />;
   if (error) return <ErrorLoading />;
@@ -70,16 +103,94 @@ const TicketPage: React.FC = () => {
         <NavtitleAdmin
           Title_NavtitleAdmin="Quản Lý Vé"
           Btn_Create={
-            <Button
-              color="primary"
-              onClick={openModalCreateAdmin}
-              className="text-sm font-light text-white"
-            >
-              <div className="flex items-center space-x-1">
-                <RiAddBoxLine className="text-xl" />
-                <p>Thêm</p>
+            <div className="flex flex-col items-start justify-center gap-2 md:flex-row md:items-end">
+              {/* <div className="flex gap-4">
+                <label className="flex items-center">
+                  <input
+                    type="checkbox"
+                    className="cursor-pointer"
+                    checked={checkboxCategory === 'Tàu'}
+                    onChange={() => {
+                      setCheckboxCategory('Tàu');
+                      handleSearchByCategory('Tàu');
+                    }}
+                  />
+                  <span className="ml-2">Tàu</span>
+                </label>
+                <label className="flex items-center">
+                  <input
+                    type="checkbox"
+                    className="cursor-pointer"
+                    checked={checkboxCategory === 'Máy Bay'}
+                    onChange={() => {
+                      setCheckboxCategory('Máy Bay');
+                      handleSearchByCategory('Máy Bay');
+                    }}
+                  />
+                  <span className="ml-2">Máy Bay</span>
+                </label>
+                <label className="flex items-center">
+                  <input
+                    type="checkbox"
+                    className="cursor-pointer"
+                    checked={checkboxCategory === 'Xe khách'}
+                    onChange={() => {
+                      setCheckboxCategory('Xe khách');
+                      handleSearchByCategory('Xe khách');
+                    }}
+                  />
+                  <span className="ml-2">Xe Khách</span>
+                </label>
+              </div> */}
+
+              <div className="flex flex-row gap-2">
+                <Button
+                  color="primary"
+                  onClick={openModalCreateAdmin}
+                  className="w-[100px] text-sm font-light text-white"
+                >
+                  <div className="flex items-center space-x-1">
+                    <RiAddBoxLine className="text-xl" />
+                    <p>Thêm</p>
+                  </div>
+                </Button>
+
+                {/*  */}
+                <div className="dropdown dropdown-hover relative flex h-12 w-[100px] cursor-pointer flex-col items-center justify-center rounded-md bg-primary text-white">
+                  <p className="flex flex-row items-center justify-center gap-1">
+                    <RiListSettingsLine className="text-xl" />
+                  </p>
+                  <div className="dropdown-content absolute top-[100%] z-10 w-52 space-y-1 rounded-md bg-slate-50 p-2 shadow-headerMenu drop-shadow-md">
+                    {list.map((items, index) => (
+                      <div className="flex">
+                        <label
+                          key={index}
+                          className="flex h-8 cursor-pointer items-center"
+                        >
+                          <input
+                            className="h-5 w-5 hover:text-red-400"
+                            type="checkbox"
+                            defaultChecked={true}
+                            onClick={() => {
+                              if (items === fillter[index]) {
+                                replaceItem(index, 'show');
+                              } else {
+                                replaceItem(index, list[index]);
+                              }
+
+                              console.log(items);
+                            }}
+                          />
+                          <span className="text-primary hover:text-secondary">
+                            {items}
+                          </span>
+                        </label>
+                      </div>
+                    ))}
+                  </div>
+                </div>
               </div>
-            </Button>
+            </div>
           }
         />
       </div>
@@ -88,78 +199,123 @@ const TicketPage: React.FC = () => {
         Title_TableListAdmin={`Danh Sách Vé (${tickets.length})`}
         table_head={
           <Table.Head className="bg-primary text-center text-white">
-            <span>STT</span>
-            <span>Loại Vé</span>
-            <span>Phương Tiện</span>
-            <span>Khoang(Toa)</span>
-            <span>Chỗ Ngồi</span>
-            <span>Điểm Khởi Hành</span>
-            <span>Điểm Đến</span>
-            <span>Thời gian đi</span>
-            <span>Thời gian về</span>
-            <span>Giá Vé</span>
-            <span>Hành Động</span>
+            {fillter[0] === 'STT' && <span>STT</span>}
+            {fillter[1] === 'Loại Vé' && <span>Loại Vé</span>}
+            {fillter[2] === 'Phương Tiện' && <span>Phương Tiện</span>}
+            {fillter[3] === 'Khoang/Toa' && <span>Khoang/Toa</span>}
+            {fillter[4] === 'Chỗ Ngồi' && <span>Chỗ Ngồi</span>}
+            {fillter[5] === 'Điểm Khởi Hành' && <span>Điểm Khởi Hành</span>}
+            {fillter[6] === 'Điểm Đến' && <span>Điểm Đến</span>}
+            {fillter[7] === 'Thời Gian Đi' && <span>Thời Gian Đi</span>}
+            {fillter[8] === 'Thời Gian Về' && <span>Thời Gian Về</span>}
+            {fillter[9] === 'Giá Vé' && <span>Giá Vé</span>}
+            {fillter[10] === 'Hành Động' && <span>Hành Động</span>}
           </Table.Head>
         }
         table_body={
           <Table.Body className="text-center text-sm">
             {tickets.map((ticket: ITicket, index: number) => (
               <Table.Row key={ticket._id}>
-                <span className="line-clamp-1">#{index + 1}</span>
-                <span className="line-clamp-1">
-                  {ticket.ticket_catalog_id?.name}
-                </span>
-                <span>{ticket.seat_id?.seat_catalog_id?.vehicle_id?.name}</span>
-                <span>{ticket.seat_id?.seat_catalog_id?.name}</span>
-                <span>{ticket.seat_id?.name}</span>
-
-                <span className="line-clamp-1">
-                  {ticket.trip_id?.departure_point?.name}
-                </span>
-                <span className="line-clamp-1">
-                  {ticket.trip_id?.destination_point?.name}
-                </span>
-                <span className="line-clamp-1">
-                  {ticket.trip_id?.departure_time}-
-                  {new Date(ticket.trip_id?.departure_date).toLocaleDateString(
-                    'vi-VN'
-                  )}
-                </span>
-                <span className="line-clamp-1">
-                  {ticket.trip_id?.return_time}-
-                  {new Date(ticket.trip_id?.return_date).toLocaleDateString(
-                    'vi-VN'
-                  )}
-                </span>
-                <span className="line-clamp-1">
-                  {(ticket.price * 1000).toLocaleString('vi-VN')}&nbsp;VND
-                </span>
-                <span>
-                  <details>
-                    <summary className="inline cursor-pointer text-base text-warning">
-                      <div className="flex items-center justify-center px-[55px] py-2">
-                        <FaCircleInfo />
+                {fillter[0] === 'STT' ? (
+                  <span className="line-clamp-1">#{index + 1}</span>
+                ) : (
+                  <></>
+                )}
+                {fillter[1] === 'Loại Vé' ? (
+                  <span className="line-clamp-1">
+                    {ticket.ticket_catalog_id?.name}
+                  </span>
+                ) : (
+                  <></>
+                )}
+                {fillter[2] === 'Phương Tiện' ? (
+                  <span>
+                    {ticket.seat_id?.seat_catalog_id?.vehicle_id?.name}
+                  </span>
+                ) : (
+                  <></>
+                )}
+                {fillter[3] === 'Khoang/Toa' ? (
+                  <span>{ticket.seat_id?.seat_catalog_id?.name}</span>
+                ) : (
+                  <></>
+                )}
+                {fillter[4] === 'Chỗ Ngồi' ? (
+                  <span>{ticket.seat_id?.name}</span>
+                ) : (
+                  <></>
+                )}
+                {fillter[5] === 'Điểm Khởi Hành' ? (
+                  <span className="line-clamp-1">
+                    {ticket.trip_id?.departure_point?.name}
+                  </span>
+                ) : (
+                  <></>
+                )}
+                {fillter[6] === 'Điểm Đến' ? (
+                  <span className="line-clamp-1">
+                    {ticket.trip_id?.destination_point?.name}
+                  </span>
+                ) : (
+                  <></>
+                )}
+                {fillter[7] === 'Thời Gian Đi' ? (
+                  <span className="line-clamp-1">
+                    {ticket.trip_id?.departure_time}-
+                    {new Date(
+                      ticket.trip_id?.departure_date
+                    ).toLocaleDateString('vi-VN')}
+                  </span>
+                ) : (
+                  <></>
+                )}
+                {fillter[8] === 'Thời Gian Về' ? (
+                  <span className="line-clamp-1">
+                    {ticket.trip_id?.return_time}-
+                    {new Date(ticket.trip_id?.return_date).toLocaleDateString(
+                      'vi-VN'
+                    )}
+                  </span>
+                ) : (
+                  <></>
+                )}
+                {fillter[9] === 'Giá Vé' ? (
+                  <span className="line-clamp-1">
+                    {(ticket.price * 1000).toLocaleString('vi-VN')}&nbsp;VND
+                  </span>
+                ) : (
+                  <></>
+                )}
+                {fillter[10] === 'Hành Động' ? (
+                  <span>
+                    <details>
+                      <summary className="inline cursor-pointer text-base text-warning">
+                        <div className="flex items-center justify-center px-[55px] py-2">
+                          <FaCircleInfo />
+                        </div>
+                      </summary>
+                      <div className="flex flex-col items-center justify-center space-y-2">
+                        <Button
+                          color="success"
+                          onClick={() => openModalEditAdmin(ticket._id ?? '')}
+                          className="w-full max-w-[140px] text-sm font-light text-white"
+                        >
+                          <FaPenToSquare />
+                          Cập Nhật
+                        </Button>
+                        <Button
+                          onClick={() => openModalDeleteAdmin(ticket._id ?? '')}
+                          className="w-full max-w-[140px] bg-red-600 text-sm font-light text-white"
+                        >
+                          <MdDelete />
+                          Xoá
+                        </Button>
                       </div>
-                    </summary>
-                    <div className="flex flex-col items-center justify-center space-y-2">
-                      <Button
-                        color="success"
-                        onClick={() => openModalEditAdmin(ticket._id ?? '')}
-                        className="w-full max-w-[140px] text-sm font-light text-white"
-                      >
-                        <FaPenToSquare />
-                        Cập Nhật
-                      </Button>
-                      <Button
-                        onClick={() => openModalDeleteAdmin(ticket._id ?? '')}
-                        className="w-full max-w-[140px] bg-red-600 text-sm font-light text-white"
-                      >
-                        <MdDelete />
-                        Xoá
-                      </Button>
-                    </div>
-                  </details>
-                </span>
+                    </details>
+                  </span>
+                ) : (
+                  <></>
+                )}
               </Table.Row>
             ))}
           </Table.Body>

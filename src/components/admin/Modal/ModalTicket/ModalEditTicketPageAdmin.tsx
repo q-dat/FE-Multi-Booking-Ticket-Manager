@@ -133,7 +133,7 @@ const ModalEditTicketPageAdmin: React.FC<ModalEditTicketProps> = ({
                 {...register('seat_id.seat_catalog_id.vehicle_id')}
               >
                 <option disabled value="">
-                  Chọn Khoang(Toa)
+                  Chọn Khoang/Toa
                 </option>
                 {seatCatalogs.map(seatCatalog => (
                   <option value={seatCatalog._id} key={seatCatalog._id}>
