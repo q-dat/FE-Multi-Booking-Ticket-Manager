@@ -9,6 +9,7 @@ import { ITicket } from '../../types/type/ticket/ticket';
 import {
   createTicketApi,
   deleteTicketApi,
+  fillterTicketsApi,
   getAllTicketsApi,
   searchTicketsApi,
   updateTicketApi
@@ -19,6 +20,7 @@ interface TicketContextType {
   loading: boolean;
   error: string | null;
   searchTickets: (searchParams: Record<string, string>) => Promise<ITicket[]>;
+  fillterTickets: (fillterParams: Record<string, string>) => Promise<ITicket[]>;
   getAllTickets: () => void;
   getTicketById: (_id: string) => ITicket | undefined;
   createTicket: (ticket: ITicket) => Promise<void>;
@@ -31,6 +33,7 @@ const defaultContextValue: TicketContextType = {
   loading: false,
   error: null,
   searchTickets: async () => [],
+  fillterTickets: async () => [],
   getAllTickets: () => {},
   getTicketById: () => undefined,
   createTicket: async () => {},
@@ -72,6 +75,21 @@ export const TicketProvider = ({ children }: { children: ReactNode }) => {
       let ticketsData: ITicket[] = [];
       await fetchData(
         () => searchTicketsApi(searchParams),
+        data => {
+          ticketsData = data.tickets || [];
+          setTickets(ticketsData);
+        }
+      );
+      return ticketsData;
+    },
+    []
+  );
+  // Filter
+  const fillterTickets = useCallback(
+    async (fillterParams: Record<string, string>): Promise<ITicket[]> => {
+      let ticketsData: ITicket[] = [];
+      await fetchData(
+        () => fillterTicketsApi(fillterParams),
         data => {
           ticketsData = data.tickets || [];
           setTickets(ticketsData);
@@ -138,6 +156,7 @@ export const TicketProvider = ({ children }: { children: ReactNode }) => {
         loading,
         error,
         searchTickets,
+        fillterTickets,
         getAllTickets,
         getTicketById,
         createTicket,
