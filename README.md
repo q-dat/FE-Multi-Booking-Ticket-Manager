@@ -2,20 +2,20 @@
 
 ## Demo
 
-https://github.com/q-dat/FE-Train-Ticket-Booking-Managerment.git
+https://github.com/q-dat/FE-Multi-Booking-Ticket-Manager.git
 
 ## Run Project Here
 
 Clone the project
 
 ```bash
-  git clone https://github.com/q-dat/FE-Train-Ticket-Booking-Managerment.git
+  git clone https://github.com/q-dat/FE-Multi-Booking-Ticket-Manager.git
 ```
 
 Go to the project directory
 
 ```bash
-  cd FE-Train-Ticket-Booking-Managerment
+  cd FE-Multi-Booking-Ticket-Manager
 ```
 
 Install dependencies
