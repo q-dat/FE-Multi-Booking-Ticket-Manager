@@ -58,7 +58,7 @@ const TicketCatalogPage: React.FC = () => {
         getAllTicketCatalogs();
         navigate('/admin/ticket-catalog');
       } catch (error) {
-        Toastify('Xoá loại vé thất bại!', 401);
+        Toastify('Xoá loại vé thất bại!', 500);
       }
     }
   };

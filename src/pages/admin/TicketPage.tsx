@@ -55,7 +55,7 @@ const TicketPage: React.FC = () => {
         const errorMessage = isIErrorResponse(error)
           ? error.data?.message
           : 'Xoá vé thất bại!';
-        Toastify(`Lỗi: ${errorMessage}`, 401);
+        Toastify(`Lỗi: ${errorMessage}`, 500);
       }
     }
   };

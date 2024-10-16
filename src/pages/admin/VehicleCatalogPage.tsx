@@ -58,7 +58,7 @@ const VehicleCatalogPage: React.FC = () => {
         getAllVehicleCatalogs();
         navigate('/admin/vehicle-catalog');
       } catch (error) {
-        Toastify('Xoá hạng phương tiện thất bại!', 401);
+        Toastify('Xoá hạng phương tiện thất bại!', 500);
       }
     }
   };

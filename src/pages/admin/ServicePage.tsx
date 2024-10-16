@@ -56,7 +56,7 @@ const ServicePage: React.FC = () => {
         const errorMessage = isIErrorResponse(error)
           ? error.data?.message
           : 'Xoá dịch vụ thất bại!';
-        Toastify(`Lỗi: ${errorMessage}`, 401);
+        Toastify(`Lỗi: ${errorMessage}`, 500);
       }
     }
   };

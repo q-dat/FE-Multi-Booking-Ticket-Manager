@@ -55,7 +55,7 @@ const TripPage: React.FC = () => {
         const errorMessage = isIErrorResponse(error)
           ? error.data?.message
           : 'Xoá chuyến đi thất bại!';
-        Toastify(`Lỗi: ${errorMessage}`, 401);
+        Toastify(`Lỗi: ${errorMessage}`, 500);
       }
     }
   };

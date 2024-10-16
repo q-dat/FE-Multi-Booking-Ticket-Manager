@@ -58,7 +58,7 @@ const SeatCatalogPage: React.FC = () => {
         getAllSeatCatalogs();
         navigate('/admin/seat-catalog');
       } catch (error) {
-        Toastify('Xoá loại ghế thất bại!', 401);
+        Toastify('Xoá loại ghế thất bại!', 500);
       }
     }
   };

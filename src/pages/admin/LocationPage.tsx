@@ -56,7 +56,7 @@ const LocationPage: React.FC = () => {
         const errorMessage = isIErrorResponse(error)
           ? error.data?.message
           : 'Xoá địa chỉ thất bại!';
-        Toastify(`Lỗi: ${errorMessage}`, 401);
+        Toastify(`Lỗi: ${errorMessage}`, 500);
       }
     }
   };

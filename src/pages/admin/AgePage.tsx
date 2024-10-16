@@ -56,7 +56,7 @@ const AgePage: React.FC = () => {
         const errorMessage = isIErrorResponse(error)
           ? error.data?.message
           : 'Xoá độ tuổi thất bại!';
-        Toastify(`Lỗi: ${errorMessage}`, 401);
+        Toastify(`Lỗi: ${errorMessage}`, 500);
       }
     }
   };
