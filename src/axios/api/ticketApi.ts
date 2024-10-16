@@ -24,7 +24,7 @@ export const createTicketApi = (ticket: ITicket) => {
 
 // Put
 export const updateTicketApi = (id: string, ticket: ITicket) => {
-  return axios.put<{ ticket: ITicket }>(`/api/ticket/${id}`, ticket);
+  return axios.put<{ ticket: ITicket }>(`/api/tickets/${id}`, ticket);
 };
 
 // Delete
