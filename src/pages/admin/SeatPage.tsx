@@ -51,13 +51,13 @@ const SeatPage: React.FC = () => {
       try {
         await deleteSeat(selectedSeatId);
         closeModalDeleteAdmin();
-        Toastify('Bạn đã xoá phương tiện thành công', 201);
+        Toastify('Bạn đã xoá ghế ngồi thành công', 201);
         getAllSeats();
         navigate('/admin/seat');
       } catch (error) {
         const errorMessage = isIErrorResponse(error)
           ? error.data?.message
-          : 'Xoá phương tiện thất bại!';
+          : 'Xoá ghế ngồi thất bại!';
         Toastify(`Lỗi: ${errorMessage}`, 500);
       }
     }
