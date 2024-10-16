@@ -54,11 +54,11 @@ const VehicleCatalogPage: React.FC = () => {
       try {
         await deleteVehicleCatalog(selectedVehicleCatalogId);
         closeModalDeleteAdmin();
-        Toastify('Bạn đã xoá hạng phương tiện thành công', 201);
+        Toastify('Bạn đã xoá loại phương tiện thành công', 201);
         getAllVehicleCatalogs();
         navigate('/admin/vehicle-catalog');
       } catch (error) {
-        Toastify('Xoá hạng phương tiện thất bại!', 500);
+        Toastify('Xoá loại phương tiện thất bại!', 500);
       }
     }
   };
@@ -68,10 +68,10 @@ const VehicleCatalogPage: React.FC = () => {
 
   return (
     <div className="w-full">
-      <NavbarMobile Title_NavbarMobile="Hạng Phương Tiện" />
+      <NavbarMobile Title_NavbarMobile="Loại Phương Tiện" />
       <div className="px-2 xl:px-0">
         <NavtitleAdmin
-          Title_NavtitleAdmin="Quản Lý Hạng Phương Tiện"
+          Title_NavtitleAdmin="Quản Lý Loại Phương Tiện"
           Btn_Create={
             <Button
               color="primary"
@@ -88,7 +88,7 @@ const VehicleCatalogPage: React.FC = () => {
       </div>
 
       <TableListAdmin
-        Title_TableListAdmin={`Danh Sách Hạng Phương Tiện (${vehicleCatalogs.length})`}
+        Title_TableListAdmin={`Danh Sách Loại Phương Tiện (${vehicleCatalogs.length})`}
         table_head={
           <Table.Head className="bg-primary text-center text-white">
             <span>STT</span>
