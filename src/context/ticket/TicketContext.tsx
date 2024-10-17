@@ -43,7 +43,7 @@ const defaultContextValue: TicketContextType = {
     filter: false,
     create: false,
     update: false,
-    delete: false,
+    delete: false
   },
   error: null,
   searchTickets: async () => [],
@@ -55,7 +55,8 @@ const defaultContextValue: TicketContextType = {
   deleteTicket: async () => {}
 };
 
-export const TicketContext = createContext<TicketContextType>(defaultContextValue);
+export const TicketContext =
+  createContext<TicketContextType>(defaultContextValue);
 
 export const TicketProvider = ({ children }: { children: ReactNode }) => {
   const [tickets, setTickets] = useState<ITicket[]>([]);
@@ -65,7 +66,7 @@ export const TicketProvider = ({ children }: { children: ReactNode }) => {
     filter: false,
     create: false,
     update: false,
-    delete: false,
+    delete: false
   });
   const [error, setError] = useState<string | null>(null);
 
@@ -126,7 +127,11 @@ export const TicketProvider = ({ children }: { children: ReactNode }) => {
 
   // Get All
   const getAllTickets = useCallback(() => {
-    fetchData(getAllTicketsApi, data => setTickets(data.tickets || []), 'getAll');
+    fetchData(
+      getAllTicketsApi,
+      data => setTickets(data.tickets || []),
+      'getAll'
+    );
   }, []);
 
   // Get By ID
