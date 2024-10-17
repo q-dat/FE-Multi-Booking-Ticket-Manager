@@ -12,7 +12,7 @@ const PrivateRouter = ({ children }: AdminRouteProps) => {
   console.log('Current Role:', user?.role);
 
   if (user?.role !== 'admin') {
-    return <Navigate to="/" replace />;
+    return <Navigate to=" " replace />;
   }
 
   return <>{children}</>;
