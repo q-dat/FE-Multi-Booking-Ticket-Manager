@@ -275,7 +275,7 @@ const HeaderResponsive: React.FC<HeaderResponsiveProps> = ({
                       <p className="text-lg font-light text-black dark:text-white">
                         {t('UserPage.Navbar.LoginBtn')}
                       </p>
-                      <Link to="auth/login">
+                      <Link to="/auth/login">
                         <Button className="flex cursor-pointer items-center justify-center rounded-md border-none bg-white bg-opacity-20 text-black shadow-headerMenu dark:bg-black dark:bg-opacity-20 dark:text-white">
                           <FaUser />
                         </Button>
