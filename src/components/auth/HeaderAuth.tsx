@@ -1,8 +1,8 @@
 import React, { ReactNode, useCallback, useEffect, useState } from 'react';
-import { Button, Drawer, Input, Menu } from 'react-daisyui';
+import { Button, Drawer, Menu } from 'react-daisyui';
 // Icon
 import { RxHamburgerMenu } from 'react-icons/rx';
-import { IoSearchOutline, IoSettingsSharp, IoTicket } from 'react-icons/io5';
+import { IoSettingsSharp, IoTicket } from 'react-icons/io5';
 import { Link, NavLink, useLocation, useNavigate } from 'react-router-dom';
 import { FaHome, FaPhoneAlt, FaChevronDown, FaUser } from 'react-icons/fa';
 import { GiReturnArrow } from 'react-icons/gi';
@@ -304,14 +304,6 @@ const HeaderAuth: React.FC<HeaderAuthProps> = ({ Title_NavbarMobile }) => {
             </div>
           </Drawer>
         </div>
-      </div>
-      {/* Input Search */}
-      <div className="relative flex items-center">
-        <Input
-          className="w-full text-black focus:outline-none dark:border-white dark:bg-transparent dark:text-white"
-          type="text"
-        />
-        <IoSearchOutline className="absolute right-2 h-5 w-5 cursor-pointer text-gray-50" />
       </div>
     </div>
   );
