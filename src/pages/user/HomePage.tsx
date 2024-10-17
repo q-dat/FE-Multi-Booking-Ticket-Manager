@@ -37,11 +37,7 @@ const Home: React.FC = () => {
   if (!searchTicket) {
     console.log('Home phải được sử dụng trong TicketProvider');
   }
-  const {
-    searchTickets,
-    loading: loadingTickets,
-    error: errorTickets
-  } = searchTicket;
+  const { searchTickets, loading, error } = searchTicket;
 
   const { register, handleSubmit } = useForm<SearchFormData>();
   const onSubmit: SubmitHandler<SearchFormData> = async data => {
@@ -53,29 +49,34 @@ const Home: React.FC = () => {
       {} as Record<string, string>
     );
 
+    // Call searchTickets and wait for the result
     const searchResults: ITicket[] = await searchTickets(searchParams);
-    if (!loadingTickets) {
-      if (searchResults && searchResults.length > 0) {
-        const selectedVehicle = searchResults[0];
-        //
-        const vehicleType = selectedVehicle.vehicle_catalog_id.name;
-        sessionStorage.setItem('searchResults', JSON.stringify(searchResults));
-        if (vehicleType === 'Tàu hoả') {
-          navigate('/ticket-trains-results');
-        } else if (vehicleType === 'Xe khách') {
-          navigate('/ticket-buses-results');
-        } else if (vehicleType === 'Máy bay') {
-          navigate('/ticket-flight-results');
-        }
 
-        Toastify('Tìm kiếm vé thành công', 200);
-      } else {
-        Toastify(`Lỗi: ${errorTickets || 'Không tìm thấy vé nào'}`, 404);
+    if (searchResults.length > 0) {
+      const selectedVehicle = searchResults[0];
+      const vehicleType = selectedVehicle.vehicle_catalog_id.name;
+      sessionStorage.setItem('searchResults', JSON.stringify(searchResults));
+
+      // Navigate based on vehicle type
+      switch (vehicleType) {
+        case 'Tàu hoả':
+          navigate('/ticket-trains-results');
+          break;
+        case 'Xe khách':
+          navigate('/ticket-buses-results');
+          break;
+        case 'Máy bay':
+          navigate('/ticket-flight-results');
+          break;
+        default:
+          break;
       }
+      Toastify('Tìm kiếm vé thành công', 200);
     } else {
-      console.log('Vẫn đang tải dữ liệu, vui lòng đợi.');
+      Toastify(`Lỗi: ${error || 'Không tìm thấy vé nào'}`, 404);
     }
   };
+
   //Get Vehicle Catalog
   const { vehicleCatalogs, getAllVehicleCatalogs } = useContext(
     VehicleCatalogContext
@@ -242,12 +243,12 @@ const Home: React.FC = () => {
               <div>
                 <Button
                   type="submit"
-                  disabled={loadingTickets}
+                  disabled={loading.search}
                   className="w-[150px] bg-primary text-sm text-white hover:border-primary hover:bg-white hover:text-primary dark:hover:bg-gray-700 md:w-[300px] lg:w-[400px] xl:ml-3 xl:w-full"
                 >
                   <IoSearch />
-                  {loadingTickets
-                    ? 'Đang tìm kiếm...'
+                  {loading.search
+                    ? `${t('UserPage.Loading')}`
                     : `${t('UserPage.SearchButton')}`}
                 </Button>
               </div>

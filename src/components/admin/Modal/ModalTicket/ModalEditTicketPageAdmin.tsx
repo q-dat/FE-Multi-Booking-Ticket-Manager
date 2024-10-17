@@ -178,11 +178,13 @@ const ModalEditTicketPageAdmin: React.FC<ModalEditTicketProps> = ({
                 ))}
               </Select>
               {/*  */}
-              <LabelForm title={'Giá vé'} />
+              <LabelForm title={'Giá vé(Tự động)'} />
               <InputModal
-                placeholder={'vd: 1000'}
+                placeholder={'(Giá vé tự động!)'}
                 type={'number'}
                 {...register('price')}
+                defaultValue=""
+                readOnly
               ></InputModal>
             </div>
           </div>

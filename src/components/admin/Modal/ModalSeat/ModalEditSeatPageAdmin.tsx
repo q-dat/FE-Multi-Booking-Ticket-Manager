@@ -86,15 +86,14 @@ const ModalEditSeatPageAdmin: React.FC<ModalEditSeatProps> = ({
                 type={'text'}
                 {...register('name')}
               />
-              <LabelForm title={'      Giá     '} />
+              <LabelForm title={'Giá'} />
 
               <InputModal
                 placeholder={'vd: 1000'}
                 type={'number'}
                 {...register('price')}
               />
-              <LabelForm title={'Số Ghế    '} />
-
+              <LabelForm title={'Số Ghế'} />
               <InputModal
                 placeholder={'Số Ghế'}
                 type={'text'}
@@ -102,13 +101,13 @@ const ModalEditSeatPageAdmin: React.FC<ModalEditSeatProps> = ({
               />
             </div>
             <div className="">
-              <LabelForm title={'Mô Tả    '} />
+              <LabelForm title={'Mô Tả'} />
               <InputModal
                 placeholder={'Mô Tả(Không Bắt Buộc)'}
                 type={'text'}
                 {...register('des')}
               />
-              <LabelForm title={'       Trạng Thái'} />
+              <LabelForm title={' Trạng Thái'} />
               <Select
                 defaultValue=""
                 className="mb-5 w-full border border-gray-700 border-opacity-50 bg-white text-black focus:border-primary focus:outline-none dark:border-secondary dark:bg-gray-700 dark:text-white dark:focus:border-white"

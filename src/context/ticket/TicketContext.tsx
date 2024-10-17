@@ -17,7 +17,14 @@ import {
 
 interface TicketContextType {
   tickets: ITicket[];
-  loading: boolean;
+  loading: {
+    getAll: boolean;
+    search: boolean;
+    filter: boolean;
+    create: boolean;
+    update: boolean;
+    delete: boolean;
+  };
   error: string | null;
   searchTickets: (searchParams: Record<string, string>) => Promise<ITicket[]>;
   filterTickets: (filterParams: Record<string, string>) => Promise<ITicket[]>;
@@ -30,7 +37,14 @@ interface TicketContextType {
 
 const defaultContextValue: TicketContextType = {
   tickets: [],
-  loading: false,
+  loading: {
+    getAll: false,
+    search: false,
+    filter: false,
+    create: false,
+    update: false,
+    delete: false,
+  },
   error: null,
   searchTickets: async () => [],
   filterTickets: async () => [],
@@ -41,12 +55,18 @@ const defaultContextValue: TicketContextType = {
   deleteTicket: async () => {}
 };
 
-export const TicketContext =
-  createContext<TicketContextType>(defaultContextValue);
+export const TicketContext = createContext<TicketContextType>(defaultContextValue);
 
 export const TicketProvider = ({ children }: { children: ReactNode }) => {
   const [tickets, setTickets] = useState<ITicket[]>([]);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState({
+    getAll: false,
+    search: false,
+    filter: false,
+    create: false,
+    update: false,
+    delete: false,
+  });
   const [error, setError] = useState<string | null>(null);
 
   const handleError = (err: any) => {
@@ -55,9 +75,10 @@ export const TicketProvider = ({ children }: { children: ReactNode }) => {
 
   const fetchData = async (
     apiCall: () => Promise<any>,
-    onSuccess: (data: any) => void
+    onSuccess: (data: any) => void,
+    loadingKey: keyof typeof loading
   ) => {
-    setLoading(true);
+    setLoading(prev => ({ ...prev, [loadingKey]: true }));
     setError(null);
     try {
       const response = await apiCall();
@@ -65,7 +86,7 @@ export const TicketProvider = ({ children }: { children: ReactNode }) => {
     } catch (err: any) {
       handleError(err);
     } finally {
-      setLoading(false);
+      setLoading(prev => ({ ...prev, [loadingKey]: false }));
     }
   };
 
@@ -78,12 +99,14 @@ export const TicketProvider = ({ children }: { children: ReactNode }) => {
         data => {
           ticketsData = data.tickets || [];
           setTickets(ticketsData);
-        }
+        },
+        'search'
       );
       return ticketsData;
     },
     []
   );
+
   // Filter
   const filterTickets = useCallback(
     async (filterParams: Record<string, string>): Promise<ITicket[]> => {
@@ -93,7 +116,8 @@ export const TicketProvider = ({ children }: { children: ReactNode }) => {
         data => {
           ticketsData = data.tickets || [];
           setTickets(ticketsData);
-        }
+        },
+        'filter'
       );
       return ticketsData;
     },
@@ -102,9 +126,10 @@ export const TicketProvider = ({ children }: { children: ReactNode }) => {
 
   // Get All
   const getAllTickets = useCallback(() => {
-    fetchData(getAllTicketsApi, data => setTickets(data.tickets || []));
+    fetchData(getAllTicketsApi, data => setTickets(data.tickets || []), 'getAll');
   }, []);
-  //Get By ID
+
+  // Get By ID
   const getTicketById = useCallback(
     (id: string) => {
       return tickets.find(ticket => ticket._id === id);
@@ -116,7 +141,8 @@ export const TicketProvider = ({ children }: { children: ReactNode }) => {
   const createTicket = useCallback(async (ticket: ITicket): Promise<void> => {
     await fetchData(
       () => createTicketApi(ticket),
-      data => setTickets(prevTickets => [...prevTickets, data.ticket])
+      data => setTickets(prevTickets => [...prevTickets, data.ticket]),
+      'create'
     );
   }, []);
 
@@ -128,7 +154,8 @@ export const TicketProvider = ({ children }: { children: ReactNode }) => {
         data =>
           setTickets(prevTickets =>
             prevTickets.map(t => (t._id === id ? data.ticket : t))
-          )
+          ),
+        'update'
       );
     },
     []
@@ -141,7 +168,8 @@ export const TicketProvider = ({ children }: { children: ReactNode }) => {
       () =>
         setTickets(prevTickets =>
           prevTickets.filter(ticket => ticket._id !== id)
-        )
+        ),
+      'delete'
     );
   }, []);
 

@@ -51,6 +51,7 @@
     }
   },
   "UserPage": {
+    "Loading":"Đang Tải...",
     "Collapse": "Thu Gọn",
     "Contact": "Liên hệ",
     "ContactUs": "Liên hệ với chúng tôi",

@@ -25,7 +25,6 @@ const ModalCreateTicketPageAdmin: React.FC<ModalCreateTicketProps> = ({
 }) => {
   const { createTicket, getAllTickets } = useContext(TicketContext);
   const { register, handleSubmit, reset } = useForm<ITicket>();
-  //
   const { ticketCatalogs } = useContext(TicketCatalogContext);
   const { vehicles } = useContext(VehicleContext);
   const { vehicleCatalogs } = useContext(VehicleCatalogContext);
@@ -57,6 +56,7 @@ const ModalCreateTicketPageAdmin: React.FC<ModalCreateTicketProps> = ({
       onClose();
     }
   };
+
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <div
@@ -72,7 +72,6 @@ const ModalCreateTicketPageAdmin: React.FC<ModalCreateTicketProps> = ({
           </p>
           <div className="flex flex-row items-start justify-center gap-2 md:gap-5">
             <div className="flex flex-col gap-2">
-              {/*  */}
               <LabelForm title={'Loại phương tiện'} />
               <Select
                 defaultValue=""
@@ -88,7 +87,6 @@ const ModalCreateTicketPageAdmin: React.FC<ModalCreateTicketProps> = ({
                   </option>
                 ))}
               </Select>
-              {/*  */}
 
               <LabelForm title={'Phương tiện'} />
               <Select
@@ -107,7 +105,7 @@ const ModalCreateTicketPageAdmin: React.FC<ModalCreateTicketProps> = ({
                   </option>
                 ))}
               </Select>
-              {/*  */}
+
               <LabelForm title={'Khoang(toa)'} />
               <Select
                 defaultValue=""
@@ -126,9 +124,8 @@ const ModalCreateTicketPageAdmin: React.FC<ModalCreateTicketProps> = ({
                 ))}
               </Select>
             </div>
-            {/*  */}
+
             <div className="flex flex-col gap-2">
-              {/*  */}
               <LabelForm title={'Loại vé'} />
               <Select
                 defaultValue=""
@@ -144,7 +141,7 @@ const ModalCreateTicketPageAdmin: React.FC<ModalCreateTicketProps> = ({
                   </option>
                 ))}
               </Select>
-              {/*  */}
+
               <LabelForm title={'Chuyến đi'} />
               <Select
                 defaultValue=""
@@ -161,17 +158,18 @@ const ModalCreateTicketPageAdmin: React.FC<ModalCreateTicketProps> = ({
                   </option>
                 ))}
               </Select>
-              {/*  */}
-              <LabelForm title={'Giá vé'} />
+              <LabelForm title={'Giá vé(Tự động)'} />
               <InputModal
-                placeholder={'vd: 1000'}
+                placeholder={'(Giá vé tự động!)'}
                 type={'number'}
-                {...register('price', { required: true })}
+                {...register('price',{required:true})}
+                defaultValue='0'
+                readOnly  
               ></InputModal>
             </div>
           </div>
+
           <div className="mt-4 flex flex-col gap-5 text-center">
-            {/*  */}
             <div className="text-start">
               <LabelForm title={'Chọn chỗ ngồi'} />
               <Select
@@ -191,7 +189,7 @@ const ModalCreateTicketPageAdmin: React.FC<ModalCreateTicketProps> = ({
                 ))}
               </Select>
             </div>
-            {/*  */}
+
             <div className="flex flex-row items-center justify-center gap-5">
               <Button onClick={onClose} className="border-gray-50 text-black">
                 Huỷ bỏ

@@ -93,7 +93,7 @@ const TicketPage: React.FC = () => {
     });
   };
 
-  if (loading) return <LoadingLocal />;
+  if (loading.getAll) return <LoadingLocal />;
   if (error) return <ErrorLoading />;
 
   return (
