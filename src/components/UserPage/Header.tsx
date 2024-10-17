@@ -10,7 +10,6 @@ import { Logo, LogoTitle } from '../../assets/images';
 import DropdownLanguage from '../orther/translation/Dropdown-Language ';
 import { useTranslation } from 'react-i18next';
 
-
 interface MenuItem {
   name: string;
   icon?: IconType;

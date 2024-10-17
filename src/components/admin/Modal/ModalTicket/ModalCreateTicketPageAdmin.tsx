@@ -162,9 +162,9 @@ const ModalCreateTicketPageAdmin: React.FC<ModalCreateTicketProps> = ({
               <InputModal
                 placeholder={'(Giá vé tự động!)'}
                 type={'number'}
-                {...register('price',{required:true})}
-                defaultValue='0'
-                readOnly  
+                {...register('price', { required: true })}
+                defaultValue="0"
+                readOnly
               ></InputModal>
             </div>
           </div>
