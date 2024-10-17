@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Button, Menu } from 'react-daisyui';
-import { FaChevronDown, FaHome, FaUser } from 'react-icons/fa';
-import { Link, NavLink, useLocation, useNavigate } from 'react-router-dom';
+import { FaChevronDown, FaHome } from 'react-icons/fa';
+import { Link, NavLink, useLocation } from 'react-router-dom';
 import { IconType } from 'react-icons/lib';
 import { GiReturnArrow } from 'react-icons/gi';
 import { IoTicket } from 'react-icons/io5';
@@ -9,8 +9,7 @@ import DarkMode from '../orther/darkmode/DarkMode';
 import { Logo, LogoTitle } from '../../assets/images';
 import DropdownLanguage from '../orther/translation/Dropdown-Language ';
 import { useTranslation } from 'react-i18next';
-import { useAuth } from '../../context/auth/AuthContext';
-import { MdLogout } from 'react-icons/md';
+
 
 interface MenuItem {
   name: string;
@@ -21,10 +20,6 @@ interface MenuItem {
 const Header: React.FC = () => {
   // Translation
   const { t } = useTranslation();
-  // Điều hướng
-  const navigate = useNavigate();
-  // Lấy data bên context
-  const { user, logout } = useAuth();
   const [openSubmenu, setOpenSubmenu] = useState<string | null>(null);
   const handleMouseEnter = (name: string) => {
     setOpenSubmenu(name);
@@ -87,17 +82,6 @@ const Header: React.FC = () => {
       setActiveItem(foundItem.name);
     }
   }, [location.pathname, menuItems]);
-
-  // role = admin chuyển thẳng tới admin
-  useEffect(() => {
-    if (user && user.role === 'admin') {
-      navigate('/admin');
-    }
-  }, [user, navigate]);
-
-  const handleLogout = async () => {
-    await logout();
-  };
 
   return (
     <div>
@@ -183,25 +167,6 @@ const Header: React.FC = () => {
           })}
         </Menu>
         <div className="flex items-center justify-center gap-5">
-          {/* Phân quyền */}
-          {user && user.role === 'user' && (
-            <div className="flex items-center">
-              {/* <img alt='Avatar' className='h-8 w-8 rounded-full' /> */}
-              <Button
-                onClick={handleLogout}
-                className="flex cursor-pointer flex-row items-center justify-center rounded-md border-none bg-white bg-opacity-20 text-black shadow-headerMenu dark:bg-black dark:bg-opacity-20 dark:text-white"
-              >
-                <MdLogout /> Logout
-              </Button>
-            </div>
-          )}
-          {!user && (
-            <Link to="auth/login">
-              <Button className="flex cursor-pointer flex-row items-center justify-center rounded-md border-none bg-white bg-opacity-20 text-black shadow-headerMenu dark:bg-black dark:bg-opacity-20 dark:text-white">
-                <FaUser /> {t('LoginBtn')}
-              </Button>
-            </Link>
-          )}
           {/* DarkMode Button */}
           <DropdownLanguage />
           <DarkMode />

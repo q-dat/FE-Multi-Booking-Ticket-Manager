@@ -6,6 +6,9 @@ import { IoSearchOutline } from 'react-icons/io5';
 import SidebarAdmin from '../../SidebarAdmin';
 import Avatar from 'boring-avatars';
 import { MdLogout } from 'react-icons/md';
+import { useAuth } from '../../../../context/auth/AuthContext';
+import { Toastify } from '../../../../helper/Toastify';
+import { ILogoutError } from '../../../../types/auth/auth';
 
 const NavbarMobile: React.FC<{ Title_NavbarMobile: string }> = ({
   Title_NavbarMobile
@@ -20,7 +23,20 @@ const NavbarMobile: React.FC<{ Title_NavbarMobile: string }> = ({
   const toggleRightVisible = useCallback(() => {
     setRightVisible(visible => !visible);
   }, []);
-
+  const { logout } = useAuth();
+  const handleLogout = async () => {
+    try {
+      await logout();
+      Toastify('Đăng xuất thành công', 200);
+    } catch (error) {
+      const err = error as ILogoutError;
+      if (err.response?.data?.message === 'Không tìm thấy session để xóa') {
+        Toastify('Không tìm thấy session để xóa', 400);
+      } else {
+        Toastify('Đăng xuất thất bại', 400);
+      }
+    }
+  };
   return (
     <div className="flex flex-col px-2 pb-6 xl:hidden xl:px-0">
       <div className="mb-6 flex items-center justify-between">
@@ -62,7 +78,7 @@ const NavbarMobile: React.FC<{ Title_NavbarMobile: string }> = ({
               <Menu className="fixed h-full w-[280px] bg-white">
                 <Menu.Item className="space-y-2">
                   {/*  */}
-                  <Button>
+                  <Button onClick={handleLogout}>
                     <MdLogout />
                     Đăng Xuất
                   </Button>

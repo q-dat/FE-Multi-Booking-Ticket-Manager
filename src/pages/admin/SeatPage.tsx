@@ -18,7 +18,6 @@ import { SeatContext } from '../../context/seat/SeatContext';
 import { ISeat } from '../../types/type/seat/seat';
 
 const SeatPage: React.FC = () => {
-  console.log('Seats rendering');
   const { seats, loading, error, deleteSeat, getAllSeats, searchSeatsByName } =
     useContext(SeatContext);
   const [isModalCreateOpen, setIsModalCreateOpen] = useState(false);
@@ -162,11 +161,8 @@ const SeatPage: React.FC = () => {
                   </p>
                   <div className="dropdown-content absolute top-[100%] z-10 w-52 space-y-1 rounded-md bg-slate-50 p-2 shadow-headerMenu drop-shadow-md">
                     {list.map((items, index) => (
-                      <div className="flex">
-                        <label
-                          key={index}
-                          className="flex h-8 cursor-pointer items-center"
-                        >
+                      <div className="flex" key={index}>
+                        <label className="flex h-8 cursor-pointer items-center">
                           <input
                             className="h-5 w-5 hover:text-red-400"
                             type="checkbox"

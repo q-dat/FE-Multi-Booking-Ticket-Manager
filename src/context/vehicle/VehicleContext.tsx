@@ -89,7 +89,6 @@ export const VehicleProvider = ({ children }: { children: ReactNode }) => {
     fetchData(
       getAllVehiclesApi,
       data => {
-        console.log('API response:', data);
         setVehicles(data.vehicles || []);
       },
       'getAll'
