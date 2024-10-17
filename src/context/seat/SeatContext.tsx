@@ -11,7 +11,8 @@ import {
   deleteSeatApi,
   getSeatsApi,
   updateSeatApi,
-  searchSeatsByNameApi
+  searchSeatsByNameApi,
+  searchSeatsByCategoryIdApi
 } from '../../axios/api/seatApi';
 
 interface SeatContextType {
@@ -22,6 +23,7 @@ interface SeatContextType {
     update: boolean;
     delete: boolean;
     search: boolean;
+    searchByCategory: boolean;
   };
   error: string | null;
   getAllSeats: () => void;
@@ -30,6 +32,7 @@ interface SeatContextType {
   updateSeat: (_id: string, seat: ISeat) => Promise<void>;
   deleteSeat: (_id: string) => Promise<void>;
   searchSeatsByName: (name: string) => void;
+  searchSeatsByCategoryId: (categoryID: string) => void;
 }
 
 const defaultContextValue: SeatContextType = {
@@ -39,7 +42,8 @@ const defaultContextValue: SeatContextType = {
     create: false,
     update: false,
     delete: false,
-    search: false
+    search: false,
+    searchByCategory: false
   },
   error: null,
   getAllSeats: () => {},
@@ -47,7 +51,8 @@ const defaultContextValue: SeatContextType = {
   createSeat: async () => {},
   updateSeat: async () => {},
   deleteSeat: async () => {},
-  searchSeatsByName: () => {}
+  searchSeatsByName: () => {},
+  searchSeatsByCategoryId: () => {}
 };
 
 export const SeatContext = createContext<SeatContextType>(defaultContextValue);
@@ -60,12 +65,14 @@ export const SeatProvider = ({ children }: { children: ReactNode }) => {
     update: boolean;
     delete: boolean;
     search: boolean;
+    searchByCategory: boolean;
   }>({
     getAll: false,
     create: false,
     update: false,
     delete: false,
-    search: false
+    search: false,
+    searchByCategory: false
   });
   const [error, setError] = useState<string | null>(null);
 
@@ -76,7 +83,7 @@ export const SeatProvider = ({ children }: { children: ReactNode }) => {
   const fetchData = async (
     apiCall: () => Promise<any>,
     onSuccess: (data: any) => void,
-    requestType: keyof typeof loading // 'getAll', 'create', 'update', 'delete'
+    requestType: keyof typeof loading // 'getAll', 'create', 'update', 'delete', 'search', 'searchByCategory'
   ) => {
     setLoading(prev => ({ ...prev, [requestType]: true }));
     setError(null);
@@ -151,6 +158,14 @@ export const SeatProvider = ({ children }: { children: ReactNode }) => {
       'search'
     );
   }, []);
+  // Search by category name
+  const searchSeatsByCategoryId = useCallback((categoryID: string) => {
+    fetchData(
+      () => searchSeatsByCategoryIdApi(categoryID),
+      data => setSeats(data.seats || []),
+      'searchByCategory'
+    );
+  }, []);
 
   useEffect(() => {
     getAllSeats();
@@ -167,7 +182,8 @@ export const SeatProvider = ({ children }: { children: ReactNode }) => {
         createSeat,
         updateSeat,
         deleteSeat,
-        searchSeatsByName
+        searchSeatsByName,
+        searchSeatsByCategoryId
       }}
     >
       {children}

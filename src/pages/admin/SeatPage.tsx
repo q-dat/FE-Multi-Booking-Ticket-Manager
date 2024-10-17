@@ -9,23 +9,35 @@ import ModalEditSeatPageAdmin from '../../components/admin/Modal/ModalSeat/Modal
 import ModalCreateSeatPageAdmin from '../../components/admin/Modal/ModalSeat/ModalCreateSeatPageAdmin';
 import { MdDelete } from 'react-icons/md';
 import ErrorLoading from '../../components/orther/error/ErrorLoading';
-import { FaCircleInfo, FaPenToSquare } from 'react-icons/fa6';
+import { FaCircleInfo, FaFilter, FaPenToSquare } from 'react-icons/fa6';
 import { isIErrorResponse } from '../../types/error/error';
 import TableListAdmin from '../../components/admin/TablelistAdmin';
 import NavbarMobile from '../../components/admin/Reponsive/Mobile/NavbarMobile';
 import { useNavigate } from 'react-router-dom';
 import { SeatContext } from '../../context/seat/SeatContext';
 import { ISeat } from '../../types/type/seat/seat';
+import { SeatCatalogContext } from '../../context/seatCatalog/SeatCatalogContext';
+import { ISeatCatalog } from '../../types/type/seat-catalog/seat-catalog';
 
 const SeatPage: React.FC = () => {
-  const { seats, loading, error, deleteSeat, getAllSeats, searchSeatsByName } =
-    useContext(SeatContext);
+  const {
+    seats,
+    loading,
+    error,
+    deleteSeat,
+    getAllSeats,
+    searchSeatsByName,
+    searchSeatsByCategoryId
+  } = useContext(SeatContext);
+  const { seatCatalogs } = useContext(SeatCatalogContext);
   const [isModalCreateOpen, setIsModalCreateOpen] = useState(false);
   const [isModalDeleteOpen, setIsModalDeleteOpen] = useState(false);
   const [isModalEditOpen, setIsModalEditOpen] = useState(false);
   const [selectedSeatId, setSelectedSeatId] = useState<string | null>(null);
   const [checkboxCategory, setCheckboxCategory] = useState<string | null>(null);
-
+  const [checkboxIDCategory, setCheckboxIDCategory] = useState<string | null>(
+    null
+  );
   //
   const openModalCreateAdmin = () => setIsModalCreateOpen(true);
   const closeModalCreateAdmin = () => setIsModalCreateOpen(false);
@@ -92,6 +104,16 @@ const SeatPage: React.FC = () => {
   const handleSearchByCategory = async (category: string) => {
     await searchSeatsByName(category);
   };
+  const handleCategoryChange = async (categoryId: string) => {
+    if (checkboxIDCategory === categoryId) {
+      setCheckboxIDCategory(null);
+      getAllSeats();
+    } else {
+      setCheckboxIDCategory(categoryId);
+      await searchSeatsByCategoryId(categoryId);
+    }
+  };
+
   if (loading.getAll) return <LoadingLocal />;
   if (error) return <ErrorLoading />;
 
@@ -104,6 +126,7 @@ const SeatPage: React.FC = () => {
           Btn_Create={
             <div className="flex flex-col items-start justify-center gap-2 md:flex-row md:items-end">
               <div className="flex gap-4">
+                {/*  */}
                 <label className="flex items-center">
                   <input
                     type="checkbox"
@@ -141,7 +164,6 @@ const SeatPage: React.FC = () => {
                   <span className="ml-2">Xe Khách</span>
                 </label>
               </div>
-
               <div className="flex flex-row gap-2">
                 <Button
                   color="primary"
@@ -153,7 +175,30 @@ const SeatPage: React.FC = () => {
                     <p>Thêm</p>
                   </div>
                 </Button>
-
+                {/*  */}
+                <div className="dropdown dropdown-hover relative flex h-12 w-[100px] cursor-pointer flex-col items-center justify-center rounded-md bg-primary text-white">
+                  <p className="flex flex-row items-center justify-center gap-1">
+                    <FaFilter />
+                    <span>Lọc</span>
+                  </p>
+                  <div className="dropdown-content absolute top-[100%] z-10 w-52 space-y-1 rounded-md bg-slate-50 p-2 shadow-headerMenu drop-shadow-md">
+                    {seatCatalogs?.map((catalog: ISeatCatalog) => (
+                      <div className="flex" key={catalog._id}>
+                        <label className="flex h-8 cursor-pointer items-center gap-2">
+                          <input
+                            type="checkbox"
+                            className="cursor-pointer"
+                            checked={checkboxIDCategory === catalog._id}
+                            onChange={() => handleCategoryChange(catalog._id)}
+                          />
+                          <span className="text-primary hover:text-secondary">
+                            {catalog.name}
+                          </span>
+                        </label>
+                      </div>
+                    ))}
+                  </div>
+                </div>
                 {/*  */}
                 <div className="dropdown dropdown-hover relative flex h-12 w-[100px] cursor-pointer flex-col items-center justify-center rounded-md bg-primary text-white">
                   <p className="flex flex-row items-center justify-center gap-1">
@@ -162,9 +207,8 @@ const SeatPage: React.FC = () => {
                   <div className="dropdown-content absolute top-[100%] z-10 w-52 space-y-1 rounded-md bg-slate-50 p-2 shadow-headerMenu drop-shadow-md">
                     {list.map((items, index) => (
                       <div className="flex" key={index}>
-                        <label className="flex h-8 cursor-pointer items-center">
+                        <label className="flex h-8 cursor-pointer items-center gap-2">
                           <input
-                            className="h-5 w-5 hover:text-red-400"
                             type="checkbox"
                             defaultChecked={true}
                             onClick={() => {
@@ -173,8 +217,6 @@ const SeatPage: React.FC = () => {
                               } else {
                                 replaceItem(index, list[index]);
                               }
-
-                              console.log(items);
                             }}
                           />
                           <span className="text-primary hover:text-secondary">

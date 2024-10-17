@@ -25,9 +25,15 @@ export const updateSeatApi = (id: string, location: ISeat) => {
 export const deleteSeatApi = (id: string) => {
   return axios.delete(`/api/seats/${id}`);
 };
-//Search
+
+// Search by name
 export const searchSeatsByNameApi = (name: string) => {
   return axios.get<{ seats: ISeat[] }>('/api/seat/search', {
     params: { name }
   });
 };
+// Gọi API theo đường dẫn với req.params
+export const searchSeatsByCategoryIdApi = (categoryID: string) => {
+  return axios.get<{ seats: ISeat[] }>(`/api/seats/category/${categoryID}`);
+};
+

@@ -163,9 +163,8 @@ const TicketPage: React.FC = () => {
                   <div className="dropdown-content absolute top-[100%] z-10 w-52 space-y-1 rounded-md bg-slate-50 p-2 shadow-headerMenu drop-shadow-md">
                     {list.map((items, index) => (
                       <div className="flex" key={index}>
-                        <label className="flex h-8 cursor-pointer items-center">
+                        <label className="flex gap-2 h-8 cursor-pointer items-center">
                           <input
-                            className="h-5 w-5 hover:text-red-400"
                             type="checkbox"
                             defaultChecked={true}
                             onClick={() => {
