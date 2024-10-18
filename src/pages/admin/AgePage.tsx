@@ -60,7 +60,8 @@ const AgePage: React.FC = () => {
       }
     }
   };
-  //
+  //Filter
+  const categories = ['Tàu', 'Máy Bay', 'Xe khách'];
   const handleSearchByCategory = async (category: string) => {
     await searchAgesByName(category);
   };
@@ -77,42 +78,20 @@ const AgePage: React.FC = () => {
           Btn_Create={
             <div className="flex flex-col items-start justify-center gap-2 md:flex-row md:items-end">
               <div className="flex gap-4">
-                <label className="flex items-center">
-                  <input
-                    type="checkbox"
-                    className="cursor-pointer"
-                    checked={checkboxCategory === 'Tàu'}
-                    onChange={() => {
-                      setCheckboxCategory('Tàu');
-                      handleSearchByCategory('Tàu');
-                    }}
-                  />
-                  <span className="ml-2">Tàu</span>
-                </label>
-                <label className="flex items-center">
-                  <input
-                    type="checkbox"
-                    className="cursor-pointer"
-                    checked={checkboxCategory === 'Máy Bay'}
-                    onChange={() => {
-                      setCheckboxCategory('Máy Bay');
-                      handleSearchByCategory('Máy Bay');
-                    }}
-                  />
-                  <span className="ml-2">Máy Bay</span>
-                </label>
-                <label className="flex items-center">
-                  <input
-                    type="checkbox"
-                    className="cursor-pointer"
-                    checked={checkboxCategory === 'Xe khách'}
-                    onChange={() => {
-                      setCheckboxCategory('Xe khách');
-                      handleSearchByCategory('Xe khách');
-                    }}
-                  />
-                  <span className="ml-2">Xe khách</span>
-                </label>
+                {categories.map(category => (
+                  <label key={category} className="flex items-center">
+                    <input
+                      type="checkbox"
+                      className="cursor-pointer"
+                      checked={checkboxCategory === category}
+                      onChange={() => {
+                        setCheckboxCategory(category);
+                        handleSearchByCategory(category);
+                      }}
+                    />
+                    <span className="ml-2">{category}</span>
+                  </label>
+                ))}
               </div>
               <Button
                 color="primary"
