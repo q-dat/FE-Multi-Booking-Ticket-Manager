@@ -16,10 +16,12 @@ import { isIErrorResponse } from '../../types/error/error';
 import TableListAdmin from '../../components/admin/TablelistAdmin';
 import NavbarMobile from '../../components/admin/Reponsive/Mobile/NavbarMobile';
 import { useNavigate } from 'react-router-dom';
+import { VehicleCatalogContext } from '../../context/vehicleCatalog/VehicleCatalogContext';
 
 const AgePage: React.FC = () => {
   const { ages, loading, error, deleteAge, getAllAges, searchAgesByName } =
     useContext(AgeContext);
+  const { vehicleCatalogs} = useContext(VehicleCatalogContext)
   const [isModalCreateOpen, setIsModalCreateOpen] = useState(false);
   const [isModalDeleteOpen, setIsModalDeleteOpen] = useState(false);
   const [isModalEditOpen, setIsModalEditOpen] = useState(false);
@@ -61,9 +63,8 @@ const AgePage: React.FC = () => {
     }
   };
   //Filter
-  const categories = ['Tàu', 'Máy Bay', 'Xe khách'];
-  const handleSearchByCategory = async (category: string) => {
-    await searchAgesByName(category);
+  const handleSearchByCategory = async (vehicleCatalog: string) => {
+    await searchAgesByName(vehicleCatalog);
   };
 
   if (loading.getAll) return <LoadingLocal />;
@@ -78,18 +79,18 @@ const AgePage: React.FC = () => {
           Btn_Create={
             <div className="flex flex-col items-start justify-center gap-2 md:flex-row md:items-end">
               <div className="flex gap-4">
-                {categories.map(category => (
-                  <label key={category} className="flex items-center">
+                {vehicleCatalogs.map(vehicleCatalog => (
+                  <label key={vehicleCatalog} className="flex items-center">
                     <input
                       type="checkbox"
                       className="cursor-pointer"
-                      checked={checkboxCategory === category}
+                      checked={checkboxCategory === vehicleCatalog.name}
                       onChange={() => {
-                        setCheckboxCategory(category);
-                        handleSearchByCategory(category);
+                        setCheckboxCategory(vehicleCatalog.name);
+                        handleSearchByCategory(vehicleCatalog.name);
                       }}
                     />
-                    <span className="ml-2">{category}</span>
+                    <span className="ml-2">{vehicleCatalog.name}</span>
                   </label>
                 ))}
               </div>

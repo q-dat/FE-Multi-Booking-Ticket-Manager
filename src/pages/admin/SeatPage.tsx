@@ -18,6 +18,7 @@ import { SeatContext } from '../../context/seat/SeatContext';
 import { ISeat } from '../../types/type/seat/seat';
 import { SeatCatalogContext } from '../../context/seatCatalog/SeatCatalogContext';
 import { ISeatCatalog } from '../../types/type/seat-catalog/seat-catalog';
+import { VehicleCatalogContext } from '../../context/vehicleCatalog/VehicleCatalogContext';
 
 const SeatPage: React.FC = () => {
   const {
@@ -30,6 +31,7 @@ const SeatPage: React.FC = () => {
     searchSeatsByCategoryId
   } = useContext(SeatContext);
   const { seatCatalogs } = useContext(SeatCatalogContext);
+  const { vehicleCatalogs} = useContext(VehicleCatalogContext);
   const [isModalCreateOpen, setIsModalCreateOpen] = useState(false);
   const [isModalDeleteOpen, setIsModalDeleteOpen] = useState(false);
   const [isModalEditOpen, setIsModalEditOpen] = useState(false);
@@ -101,8 +103,8 @@ const SeatPage: React.FC = () => {
     });
   };
   //
-  const handleSearchByCategory = async (category: string) => {
-    await searchSeatsByName(category);
+  const handleSearchByCategory = async (vehicleCatalog: string) => {
+    await searchSeatsByName(vehicleCatalog);
   };
   const handleCategoryChange = async (categoryId: string) => {
     if (checkboxIDCategory === categoryId) {
@@ -126,18 +128,18 @@ const SeatPage: React.FC = () => {
           Btn_Create={
             <div className="flex flex-col items-start justify-center gap-2 md:flex-row md:items-end">
               <div className="flex gap-4">
-                {['Tàu', 'Máy Bay', 'Xe khách'].map(category => (
-                  <label key={category} className="flex items-center">
+                {vehicleCatalogs.map(vehicleCatalog => (
+                  <label key={vehicleCatalog._id} className="flex items-center">
                     <input
                       type="checkbox"
                       className="cursor-pointer"
-                      checked={checkboxCategory === category}
+                      checked={checkboxCategory === vehicleCatalog.name}
                       onChange={() => {
-                        setCheckboxCategory(category);
-                        handleSearchByCategory(category);
+                        setCheckboxCategory(vehicleCatalog.name);
+                        handleSearchByCategory(vehicleCatalog.name);
                       }}
                     />
-                    <span className="ml-2">{category}</span>
+                    <span className="ml-2">{vehicleCatalog.name}</span>
                   </label>
                 ))}
               </div>
@@ -179,7 +181,7 @@ const SeatPage: React.FC = () => {
                 </div>
                 {/*  */}
                 <div className="dropdown dropdown-hover relative flex h-12 w-[100px] cursor-pointer flex-col items-center justify-center rounded-md bg-primary text-white">
-                  <p className="flex flex-row items-center justify-center gap-1">
+                  <p>
                     <RiListSettingsLine className="text-xl" />
                   </p>
                   <div className="dropdown-content absolute top-[100%] z-10 w-52 space-y-1 rounded-md bg-slate-50 p-2 shadow-headerMenu drop-shadow-md">
