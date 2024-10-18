@@ -158,7 +158,7 @@ export const SeatProvider = ({ children }: { children: ReactNode }) => {
       'search'
     );
   }, []);
-  // Search by category name
+  // Search by categoryID
   const searchSeatsByCategoryId = useCallback((categoryID: string) => {
     fetchData(
       () => searchSeatsByCategoryIdApi(categoryID),

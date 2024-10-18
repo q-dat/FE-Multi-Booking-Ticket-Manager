@@ -32,12 +32,11 @@ const Home: React.FC = () => {
   //Translation
   const { t } = useTranslation();
   //Search Ticket
-  const searchTicket = useContext(TicketContext);
+  const { searchTickets, loading, error } = useContext(TicketContext);
   const navigate = useNavigate();
-  if (!searchTicket) {
+  if (!searchTickets) {
     console.log('Home phải được sử dụng trong TicketProvider');
   }
-  const { searchTickets, loading, error } = searchTicket;
 
   const { register, handleSubmit } = useForm<SearchFormData>();
   const onSubmit: SubmitHandler<SearchFormData> = async data => {
