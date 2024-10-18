@@ -6,6 +6,7 @@ import ErrorLoading from '../../../components/orther/error/ErrorLoading';
 import { ITicket } from '../../../types/type/ticket/ticket';
 import { useCart } from '../../../context/cart/CartContext';
 import CartPage from '../CartPage';
+import { Button } from 'react-daisyui';
 
 const TicketTrainsResultsPage: React.FC = () => {
   const { t } = useTranslation();
@@ -48,7 +49,7 @@ const TicketTrainsResultsPage: React.FC = () => {
   }
 
   if (tickets.length === 0) {
-    return <div className="text-center text-red-500">Không tìm thấy vé!</div>;
+    return <LoadingLocal />;
   }
 
   const tripInfo = tickets[0]?.trip_id;
@@ -94,9 +95,11 @@ const TicketTrainsResultsPage: React.FC = () => {
   return (
     <div className="pb-[20px] xl:pt-[90px]">
       <HeaderResponsive Title_NavbarMobile={t('UserPage.Navbar.Trains')} />
-      <div className="mb-4 text-center">
-        <CartPage />
-        <h1 className="text-2xl">
+      <div className="mb-4 text-center xl:relative">
+        <div className="xl:absolute xl:right-2">
+          <CartPage />
+        </div>
+        <h1 className="mx-2 border border-l-0 border-r-0 border-t-0 text-center text-xl text-black dark:text-white xl:text-start">
           Chuyến đi từ <strong>{tripInfo.departure_point.name}</strong> đến{' '}
           <strong>{tripInfo.destination_point.name}</strong>
         </h1>
@@ -105,7 +108,7 @@ const TicketTrainsResultsPage: React.FC = () => {
       <div className="mb-8 flex flex-wrap justify-center space-x-4">
         {Object.entries(ticketsByTrain).map(([trainName, trainTickets]) => (
           <div
-            className={`hover:bg- group mb-4 flex h-[280px] w-[250px] cursor-pointer flex-col items-center justify-around rounded-[30px] bg-black bg-opacity-20 p-1 px-2 shadow-lg ${selectedTrain === trainName ? 'bg-primary bg-opacity-100' : ''}`}
+            className={`hover:bg- bodêr-white group mb-4 flex h-[280px] w-[250px] cursor-pointer flex-col items-center justify-around rounded-[30px] border bg-black bg-opacity-20 p-1 px-2 shadow-lg ${selectedTrain === trainName ? 'bg-primary bg-opacity-100' : ''}`}
             onClick={() => setSelectedTrain(trainName)}
             key={trainName}
           >
@@ -142,14 +145,11 @@ const TicketTrainsResultsPage: React.FC = () => {
         ticketsByCarriage &&
         Object.entries(ticketsByCarriage).map(
           ([carriageId, carriageTickets]) => (
-            <div
-              key={carriageId}
-              className="mb-6 border-b border-t py-4 xl:px-[100px]"
-            >
-              <h4 className="mb-2 text-lg font-bold">
-                Toa số: {carriageTickets[0].seat_id.seat_catalog_id.name}
-              </h4>
-              <div className="grid grid-cols-4 gap-2">
+            <div key={carriageId} className="mb-6 xl:mx-[20px]">
+              <Button color='primary' size='md' className="mb-10 text-md font-semibold dark:bg-white dark:text-primary">
+                {carriageTickets[0].seat_id.seat_catalog_id.name}
+              </Button>
+              <div className="grid grid-cols-4 gap-2 rounded-xl border border-primary p-2 dark:border-white">
                 {carriageTickets.map((ticket, index) => {
                   const seatStatus = ticket.seat_id.status;
 
@@ -166,7 +166,7 @@ const TicketTrainsResultsPage: React.FC = () => {
                       {ticket.seat_id.ordinal_numbers}
 
                       <div
-                        className={`absolute -top-8 left-1/2 z-10 w-[100px] -translate-x-1/2 transform rounded bg-white p-2 text-sm text-black opacity-0 shadow-lg transition-opacity duration-200 ease-in-out group-hover:opacity-100`}
+                        className={`absolute bottom-10 left-1/2 z-10 w-[100px] -translate-x-1/2 transform rounded bg-white p-2 text-center text-xs text-black opacity-0 shadow-headerMenu shadow-primary transition-opacity duration-200 ease-in-out group-hover:opacity-100`}
                       >
                         {seatStatus === 'Còn chỗ' ? (
                           <>
@@ -178,10 +178,7 @@ const TicketTrainsResultsPage: React.FC = () => {
                             </p>
                           </>
                         ) : (
-                          <p>
-                            <strong> Trạng thái:</strong>
-                            {seatStatus}
-                          </p>
+                          <p>{seatStatus}</p>
                         )}
                       </div>
                     </div>
