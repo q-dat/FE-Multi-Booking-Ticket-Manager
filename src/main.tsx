@@ -21,6 +21,9 @@ import { AgeProvider } from './context/age/AgeContext.tsx';
 import { ServiceProvider } from './context/service/ServiceContext.tsx';
 import { CartProvider } from './context/cart/CartContext.tsx';
 import { TripProvider } from './context/trip/TripContext.tsx';
+import { PaymentProvider } from './context/payment/PaymentContext.tsx';
+import { OrderProvider } from './context/order/OrderContext.tsx';
+import { BillProvider } from './context/bill/BillContext.tsx';
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
@@ -31,28 +34,34 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
             <CartProvider>
               <TicketCatalogProvider>
                 <TicketProvider>
-                  <LocationProvider>
-                    <VehicleCatalogProvider>
-                      <VehicleProvider>
-                        <TripProvider>
-                          <SeatCatalogProvider>
-                            <SeatProvider>
-                              <PostCatalogProvider>
-                                <PostProvider>
-                                  <AgeProvider>
-                                    <ServiceProvider>
-                                      <ToastContainer />
-                                      <App />
-                                    </ServiceProvider>
-                                  </AgeProvider>
-                                </PostProvider>
-                              </PostCatalogProvider>
-                            </SeatProvider>
-                          </SeatCatalogProvider>
-                        </TripProvider>
-                      </VehicleProvider>
-                    </VehicleCatalogProvider>
-                  </LocationProvider>
+                  <BillProvider>
+                    <PaymentProvider>
+                      <OrderProvider>
+                        <LocationProvider>
+                          <VehicleCatalogProvider>
+                            <VehicleProvider>
+                              <TripProvider>
+                                <SeatCatalogProvider>
+                                  <SeatProvider>
+                                    <PostCatalogProvider>
+                                      <PostProvider>
+                                        <AgeProvider>
+                                          <ServiceProvider>
+                                            <ToastContainer />
+                                            <App />
+                                          </ServiceProvider>
+                                        </AgeProvider>
+                                      </PostProvider>
+                                    </PostCatalogProvider>
+                                  </SeatProvider>
+                                </SeatCatalogProvider>
+                              </TripProvider>
+                            </VehicleProvider>
+                          </VehicleCatalogProvider>
+                        </LocationProvider>
+                      </OrderProvider>
+                    </PaymentProvider>
+                  </BillProvider>
                 </TicketProvider>
               </TicketCatalogProvider>
             </CartProvider>

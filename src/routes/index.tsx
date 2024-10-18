@@ -2,6 +2,9 @@ import { lazy } from 'react';
 import { Route, Routes } from 'react-router-dom';
 import DefaultLayout from '../layout/DefaultLayout';
 import PrivateRouter from './PrivateRouter';
+import PaymentPage from '../pages/admin/PaymentPage';
+import OrderPage from '../pages/admin/OrderPage';
+import BillPage from '../pages/admin/BillPage';
 
 // UserPage
 const User = lazy(() => import('../pages/user/User'));
@@ -92,6 +95,9 @@ export default function AppRoutes() {
             <Route path="vehicle-catalog" element={<VehicleCatalogPage />} />
             <Route path="seat-catalog" element={<SeatCatalogPage />} />
             <Route path="trip" element={<TripPage />} />
+            <Route path="order" element={<OrderPage />} />
+            <Route path="payment" element={<PaymentPage />} />
+            <Route path="bill" element={<BillPage />} />
           </Route>
         </Route>
         {/* 404 not found */}
