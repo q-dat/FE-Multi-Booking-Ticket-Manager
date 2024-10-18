@@ -80,7 +80,7 @@ const AgePage: React.FC = () => {
             <div className="flex flex-col items-start justify-center gap-2 md:flex-row md:items-end">
               <div className="flex gap-4">
                 {vehicleCatalogs.map(vehicleCatalog => (
-                  <label key={vehicleCatalog} className="flex items-center">
+                  <label key={vehicleCatalog._id} className="flex items-center">
                     <input
                       type="checkbox"
                       className="cursor-pointer"
