@@ -77,9 +77,9 @@ export const TicketProvider = ({ children }: { children: ReactNode }) => {
   const fetchData = async (
     apiCall: () => Promise<any>,
     onSuccess: (data: any) => void,
-    loadingKey: keyof typeof loading
+    requestType: keyof typeof loading
   ) => {
-    setLoading(prev => ({ ...prev, [loadingKey]: true }));
+    setLoading(prev => ({ ...prev, [requestType]: true }));
     setError(null);
     try {
       const response = await apiCall();
@@ -87,7 +87,7 @@ export const TicketProvider = ({ children }: { children: ReactNode }) => {
     } catch (err: any) {
       handleError(err);
     } finally {
-      setLoading(prev => ({ ...prev, [loadingKey]: false }));
+      setLoading(prev => ({ ...prev, [requestType]: false }));
     }
   };
 
@@ -111,20 +111,17 @@ export const TicketProvider = ({ children }: { children: ReactNode }) => {
   // Filter
   const filterTickets = useCallback(
     async (filterParams: Record<string, string>): Promise<ITicket[]> => {
-      let ticketsData: ITicket[] = [];
       await fetchData(
         () => filterTicketsApi(filterParams),
         data => {
-          ticketsData = data.tickets || [];
-          setTickets(ticketsData);
+          setTickets(data.tickets || []);
         },
         'filter'
       );
-      return ticketsData;
+      return tickets;
     },
-    []
+    [tickets]
   );
-
   // Get All
   const getAllTickets = useCallback(() => {
     fetchData(
