@@ -72,7 +72,7 @@ export default function AppRoutes() {
             />
               <Route
               index
-              path="ticket-flight-results"
+              path="ticket-flights-results"
               element={<TicketFlightsResultsPage />}
             />
             <Route path="check-ticket" element={<CheckTicketPage />} />

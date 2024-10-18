@@ -65,7 +65,7 @@ const Home: React.FC = () => {
           navigate('/ticket-buses-results');
           break;
         case 'Máy bay':
-          navigate('/ticket-flight-results');
+          navigate('/ticket-flights-results');
           break;
         default:
           break;
