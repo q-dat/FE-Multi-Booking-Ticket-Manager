@@ -58,7 +58,7 @@ const Home: React.FC = () => {
 
       // Navigate based on vehicle type
       switch (vehicleType) {
-        case 'Tàu hoả':
+        case 'Tàu':
           navigate('/ticket-trains-results');
           break;
         case 'Xe khách':

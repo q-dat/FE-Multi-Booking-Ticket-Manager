@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import HeaderResponsive from '../../components/UserPage/HeaderResponsive';
+import HeaderResponsive from '../../../components/UserPage/HeaderResponsive';
 import { useTranslation } from 'react-i18next';
-import LoadingLocal from '../../components/orther/loading/LoadingLocal';
-import ErrorLoading from '../../components/orther/error/ErrorLoading';
-import { ITicket } from '../../types/type/ticket/ticket';
-import { useCart } from '../../context/cart/CartContext';
-import CartPage from './CartPage';
+import LoadingLocal from '../../../components/orther/loading/LoadingLocal';
+import ErrorLoading from '../../../components/orther/error/ErrorLoading';
+import { ITicket } from '../../../types/type/ticket/ticket';
+import { useCart } from '../../../context/cart/CartContext';
+import CartPage from '../CartPage';
 
 const TicketTrainsResultsPage: React.FC = () => {
   const { t } = useTranslation();

@@ -16,7 +16,13 @@ const FlightsPage = lazy(() => import('../pages/user/FlightsPage'));
 const BusPage = lazy(() => import('../pages/user/BusPage'));
 const TrainsPage = lazy(() => import('../pages/user/TrainsPage'));
 const TicketTrainsResultsPage = lazy(
-  () => import('../pages/user/TicketTrainsResultsPage')
+  () => import('../pages/user/tickets-results/TicketTrainsResultsPage')
+);
+const TicketBusesResultsPage = lazy(
+  () => import('../pages/user/tickets-results/TicketBusesResultsPage')
+);
+const TicketFlightsResultsPage = lazy(
+  () => import('../pages/user/tickets-results/TicketFlightsResultsPage')
 );
 //auth
 const Auth = lazy(() => import('../pages/auth/Auth'));
@@ -58,6 +64,16 @@ export default function AppRoutes() {
               index
               path="ticket-trains-results"
               element={<TicketTrainsResultsPage />}
+            />
+              <Route
+              index
+              path="ticket-buses-results"
+              element={<TicketBusesResultsPage />}
+            />
+              <Route
+              index
+              path="ticket-flight-results"
+              element={<TicketFlightsResultsPage />}
             />
             <Route path="check-ticket" element={<CheckTicketPage />} />
             <Route path="return-ticket" element={<ReturnTicketPage />} />
