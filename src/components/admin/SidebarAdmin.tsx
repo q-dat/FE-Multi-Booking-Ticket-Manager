@@ -78,7 +78,7 @@ const SidebarAdmin: React.FC<{}> = () => {
       toastify: vehicleCatalogs.length
     },
     {
-      name: 'Ghế Tàu',
+      name: 'Chỗ Ngồi',
       icon: PiSeatFill,
       link: '/admin/seat',
       toastify: seats.length
