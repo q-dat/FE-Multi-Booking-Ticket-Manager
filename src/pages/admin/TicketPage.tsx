@@ -19,7 +19,7 @@ import ModalEditTicketPageAdmin from '../../components/admin/Modal/ModalTicket/M
 import { TicketCatalogContext } from '../../context/ticketCatalog/TicketCatalogContext';
 import { VehicleCatalogContext } from '../../context/vehicleCatalog/VehicleCatalogContext';
 import { LocationContext } from '../../context/location/LocationContext';
-
+import { LuFilter } from "react-icons/lu";
 const TicketPage: React.FC = () => {
   const {
     tickets,
@@ -161,9 +161,10 @@ const TicketPage: React.FC = () => {
                 </Button>
               {/*  */}
               <div className="dropdown dropdown-hover relative flex h-12 w-[100px] cursor-pointer flex-col items-center justify-center rounded-md bg-primary text-white">
-              <p className="">
-                  Lọc Vé
-                </p>
+              <p className="flex flex-row items-center justify-center gap-1">
+              <LuFilter />
+                    <span>Lọc</span>
+                  </p>
                 <div className="dropdown-content absolute top-[100%] z-10 w-[350px] space-y-1 rounded-md bg-slate-50 p-2 shadow-headerMenu drop-shadow-md">
                   <div className="flex flex-row gap-4">
                     {/* Loại Vé */}

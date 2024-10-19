@@ -9,7 +9,7 @@ import ModalEditSeatPageAdmin from '../../components/admin/Modal/ModalSeat/Modal
 import ModalCreateSeatPageAdmin from '../../components/admin/Modal/ModalSeat/ModalCreateSeatPageAdmin';
 import { MdDelete } from 'react-icons/md';
 import ErrorLoading from '../../components/orther/error/ErrorLoading';
-import { FaCircleInfo, FaFilter, FaPenToSquare } from 'react-icons/fa6';
+import { FaCircleInfo, FaPenToSquare } from 'react-icons/fa6';
 import { isIErrorResponse } from '../../types/error/error';
 import TableListAdmin from '../../components/admin/TablelistAdmin';
 import NavbarMobile from '../../components/admin/Reponsive/Mobile/NavbarMobile';
@@ -19,6 +19,7 @@ import { ISeat } from '../../types/type/seat/seat';
 import { SeatCatalogContext } from '../../context/seatCatalog/SeatCatalogContext';
 import { ISeatCatalog } from '../../types/type/seat-catalog/seat-catalog';
 import { VehicleCatalogContext } from '../../context/vehicleCatalog/VehicleCatalogContext';
+import { LuFilter } from 'react-icons/lu';
 
 const SeatPage: React.FC = () => {
   const {
@@ -31,7 +32,7 @@ const SeatPage: React.FC = () => {
     searchSeatsByCategoryId
   } = useContext(SeatContext);
   const { seatCatalogs } = useContext(SeatCatalogContext);
-  const { vehicleCatalogs} = useContext(VehicleCatalogContext);
+  const { vehicleCatalogs } = useContext(VehicleCatalogContext);
   const [isModalCreateOpen, setIsModalCreateOpen] = useState(false);
   const [isModalDeleteOpen, setIsModalDeleteOpen] = useState(false);
   const [isModalEditOpen, setIsModalEditOpen] = useState(false);
@@ -158,8 +159,7 @@ const SeatPage: React.FC = () => {
                 {/*  */}
                 <div className="dropdown dropdown-hover relative flex h-12 w-[100px] cursor-pointer flex-col items-center justify-center rounded-md bg-primary text-white">
                   <p className="flex flex-row items-center justify-center gap-1">
-                    <FaFilter />
-                    <span>Lọc</span>
+                    <LuFilter /> <span>Lọc</span>
                   </p>
                   <div className="dropdown-content absolute top-[100%] z-10 w-52 space-y-1 rounded-md bg-slate-50 p-2 shadow-headerMenu drop-shadow-md">
                     {seatCatalogs?.map((catalog: ISeatCatalog) => (
