@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect } from 'react';
+import React, { useContext, useState } from 'react';
 import { TripContext } from '../../context/trip/TripContext';
 import { Toastify } from '../../helper/Toastify';
 import LoadingLocal from '../../components/orther/loading/LoadingLocal';
@@ -37,10 +37,6 @@ const TripPage: React.FC = () => {
     setIsModalEditOpen(true);
   };
   const closeModalEditAdmin = () => setIsModalEditOpen(false);
-
-  useEffect(() => {
-    getAllTrips();
-  }, [getAllTrips]);
 
   const navigate = useNavigate();
   const handleDeleteTrip = async () => {

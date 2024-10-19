@@ -46,7 +46,7 @@ const CartPage: React.FC = () => {
   }, [selectedSeats, removeSeat]);
 
   return (
-    <div className="mb-5 w-full rounded-md bg-white p-2 text-black dark:bg-black dark:text-white border shadow-headerMenu shadow-primary dark:shadow-white">
+    <div className="mb-5 w-full rounded-md border bg-white p-2 text-black shadow-headerMenu shadow-primary dark:bg-black dark:text-white dark:shadow-white">
       {selectedSeats.length === 0 ? (
         <>{/* <p>Giỏ vé của bạn đang trống!</p> */}</>
       ) : (

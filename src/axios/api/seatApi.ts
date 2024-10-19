@@ -36,4 +36,3 @@ export const searchSeatsByNameApi = (name: string) => {
 export const searchSeatsByCategoryIdApi = (categoryID: string) => {
   return axios.get<{ seats: ISeat[] }>(`/api/seats/category/${categoryID}`);
 };
-

@@ -146,7 +146,11 @@ const TicketTrainsResultsPage: React.FC = () => {
         Object.entries(ticketsByCarriage).map(
           ([carriageId, carriageTickets]) => (
             <div key={carriageId} className="mb-6 xl:mx-[20px]">
-              <Button color='primary' size='md' className="mb-10 text-md font-semibold dark:bg-white dark:text-primary">
+              <Button
+                color="primary"
+                size="md"
+                className="text-md mb-10 font-semibold dark:bg-white dark:text-primary"
+              >
                 {carriageTickets[0].seat_id.seat_catalog_id.name}
               </Button>
               <div className="grid grid-cols-4 gap-2 rounded-xl border border-primary p-2 dark:border-white">

@@ -190,10 +190,11 @@ const SidebarAdmin: React.FC<{}> = () => {
                   <Menu.Item key={item.name} className="relative">
                     <NavLink
                       to={item.link}
-                      className={`btn flex w-full items-center justify-start border-none shadow-white dark:bg-gray-800 dark:shadow-none ${item.name === activeItem
-                        ? 'bg-base-200 font-bold text-primary dark:bg-white'
-                        : 'bg-transparent bg-white font-light text-black dark:text-white'
-                        } relative pl-4`}
+                      className={`btn flex w-full items-center justify-start border-none shadow-white dark:bg-gray-800 dark:shadow-none ${
+                        item.name === activeItem
+                          ? 'bg-base-200 font-bold text-primary dark:bg-white'
+                          : 'bg-transparent bg-white font-light text-black dark:text-white'
+                      } relative pl-4`}
                     >
                       <div className="flex w-full items-center justify-between">
                         <div className="flex items-center">

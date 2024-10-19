@@ -1,6 +1,6 @@
-import { IOrder } from "../order/order";
-import { IPayment } from "../payment/payment";
-import { IUser } from "../user/user";
+import { IOrder } from '../order/order';
+import { IPayment } from '../payment/payment';
+import { IUser } from '../user/user';
 
 export interface IBill {
   _id: string;

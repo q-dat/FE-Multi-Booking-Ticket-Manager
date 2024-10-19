@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { OrderContext } from '../../context/order/OrderContext';
 import { Toastify } from '../../helper/Toastify';
 import LoadingLocal from '../../components/orther/loading/LoadingLocal';
@@ -14,14 +14,11 @@ import ModalEditOrderPageAdmin from '../../components/admin/Modal/ModalOrder/Mod
 import { IOrder } from '../../types/type/order/order';
 
 const OrderPage: React.FC = () => {
-  const { orders, loading, error, deleteOrder, getAllOrders } = useContext(OrderContext);
+  const { orders, loading, error, deleteOrder, getAllOrders } =
+    useContext(OrderContext);
   const [isModalDeleteOpen, setIsModalDeleteOpen] = useState(false);
   const [isModalEditOpen, setIsModalEditOpen] = useState(false);
   const [selectedOrderId, setSelectedOrderId] = useState<string | null>(null);
-
-  useEffect(() => {
-    getAllOrders();
-  }, [getAllOrders]);
 
   const handleDeleteOrder = async () => {
     if (selectedOrderId) {
@@ -58,7 +55,10 @@ const OrderPage: React.FC = () => {
     <div className="w-full">
       <NavbarMobile Title_NavbarMobile="Đơn Hàng" />
       <div className="px-2 xl:px-0">
-        <NavtitleAdmin Title_NavtitleAdmin="Quản Lý Đơn Hàng" Btn_Create={null} />
+        <NavtitleAdmin
+          Title_NavtitleAdmin="Quản Lý Đơn Hàng"
+          Btn_Create={null}
+        />
       </div>
 
       <TableListAdmin
@@ -81,7 +81,9 @@ const OrderPage: React.FC = () => {
                 <span>{order.userId.fullName}</span>
                 <span>{order.totalPrice}</span>
                 <span>{order.status}</span>
-                <span>{new Date(order.travelDate).toLocaleDateString('vi-VN')}</span>
+                <span>
+                  {new Date(order.travelDate).toLocaleDateString('vi-VN')}
+                </span>
                 <span>
                   <details>
                     <summary className="inline cursor-pointer text-base text-warning">
@@ -89,7 +91,7 @@ const OrderPage: React.FC = () => {
                         <FaCircleInfo />
                       </div>
                     </summary>
-                    <div className="flex justify-center items-center space-x-2">
+                    <div className="flex items-center justify-center space-x-2">
                       <Button
                         color="success"
                         onClick={() => openModalEditAdmin(order)}

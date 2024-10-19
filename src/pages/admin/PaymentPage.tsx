@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { PaymentContext } from '../../context/payment/PaymentContext';
 import { Toastify } from '../../helper/Toastify';
 import LoadingLocal from '../../components/orther/loading/LoadingLocal';
@@ -14,14 +14,13 @@ import ModalEditPaymentPageAdmin from '../../components/admin/Modal/ModalPayment
 import ModalDeletePaymentPageAdmin from '../../components/admin/Modal/ModalPayment/ModalDeletePaymentPageAdmin';
 
 const PaymentPage: React.FC = () => {
-  const { payments, loading, error, deletePayment, getAllPayments } = useContext(PaymentContext);
+  const { payments, loading, error, deletePayment, getAllPayments } =
+    useContext(PaymentContext);
   const [isModalDeleteOpen, setIsModalDeleteOpen] = useState(false);
   const [isModalEditOpen, setIsModalEditOpen] = useState(false);
-  const [selectedPaymentId, setSelectedPaymentId] = useState<string | null>(null);
-
-  useEffect(() => {
-    getAllPayments();
-  }, [getAllPayments]);
+  const [selectedPaymentId, setSelectedPaymentId] = useState<string | null>(
+    null
+  );
 
   const handleDeletePayment = async () => {
     if (selectedPaymentId) {
@@ -58,7 +57,10 @@ const PaymentPage: React.FC = () => {
     <div className="w-full">
       <NavbarMobile Title_NavbarMobile="Thanh Toán" />
       <div className="px-2 xl:px-0">
-        <NavtitleAdmin Title_NavtitleAdmin="Quản Lý Thanh Toán" Btn_Create={null} />
+        <NavtitleAdmin
+          Title_NavtitleAdmin="Quản Lý Thanh Toán"
+          Btn_Create={null}
+        />
       </div>
 
       <TableListAdmin
@@ -87,7 +89,7 @@ const PaymentPage: React.FC = () => {
                         <FaCircleInfo />
                       </div>
                     </summary>
-                    <div className="flex justify-center items-center space-x-2">
+                    <div className="flex items-center justify-center space-x-2">
                       <Button
                         color="success"
                         onClick={() => openModalEditPayment(payment)}
