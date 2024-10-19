@@ -296,7 +296,7 @@ const TicketPage: React.FC = () => {
       <TableListAdmin
         Title_TableListAdmin={`Danh Sách Vé (${tickets.length})`}
         table_head={
-          <Table.Head className="bg-primary text-center text-white">
+          <Table.Head className="bg-primary text-center text-white table-sm">
             {fillter[0] === 'STT' && <span>STT</span>}
             {fillter[1] === 'Loại Vé' && <span>Loại Vé</span>}
             {fillter[2] === 'Phương Tiện' && <span>Phương Tiện</span>}
@@ -311,7 +311,7 @@ const TicketPage: React.FC = () => {
           </Table.Head>
         }
         table_body={
-          <Table.Body className="text-center text-sm">
+          <Table.Body className="text-center text-sm table-sm">
             {tickets.map((ticket: ITicket, index: number) => (
               <Table.Row key={ticket._id}>
                 {fillter[0] === 'STT' ? (
@@ -344,14 +344,14 @@ const TicketPage: React.FC = () => {
                   <></>
                 )}
                 {fillter[5] === 'Điểm Khởi Hành' ? (
-                  <span className="line-clamp-1">
+                  <span className="">
                     {ticket.trip_id?.departure_point?.name}
                   </span>
                 ) : (
                   <></>
                 )}
                 {fillter[6] === 'Điểm Đến' ? (
-                  <span className="line-clamp-1">
+                  <span className="">
                     {ticket.trip_id?.destination_point?.name}
                   </span>
                 ) : (

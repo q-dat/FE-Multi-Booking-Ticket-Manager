@@ -69,12 +69,12 @@ const PaginationAdmin: React.FC = () => {
 
   return (
     <div className="flex flex-col items-center justify-between px-3 py-4 xl:flex-row">
-      <div className="text-sm text-primary">
+      <div className="text-sm text-primary dark:text-secondary">
         <p>
           Dữ liệu trang {currentPage} trong {totalPages} trang
         </p>
       </div>
-      <div className="flex items-center space-x-2 text-primary">
+      <div className="flex items-center space-x-2 text-primary dark:text-secondary">
         <Button
           className="btn btn-sm text-primary"
           onClick={() => handlePageChange(currentPage - 1)}
