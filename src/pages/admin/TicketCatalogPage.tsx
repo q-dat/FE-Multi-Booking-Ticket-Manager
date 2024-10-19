@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import { TicketCatalogContext } from '../../context/ticketCatalog/TicketCatalogContext';
 import { Toastify } from '../../helper/Toastify';
 import LoadingLocal from '../../components/orther/loading/LoadingLocal';
@@ -43,6 +43,10 @@ const TicketCatalogPage: React.FC = () => {
     setIsModalEditOpen(true);
   };
   const closeModalEditAdmin = () => setIsModalEditOpen(false);
+
+  useEffect(() => {
+    getAllTicketCatalogs();
+  }, [getAllTicketCatalogs]);
 
   const navigate = useNavigate();
   const handleDeleteTicketCatalog = async () => {

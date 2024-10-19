@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import { ServiceContext } from '../../context/service/ServiceContext';
 import { Toastify } from '../../helper/Toastify';
 import LoadingLocal from '../../components/orther/loading/LoadingLocal';
@@ -38,6 +38,10 @@ const ServicePage: React.FC = () => {
     setIsModalEditOpen(true);
   };
   const closeModalEditAdmin = () => setIsModalEditOpen(false);
+
+  useEffect(() => {
+    getAllServices();
+  }, [getAllServices]);
 
   const navigate = useNavigate();
   const handleDeleteService = async () => {

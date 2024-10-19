@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import { SeatCatalogContext } from '../../context/seatCatalog/SeatCatalogContext';
 import { Toastify } from '../../helper/Toastify';
 import LoadingLocal from '../../components/orther/loading/LoadingLocal';
@@ -43,6 +43,10 @@ const SeatCatalogPage: React.FC = () => {
     setIsModalEditOpen(true);
   };
   const closeModalEditAdmin = () => setIsModalEditOpen(false);
+
+  useEffect(() => {
+    getAllSeatCatalogs();
+  }, [getAllSeatCatalogs]);
 
   const navigate = useNavigate();
   const handleDeleteSeatCatalog = async () => {

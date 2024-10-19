@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Toastify } from '../../helper/Toastify';
 import LoadingLocal from '../../components/orther/loading/LoadingLocal';
 import NavtitleAdmin from '../../components/admin/NavtitleAdmin';
@@ -42,7 +42,11 @@ const SeatPage: React.FC = () => {
     null
   );
   //
-  const openModalCreateAdmin = () => setIsModalCreateOpen(true);
+
+  useEffect(() => {
+    getAllSeats();
+  }, [getAllSeats]);
+    const openModalCreateAdmin = () => setIsModalCreateOpen(true);
   const closeModalCreateAdmin = () => setIsModalCreateOpen(false);
   const openModalDeleteAdmin = (id: string) => {
     setSelectedSeatId(id);

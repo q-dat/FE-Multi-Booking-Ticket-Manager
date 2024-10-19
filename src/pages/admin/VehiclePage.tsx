@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { VehicleContext } from '../../context/vehicle/VehicleContext';
 import { Toastify } from '../../helper/Toastify';
 import LoadingLocal from '../../components/orther/loading/LoadingLocal';
@@ -38,6 +38,10 @@ const VehiclePage: React.FC = () => {
     setIsModalEditOpen(true);
   };
   const closeModalEditAdmin = () => setIsModalEditOpen(false);
+
+  useEffect(() => {
+    getAllVehicles();
+  }, [getAllVehicles]);
 
   const navigate = useNavigate();
   const handleDeleteVehicle = async () => {

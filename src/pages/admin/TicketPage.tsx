@@ -19,7 +19,7 @@ import ModalEditTicketPageAdmin from '../../components/admin/Modal/ModalTicket/M
 import { TicketCatalogContext } from '../../context/ticketCatalog/TicketCatalogContext';
 import { VehicleCatalogContext } from '../../context/vehicleCatalog/VehicleCatalogContext';
 import { LocationContext } from '../../context/location/LocationContext';
-import { LuFilter } from 'react-icons/lu';
+import { LuFilter } from "react-icons/lu";
 const TicketPage: React.FC = () => {
   const {
     tickets,
@@ -45,6 +45,10 @@ const TicketPage: React.FC = () => {
     setIsModalEditOpen(true);
   };
   const closeModalEditAdmin = () => setIsModalEditOpen(false);
+
+  useEffect(() => {
+    getAllTickets();
+  }, [getAllTickets]);
   const { ticketCatalogs } = useContext(TicketCatalogContext);
   const { vehicleCatalogs } = useContext(VehicleCatalogContext);
   const { locations } = useContext(LocationContext);
@@ -143,8 +147,8 @@ const TicketPage: React.FC = () => {
           Title_NavtitleAdmin="Quản Lý Vé"
           Btn_Create={
             <div className="flex flex-col items-start justify-center gap-2 md:flex-row md:items-end">
-              {/* */}
-              <div className="flex flex-row gap-2">
+                 {/* */}
+                 <div className="flex flex-row gap-2">
                 <Button
                   color="primary"
                   onClick={openModalCreateAdmin}
@@ -155,103 +159,105 @@ const TicketPage: React.FC = () => {
                     <p>Thêm</p>
                   </div>
                 </Button>
-                {/*  */}
-                <div className="dropdown dropdown-hover relative flex h-12 w-[100px] cursor-pointer flex-col items-center justify-center rounded-md bg-primary text-white">
-                  <p className="flex flex-row items-center justify-center gap-1">
-                    <LuFilter />
+              {/*  */}
+              <div className="dropdown dropdown-hover relative flex h-12 w-[100px] cursor-pointer flex-col items-center justify-center rounded-md bg-primary text-white">
+              <p className="flex flex-row items-center justify-center gap-1">
+              <LuFilter />
                     <span>Lọc</span>
                   </p>
-                  <div className="dropdown-content absolute top-[100%] z-10 w-[350px] space-y-1 rounded-md bg-slate-50 p-2 shadow-headerMenu drop-shadow-md">
-                    <div className="flex flex-row gap-4">
-                      {/* Loại Vé */}
-                      <div className="flex flex-col">
-                        <span className="font-semibold text-primary hover:text-secondary">
-                          Loại Vé
-                        </span>
-                        {ticketCatalogs.map(item => (
-                          <label
-                            className="flex h-8 cursor-pointer items-center gap-2"
-                            key={item.name}
-                          >
-                            <input
-                              type="checkbox"
-                              className="cursor-pointer"
-                              checked={ticketCatalog === item.name}
-                              onChange={() =>
-                                handleCheckboxChange(
-                                  setTicketCatalog,
-                                  item.name,
-                                  ticketCatalog
-                                )
-                              }
-                            />
-                            <span className="text-primary hover:text-secondary">
-                              {item.name}
-                            </span>
-                          </label>
-                        ))}
-                      </div>
+                <div className="dropdown-content absolute top-[100%] z-10 w-[350px] space-y-1 rounded-md bg-slate-50 p-2 shadow-headerMenu drop-shadow-md">
+                  <div className="flex flex-row gap-4">
+                    {/* Loại Vé */}
+                    <div className="flex flex-col">
+                      <span className="font-semibold text-primary hover:text-secondary">
+                        Loại Vé
+                      </span>
+                      {ticketCatalogs.map(item => (
+                        <label
+                          className="flex h-8 cursor-pointer items-center gap-2"
+                          key={item.name}
+                        >
+                          <input
+                            type="checkbox"
+                            className="cursor-pointer"
+                            checked={ticketCatalog === item.name}
+                            onChange={() =>
+                              handleCheckboxChange(
+                                setTicketCatalog,
+                                item.name,
+                                ticketCatalog
+                              )
+                            }
+                          />
+                          <span className="text-primary hover:text-secondary">
+                            {item.name}
+                          </span>
+                        </label>
+                      ))}
+                    </div>
 
-                      {/* Phương Tiện */}
-                      <div className="flex flex-col">
-                        <span className="font-semibold text-primary hover:text-secondary">
-                          Phương Tiện
-                        </span>
-                        {vehicleCatalogs.map(item => (
-                          <label
-                            className="flex h-8 cursor-pointer items-center gap-2"
-                            key={item.name}
-                          >
-                            <input
-                              type="checkbox"
-                              className="cursor-pointer"
-                              checked={vehicleCatalog === item.name}
-                              onChange={() =>
-                                handleCheckboxChange(
-                                  setVehicleCatalog,
-                                  item.name,
-                                  vehicleCatalog
-                                )
-                              }
-                            />
-                            <span className="text-primary hover:text-secondary">
-                              {item.name}
-                            </span>
-                          </label>
-                        ))}
-                      </div>
+                    {/* Phương Tiện */}
+                    <div className="flex flex-col">
+                      <span className="font-semibold text-primary hover:text-secondary">
+                        Phương Tiện
+                      </span>
+                      {vehicleCatalogs.map(item => (
+                        <label
+                          className="flex h-8 cursor-pointer items-center gap-2"
+                          key={item.name}
+                        >
+                          <input
+                            type="checkbox"
+                            className="cursor-pointer"
+                            checked={vehicleCatalog === item.name}
+                            onChange={() =>
+                              handleCheckboxChange(
+                                setVehicleCatalog,
+                                item.name,
+                                vehicleCatalog
+                              )
+                            }
+                          />
+                          <span className="text-primary hover:text-secondary">
+                            {item.name}
+                          </span>
+                        </label>
+                      ))}
+                    </div>
 
-                      {/* Điểm Khởi Hành */}
-                      <div className="flex flex-col">
-                        <span className="font-semibold text-primary hover:text-secondary">
-                          Điểm Khởi Hành
-                        </span>
-                        {locations.map(item => (
-                          <label
-                            className="flex h-8 cursor-pointer items-center gap-2"
-                            key={item.name}
-                          >
-                            <input
-                              type="checkbox"
-                              className="cursor-pointer"
-                              checked={departurePoint === item.name}
-                              onChange={() =>
-                                handleCheckboxChange(
-                                  setDeparturePoint,
-                                  item.name,
-                                  departurePoint
-                                )
-                              }
-                            />
-                            <span className="text-primary hover:text-secondary">
-                              {item.name}
-                            </span>
-                          </label>
-                        ))}
-                      </div>
+                    {/* Điểm Khởi Hành */}
+                    <div className="flex flex-col">
+                      <span className="font-semibold text-primary hover:text-secondary">
+                        Điểm Khởi Hành
+                      </span>
+                      {locations.map(item => (
+                        <label
+                          className="flex h-8 cursor-pointer items-center gap-2"
+                          key={item.name}
+                        >
+                          <input
+                            type="checkbox"
+                            className="cursor-pointer"
+                            checked={departurePoint === item.name}
+                            onChange={() =>
+                              handleCheckboxChange(
+                                setDeparturePoint,
+                                item.name,
+                                departurePoint
+                              )
+                            }
+                          />
+                          <span className="text-primary hover:text-secondary">
+                            {item.name}
+                          </span>
+                        </label>
+                      ))}
                     </div>
                   </div>
                 </div>
+              </div>
+
+        
 
                 {/*  */}
                 <div className="dropdown dropdown-hover relative flex h-12 w-[100px] cursor-pointer flex-col items-center justify-center rounded-md bg-primary text-white">
