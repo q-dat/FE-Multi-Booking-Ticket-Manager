@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useRef, useState } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { Button, Select } from 'react-daisyui';
 import InputForm from '../../components/UserPage/InputForm';
 import { IoLocationOutline, IoSearch } from 'react-icons/io5';
@@ -19,14 +19,14 @@ import {
 import { useTranslation } from 'react-i18next';
 import HeaderResponsive from '../../components/UserPage/HeaderResponsive';
 import { Link, useNavigate } from 'react-router-dom';
-import { FaChevronLeft, FaChevronRight } from 'react-icons/fa';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { TicketContext } from '../../context/ticket/TicketContext';
 import { ITicket, SearchFormData } from '../../types/type/ticket/ticket';
-import { LocationContext } from '../../context/location/LocationContext';
 import { TicketCatalogContext } from '../../context/ticketCatalog/TicketCatalogContext';
 import { Toastify } from '../../helper/Toastify';
 import { VehicleCatalogContext } from '../../context/vehicleCatalog/VehicleCatalogContext';
+import { LocationContext } from '../../context/location/LocationContext';
+import AllTickets from './tickets-filter/AllTickets';
 
 const Home: React.FC = () => {
   //Translation
@@ -90,26 +90,11 @@ const Home: React.FC = () => {
   useEffect(() => {
     getAllTicketCatalogs();
   }, []);
-
-  // Get Ticket
-  const { tickets, getAllTickets } = useContext(TicketContext);
-  useEffect(() => {
-    getAllTickets();
-  }, []);
-
   //Get Location
-  const [activeItem, setActiveItem] = useState('Hà Nội');
   const { locations, getAllLocations } = useContext(LocationContext);
   useEffect(() => {
     getAllLocations();
   }, []);
-  // scrollRef
-  const scrollRef = useRef<HTMLDivElement>(null);
-  const scroll = (scrollOffset: number) => {
-    if (scrollRef.current) {
-      scrollRef.current.scrollLeft += scrollOffset;
-    }
-  };
   return (
     <div className="pb-[20px] xl:pt-[80px]">
       {/* Mobile */}
@@ -376,97 +361,8 @@ const Home: React.FC = () => {
           </Link>
         </div>
       </div>
-      {/* Location */}
-      <div className="px-2 xl:px-[100px]">
-        <div className="my-5 rounded-lg bg-primary py-2 text-center text-3xl font-bold text-white dark:bg-white dark:text-primary">
-          {t('UserPage.TicketPrice')}
-        </div>
-        <div className="grid grid-cols-2 gap-2 xl:grid-flow-col xl:grid-cols-none xl:grid-rows-1">
-          {locations.map((location, index) => (
-            <Button
-              key={index}
-              className={`flex w-full items-center justify-center transition-all duration-500 ease-in-out hover:rounded-badge hover:bg-secondary hover:text-white ${
-                location.name === activeItem
-                  ? 'bg-primary text-white hover:bg-primary hover:text-white'
-                  : 'bg-white text-primary'
-              }`}
-              onClick={() => setActiveItem(location.name)}
-            >
-              <span>{location.name}</span>
-            </Button>
-          ))}
-        </div>
-
-        {/* Ticket */}
-        <div className="my-5">
-          <div
-            ref={scrollRef}
-            className="flex space-x-4 overflow-x-auto scroll-smooth p-5 scrollbar-hide"
-            style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
-          >
-            {tickets.map((ticket: ITicket) => (
-              <div
-                key={ticket._id}
-                className="w-full flex-none transform overflow-hidden rounded-lg bg-white text-black shadow-md shadow-primary transition-transform duration-300 ease-in-out hover:scale-105 sm:w-80"
-              >
-                <div className="flex flex-col gap-1 p-4 font-light">
-                  <p className="mb-5 text-center text-xl font-semibold">
-                    {ticket.ticket_catalog_id.name}
-                  </p>
-                  <p>
-                    Từ: &nbsp;
-                    <span className="font-semibold">
-                      {ticket.trip_id.departure_point.name}
-                    </span>
-                    - Đến: &nbsp;
-                    <span className="font-semibold">
-                      {ticket.trip_id.destination_point.name}
-                    </span>
-                  </p>
-                  <p>
-                    Phương tiện: &nbsp;
-                    <span className="font-semibold">
-                      {ticket.seat_id.seat_catalog_id.vehicle_id.name}
-                    </span>
-                  </p>
-                  <p>
-                    Ghế: &nbsp;
-                    <span className="font-semibold">{ticket.seat_id.name}</span>
-                    &nbsp;
-                    <span className="font-semibold">
-                      ({ticket.seat_id.seat_catalog_id.name})
-                    </span>
-                  </p>
-                  <p>
-                    Giá vé: &nbsp;
-                    <span className="font-bold text-red-500">
-                      {(ticket.price * 1000).toLocaleString('vi-VN')} &nbsp;
-                    </span>
-                    VND
-                  </p>
-                </div>
-              </div>
-            ))}
-          </div>
-
-          {/* Navigation Button  */}
-          <div className="flex w-full items-center justify-between space-x-2">
-            <Button
-              onClick={() => scroll(-200)}
-              className="bg-primary text-white dark:bg-white dark:text-primary"
-            >
-              <FaChevronLeft className="h-5 w-5" />
-            </Button>
-            <Button
-              onClick={() => scroll(200)}
-              className="bg-primary text-white dark:bg-white dark:text-primary"
-            >
-              <FaChevronRight className="h-5 w-5" />
-            </Button>
-          </div>
-        </div>
-        {/*  */}
-      </div>
+      {/* AllTickets */}
+      <AllTickets/>
     </div>
   );
 };
