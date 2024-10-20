@@ -21,7 +21,7 @@ import { VehicleCatalogContext } from '../../context/vehicleCatalog/VehicleCatal
 const AgePage: React.FC = () => {
   const { ages, loading, error, deleteAge, getAllAges, searchAgesByName } =
     useContext(AgeContext);
-  const { vehicleCatalogs} = useContext(VehicleCatalogContext)
+  const { vehicleCatalogs } = useContext(VehicleCatalogContext);
   const [isModalCreateOpen, setIsModalCreateOpen] = useState(false);
   const [isModalDeleteOpen, setIsModalDeleteOpen] = useState(false);
   const [isModalEditOpen, setIsModalEditOpen] = useState(false);

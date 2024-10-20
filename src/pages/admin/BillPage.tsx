@@ -14,7 +14,8 @@ import ModalEditBillPageAdmin from '../../components/admin/Modal/ModalBill/Modal
 import ModalDeleteBillPageAdmin from '../../components/admin/Modal/ModalBill/ModalDeleteBillPageAdmin';
 
 const BillPage: React.FC = () => {
-  const { bills, loading, error, deleteBill, getAllBills } = useContext(BillContext);
+  const { bills, loading, error, deleteBill, getAllBills } =
+    useContext(BillContext);
   const [isModalDeleteOpen, setIsModalDeleteOpen] = useState(false);
   const [isModalEditOpen, setIsModalEditOpen] = useState(false);
   const [selectedBillId, setSelectedBillId] = useState<string | null>(null);
@@ -58,7 +59,10 @@ const BillPage: React.FC = () => {
     <div className="w-full">
       <NavbarMobile Title_NavbarMobile="Hóa Đơn" />
       <div className="px-2 xl:px-0">
-        <NavtitleAdmin Title_NavtitleAdmin="Quản Lý Hóa Đơn" Btn_Create={null} />
+        <NavtitleAdmin
+          Title_NavtitleAdmin="Quản Lý Hóa Đơn"
+          Btn_Create={null}
+        />
       </div>
 
       <TableListAdmin
@@ -81,7 +85,9 @@ const BillPage: React.FC = () => {
                 <span>{bill.userId.fullName}</span>
                 <span>{bill.amount}</span>
                 <span>{bill.paymentId.method}</span>
-                <span>{new Date(bill.billingDate).toLocaleDateString('vi-VN')}</span>
+                <span>
+                  {new Date(bill.billingDate).toLocaleDateString('vi-VN')}
+                </span>
                 <span>
                   <details>
                     <summary className="inline cursor-pointer text-base text-warning">
@@ -89,7 +95,7 @@ const BillPage: React.FC = () => {
                         <FaCircleInfo />
                       </div>
                     </summary>
-                    <div className="flex justify-center items-center space-x-2">
+                    <div className="flex items-center justify-center space-x-2">
                       <Button
                         color="success"
                         onClick={() => openModalEditBill(bill)}

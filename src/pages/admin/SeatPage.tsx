@@ -46,7 +46,7 @@ const SeatPage: React.FC = () => {
   useEffect(() => {
     getAllSeats();
   }, [getAllSeats]);
-    const openModalCreateAdmin = () => setIsModalCreateOpen(true);
+  const openModalCreateAdmin = () => setIsModalCreateOpen(true);
   const closeModalCreateAdmin = () => setIsModalCreateOpen(false);
   const openModalDeleteAdmin = (id: string) => {
     setSelectedSeatId(id);

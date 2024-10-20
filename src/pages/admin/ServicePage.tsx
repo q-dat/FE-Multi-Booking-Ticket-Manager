@@ -101,7 +101,9 @@ const ServicePage: React.FC = () => {
               <Table.Row key={index}>
                 <span className="line-clamp-1">#{index + 1}</span>
                 <span className="line-clamp-1">{service?.name}</span>
-                <span className="line-clamp-1">{(service?.price*1000).toLocaleString('vi-VN')}&nbsp;VND</span>
+                <span className="line-clamp-1">
+                  {(service?.price * 1000).toLocaleString('vi-VN')}&nbsp;VND
+                </span>
                 <span>
                   <details>
                     <summary className="inline cursor-pointer text-base text-warning">
