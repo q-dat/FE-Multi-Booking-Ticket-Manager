@@ -34,17 +34,18 @@ const defaultContextValue: PaymentContextType = {
     getAll: false,
     create: false,
     update: false,
-    delete: false,
+    delete: false
   },
   error: null,
-  getAllPayments: () => { },
+  getAllPayments: () => {},
   getPaymentById: () => undefined,
-  createPayment: async () => { },
-  updatePaymentStatus: async () => { },
-  deletePayment: async () => { }
+  createPayment: async () => {},
+  updatePaymentStatus: async () => {},
+  deletePayment: async () => {}
 };
 
-export const PaymentContext = createContext<PaymentContextType>(defaultContextValue);
+export const PaymentContext =
+  createContext<PaymentContextType>(defaultContextValue);
 
 export const PaymentProvider = ({ children }: { children: ReactNode }) => {
   const [payments, setPayments] = useState<IPayment[]>([]);
@@ -52,7 +53,7 @@ export const PaymentProvider = ({ children }: { children: ReactNode }) => {
     getAll: false,
     create: false,
     update: false,
-    delete: false,
+    delete: false
   });
   const [error, setError] = useState<string | null>(null);
 
@@ -78,11 +79,7 @@ export const PaymentProvider = ({ children }: { children: ReactNode }) => {
   };
 
   const getAllPayments = useCallback(() => {
-    fetchData(
-      getAllPaymentsApi,
-      data => setPayments(data),
-      'getAll'
-    );
+    fetchData(getAllPaymentsApi, data => setPayments(data), 'getAll');
   }, []);
 
   const getPaymentById = useCallback(
@@ -92,24 +89,30 @@ export const PaymentProvider = ({ children }: { children: ReactNode }) => {
     [payments]
   );
 
-  const createPayment = useCallback(async (payment: Partial<IPayment>): Promise<void> => {
-    await fetchData(
-      () => createPaymentApi(payment),
-      data => setPayments(prevPayments => [...prevPayments, data]),
-      'create'
-    );
-  }, []);
+  const createPayment = useCallback(
+    async (payment: Partial<IPayment>): Promise<void> => {
+      await fetchData(
+        () => createPaymentApi(payment),
+        data => setPayments(prevPayments => [...prevPayments, data]),
+        'create'
+      );
+    },
+    []
+  );
 
-  const updatePaymentStatus = useCallback(async (id: string, status: PaymentStatus): Promise<void> => {
-    await fetchData(
-      () => updatePaymentStatusApi(id, status),
-      data =>
-        setPayments(prevPayments =>
-          prevPayments.map(payment => (payment._id === id ? data : payment))
-        ),
-      'update'
-    );
-  }, []);
+  const updatePaymentStatus = useCallback(
+    async (id: string, status: PaymentStatus): Promise<void> => {
+      await fetchData(
+        () => updatePaymentStatusApi(id, status),
+        data =>
+          setPayments(prevPayments =>
+            prevPayments.map(payment => (payment._id === id ? data : payment))
+          ),
+        'update'
+      );
+    },
+    []
+  );
 
   const deletePayment = useCallback(async (id: string): Promise<void> => {
     await fetchData(

@@ -52,7 +52,7 @@ interface Resources {
       };
     };
     UserPage: {
-      Loading: 'Đang Tải...';
+      Loading: 'Loading...';
       Collapse: 'Collapse';
       Contact: 'Contact';
       ContactUs: 'Contact us';

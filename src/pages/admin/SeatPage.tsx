@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Toastify } from '../../helper/Toastify';
 import LoadingLocal from '../../components/orther/loading/LoadingLocal';
 import NavtitleAdmin from '../../components/admin/NavtitleAdmin';
@@ -9,7 +9,7 @@ import ModalEditSeatPageAdmin from '../../components/admin/Modal/ModalSeat/Modal
 import ModalCreateSeatPageAdmin from '../../components/admin/Modal/ModalSeat/ModalCreateSeatPageAdmin';
 import { MdDelete } from 'react-icons/md';
 import ErrorLoading from '../../components/orther/error/ErrorLoading';
-import { FaCircleInfo, FaFilter, FaPenToSquare } from 'react-icons/fa6';
+import { FaCircleInfo, FaPenToSquare } from 'react-icons/fa6';
 import { isIErrorResponse } from '../../types/error/error';
 import TableListAdmin from '../../components/admin/TablelistAdmin';
 import NavbarMobile from '../../components/admin/Reponsive/Mobile/NavbarMobile';
@@ -18,6 +18,8 @@ import { SeatContext } from '../../context/seat/SeatContext';
 import { ISeat } from '../../types/type/seat/seat';
 import { SeatCatalogContext } from '../../context/seatCatalog/SeatCatalogContext';
 import { ISeatCatalog } from '../../types/type/seat-catalog/seat-catalog';
+import { VehicleCatalogContext } from '../../context/vehicleCatalog/VehicleCatalogContext';
+import { LuFilter } from 'react-icons/lu';
 
 const SeatPage: React.FC = () => {
   const {
@@ -30,6 +32,7 @@ const SeatPage: React.FC = () => {
     searchSeatsByCategoryId
   } = useContext(SeatContext);
   const { seatCatalogs } = useContext(SeatCatalogContext);
+  const { vehicleCatalogs } = useContext(VehicleCatalogContext);
   const [isModalCreateOpen, setIsModalCreateOpen] = useState(false);
   const [isModalDeleteOpen, setIsModalDeleteOpen] = useState(false);
   const [isModalEditOpen, setIsModalEditOpen] = useState(false);
@@ -39,6 +42,10 @@ const SeatPage: React.FC = () => {
     null
   );
   //
+
+  useEffect(() => {
+    getAllSeats();
+  }, [getAllSeats]);
   const openModalCreateAdmin = () => setIsModalCreateOpen(true);
   const closeModalCreateAdmin = () => setIsModalCreateOpen(false);
   const openModalDeleteAdmin = (id: string) => {
@@ -51,10 +58,6 @@ const SeatPage: React.FC = () => {
     setIsModalEditOpen(true);
   };
   const closeModalEditAdmin = () => setIsModalEditOpen(false);
-  //
-  useEffect(() => {
-    getAllSeats();
-  }, [getAllSeats]);
 
   const navigate = useNavigate();
   const handleDeleteSeat = async () => {
@@ -101,8 +104,8 @@ const SeatPage: React.FC = () => {
     });
   };
   //
-  const handleSearchByCategory = async (category: string) => {
-    await searchSeatsByName(category);
+  const handleSearchByCategory = async (vehicleCatalog: string) => {
+    await searchSeatsByName(vehicleCatalog);
   };
   const handleCategoryChange = async (categoryId: string) => {
     if (checkboxIDCategory === categoryId) {
@@ -126,18 +129,18 @@ const SeatPage: React.FC = () => {
           Btn_Create={
             <div className="flex flex-col items-start justify-center gap-2 md:flex-row md:items-end">
               <div className="flex gap-4">
-                {['Tàu', 'Máy Bay', 'Xe khách'].map(category => (
-                  <label key={category} className="flex items-center">
+                {vehicleCatalogs.map(vehicleCatalog => (
+                  <label key={vehicleCatalog._id} className="flex items-center">
                     <input
                       type="checkbox"
                       className="cursor-pointer"
-                      checked={checkboxCategory === category}
+                      checked={checkboxCategory === vehicleCatalog.name}
                       onChange={() => {
-                        setCheckboxCategory(category);
-                        handleSearchByCategory(category);
+                        setCheckboxCategory(vehicleCatalog.name);
+                        handleSearchByCategory(vehicleCatalog.name);
                       }}
                     />
-                    <span className="ml-2">{category}</span>
+                    <span className="ml-2">{vehicleCatalog.name}</span>
                   </label>
                 ))}
               </div>
@@ -156,8 +159,7 @@ const SeatPage: React.FC = () => {
                 {/*  */}
                 <div className="dropdown dropdown-hover relative flex h-12 w-[100px] cursor-pointer flex-col items-center justify-center rounded-md bg-primary text-white">
                   <p className="flex flex-row items-center justify-center gap-1">
-                    <FaFilter />
-                    <span>Lọc</span>
+                    <LuFilter /> <span>Lọc</span>
                   </p>
                   <div className="dropdown-content absolute top-[100%] z-10 w-52 space-y-1 rounded-md bg-slate-50 p-2 shadow-headerMenu drop-shadow-md">
                     {seatCatalogs?.map((catalog: ISeatCatalog) => (
@@ -179,7 +181,7 @@ const SeatPage: React.FC = () => {
                 </div>
                 {/*  */}
                 <div className="dropdown dropdown-hover relative flex h-12 w-[100px] cursor-pointer flex-col items-center justify-center rounded-md bg-primary text-white">
-                  <p className="flex flex-row items-center justify-center gap-1">
+                  <p>
                     <RiListSettingsLine className="text-xl" />
                   </p>
                   <div className="dropdown-content absolute top-[100%] z-10 w-52 space-y-1 rounded-md bg-slate-50 p-2 shadow-headerMenu drop-shadow-md">

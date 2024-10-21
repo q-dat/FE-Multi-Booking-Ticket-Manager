@@ -1,9 +1,9 @@
-import { IUser } from "../user/user";
+import { IUser } from '../user/user';
 
 export enum OrderStatus {
   PENDING = 'pending',
   CONFIRMED = 'confirmed',
-  CANCELED = 'canceled',
+  CANCELED = 'canceled'
 }
 
 export interface IOrder {

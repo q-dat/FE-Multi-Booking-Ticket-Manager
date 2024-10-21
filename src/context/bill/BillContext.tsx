@@ -39,15 +39,15 @@ const defaultContextValue: BillContextType = {
     create: false,
     update: false,
     delete: false,
-    getById: false,
+    getById: false
   },
   error: null,
-  getAllBills: () => { },
+  getAllBills: () => {},
   getBillById: async () => undefined,
   getBillByOrderId: () => undefined,
-  createBill: async () => { },
-  updateBill: async () => { },
-  deleteBill: async () => { }
+  createBill: async () => {},
+  updateBill: async () => {},
+  deleteBill: async () => {}
 };
 
 export const BillContext = createContext<BillContextType>(defaultContextValue);
@@ -59,7 +59,7 @@ export const BillProvider = ({ children }: { children: ReactNode }) => {
     create: false,
     update: false,
     delete: false,
-    getById: false,
+    getById: false
   });
   const [error, setError] = useState<string | null>(null);
 
@@ -85,30 +85,33 @@ export const BillProvider = ({ children }: { children: ReactNode }) => {
   };
 
   const getAllBills = useCallback(() => {
-    fetchData(
-      getAllBillsApi,
-      data => setBills(data),
-      'getAll'
-    );
+    fetchData(getAllBillsApi, data => setBills(data), 'getAll');
   }, []);
 
-  const getBillById = useCallback(async (id: string): Promise<IBill | undefined> => {
-    let bill: IBill | undefined;
+  const getBillById = useCallback(
+    async (id: string): Promise<IBill | undefined> => {
+      let bill: IBill | undefined;
 
-    await fetchData(
-      () => getBillByIdApi(id),
-      data => {
-        bill = data;
-        setBills(prevBills => {
-          const existingBill = prevBills.find(existingBill => existingBill._id === id);
-          return existingBill ? prevBills.map(b => (b._id === id ? data : b)) : [...prevBills, data];
-        });
-      },
-      'getById'
-    );
+      await fetchData(
+        () => getBillByIdApi(id),
+        data => {
+          bill = data;
+          setBills(prevBills => {
+            const existingBill = prevBills.find(
+              existingBill => existingBill._id === id
+            );
+            return existingBill
+              ? prevBills.map(b => (b._id === id ? data : b))
+              : [...prevBills, data];
+          });
+        },
+        'getById'
+      );
 
-    return bill;
-  }, []);
+      return bill;
+    },
+    []
+  );
 
   const getBillByOrderId = useCallback(
     (orderId: string): IBill | undefined => {
@@ -117,24 +120,32 @@ export const BillProvider = ({ children }: { children: ReactNode }) => {
     [bills]
   );
 
-  const createBill = useCallback(async (bill: Partial<IBill>): Promise<void> => {
-    await fetchData(
-      () => createBillApi(bill),
-      data => setBills(prevBills => [...prevBills, data]),
-      'create'
-    );
-  }, []);
+  const createBill = useCallback(
+    async (bill: Partial<IBill>): Promise<void> => {
+      await fetchData(
+        () => createBillApi(bill),
+        data => setBills(prevBills => [...prevBills, data]),
+        'create'
+      );
+    },
+    []
+  );
 
-  const updateBill = useCallback(async (id: string, bill: Partial<IBill>): Promise<void> => {
-    await fetchData(
-      () => updateBillApi(id, bill),
-      data =>
-        setBills(prevBills =>
-          prevBills.map(existingBill => (existingBill._id === id ? data : existingBill))
-        ),
-      'update'
-    );
-  }, []);
+  const updateBill = useCallback(
+    async (id: string, bill: Partial<IBill>): Promise<void> => {
+      await fetchData(
+        () => updateBillApi(id, bill),
+        data =>
+          setBills(prevBills =>
+            prevBills.map(existingBill =>
+              existingBill._id === id ? data : existingBill
+            )
+          ),
+        'update'
+      );
+    },
+    []
+  );
 
   const deleteBill = useCallback(async (id: string): Promise<void> => {
     await fetchData(

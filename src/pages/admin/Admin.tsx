@@ -9,7 +9,7 @@ const Admin: React.FC<{}> = () => {
         <div className="hidden xl:block">
           <SidebarAdmin />
         </div>
-        <div className="flex-1 xl:p-6">
+        <div className="ull w-full flex-1 overflow-x-auto scrollbar-hide xl:p-6">
           <div className="xl:ml-64">
             <div>
               <NavbarAdmin />

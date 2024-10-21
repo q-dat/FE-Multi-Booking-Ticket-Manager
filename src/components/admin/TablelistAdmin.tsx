@@ -15,12 +15,12 @@ const TableListAdmin: React.FC<TableListAdminProps> = ({
 }) => {
   return (
     <div>
-      <div className="w-full bg-white md:rounded-md">
+      <div className="w-full bg-white dark:bg-gray-800 md:rounded-md">
         {/* Navbar Admin */}
         <NavtableAdmin Title_NavtableAdmin={Title_TableListAdmin} />
         <div className="w-screen overflow-x-auto border-8 border-transparent scrollbar-hide lg:w-full xl:px-4">
           {/* Phần Bảng */}
-          <Table className="w-full text-black" zebra>
+          <Table className="w-full text-black dark:text-green-500" zebra>
             {table_head}
             {table_body}
           </Table>

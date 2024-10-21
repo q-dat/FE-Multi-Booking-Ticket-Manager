@@ -1,9 +1,9 @@
-import { IUser } from "../user/user";
+import { IUser } from '../user/user';
 
 export enum PaymentStatus {
   PENDING = 'pending',
   COMPLETED = 'completed',
-  FAILED = 'failed',
+  FAILED = 'failed'
 }
 
 export interface IPayment {
@@ -18,6 +18,8 @@ export interface IPayment {
   updateAt: string;
 }
 
-export const isValidPaymentStatus = (status: string): status is PaymentStatus => {
+export const isValidPaymentStatus = (
+  status: string
+): status is PaymentStatus => {
   return Object.values(PaymentStatus).includes(status as PaymentStatus);
 };

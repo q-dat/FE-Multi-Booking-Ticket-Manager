@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useCart } from '../../context/cart/CartContext';
+import { MdDelete } from 'react-icons/md';
+import { Button } from 'react-daisyui';
 
 const CartPage: React.FC = () => {
   const { selectedSeats, removeSeat, clearSeats, totalPrice } = useCart();
@@ -10,7 +12,7 @@ const CartPage: React.FC = () => {
 
     selectedSeats.forEach(ticket => {
       if (!countdowns[ticket._id]) {
-        newCountdowns[ticket._id] = 6;
+        newCountdowns[ticket._id] = 600;
       } else {
         newCountdowns[ticket._id] = countdowns[ticket._id];
       }
@@ -22,7 +24,6 @@ const CartPage: React.FC = () => {
       setCountdowns(prevCountdowns => {
         const updatedCountdowns = { ...prevCountdowns };
         let allRemoved = true;
-
         Object.keys(updatedCountdowns).forEach(ticketId => {
           if (updatedCountdowns[ticketId] > 1) {
             updatedCountdowns[ticketId] -= 1;
@@ -36,7 +37,6 @@ const CartPage: React.FC = () => {
             delete updatedCountdowns[ticketId];
           }
         });
-
         if (allRemoved) clearInterval(intervalId);
         return updatedCountdowns;
       });
@@ -46,49 +46,69 @@ const CartPage: React.FC = () => {
   }, [selectedSeats, removeSeat]);
 
   return (
-    <div className="cart">
-      <h2 className="text-xl font-bold">Giỏ hàng</h2>
+    <div className="mb-5 w-full rounded-md border bg-white p-2 text-black shadow-headerMenu shadow-primary dark:bg-black dark:text-white dark:shadow-white">
       {selectedSeats.length === 0 ? (
-        <p>Giỏ hàng của bạn đang trống.</p>
+        <>{/* <p>Giỏ vé của bạn đang trống!</p> */}</>
       ) : (
-        <div>
-          <ul>
+        <div className="flex flex-col gap-2">
+          <div>
             {selectedSeats.map(ticket => (
-              <li
+              <div
                 key={ticket._id}
-                className="flex items-center justify-between"
+                className="flex items-center justify-between border border-b border-l-0 border-r-0 border-t-0 py-2 text-xs"
               >
-                <span>
-                  {ticket.seat_id.name} - {ticket.price} VND
-                </span>
-                <div className="flex items-center">
-                  <button
+                <div className="flex flex-col items-start justify-start">
+                  <p>
+                    {ticket.trip_id.departure_point.name}-
+                    {ticket.trip_id.destination_point.name}{' '}
+                  </p>
+                  <p>
+                    {new Date(ticket.trip_id.departure_date).toLocaleDateString(
+                      'vi-VN'
+                    )}
+                  </p>
+                  <p>{ticket.trip_id.departure_time}</p>
+                  <p>{ticket.seat_id.seat_catalog_id.vehicle_id.name}</p>
+                  <p>{ticket.seat_id.seat_catalog_id.name}</p>
+                  <p>{ticket.seat_id.name}</p>
+                  <p>
+                    {(ticket.price * 1000).toLocaleString('vi-VN')}
+                    &nbsp;VND
+                  </p>
+                </div>
+
+                <div className="flex flex-row items-center">
+                  <p
                     onClick={() => {
                       const seatId = ticket.seat_id._id;
                       if (seatId) {
                         removeSeat(ticket._id, seatId);
                       }
                     }}
-                    className="mr-2"
+                    className="text-2xl text-red-500"
                   >
-                    Xóa
-                  </button>
+                    <MdDelete />
+                  </p>
                   <span className="text-red-500">
                     {countdowns[ticket._id]} giây
                   </span>
                 </div>
-              </li>
+              </div>
             ))}
-          </ul>
-          <div className="mt-4">
-            <strong>
+          </div>
+          <div className="flex flex-col gap-1">
+            <div className="text-end text-xs font-bold">
               Tổng tiền: {(totalPrice * 1000).toLocaleString('vi-VN')}
               &nbsp;VND
-            </strong>
+            </div>
+            <Button
+              size="sm"
+              onClick={clearSeats}
+              className="bg-red-500 text-xs text-white"
+            >
+              Xóa tất cả
+            </Button>
           </div>
-          <button onClick={clearSeats} className="mt-4 bg-red-500 text-white">
-            Xóa tất cả
-          </button>
         </div>
       )}
     </div>

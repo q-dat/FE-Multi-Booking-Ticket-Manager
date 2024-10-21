@@ -35,17 +35,18 @@ const defaultContextValue: OrderContextType = {
     getAll: false,
     create: false,
     update: false,
-    delete: false,
+    delete: false
   },
   error: null,
-  getAllOrders: () => { },
+  getAllOrders: () => {},
   getOrderById: () => undefined,
-  createOrder: async () => { },
-  updateOrderStatus: async () => { },
-  deleteOrder: async () => { }
+  createOrder: async () => {},
+  updateOrderStatus: async () => {},
+  deleteOrder: async () => {}
 };
 
-export const OrderContext = createContext<OrderContextType>(defaultContextValue);
+export const OrderContext =
+  createContext<OrderContextType>(defaultContextValue);
 
 export const OrderProvider = ({ children }: { children: ReactNode }) => {
   const [orders, setOrders] = useState<IOrder[]>([]);
@@ -53,7 +54,7 @@ export const OrderProvider = ({ children }: { children: ReactNode }) => {
     getAll: false,
     create: false,
     update: false,
-    delete: false,
+    delete: false
   });
   const [error, setError] = useState<string | null>(null);
 
@@ -79,11 +80,7 @@ export const OrderProvider = ({ children }: { children: ReactNode }) => {
   };
 
   const getAllOrders = useCallback(() => {
-    fetchData(
-      getAllOrdersApi,
-      data => setOrders(data),
-      'getAll'
-    );
+    fetchData(getAllOrdersApi, data => setOrders(data), 'getAll');
   }, []);
 
   const getOrderById = useCallback(
@@ -93,32 +90,36 @@ export const OrderProvider = ({ children }: { children: ReactNode }) => {
     [orders]
   );
 
-  const createOrder = useCallback(async (order: Partial<IOrder>): Promise<void> => {
-    await fetchData(
-      () => createOrderApi(order),
-      data => setOrders(prevOrders => [...prevOrders, data]),
-      'create'
-    );
-  }, []);
+  const createOrder = useCallback(
+    async (order: Partial<IOrder>): Promise<void> => {
+      await fetchData(
+        () => createOrderApi(order),
+        data => setOrders(prevOrders => [...prevOrders, data]),
+        'create'
+      );
+    },
+    []
+  );
 
-  const updateOrderStatus = useCallback(async (id: string, status: OrderStatus): Promise<void> => {
-    await fetchData(
-      () => updateOrderStatusApi(id, status),
-      data =>
-        setOrders(prevOrders =>
-          prevOrders.map(order => (order._id === id ? data : order))
-        ),
-      'update'
-    );
-  }, []);
+  const updateOrderStatus = useCallback(
+    async (id: string, status: OrderStatus): Promise<void> => {
+      await fetchData(
+        () => updateOrderStatusApi(id, status),
+        data =>
+          setOrders(prevOrders =>
+            prevOrders.map(order => (order._id === id ? data : order))
+          ),
+        'update'
+      );
+    },
+    []
+  );
 
   const deleteOrder = useCallback(async (id: string): Promise<void> => {
     await fetchData(
       () => deleteOrderApi(id),
       () =>
-        setOrders(prevOrders =>
-          prevOrders.filter(order => order._id !== id)
-        ),
+        setOrders(prevOrders => prevOrders.filter(order => order._id !== id)),
       'delete'
     );
   }, []);

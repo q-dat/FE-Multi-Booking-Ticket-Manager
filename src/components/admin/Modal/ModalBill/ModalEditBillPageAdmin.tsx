@@ -13,7 +13,11 @@ interface ModalEditBillPageAdminProps {
   billId: string | null;
 }
 
-const ModalEditBillPageAdmin: React.FC<ModalEditBillPageAdminProps> = ({ isOpen, onClose, billId }) => {
+const ModalEditBillPageAdmin: React.FC<ModalEditBillPageAdminProps> = ({
+  isOpen,
+  onClose,
+  billId
+}) => {
   const { getBillById, updateBill, bills } = useContext(BillContext);
   const { register, handleSubmit, reset, setValue } = useForm<IBill>();
   const [loading, setLoading] = useState(false);
@@ -54,16 +58,24 @@ const ModalEditBillPageAdmin: React.FC<ModalEditBillPageAdminProps> = ({ isOpen,
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-      <div className="modal-overlay fixed inset-0 z-50 flex w-full items-center justify-center bg-black bg-opacity-40" onClick={onClose}>
-        <div className="flex flex-col space-y-10 rounded-lg bg-white p-10 text-start shadow dark:bg-gray-800" onClick={e => e.stopPropagation()}>
-          <p className="text-xl font-bold text-black dark:text-white">Chỉnh sửa hóa đơn</p>
+      <div
+        className="modal-overlay fixed inset-0 z-50 flex w-full items-center justify-center bg-black bg-opacity-40"
+        onClick={onClose}
+      >
+        <div
+          className="flex flex-col space-y-10 rounded-lg bg-white p-10 text-start shadow dark:bg-gray-800"
+          onClick={e => e.stopPropagation()}
+        >
+          <p className="text-xl font-bold text-black dark:text-white">
+            Chỉnh sửa hóa đơn
+          </p>
 
           <div>
             <LabelForm title="Số tiền" />
             <input
               {...register('amount')}
               type="number"
-              className="mt-1 p-2 border rounded w-full"
+              className="mt-1 w-full rounded border p-2"
               placeholder="Nhập số tiền"
             />
           </div>
@@ -73,7 +85,7 @@ const ModalEditBillPageAdmin: React.FC<ModalEditBillPageAdminProps> = ({ isOpen,
             <input
               {...register('userId.fullName')}
               type="text"
-              className="mt-1 p-2 border rounded w-full"
+              className="mt-1 w-full rounded border p-2"
               placeholder="ID người dùng"
             />
           </div>
@@ -83,25 +95,31 @@ const ModalEditBillPageAdmin: React.FC<ModalEditBillPageAdminProps> = ({ isOpen,
             <input
               {...register('orderId.totalPrice')}
               type="text"
-              className="mt-1 p-2 border rounded w-full"
+              className="mt-1 w-full rounded border p-2"
               placeholder="ID đơn hàng"
             />
           </div>
-
 
           <div>
             <LabelForm title="Phương thức thanh toán" />
             <input
               {...register('paymentId.method')}
               type="text"
-              className="mt-1 p-2 border rounded w-full"
+              className="mt-1 w-full rounded border p-2"
               placeholder="ID phương thức thanh toán"
             />
           </div>
 
           <div className="mt-4 space-x-5 text-center">
-            <Button onClick={onClose} className="border-gray-50 text-black">Huỷ bỏ</Button>
-            <Button color="primary" type="submit" className="text-white" disabled={loading}>
+            <Button onClick={onClose} className="border-gray-50 text-black">
+              Huỷ bỏ
+            </Button>
+            <Button
+              color="primary"
+              type="submit"
+              className="text-white"
+              disabled={loading}
+            >
               {loading ? 'Đang cập nhật...' : 'Xác nhận'}
             </Button>
           </div>

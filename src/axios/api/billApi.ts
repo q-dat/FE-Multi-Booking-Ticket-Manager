@@ -13,7 +13,9 @@ export const getAllBillsApi = async (): Promise<IBill[]> => {
 export const getBillByOrderIdApi = async (orderId: string): Promise<IBill> => {
   if (!orderId) throw new Error('Thiếu Order ID');
   try {
-    const response = await axios.get<{ bill: IBill }>(`/api/bills/order/${orderId}`);
+    const response = await axios.get<{ bill: IBill }>(
+      `/api/bills/order/${orderId}`
+    );
     return response.data.bill;
   } catch (error) {
     throw new Error(`Lấy hóa đơn theo Order ID ${orderId} thất bại`);
@@ -39,7 +41,10 @@ export const createBillApi = async (bill: Partial<IBill>): Promise<IBill> => {
   }
 };
 
-export const updateBillApi = async (id: string, bill: Partial<IBill>): Promise<IBill> => {
+export const updateBillApi = async (
+  id: string,
+  bill: Partial<IBill>
+): Promise<IBill> => {
   if (!id) throw new Error('Thiếu ID hóa đơn');
 
   try {
