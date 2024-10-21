@@ -13,6 +13,7 @@ import { TicketCatalogContext } from '../../context/ticketCatalog/TicketCatalogC
 import { Toastify } from '../../helper/Toastify';
 import { SearchFormData, ITicket } from '../../types/type/ticket/ticket';
 import { BannerBus } from '../../assets/image-represent';
+import BusesTickets from './tickets-filter/BusesTickets';
 
 interface Card {
   id?: number;
@@ -173,6 +174,8 @@ const BusesPage: React.FC<Card> = () => {
         </form>
 
       </div>
+      {/* AllTickets */}
+      <BusesTickets/>
 
     </div>
 
