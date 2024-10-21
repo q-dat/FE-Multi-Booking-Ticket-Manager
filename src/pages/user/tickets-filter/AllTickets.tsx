@@ -81,7 +81,7 @@ const AllTickets: React.FC = () => {
               <p className="flex items-center gap-1 bg-blue-50 font-bold text-primary">
                 <IoTicket /> Loại Vé:
               </p>
-              <div className="grid grid-cols-3 gap-3 md:grid-cols-6 xl:grid-cols-11">
+              <div className="grid grid-cols-3 gap-3 md:grid-cols-6 xl:grid-cols-7">
                 {ticketCatalogs.map(item => (
                   <label
                     className="flex h-8 cursor-pointer items-center gap-1"
@@ -113,7 +113,7 @@ const AllTickets: React.FC = () => {
               <p className="flex items-center gap-1 bg-blue-50 font-bold text-primary">
                 <IoTrainSharp /> Phương tiện:
               </p>
-              <div className="grid grid-cols-3 gap-3 md:grid-cols-6 xl:grid-cols-11">
+              <div className="grid grid-cols-3 gap-3 md:grid-cols-6 xl:grid-cols-7">
                 {vehicleCatalogs.map(item => (
                   <label
                     className="flex h-8 cursor-pointer items-center gap-1"
@@ -144,7 +144,7 @@ const AllTickets: React.FC = () => {
               <p className="flex items-center gap-1 bg-blue-50 font-bold text-primary">
                 <PiMapPinAreaDuotone /> Điểm Khởi Hành:
               </p>
-              <div className="grid grid-cols-3 gap-3 md:grid-cols-6 xl:grid-cols-11">
+              <div className="grid grid-cols-3 gap-3 md:grid-cols-6 xl:grid-cols-7 justify-center items-center">
                 {locations.map(item => (
                   <label
                     className="flex h-8 cursor-pointer items-center gap-1"
