@@ -15,18 +15,10 @@ import { Toastify } from '../../helper/Toastify';
 import { SearchFormData, ITicket } from '../../types/type/ticket/ticket';
 import FlightTickets from './tickets-filter/FlightTickets';
 
-interface Card {
-  id?: number;
-  title?: string;
-  description?: string;
-  image?: string;
-}
-
-const FlightsPage: React.FC<Card> = () => {
+const FlightsPage: React.FC = () => {
   //Translation
   const { t } = useTranslation();
-  //Search Ticket
-  const { searchTickets, loading, error } = useContext(TicketContext);
+  const { searchTickets, loading } = useContext(TicketContext);
   const navigate = useNavigate();
   if (!searchTickets) {
     console.log('Home phải được sử dụng trong TicketProvider');
@@ -42,35 +34,16 @@ const FlightsPage: React.FC<Card> = () => {
       {} as Record<string, string>
     );
 
-    // Call searchTickets and wait for the result
     const searchResults: ITicket[] = await searchTickets(searchParams);
 
     if (searchResults.length > 0) {
-      const selectedVehicle = searchResults[0];
-      const vehicleType = selectedVehicle.vehicle_catalog_id.name;
       sessionStorage.setItem('searchResults', JSON.stringify(searchResults));
-
-      // Navigate based on vehicle type
-      switch (vehicleType) {
-        case 'Tàu':
-          navigate('/ticket-trains-results');
-          break;
-        case 'Xe khách':
-          navigate('/ticket-buses-results');
-          break;
-        case 'Máy bay':
-          navigate('/ticket-flights-results');
-          break;
-        default:
-          navigate('/ticket-flights-results');
-      }
+      navigate('/ticket-flights-results');
       Toastify('Tìm kiếm vé thành công', 200);
     } else {
-      Toastify(`Lỗi: ${error || 'Không tìm thấy vé nào'}`, 404);
+      Toastify('Không tìm thấy vé nào', 404);
     }
   };
-
-
 
   //Get Ticket Catalog
   const { ticketCatalogs, getAllTicketCatalogs } =
@@ -83,9 +56,6 @@ const FlightsPage: React.FC<Card> = () => {
   useEffect(() => {
     getAllLocations();
   }, []);
-
-
-
 
   return (
     <div className="pb-[20px] xl:pt-[80px]">
@@ -156,7 +126,6 @@ const FlightsPage: React.FC<Card> = () => {
                   classNameLabel=" bg-white  dark:bg-gray-700"
                 />
                 <MdOutlineArrowRightAlt className="hidden text-primary dark:text-white xl:flex" />
-
                 <div>
                   <Select
                     defaultValue=""
@@ -167,13 +136,23 @@ const FlightsPage: React.FC<Card> = () => {
                       {t('UserPage.TicketSelectDefault')}
                     </option>
                     {ticketCatalogs.map(ticketCatalog => (
-                      <option key={ticketCatalog._id} value={ticketCatalog.name}>
+                      <option
+                        key={ticketCatalog._id}
+                        value={ticketCatalog.name}
+                      >
                         {ticketCatalog.name}
                       </option>
                     ))}
                   </Select>
                 </div>
               </div>
+              <InputForm
+                placeholder={''}
+                classNameLabel={''}
+                type="hidden"
+                value="Máy bay"
+                {...register('vehicle_catalog_name')}
+              />
               <div>
                 <Button
                   type="submit"

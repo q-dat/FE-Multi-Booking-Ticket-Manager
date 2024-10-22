@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, } from 'react';
+import React, { useContext, useEffect } from 'react';
 import HeaderResponsive from '../../components/UserPage/HeaderResponsive';
 import { Button, Select } from 'react-daisyui';
 import InputForm from '../../components/UserPage/InputForm';
@@ -15,16 +15,10 @@ import { SearchFormData, ITicket } from '../../types/type/ticket/ticket';
 import { BannerBus } from '../../assets/image-represent';
 import BusesTickets from './tickets-filter/BusesTickets';
 
-interface Card {
-  id?: number;
-  title?: string;
-  description?: string;
-  image?: string;
-}
-const BusesPage: React.FC<Card> = () => {
+const BusesPage: React.FC = () => {
   //Translation
   const { t } = useTranslation();
-  const { searchTickets, loading, error } = useContext(TicketContext);
+  const { searchTickets, loading } = useContext(TicketContext);
   const navigate = useNavigate();
   if (!searchTickets) {
     console.log('Home phải được sử dụng trong TicketProvider');
@@ -40,24 +34,17 @@ const BusesPage: React.FC<Card> = () => {
       {} as Record<string, string>
     );
 
-    // Call searchTickets and wait for the result
     const searchResults: ITicket[] = await searchTickets(searchParams);
 
     if (searchResults.length > 0) {
-      const selectedVehicle = searchResults[0];
-      const vehicleType = selectedVehicle.vehicle_catalog_id.name;
       sessionStorage.setItem('searchResults', JSON.stringify(searchResults));
-      searchParams.vehicle_catalog_name = 'Xe khách';
-
-      // Navigate based on vehicle type
-      if (vehicleType) {
-        navigate('/ticket-buses-results');
-      }
+      navigate('/ticket-buses-results');
       Toastify('Tìm kiếm vé thành công', 200);
     } else {
-      Toastify(`Lỗi: ${error || 'Không tìm thấy vé nào'}`, 404);
+      Toastify('Không tìm thấy vé nào', 404);
     }
   };
+
   //Get Ticket Catalog
   const { ticketCatalogs, getAllTicketCatalogs } =
     useContext(TicketCatalogContext);
@@ -69,6 +56,7 @@ const BusesPage: React.FC<Card> = () => {
   useEffect(() => {
     getAllLocations();
   }, []);
+
   return (
     <div className="pb-[20px] xl:pt-[80px]">
       <HeaderResponsive Title_NavbarMobile={t('UserPage.Navbar.Buses')} />
@@ -144,14 +132,17 @@ const BusesPage: React.FC<Card> = () => {
                 <div>
                   <Select
                     defaultValue=""
-                    className="w-[150px] border border-gray-700 border-opacity-50 bg-white text-black focus:border-primary focus:outline-none dark:border-secondary dark:bg-gray-700 dark:text-white dark:focus:border-white md:w-[300px] lg:w-[400px] xl:w-full xl:rounded-l-none "
+                    className="w-[150px] border border-gray-700 border-opacity-50 bg-white text-black focus:border-primary focus:outline-none dark:border-secondary dark:bg-gray-700 dark:text-white dark:focus:border-white md:w-[300px] lg:w-[400px] xl:w-full xl:rounded-l-none"
                     {...register('ticket_catalog_name')}
                   >
                     <option value="" disabled>
                       {t('UserPage.TicketSelectDefault')}
                     </option>
                     {ticketCatalogs.map(ticketCatalog => (
-                      <option key={ticketCatalog._id} value={ticketCatalog.name}>
+                      <option
+                        key={ticketCatalog._id}
+                        value={ticketCatalog.name}
+                      >
                         {ticketCatalog.name}
                       </option>
                     ))}
@@ -159,7 +150,12 @@ const BusesPage: React.FC<Card> = () => {
                 </div>
               </div>
               <InputForm
-                placeholder={''} classNameLabel={''} type="hidden" value="Xe khách" {...register('vehicle_catalog_name')} />
+                placeholder={''}
+                classNameLabel={''}
+                type="hidden"
+                value="Xe khách"
+                {...register('vehicle_catalog_name')}
+              />
               <div>
                 <Button
                   type="submit"
@@ -175,13 +171,10 @@ const BusesPage: React.FC<Card> = () => {
             </div>
           </div>
         </form>
-
       </div>
       {/* AllTickets */}
-      <BusesTickets/>
-
+      <BusesTickets />
     </div>
-
   );
 };
 
