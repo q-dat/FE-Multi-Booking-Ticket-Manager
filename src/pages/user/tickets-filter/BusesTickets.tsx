@@ -45,12 +45,14 @@ const BusesTickets: React.FC = () => {
     const filterParams = {
       ticket_catalog_name: ticketCatalog,
       vehicle_catalog_name: vehicleCatalog,
-      departure_point_name: departurePoint,
+      departure_point_name: departurePoint
     };
     await filterTickets(filterParams);
   };
   // Lọc vé xe khách
-  const filteredTickets = tickets.filter(ticket => ticket.vehicle_catalog_id.name === vehicleCatalog);
+  const filteredTickets = tickets.filter(
+    ticket => ticket.vehicle_catalog_id.name === vehicleCatalog
+  );
   return (
     <div className="px-2 xl:px-[100px]">
       <div className="my-5 rounded-lg bg-primary py-2 text-center text-3xl font-bold text-white dark:bg-white dark:text-primary">
@@ -94,7 +96,7 @@ const BusesTickets: React.FC = () => {
               <p className="flex items-center gap-1 bg-blue-50 font-bold text-primary">
                 <PiMapPinAreaDuotone /> Điểm Khởi Hành:
               </p>
-              <div className="grid grid-cols-3 gap-3 md:grid-cols-6 xl:grid-cols-7 justify-center items-center">
+              <div className="grid grid-cols-3 items-center justify-center gap-3 md:grid-cols-6 xl:grid-cols-7">
                 {locations.map(item => (
                   <label
                     className="flex h-8 cursor-pointer items-center gap-1"
@@ -121,11 +123,11 @@ const BusesTickets: React.FC = () => {
             </div>
           </div>
         </div>
-        <div className="grid grid-cols-2 gap-5 justify-center items-center p-5 w-full">
+        <div className="my-5 grid w-full grid-cols-2 items-center justify-center gap-5">
           {filteredTickets.map((ticket: ITicket) => (
             <div
               key={ticket._id}
-              className="w-full transform rounded-lg bg-white text-black shadow-md shadow-primary transition-transform duration-300 ease-in-out hover:scale-105"
+              className="w-full transform rounded-lg bg-white text-black shadow-md shadow-primary transition-transform duration-300 ease-in-out hover:bg-primary hover:bg-opacity-10"
             >
               <div className="flex flex-col gap-1 p-4 font-light">
                 <div className="mb-2 flex items-center justify-center gap-1 font-semibold">
@@ -179,7 +181,6 @@ const BusesTickets: React.FC = () => {
             </div>
           ))}
         </div>
-
       </div>
     </div>
   );
