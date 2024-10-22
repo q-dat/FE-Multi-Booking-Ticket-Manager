@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useCart } from '../../context/cart/CartContext';
-import { MdDelete } from 'react-icons/md';
 import { Button } from 'react-daisyui';
+import { IoIosCloseCircleOutline } from 'react-icons/io';
 
 const CartPage: React.FC = () => {
   const { selectedSeats, removeSeat, clearSeats, totalPrice } = useCart();
@@ -46,21 +46,29 @@ const CartPage: React.FC = () => {
   }, [selectedSeats, removeSeat]);
 
   return (
-    <div className="mb-5 w-full rounded-md border bg-white p-2 text-black shadow-headerMenu shadow-primary dark:bg-black dark:text-white dark:shadow-white">
+    <div className="mb-5 w-full rounded-md bg-white text-black dark:bg-transparent dark:text-white">
+      <h1 className="mx-2 mb-5 border-[4px] border-b-0 border-r-0 border-t-0 border-primary bg-blue-200 px-5 py-1 text-center text-xl text-black dark:border-white dark:bg-gray-400 dark:text-white xl:text-start">
+        Giỏ vé - Số lượng:&nbsp; {selectedSeats.length}
+      </h1>
       {selectedSeats.length === 0 ? (
-        <>{/* <p>Giỏ vé của bạn đang trống!</p> */}</>
+        <>
+          <div className="text-center">
+            <p className="text-red-400">Giỏ vé của bạn đang trống!</p>
+          </div>
+        </>
       ) : (
         <div className="flex flex-col gap-2">
           <div>
             {selectedSeats.map(ticket => (
               <div
                 key={ticket._id}
-                className="flex items-center justify-between border border-b border-l-0 border-r-0 border-t-0 py-2 text-xs"
+                className="flex items-center justify-between border border-b border-l-0 border-r-0 border-t-0 p-2 text-xs"
               >
                 <div className="flex flex-col items-start justify-start">
-                  <p>
-                    {ticket.trip_id.departure_point.name}-
-                    {ticket.trip_id.destination_point.name}{' '}
+                  <p className="flex gap-1">
+                    {ticket.trip_id.departure_point.name}
+                    <span>-</span>
+                    {ticket.trip_id.destination_point.name}
                   </p>
                   <p>
                     {new Date(ticket.trip_id.departure_date).toLocaleDateString(
@@ -85,9 +93,9 @@ const CartPage: React.FC = () => {
                         removeSeat(ticket._id, seatId);
                       }
                     }}
-                    className="text-2xl text-red-500"
+                    className="cursor-pointer text-2xl text-red-500"
                   >
-                    <MdDelete />
+                    <IoIosCloseCircleOutline />
                   </p>
                   <span className="text-red-500">
                     {countdowns[ticket._id]} giây
