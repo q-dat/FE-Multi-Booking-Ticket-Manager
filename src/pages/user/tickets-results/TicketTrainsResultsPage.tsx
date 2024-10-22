@@ -53,6 +53,7 @@ const TicketTrainsResultsPage: React.FC = () => {
   }
 
   const tripInfo = tickets[0]?.trip_id;
+  const ticketCatalogInfo = tickets[0]?.ticket_catalog_id;
   const ticketsByTrain = tickets.reduce(
     (acc: { [key: string]: ITicket[] }, ticket) => {
       const trainName = ticket.seat_id.seat_catalog_id.vehicle_id.name;
@@ -102,7 +103,7 @@ const TicketTrainsResultsPage: React.FC = () => {
         <div className="w-full">
           <h1 className="mx-2 mb-5 border-[4px] border-b-0 border-r-0 border-t-0 border-primary bg-blue-200 px-5 py-1 text-center text-xl text-black dark:border-white dark:bg-gray-400 dark:text-white xl:text-start">
             Chuyến đi từ <strong>{tripInfo.departure_point.name}</strong> đến{' '}
-            <strong>{tripInfo.destination_point.name}</strong>
+            <strong>{tripInfo.destination_point.name}</strong> &nbsp;(<strong>{ticketCatalogInfo.name}</strong>)
           </h1>
 
           <div className="mb-8 flex flex-wrap justify-center">
