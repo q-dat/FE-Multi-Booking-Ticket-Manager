@@ -2,7 +2,6 @@ import React, { useContext, useEffect, useState } from 'react';
 import { Button } from 'react-daisyui';
 import { ITicket } from '../../../types/type/ticket/ticket';
 import { TicketContext } from '../../../context/ticket/TicketContext';
-import { t } from 'i18next';
 import { LocationContext } from '../../../context/location/LocationContext';
 import { TicketCatalogContext } from '../../../context/ticketCatalog/TicketCatalogContext';
 import { IoTicket, IoTrainSharp } from 'react-icons/io5';
@@ -55,9 +54,6 @@ const FlightTickets: React.FC = () => {
   );
   return (
     <div className="px-2 xl:px-[100px]">
-      <div className="my-5 rounded-lg bg-primary py-2 text-center text-3xl font-bold text-white dark:bg-white dark:text-primary">
-        {t('UserPage.TicketPrice')}
-      </div>
       <div className="my-5">
         <div className="rounded-md bg-slate-50 p-2 shadow-headerMenu">
           <div className="flex flex-col gap-3">
@@ -127,7 +123,7 @@ const FlightTickets: React.FC = () => {
           {filteredTickets.map((ticket: ITicket) => (
             <div
               key={ticket._id}
-              className="w-full transform rounded-lg bg-white text-black shadow-md shadow-primary transition-transform duration-300 ease-in-out hover:bg-primary hover:bg-opacity-10"
+              className="w-full transform rounded-lg bg-white dark:hover:bg-gray-50 text-black shadow-md shadow-primary transition-transform duration-300 ease-in-out hover:bg-primary hover:bg-opacity-10"
             >
               <div className="flex flex-col gap-1 p-4 font-light">
                 <div className="mb-2 flex items-center justify-center gap-1 font-semibold">
