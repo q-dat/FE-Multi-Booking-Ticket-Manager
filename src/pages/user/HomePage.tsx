@@ -362,7 +362,7 @@ const Home: React.FC = () => {
         </div>
       </div>
       {/* AllTickets */}
-      <AllTickets/>
+      <AllTickets />
     </div>
   );
 };
