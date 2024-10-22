@@ -121,11 +121,11 @@ const BusesTickets: React.FC = () => {
             </div>
           </div>
         </div>
-        <div className=" grid grid-cols-2 grap-5 justify-center items-center p-5 w-full">
+        <div className="grid grid-cols-2 gap-5 justify-center items-center p-5 w-full">
           {filteredTickets.map((ticket: ITicket) => (
             <div
               key={ticket._id}
-              className="min-w-[500px] transform rounded-lg bg-white text-black shadow-md shadow-primary transition-transform duration-300 ease-in-out hover:scale-105 sm:w-80"
+              className="w-full transform rounded-lg bg-white text-black shadow-md shadow-primary transition-transform duration-300 ease-in-out hover:scale-105"
             >
               <div className="flex flex-col gap-1 p-4 font-light">
                 <div className="mb-2 flex items-center justify-center gap-1 font-semibold">
@@ -179,6 +179,7 @@ const BusesTickets: React.FC = () => {
             </div>
           ))}
         </div>
+
       </div>
     </div>
   );
