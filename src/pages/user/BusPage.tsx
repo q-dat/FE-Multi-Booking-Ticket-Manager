@@ -47,6 +47,7 @@ const BusesPage: React.FC<Card> = () => {
       const selectedVehicle = searchResults[0];
       const vehicleType = selectedVehicle.vehicle_catalog_id.name;
       sessionStorage.setItem('searchResults', JSON.stringify(searchResults));
+      searchParams.vehicle_catalog_name = 'Xe khách';
 
       // Navigate based on vehicle type
       if (vehicleType) {
@@ -157,6 +158,8 @@ const BusesPage: React.FC<Card> = () => {
                   </Select>
                 </div>
               </div>
+              <InputForm
+                placeholder={''} classNameLabel={''} type="hidden" value="Xe khách" {...register('vehicle_catalog_name')} />
               <div>
                 <Button
                   type="submit"
