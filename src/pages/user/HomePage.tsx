@@ -50,8 +50,6 @@ const Home: React.FC = () => {
 
     // Call searchTickets and wait for the result
     const searchResults: ITicket[] = await searchTickets(searchParams);
-    console.log(searchParams);
-    
 
     if (searchResults.length > 0) {
       const selectedVehicle = searchResults[0];
@@ -95,7 +93,7 @@ const Home: React.FC = () => {
   //Get Location
   const { locations, getAllLocations } = useContext(LocationContext);
   useEffect(() => {
-    getAllLocations();  
+    getAllLocations();
   }, []);
   return (
     <div className="pb-[20px] xl:pt-[80px]">
@@ -364,7 +362,7 @@ const Home: React.FC = () => {
         </div>
       </div>
       {/* AllTickets */}
-      <AllTickets/>
+      <AllTickets />
     </div>
   );
 };
