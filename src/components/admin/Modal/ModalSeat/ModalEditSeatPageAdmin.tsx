@@ -39,6 +39,7 @@ const ModalEditSeatPageAdmin: React.FC<ModalEditSeatProps> = ({
       setValue('des', seatData.des);
       setValue('status', seatData.status);
       setValue('ordinal_numbers', seatData.ordinal_numbers);
+      setValue('seat_catalog_id', seatData.seat_catalog_id);
     }
   }, [seats, seatId, setValue]);
 
@@ -126,7 +127,7 @@ const ModalEditSeatPageAdmin: React.FC<ModalEditSeatProps> = ({
                 className="mb-5 w-full border border-gray-700 border-opacity-50 bg-white text-black focus:border-primary focus:outline-none dark:border-secondary dark:bg-gray-700 dark:text-white dark:focus:border-white"
                 {...register('seat_catalog_id._id')}
               >
-                <option value="" disabled>
+                <option disabled value="">
                   Chọn Danh Mục
                 </option>
                 {seatCatalogs.map(seatCatalog => (
