@@ -143,7 +143,7 @@ export const SeatProvider = ({ children }: { children: ReactNode }) => {
     );
   }, []);
 
-//
+//searchSeatsByName
   const searchSeatsByName = useCallback(
     async (filterParams: Record<string, string>): Promise<ISeat[]> => {
       await fetchData(
