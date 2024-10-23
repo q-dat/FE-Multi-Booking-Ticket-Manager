@@ -12,7 +12,7 @@ import { VehicleCatalogContext } from '../../../../context/vehicleCatalog/Vehicl
 import { SeatContext } from '../../../../context/seat/SeatContext';
 import InputModal from '../../InputModal';
 import { TripContext } from '../../../../context/trip/TripContext';
-// import Select from 'react-select'; 
+// import Select from 'react-select';
 
 interface ModalCreateTicketProps {
   isOpen: boolean;
@@ -104,6 +104,23 @@ const ModalCreateTicketPageAdmin: React.FC<ModalCreateTicketProps> = ({
                   </option>
                 ))}
               </DaisySelect>
+              <LabelForm title={'Chọn chỗ ngồi'} />
+              <DaisySelect
+                defaultValue=""
+                className="w-full border border-gray-700 border-opacity-50 bg-white text-black focus:border-primary focus:outline-none dark:border-secondary dark:bg-gray-700 dark:text-white dark:focus:border-white"
+                {...register('seat_id', {
+                  required: true
+                })}
+              >
+                <option disabled value="">
+                  Chọn Chỗ Ngồi
+                </option>
+                {seats.map(seat => (
+                  <option value={seat._id} key={seat._id}>
+                    {seat.name}
+                  </option>
+                ))}
+              </DaisySelect>
             </div>
 
             <div className="flex flex-col gap-2">
@@ -122,7 +139,6 @@ const ModalCreateTicketPageAdmin: React.FC<ModalCreateTicketProps> = ({
                   </option>
                 ))}
               </DaisySelect>
-
               <LabelForm title={'Chuyến đi'} />
               <DaisySelect
                 defaultValue=""
@@ -151,8 +167,8 @@ const ModalCreateTicketPageAdmin: React.FC<ModalCreateTicketProps> = ({
           </div>
 
           <div className="mt-4 flex flex-col gap-5 text-center">
-            <div className="text-start">
-              {/* <LabelForm title={'Chọn chỗ ngồi'} />
+            {/* <div className="text-start">
+              <LabelForm title={'Chọn chỗ ngồi'} />
               <Select
                 isMulti
                 options={seats.map(seat => ({
@@ -166,25 +182,9 @@ const ModalCreateTicketPageAdmin: React.FC<ModalCreateTicketProps> = ({
                     target: { value: seatIds }
                   });
                 }}
-              /> */}
-              <LabelForm title={'Chọn chỗ ngồi'} />
-              <DaisySelect
-                defaultValue=""
-                className="w-full border border-gray-700 border-opacity-50 bg-white text-black focus:border-primary focus:outline-none dark:border-secondary dark:bg-gray-700 dark:text-white dark:focus:border-white"
-                {...register('seat_id', {
-                  required: true
-                })}
-              >
-                <option disabled value="">
-                  Chọn Chỗ Ngồi
-                </option>
-                {seats.map(seat => (
-                  <option value={seat._id} key={seat._id}>
-                    {seat.name}
-                  </option>
-                ))}
-              </DaisySelect>
-            </div>
+              />
+            
+            </div> */}
 
             <div className="flex flex-row items-center justify-center gap-5">
               <Button onClick={onClose} className="border-gray-50 text-black">
