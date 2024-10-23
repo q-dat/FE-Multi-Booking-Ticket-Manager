@@ -11,8 +11,7 @@ import {
   deleteSeatApi,
   getSeatsApi,
   updateSeatApi,
-  searchSeatsByNameApi,
-  searchSeatsByCategoryIdApi
+  searchSeatsByVehicleNameApi
 } from '../../axios/api/seatApi';
 
 interface SeatContextType {
@@ -22,8 +21,7 @@ interface SeatContextType {
     create: boolean;
     update: boolean;
     delete: boolean;
-    search: boolean;
-    searchByCategory: boolean;
+    filter: boolean;
   };
   error: string | null;
   getAllSeats: () => void;
@@ -31,8 +29,7 @@ interface SeatContextType {
   createSeat: (seat: ISeat) => Promise<void>;
   updateSeat: (_id: string, seat: ISeat) => Promise<void>;
   deleteSeat: (_id: string) => Promise<void>;
-  searchSeatsByName: (name: string) => void;
-  searchSeatsByCategoryId: (categoryID: string) => void;
+  searchSeatsByName: (filterParams: Record<string, string>) => Promise<ISeat[]>;
 }
 
 const defaultContextValue: SeatContextType = {
@@ -42,8 +39,7 @@ const defaultContextValue: SeatContextType = {
     create: false,
     update: false,
     delete: false,
-    search: false,
-    searchByCategory: false
+    filter: false,
   },
   error: null,
   getAllSeats: () => {},
@@ -51,8 +47,7 @@ const defaultContextValue: SeatContextType = {
   createSeat: async () => {},
   updateSeat: async () => {},
   deleteSeat: async () => {},
-  searchSeatsByName: () => {},
-  searchSeatsByCategoryId: () => {}
+  searchSeatsByName:  async () => [],
 };
 
 export const SeatContext = createContext<SeatContextType>(defaultContextValue);
@@ -64,15 +59,13 @@ export const SeatProvider = ({ children }: { children: ReactNode }) => {
     create: boolean;
     update: boolean;
     delete: boolean;
-    search: boolean;
-    searchByCategory: boolean;
+    filter: boolean;
   }>({
     getAll: false,
     create: false,
     update: false,
     delete: false,
-    search: false,
-    searchByCategory: false
+    filter: false
   });
   const [error, setError] = useState<string | null>(null);
 
@@ -83,7 +76,7 @@ export const SeatProvider = ({ children }: { children: ReactNode }) => {
   const fetchData = async (
     apiCall: () => Promise<any>,
     onSuccess: (data: any) => void,
-    requestType: keyof typeof loading // 'getAll', 'create', 'update', 'delete', 'search', 'searchByCategory'
+    requestType: keyof typeof loading // 'getAll', 'create', 'update', 'delete', 'filter'
   ) => {
     setLoading(prev => ({ ...prev, [requestType]: true }));
     setError(null);
@@ -150,22 +143,20 @@ export const SeatProvider = ({ children }: { children: ReactNode }) => {
     );
   }, []);
 
-  // Search by name
-  const searchSeatsByName = useCallback((name: string) => {
-    fetchData(
-      () => searchSeatsByNameApi(name),
-      data => setSeats(data.seats || []),
-      'search'
-    );
-  }, []);
-  // Search by categoryID
-  const searchSeatsByCategoryId = useCallback((categoryID: string) => {
-    fetchData(
-      () => searchSeatsByCategoryIdApi(categoryID),
-      data => setSeats(data.seats || []),
-      'searchByCategory'
-    );
-  }, []);
+//
+  const searchSeatsByName = useCallback(
+    async (filterParams: Record<string, string>): Promise<ISeat[]> => {
+      await fetchData(
+        () => searchSeatsByVehicleNameApi(filterParams),
+        data => {
+          setSeats(data.seats || []);
+        },
+        'filter'
+      );
+      return seats;
+    },
+    [seats]
+  );
 
   useEffect(() => {
     getAllSeats();
@@ -182,8 +173,7 @@ export const SeatProvider = ({ children }: { children: ReactNode }) => {
         createSeat,
         updateSeat,
         deleteSeat,
-        searchSeatsByName,
-        searchSeatsByCategoryId
+        searchSeatsByName
       }}
     >
       {children}
