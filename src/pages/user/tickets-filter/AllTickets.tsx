@@ -10,7 +10,7 @@ import { VehicleCatalogContext } from '../../../context/vehicleCatalog/VehicleCa
 import { IoTicket, IoTrainSharp } from 'react-icons/io5';
 import { IoMdPricetag } from 'react-icons/io';
 import { PiMapPinAreaDuotone, PiSeatFill } from 'react-icons/pi';
-import { FaArrowRightArrowLeft, FaCartPlus } from 'react-icons/fa6';
+import { FaCartPlus } from 'react-icons/fa6';
 
 const AllTickets: React.FC = () => {
   // Get Ticket
@@ -144,7 +144,7 @@ const AllTickets: React.FC = () => {
               <p className="flex items-center gap-1 bg-blue-50 font-bold text-primary">
                 <PiMapPinAreaDuotone /> Điểm Khởi Hành:
               </p>
-              <div className="grid grid-cols-3 gap-3 md:grid-cols-6 xl:grid-cols-7 justify-center items-center">
+              <div className="grid grid-cols-3 items-center justify-center gap-3 md:grid-cols-6 xl:grid-cols-7">
                 {locations.map(item => (
                   <label
                     className="flex h-8 cursor-pointer items-center gap-1"
@@ -186,7 +186,7 @@ const AllTickets: React.FC = () => {
                   <span className="font-semibold">
                     {ticket.trip_id.departure_point.name}
                   </span>
-                  <FaArrowRightArrowLeft color="#12296999" />
+                  <p className="text-primary">-</p>
                   <span className="font-semibold">
                     {ticket.trip_id.destination_point.name}
                   </span>

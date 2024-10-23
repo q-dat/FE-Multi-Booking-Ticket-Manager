@@ -1,7 +1,9 @@
 import { ILocation } from '../location/location';
+import { IVehicle } from '../vehicle/vehicle';
 
 export interface ITrip {
   _id: string;
+  vehicle_id:IVehicle;
   departure_point: ILocation;
   destination_point: ILocation;
   price: number;

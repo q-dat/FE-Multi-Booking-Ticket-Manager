@@ -89,8 +89,8 @@ const TripPage: React.FC = () => {
         table_head={
           <Table.Head className="bg-primary text-center text-white">
             <span>STT</span>
-            <span>Điểm Khởi Hành</span>
-            <span>Điểm Đến</span>
+            <span>Chuyến Đi</span>
+            <span>Danh Mục</span>
             <span>Thời Gian Đi</span>
             <span>Thời Gian Về</span>
             <span>Giá</span>
@@ -102,8 +102,12 @@ const TripPage: React.FC = () => {
             {trips.map((trip: ITrip, index: number) => (
               <Table.Row key={index}>
                 <span className="line-clamp-1">#{index + 1}</span>
-                <span>{trip.departure_point?.name}</span>
-                <span>{trip.destination_point?.name}</span>
+                <span className="flex items-center justify-center gap-1">
+                  {trip.departure_point?.name}
+                  <p className="text-primary">-</p>
+                  {trip.destination_point?.name}
+                </span>
+                <span>{trip.vehicle_id?.name}</span>
                 <span>
                   {trip.departure_time}-
                   {new Date(trip.departure_date).toLocaleDateString('vi-VN')}
