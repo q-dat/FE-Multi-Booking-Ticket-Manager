@@ -27,7 +27,6 @@ export const deleteSeatApi = (id: string) => {
 };
 
 // Search
-
 export const searchSeatsByVehicleNameApi = (filterParams: Record<string, string>) => {
   const query = new URLSearchParams(filterParams).toString();
   return axios.get<{ tickets: ISeat[] }>(`/api/seat/search?${query}`);
