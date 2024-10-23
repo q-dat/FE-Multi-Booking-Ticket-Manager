@@ -8,6 +8,7 @@ import { ITrip } from '../../../../types/type/trip/trip';
 import { TripContext } from '../../../../context/trip/TripContext';
 import LabelForm from '../../LabelForm';
 import { LocationContext } from '../../../../context/location/LocationContext';
+import { VehicleCatalogContext } from '../../../../context/vehicleCatalog/VehicleCatalogContext';
 
 interface ModalEditTripProps {
   isOpen: boolean;
@@ -23,6 +24,7 @@ const ModalEditTripPageAdmin: React.FC<ModalEditTripProps> = ({
   const { getAllTrips, updateTrip, getTripById, trips } =
     useContext(TripContext);
   const { locations } = useContext(LocationContext);
+  const { vehicleCatalogs } = useContext(VehicleCatalogContext);
   const { register, handleSubmit, reset, setValue } = useForm<ITrip>();
 
   useEffect(() => {
@@ -88,7 +90,7 @@ const ModalEditTripPageAdmin: React.FC<ModalEditTripProps> = ({
               <Select
                 defaultValue=""
                 className="mb-5 w-full border border-gray-700 border-opacity-50 bg-white text-black focus:border-primary focus:outline-none dark:border-secondary dark:bg-gray-700 dark:text-white dark:focus:border-white"
-                {...register('departure_point')}
+                {...register('departure_point._id')}
               >
                 <option value="" disabled>
                   Chọn Điểm Khởi Hành
@@ -111,13 +113,29 @@ const ModalEditTripPageAdmin: React.FC<ModalEditTripProps> = ({
                 {...register('departure_time')}
                 placeholder="vd: 06:00"
               />
+              {/*  */}
+              <LabelForm title={'Phương Tiện'} />
+              <Select
+                defaultValue=""
+                className="mb-5 w-full border border-gray-700 border-opacity-50 bg-white text-black focus:border-primary focus:outline-none dark:border-secondary dark:bg-gray-700 dark:text-white dark:focus:border-white"
+                {...register('vehicle_catalog_id._id')}
+              >
+                <option disabled value="">
+                  Chọn Phương Tiện
+                </option>
+                {vehicleCatalogs.map(vehicleCatalog => (
+                  <option key={vehicleCatalog._id} value={vehicleCatalog._id}>
+                    {vehicleCatalog.name}
+                  </option>
+                ))}
+              </Select>
             </div>
             <div className="flex flex-col">
               <LabelForm title={'Điểm Đến'} />
               <Select
                 defaultValue=""
                 className="mb-5 w-full border border-gray-700 border-opacity-50 bg-white text-black focus:border-primary focus:outline-none dark:border-secondary dark:bg-gray-700 dark:text-white dark:focus:border-white"
-                {...register('destination_point')}
+                {...register('destination_point._id')}
               >
                 <option value="" disabled>
                   Chọn Điểm Đến
@@ -140,11 +158,7 @@ const ModalEditTripPageAdmin: React.FC<ModalEditTripProps> = ({
                 {...register('return_time')}
                 placeholder="vd: 12:00"
               />
-            </div>
-          </div>
-          <div className="mt-4 flex flex-col gap-5 text-center">
-            {/*  */}
-            <div className="text-start">
+              {/*  */}
               <LabelForm title={'Giá vé'} />
               <InputModal
                 placeholder={'vd: 1000'}
@@ -152,6 +166,8 @@ const ModalEditTripPageAdmin: React.FC<ModalEditTripProps> = ({
                 {...register('price')}
               />
             </div>
+          </div>
+          <div className="mt-4 flex flex-col gap-5 text-center">
             {/*  */}
             <div className="flex flex-row items-center justify-center gap-5">
               <Button onClick={onClose} className="border-gray-50 text-black">
