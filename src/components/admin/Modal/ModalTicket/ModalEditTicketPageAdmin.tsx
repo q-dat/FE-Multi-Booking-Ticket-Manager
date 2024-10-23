@@ -95,7 +95,7 @@ const ModalEditTicketPageAdmin: React.FC<ModalEditTicketProps> = ({
               <Select
                 defaultValue=""
                 className="w-full border border-gray-700 border-opacity-50 bg-white text-black focus:border-primary focus:outline-none dark:border-secondary dark:bg-gray-700 dark:text-white dark:focus:border-white"
-                {...register('vehicle_catalog_id')}
+                {...register('vehicle_catalog_id._id')}
               >
                 <option disabled value="">
                   Chọn Loại Phương Tiện
@@ -112,7 +112,7 @@ const ModalEditTicketPageAdmin: React.FC<ModalEditTicketProps> = ({
               <Select
                 defaultValue=""
                 className="w-full border border-gray-700 border-opacity-50 bg-white text-black focus:border-primary focus:outline-none dark:border-secondary dark:bg-gray-700 dark:text-white dark:focus:border-white"
-                {...register('seat_id.seat_catalog_id.vehicle_id')}
+                {...register('seat_id.seat_catalog_id.vehicle_id._id')}
               >
                 <option disabled value="">
                   Chọn Phương Tiện
@@ -120,6 +120,22 @@ const ModalEditTicketPageAdmin: React.FC<ModalEditTicketProps> = ({
                 {vehicles.map(vehicle => (
                   <option value={vehicle._id} key={vehicle._id}>
                     {vehicle.name}
+                  </option>
+                ))}
+              </Select>
+              {/*  */}
+              <LabelForm title={'Chọn chỗ ngồi'} />
+              <Select
+                defaultValue=""
+                className="w-full border border-gray-700 border-opacity-50 bg-white text-black focus:border-primary focus:outline-none dark:border-secondary dark:bg-gray-700 dark:text-white dark:focus:border-white"
+                {...register('seat_id._id')}
+              >
+                <option disabled value="">
+                  Chọn Chỗ Ngồi
+                </option>
+                {seats.map(seat => (
+                  <option value={seat._id} key={seat._id}>
+                    {seat.name}
                   </option>
                 ))}
               </Select>
@@ -131,7 +147,7 @@ const ModalEditTicketPageAdmin: React.FC<ModalEditTicketProps> = ({
               <Select
                 defaultValue=""
                 className="w-full border border-gray-700 border-opacity-50 bg-white text-black focus:border-primary focus:outline-none dark:border-secondary dark:bg-gray-700 dark:text-white dark:focus:border-white"
-                {...register('ticket_catalog_id')}
+                {...register('ticket_catalog_id._id')}
               >
                 <option disabled value="">
                   Chọn Loại Vé
@@ -147,7 +163,7 @@ const ModalEditTicketPageAdmin: React.FC<ModalEditTicketProps> = ({
               <Select
                 defaultValue=""
                 className="w-full border border-gray-700 border-opacity-50 bg-white text-black focus:border-primary focus:outline-none dark:border-secondary dark:bg-gray-700 dark:text-white dark:focus:border-white"
-                {...register('trip_id')}
+                {...register('trip_id._id')}
               >
                 <option disabled value="">
                   Chọn Chuyến Đi
@@ -171,24 +187,6 @@ const ModalEditTicketPageAdmin: React.FC<ModalEditTicketProps> = ({
             </div>
           </div>
           <div className="mt-4 flex flex-col gap-5 text-center">
-            {/*  */}
-            <div className="text-start">
-              <LabelForm title={'Chọn chỗ ngồi'} />
-              <Select
-                defaultValue=""
-                className="w-full border border-gray-700 border-opacity-50 bg-white text-black focus:border-primary focus:outline-none dark:border-secondary dark:bg-gray-700 dark:text-white dark:focus:border-white"
-                {...register('seat_id')}
-              >
-                <option disabled value="">
-                  Chọn Chỗ Ngồi
-                </option>
-                {seats.map(seat => (
-                  <option value={seat._id} key={seat._id}>
-                    {seat.name}
-                  </option>
-                ))}
-              </Select>
-            </div>
             {/*  */}
             <div className="flex flex-row items-center justify-center gap-5">
               <Button onClick={onClose} className="border-gray-50 text-black">

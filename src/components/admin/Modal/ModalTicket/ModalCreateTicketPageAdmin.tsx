@@ -105,22 +105,21 @@ const ModalCreateTicketPageAdmin: React.FC<ModalCreateTicketProps> = ({
                 ))}
               </DaisySelect>
               <LabelForm title={'Chọn chỗ ngồi'} />
-              <DaisySelect
+              <DaisySelectg
                 defaultValue=""
                 className="w-full border border-gray-700 border-opacity-50 bg-white text-black focus:border-primary focus:outline-none dark:border-secondary dark:bg-gray-700 dark:text-white dark:focus:border-white"
-                {...register('seat_id', {
-                  required: true
-                })}
+                {...register('seat_id._id', { required: true })}
               >
                 <option disabled value="">
                   Chọn Chỗ Ngồi
                 </option>
                 {seats.map(seat => (
                   <option value={seat._id} key={seat._id}>
-                    {seat.name}
+                    {seat.ordinal_numbers} &nbsp;-&nbsp;
+                    {seat.seat_catalog_id.name}
                   </option>
                 ))}
-              </DaisySelect>
+              </DaisySelectg>
             </div>
 
             <div className="flex flex-col gap-2">
