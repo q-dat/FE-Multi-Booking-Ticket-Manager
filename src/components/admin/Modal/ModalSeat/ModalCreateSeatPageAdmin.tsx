@@ -94,7 +94,7 @@ const ModalCreateSeatPageAdmin: React.FC<ModalCreateSeatProps> = ({
             <Select
               defaultValue=""
               className="mb-5 w-full border border-gray-700 border-opacity-50 bg-white text-black focus:border-primary focus:outline-none dark:border-secondary dark:bg-gray-700 dark:text-white dark:focus:border-white"
-              {...register('seat_catalog_id')}
+              {...register('seat_catalog_id._id')}
             >
               <option value="" disabled>
                 Chọn danh mục

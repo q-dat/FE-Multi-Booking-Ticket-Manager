@@ -40,6 +40,7 @@ const ModalEditSeatCatalogPageAdmin: React.FC<ModalEditSeatCatalogProps> = ({
     );
     if (seatCatalogData) {
       setValue('name', seatCatalogData.name);
+      setValue('vehicle_id', seatCatalogData.vehicle_id);
     }
   }, [seatCatalogs, seatCatalogId, setValue]);
 
@@ -91,7 +92,7 @@ const ModalEditSeatCatalogPageAdmin: React.FC<ModalEditSeatCatalogProps> = ({
             <Select
               defaultValue=""
               className="mb-5 w-full border border-gray-700 border-opacity-50 bg-white text-black focus:border-primary focus:outline-none dark:border-secondary dark:bg-gray-700 dark:text-white dark:focus:border-white"
-              {...register('vehicle_id')}
+              {...register('vehicle_id._id')}
             >
               <option value="" disabled>
                 Chọn danh mục

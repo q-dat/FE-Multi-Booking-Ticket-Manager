@@ -16,31 +16,20 @@ import NavbarMobile from '../../components/admin/Reponsive/Mobile/NavbarMobile';
 import { useNavigate } from 'react-router-dom';
 import { SeatContext } from '../../context/seat/SeatContext';
 import { ISeat } from '../../types/type/seat/seat';
-import { SeatCatalogContext } from '../../context/seatCatalog/SeatCatalogContext';
-import { ISeatCatalog } from '../../types/type/seat-catalog/seat-catalog';
-import { VehicleCatalogContext } from '../../context/vehicleCatalog/VehicleCatalogContext';
 import { LuFilter } from 'react-icons/lu';
+import { VehicleContext } from '../../context/vehicle/VehicleContext';
+import { SeatCatalogContext } from '../../context/seatCatalog/SeatCatalogContext';
 
 const SeatPage: React.FC = () => {
-  const {
-    seats,
-    loading,
-    error,
-    deleteSeat,
-    getAllSeats,
-    searchSeatsByName,
-    searchSeatsByCategoryId
-  } = useContext(SeatContext);
+  const { seats, loading, error, deleteSeat, getAllSeats, searchSeatsByName } =
+    useContext(SeatContext);
+  const { vehicles } = useContext(VehicleContext);
   const { seatCatalogs } = useContext(SeatCatalogContext);
-  const { vehicleCatalogs } = useContext(VehicleCatalogContext);
+
   const [isModalCreateOpen, setIsModalCreateOpen] = useState(false);
   const [isModalDeleteOpen, setIsModalDeleteOpen] = useState(false);
   const [isModalEditOpen, setIsModalEditOpen] = useState(false);
   const [selectedSeatId, setSelectedSeatId] = useState<string | null>(null);
-  const [checkboxCategory, setCheckboxCategory] = useState<string | null>(null);
-  const [checkboxIDCategory, setCheckboxIDCategory] = useState<string | null>(
-    null
-  );
   //
 
   useEffect(() => {
@@ -103,18 +92,34 @@ const SeatPage: React.FC = () => {
       return newItems;
     });
   };
-  //
-  const handleSearchByCategory = async (vehicleCatalog: string) => {
-    await searchSeatsByName(vehicleCatalog);
+  //Filter
+  const [vehiclesName, setVehiclesName] = useState<string>('');
+  const [seatCatalogsName, setSeatCatalogsName] = useState<string>('');
+  const [shouldSearch, setShouldSearch] = useState(false);
+
+  const handleFilter = async () => {
+    const filterParams = {
+      vehicleName: vehiclesName,
+      seatCatalogName: seatCatalogsName
+    };
+    await searchSeatsByName(filterParams);
   };
-  const handleCategoryChange = async (categoryId: string) => {
-    if (checkboxIDCategory === categoryId) {
-      setCheckboxIDCategory(null);
-      getAllSeats();
-    } else {
-      setCheckboxIDCategory(categoryId);
-      await searchSeatsByCategoryId(categoryId);
+
+  useEffect(() => {
+    if (shouldSearch) {
+      handleFilter();
+      setShouldSearch(false);
     }
+  }, [shouldSearch]);
+
+  const handleCheckboxChange = (
+    setter: React.Dispatch<React.SetStateAction<string>>,
+    value: string,
+    currentValue: string
+  ) => {
+    const newValue = currentValue === value ? '' : value;
+    setter(newValue);
+    setShouldSearch(true);
   };
 
   if (loading.getAll) return <LoadingLocal />;
@@ -128,23 +133,6 @@ const SeatPage: React.FC = () => {
           Title_NavtitleAdmin="Quản Lý Ghế Ngồi"
           Btn_Create={
             <div className="flex flex-col items-start justify-center gap-2 md:flex-row md:items-end">
-              <div className="flex gap-4">
-                {vehicleCatalogs.map(vehicleCatalog => (
-                  <label key={vehicleCatalog._id} className="flex items-center">
-                    <input
-                      type="checkbox"
-                      className="cursor-pointer"
-                      checked={checkboxCategory === vehicleCatalog.name}
-                      onChange={() => {
-                        setCheckboxCategory(vehicleCatalog.name);
-                        handleSearchByCategory(vehicleCatalog.name);
-                      }}
-                    />
-                    <span className="ml-2">{vehicleCatalog.name}</span>
-                  </label>
-                ))}
-              </div>
-
               <div className="flex flex-row gap-2">
                 <Button
                   color="primary"
@@ -159,24 +147,69 @@ const SeatPage: React.FC = () => {
                 {/*  */}
                 <div className="dropdown dropdown-hover relative flex h-12 w-[100px] cursor-pointer flex-col items-center justify-center rounded-md bg-primary text-white">
                   <p className="flex flex-row items-center justify-center gap-1">
-                    <LuFilter /> <span>Lọc</span>
+                    <LuFilter />
+                    <span>Lọc</span>
                   </p>
-                  <div className="dropdown-content absolute top-[100%] z-10 w-52 space-y-1 rounded-md bg-slate-50 p-2 shadow-headerMenu drop-shadow-md">
-                    {seatCatalogs?.map((catalog: ISeatCatalog) => (
-                      <div className="flex" key={catalog._id}>
-                        <label className="flex h-8 cursor-pointer items-center gap-2">
-                          <input
-                            type="checkbox"
-                            className="cursor-pointer"
-                            checked={checkboxIDCategory === catalog._id}
-                            onChange={() => handleCategoryChange(catalog._id)}
-                          />
-                          <span className="text-primary hover:text-secondary">
-                            {catalog.name}
-                          </span>
-                        </label>
+                  <div className="dropdown-content absolute top-[100%] z-10 w-[350px] space-y-1 rounded-md bg-slate-50 p-2 shadow-headerMenu drop-shadow-md">
+                    <div className="flex flex-row gap-4">
+                      {/* Loại Vé */}
+                      <div className="flex flex-col">
+                        <span className="font-semibold text-primary hover:text-secondary">
+                          Phương Tiện
+                        </span>
+                        {vehicles.map(item => (
+                          <label
+                            className="flex h-8 cursor-pointer items-center gap-2"
+                            key={item.name}
+                          >
+                            <input
+                              type="checkbox"
+                              className="cursor-pointer"
+                              checked={vehiclesName === item.name}
+                              onChange={() =>
+                                handleCheckboxChange(
+                                  setVehiclesName,
+                                  item.name,
+                                  vehiclesName
+                                )
+                              }
+                            />
+                            <span className="text-primary hover:text-secondary">
+                              {item.name}
+                            </span>
+                          </label>
+                        ))}
                       </div>
-                    ))}
+
+                      {/* Phương Tiện */}
+                      <div className="flex flex-col">
+                        <span className="font-semibold text-primary hover:text-secondary">
+                          Khoang/Toa
+                        </span>
+                        {seatCatalogs.map(item => (
+                          <label
+                            className="flex h-8 cursor-pointer items-center gap-2"
+                            key={item.name}
+                          >
+                            <input
+                              type="checkbox"
+                              className="cursor-pointer"
+                              checked={seatCatalogsName === item.name}
+                              onChange={() =>
+                                handleCheckboxChange(
+                                  setSeatCatalogsName,
+                                  item.name,
+                                  seatCatalogsName
+                                )
+                              }
+                            />
+                            <span className="text-primary hover:text-secondary">
+                              {item.name}
+                            </span>
+                          </label>
+                        ))}
+                      </div>
+                    </div>
                   </div>
                 </div>
                 {/*  */}

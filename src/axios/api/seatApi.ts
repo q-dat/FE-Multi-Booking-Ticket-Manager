@@ -26,13 +26,8 @@ export const deleteSeatApi = (id: string) => {
   return axios.delete(`/api/seats/${id}`);
 };
 
-// Search by name
-export const searchSeatsByNameApi = (name: string) => {
-  return axios.get<{ seats: ISeat[] }>('/api/seat/search', {
-    params: { name }
-  });
-};
-// Gọi API theo đường dẫn với req.params
-export const searchSeatsByCategoryIdApi = (categoryID: string) => {
-  return axios.get<{ seats: ISeat[] }>(`/api/seats/category/${categoryID}`);
+// Search
+export const searchSeatsByVehicleNameApi = (filterParams: Record<string, string>) => {
+  const query = new URLSearchParams(filterParams).toString();
+  return axios.get<{ tickets: ISeat[] }>(`/api/seat/search?${query}`);
 };
