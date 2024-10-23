@@ -107,7 +107,7 @@ const TripPage: React.FC = () => {
                   <p className="text-primary">-</p>
                   {trip.destination_point?.name}
                 </span>
-                <span>{trip.vehicle_id?.name}</span>
+                <span>{trip.vehicle_catalog_id?.name}</span>
                 <span>
                   {trip.departure_time}-
                   {new Date(trip.departure_date).toLocaleDateString('vi-VN')}
