@@ -43,6 +43,7 @@ const ModalEditTripPageAdmin: React.FC<ModalEditTripProps> = ({
       setValue('return_date', tripData.return_date);
       setValue('return_time', tripData.return_time);
       setValue('price', tripData.price);
+      setValue('vehicle_catalog_id', tripData.vehicle_catalog_id);
     }
   }, [trips, tripId, setValue]);
 

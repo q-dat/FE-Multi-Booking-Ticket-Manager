@@ -67,7 +67,7 @@ const ModalCreateTripPageAdmin: React.FC<ModalCreateTicketProps> = ({
               <Select
                 defaultValue=""
                 className="mb-5 w-full border border-gray-700 border-opacity-50 bg-white text-black focus:border-primary focus:outline-none dark:border-secondary dark:bg-gray-700 dark:text-white dark:focus:border-white"
-                {...register('departure_point._id', { required: true })}
+                {...register('departure_point', { required: true })}
               >
                 <option value="" disabled>
                   Chọn Điểm Khởi Hành
@@ -112,7 +112,7 @@ const ModalCreateTripPageAdmin: React.FC<ModalCreateTicketProps> = ({
               <Select
                 defaultValue=""
                 className="mb-5 w-full border border-gray-700 border-opacity-50 bg-white text-black focus:border-primary focus:outline-none dark:border-secondary dark:bg-gray-700 dark:text-white dark:focus:border-white"
-                {...register('destination_point._id', { required: true })}
+                {...register('destination_point', { required: true })}
               >
                 <option value="" disabled>
                   Chọn Điểm Đến
