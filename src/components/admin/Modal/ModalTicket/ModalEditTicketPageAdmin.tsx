@@ -10,7 +10,6 @@ import LabelForm from '../../LabelForm';
 import { VehicleContext } from '../../../../context/vehicle/VehicleContext';
 import { VehicleCatalogContext } from '../../../../context/vehicleCatalog/VehicleCatalogContext';
 import { SeatContext } from '../../../../context/seat/SeatContext';
-import { SeatCatalogContext } from '../../../../context/seatCatalog/SeatCatalogContext';
 import { TripContext } from '../../../../context/trip/TripContext';
 import { TicketCatalogContext } from '../../../../context/ticketCatalog/TicketCatalogContext';
 
@@ -30,7 +29,6 @@ const ModalEditTicketPageAdmin: React.FC<ModalEditTicketProps> = ({
   const { vehicles } = useContext(VehicleContext);
   const { vehicleCatalogs } = useContext(VehicleCatalogContext);
   const { seats } = useContext(SeatContext);
-  const { seatCatalogs } = useContext(SeatCatalogContext);
   const { trips } = useContext(TripContext);
   const { register, handleSubmit, reset, setValue } = useForm<ITicket>();
   const { ticketCatalogs } = useContext(TicketCatalogContext);
@@ -125,22 +123,6 @@ const ModalEditTicketPageAdmin: React.FC<ModalEditTicketProps> = ({
                   </option>
                 ))}
               </Select>
-              {/*  */}
-              <LabelForm title={'Khoang(toa)'} />
-              <Select
-                defaultValue=""
-                className="w-full border border-gray-700 border-opacity-50 bg-white text-black focus:border-primary focus:outline-none dark:border-secondary dark:bg-gray-700 dark:text-white dark:focus:border-white"
-                {...register('seat_id.seat_catalog_id.vehicle_id')}
-              >
-                <option disabled value="">
-                  Chọn Khoang/Toa
-                </option>
-                {seatCatalogs.map(seatCatalog => (
-                  <option value={seatCatalog._id} key={seatCatalog._id}>
-                    {seatCatalog.name}
-                  </option>
-                ))}
-              </Select>
             </div>
             {/*  */}
             <div className="flex flex-col gap-2">
@@ -195,9 +177,7 @@ const ModalEditTicketPageAdmin: React.FC<ModalEditTicketProps> = ({
               <Select
                 defaultValue=""
                 className="w-full border border-gray-700 border-opacity-50 bg-white text-black focus:border-primary focus:outline-none dark:border-secondary dark:bg-gray-700 dark:text-white dark:focus:border-white"
-                {...register('seat_id', {
-                  required: true
-                })}
+                {...register('seat_id')}
               >
                 <option disabled value="">
                   Chọn Chỗ Ngồi
