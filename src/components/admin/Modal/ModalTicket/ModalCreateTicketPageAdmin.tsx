@@ -91,7 +91,7 @@ const ModalCreateTicketPageAdmin: React.FC<ModalCreateTicketProps> = ({
               <DaisySelect
                 defaultValue=""
                 className="w-full border border-gray-700 border-opacity-50 bg-white text-black focus:border-primary focus:outline-none dark:border-secondary dark:bg-gray-700 dark:text-white dark:focus:border-white"
-                {...register('seat_id.seat_catalog_id.vehicle_id', {
+                {...register('seat_id.seat_catalog_id.vehicle_id._id', {
                   required: true
                 })}
               >
@@ -105,7 +105,7 @@ const ModalCreateTicketPageAdmin: React.FC<ModalCreateTicketProps> = ({
                 ))}
               </DaisySelect>
               <LabelForm title={'Chọn chỗ ngồi'} />
-              <DaisySelectg
+              <DaisySelect
                 defaultValue=""
                 className="w-full border border-gray-700 border-opacity-50 bg-white text-black focus:border-primary focus:outline-none dark:border-secondary dark:bg-gray-700 dark:text-white dark:focus:border-white"
                 {...register('seat_id._id', { required: true })}
@@ -119,7 +119,7 @@ const ModalCreateTicketPageAdmin: React.FC<ModalCreateTicketProps> = ({
                     {seat.seat_catalog_id.name}
                   </option>
                 ))}
-              </DaisySelectg>
+              </DaisySelect>
             </div>
 
             <div className="flex flex-col gap-2">
@@ -127,7 +127,7 @@ const ModalCreateTicketPageAdmin: React.FC<ModalCreateTicketProps> = ({
               <DaisySelect
                 defaultValue=""
                 className="w-full border border-gray-700 border-opacity-50 bg-white text-black focus:border-primary focus:outline-none dark:border-secondary dark:bg-gray-700 dark:text-white dark:focus:border-white"
-                {...register('ticket_catalog_id', { required: true })}
+                {...register('ticket_catalog_id._id', { required: true })}
               >
                 <option disabled value="">
                   Chọn Loại Vé
@@ -142,7 +142,7 @@ const ModalCreateTicketPageAdmin: React.FC<ModalCreateTicketProps> = ({
               <DaisySelect
                 defaultValue=""
                 className="w-full border border-gray-700 border-opacity-50 bg-white text-black focus:border-primary focus:outline-none dark:border-secondary dark:bg-gray-700 dark:text-white dark:focus:border-white"
-                {...register('trip_id', { required: true })}
+                {...register('trip_id._id', { required: true })}
               >
                 <option disabled value="">
                   Chọn Chuyến Đi
@@ -177,7 +177,7 @@ const ModalCreateTicketPageAdmin: React.FC<ModalCreateTicketProps> = ({
                 onChange={selectedOptions => {
                   const seatIds = selectedOptions.map(option => option.value);
                   console.log(seatIds)
-                  register('seat_id', { required: true }).onChange({
+                  register('seat_id._id', { required: true }).onChange({
                     target: { value: seatIds }
                   });
                 }}
