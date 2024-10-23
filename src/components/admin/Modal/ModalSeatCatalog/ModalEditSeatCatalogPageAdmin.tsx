@@ -40,6 +40,7 @@ const ModalEditSeatCatalogPageAdmin: React.FC<ModalEditSeatCatalogProps> = ({
     );
     if (seatCatalogData) {
       setValue('name', seatCatalogData.name);
+      setValue('vehicle_id', seatCatalogData.vehicle_id);
     }
   }, [seatCatalogs, seatCatalogId, setValue]);
 
