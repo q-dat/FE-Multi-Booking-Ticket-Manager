@@ -103,13 +103,14 @@ const TicketTrainsResultsPage: React.FC = () => {
         <div className="w-full">
           <h1 className="mx-2 mb-5 border-[4px] border-b-0 border-r-0 border-t-0 border-primary bg-blue-200 px-5 py-1 text-center text-xl text-black dark:border-white dark:bg-gray-400 dark:text-white xl:text-start">
             Chuyến đi từ <strong>{tripInfo.departure_point.name}</strong> đến{' '}
-            <strong>{tripInfo.destination_point.name}</strong> &nbsp;(<strong>{ticketCatalogInfo.name}</strong>)
+            <strong>{tripInfo.destination_point.name}</strong> &nbsp;(
+            <strong>{ticketCatalogInfo.name}</strong>)
           </h1>
 
-          <div className="mb-8 flex flex-wrap justify-center">
+          <div className="mb-8 flex w-full flex-row items-center justify-center gap-5 overflow-x-auto scrollbar-hide">
             {Object.entries(ticketsByTrain).map(([trainName, trainTickets]) => (
               <div
-                className={`boder-white group mb-4 flex h-[150px] w-[180px] cursor-pointer flex-col items-center justify-around gap-2 rounded-[30px] border bg-black bg-opacity-20 p-1 px-2 shadow-lg ${selectedTrain === trainName ? 'bg-primary bg-opacity-100' : ''}`}
+                className={`boder-white group mb-4 flex h-[180px] w-[180px] cursor-pointer flex-col items-center justify-around gap-2 rounded-[30px] border bg-black bg-opacity-20 p-1 px-2 shadow-lg ${selectedTrain === trainName ? 'bg-primary bg-opacity-100' : ''}`}
                 onClick={() => setSelectedTrain(trainName)}
                 key={trainName}
               >
@@ -154,8 +155,8 @@ const TicketTrainsResultsPage: React.FC = () => {
                   >
                     {carriageTickets[0].seat_id.seat_catalog_id.name}
                   </Button>
-                  <p className='p-1 font-bold'>Vị trí:</p>
-                  <div className="flex gap-5 flex-wrap rounded-xl border border-primary p-2 dark:border-white">
+                  <p className="p-1 font-bold">Vị trí:</p>
+                  <div className="flex flex-wrap gap-5 rounded-xl border border-primary p-2 dark:border-white">
                     {carriageTickets.map((ticket, index) => {
                       const seatStatus = ticket.seat_id.status;
 
