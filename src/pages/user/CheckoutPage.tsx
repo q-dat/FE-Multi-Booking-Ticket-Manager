@@ -1,11 +1,11 @@
 import React, { useState, useMemo } from 'react';
 import { useCart } from '../../context/cart/CartContext';
 import { Button } from 'react-daisyui';
-import { IoIosCloseCircleOutline } from 'react-icons/io';
 import axios from 'axios';
-import stripe from '../../assets/image-represent/payment/stripe_logo.png'
+import stripeLogo from '../../assets/image-represent/payment/stripe_logo.png';
 import { Toastify } from '../../helper/Toastify';
 import { isIErrorResponse } from '../../types/error/error';
+import { IoIosCloseCircleOutline } from 'react-icons/io';
 
 interface FormData {
   firstName: string;
@@ -30,9 +30,9 @@ const CheckoutPage: React.FC = () => {
     state: '',
     zipcode: '',
     country: '',
-    phone: ''
+    phone: '',
   });
-  const [method, setMethod] = useState<'stripe' | 'razorpay' | 'cod'>('cod');
+  const [method, setMethod] = useState<'stripe' | 'cod'>('cod');
 
   const [selectedDiscounts, setSelectedDiscounts] = useState<{ [key: string]: string }>({});
 
@@ -68,18 +68,24 @@ const CheckoutPage: React.FC = () => {
   const onSubmitHandler = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
-      const orderItems = selectedSeats.map((seat) => ({
-        ticketId: seat._id,
-        quantity: 1,
-        discount: selectedDiscounts[seat._id] || 'Người lớn',
-        discountedPrice: calculateDiscountedPrice(seat.price, selectedDiscounts[seat._id] || 'Người lớn'),
-      }));
+      const orderItems = selectedSeats.map((seat) => {
+        const selectedDiscount = selectedDiscounts[seat._id] || 'Người lớn';
+        const discountedPrice = calculateDiscountedPrice(seat.price, selectedDiscount);
+        return {
+          departureDate: seat.trip_id.departure_date,
+          time: seat.trip_id.departure_time,
+          departurePoint: seat.trip_id.departure_point.name,
+          destinationPoint: seat.trip_id.destination_point.name,
+          seat: seat.seat_id.name,
+          vehicle: seat.seat_id.seat_catalog_id.vehicle_id.name,
+          seatCatalog: seat.seat_id.seat_catalog_id.name,
+          price: discountedPrice,
+          quantity: 1,
+        };
+      });
 
       const orderData = {
-        items: orderItems.map((item) => ({
-          ticketId: item.ticketId,
-          quantity: item.quantity,
-        })),
+        items: orderItems,
         amount: totalPrice,
         address: formData,
         paymentMethod: method === 'cod' ? 'COD' : 'Stripe',
@@ -107,11 +113,10 @@ const CheckoutPage: React.FC = () => {
     } catch (error) {
       const errorMessage = isIErrorResponse(error)
         ? error.data?.message
-        : 'Xoá vé thất bại!';
-      Toastify(`Lỗi: ${errorMessage}`, 500); // Thay đổi ở đây
+        : 'Đặt hàng thất bại!';
+      Toastify(`Lỗi: ${errorMessage}`, 500);
     }
   };
-
 
   return (
     <div className="pb-[20px] xl:pt-[80px]">
@@ -197,18 +202,17 @@ const CheckoutPage: React.FC = () => {
               <input required onChange={onChangeHandler} name='zipcode' value={formData.zipcode} className='border border-gray-300 rounded py-1.5 px-3.5 w-full' type='text' placeholder='Zipcode' />
               <input required onChange={onChangeHandler} name='country' value={formData.country} className='border border-gray-300 rounded py-1.5 px-3.5 w-full' type='text' placeholder='Country' />
             </div>
-            <input required onChange={onChangeHandler} name='phone' value={formData.phone} className='border border-gray-300 rounded py-1.5 px-3.5 w-full' type='text' placeholder='Phone number' />
+            <input required onChange={onChangeHandler} name='phone' value={formData.phone} className='border border-gray-300 rounded py-1.5 px-3.5 w-full' type='tel' placeholder='Phone number' />
           </div>
 
-          {/* Right Side - Phương thức thanh toán */}
+          {/* Right Side */}
           <div className='mt-12'>
             {/* Payment Method Selection */}
             <div className='flex gap-3 flex-col lg:flex-row'>
               <div onClick={() => setMethod('stripe')} className='flex items-center gap-3 border p-2 px-3 cursor-pointer'>
                 <p className={`min-w-3.5 h-3.5 border rounded-full ${method === 'stripe' ? 'bg-green-400' : ''}`}></p>
-                <img className='h-5 mx-4' src={stripe} alt='' />
+                <img className='h-5 mx-4' src={stripeLogo} alt='' />
               </div>
-
               <div onClick={() => setMethod('cod')} className='flex items-center gap-3 border p-2 px-3 cursor-pointer'>
                 <p className={`min-w-3.5 h-3.5 border rounded-full ${method === 'cod' ? 'bg-green-400' : ''}`}></p>
                 <p className='text-gray-500 text-sm font-medium mx-4'>CASH ON DELIVERY</p>
@@ -221,6 +225,11 @@ const CheckoutPage: React.FC = () => {
 
           </div>
         </form>
+        <div className='flex justify-center mt-6'>
+          <Button type='submit' form='checkout-form' className='bg-red-500 text-white'>
+            Đặt vé
+          </Button>
+        </div>
       </div>
     </div>
   );
