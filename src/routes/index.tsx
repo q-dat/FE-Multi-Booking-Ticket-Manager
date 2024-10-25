@@ -2,9 +2,7 @@ import { lazy } from 'react';
 import { Route, Routes } from 'react-router-dom';
 import DefaultLayout from '../layout/DefaultLayout';
 import PrivateRouter from './PrivateRouter';
-import PaymentPage from '../pages/admin/PaymentPage';
-import OrderPage from '../pages/admin/OrderPage';
-import BillPage from '../pages/admin/BillPage';
+
 
 // UserPage
 const User = lazy(() => import('../pages/user/User'));
@@ -24,6 +22,9 @@ const TicketBusesResultsPage = lazy(
 const TicketFlightsResultsPage = lazy(
   () => import('../pages/user/tickets-results/TicketFlightsResultsPage')
 );
+const CheckoutPage = lazy(
+  () => import('../pages/user/CheckoutPage')
+)
 //auth
 const Auth = lazy(() => import('../pages/auth/Auth'));
 const SignUpPage = lazy(() => import('../pages/auth/SignUpPage'));
@@ -78,6 +79,7 @@ export default function AppRoutes() {
             <Route path="check-ticket" element={<CheckTicketPage />} />
             <Route path="return-ticket" element={<ReturnTicketPage />} />
             <Route path="contact" element={<ContactPage />} />
+            <Route path="checkout" element={<CheckoutPage />} />
           </Route>
         </Route>
 
@@ -111,9 +113,6 @@ export default function AppRoutes() {
             <Route path="vehicle-catalog" element={<VehicleCatalogPage />} />
             <Route path="seat-catalog" element={<SeatCatalogPage />} />
             <Route path="trip" element={<TripPage />} />
-            <Route path="order" element={<OrderPage />} />
-            <Route path="payment" element={<PaymentPage />} />
-            <Route path="bill" element={<BillPage />} />
           </Route>
         </Route>
         {/* 404 not found */}
