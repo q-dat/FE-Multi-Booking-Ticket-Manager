@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { ITicket } from '../../../../types/type/ticket/ticket';
 import { TicketContext } from '../../../../context/ticket/TicketContext';
@@ -12,7 +12,6 @@ import { VehicleCatalogContext } from '../../../../context/vehicleCatalog/Vehicl
 import { SeatContext } from '../../../../context/seat/SeatContext';
 import InputModal from '../../InputModal';
 import { TripContext } from '../../../../context/trip/TripContext';
-// import Select from 'react-select';
 
 interface ModalCreateTicketProps {
   isOpen: boolean;
@@ -23,12 +22,12 @@ const ModalCreateTicketPageAdmin: React.FC<ModalCreateTicketProps> = ({
   isOpen,
   onClose
 }) => {
-  const { createTicket, getAllTickets } = useContext(TicketContext);
   const { register, handleSubmit, reset } = useForm<ITicket>();
+  const { createTicket, getAllTickets } = useContext(TicketContext);
   const { ticketCatalogs } = useContext(TicketCatalogContext);
   const { vehicles } = useContext(VehicleContext);
   const { vehicleCatalogs } = useContext(VehicleCatalogContext);
-  const { seats } = useContext(SeatContext);
+  const { seats, searchSeatsByName } = useContext(SeatContext);
   const { trips } = useContext(TripContext);
 
   const onSubmit: SubmitHandler<ITicket> = async formData => {
@@ -46,8 +45,6 @@ const ModalCreateTicketPageAdmin: React.FC<ModalCreateTicketProps> = ({
     }
   };
 
-  if (!isOpen) return null;
-
   const handleOverlayClick = (
     e: React.MouseEvent<HTMLDivElement, MouseEvent>
   ) => {
@@ -55,6 +52,37 @@ const ModalCreateTicketPageAdmin: React.FC<ModalCreateTicketProps> = ({
       onClose();
     }
   };
+  //Filter
+  const [vehiclesName, setVehiclesName] = useState<string>('');
+  const [seatCatalogsName, setSeatCatalogsName] = useState<string>('');
+  const [shouldSearch, setShouldSearch] = useState(false);
+
+  const handleFilter = async () => {
+    const filterParams = {
+      vehicleName: vehiclesName,
+      seatCatalogName: seatCatalogsName
+    };
+    await searchSeatsByName(filterParams);
+  };
+
+  useEffect(() => {
+    if (shouldSearch) {
+      handleFilter();
+      setShouldSearch(false);
+    }
+  }, [shouldSearch]);
+
+  const handleCheckboxChange = (
+    setter: React.Dispatch<React.SetStateAction<string>>,
+    value: string,
+    currentValue: string
+  ) => {
+    const newValue = currentValue === value ? '' : value;
+    setter(newValue);
+    setShouldSearch(true);
+  };
+
+  if (!isOpen) return null;
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
@@ -69,6 +97,80 @@ const ModalCreateTicketPageAdmin: React.FC<ModalCreateTicketProps> = ({
           <p className="text-xl font-bold text-black dark:text-white">
             Tạo vé mới
           </p>
+          {/*  Filter Seat */}
+          <div className="flex w-full flex-col items-center gap-5">
+            {/* Phương Tiện */}
+            <p className="w-[150px] rounded-lg py-2 text-center text-sm text-primary shadow-inner shadow-gray-50 dark:text-white">
+              Lọc Chỗ Ngồi
+            </p>
+            <div className="flex w-full flex-row items-start justify-between gap-5">
+              <div className="flex h-[80px] w-full flex-col gap-1 overflow-auto rounded-md p-2 shadow-inner shadow-gray-50 scrollbar-hide">
+                <span className="text-xs font-semibold text-primary hover:text-secondary dark:text-white">
+                  Lọc Phương Tiện
+                </span>
+                {vehicles.map(item => (
+                  <label
+                    className="flex h-8 cursor-pointer items-center gap-2"
+                    key={item.name}
+                  >
+                    <input
+                      type="checkbox"
+                      className="cursor-pointer"
+                      checked={vehiclesName === item.name}
+                      onChange={() =>
+                        handleCheckboxChange(
+                          setVehiclesName,
+                          item.name,
+                          vehiclesName
+                        )
+                      }
+                    />
+                    <span className="text-primary hover:text-secondary dark:text-white">
+                      {item.name}
+                    </span>
+                  </label>
+                ))}
+              </div>
+              {/* Khoang/Toa */}
+              <div className="flex h-[80px] w-full flex-col gap-1 overflow-auto rounded-md p-2 shadow-inner shadow-gray-50 scrollbar-hide">
+                <span className="text-xs font-semibold text-primary hover:text-secondary dark:text-white">
+                  Lọc Khoang/Toa
+                </span>
+                {seats
+                  .filter(
+                    (item, index, self) =>
+                      index ===
+                      self.findIndex(
+                        t =>
+                          t.seat_catalog_id.name === item.seat_catalog_id.name
+                      )
+                  )
+                  .map(item => (
+                    <label
+                      className="flex h-8 cursor-pointer items-center gap-2"
+                      key={item.seat_catalog_id.name}
+                    >
+                      <input
+                        type="checkbox"
+                        className="cursor-pointer"
+                        checked={seatCatalogsName === item.seat_catalog_id.name}
+                        onChange={() =>
+                          handleCheckboxChange(
+                            setSeatCatalogsName,
+                            item.seat_catalog_id.name,
+                            seatCatalogsName
+                          )
+                        }
+                      />
+                      <span className="text-primary hover:text-secondary dark:text-white">
+                        {item.seat_catalog_id.name}
+                      </span>
+                    </label>
+                  ))}
+              </div>
+            </div>
+          </div>
+          {/* */}
           <div className="flex flex-row items-start justify-center gap-2 md:gap-5">
             <div className="flex flex-col gap-2">
               <LabelForm title={'Loại phương tiện'} />
@@ -113,12 +215,17 @@ const ModalCreateTicketPageAdmin: React.FC<ModalCreateTicketProps> = ({
                 <option disabled value="">
                   Chọn Chỗ Ngồi
                 </option>
-                {seats.map(seat => (
-                  <option value={seat._id} key={seat._id}>
-                    {seat.ordinal_numbers} &nbsp;-&nbsp;
-                    {seat.seat_catalog_id.name}
-                  </option>
-                ))}
+                {seats
+                  .filter(
+                    (item, index, self) =>
+                      index === self.findIndex(t => t.name === item.name)
+                  )
+                  .map(seat => (
+                    <option value={seat._id} key={seat._id}>
+                      {seat.name} &nbsp;-&nbsp;
+                      {seat.seat_catalog_id.name}
+                    </option>
+                  ))}
               </DaisySelect>
             </div>
 
@@ -164,7 +271,6 @@ const ModalCreateTicketPageAdmin: React.FC<ModalCreateTicketProps> = ({
               ></InputModal>
             </div>
           </div>
-
           <div className="mt-4 flex flex-col gap-5 text-center">
             {/* <div className="text-start">
               <LabelForm title={'Chọn chỗ ngồi'} />
