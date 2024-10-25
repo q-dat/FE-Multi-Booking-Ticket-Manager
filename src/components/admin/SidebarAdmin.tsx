@@ -3,7 +3,7 @@ import { Button, Menu } from 'react-daisyui';
 import { NavLink, useLocation } from 'react-router-dom';
 import { FaHome } from 'react-icons/fa';
 import { IoLocation, IoTicket } from 'react-icons/io5';
-import { MdEventSeat, MdPayment, MdPostAdd } from 'react-icons/md';
+import { MdEventSeat, MdPostAdd } from 'react-icons/md';
 import { FaMapLocationDot, FaTicket } from 'react-icons/fa6';
 import DarkModeToggle from '../orther/darkmode/DarkMode';
 import { Logo, LogoTitle } from '../../assets/images';
@@ -22,11 +22,6 @@ import { IoIosTrain } from 'react-icons/io';
 import { GiAges } from 'react-icons/gi';
 import { TicketContext } from '../../context/ticket/TicketContext';
 import { TripContext } from '../../context/trip/TripContext';
-import { OrderContext } from '../../context/order/OrderContext';
-import { BiSolidCartAdd } from 'react-icons/bi';
-import { PaymentContext } from '../../context/payment/PaymentContext';
-import { RiBillFill } from 'react-icons/ri';
-import { BillContext } from '../../context/bill/BillContext';
 
 const SidebarAdmin: React.FC<{}> = () => {
   const { locations } = useContext(LocationContext);
@@ -40,9 +35,6 @@ const SidebarAdmin: React.FC<{}> = () => {
   const { seatCatalogs } = useContext(SeatCatalogContext);
   const { tickets } = useContext(TicketContext);
   const { trips } = useContext(TripContext);
-  const { orders } = useContext(OrderContext);
-  const { payments } = useContext(PaymentContext);
-  const { bills } = useContext(BillContext);
   const [activeItem, setActiveItem] = useState('Dashboard');
 
   const location = useLocation();
@@ -118,24 +110,6 @@ const SidebarAdmin: React.FC<{}> = () => {
       icon: FaMapLocationDot,
       link: '/admin/trip',
       toastify: trips.length
-    },
-    {
-      name: 'Đặt vé',
-      icon: BiSolidCartAdd,
-      link: '/admin/order',
-      toastify: orders.length
-    },
-    {
-      name: 'Thanh toán',
-      icon: MdPayment,
-      link: '/admin/payment',
-      toastify: payments.length
-    },
-    {
-      name: 'Đơn hàng',
-      icon: RiBillFill,
-      link: '/admin/bill',
-      toastify: bills.length
     }
   ];
 
@@ -190,11 +164,10 @@ const SidebarAdmin: React.FC<{}> = () => {
                   <Menu.Item key={item.name} className="relative">
                     <NavLink
                       to={item.link}
-                      className={`btn flex w-full items-center justify-start border-none shadow-white dark:bg-gray-800 dark:shadow-none ${
-                        item.name === activeItem
+                      className={`btn flex w-full items-center justify-start border-none shadow-white dark:bg-gray-800 dark:shadow-none ${item.name === activeItem
                           ? 'bg-base-200 font-bold text-primary dark:bg-white'
                           : 'bg-transparent bg-white font-light text-black dark:text-white'
-                      } relative pl-4`}
+                        } relative pl-4`}
                     >
                       <div className="flex w-full items-center justify-between">
                         <div className="flex items-center">

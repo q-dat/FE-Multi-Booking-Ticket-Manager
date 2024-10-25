@@ -2,10 +2,13 @@ import React, { useEffect, useState } from 'react';
 import { useCart } from '../../context/cart/CartContext';
 import { Button } from 'react-daisyui';
 import { IoIosCloseCircleOutline } from 'react-icons/io';
+import { MdOutlinePayment } from 'react-icons/md';
+import { useNavigate } from 'react-router-dom';
 
 const CartPage: React.FC = () => {
   const { selectedSeats, removeSeat, clearSeats, totalPrice } = useCart();
   const [countdowns, setCountdowns] = useState<{ [key: string]: number }>({});
+  const navigate = useNavigate()
 
   useEffect(() => {
     const newCountdowns: { [key: string]: number } = {};
@@ -109,13 +112,21 @@ const CartPage: React.FC = () => {
               Tổng tiền: {(totalPrice * 1000).toLocaleString('vi-VN')}
               &nbsp;VND
             </div>
-            <Button
-              size="sm"
-              onClick={clearSeats}
-              className="bg-red-500 text-xs text-white"
-            >
-              Xóa tất cả
-            </Button>
+            <div className='flex justify-center w-full gap-2 items-center'>
+              <Button
+                size="sm"
+                onClick={clearSeats}
+                className="bg-red-500 text-xs text-white"
+              >
+                Xóa tất cả
+              </Button>
+              <Button
+                onClick={() => navigate('/checkout')}
+                size="sm"
+                className="bg-green-500 text-xs text-white"
+              ><MdOutlinePayment className='text-xl' />Mua vé
+              </Button>
+            </div>
           </div>
         </div>
       )}
