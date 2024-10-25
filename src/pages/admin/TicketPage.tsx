@@ -326,18 +326,32 @@ const TicketPage: React.FC = () => {
                 )}
                 {fillter[2] === 'Phương Tiện' ? (
                   <span>
-                    {ticket.seat_id?.seat_catalog_id?.vehicle_id?.name}
+                    <span>
+                      {ticket.seat_id.map(seat => (
+                        <span key={seat._id}>
+                          {seat.seat_catalog_id?.vehicle_id?.name}
+                        </span>
+                      ))}
+                    </span>
                   </span>
                 ) : (
                   <></>
                 )}
                 {fillter[3] === 'Khoang/Toa' ? (
-                  <span>{ticket.seat_id?.seat_catalog_id?.name}</span>
+                  <span>
+                    {ticket.seat_id.map(seat => (
+                      <span key={seat._id}>{seat.seat_catalog_id?.name}</span>
+                    ))}
+                  </span>
                 ) : (
                   <></>
                 )}
                 {fillter[4] === 'Chỗ Ngồi' ? (
-                  <span>{ticket.seat_id?.name}</span>
+                  <span>
+                    {ticket.seat_id.map(seat => (
+                      <span>{seat?.name}</span>
+                    ))}
+                  </span>
                 ) : (
                   <></>
                 )}

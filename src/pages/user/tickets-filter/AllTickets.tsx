@@ -200,7 +200,9 @@ const AllTickets: React.FC = () => {
                 <div className="flex items-center gap-1">
                   <IoTrainSharp color="#12296999" /> Phương tiện:
                   <span className="font-semibold">
-                    {ticket.seat_id.seat_catalog_id.vehicle_id?.name}
+                    {ticket.seat_id.map(seat => (
+                      <span>{seat.seat_catalog_id.vehicle_id?.name}</span>
+                    ))}
                   </span>
                 </div>
                 <div className="flex items-start gap-1">
@@ -208,10 +210,16 @@ const AllTickets: React.FC = () => {
                     <PiSeatFill color="#12296999" /> Ghế:
                   </p>
                   <p>
-                    <span className="font-semibold">{ticket.seat_id?.name}</span>
+                    <span className="font-semibold">
+                      {ticket.seat_id.map(seat => (
+                        <span>{seat?.name}</span>
+                      ))}
+                    </span>
 
                     <span className="font-semibold">
-                      ({ticket.seat_id.seat_catalog_id?.name})
+                      {ticket.seat_id.map(seat => (
+                        <span>{seat.seat_catalog_id?.name}</span>
+                      ))}
                     </span>
                   </p>
                 </div>

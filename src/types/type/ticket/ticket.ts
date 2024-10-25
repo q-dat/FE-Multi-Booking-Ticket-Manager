@@ -7,7 +7,7 @@ export interface ITicket {
   _id: string;
   ticket_catalog_id: ITicketCatalog;
   vehicle_catalog_id: IVehicleCatalog;
-  seat_id: ISeat;
+  seat_id: ISeat[];
   trip_id: ITrip;
   price: number;
   createAt?: string;
