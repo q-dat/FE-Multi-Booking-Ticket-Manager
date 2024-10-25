@@ -10,7 +10,8 @@ import {
   createTripApi,
   deleteTripApi,
   getAllTripsApi,
-  updateTripApi
+  updateTripApi,
+  filterTripsByVehicleCatalogIdApi
 } from '../../axios/api/tripApi';
 
 interface TripContextType {
@@ -20,6 +21,7 @@ interface TripContextType {
     create: boolean;
     update: boolean;
     delete: boolean;
+    filter: boolean;
   };
   error: string | null;
   getAllTrips: () => void;
@@ -27,6 +29,7 @@ interface TripContextType {
   createTrip: (trip: ITrip) => Promise<void>;
   updateTrip: (_id: string, trip: ITrip) => Promise<void>;
   deleteTrip: (_id: string) => Promise<void>;
+  filterTripsByVehicleCatalogId: (vehicle_catalog_id: string) => void;
 }
 
 const defaultContextValue: TripContextType = {
@@ -35,14 +38,16 @@ const defaultContextValue: TripContextType = {
     getAll: false,
     create: false,
     update: false,
-    delete: false
+    delete: false,
+    filter: false
   },
   error: null,
   getAllTrips: () => {},
   getTripById: () => undefined,
   createTrip: async () => {},
   updateTrip: async () => {},
-  deleteTrip: async () => {}
+  deleteTrip: async () => {},
+  filterTripsByVehicleCatalogId: () => {}
 };
 
 export const TripContext = createContext<TripContextType>(defaultContextValue);
@@ -54,11 +59,13 @@ export const TripProvider = ({ children }: { children: ReactNode }) => {
     create: boolean;
     update: boolean;
     delete: boolean;
+    filter: boolean;
   }>({
     getAll: false,
     create: false,
     update: false,
-    delete: false
+    delete: false,
+    filter: false
   });
   const [error, setError] = useState<string | null>(null);
 
@@ -113,7 +120,7 @@ export const TripProvider = ({ children }: { children: ReactNode }) => {
   const updateTrip = useCallback(
     async (id: string, trip: ITrip): Promise<void> => {
       await fetchData(
-        () => updateTripApi(id, trip),
+() => updateTripApi(id, trip),
         data => {
           if (data.trip) {
             setTrips(prevTrips =>
@@ -135,7 +142,17 @@ export const TripProvider = ({ children }: { children: ReactNode }) => {
       'delete'
     );
   }, []);
-
+  // Filter By Vehicle Catalog ID
+  const filterTripsByVehicleCatalogId = useCallback(
+    (vehicle_catalog_id: string) => {
+      fetchData(
+        () => filterTripsByVehicleCatalogIdApi(vehicle_catalog_id),
+        data => setTrips(data.trips || []),
+        'filter'
+      );
+    },
+    []
+  );
   useEffect(() => {
     getAllTrips();
   }, [getAllTrips]);
@@ -150,7 +167,8 @@ export const TripProvider = ({ children }: { children: ReactNode }) => {
         getTripById,
         createTrip,
         updateTrip,
-        deleteTrip
+        deleteTrip,
+        filterTripsByVehicleCatalogId
       }}
     >
       {children}

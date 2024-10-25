@@ -16,14 +16,17 @@ import { isIErrorResponse } from '../../types/error/error';
 import TableListAdmin from '../../components/admin/TablelistAdmin';
 import NavbarMobile from '../../components/admin/Reponsive/Mobile/NavbarMobile';
 import { useNavigate } from 'react-router-dom';
+import { VehicleCatalogContext } from '../../context/vehicleCatalog/VehicleCatalogContext';
 
 const TripPage: React.FC = () => {
-  const { trips, loading, error, deleteTrip, getAllTrips } =
+  const { trips, loading, error, deleteTrip, getAllTrips, filterTripsByVehicleCatalogId }  =
     useContext(TripContext);
+  const {vehicleCatalogs} = useContext(VehicleCatalogContext);
   const [isModalCreateOpen, setIsModalCreateOpen] = useState(false);
   const [isModalDeleteOpen, setIsModalDeleteOpen] = useState(false);
   const [isModalEditOpen, setIsModalEditOpen] = useState(false);
   const [selectedTripId, setSelectedTripId] = useState<string | null>(null);
+  const [checkboxCategory, setCheckboxCategory] = useState<string | null>(null);
 
   const openModalCreateAdmin = () => setIsModalCreateOpen(true);
   const closeModalCreateAdmin = () => setIsModalCreateOpen(false);
@@ -37,7 +40,6 @@ const TripPage: React.FC = () => {
     setIsModalEditOpen(true);
   };
   const closeModalEditAdmin = () => setIsModalEditOpen(false);
-
   useEffect(() => {
     getAllTrips();
   }, [getAllTrips]);
@@ -59,7 +61,10 @@ const TripPage: React.FC = () => {
       }
     }
   };
-
+  //Filter
+  const handleSearchByCategory = async (vehicleCatalog: string) => {
+    await filterTripsByVehicleCatalogId(vehicleCatalog);
+  };
   if (loading.getAll) return <LoadingLocal />;
   if (error) return <ErrorLoading />;
 
@@ -70,6 +75,23 @@ const TripPage: React.FC = () => {
         <NavtitleAdmin
           Title_NavtitleAdmin="Quản Lý Chuyến Đi"
           Btn_Create={
+            <div className="flex flex-col items-start justify-center gap-2 md:flex-row md:items-end">
+            <div className="flex gap-4">
+                {vehicleCatalogs.map(vehicleCatalog => (
+                  <label key={vehicleCatalog._id} className="flex items-center">
+                    <input
+                      type="checkbox"
+                      className="cursor-pointer"
+                      checked={checkboxCategory === vehicleCatalog._id}
+                      onChange={() => {
+                        setCheckboxCategory(vehicleCatalog._id);
+                        handleSearchByCategory(vehicleCatalog._id);
+                      }}
+                    />
+                    <span className="ml-2">{vehicleCatalog.name}</span>
+                  </label>
+                ))}
+              </div>
             <Button
               color="primary"
               onClick={openModalCreateAdmin}
@@ -80,6 +102,7 @@ const TripPage: React.FC = () => {
                 <p>Thêm</p>
               </div>
             </Button>
+            </div>
           }
         />
       </div>
