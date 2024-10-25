@@ -25,3 +25,12 @@ export const updateTripApi = (id: string, trip: ITrip) => {
 export const deleteTripApi = (id: string) => {
   return axios.delete(`/api/trips/${id}`);
 };
+
+//Filter
+export const filterTripsByVehicleCatalogIdApi = (
+  vehicle_catalog_id: string
+) => {
+  return axios.get<{ trip: ITrip }>(
+    `/api/trips/vehicle-catalog-id/${vehicle_catalog_id} `
+  );
+};
