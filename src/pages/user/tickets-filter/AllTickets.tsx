@@ -100,7 +100,7 @@ const AllTickets: React.FC = () => {
                       }
                     />
                     <span className="text-primary hover:text-secondary">
-                      {item.name}
+                      {item?.name}
                     </span>
                   </label>
                 ))}
@@ -132,7 +132,7 @@ const AllTickets: React.FC = () => {
                       }
                     />
                     <span className="text-primary hover:text-secondary">
-                      {item.name}
+                      {item?.name}
                     </span>
                   </label>
                 ))}
@@ -163,7 +163,7 @@ const AllTickets: React.FC = () => {
                       }
                     />
                     <span className="text-primary hover:text-secondary">
-                      {item.name}
+                      {item?.name}
                     </span>
                   </label>
                 ))}
@@ -184,23 +184,23 @@ const AllTickets: React.FC = () => {
               <div className="flex flex-col gap-1 p-4 font-light">
                 <div className="mb-2 flex items-center justify-center gap-1 font-semibold">
                   <span className="font-semibold">
-                    {ticket.trip_id.departure_point.name}
+                    {ticket.trip_id.departure_point?.name}
                   </span>
                   <p className="text-primary">-</p>
                   <span className="font-semibold">
-                    {ticket.trip_id.destination_point.name}
+                    {ticket.trip_id.destination_point?.name}
                   </span>
                 </div>
                 <div className="flex items-center gap-1">
                   <IoTicket color="#12296999" /> Loại Vé:
                   <span className="font-semibold">
-                    {ticket.ticket_catalog_id.name}
+                    {ticket.ticket_catalog_id?.name}
                   </span>
                 </div>
                 <div className="flex items-center gap-1">
                   <IoTrainSharp color="#12296999" /> Phương tiện:
                   <span className="font-semibold">
-                    {ticket.seat_id.seat_catalog_id.vehicle_id.name}
+                    {ticket.seat_id.seat_catalog_id.vehicle_id?.name}
                   </span>
                 </div>
                 <div className="flex items-start gap-1">
@@ -208,17 +208,17 @@ const AllTickets: React.FC = () => {
                     <PiSeatFill color="#12296999" /> Ghế:
                   </p>
                   <p>
-                    <span className="font-semibold">{ticket.seat_id.name}</span>
+                    <span className="font-semibold">{ticket.seat_id?.name}</span>
 
                     <span className="font-semibold">
-                      ({ticket.seat_id.seat_catalog_id.name})
+                      ({ticket.seat_id.seat_catalog_id?.name})
                     </span>
                   </p>
                 </div>
                 <div className="flex items-center gap-1">
                   <IoMdPricetag color="#12296999" /> Giá vé:
                   <span className="font-bold text-red-500">
-                    {(ticket.price * 1000).toLocaleString('vi-VN')}
+                    {(ticket?.price * 1000).toLocaleString('vi-VN')}
                   </span>
                   VND
                 </div>
