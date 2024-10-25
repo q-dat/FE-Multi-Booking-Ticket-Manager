@@ -18,13 +18,11 @@ import { SeatContext } from '../../context/seat/SeatContext';
 import { ISeat } from '../../types/type/seat/seat';
 import { LuFilter } from 'react-icons/lu';
 import { VehicleContext } from '../../context/vehicle/VehicleContext';
-import { SeatCatalogContext } from '../../context/seatCatalog/SeatCatalogContext';
 
 const SeatPage: React.FC = () => {
   const { seats, loading, error, deleteSeat, getAllSeats, searchSeatsByName } =
     useContext(SeatContext);
   const { vehicles } = useContext(VehicleContext);
-  const { seatCatalogs } = useContext(SeatCatalogContext);
 
   const [isModalCreateOpen, setIsModalCreateOpen] = useState(false);
   const [isModalDeleteOpen, setIsModalDeleteOpen] = useState(false);
@@ -186,28 +184,40 @@ const SeatPage: React.FC = () => {
                         <span className="font-semibold text-primary hover:text-secondary">
                           Khoang/Toa
                         </span>
-                        {seatCatalogs.map(item => (
-                          <label
-                            className="flex h-8 cursor-pointer items-center gap-2"
-                            key={item.name}
-                          >
-                            <input
-                              type="checkbox"
-                              className="cursor-pointer"
-                              checked={seatCatalogsName === item.name}
-                              onChange={() =>
-                                handleCheckboxChange(
-                                  setSeatCatalogsName,
-                                  item.name,
-                                  seatCatalogsName
-                                )
-                              }
-                            />
-                            <span className="text-primary hover:text-secondary">
-                              {item.name}
-                            </span>
-                          </label>
-                        ))}
+                        {seats
+                          .filter(
+                            (item, index, self) =>
+                              index ===
+                              self.findIndex(
+                                t =>
+                                  t.seat_catalog_id.name ===
+                                  item.seat_catalog_id.name
+                              )
+                          )
+                          .map(item => (
+                            <label
+                              className="flex h-8 cursor-pointer items-center gap-2"
+                              key={item.seat_catalog_id.name}
+                            >
+                              <input
+                                type="checkbox"
+                                className="cursor-pointer"
+                                checked={
+                                  seatCatalogsName === item.seat_catalog_id.name
+                                }
+                                onChange={() =>
+                                  handleCheckboxChange(
+                                    setSeatCatalogsName,
+                                    item.seat_catalog_id.name,
+                                    seatCatalogsName
+                                  )
+                                }
+                              />
+                              <span className="text-primary hover:text-secondary">
+                                {item.seat_catalog_id.name}
+                              </span>
+                            </label>
+                          ))}
                       </div>
                     </div>
                   </div>

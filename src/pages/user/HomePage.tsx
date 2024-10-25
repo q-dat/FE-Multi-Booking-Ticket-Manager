@@ -1,5 +1,5 @@
 import React, { useContext, useEffect } from 'react';
-import { Button, Select } from 'react-daisyui';
+import { Button } from 'react-daisyui';
 import InputForm from '../../components/UserPage/InputForm';
 import { IoLocationOutline, IoSearch } from 'react-icons/io5';
 import { MdOutlineArrowRightAlt } from 'react-icons/md';
@@ -27,6 +27,12 @@ import { Toastify } from '../../helper/Toastify';
 import { VehicleCatalogContext } from '../../context/vehicleCatalog/VehicleCatalogContext';
 import { LocationContext } from '../../context/location/LocationContext';
 import AllTickets from './tickets-filter/AllTickets';
+import ReactSelect from '../../components/orther/react-select/ReactSelect';
+
+interface Option {
+  value: string;
+  label: string;
+}
 
 const Home: React.FC = () => {
   //Translation
@@ -38,7 +44,7 @@ const Home: React.FC = () => {
     console.log('Home phải được sử dụng trong TicketProvider');
   }
 
-  const { register, handleSubmit } = useForm<SearchFormData>();
+  const { control, register, handleSubmit } = useForm<SearchFormData>();
   const onSubmit: SubmitHandler<SearchFormData> = async data => {
     const searchParams: Record<string, string> = Object.entries(data).reduce(
       (acc, [key, value]) => {
@@ -48,7 +54,7 @@ const Home: React.FC = () => {
       {} as Record<string, string>
     );
 
-    // Call searchTickets and wait for the result
+    //
     const searchResults: ITicket[] = await searchTickets(searchParams);
 
     if (searchResults.length > 0) {
@@ -56,7 +62,7 @@ const Home: React.FC = () => {
       const vehicleType = selectedVehicle.vehicle_catalog_id.name;
       sessionStorage.setItem('searchResults', JSON.stringify(searchResults));
 
-      // Navigate based on vehicle type
+      //
       switch (vehicleType) {
         case 'Tàu':
           navigate('/ticket-trains-results');
@@ -83,6 +89,11 @@ const Home: React.FC = () => {
   useEffect(() => {
     getAllVehicleCatalogs();
   }, []);
+  //react-select
+  const vehicleCatalog: Option[] = vehicleCatalogs.map(vehicleCatalog => ({
+    value: vehicleCatalog.name,
+    label: vehicleCatalog.name
+  }));
 
   //Get Ticket Catalog
   const { ticketCatalogs, getAllTicketCatalogs } =
@@ -90,11 +101,21 @@ const Home: React.FC = () => {
   useEffect(() => {
     getAllTicketCatalogs();
   }, []);
+  //react-select
+  const ticketCatalog: Option[] = ticketCatalogs.map(ticketCatalog => ({
+    value: ticketCatalog.name,
+    label: ticketCatalog.name
+  }));
   //Get Location
   const { locations, getAllLocations } = useContext(LocationContext);
   useEffect(() => {
     getAllLocations();
   }, []);
+  //react-select
+  const location: Option[] = locations.map(location => ({
+    value: location.name,
+    label: location.name
+  }));
   return (
     <div className="pb-[20px] xl:pt-[80px]">
       {/* Mobile */}
@@ -133,102 +154,72 @@ const Home: React.FC = () => {
       {/* Form */}
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className="relative top-1 flex flex-grow items-center justify-center px-2 pb-10 pt-5 md:-top-3 md:pt-0 xl:-top-10 xl:px-0">
-          <div className="flex flex-col rounded-lg border border-secondary border-opacity-50 bg-white p-3 shadow-headerMenu dark:bg-gray-700 md:p-10 xl:flex-row xl:px-10 xl:py-8">
+          <div className="flex flex-col rounded-lg border border-secondary border-opacity-50 bg-white p-3 shadow-headerMenu md:p-10 xl:flex-row xl:px-10 xl:py-8">
             {/* Form Mobile 1 */}
             <div className="m-2 flex flex-grow items-center justify-between gap-2 md:m-[10px] md:gap-[20px] xl:m-0 xl:gap-0">
-              <Select
-                defaultValue=""
-                className="w-[150px] border border-gray-700 border-opacity-50 bg-white text-black focus:border-primary focus:outline-none dark:border-secondary dark:bg-gray-700 dark:text-white dark:focus:border-white md:w-[300px] lg:w-[400px] xl:w-full xl:rounded-r-none"
-                {...register('departure_point_name')}
-              >
-                <option value="" disabled>
-                  {t('UserPage.DeparturePlaceholder')}
-                </option>
-                {locations.map(location => (
-                  <option key={location._id} value={location.name}>
-                    {location.name}
-                  </option>
-                ))}
-              </Select>
-              <MdOutlineArrowRightAlt className="hidden text-primary dark:text-white xl:flex" />
-              <Select
-                defaultValue=""
-                className="w-[150px] border border-gray-700 border-opacity-50 bg-white text-black focus:border-primary focus:outline-none dark:border-secondary dark:bg-gray-700 dark:text-white dark:focus:border-white md:w-[300px] lg:w-[400px] xl:w-full xl:rounded-none"
-                {...register('destination_point_name')}
-              >
-                <option value="" disabled>
-                  {t('UserPage.DestinationPlaceholder')}
-                </option>
-                {locations.map(location => (
-                  <option key={location._id} value={location.name}>
-                    {location.name}
-                  </option>
-                ))}
-              </Select>
-              <MdOutlineArrowRightAlt className="hidden text-primary dark:text-white xl:flex" />
+              <div className="flex items-center">
+                <ReactSelect
+                  name="departure_point_name"
+                  control={control}
+                  options={location}
+                  placeholder={t('UserPage.DeparturePlaceholder')}
+                  isMulti={false}
+                  className="xl:rounded-r-none"
+                />
+                <MdOutlineArrowRightAlt className="hidden text-xl text-primary xl:flex" />
+              </div>
+              <div className="flex items-center">
+                <ReactSelect
+                  name="destination_point_name"
+                  control={control}
+                  options={location}
+                  placeholder={t('UserPage.DestinationPlaceholder')}
+                  isMulti={false}
+                  className="xl:rounded-none"
+                />
+
+                <MdOutlineArrowRightAlt className="hidden text-xl text-primary xl:flex" />
+              </div>
             </div>
             {/* Form Mobile 2 */}
             <div className="m-2 flex flex-grow items-center justify-between gap-2 md:m-[10px] md:gap-[20px] xl:m-0 xl:gap-0">
               <InputForm
-                className="w-[150px] border border-gray-700 border-opacity-50 bg-white text-black focus:border-primary focus:outline-none dark:border-secondary dark:bg-gray-700 dark:text-white dark:focus:border-white md:w-[300px] lg:w-[400px] xl:w-full xl:rounded-none"
+                className="h-[48px] min-w-[150px] border border-primary bg-white text-sm text-black hover:border-gray-700 hover:border-opacity-50 hover:outline-none focus:outline-none dark:border-primary dark:hover:border-gray-700 dark:hover:border-opacity-50 xs:max-w-[150px] sm:max-w-[300px] md:w-[300px] lg:w-[400px] xl:w-full xl:rounded-none"
                 type={'date'}
                 placeholder={`${t('UserPage.DepartureDatePlaceholder')}`}
                 {...register('departure_date')}
-                classNameLabel=" bg-white  dark:bg-gray-700"
+                classNameLabel=" dark:text-[#122969] bg-white dark:peer-focus:text-primary "
               />
-              <MdOutlineArrowRightAlt className="hidden text-primary dark:text-white xl:flex" />
-              {/* <InputForm
-                className="w-[150px] border border-gray-700 border-opacity-50 bg-white text-black focus:border-primary dark:border-secondary dark:bg-gray-700 dark:text-white dark:focus:border-white md:w-[300px] lg:w-[400px] xl:w-full xl:rounded-none"
-                type={'date'}
-                placeholder={`${t('UserPage.ReturnDatePlaceholder')}`}
-                {...register('return_date')}
-                classNameLabel=" bg-white  dark:bg-gray-700"
-              />
-              <MdOutlineArrowRightAlt className="hidden text-primary dark:text-white xl:flex" /> */}
+              <MdOutlineArrowRightAlt className="hidden text-xl text-primary xl:flex" />
               <div>
-                <Select
-                  defaultValue=""
-                  className="w-[150px] border border-gray-700 border-opacity-50 bg-white text-black focus:border-primary focus:outline-none dark:border-secondary dark:bg-gray-700 dark:text-white dark:focus:border-white md:w-[300px] lg:w-[400px] xl:w-full xl:rounded-none"
-                  {...register('ticket_catalog_name')}
-                >
-                  <option value="" disabled>
-                    {t('UserPage.TicketSelectDefault')}
-                  </option>
-                  {ticketCatalogs.map(ticketCatalog => (
-                    <option key={ticketCatalog._id} value={ticketCatalog.name}>
-                      {ticketCatalog.name}
-                    </option>
-                  ))}
-                </Select>
+                <ReactSelect
+                  name="ticket_catalog_name"
+                  control={control}
+                  options={ticketCatalog}
+                  placeholder={t('UserPage.TicketSelectDefault')}
+                  isMulti={false}
+                  className="xl:rounded-none"
+                />
               </div>
             </div>
             {/* Form Mobile 3 */}
             <div className="m-2 flex flex-grow items-center justify-between gap-2 md:m-[10px] md:gap-[20px] xl:m-0 xl:gap-0">
-              <MdOutlineArrowRightAlt className="hidden text-primary dark:text-white xl:flex" />
+              <MdOutlineArrowRightAlt className="hidden text-xl text-primary xl:flex" />
               <div>
-                <Select
-                  defaultValue=""
-                  className="w-[150px] border border-gray-700 border-opacity-50 bg-white text-black focus:border-primary focus:outline-none dark:border-secondary dark:bg-gray-700 dark:text-white dark:focus:border-white md:w-[300px] lg:w-[400px] xl:w-full xl:rounded-l-none"
-                  {...register('vehicle_catalog_name')}
-                >
-                  <option value="" disabled>
-                    {t('UserPage.VehicleSelectDefault')}
-                  </option>
-                  {vehicleCatalogs.map(vehicleCatalogs => (
-                    <option
-                      key={vehicleCatalogs._id}
-                      value={vehicleCatalogs.name}
-                    >
-                      {vehicleCatalogs.name}
-                    </option>
-                  ))}
-                </Select>
+                <ReactSelect
+                  name="vehicle_catalog_name"
+                  control={control}
+                  options={vehicleCatalog}
+                  placeholder={t('UserPage.VehicleSelectDefault')}
+                  isMulti={false}
+                  className="xl:rounded-l-none"
+                />
               </div>
               <div>
                 <Button
                   type="submit"
                   disabled={loading.search}
-                  className="w-[150px] bg-primary text-sm text-white hover:border-primary hover:bg-white hover:text-primary dark:hover:bg-gray-700 md:w-[300px] lg:w-[400px] xl:ml-3 xl:w-full"
+                  className="min-h-[48px] min-w-[150px] border border-white bg-primary text-sm text-white hover:border-primary hover:bg-white hover:text-primary first-letter:xs:max-w-[150px] sm:max-w-[300px] md:w-[300px] lg:w-[400px] xl:ml-3 xl:w-full"
                 >
                   <IoSearch />
                   {loading.search
