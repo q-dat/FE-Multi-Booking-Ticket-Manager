@@ -3,7 +3,6 @@ import { Route, Routes } from 'react-router-dom';
 import DefaultLayout from '../layout/DefaultLayout';
 import PrivateRouter from './PrivateRouter';
 
-
 // UserPage
 const User = lazy(() => import('../pages/user/User'));
 const HomePage = lazy(() => import('../pages/user/HomePage'));
@@ -24,6 +23,9 @@ const TicketFlightsResultsPage = lazy(
 );
 const CheckoutPage = lazy(
   () => import('../pages/user/CheckoutPage')
+)
+const Verify = lazy(
+  () => import('../pages/user/Verify')
 )
 //auth
 const Auth = lazy(() => import('../pages/auth/Auth'));
@@ -48,6 +50,7 @@ const TicketCatalogPage = lazy(
 const TicketPage = lazy(() => import('../pages/admin/TicketPage'));
 const SeatCatalogPage = lazy(() => import('../pages/admin/SeatCatalogPage'));
 const TripPage = lazy(() => import('../pages/admin/TripPage'));
+const OrderPage = lazy(() => import('../pages/admin/OrderPage'));
 // not found page
 const NotFound = lazy(() => import('../pages/404/NotFound'));
 export default function AppRoutes() {
@@ -80,6 +83,7 @@ export default function AppRoutes() {
             <Route path="return-ticket" element={<ReturnTicketPage />} />
             <Route path="contact" element={<ContactPage />} />
             <Route path="checkout" element={<CheckoutPage />} />
+            <Route path="verify" element={<Verify />} />
           </Route>
         </Route>
 
@@ -113,6 +117,7 @@ export default function AppRoutes() {
             <Route path="vehicle-catalog" element={<VehicleCatalogPage />} />
             <Route path="seat-catalog" element={<SeatCatalogPage />} />
             <Route path="trip" element={<TripPage />} />
+            <Route path="order" element={<OrderPage />} />
           </Route>
         </Route>
         {/* 404 not found */}
