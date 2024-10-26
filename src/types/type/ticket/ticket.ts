@@ -4,6 +4,7 @@ import { ITrip } from '../trip/trip';
 import { IVehicleCatalog } from '../vehicle-catalog/vehicle-catalog';
 
 export interface ITicket {
+  [x: string]: string;
   _id: string;
   ticket_catalog_id: ITicketCatalog;
   vehicle_catalog_id: IVehicleCatalog;

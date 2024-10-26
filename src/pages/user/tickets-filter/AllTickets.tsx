@@ -11,10 +11,12 @@ import { IoTicket, IoTrainSharp } from 'react-icons/io5';
 import { IoMdPricetag } from 'react-icons/io';
 import { PiMapPinAreaDuotone, PiSeatFill } from 'react-icons/pi';
 import { FaCartPlus } from 'react-icons/fa6';
-
+import { GrStatusInfo } from "react-icons/gr";
 const AllTickets: React.FC = () => {
   // Get Ticket
   const { tickets, getAllTickets, filterTickets } = useContext(TicketContext);
+  const [status] = useState<string>('còn chỗ');
+
   useEffect(() => {
     getAllTickets();
   }, []);
@@ -65,6 +67,9 @@ const AllTickets: React.FC = () => {
     };
     await filterTickets(filterParams);
   };
+  const filteredTickets = tickets.filter(
+    ticket => ticket.seat_id[0]?.status.toLocaleLowerCase() === status
+  );
   return (
     <div className="px-2 xl:px-[100px]">
       <div className="my-5 rounded-lg bg-primary py-2 text-center text-3xl font-bold text-white dark:bg-white dark:text-primary">
@@ -170,78 +175,93 @@ const AllTickets: React.FC = () => {
             </div>
           </div>
         </div>
-        <div
-          ref={scrollRef}
-          className="flex space-x-4 overflow-x-auto scroll-smooth p-5 scrollbar-hide"
-          style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
-        >
-          {tickets.map((ticket: ITicket) => (
-            <div
-              key={ticket._id}
-              className="w-full flex-none transform overflow-hidden rounded-lg bg-white text-black shadow-md shadow-primary transition-transform duration-300 ease-in-out hover:scale-105 sm:w-80"
-            >
-              <div className="flex flex-col gap-1 p-4 font-light">
-                <div className="mb-2 flex items-center justify-center gap-1 font-semibold">
-                  <span className="font-semibold">
-                    {ticket.trip_id.departure_point?.name}
-                  </span>
-                  <p className="text-primary">-</p>
-                  <span className="font-semibold">
-                    {ticket.trip_id.destination_point?.name}
-                  </span>
-                </div>
-                <div className="flex items-center gap-1">
-                  <IoTicket color="#12296999" /> Loại Vé:
-                  <span className="font-semibold">
-                    {ticket.ticket_catalog_id?.name}
-                  </span>
-                </div>
-                <div className="flex items-center gap-1">
-                  <IoTrainSharp color="#12296999" /> Phương tiện:
-                  <span className="font-semibold">
-                    {ticket.seat_id.map(seat => (
-                      <span key={seat._id}>
-                        {seat.seat_catalog_id.vehicle_id?.name}
+        <div className="my-5 rounded-xl bg-white p-2 shadow-inner shadow-primary">
+          <div
+            ref={scrollRef}
+            className="flex space-x-4 overflow-x-auto scroll-smooth p-3 scrollbar-hide"
+            style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
+          >
+            {filteredTickets.map((ticket: ITicket) => (
+              <div
+                key={ticket._id}
+                className="w-full flex-none transform overflow-hidden rounded-lg bg-white text-black shadow-inner shadow-primary transition-transform duration-300 ease-in-out hover:scale-105 hover:bg-primary hover:bg-opacity-10 sm:w-80"
+              >
+                <div className="flex min-h-[200px] flex-col justify-between gap-1 p-2 font-light text-gray-600">
+                  <div className="w-full">
+                    <div className="mb-2 flex items-center justify-center gap-1 font-semibold">
+                      <span className="font-semibold text-primary">
+                        {ticket.trip_id.departure_point?.name}
                       </span>
-                    ))}
-                  </span>
+                      <p className="text-primary">-</p>
+                      <span className="font-semibold text-primary">
+                        {ticket.trip_id.destination_point?.name}
+                      </span>
+                    </div>
+                    <div className="flex items-center gap-1">
+                      <IoTicket className="text-gray-100" /> Loại Vé:
+                      <span className="font-semibold text-primary">
+                        {ticket.ticket_catalog_id?.name}
+                      </span>
+                    </div>
+                    <div className="flex items-center gap-1">
+                      <IoTrainSharp className="text-gray-100" /> Phương tiện:
+                      <span className="font-semibold text-primary">
+                        {ticket.seat_id.map(seat => (
+                          <span key={seat._id}>
+                            {seat.seat_catalog_id.vehicle_id?.name}
+                          </span>
+                        ))}
+                      </span>
+                    </div>
+                    <div className="flex items-center gap-1">
+                      <GrStatusInfo className="text-gray-100" /> Trạng thái:
+                      <span className="font-semibold text-primary">
+                        {ticket.seat_id.map(seat => (
+                          <span key={seat._id}>{seat?.status}</span>
+                        ))}
+                      </span>
+                    </div>
+                    <div className="flex items-start gap-1">
+                      <p className="flex items-center gap-1">
+                        <PiSeatFill className="text-gray-100" /> Ghế:
+                      </p>
+                      <p>
+                        <span className="font-semibold text-primary">
+                          {ticket.seat_id.map(seat => (
+                            <span key={seat._id}>{seat?.name}</span>
+                          ))}
+                        </span>
+                        &nbsp;-&nbsp;
+                        <span className="font-semibold text-primary">
+                          {ticket.seat_id.map(seat => (
+                            <span key={seat._id}>
+                              {seat.seat_catalog_id?.name}
+                            </span>
+                          ))}
+                        </span>
+                      </p>
+                    </div>
+                    <div className="flex items-center gap-1">
+                      <IoMdPricetag className="text-gray-100" /> Giá vé:
+                      <span className="font-semibold text-red-500">
+                        {(ticket?.price * 1000).toLocaleString('vi-VN')}
+                      </span>
+                      <span className="font-semibold text-primary">VND</span>
+                    </div>
+                  </div>
+                  <div>
+                    <Button
+                      size="sm"
+                      className="bg-primary font-serif text-white hover:bg-secondary"
+                    >
+                      <FaCartPlus color="#ffffff" />
+                      Mua Vé
+                    </Button>
+                  </div>
                 </div>
-                <div className="flex items-start gap-1">
-                  <p className="flex items-center gap-1">
-                    <PiSeatFill color="#12296999" /> Ghế:
-                  </p>
-                  <p>
-                    <span className="font-semibold">
-                      {ticket.seat_id.map(seat => (
-                        <span key={seat._id}>{seat?.name}</span>
-                      ))}
-                    </span>
-
-                    <span className="font-semibold">
-                      {ticket.seat_id.map(seat => (
-                        <span key={seat._id}>{seat.seat_catalog_id?.name}</span>
-                      ))}
-                    </span>
-                  </p>
-                </div>
-                <div className="flex items-center gap-1">
-                  <IoMdPricetag color="#12296999" /> Giá vé:
-                  <span className="font-bold text-red-500">
-                    {(ticket?.price * 1000).toLocaleString('vi-VN')}
-                  </span>
-                  VND
-                </div>
-                <Button
-                  size="sm"
-                  color="primary"
-                  className="font-serif text-white"
-                >
-                  <FaCartPlus color="#ffffff" />
-                  Mua Vé
-                </Button>
               </div>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
 
         {/* Navigation Button  */}
