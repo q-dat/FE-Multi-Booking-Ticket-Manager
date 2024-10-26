@@ -33,7 +33,7 @@ const CartPage: React.FC = () => {
             allRemoved = false;
           } else {
             const seatId = selectedSeats.find(ticket => ticket._id === ticketId)
-              ?.seat_id._id;
+              ?.seat_id[0]?._id;
             if (seatId) {
               removeSeat(ticketId, seatId);
             }
@@ -78,10 +78,10 @@ const CartPage: React.FC = () => {
                       'vi-VN'
                     )}
                   </p>
-                  <p>{ticket.trip_id.departure_time}</p>
-                  <p>{ticket.seat_id.seat_catalog_id.vehicle_id.name}</p>
-                  <p>{ticket.seat_id.seat_catalog_id.name}</p>
-                  <p>{ticket.seat_id.name}</p>
+                  <p>{ticket.trip_id?.departure_time}</p>
+                  <p>{ticket.seat_id[0]?.seat_catalog_id.vehicle_id.name}</p>
+                  <p>{ticket.seat_id[0]?.seat_catalog_id.name}</p>
+                  <p>{ticket.seat_id[0]?.name}</p>
                   <p>
                     {(ticket.price * 1000).toLocaleString('vi-VN')}
                     &nbsp;VND
@@ -91,7 +91,7 @@ const CartPage: React.FC = () => {
                 <div className="flex flex-row items-center">
                   <p
                     onClick={() => {
-                      const seatId = ticket.seat_id._id;
+                      const seatId = ticket.seat_id[0]?._id;
                       if (seatId) {
                         removeSeat(ticket._id, seatId);
                       }
@@ -101,7 +101,7 @@ const CartPage: React.FC = () => {
                     <IoIosCloseCircleOutline />
                   </p>
                   <span className="text-red-500">
-                    {countdowns[ticket._id]} giây
+                    {countdowns[ticket?._id]} giây
                   </span>
                 </div>
               </div>

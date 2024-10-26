@@ -77,7 +77,6 @@ const AllTickets: React.FC = () => {
           <div className="flex flex-col gap-3">
             {/* Loại Vé */}
             <div>
-              {' '}
               <p className="flex items-center gap-1 bg-blue-50 font-bold text-primary">
                 <IoTicket /> Loại Vé:
               </p>

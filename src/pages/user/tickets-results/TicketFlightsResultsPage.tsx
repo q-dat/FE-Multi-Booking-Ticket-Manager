@@ -22,7 +22,7 @@ const TicketFlightsResultsPage: React.FC = () => {
       const parsedTickets = JSON.parse(storedTickets) as ITicket[];
       setTickets(parsedTickets);
       setSelectedFlight(
-        parsedTickets[0]?.seat_id.seat_catalog_id.vehicle_id.name || null
+        parsedTickets[0]?.seat_id[0]?.seat_catalog_id.vehicle_id.name || null
       );
     } else {
       setError('Không tìm thấy dữ liệu vé trong session.');
@@ -55,7 +55,7 @@ const TicketFlightsResultsPage: React.FC = () => {
   const tripInfo = tickets[0]?.trip_id;
   const ticketsByFlight = tickets.reduce(
     (acc: { [key: string]: ITicket[] }, ticket) => {
-      const flightName = ticket.seat_id.seat_catalog_id.vehicle_id.name;
+      const flightName = ticket.seat_id[0]?.seat_catalog_id.vehicle_id.name;
       if (!acc[flightName]) {
         acc[flightName] = [];
       }
@@ -68,7 +68,7 @@ const TicketFlightsResultsPage: React.FC = () => {
   const ticketsByClass = selectedFlight
     ? ticketsByFlight[selectedFlight].reduce(
         (acc: { [key: string]: ITicket[] }, ticket) => {
-          const classId = ticket.seat_id.seat_catalog_id._id;
+          const classId = ticket.seat_id[0]?.seat_catalog_id._id;
           if (!acc[classId]) {
             acc[classId] = [];
           }
@@ -112,20 +112,20 @@ const TicketFlightsResultsPage: React.FC = () => {
             onClick={() => setSelectedFlight(flightName)}
             key={flightName}
           >
-            <div className="group-hover:border h-10 w-[150px] rounded-3xl bg-white text-black group-hover:border group-hover:border-white group-hover:bg-primary group-hover:text-white">
+            <div className="group-hover:border h-10 w-[150px] rounded-3xl bg-white text-black group-hover:border-white group-hover:bg-primary group-hover:text-white">
               <p className="py-[5px] text-center">
-                {flightTickets[0].seat_id.seat_catalog_id.vehicle_id.name}
+                {flightTickets[0].seat_id[0]?.seat_catalog_id.vehicle_id.name}
               </p>
             </div>
             <div className="h-[150px] w-full rounded-3xl bg-white p-2 text-start text-lg font-light">
               <p>
                 Ngày đi:
                 {new Date(
-                  flightTickets[0].trip_id.departure_date
+                  flightTickets[0].trip_id?.departure_date
                 ).toLocaleDateString('vi-VN')}
               </p>
               <p>
-                Giờ đi: {flightTickets[0].trip_id.departure_time}
+                Giờ đi: {flightTickets[0].trip_id?.departure_time}
               </p>
             </div>
             <div className="flex flex-row gap-10">
@@ -146,11 +146,11 @@ const TicketFlightsResultsPage: React.FC = () => {
                 size="md"
                 className="text-md mb-10 font-semibold dark:bg-white dark:text-primary"
               >
-                {classTickets[0].seat_id.seat_catalog_id.name}
+                {classTickets[0].seat_id[0]?.seat_catalog_id.name}
               </Button>
               <div className="grid grid-cols-4 gap-2 rounded-xl border border-primary p-2 dark:border-white">
                 {classTickets.map((ticket, index) => {
-                  const seatStatus = ticket.seat_id.status;
+                  const seatStatus = ticket.seat_id[0]?.status;
 
                   return (
                     <div
@@ -162,14 +162,14 @@ const TicketFlightsResultsPage: React.FC = () => {
                           : 'cursor-not-allowed border-red-700 bg-red-500 text-white'
                       } group`}
                     >
-                      {ticket.seat_id.ordinal_numbers}
+                      {ticket.seat_id[0]?.ordinal_numbers}
 
                       <div
                         className={`absolute bottom-10 left-1/2 z-10 w-[100px] -translate-x-1/2 transform rounded bg-white p-2 text-center text-xs text-black opacity-0 shadow-headerMenu shadow-primary transition-opacity duration-200 ease-in-out group-hover:opacity-100`}
                       >
                         {seatStatus === 'Còn chỗ' ? (
                           <>
-                            <strong>{ticket.seat_id.name}</strong>
+                            <strong>{ticket.seat_id[0]?.name}</strong>
                             <p>
                               <strong>Giá:</strong>{' '}
                               {(ticket.price * 1000).toLocaleString('vi-VN')}{' '}

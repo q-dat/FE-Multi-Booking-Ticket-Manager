@@ -112,7 +112,7 @@ const ModalEditTicketPageAdmin: React.FC<ModalEditTicketProps> = ({
               <Select
                 defaultValue=""
                 className="w-full border border-gray-700 border-opacity-50 bg-white text-black focus:border-primary focus:outline-none dark:border-secondary dark:bg-gray-700 dark:text-white dark:focus:border-white"
-                {...register('seat_id.seat_catalog_id.vehicle_id._id')}
+                {...register('seat_id.0.seat_catalog_id.vehicle_id._id')}
               >
                 <option disabled value="">
                   Chọn Phương Tiện
@@ -128,7 +128,7 @@ const ModalEditTicketPageAdmin: React.FC<ModalEditTicketProps> = ({
               <Select
                 defaultValue=""
                 className="w-full border border-gray-700 border-opacity-50 bg-white text-black focus:border-primary focus:outline-none dark:border-secondary dark:bg-gray-700 dark:text-white dark:focus:border-white"
-                {...register('seat_id._id')}
+                {...register('seat_id.0._id')}
               >
                 <option disabled value="">
                   Chọn Chỗ Ngồi

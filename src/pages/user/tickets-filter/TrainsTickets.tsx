@@ -50,7 +50,7 @@ const BusesTickets: React.FC = () => {
   };
   // Lọc vé xe khách
   const filteredTickets = tickets.filter(
-    ticket => ticket.vehicle_catalog_id.name === vehicleCatalog
+    ticket => ticket.vehicle_catalog_id?.name === vehicleCatalog
   );
   return (
     <div className="px-2 xl:px-[100px]">
@@ -81,7 +81,7 @@ const BusesTickets: React.FC = () => {
                       }
                     />
                     <span className="text-primary hover:text-secondary">
-                      {item.name}
+                      {item?.name}
                     </span>
                   </label>
                 ))}
@@ -111,7 +111,7 @@ const BusesTickets: React.FC = () => {
                       }
                     />
                     <span className="text-primary hover:text-secondary">
-                      {item.name}
+                      {item?.name}
                     </span>
                   </label>
                 ))}
@@ -123,28 +123,30 @@ const BusesTickets: React.FC = () => {
           {filteredTickets.map((ticket: ITicket) => (
             <div
               key={ticket._id}
-              className="w-full transform rounded-lg bg-white text-black shadow-md shadow-primary transition-transform duration-300 ease-in-out dark:hover:bg-gray-50 hover:bg-primary hover:bg-opacity-10"
+              className="w-full transform rounded-lg bg-white text-black shadow-md shadow-primary transition-transform duration-300 ease-in-out hover:bg-primary hover:bg-opacity-10 dark:hover:bg-gray-50"
             >
               <div className="flex flex-col gap-1 p-4 font-light">
                 <div className="mb-2 flex items-center justify-center gap-1 font-semibold">
                   <span className="font-semibold">
-                    {ticket.trip_id.departure_point.name}
+                    {ticket.trip_id.departure_point?.name}
                   </span>
                   <FaArrowRightArrowLeft color="#12296999" />
                   <span className="font-semibold">
-                    {ticket.trip_id.destination_point.name}
+                    {ticket.trip_id.destination_point?.name}
                   </span>
                 </div>
                 <div className="flex items-center gap-1">
                   <IoTicket color="#12296999" /> Loại Vé:
                   <span className="font-semibold">
-                    {ticket.ticket_catalog_id.name}
+                    {ticket.ticket_catalog_id?.name}
                   </span>
                 </div>
                 <div className="flex items-center gap-1">
                   <IoTrainSharp color="#12296999" /> Phương tiện:
                   <span className="font-semibold">
-                    {ticket.seat_id.seat_catalog_id.vehicle_id.name}
+                    {ticket.seat_id.map(seat => (
+                      <span>({seat.seat_catalog_id.vehicle_id?.name})</span>
+                    ))}
                   </span>
                 </div>
                 <div className="flex items-start gap-1">
@@ -152,9 +154,15 @@ const BusesTickets: React.FC = () => {
                     <PiSeatFill color="#12296999" /> Ghế:
                   </p>
                   <p>
-                    <span className="font-semibold">{ticket.seat_id.name}</span>
                     <span className="font-semibold">
-                      ({ticket.seat_id.seat_catalog_id.name})
+                      {ticket.seat_id.map(seat => (
+                        <span>({seat?.name})</span>
+                      ))}
+                    </span>
+                    <span className="font-semibold">
+                      {ticket.seat_id.map(seat => (
+                        <span>({seat.seat_catalog_id?.name})</span>
+                      ))}
                     </span>
                   </p>
                 </div>

@@ -193,7 +193,7 @@ const ModalCreateTicketPageAdmin: React.FC<ModalCreateTicketProps> = ({
               <DaisySelect
                 defaultValue=""
                 className="w-full border border-gray-700 border-opacity-50 bg-white text-black focus:border-primary focus:outline-none dark:border-secondary dark:bg-gray-700 dark:text-white dark:focus:border-white"
-                {...register('seat_id.seat_catalog_id.vehicle_id._id', {
+                {...register('seat_id.0.seat_catalog_id.vehicle_id._id', {
                   required: true
                 })}
               >
@@ -210,7 +210,7 @@ const ModalCreateTicketPageAdmin: React.FC<ModalCreateTicketProps> = ({
               <DaisySelect
                 defaultValue=""
                 className="w-full border border-gray-700 border-opacity-50 bg-white text-black focus:border-primary focus:outline-none dark:border-secondary dark:bg-gray-700 dark:text-white dark:focus:border-white"
-                {...register('seat_id._id', { required: true })}
+                {...register('seat_id.0._id', { required: true })}
               >
                 <option disabled value="">
                   Chọn Chỗ Ngồi

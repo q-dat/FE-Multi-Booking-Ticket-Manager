@@ -22,7 +22,7 @@ const TicketTrainsResultsPage: React.FC = () => {
       const parsedTickets = JSON.parse(storedTickets) as ITicket[];
       setTickets(parsedTickets);
       setSelectedTrain(
-        parsedTickets[0]?.seat_id.seat_catalog_id.vehicle_id.name || null
+        parsedTickets[0]?.seat_id[0]?.seat_catalog_id.vehicle_id.name || null
       );
     } else {
       setError('Không tìm thấy dữ liệu vé trong session.');
@@ -56,7 +56,7 @@ const TicketTrainsResultsPage: React.FC = () => {
   const ticketCatalogInfo = tickets[0]?.ticket_catalog_id;
   const ticketsByTrain = tickets.reduce(
     (acc: { [key: string]: ITicket[] }, ticket) => {
-      const trainName = ticket.seat_id.seat_catalog_id.vehicle_id.name;
+      const trainName = ticket.seat_id[0]?.seat_catalog_id.vehicle_id.name;
       if (!acc[trainName]) {
         acc[trainName] = [];
       }
@@ -69,7 +69,7 @@ const TicketTrainsResultsPage: React.FC = () => {
   const ticketsByCarriage = selectedTrain
     ? ticketsByTrain[selectedTrain].reduce(
         (acc: { [key: string]: ITicket[] }, ticket) => {
-          const carriageId = ticket.seat_id.seat_catalog_id._id;
+          const carriageId = ticket.seat_id[0]?.seat_catalog_id._id;
           if (!acc[carriageId]) {
             acc[carriageId] = [];
           }
@@ -102,8 +102,8 @@ const TicketTrainsResultsPage: React.FC = () => {
         </div>
         <div className="w-full">
           <h1 className="mx-2 mb-5 border-[4px] border-b-0 border-r-0 border-t-0 border-primary bg-blue-200 px-5 py-1 text-center text-xl text-black dark:border-white dark:bg-gray-400 dark:text-white xl:text-start">
-            Chuyến đi từ <strong>{tripInfo.departure_point.name}</strong> đến{' '}
-            <strong>{tripInfo.destination_point.name}</strong> &nbsp;(
+            Chuyến đi từ <strong>{tripInfo.departure_point?.name}</strong> đến{' '}
+            <strong>{tripInfo.destination_point?.name}</strong> &nbsp;(
             <strong>{ticketCatalogInfo.name}</strong>)
           </h1>
 
@@ -116,7 +116,7 @@ const TicketTrainsResultsPage: React.FC = () => {
               >
                 <div className="w-[100px] rounded-3xl bg-white text-black group-hover:bg-primary group-hover:text-white dark:group-hover:bg-secondary">
                   <p className="text-center">
-                    {trainTickets[0].seat_id.seat_catalog_id.vehicle_id.name}
+                    {trainTickets[0].seat_id[0]?.seat_catalog_id.vehicle_id.name}
                   </p>
                 </div>
                 <div className="h-[150px] w-full rounded-2xl bg-white p-2 text-start text-sm font-bold">
@@ -132,8 +132,8 @@ const TicketTrainsResultsPage: React.FC = () => {
                       trainTickets[0].trip_id.return_date
                     ).toLocaleDateString('vi-VN')}
                   </p>
-                  <p>Giờ đi: {trainTickets[0].trip_id.departure_time}</p>
-                  <p>Giờ về: {trainTickets[0].trip_id.return_time}</p>
+                  <p>Giờ đi: {trainTickets[0].trip_id?.departure_time}</p>
+                  <p>Giờ về: {trainTickets[0].trip_id?.return_time}</p>
                 </div>
                 <div className="flex flex-row gap-10">
                   <div className="h-6 w-6 rounded-full bg-white group-hover:border group-hover:border-white group-hover:bg-primary dark:group-hover:bg-secondary"></div>
@@ -153,12 +153,12 @@ const TicketTrainsResultsPage: React.FC = () => {
                     size="sm"
                     className="text-md mb-10 font-semibold text-white dark:bg-white dark:text-primary"
                   >
-                    {carriageTickets[0].seat_id.seat_catalog_id.name}
+                    {carriageTickets[0].seat_id[0]?.seat_catalog_id.name}
                   </Button>
                   <p className="p-1 font-bold">Vị trí:</p>
                   <div className="flex flex-wrap gap-5 rounded-xl border border-primary p-2 dark:border-white">
                     {carriageTickets.map((ticket, index) => {
-                      const seatStatus = ticket.seat_id.status;
+                      const seatStatus = ticket.seat_id[0]?.status;
 
                       return (
                         <div
@@ -170,14 +170,14 @@ const TicketTrainsResultsPage: React.FC = () => {
                               : 'cursor-not-allowed border-red-700 bg-red-500 text-white'
                           } group`}
                         >
-                          {ticket.seat_id.ordinal_numbers}
+                          {ticket.seat_id[0]?.ordinal_numbers}
 
                           <div
                             className={`absolute bottom-10 left-1/2 z-10 w-[100px] -translate-x-1/2 transform rounded bg-white p-2 text-center text-xs text-black opacity-0 shadow-headerMenu shadow-primary transition-opacity duration-200 ease-in-out group-hover:opacity-100`}
                           >
                             {seatStatus === 'Còn chỗ' ? (
                               <>
-                                <strong>{ticket.seat_id.name}</strong>
+                                <strong>{ticket.seat_id[0]?.name}</strong>
                                 <p>
                                   <strong>Giá:</strong>{' '}
                                   {(ticket.price * 1000).toLocaleString(
