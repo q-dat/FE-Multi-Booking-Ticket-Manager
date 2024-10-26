@@ -136,6 +136,10 @@
       "forminput3": "Điện Thoại",
       "buttonform": "Tra Cứu",
       "linkform": "Quên mã đặt chỗ?"
+    },
+    "BusesTickets":{
+      "titleBuses1":"Loại Vé",
+      "titleBuses2":"Điểm Khởi Hành"
     }
   },
   "NotificationPopup": {

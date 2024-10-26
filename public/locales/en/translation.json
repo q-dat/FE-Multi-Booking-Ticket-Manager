@@ -136,6 +136,11 @@
       "forminput3": "Phone",
       "buttonform": "Lookup",
       "linkform": "Forgot booking code?"
+    },
+    "BusesTickets":{
+      "titleBuses1": "Ticket Type",
+      "titleBuses2": "Departure Point"
+
     }
   },
   "NotificationPopup": {
