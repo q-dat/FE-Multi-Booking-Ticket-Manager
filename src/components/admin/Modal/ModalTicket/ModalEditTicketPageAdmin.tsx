@@ -172,6 +172,7 @@ const ModalEditTicketPageAdmin: React.FC<ModalEditTicketProps> = ({
                   <option key={trip._id} value={trip._id}>
                     {trip.departure_point.name}
                     &nbsp; - &nbsp;{trip.destination_point.name}
+                    &nbsp;({trip.vehicle_catalog_id?.name || 'unknown'})
                   </option>
                 ))}
               </Select>

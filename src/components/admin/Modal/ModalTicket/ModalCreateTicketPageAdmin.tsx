@@ -211,6 +211,7 @@ const ModalCreateTicketPageAdmin: React.FC<ModalCreateTicketProps> = ({
               <LabelForm title={'Chọn chỗ ngồi'} />
               <Select
                 isMulti
+                className="border-none text-primary"
                 options={seats.map(seat => ({
                   value: seat._id,
                   label: seat.name
@@ -239,26 +240,6 @@ const ModalCreateTicketPageAdmin: React.FC<ModalCreateTicketProps> = ({
                   setValue('seat_id', seatData);
                 }}
               />
-              {/* <DaisySelect
-                defaultValue=""
-                className="w-full border border-gray-700 border-opacity-50 bg-white text-black focus:border-primary focus:outline-none dark:border-secondary dark:bg-gray-700 dark:text-white dark:focus:border-white"
-                {...register('seat_id.0._id', { required: true })}
-              >
-                <option disabled value="">
-                  Chọn Chỗ Ngồi
-                </option>
-                {seats
-                  .filter(
-                    (item, index, self) =>
-                      index === self.findIndex(t => t.name === item.name)
-                  )
-                  .map(seat => (
-                    <option value={seat._id} key={seat._id}>
-                      {seat.name} &nbsp;-&nbsp;
-                      {seat.seat_catalog_id.name}
-                    </option>
-                  ))}
-              </DaisySelect> */}
             </div>
 
             <div className="flex flex-col gap-2">
@@ -278,6 +259,7 @@ const ModalCreateTicketPageAdmin: React.FC<ModalCreateTicketProps> = ({
                 ))}
               </DaisySelect>
               <LabelForm title={'Chuyến đi'} />
+
               <DaisySelect
                 defaultValue=""
                 className="w-full border border-gray-700 border-opacity-50 bg-white text-black focus:border-primary focus:outline-none dark:border-secondary dark:bg-gray-700 dark:text-white dark:focus:border-white"
@@ -290,6 +272,7 @@ const ModalCreateTicketPageAdmin: React.FC<ModalCreateTicketProps> = ({
                   <option key={trip._id} value={trip._id}>
                     {trip.departure_point.name}
                     &nbsp; - &nbsp;{trip.destination_point.name}
+                    &nbsp;({trip.vehicle_catalog_id?.name || 'unknown'})
                   </option>
                 ))}
               </DaisySelect>
