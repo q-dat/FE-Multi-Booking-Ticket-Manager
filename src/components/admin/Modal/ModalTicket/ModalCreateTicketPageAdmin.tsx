@@ -12,6 +12,8 @@ import { VehicleCatalogContext } from '../../../../context/vehicleCatalog/Vehicl
 import { SeatContext } from '../../../../context/seat/SeatContext';
 import InputModal from '../../InputModal';
 import { TripContext } from '../../../../context/trip/TripContext';
+import Select from 'react-select';
+import { ISeat } from '../../../../types/type/seat/seat';
 
 interface ModalCreateTicketProps {
   isOpen: boolean;
@@ -22,7 +24,7 @@ const ModalCreateTicketPageAdmin: React.FC<ModalCreateTicketProps> = ({
   isOpen,
   onClose
 }) => {
-  const { register, handleSubmit, reset } = useForm<ITicket>();
+  const { register, handleSubmit, reset, setValue } = useForm<ITicket>();
   const { createTicket, getAllTickets } = useContext(TicketContext);
   const { ticketCatalogs } = useContext(TicketCatalogContext);
   const { vehicles } = useContext(VehicleContext);
@@ -207,7 +209,37 @@ const ModalCreateTicketPageAdmin: React.FC<ModalCreateTicketProps> = ({
                 ))}
               </DaisySelect>
               <LabelForm title={'Chọn chỗ ngồi'} />
-              <DaisySelect
+              <Select
+                isMulti
+                options={seats.map(seat => ({
+                  value: seat._id,
+                  label: seat.name
+                }))}
+                onChange={selectedOptions => {
+                  const seatData: ISeat[] = selectedOptions
+                    .map(option => {
+                      const selectedSeat = seats.find(
+                        seat => seat._id === option.value
+                      );
+                      if (!selectedSeat) {
+                        return null;
+                      }
+                      return {
+                        _id: selectedSeat._id,
+                        name: selectedSeat.name || '',
+                        price: selectedSeat.price || 0,
+                        status: selectedSeat.status || '',
+                        ordinal_numbers: selectedSeat.ordinal_numbers || 0,
+                        seat_catalog_id: selectedSeat.seat_catalog_id,
+                        createAt: selectedSeat.createAt || '',
+                        updateAt: selectedSeat.updateAt || ''
+                      };
+                    })
+                    .filter(seat => seat !== null);
+                  setValue('seat_id', seatData);
+                }}
+              />
+              {/* <DaisySelect
                 defaultValue=""
                 className="w-full border border-gray-700 border-opacity-50 bg-white text-black focus:border-primary focus:outline-none dark:border-secondary dark:bg-gray-700 dark:text-white dark:focus:border-white"
                 {...register('seat_id.0._id', { required: true })}
@@ -226,7 +258,7 @@ const ModalCreateTicketPageAdmin: React.FC<ModalCreateTicketProps> = ({
                       {seat.seat_catalog_id.name}
                     </option>
                   ))}
-              </DaisySelect>
+              </DaisySelect> */}
             </div>
 
             <div className="flex flex-col gap-2">
@@ -272,25 +304,6 @@ const ModalCreateTicketPageAdmin: React.FC<ModalCreateTicketProps> = ({
             </div>
           </div>
           <div className="mt-4 flex flex-col gap-5 text-center">
-            {/* <div className="text-start">
-              <LabelForm title={'Chọn chỗ ngồi'} />
-              <Select
-                isMulti
-                options={seats.map(seat => ({
-                  value: seat._id,
-                  label: seat.name
-                }))}
-                onChange={selectedOptions => {
-                  const seatIds = selectedOptions.map(option => option.value);
-                  console.log(seatIds)
-                  register('seat_id._id', { required: true }).onChange({
-                    target: { value: seatIds }
-                  });
-                }}
-              />
-            
-            </div> */}
-
             <div className="flex flex-row items-center justify-center gap-5">
               <Button onClick={onClose} className="border-gray-50 text-black">
                 Huỷ bỏ
