@@ -146,7 +146,7 @@ const TicketBusesResultsPage: React.FC = () => {
                     {classTickets[0].seat_id[0]?.seat_catalog_id.name}
                   </Button>
                   <p className='p-1 font-bold'>Vị trí:</p>
-                  <div className="flex gap-5 flex-wrap rounded-xl border border-primary p-2 dark:border-white">
+                  <div className="flex flex-wrap items-center justify-between gap-2 rounded-xl border border-primary p-2 dark:border-white">
                     {classTickets.map((ticket, index) => {
                       const seatStatus = ticket.seat_id[0]?.status;
 

@@ -12,11 +12,11 @@ const CartPage: React.FC = () => {
 
   useEffect(() => {
     const newCountdowns: { [key: string]: number } = {};
-    const currentTime = Math.floor(Date.now() / 1000); // Thời gian hiện tại (giây)
+    const currentTime = Math.floor(Date.now() / 1000);
 
     selectedSeats.forEach(ticket => {
       const storedStartTime = localStorage.getItem(`startTime_${ticket._id}`);
-      const countdownDuration = 20; // 600 giây
+      const countdownDuration = 600; //Đặt thời gian 600s = 10p
 
       if (storedStartTime) {
         const startTime = parseInt(storedStartTime, 10);
