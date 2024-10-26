@@ -8,18 +8,28 @@ import { useNavigate } from 'react-router-dom';
 const CartPage: React.FC = () => {
   const { selectedSeats, removeSeat, clearSeats, totalPrice } = useCart();
   const [countdowns, setCountdowns] = useState<{ [key: string]: number }>({});
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   useEffect(() => {
     const newCountdowns: { [key: string]: number } = {};
+    const currentTime = Math.floor(Date.now() / 1000); // Thời gian hiện tại (giây)
 
     selectedSeats.forEach(ticket => {
-      if (!countdowns[ticket._id]) {
-        newCountdowns[ticket._id] = 600;
+      const storedStartTime = localStorage.getItem(`startTime_${ticket._id}`);
+      const countdownDuration = 20; // 600 giây
+
+      if (storedStartTime) {
+        const startTime = parseInt(storedStartTime, 10);
+        const elapsedTime = currentTime - startTime; // Tính thời gian đã trôi qua
+
+        const remainingTime = countdownDuration - elapsedTime; // Tính thời gian còn lại
+        newCountdowns[ticket._id] = remainingTime > 0 ? remainingTime : 0; // Nếu còn thời gian thì gán, ngược lại gán 0
       } else {
-        newCountdowns[ticket._id] = countdowns[ticket._id];
+        // Nếu không có thông tin, khởi tạo countdown mới
+        newCountdowns[ticket._id] = countdownDuration;
+        localStorage.setItem(`startTime_${ticket._id}`, currentTime.toString()); // Lưu thời gian bắt đầu
       }
-    }, []);
+    });
 
     setCountdowns(newCountdowns);
 
@@ -36,10 +46,15 @@ const CartPage: React.FC = () => {
               ?.seat_id[0]?._id;
             if (seatId) {
               removeSeat(ticketId, seatId);
+              localStorage.removeItem(`startTime_${ticketId}`); // Xóa thông tin thời gian bắt đầu khi xóa ghế
             }
             delete updatedCountdowns[ticketId];
           }
         });
+
+        // Lưu countdowns vào localStorage
+        localStorage.setItem('countdowns', JSON.stringify(updatedCountdowns));
+
         if (allRemoved) clearInterval(intervalId);
         return updatedCountdowns;
       });
@@ -112,7 +127,7 @@ const CartPage: React.FC = () => {
               Tổng tiền: {(totalPrice * 1000).toLocaleString('vi-VN')}
               &nbsp;VND
             </div>
-            <div className='flex justify-center w-full gap-2 items-center'>
+            <div className="flex w-full items-center justify-center gap-2">
               <Button
                 size="sm"
                 onClick={clearSeats}
@@ -124,7 +139,9 @@ const CartPage: React.FC = () => {
                 onClick={() => navigate('/checkout')}
                 size="sm"
                 className="bg-green-500 text-xs text-white"
-              ><MdOutlinePayment className='text-xl' />Mua vé
+              >
+                <MdOutlinePayment className="text-xl" />
+                Mua vé
               </Button>
             </div>
           </div>
