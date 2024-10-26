@@ -59,7 +59,7 @@ const TrainsPage: React.FC = () => {
 
   return (
     <div className="pb-[20px] xl:pt-[80px]">
-      <HeaderResponsive Title_NavbarMobile={t('UserPage.Navbar.Buses')} />
+      <HeaderResponsive Title_NavbarMobile={t('UserPage.Navbar.Trains')} />
       <div className="">
         {/* Banner */}
         <div className="relative">

@@ -84,7 +84,7 @@ const AllTickets: React.FC = () => {
                 {ticketCatalogs.map(item => (
                   <label
                     className="flex h-8 cursor-pointer items-center gap-1"
-                    key={item.name}
+                    key={item._id}
                   >
                     <input
                       type="checkbox"
@@ -116,7 +116,7 @@ const AllTickets: React.FC = () => {
                 {vehicleCatalogs.map(item => (
                   <label
                     className="flex h-8 cursor-pointer items-center gap-1"
-                    key={item.name}
+                    key={item._id}
                   >
                     <input
                       type="checkbox"
@@ -147,7 +147,7 @@ const AllTickets: React.FC = () => {
                 {locations.map(item => (
                   <label
                     className="flex h-8 cursor-pointer items-center gap-1"
-                    key={item.name}
+                    key={item._id}
                   >
                     <input
                       type="checkbox"
@@ -200,7 +200,9 @@ const AllTickets: React.FC = () => {
                   <IoTrainSharp color="#12296999" /> Phương tiện:
                   <span className="font-semibold">
                     {ticket.seat_id.map(seat => (
-                      <span>{seat.seat_catalog_id.vehicle_id?.name}</span>
+                      <span key={seat._id}>
+                        {seat.seat_catalog_id.vehicle_id?.name}
+                      </span>
                     ))}
                   </span>
                 </div>
@@ -211,13 +213,13 @@ const AllTickets: React.FC = () => {
                   <p>
                     <span className="font-semibold">
                       {ticket.seat_id.map(seat => (
-                        <span>{seat?.name}</span>
+                        <span key={seat._id}>{seat?.name}</span>
                       ))}
                     </span>
 
                     <span className="font-semibold">
                       {ticket.seat_id.map(seat => (
-                        <span>{seat.seat_catalog_id?.name}</span>
+                        <span key={seat._id}>{seat.seat_catalog_id?.name}</span>
                       ))}
                     </span>
                   </p>
