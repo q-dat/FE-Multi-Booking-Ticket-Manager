@@ -90,7 +90,7 @@ const ModalCreateTicketPageAdmin: React.FC<ModalCreateTicketProps> = ({
     <form onSubmit={handleSubmit(onSubmit)}>
       <div
         onClick={handleOverlayClick}
-        className="modal-overlay fixed inset-0 z-50 flex w-full items-center justify-center bg-black bg-opacity-40 px-2"
+        className="modal-overlay fixed inset-0 z-50 flex w-full items-center justify-center overflow-y-auto bg-black bg-opacity-40 px-2 scrollbar-hide"
       >
         <div
           onClick={e => e.stopPropagation()}
