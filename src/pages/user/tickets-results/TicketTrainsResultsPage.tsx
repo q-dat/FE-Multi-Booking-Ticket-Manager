@@ -100,13 +100,14 @@ const TicketTrainsResultsPage: React.FC = () => {
         <div className="block w-full xl:hidden">
           <CartPage />
         </div>
+        {/* Title */}
         <div className="w-full">
           <h1 className="mx-2 mb-5 border-[4px] border-b-0 border-r-0 border-t-0 border-primary bg-blue-200 px-5 py-1 text-center text-xl text-black dark:border-white dark:bg-gray-400 dark:text-white xl:text-start">
             Chuyến đi từ <strong>{tripInfo.departure_point?.name}</strong> đến{' '}
             <strong>{tripInfo.destination_point?.name}</strong> &nbsp;(
             <strong>{ticketCatalogInfo.name}</strong>)
           </h1>
-
+          {/* Vehicle Catalog */}
           <div className="mb-8 flex w-full flex-row items-center justify-center gap-5 overflow-x-auto scrollbar-hide">
             {Object.entries(ticketsByTrain).map(([trainName, trainTickets]) => (
               <div
@@ -116,7 +117,10 @@ const TicketTrainsResultsPage: React.FC = () => {
               >
                 <div className="w-[100px] rounded-3xl bg-white text-black group-hover:bg-primary group-hover:text-white dark:group-hover:bg-secondary">
                   <p className="text-center">
-                    {trainTickets[0].seat_id[0]?.seat_catalog_id.vehicle_id.name}
+                    {
+                      trainTickets[0].seat_id[0]?.seat_catalog_id.vehicle_id
+                        .name
+                    }
                   </p>
                 </div>
                 <div className="h-[150px] w-full rounded-2xl bg-white p-2 text-start text-sm font-bold">
@@ -142,7 +146,7 @@ const TicketTrainsResultsPage: React.FC = () => {
               </div>
             ))}
           </div>
-
+          {/* SeatCatalog */}
           {selectedTrain &&
             ticketsByCarriage &&
             Object.entries(ticketsByCarriage).map(
@@ -198,6 +202,7 @@ const TicketTrainsResultsPage: React.FC = () => {
               )
             )}
         </div>
+        {/*  */}
         <div className="hidden w-full xl:block">
           <CartPage />
         </div>
