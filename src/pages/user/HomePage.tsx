@@ -78,7 +78,7 @@ const Home: React.FC = () => {
       }
       Toastify('Tìm kiếm vé thành công', 200);
     } else {
-      Toastify(`Lỗi: ${error || 'Không tìm thấy vé nào'}`, 404);
+      Toastify(`Lỗi: ${error || 'Không tìm thấy vé!'}`, 404);
     }
   };
 

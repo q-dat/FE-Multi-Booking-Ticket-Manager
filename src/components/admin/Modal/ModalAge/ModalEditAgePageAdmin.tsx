@@ -1,7 +1,6 @@
 import React, { useEffect, useContext } from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { Toastify } from '../../../../helper/Toastify';
-import { isIErrorResponse } from '../../../../types/error/error';
 import InputModal from '../../InputModal';
 import { Button } from 'react-daisyui';
 import { AgeContext } from '../../../../context/age/AgeContext';
@@ -19,7 +18,7 @@ const ModalEditAgePageAdmin: React.FC<ModalEditAgeProps> = ({
   onClose,
   ageId
 }) => {
-  const { getAllAges, updateAge, getAgeById, ages } = useContext(AgeContext);
+  const { getAllAges, updateAge, getAgeById, ages,error } = useContext(AgeContext);
   const { register, handleSubmit, reset, setValue } = useForm<IAge>();
 
   useEffect(() => {
@@ -46,11 +45,8 @@ const ModalEditAgePageAdmin: React.FC<ModalEditAgeProps> = ({
       reset();
       getAllAges();
       onClose();
-    } catch (error: unknown) {
-      const errorMessage = isIErrorResponse(error)
-        ? error.data?.message
-        : 'Lỗi khi chỉnh sửa độ tuổi!';
-      Toastify(`Lỗi: ${errorMessage}`, 500);
+    } catch  {
+      Toastify(`Lỗi: ${error}`, 500);
     }
   };
 

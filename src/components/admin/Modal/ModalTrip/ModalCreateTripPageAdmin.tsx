@@ -1,7 +1,6 @@
 import React, { useContext } from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { Toastify } from '../../../../helper/Toastify';
-import { isIErrorResponse } from '../../../../types/error/error';
 import { Button, Select } from 'react-daisyui';
 import LabelForm from '../../LabelForm';
 import { ITrip } from '../../../../types/type/trip/trip';
@@ -19,7 +18,7 @@ const ModalCreateTripPageAdmin: React.FC<ModalCreateTicketProps> = ({
   isOpen,
   onClose
 }) => {
-  const { createTrip, getAllTrips } = useContext(TripContext);
+  const { createTrip, getAllTrips, error } = useContext(TripContext);
   const { locations } = useContext(LocationContext);
   const { vehicleCatalogs } = useContext(VehicleCatalogContext);
   const { register, handleSubmit, reset } = useForm<ITrip>();
@@ -31,11 +30,8 @@ const ModalCreateTripPageAdmin: React.FC<ModalCreateTicketProps> = ({
       reset();
       getAllTrips();
       onClose();
-    } catch (error: unknown) {
-      const errorMessage = isIErrorResponse(error)
-        ? error.data?.message
-        : 'Lỗi khi tạo chuyến đi!';
-      Toastify(`Lỗi: ${errorMessage}`, 500);
+    } catch {
+      Toastify(`Lỗi: ${error}`, 500);
     }
   };
 

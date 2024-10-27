@@ -4,7 +4,6 @@ import { useForm, SubmitHandler } from 'react-hook-form';
 import { ILocation } from '../../../../types/type/location/location';
 import { LocationContext } from '../../../../context/location/LocationContext';
 import { Toastify } from '../../../../helper/Toastify';
-import { isIErrorResponse } from '../../../../types/error/error';
 import InputModal from '../../InputModal';
 import { Button } from 'react-daisyui';
 import LabelForm from '../../LabelForm';
@@ -19,7 +18,7 @@ const ModalEditLocationPageAdmin: React.FC<ModalEditLocationProps> = ({
   onClose,
   locationId
 }) => {
-  const { getAllLocations, updateLocation, getLocationById, locations } =
+  const { getAllLocations, updateLocation, getLocationById, locations, error } =
     useContext(LocationContext);
   const { register, handleSubmit, reset, setValue } = useForm<ILocation>();
 
@@ -45,11 +44,8 @@ const ModalEditLocationPageAdmin: React.FC<ModalEditLocationProps> = ({
       reset();
       getAllLocations();
       onClose();
-    } catch (error: unknown) {
-      const errorMessage = isIErrorResponse(error)
-        ? error.data?.message
-        : 'Lỗi khi chỉnh sửa địa điểm!';
-      Toastify(`Lỗi: ${errorMessage}`, 500);
+    } catch {
+      Toastify(`Lỗi: ${error}`, 500);
     }
   };
 

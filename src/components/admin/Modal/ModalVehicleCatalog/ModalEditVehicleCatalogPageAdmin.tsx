@@ -1,7 +1,6 @@
 import React, { useEffect, useContext } from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { Toastify } from '../../../../helper/Toastify';
-import { isIErrorResponse } from '../../../../types/error/error';
 import InputModal from '../../InputModal';
 import { Button } from 'react-daisyui';
 import { VehicleCatalogContext } from '../../../../context/vehicleCatalog/VehicleCatalogContext';
@@ -20,7 +19,8 @@ const ModalEditVehicleCatalogPageAdmin: React.FC<
     getAllVehicleCatalogs,
     updateVehicleCatalog,
     getVehicleCatalogById,
-    vehicleCatalogs
+    vehicleCatalogs,
+    error
   } = useContext(VehicleCatalogContext);
   const { register, handleSubmit, reset, setValue } =
     useForm<IVehicleCatalog>();
@@ -47,11 +47,8 @@ const ModalEditVehicleCatalogPageAdmin: React.FC<
       reset();
       getAllVehicleCatalogs();
       onClose();
-    } catch (error: unknown) {
-      const errorMessage = isIErrorResponse(error)
-        ? error.data?.message
-        : 'Lỗi khi chỉnh sửa danh mục phương tiện !';
-      Toastify(`Lỗi: ${errorMessage}`, 500);
+    } catch {
+      Toastify(`Lỗi: ${error}`, 500);
     }
   };
 

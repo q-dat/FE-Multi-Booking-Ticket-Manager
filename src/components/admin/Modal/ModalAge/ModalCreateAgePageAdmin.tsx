@@ -3,7 +3,6 @@ import { Button } from 'react-daisyui';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import InputModal from '../../InputModal';
 import { IAge } from '../../../../types/type/age/age';
-import { isIErrorResponse } from '../../../../types/error/error';
 import { Toastify } from '../../../../helper/Toastify';
 import { AgeContext } from '../../../../context/age/AgeContext';
 
@@ -16,7 +15,7 @@ const ModalCreateAgePageAdmin: React.FC<ModalCreateAgeProps> = ({
   isOpen,
   onClose
 }) => {
-  const { createAge } = useContext(AgeContext);
+  const { createAge, error } = useContext(AgeContext);
   const { register, handleSubmit, reset } = useForm<IAge>();
 
   const onSubmit: SubmitHandler<IAge> = async formData => {
@@ -25,11 +24,8 @@ const ModalCreateAgePageAdmin: React.FC<ModalCreateAgeProps> = ({
       Toastify('Tạo độ tuổi thành công!', 201);
       reset();
       onClose();
-    } catch (error: unknown) {
-      const errorMessage = isIErrorResponse(error)
-        ? error.data?.message
-        : 'Lỗi khi tạo độ tuổi!';
-      Toastify(`Lỗi: ${errorMessage}`, 500);
+    } catch {
+      Toastify(`Lỗi: ${error}`, 500);
     }
   };
 

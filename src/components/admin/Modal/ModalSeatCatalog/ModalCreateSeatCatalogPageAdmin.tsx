@@ -2,7 +2,6 @@ import React, { useContext } from 'react';
 import { Button, Select } from 'react-daisyui';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import InputModal from '../../InputModal';
-import { isIErrorResponse } from '../../../../types/error/error';
 import { Toastify } from '../../../../helper/Toastify';
 import { SeatCatalogContext } from '../../../../context/seatCatalog/SeatCatalogContext';
 import { ISeatCatalog } from '../../../../types/type/seat-catalog/seat-catalog';
@@ -16,7 +15,7 @@ interface ModalCreateSeatCatalogProps {
 const ModalCreateSeatCatalogPageAdmin: React.FC<
   ModalCreateSeatCatalogProps
 > = ({ isOpen, onClose }) => {
-  const { createSeatCatalog } = useContext(SeatCatalogContext);
+  const { createSeatCatalog, error } = useContext(SeatCatalogContext);
   const { register, handleSubmit, reset } = useForm<ISeatCatalog>();
   const { vehicles } = useContext(VehicleContext);
   const onSubmit: SubmitHandler<ISeatCatalog> = async formData => {
@@ -25,11 +24,8 @@ const ModalCreateSeatCatalogPageAdmin: React.FC<
       Toastify('Tạo danh mục phương tiện thành công!', 201);
       reset();
       onClose();
-    } catch (error: unknown) {
-      const errorMessage = isIErrorResponse(error)
-        ? error.data?.message
-        : 'Lỗi khi tạo danh mục phương tiện!';
-      Toastify(`Lỗi: ${errorMessage}`, 500);
+    } catch {
+      Toastify(`Lỗi: ${error}`, 500);
     }
   };
 

@@ -1,7 +1,6 @@
 import React, { useEffect, useContext } from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { Toastify } from '../../../../helper/Toastify';
-import { isIErrorResponse } from '../../../../types/error/error';
 import InputModal from '../../InputModal';
 import { Button, Select } from 'react-daisyui';
 import { ITrip } from '../../../../types/type/trip/trip';
@@ -21,7 +20,7 @@ const ModalEditTripPageAdmin: React.FC<ModalEditTripProps> = ({
   onClose,
   tripId
 }) => {
-  const { getAllTrips, updateTrip, getTripById, trips } =
+  const { getAllTrips, updateTrip, getTripById, trips ,error} =
     useContext(TripContext);
   const { locations } = useContext(LocationContext);
   const { vehicleCatalogs } = useContext(VehicleCatalogContext);
@@ -54,11 +53,8 @@ const ModalEditTripPageAdmin: React.FC<ModalEditTripProps> = ({
       reset();
       getAllTrips();
       onClose();
-    } catch (error: unknown) {
-      const errorMessage = isIErrorResponse(error)
-        ? error.data?.message
-        : 'Lỗi khi chỉnh sửa chuyến đi!';
-      Toastify(`Lỗi: ${errorMessage}`, 500);
+    } catch {
+      Toastify(`Lỗi: ${error}`, 500);
     }
   };
 

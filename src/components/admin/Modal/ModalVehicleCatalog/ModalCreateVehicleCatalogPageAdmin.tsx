@@ -3,7 +3,6 @@ import { Button } from 'react-daisyui';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import InputModal from '../../InputModal';
 import { VehicleCatalogContext } from '../../../../context/vehicleCatalog/VehicleCatalogContext';
-import { isIErrorResponse } from '../../../../types/error/error';
 import { Toastify } from '../../../../helper/Toastify';
 import { IVehicleCatalog } from '../../../../types/type/vehicle-catalog/vehicle-catalog';
 
@@ -15,7 +14,7 @@ interface ModalCreateVehicleCatalogProps {
 const ModalCreateVehicleCatalogPageAdmin: React.FC<
   ModalCreateVehicleCatalogProps
 > = ({ isOpen, onClose }) => {
-  const { createVehicleCatalog } = useContext(VehicleCatalogContext);
+  const { createVehicleCatalog, error } = useContext(VehicleCatalogContext);
   const { register, handleSubmit, reset } = useForm<IVehicleCatalog>();
 
   const onSubmit: SubmitHandler<IVehicleCatalog> = async formData => {
@@ -24,11 +23,8 @@ const ModalCreateVehicleCatalogPageAdmin: React.FC<
       Toastify('Tạo danh mục phương tiện thành công!', 201);
       reset();
       onClose();
-    } catch (error: unknown) {
-      const errorMessage = isIErrorResponse(error)
-        ? error.data?.message
-        : 'Lỗi khi tạo danh mục phương tiện!';
-      Toastify(`Lỗi: ${errorMessage}`, 500);
+    } catch {
+      Toastify(`Lỗi: ${error}`, 500);
     }
   };
 

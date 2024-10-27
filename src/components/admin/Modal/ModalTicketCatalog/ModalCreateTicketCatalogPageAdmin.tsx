@@ -3,7 +3,6 @@ import { Button } from 'react-daisyui';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import InputModal from '../../InputModal';
 import { TicketCatalogContext } from '../../../../context/ticketCatalog/TicketCatalogContext';
-import { isIErrorResponse } from '../../../../types/error/error';
 import { Toastify } from '../../../../helper/Toastify';
 import { ITicketCatalog } from '../../../../types/type/ticket-catalog/ticket-catalog';
 
@@ -15,7 +14,7 @@ interface ModalCreateTicketCatalogProps {
 const ModalCreateTicketCatalogPageAdmin: React.FC<
   ModalCreateTicketCatalogProps
 > = ({ isOpen, onClose }) => {
-  const { createTicketCatalog } = useContext(TicketCatalogContext);
+  const { createTicketCatalog, error } = useContext(TicketCatalogContext);
   const { register, handleSubmit, reset } = useForm<ITicketCatalog>();
 
   const onSubmit: SubmitHandler<ITicketCatalog> = async formData => {
@@ -24,11 +23,8 @@ const ModalCreateTicketCatalogPageAdmin: React.FC<
       Toastify('Tạo danh mục vé thành công!', 201);
       reset();
       onClose();
-    } catch (error: unknown) {
-      const errorMessage = isIErrorResponse(error)
-        ? error.data?.message
-        : 'Lỗi khi tạo danh mục vé!';
-      Toastify(`Lỗi: ${errorMessage}`, 500);
+    } catch {
+      Toastify(`Lỗi: ${error}`, 500);
     }
   };
 

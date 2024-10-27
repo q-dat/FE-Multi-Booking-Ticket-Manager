@@ -3,7 +3,6 @@ import { useForm, SubmitHandler } from 'react-hook-form';
 import { ITicket } from '../../../../types/type/ticket/ticket';
 import { TicketContext } from '../../../../context/ticket/TicketContext';
 import { Toastify } from '../../../../helper/Toastify';
-import { isIErrorResponse } from '../../../../types/error/error';
 import { Button, Select as DaisySelect } from 'react-daisyui';
 import { TicketCatalogContext } from '../../../../context/ticketCatalog/TicketCatalogContext';
 import LabelForm from '../../LabelForm';
@@ -25,7 +24,7 @@ const ModalCreateTicketPageAdmin: React.FC<ModalCreateTicketProps> = ({
   onClose
 }) => {
   const { register, handleSubmit, reset, setValue } = useForm<ITicket>();
-  const { createTicket, getAllTickets } = useContext(TicketContext);
+  const { createTicket, getAllTickets, error } = useContext(TicketContext);
   const { ticketCatalogs } = useContext(TicketCatalogContext);
   const { vehicles } = useContext(VehicleContext);
   const { vehicleCatalogs } = useContext(VehicleCatalogContext);
@@ -39,11 +38,8 @@ const ModalCreateTicketPageAdmin: React.FC<ModalCreateTicketProps> = ({
       reset();
       getAllTickets();
       onClose();
-    } catch (error: unknown) {
-      const errorMessage = isIErrorResponse(error)
-        ? error.data?.message
-        : 'Lỗi khi tạo vé!';
-      Toastify(`Lỗi: ${errorMessage}`, 500);
+    } catch {
+      Toastify(`Lỗi: ${error}`, 500);
     }
   };
 

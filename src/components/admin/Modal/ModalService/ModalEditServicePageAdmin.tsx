@@ -4,7 +4,6 @@ import { useForm, SubmitHandler } from 'react-hook-form';
 import { IService } from '../../../../types/type/service/service';
 import { ServiceContext } from '../../../../context/service/ServiceContext';
 import { Toastify } from '../../../../helper/Toastify';
-import { isIErrorResponse } from '../../../../types/error/error';
 import InputModal from '../../InputModal';
 import { Button } from 'react-daisyui';
 import LabelForm from '../../LabelForm';
@@ -19,7 +18,7 @@ const ModalEditServicePageAdmin: React.FC<ModalEditServiceProps> = ({
   onClose,
   serviceId
 }) => {
-  const { getAllServices, updateService, getServiceById, services } =
+  const { getAllServices, updateService, getServiceById, services, error } =
     useContext(ServiceContext);
   const { register, handleSubmit, reset, setValue } = useForm<IService>();
 
@@ -44,11 +43,8 @@ const ModalEditServicePageAdmin: React.FC<ModalEditServiceProps> = ({
       reset();
       getAllServices();
       onClose();
-    } catch (error: unknown) {
-      const errorMessage = isIErrorResponse(error)
-        ? error.data?.message
-        : 'Lỗi khi chỉnh sửa dịch vụ!';
-      Toastify(`Lỗi: ${errorMessage}`, 200);
+    } catch {
+      Toastify(`Lỗi: ${error}`, 200);
     }
   };
 

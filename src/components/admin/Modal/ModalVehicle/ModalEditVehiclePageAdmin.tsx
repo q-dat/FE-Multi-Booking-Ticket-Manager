@@ -3,7 +3,6 @@ import { useForm, SubmitHandler } from 'react-hook-form';
 import { IVehicle } from '../../../../types/type/vehicle/vehicle';
 import { VehicleContext } from '../../../../context/vehicle/VehicleContext';
 import { Toastify } from '../../../../helper/Toastify';
-import { isIErrorResponse } from '../../../../types/error/error';
 import InputModal from '../../InputModal';
 import { Button, Select } from 'react-daisyui';
 
@@ -18,7 +17,7 @@ const ModalEditVehiclePageAdmin: React.FC<ModalEditVehicleProps> = ({
   onClose,
   vehicleId
 }) => {
-  const { getAllVehicles, updateVehicle, getVehicleById, vehicles } =
+  const { getAllVehicles, updateVehicle, getVehicleById, vehicles, error } =
     useContext(VehicleContext);
   const { register, handleSubmit, reset, setValue } = useForm<IVehicle>();
 
@@ -43,11 +42,8 @@ const ModalEditVehiclePageAdmin: React.FC<ModalEditVehicleProps> = ({
       reset();
       getAllVehicles();
       onClose();
-    } catch (error: unknown) {
-      const errorMessage = isIErrorResponse(error)
-        ? error.data?.message
-        : 'Lỗi khi chỉnh sửa phương tiện!';
-      Toastify(`Lỗi: ${errorMessage}`, 500);
+    } catch {
+      Toastify(`Lỗi: ${error}`, 500);
     }
   };
 

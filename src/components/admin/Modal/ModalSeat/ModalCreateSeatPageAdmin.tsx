@@ -3,7 +3,6 @@ import { Button, Select, Textarea } from 'react-daisyui';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import InputModal from '../../InputModal';
 import { ISeat } from '../../../../types/type/seat/seat';
-import { isIErrorResponse } from '../../../../types/error/error';
 import { Toastify } from '../../../../helper/Toastify';
 import { SeatContext } from '../../../../context/seat/SeatContext';
 import { SeatCatalogContext } from '../../../../context/seatCatalog/SeatCatalogContext';
@@ -17,7 +16,8 @@ const ModalCreateSeatPageAdmin: React.FC<ModalCreateSeatProps> = ({
   isOpen,
   onClose
 }) => {
-  const { seatCatalogs, getAllSeatCatalogs } = useContext(SeatCatalogContext);
+  const { seatCatalogs, getAllSeatCatalogs, error } =
+    useContext(SeatCatalogContext);
   const { createSeat } = React.useContext(SeatContext);
   const { register, handleSubmit, reset } = useForm<ISeat>();
 
@@ -30,11 +30,8 @@ const ModalCreateSeatPageAdmin: React.FC<ModalCreateSeatProps> = ({
       Toastify('Tạo ghế thành công!', 201);
       reset();
       onClose();
-    } catch (error: unknown) {
-      const errorMessage = isIErrorResponse(error)
-        ? error.data?.message
-        : 'Lỗi khi tạo ghế!';
-      Toastify(`Lỗi: ${errorMessage}`, 500);
+    } catch {
+      Toastify(`Lỗi: ${error}`, 500);
     }
   };
 

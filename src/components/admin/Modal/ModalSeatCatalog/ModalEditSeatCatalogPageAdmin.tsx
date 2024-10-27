@@ -1,7 +1,6 @@
 import React, { useEffect, useContext } from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { Toastify } from '../../../../helper/Toastify';
-import { isIErrorResponse } from '../../../../types/error/error';
 import InputModal from '../../InputModal';
 import { Button, Select } from 'react-daisyui';
 import { SeatCatalogContext } from '../../../../context/seatCatalog/SeatCatalogContext';
@@ -24,7 +23,8 @@ const ModalEditSeatCatalogPageAdmin: React.FC<ModalEditSeatCatalogProps> = ({
     getAllSeatCatalogs,
     updateSeatCatalog,
     getSeatCatalogById,
-    seatCatalogs
+    seatCatalogs,
+    error
   } = useContext(SeatCatalogContext);
   const { register, handleSubmit, reset, setValue } = useForm<ISeatCatalog>();
   const { vehicles } = useContext(VehicleContext);
@@ -51,11 +51,8 @@ const ModalEditSeatCatalogPageAdmin: React.FC<ModalEditSeatCatalogProps> = ({
       reset();
       getAllSeatCatalogs();
       onClose();
-    } catch (error: unknown) {
-      const errorMessage = isIErrorResponse(error)
-        ? error.data?.message
-        : 'Lỗi khi chỉnh sửa danh mục ghế!';
-      Toastify(`Lỗi: ${errorMessage}`, 500);
+    } catch {
+      Toastify(`Lỗi: ${error}`, 500);
     }
   };
 

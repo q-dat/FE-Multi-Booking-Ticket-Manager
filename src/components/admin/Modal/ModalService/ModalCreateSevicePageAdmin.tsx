@@ -4,7 +4,6 @@ import { useForm, SubmitHandler } from 'react-hook-form';
 import InputModal from '../../InputModal';
 import { ServiceContext } from '../../../../context/service/ServiceContext';
 import { IService } from '../../../../types/type/service/service';
-import { isIErrorResponse } from '../../../../types/error/error';
 import { Toastify } from '../../../../helper/Toastify';
 
 interface ModalCreateServiceProps {
@@ -16,7 +15,7 @@ const ModalCreateServicePageAdmin: React.FC<ModalCreateServiceProps> = ({
   isOpen,
   onClose
 }) => {
-  const { getAllServices, createService } = useContext(ServiceContext);
+  const { getAllServices, createService, error } = useContext(ServiceContext);
   const { register, handleSubmit, reset } = useForm<IService>();
 
   const onSubmit: SubmitHandler<IService> = async formData => {
@@ -26,11 +25,8 @@ const ModalCreateServicePageAdmin: React.FC<ModalCreateServiceProps> = ({
       reset();
       onClose();
       getAllServices();
-    } catch (error: unknown) {
-      const errorMessage = isIErrorResponse(error)
-        ? error.data?.message
-        : 'Lỗi khi tạo dịch vụ!';
-      Toastify(`Lỗi: ${errorMessage}`, 500);
+    } catch {
+      Toastify(`Lỗi: ${error}`, 500);
     }
   };
 

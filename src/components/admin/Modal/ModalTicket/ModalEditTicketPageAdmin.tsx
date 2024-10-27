@@ -3,7 +3,6 @@ import { useForm, SubmitHandler } from 'react-hook-form';
 import { ITicket } from '../../../../types/type/ticket/ticket';
 import { TicketContext } from '../../../../context/ticket/TicketContext';
 import { Toastify } from '../../../../helper/Toastify';
-import { isIErrorResponse } from '../../../../types/error/error';
 import InputModal from '../../InputModal';
 import { Button, Select } from 'react-daisyui';
 import LabelForm from '../../LabelForm';
@@ -24,7 +23,7 @@ const ModalEditTicketPageAdmin: React.FC<ModalEditTicketProps> = ({
   onClose,
   ticketId
 }) => {
-  const { getAllTickets, updateTicket, getTicketById, tickets } =
+  const { getAllTickets, updateTicket, getTicketById, tickets, error } =
     useContext(TicketContext);
   const { vehicles } = useContext(VehicleContext);
   const { vehicleCatalogs } = useContext(VehicleCatalogContext);
@@ -57,11 +56,8 @@ const ModalEditTicketPageAdmin: React.FC<ModalEditTicketProps> = ({
       reset();
       getAllTickets();
       onClose();
-    } catch (error: unknown) {
-      const errorMessage = isIErrorResponse(error)
-        ? error.data?.message
-        : 'Lỗi khi chỉnh sửa vé!';
-      Toastify(`Lỗi: ${errorMessage}`, 500);
+    } catch {
+      Toastify(`Lỗi: ${error}`, 500);
     }
   };
 

@@ -4,7 +4,6 @@ import { useForm, SubmitHandler } from 'react-hook-form';
 import InputModal from '../../InputModal';
 import { LocationContext } from '../../../../context/location/LocationContext';
 import { ILocation } from '../../../../types/type/location/location';
-import { isIErrorResponse } from '../../../../types/error/error';
 import { Toastify } from '../../../../helper/Toastify';
 
 interface ModalCreateLocationProps {
@@ -16,7 +15,7 @@ const ModalCreateLocationPageAdmin: React.FC<ModalCreateLocationProps> = ({
   isOpen,
   onClose
 }) => {
-  const { createLocation } = React.useContext(LocationContext);
+  const { createLocation, error } = React.useContext(LocationContext);
   const { register, handleSubmit, reset } = useForm<ILocation>();
 
   const onSubmit: SubmitHandler<ILocation> = async formData => {
@@ -25,11 +24,8 @@ const ModalCreateLocationPageAdmin: React.FC<ModalCreateLocationProps> = ({
       Toastify('Tạo địa điểm thành công!', 201);
       reset();
       onClose();
-    } catch (error: unknown) {
-      const errorMessage = isIErrorResponse(error)
-        ? error.data?.message
-        : 'Lỗi khi tạo địa điểm!';
-      Toastify(`Lỗi: ${errorMessage}`, 500);
+    } catch {
+      Toastify(`Lỗi: ${error}`, 500);
     }
   };
 

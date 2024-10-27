@@ -1,10 +1,9 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Button, Select } from 'react-daisyui';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import InputModal from '../../InputModal';
 import { VehicleContext } from '../../../../context/vehicle/VehicleContext';
 import { IVehicle } from '../../../../types/type/vehicle/vehicle';
-import { isIErrorResponse } from '../../../../types/error/error';
 import { Toastify } from '../../../../helper/Toastify';
 
 interface ModalCreateVehicleProps {
@@ -16,7 +15,7 @@ const ModalCreateVehiclePageAdmin: React.FC<ModalCreateVehicleProps> = ({
   isOpen,
   onClose
 }) => {
-  const { createVehicle } = React.useContext(VehicleContext);
+  const { createVehicle, error } = useContext(VehicleContext);
   const { register, handleSubmit, reset } = useForm<IVehicle>();
 
   const onSubmit: SubmitHandler<IVehicle> = async formData => {
@@ -25,11 +24,8 @@ const ModalCreateVehiclePageAdmin: React.FC<ModalCreateVehicleProps> = ({
       Toastify('Tạo phương tiện thành công!', 201);
       reset();
       onClose();
-    } catch (error: unknown) {
-      const errorMessage = isIErrorResponse(error)
-        ? error.data?.message
-        : 'Lỗi khi tạo phương tiện!';
-      Toastify(`Lỗi: ${errorMessage}`, 500);
+    } catch {
+      Toastify(`Lỗi: ${error}`, 500);
     }
   };
 

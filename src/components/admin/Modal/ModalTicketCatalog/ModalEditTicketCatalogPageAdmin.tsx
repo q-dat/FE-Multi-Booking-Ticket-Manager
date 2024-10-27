@@ -1,7 +1,6 @@
 import React, { useEffect, useContext } from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { Toastify } from '../../../../helper/Toastify';
-import { isIErrorResponse } from '../../../../types/error/error';
 import InputModal from '../../InputModal';
 import { Button } from 'react-daisyui';
 import { TicketCatalogContext } from '../../../../context/ticketCatalog/TicketCatalogContext';
@@ -21,7 +20,8 @@ const ModalEditTicketCatalogPageAdmin: React.FC<
     getAllTicketCatalogs,
     updateTicketCatalog,
     getTicketCatalogById,
-    ticketCatalogs
+    ticketCatalogs,
+    error
   } = useContext(TicketCatalogContext);
   const { register, handleSubmit, reset, setValue } = useForm<ITicketCatalog>();
 
@@ -47,11 +47,8 @@ const ModalEditTicketCatalogPageAdmin: React.FC<
       reset();
       getAllTicketCatalogs();
       onClose();
-    } catch (error: unknown) {
-      const errorMessage = isIErrorResponse(error)
-        ? error.data?.message
-        : 'Lỗi khi chỉnh sửa danh mục vé!';
-      Toastify(`Lỗi: ${errorMessage}`, 500);
+    } catch {
+      Toastify(`Lỗi: ${error}`, 500);
     }
   };
 
