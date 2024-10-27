@@ -66,7 +66,7 @@ const NotificationPopup: React.FC = () => {
 
           <div
             id="popup"
-            className="fixed left-1/2 top-1/2 z-50 -translate-x-1/2 -translate-y-1/2 transform overflow-auto rounded-lg bg-white p-1 border border-white dark:bg-gray-900"
+            className="fixed left-1/2 top-1/2 z-50 -translate-x-1/2 -translate-y-1/2 transform overflow-auto rounded-lg border border-white bg-white dark:bg-gray-900"
           >
             <div className="flex flex-col items-end justify-center rounded-lg">
               <Hero>
@@ -76,7 +76,7 @@ const NotificationPopup: React.FC = () => {
                       className="flex flex-col items-end justify-center"
                       onClick={closePopup}
                     >
-                      <p className="cursor-pointer rounded-full bg-white p-[2px] text-3xl font-bold text-red-500 shadow-inner shadow-red-500 hover:scale-90">
+                      <p className="cursor-pointer rounded-full bg-white text-3xl font-bold text-red-500 shadow-inner shadow-red-500 hover:scale-90">
                         <MdOutlineCancel />
                       </p>
                     </div>
@@ -92,40 +92,38 @@ const NotificationPopup: React.FC = () => {
                     <form
                       ref={formRef}
                       onSubmit={onSubmit}
-                      className="my-5 flex items-center justify-center rounded-xl bg-transparent p-5"
+                      className="my-5 flex items-center justify-center rounded-xl bg-transparent"
                     >
-                      <div className="flex w-1/2 items-center justify-center">
-                        <div className="flex flex-col gap-5">
-                          <div className="flex flex-col gap-5 xl:flex-row">
-                            <InputForm
-                              name="email"
-                              type="email"
-                              placeholder={t('UserPage.Email')}
-                              className="border-none focus:shadow-inner focus:shadow-primary shadow-inner dark:shadow-white shadow-gray-50 dark:shadow-none bg-white text-black focus:border-primary dark:bg-gray-700 dark:text-white xs:w-[300px] sm:w-[350px] md:w-[650px] xl:w-[300px]"
-                              classNameLabel="bg-white dark:bg-gray-700"
-                            />
-                            <InputForm
-                              name="name"
-                              type="text"
-                              className="border-none focus:shadow-inner focus:shadow-primary shadow-inner dark:shadow-white shadow-gray-50 dark:shadow-none bg-white text-black focus:border-primary dark:bg-gray-700 dark:text-white xs:w-[300px] sm:w-[350px] md:w-[650px] xl:w-[200px]"
-                              placeholder={t('UserPage.YourNameBtn')}
-                              classNameLabel="bg-white dark:bg-gray-700"
-                            />
-                          </div>
-                          <Textarea
-                            name="feedback"
-                            className="border-none focus:shadow-inner focus:shadow-primary shadow-inner dark:shadow-white shadow-gray-50 dark:shadow-none bg-white pb-20 text-black focus:border-primary focus:outline-none dark:bg-gray-700 dark:text-white xs:w-full sm:w-[350px] md:w-[650px] lg:w-full"
-                            placeholder={t('UserPage.FeedbackBtn')}
+                      <div className="flex flex-col gap-5">
+                        <div className="flex flex-col gap-5 xl:flex-row">
+                          <InputForm
+                            name="email"
+                            type="email"
+                            placeholder={t('UserPage.Email')}
+                            className="border-none bg-white text-black shadow-inner shadow-gray-50 focus:border-primary focus:shadow-inner focus:shadow-primary dark:bg-gray-700 dark:text-white dark:shadow-none dark:shadow-white xs:w-[300px] sm:w-[350px] md:w-[650px] xl:w-[350px]"
+                            classNameLabel="bg-white dark:bg-gray-700"
                           />
-                          <div className="w-full">
-                            <Button
-                              className="w-20 bg-primary text-sm text-white hover:bg-secondary"
-                              type="submit"
-                            >
-                              {t('UserPage.SentBtn')}
-                            </Button>
-                            <span>{result}</span>
-                          </div>
+                          <InputForm
+                            name="name"
+                            type="text"
+                            className="border-none bg-white text-black shadow-inner shadow-gray-50 focus:border-primary focus:shadow-inner focus:shadow-primary dark:bg-gray-700 dark:text-white dark:shadow-none dark:shadow-white xs:w-[300px] sm:w-[350px] md:w-[650px] xl:w-[250px]"
+                            placeholder={t('UserPage.YourNameBtn')}
+                            classNameLabel="bg-white dark:bg-gray-700"
+                          />
+                        </div>
+                        <Textarea
+                          name="feedback"
+                          className="border-none bg-white pb-20 text-black shadow-inner shadow-gray-50 focus:border-primary focus:shadow-inner focus:shadow-primary focus:outline-none dark:bg-gray-700 dark:text-white dark:shadow-none dark:shadow-white xs:w-full sm:w-[350px] md:w-[650px] lg:w-full"
+                          placeholder={t('UserPage.FeedbackBtn')}
+                        />
+                        <div className="w-full">
+                          <Button
+                            className="w-20 bg-primary text-sm text-white hover:bg-secondary"
+                            type="submit"
+                          >
+                            {t('UserPage.SentBtn')}
+                          </Button>
+                          <span>{result}</span>
                         </div>
                       </div>
                     </form>

@@ -11,7 +11,7 @@ import { IoTicket, IoTrainSharp } from 'react-icons/io5';
 import { IoMdPricetag } from 'react-icons/io';
 import { PiMapPinAreaDuotone, PiSeatFill } from 'react-icons/pi';
 import { FaCartPlus } from 'react-icons/fa6';
-import { GrStatusInfo } from "react-icons/gr";
+import { GrStatusInfo } from 'react-icons/gr';
 const AllTickets: React.FC = () => {
   // Get Ticket
   const { tickets, getAllTickets, filterTickets } = useContext(TicketContext);
@@ -175,7 +175,7 @@ const AllTickets: React.FC = () => {
             </div>
           </div>
         </div>
-        <div className="my-5 rounded-xl bg-white p-2 shadow-inner shadow-primary">
+        <div className="my-5 rounded-xl bg-white p-1 shadow-inner shadow-gray-50">
           <div
             ref={scrollRef}
             className="flex space-x-4 overflow-x-auto scroll-smooth p-3 scrollbar-hide"
@@ -184,9 +184,9 @@ const AllTickets: React.FC = () => {
             {filteredTickets.map((ticket: ITicket) => (
               <div
                 key={ticket._id}
-                className="w-full flex-none transform overflow-hidden rounded-lg bg-white text-black shadow-inner shadow-primary transition-transform duration-300 ease-in-out hover:scale-105 hover:bg-primary hover:bg-opacity-10 sm:w-80"
+                className="w-full flex-none transform overflow-hidden rounded-lg bg-white text-black shadow-inner shadow-gray-50 transition-transform duration-300 ease-in-out hover:scale-105 hover:bg-primary hover:bg-opacity-10 sm:w-80"
               >
-                <div className="flex min-h-[200px] flex-col justify-between gap-1 p-2 font-light text-gray-600">
+                <div className="flex min-h-[200px] flex-col justify-between gap-1 p-2 text-sm font-light text-gray-600">
                   <div className="w-full">
                     <div className="mb-2 flex items-center justify-center gap-1 font-semibold">
                       <span className="font-semibold text-primary">
@@ -252,7 +252,7 @@ const AllTickets: React.FC = () => {
                   <div>
                     <Button
                       size="sm"
-                      className="bg-primary font-serif text-white hover:bg-secondary"
+                      className="bg-primary font-serif text-xs text-white hover:bg-secondary"
                     >
                       <FaCartPlus color="#ffffff" />
                       Mua Vé

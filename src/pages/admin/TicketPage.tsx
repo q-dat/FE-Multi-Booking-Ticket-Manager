@@ -294,7 +294,7 @@ const TicketPage: React.FC = () => {
       <TableListAdmin
         Title_TableListAdmin={`Danh Sách Vé (${tickets.length})`}
         table_head={
-          <Table.Head className="table-sm bg-primary text-center text-white">
+          <Table.Head className="bg-primary text-center text-white">
             {fillter[0] === 'STT' && <span>STT</span>}
             {fillter[1] === 'Loại Vé' && <span>Loại Vé</span>}
             {fillter[2] === 'Phương Tiện' && <span>Phương Tiện</span>}
@@ -328,7 +328,7 @@ const TicketPage: React.FC = () => {
                   <span>
                     <span>
                       {ticket.seat_id.map(seat => (
-                        <span key={seat._id}>
+                        <span key={seat._id} className="line-clamp-1">
                           {seat.seat_catalog_id?.vehicle_id?.name}
                         </span>
                       ))}
@@ -338,7 +338,7 @@ const TicketPage: React.FC = () => {
                   <></>
                 )}
                 {fillter[3] === 'Khoang/Toa' ? (
-                  <span>
+                  <span className="line-clamp-1">
                     {ticket.seat_id.map(seat => (
                       <span key={seat._id}>{seat.seat_catalog_id?.name}</span>
                     ))}
@@ -347,31 +347,35 @@ const TicketPage: React.FC = () => {
                   <></>
                 )}
                 {fillter[4] === 'Chỗ Ngồi' ? (
-                  <span>
+                  <span className="font-bold">
                     {ticket.seat_id.map(seat => (
-                      <span>{seat?.name}</span>
+                      <>
+                        <span>{seat?.ordinal_numbers}</span>
+                      </>
                     ))}
                   </span>
                 ) : (
                   <></>
                 )}
                 {fillter[5] === 'Điểm Khởi Hành' ? (
-                  <span className="">
+                  <span className="line-clamp-1">
                     {ticket.trip_id?.departure_point?.name}
                   </span>
                 ) : (
                   <></>
                 )}
                 {fillter[6] === 'Điểm Đến' ? (
-                  <span className="">
+                  <span className="line-clamp-1">
                     {ticket.trip_id?.destination_point?.name}
                   </span>
                 ) : (
                   <></>
                 )}
                 {fillter[7] === 'Thời Gian Đi' ? (
-                  <span className="line-clamp-1">
-                    {ticket.trip_id?.departure_time}-
+                  <span>
+                    <span className="text-blue-500">
+                      {ticket.trip_id?.departure_time}&nbsp;
+                    </span>
                     {new Date(
                       ticket.trip_id?.departure_date
                     ).toLocaleDateString('vi-VN')}
@@ -380,8 +384,10 @@ const TicketPage: React.FC = () => {
                   <></>
                 )}
                 {fillter[8] === 'Thời Gian Về' ? (
-                  <span className="line-clamp-1">
-                    {ticket.trip_id?.return_time}-
+                  <span className="">
+                    <span className="text-blue-500">
+                      {ticket.trip_id?.return_time}&nbsp;
+                    </span>
                     {new Date(ticket.trip_id?.return_date).toLocaleDateString(
                       'vi-VN'
                     )}
