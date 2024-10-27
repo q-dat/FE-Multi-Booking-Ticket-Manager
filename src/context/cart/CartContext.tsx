@@ -47,7 +47,7 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({
           const parsedTickets = JSON.parse(storedTickets) as ITicket[];
           const updatedTickets = parsedTickets.map(t =>
             t._id === ticket._id
-              ? { ...t, seat_id: [{ ...t.seat_id[0], status: 'Hết chỗ' }] }
+              ? { ...t, seat_id: [{ ...t.seat_id[0], status: 'Đang chọn' }] }
               : t
           );
           sessionStorage.setItem(
