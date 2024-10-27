@@ -4,6 +4,7 @@ import { ITicket } from '../../types/type/ticket/ticket';
 // Search
 export const searchTicketsApi = (searchParams: Record<string, string>) => {
   const query = new URLSearchParams(searchParams).toString();
+  sessionStorage.setItem('searchTicketsQuery', `/api/ticket/search?${query}`);
   return axios.get<{ tickets: ITicket[] }>(`/api/ticket/search?${query}`);
 };
 //Filter

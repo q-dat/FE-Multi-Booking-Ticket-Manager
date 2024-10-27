@@ -3,10 +3,12 @@ import { useCart } from '../../context/cart/CartContext';
 import { Button } from 'react-daisyui';
 import stripeLogo from '../../assets/image-represent/payment/stripe_logo.png';
 import { Toastify } from '../../helper/Toastify';
-import { isIErrorResponse } from '../../types/error/error';
 import { IoIosCloseCircleOutline } from 'react-icons/io';
 import axios from '../../config/axiosConfig';
 import { useNavigate } from 'react-router-dom';
+import { ITicket } from '../../types/type/ticket/ticket';
+import { updateSeatApi } from '../../axios/api/seatApi';
+import { isIErrorResponse } from '../../types/error/error';
 
 interface FormData {
   fullName: string;
@@ -67,58 +69,80 @@ const CheckoutPage: React.FC = () => {
       [e.target.name]: e.target.value,
     });
   };
-
+  const updateSeatStatusApi = async (seats: ITicket[]) => {
+    const promises = seats.map(async (seat) => {
+      const updatedSeat = { ...seat.seat_id[0], status: 'Hết chỗ' };
+      await updateSeatApi(seat.seat_id[0]?._id, updatedSeat);
+  
+      // Cập nhật lại sessionStorage nếu cần
+      const storedTickets = sessionStorage.getItem('searchResults');
+      if (storedTickets) {
+        const parsedTickets = JSON.parse(storedTickets) as ITicket[];
+        const updatedTickets = parsedTickets.map(t =>
+          t._id === seat._id
+            ? { ...t, seat_id: [{ ...t.seat_id[0], status: 'Hết chỗ' }] }
+            : t
+        );
+        sessionStorage.setItem('searchResults', JSON.stringify(updatedTickets));
+      }
+  
+      Toastify(`Ghế ${seat.seat_id[0]?.name} đã được cập nhật trạng thái!`, 200);
+    });
+  
+    await Promise.all(promises); // Chờ tất cả các cập nhật hoàn thành
+  };
+  
   const onSubmitHandler = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
       const orderItems = selectedSeats.map((seat) => {
-        const selectedDiscount = selectedDiscounts[seat._id] || 'Người lớn';
-        const discountedPrice = calculateDiscountedPrice(seat.price, selectedDiscount);
-        return {
-          departureDate: seat.trip_id.departure_date,
-          time: seat.trip_id.departure_time,
-          departurePoint: seat.trip_id.departure_point.name,
-          destinationPoint: seat.trip_id.destination_point.name,
-          seat: seat.seat_id[0]?.name,
-          vehicle: seat.seat_id[0]?.seat_catalog_id.vehicle_id.name,
-          seatCatalog: seat.seat_id[0]?.seat_catalog_id.name,
-          price: discountedPrice,
-          quantity: 1,
-        };
-      });
-
-      const orderData = {
-        items: orderItems,
-        amount: totalPrice,
-        address: formData,
-        paymentMethod: method === 'cod' ? 'COD' : 'Stripe',
-      };
-
+              const selectedDiscount = selectedDiscounts[seat._id] || 'Người lớn';
+              const discountedPrice = calculateDiscountedPrice(seat.price, selectedDiscount);
+              return {
+                departureDate: seat.trip_id.departure_date,
+                time: seat.trip_id.departure_time,
+                departurePoint: seat.trip_id.departure_point.name,
+                destinationPoint: seat.trip_id.destination_point.name,
+                seat: seat.seat_id[0]?.name,
+                vehicle: seat.seat_id[0]?.seat_catalog_id.vehicle_id.name,
+                seatCatalog: seat.seat_id[0]?.seat_catalog_id.name,
+                price: discountedPrice,
+                quantity: 1,
+              };
+            });
+      
+            const orderData = {
+              items: orderItems,
+              amount: totalPrice,
+              address: formData,
+              paymentMethod: method === 'cod' ? 'COD' : 'Stripe',
+            };
+  
       if (method === 'cod') {
-        const response = await axios.post('/api/order/place', orderData);
+        const response = await axios.post('http://localhost:6001/api/order/place', orderData);
         if (response.data.success) {
+          await updateSeatStatusApi(selectedSeats); // Cập nhật trạng thái ghế
           Toastify('Bạn đã đặt vé thành công', 201);
-        } else {
-          console.error(response.data.message);
+          clearSeats(); // Xóa giỏ vé sau khi thanh toán thành công
         }
       } else if (method === 'stripe') {
-        const responseStripe = await axios.post('/api/order/stripe', orderData);
+        const responseStripe = await axios.post('http://localhost:6001/api/order/stripe', orderData);
         if (responseStripe.data.success) {
           const { session_url } = responseStripe.data;
-          window.location.replace(session_url);
-        } else {
-          console.error(responseStripe.data.message);
+          await updateSeatStatusApi(selectedSeats); // Cập nhật trạng thái ghế
+          clearSeats(); // Xóa giỏ vé sau khi thanh toán thành công
+          window.location.replace(session_url); // Chuyển hướng đến Stripe
         }
       } else {
-        Toastify('Vui lòng chọn phương thức thanh toán hợp lệ', 500);
-      }
-    } catch (error) {
-      const errorMessage = isIErrorResponse(error)
-        ? error.data?.message
-        : 'Đặt hàng thất bại!';
-      Toastify(`Lỗi: ${errorMessage}`, 500);
-    }
-  };
+              Toastify('Vui lòng chọn phương thức thanh toán hợp lệ', 500);
+            }
+          } catch (error) {
+            const errorMessage = isIErrorResponse(error)
+              ? error.data?.message
+              : 'Đặt hàng thất bại!';
+            Toastify(`Lỗi: ${errorMessage}`, 500);
+          }
+        };
 
   return (
     <div className="pb-[20px] xl:pt-[80px]">

@@ -20,9 +20,6 @@ const TrainsPage: React.FC = () => {
   const { t } = useTranslation();
   const { searchTickets, loading } = useContext(TicketContext);
   const navigate = useNavigate();
-  if (!searchTickets) {
-    console.log('Home phải được sử dụng trong TicketProvider');
-  }
 
   const { register, handleSubmit } = useForm<SearchFormData>();
   const onSubmit: SubmitHandler<SearchFormData> = async data => {
