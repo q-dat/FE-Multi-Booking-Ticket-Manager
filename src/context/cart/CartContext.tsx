@@ -7,7 +7,6 @@ import React, {
 } from 'react';
 import { ITicket } from '../../types/type/ticket/ticket';
 import { Toastify } from '../../helper/Toastify';
-// import { updateSeatApi } from '../../axios/api/seatApi';
 
 interface CartContextType {
   selectedSeats: ITicket[];

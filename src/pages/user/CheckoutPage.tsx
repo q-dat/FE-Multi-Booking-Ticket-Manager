@@ -119,14 +119,14 @@ const CheckoutPage: React.FC = () => {
             };
   
       if (method === 'cod') {
-        const response = await axios.post('http://localhost:6001/api/order/place', orderData);
+        const response = await axios.post('/api/order/place', orderData);
         if (response.data.success) {
           await updateSeatStatusApi(selectedSeats); // Cập nhật trạng thái ghế
           Toastify('Bạn đã đặt vé thành công', 201);
           clearSeats(); // Xóa giỏ vé sau khi thanh toán thành công
         }
       } else if (method === 'stripe') {
-        const responseStripe = await axios.post('http://localhost:6001/api/order/stripe', orderData);
+        const responseStripe = await axios.post('/api/order/stripe', orderData);
         if (responseStripe.data.success) {
           const { session_url } = responseStripe.data;
           await updateSeatStatusApi(selectedSeats); // Cập nhật trạng thái ghế

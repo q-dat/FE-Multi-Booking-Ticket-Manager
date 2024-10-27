@@ -7,6 +7,7 @@ import { ITicket } from '../../../types/type/ticket/ticket';
 import { useCart } from '../../../context/cart/CartContext';
 import CartPage from '../CartPage';
 import { Button } from 'react-daisyui';
+import { getAllTicketsApi } from '../../../axios/api/ticketApi';
 
 const TicketTrainsResultsPage: React.FC = () => {
   const { t } = useTranslation();
@@ -18,22 +19,42 @@ const TicketTrainsResultsPage: React.FC = () => {
   const { addSeat, selectedSeats } = useCart();
 
   useEffect(() => {
-    const storedTickets = sessionStorage.getItem('searchResults');
-    if (storedTickets) {
-      const parsedTickets = JSON.parse(storedTickets) as ITicket[];
-      setTickets(parsedTickets);
-      const initialTrainName =
-        parsedTickets[0]?.seat_id[0]?.seat_catalog_id.vehicle_id.name || null;
-      setSelectedTrain(initialTrainName);
+    const fetchTickets = async () => {
+      try {
+        // Lấy dữ liệu vé từ sessionStorage
+        const storedTickets = sessionStorage.getItem('searchResults');
+        if (storedTickets) {
+          const parsedTickets = JSON.parse(storedTickets) as ITicket[];
+          setTickets(parsedTickets);
+          // Gọi API để lấy dữ liệu mới cho các vé đã có trong session
+          const allTicketsResponse = await getAllTicketsApi();
+          const allTickets = allTicketsResponse.data.tickets;
+          // Cập nhật dữ liệu trong sessionStorage với dữ liệu mới
+          const updatedTickets = parsedTickets.map(ticket => {
+            const freshTicket = allTickets.find(t => t._id === ticket._id);
+            return freshTicket || ticket; // Trả về vé mới hoặc vé cũ nếu không tìm thấy
+          });
+          
+          setTickets(updatedTickets);
+          sessionStorage.setItem('searchResults', JSON.stringify(updatedTickets));
 
-      // Tự động chọn danh mục ghế đầu tiên nếu có vé
-      const firstClassId =
-        parsedTickets[0]?.seat_id[0]?.seat_catalog_id._id || null;
-      setSelectedClassId(firstClassId);
-    } else {
-      setError('Không tìm thấy dữ liệu vé trong session.');
-    }
-    setLoading(false);
+          // Tự động chọn tàu và loại ghế đầu tiên nếu có vé
+          const initialTrainName = updatedTickets[0]?.seat_id[0]?.seat_catalog_id.vehicle_id.name || null;
+          setSelectedTrain(initialTrainName);
+          const firstClassId = updatedTickets[0]?.seat_id[0]?.seat_catalog_id._id || null;
+          setSelectedClassId(firstClassId);
+        } else {
+          setError('Không tìm thấy dữ liệu vé trong session.');
+        }
+      } catch (err) {
+        console.error(err);
+        setError('Lỗi khi tải vé.');
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchTickets();
   }, []);
 
   useEffect(() => {
