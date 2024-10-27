@@ -1,11 +1,12 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import { useCart } from '../../context/cart/CartContext';
 import { Button } from 'react-daisyui';
-import axios from 'axios';
 import stripeLogo from '../../assets/image-represent/payment/stripe_logo.png';
 import { Toastify } from '../../helper/Toastify';
 import { isIErrorResponse } from '../../types/error/error';
 import { IoIosCloseCircleOutline } from 'react-icons/io';
+import axios from '../../config/axiosConfig';
+import { useNavigate } from 'react-router-dom';
 
 interface FormData {
   fullName: string;
@@ -29,8 +30,14 @@ const CheckoutPage: React.FC = () => {
     phone: '',
   });
   const [method, setMethod] = useState<'stripe' | 'cod'>('cod');
-
+  const navigate = useNavigate();
   const [selectedDiscounts, setSelectedDiscounts] = useState<{ [key: string]: string }>({});
+
+  useEffect(() => {
+    if (selectedSeats.length === 0) {
+      navigate('/ticket-trains-results');
+    }
+  }, [selectedSeats, navigate]);
 
   const handleDiscountChange = (ticketId: string, value: string) => {
     setSelectedDiscounts((prev) => ({
@@ -88,14 +95,14 @@ const CheckoutPage: React.FC = () => {
       };
 
       if (method === 'cod') {
-        const response = await axios.post('http://localhost:6001/api/order/place', orderData);
+        const response = await axios.post('/api/order/place', orderData);
         if (response.data.success) {
           Toastify('Bạn đã đặt vé thành công', 201);
         } else {
           console.error(response.data.message);
         }
       } else if (method === 'stripe') {
-        const responseStripe = await axios.post('http://localhost:6001/api/order/stripe', orderData);
+        const responseStripe = await axios.post('/api/order/stripe', orderData);
         if (responseStripe.data.success) {
           const { session_url } = responseStripe.data;
           window.location.replace(session_url);
@@ -214,7 +221,7 @@ const CheckoutPage: React.FC = () => {
               </div>
               <div onClick={() => setMethod('cod')} className="flex items-center gap-3 border p-2 px-3 cursor-pointer hover:bg-gray-100 transition">
                 <span className={`min-w-4 h-4 border rounded-full ${method === 'cod' ? 'bg-green-400' : ''}`}></span>
-                <p className="text-gray-500 text-sm font-medium mx-4">CASH ON DELIVERY</p>
+                <p className="text-gray-500 text-sm font-medium mx-4">Thanh toán khi nhận vé</p>
               </div>
             </div>
 

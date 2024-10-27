@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react';
 import { Toastify } from '../../helper/Toastify';
 import { useNavigate, useSearchParams } from 'react-router-dom';
-import axios from 'axios';
 import { isIErrorResponse } from '../../types/error/error';
+import axios from '../../config/axiosConfig';
 
 const Verify: React.FC = () => {
 
@@ -15,12 +15,12 @@ const Verify: React.FC = () => {
   const verifyPayment = async () => {
     try {
 
-      const response = await axios.post('http://localhost:6001/api/order/verifyStripe', { success, orderId })
+      const response = await axios.post('/api/order/verifyStripe', { success, orderId })
 
       if (response.data.success) {
         navigate('/')
       } else {
-        navigate('/cart')
+        navigate('/ticket-trains-results')
       }
 
     } catch (error) {

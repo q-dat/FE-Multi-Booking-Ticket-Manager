@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import axios from 'axios';
 import { toast } from 'react-toastify';
+import axios from '../../config/axiosConfig';
+import LogoAdmin from '../../assets/image-represent/payment/parcel_icon.svg';
 
 interface Item {
   departureDate: Date;
@@ -40,7 +41,7 @@ const OrderPage: React.FC = () => {
 
   const fetchAllOrders = async () => {
     try {
-      const response = await axios.post('http://localhost:6001/api/order/list', {});
+      const response = await axios.post('/api/order/list', {});
       if (response.data.success) {
         setOrders(response.data.orders);
       } else {
@@ -53,7 +54,7 @@ const OrderPage: React.FC = () => {
 
   const statusHandler = async (event: React.ChangeEvent<HTMLSelectElement>, orderId: string) => {
     try {
-      const response = await axios.post('http://localhost:6001/api/order/status', { orderId, status: event.target.value });
+      const response = await axios.post('/api/order/status', { orderId, status: event.target.value });
       if (response.data.success) {
         await fetchAllOrders();
       }
@@ -73,7 +74,7 @@ const OrderPage: React.FC = () => {
         {
           orders.map((order) => (
             <div className='grid grid-cols-1 sm:grid-cols-[0.5fr_2fr_1fr] lg:grid-cols-[0.5fr_2fr_1fr_1fr_1fr] gap-3 items-start border-2 border-gray-200 p-5 md:p-8 my-3 md:my-4 text-xs sm:text-sm text-gray-700' key={order._id}>
-              <img className='w-12' alt='' />
+              <img src={LogoAdmin} className='w-12' alt='' />
               <div>
                 <div>
                   {order.items.map((item, index) => (
