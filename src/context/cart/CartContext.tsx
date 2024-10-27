@@ -36,6 +36,11 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({
       const isSeatSelected = selectedSeats.some(
         seat => seat._id === ticket._id
       );
+      if (ticket.seat_id[0]?.status === 'Đang chọn') {
+        Toastify(`Ghế ${ticket.seat_id[0]?.name} đang chọn!`, 401);
+        return; 
+      }
+  
       if (!isSeatSelected && ticket.seat_id[0]?.status === 'Còn chỗ') {
         const updatedSelectedSeats = [...selectedSeats, ticket];
         setSelectedSeats(updatedSelectedSeats);
@@ -57,7 +62,7 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({
 
         Toastify(`Đã thêm ghế ${ticket.seat_id[0]?.name} vào giỏ hàng!`, 200);
       } else {
-        Toastify(`Lỗi: Ghế ${ticket.seat_id[0]?.name} không còn chỗ!`, 401);
+        Toastify(`Lỗi: Ghế ${ticket.seat_id[0]?.name} đã hết chỗ!`, 401);
       }
     },
     [selectedSeats]
