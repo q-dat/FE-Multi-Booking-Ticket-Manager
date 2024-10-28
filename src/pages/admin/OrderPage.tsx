@@ -53,18 +53,6 @@ const OrderPage: React.FC = () => {
     }
   };
 
-  const statusHandler = async (event: React.ChangeEvent<HTMLSelectElement>, orderId: string) => {
-    try {
-      const response = await axios.post('/api/order/status', { orderId, status: event.target.value });
-      if (response.data.success) {
-        await fetchAllOrders();
-      }
-    } catch (error: any) {
-      console.error(error);
-      toast.error(error.message);
-    }
-  };
-
   useEffect(() => {
     fetchAllOrders();
   }, []);
@@ -86,32 +74,16 @@ const OrderPage: React.FC = () => {
                   ))}
                 </div>
                 <p className='mt-3 mb-2 font-medium'>{order.address.fullName}</p>
-                <div>
-                  <p>{order.address.street + ', ' + order.address.city + ', ' + order.address.country}</p>
-                </div>
-                <p>{order.address.phone}</p>
+                <p><span className='mt-3 mb-2 font-medium'>Số điện thoại: </span>{order.address.phone}</p>
               </div>
               <div>
-                <p className='text-sm sm:text-[15px]'>Số lượng: {order.items.length}</p>
-                <p className='mt-3'>PTTT: {order.paymentMethod}</p>
-                <p>Tình trạng: {order.payment ? 'Đã thanh toán' : 'Chưa thanh toán'}</p>
-                <p>Ngày đặt: {new Date(order.date).toLocaleDateString()}</p>
+                <p><span className='mt-3 mb-2 font-medium'>Số lượng:</span> {order.items.length}</p>
+                <p><span className='mt-3 mb-2 font-medium'>PTTT:</span> {order.paymentMethod}</p>
+                <p><span className='mt-3 mb-2 font-medium'>Ngày đặt:</span> {new Date(order.date).toLocaleDateString()}</p>
+                <p><span className='mt-3 mb-2 font-medium'>Địa chỉ:</span> {order.address.street + ', ' + order.address.city + ', ' + order.address.country}</p>
               </div>
               <p className='text-sm sm:text-[15px]'>{(order.amount * 1000).toLocaleString('vi-VN')} VNĐ</p>
-              <select
-                onChange={(event) => statusHandler(event, order._id)}
-                value={order.payment ? 'Đã nhận vé' : order.status}
-                className='p-2 font-semibold'
-                disabled={order.payment}
-              >
-                {!order.payment && (
-                  <>
-                    <option value='Đã đặt'>Đã đặt</option>
-                    <option value='Đã nhận vé'>Đã nhận vé</option>
-                  </>
-                )}
-                {order.payment && <option value='Đã nhận vé'>Đã nhận vé</option>}
-              </select>
+              <p><span className='mt-3 mb-2 font-medium'>Tình trạng:</span> {order.payment ? 'Đã thanh toán' : 'Chưa thanh toán'}</p>
             </div>
           ))
         }

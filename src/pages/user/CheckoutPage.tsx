@@ -89,7 +89,7 @@ const CheckoutPage: React.FC = () => {
       Toastify(`Ghế ${seat.seat_id[0]?.name} đã được cập nhật trạng thái!`, 200);
     });
 
-    await Promise.all(promises); // Chờ tất cả các cập nhật hoàn thành
+    await Promise.all(promises);
   };
 
   const onSubmitHandler = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -121,17 +121,17 @@ const CheckoutPage: React.FC = () => {
       if (method === 'cod') {
         const response = await axios.post('/api/order/place', orderData);
         if (response.data.success) {
-          await updateSeatStatusApi(selectedSeats); // Cập nhật trạng thái ghế
+          await updateSeatStatusApi(selectedSeats); 
           Toastify('Bạn đã đặt vé thành công', 201);
-          clearSeats(); // Xóa giỏ vé sau khi thanh toán thành công
+          clearSeats();
         }
       } else if (method === 'stripe') {
         const responseStripe = await axios.post('/api/order/stripe', orderData);
         if (responseStripe.data.success) {
           const { session_url } = responseStripe.data;
-          await updateSeatStatusApi(selectedSeats); // Cập nhật trạng thái ghế
-          clearSeats(); // Xóa giỏ vé sau khi thanh toán thành công
-          window.location.replace(session_url); // Chuyển hướng đến Stripe
+          await updateSeatStatusApi(selectedSeats); 
+          clearSeats(); 
+          window.location.replace(session_url);
         }
       } else {
         Toastify('Vui lòng chọn phương thức thanh toán hợp lệ', 500);
@@ -243,10 +243,10 @@ const CheckoutPage: React.FC = () => {
             <div className="flex gap-3">
               <input required onChange={onChangeHandler} name="fullName" value={formData.fullName} className="border border-gray-300 rounded py-1.5 px-3.5 w-full" type="text" placeholder="Họ và tên" />
             </div>
-            <input required onChange={onChangeHandler} name="email" value={formData.email} className="border border-gray-300 rounded py-1.5 px-3.5 w-full" type="email" placeholder="Email" />
+            <input required onChange={onChangeHandler} name="email" value={formData.email} className="border border-gray-300 rounded py-1.5 px-3.5 w-full" type="email" placeholder="Email (bắt buộc)" />
             <input required onChange={onChangeHandler} name="phone" value={formData.phone} className="border border-gray-300 rounded py-1.5 px-3.5 w-full" type="tel" placeholder="Số điện thoại (bắt buộc)" />
             <div className="flex gap-3">
-              <input required onChange={onChangeHandler} name="street" value={formData.street} className="border border-gray-300 rounded py-1.5 px-3.5 w-full" type="text" placeholder="Đường" />
+              <input required onChange={onChangeHandler} name="street" value={formData.street} className="border border-gray-300 rounded py-1.5 px-3.5 w-full" type="text" placeholder="Địa chỉ" />
               <input required onChange={onChangeHandler} name="city" value={formData.city} className="border border-gray-300 rounded py-1.5 px-3.5 w-full" type="text" placeholder="Tỉnh/Thành phố" />
               <input required onChange={onChangeHandler} name="country" value={formData.country} className="border border-gray-300 rounded py-1.5 px-3.5 w-full" type="text" placeholder="Quốc gia" />
             </div>

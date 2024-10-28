@@ -1,6 +1,18 @@
-import React from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import NavtitleAdmin from '../../components/admin/NavtitleAdmin';
 import NavbarMobile from '../../components/admin/Reponsive/Mobile/NavbarMobile';
+import LineChartComponent from './LineChartComponent';
+import { toast } from 'react-toastify';
+import axios from '../../config/axiosConfig';
+import { VehicleContext } from '../../context/vehicle/VehicleContext';
+import { TripContext } from '../../context/trip/TripContext';
+import { TicketContext } from '../../context/ticket/TicketContext';
+
+interface Order {
+  _id: string;
+  amount: number;
+  date: number;
+}
 
 interface DashboardCardProps {
   Icons: React.ReactNode;
@@ -36,39 +48,120 @@ const DashboardCard: React.FC<DashboardCardProps> = ({
 };
 
 const DashboardPage: React.FC<{}> = () => {
+
+  const { vehicles } = useContext(VehicleContext);
+  const { trips, getAllTrips } = useContext(TripContext); // Lấy trips và phương thức getAllTrips từ TripContext
+  const { tickets, getAllTickets } = useContext(TicketContext); // Thêm TicketContext
+  const [orders, setOrders] = useState<Order[]>([]);
+  const [orderData, setOrderData] = useState<number[]>([]);
+  const [revenueData, setRevenueData] = useState<number[]>([]);
+  const [vehicleData, setVehicleData] = useState<number[]>([]);
+  const [tripData, setTripData] = useState<number[]>([]);
+  const [ticketData, setTicketData] = useState<number[]>([]); // Thêm state cho vé
+
+  // Hàm lấy dữ liệu từ API
+  const fetchAllOrders = async () => {
+    try {
+      const response = await axios.post('/api/order/list', {});
+      if (response.data.success) {
+        setOrders(response.data.orders);
+      } else {
+        toast.error(response.data.message);
+      }
+    } catch (error) {
+      console.error(error);
+      toast.error('Failed to fetch orders');
+    }
+  };
+
+  // Hàm tính toán dữ liệu cho biểu đồ
+  const calculateStatistics = () => {
+    const monthlyOrders = new Array(12).fill(0);
+    const monthlyRevenue = new Array(12).fill(0);
+    const monthlyVehicles = new Array(12).fill(0);
+    const monthlyTrips = new Array(12).fill(0);
+    const monthlyTickets = new Array(12).fill(0); // Khởi tạo mảng chứa dữ liệu số lượng vé theo tháng
+
+    orders.forEach((order) => {
+      const month = new Date(order.date).getMonth();
+      monthlyOrders[month] += 1;
+      monthlyRevenue[month] += order.amount;
+    });
+
+    vehicles.forEach((vehicle) => {
+      const month = new Date(vehicle.createAt).getMonth();
+      monthlyVehicles[month] += 1;
+    });
+
+    trips.forEach((trip) => {
+      const month = new Date(trip.departure_date).getMonth();
+      monthlyTrips[month] += 1;
+    });
+
+    tickets.forEach((ticket) => {
+      const month = new Date(ticket.createAt!).getMonth(); // Giả sử bạn có thuộc tính createAt trong vé
+      monthlyTickets[month] += 1; // Tăng số lượng vé cho tháng tương ứng
+    });
+
+    setOrderData(monthlyOrders);
+    setRevenueData(monthlyRevenue);
+    setVehicleData(monthlyVehicles);
+    setTripData(monthlyTrips);
+    setTicketData(monthlyTickets); // Cập nhật dữ liệu số lượng vé
+  };
+
+  useEffect(() => {
+    fetchAllOrders();
+    getAllTrips(); // Gọi phương thức lấy chuyến đi
+    getAllTickets(); // Gọi phương thức lấy vé
+  }, [getAllTrips, getAllTickets]); // Đảm bảo rằng phương thức này được gọi
+
+  useEffect(() => {
+    if (orders.length > 0 || vehicles.length > 0 || trips.length > 0 || tickets.length > 0) {
+      calculateStatistics();
+    }
+  }, [orders, vehicles, trips, tickets]); // Thêm tickets vào dependencies
+
   return (
     <div className="w-full">
       <NavbarMobile Title_NavbarMobile="Dashboard" />
       <div className="px-2 xl:px-0">
         <NavtitleAdmin Title_NavtitleAdmin={'Dashboard'} Btn_Create={``} />
 
-        <div className="grid grid-cols-2 gap-4 md:grid-cols-4">
+        <div className="grid grid-cols-2 gap-4 md:grid-cols-5">
           <DashboardCard
             Icons="https://cdn-icons-png.flaticon.com/128/4394/4394574.png"
-            Label="Danh sách"
-            Percentage="4% (30 days)"
-            Value={'1'}
+            Percentage="25% (30 days)"
+            Value={tripData.reduce((a, b) => a + b, 0).toString()} // Tính tổng chuyến đi
+            Label={'Số lượng chuyến đi'}
+            isLoading={false}
+          />
+          <DashboardCard
+            Icons="https://cdn-icons-png.flaticon.com/128/4394/4394574.png"
+            Percentage="25% (30 days)"
+            Value={ticketData.reduce((a, b) => a + b, 0).toString()} // Tính tổng chuyến đi
+            Label={'Số lượng chuyến đi'}
             isLoading={false}
           />
           <DashboardCard
             Icons="https://cdn-icons-png.flaticon.com/128/3082/3082854.png"
-            Label="Danh sách"
-            Percentage="4% (30 days)"
-            Value={'2'}
+            Percentage="25% (30 days)"
+            Value={orderData.reduce((a, b) => a + b, 0).toString()} // Tính tổng chuyến đi
+            Label={'Số lượng đơn hàng'}
             isLoading={false}
           />
           <DashboardCard
             Icons="https://cdn-icons-png.flaticon.com/128/9028/9028221.png"
             Percentage="25% (30 days)"
-            Value={'3'}
-            Label={'Danh sách'}
+            Value={vehicleData.reduce((a, b) => a + b, 0).toString()} // Tính tổng chuyến đi
+            Label={'Số lượng phương tiện'}
             isLoading={false}
           />
           <DashboardCard
             Icons="https://cdn-icons-png.flaticon.com/128/4256/4256900.png"
-            Label="Danh sách"
-            Percentage="12% (30 days)"
-            Value={'4'}
+            Percentage="25% (30 days)"
+            Value={revenueData.reduce((a, b) => a + b, 0).toString()} // Tính tổng chuyến đi
+            Label={'Số lượng doanh thu'}
             isLoading={false}
           />
         </div>
@@ -76,10 +169,11 @@ const DashboardPage: React.FC<{}> = () => {
         {/* Title */}
         <div className="flex flex-col py-6">
           <h1 className="text-[25px] font-bold text-black dark:text-white">
-            Danh sách tạo gần đây
+            Thống kê 
           </h1>
-          <p className="text-xs text-gray-500">Xem danh sách tạo gần đây.</p>
+          <p className="text-xs text-gray-500">Xem thống kê gần đây.</p>
         </div>
+        <LineChartComponent orderData={orderData} revenueData={revenueData} vehicleData={vehicleData} tripData={tripData} ticketData={ticketData}/>
         {/* Cart */}
       </div>
     </div>
