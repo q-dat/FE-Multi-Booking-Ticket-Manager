@@ -8,6 +8,7 @@ import { IoTicket, IoTrainSharp } from 'react-icons/io5';
 import { IoMdPricetag } from 'react-icons/io';
 import { PiMapPinAreaDuotone, PiSeatFill } from 'react-icons/pi';
 import { FaArrowRightArrowLeft, FaCartPlus } from 'react-icons/fa6';
+import { t } from 'i18next';
 
 const FlightTickets: React.FC = () => {
   const { tickets, getAllTickets, filterTickets } = useContext(TicketContext);
@@ -60,7 +61,7 @@ const FlightTickets: React.FC = () => {
             {/* Loại Vé */}
             <div>
               <p className="flex items-center gap-1 bg-blue-50 font-bold text-primary">
-                <IoTicket /> Loại Vé:
+                <IoTicket /> {t('UserPage.BusesTickets.titleBuses1')}:
               </p>
               <div className="grid grid-cols-3 gap-3 md:grid-cols-6 xl:grid-cols-7">
                 {ticketCatalogs.map(item => (
@@ -90,7 +91,7 @@ const FlightTickets: React.FC = () => {
             {/* Điểm Khởi Hành */}
             <div>
               <p className="flex items-center gap-1 bg-blue-50 font-bold text-primary">
-                <PiMapPinAreaDuotone /> Điểm Khởi Hành:
+                <PiMapPinAreaDuotone /> {t('UserPage.BusesTickets.titleBuses2')}:
               </p>
               <div className="grid grid-cols-3 items-center justify-center gap-3 md:grid-cols-6 xl:grid-cols-7">
                 {locations.map(item => (
