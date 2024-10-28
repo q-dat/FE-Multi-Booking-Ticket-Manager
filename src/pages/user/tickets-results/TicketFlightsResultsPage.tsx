@@ -98,16 +98,16 @@ const TicketFlightsResultsPage: React.FC = () => {
 
   const ticketsByClass = selectedFlight
     ? ticketsByFlight[selectedFlight].reduce(
-        (acc: { [key: string]: ITicket[] }, ticket) => {
-          const classId = ticket.seat_id[0]?.seat_catalog_id._id;
-          if (!acc[classId]) {
-            acc[classId] = [];
-          }
-          acc[classId].push(ticket);
-          return acc;
-        },
-        {}
-      )
+      (acc: { [key: string]: ITicket[] }, ticket) => {
+        const classId = ticket.seat_id[0]?.seat_catalog_id._id;
+        if (!acc[classId]) {
+          acc[classId] = [];
+        }
+        acc[classId].push(ticket);
+        return acc;
+      },
+      {}
+    )
     : {};
 
   const handleFlightChange = (flightName: string) => { // Thêm hàm xử lý thay đổi chuyến bay
@@ -127,32 +127,39 @@ const TicketFlightsResultsPage: React.FC = () => {
             Chuyến bay từ <strong>{tripInfo.departure_point.name}</strong> đến{' '}
             <strong>{tripInfo.destination_point.name}</strong>
           </h1>
-          <div className="mb-8 flex w-full flex-row items-center justify-center gap-5 overflow-x-auto scrollbar-hide">
+          <div className="mb-8 flex w-full flex-row items-center justify-center overflow-x-auto scrollbar-hide">
             {Object.entries(ticketsByFlight).map(([flightName, flightTickets]) => (
               
-              <div
-              className={`group mb-4 flex h-[160px] w-[250px] cursor-pointer flex-col items-center justify-around gap-1 rounded-lg border border-white bg-black bg-opacity-20 p-3 shadow-lg 
+                <><div
+                className="w-[100px] h-[100px] bg-primary bg-opacity-100"
+                style={{ clipPath: "polygon(20% 75%, 100% 60%, 100% 100%, 0% 100%)" }} /><div
+                  className={`group mb-4 flex h-[160px] w-[250px] cursor-pointer flex-col items-center justify-around gap-1 rounded-lg border border-white bg-black bg-opacity-20 p-3 shadow-lg 
                 ${selectedFlight === flightName ? 'bg-primary bg-opacity-100' : ''}`}
-              onClick={() => handleFlightChange(flightName)}
-              key={flightName}
-            >
-              <div className="w-full rounded-md bg-white text-black group-hover:bg-primary group-hover:text-white dark:group-hover:bg-secondary p-2">
-                <p className="text-center text-base font-medium truncate">
-                  {flightTickets[0]?.seat_id[0]?.seat_catalog_id.vehicle_id.name}
-                </p>
-              </div>
-            
-              <div className="w-full rounded-md bg-white p-2 text-start text-sm font-medium">
-                <p>
-                  <span className="font-semibold">Ngày đi:</span>{' '}
-                  {new Date(flightTickets[0]?.trip_id?.departure_date).toLocaleDateString('vi-VN')}
-                </p>
-                <p>
-                  <span className="font-semibold">Giờ đi:</span> {flightTickets[0]?.trip_id?.departure_time}
-                </p>
-              </div>
-            </div>
-            
+                  onClick={() => handleFlightChange(flightName)}
+                  key={flightName}
+                >
+                  <div className="w-full rounded-md bg-white text-black group-hover:bg-primary group-hover:text-white dark:group-hover:bg-secondary p-2">
+                    <p className="text-center text-base font-medium truncate">
+                      {flightTickets[0]?.seat_id[0]?.seat_catalog_id.vehicle_id.name}
+                    </p>
+                  </div>
+
+
+                  <div className="w-full rounded-md bg-white p-2 text-start text-sm font-medium">
+                    <p>
+                      <span className="font-semibold">Ngày đi:</span>{' '}
+                      {new Date(flightTickets[0]?.trip_id?.departure_date).toLocaleDateString('vi-VN')}
+                    </p>
+                    <p>
+                      <span className="font-semibold">Giờ đi:</span> {flightTickets[0]?.trip_id?.departure_time}
+                    </p>
+                  </div>
+                </div>
+                <div
+                  className="w-[100px] h-[100px] bg-primary bg-opacity-100"
+                  style={{ clipPath: "polygon(0 60%, 80% 75%, 100% 100%, 0% 100%)" }}
+                /></>
+
             ))}
           </div>
           {selectedFlight && ticketsByClass && (
@@ -165,11 +172,10 @@ const TicketFlightsResultsPage: React.FC = () => {
                       color="primary"
                       size="sm"
                       onClick={() => setSelectedClassId(classId)}
-                      className={`text-md font-semibold text-white dark:bg-white dark:text-primary ${
-                        selectedClassId === classId
+                      className={`text-md font-semibold text-white dark:bg-white dark:text-primary ${selectedClassId === classId
                           ? 'bg-opacity-100'
                           : 'bg-opacity-50'
-                      }`}
+                        }`}
                     >
                       {classTickets[0].seat_id[0]?.seat_catalog_id.name}
                     </Button>
@@ -185,13 +191,12 @@ const TicketFlightsResultsPage: React.FC = () => {
                         <div
                           onClick={() => addSeat(ticket)}
                           key={index}
-                          className={`relative flex h-14 w-14 items-center justify-center rounded-md border transition-all duration-200 ease-in-out ${
-                            seatStatus === 'Hết chỗ'
+                          className={`relative flex h-14 w-14 items-center justify-center rounded-md border transition-all duration-200 ease-in-out ${seatStatus === 'Hết chỗ'
                               ? 'cursor-not-allowed border-red-700 bg-red-500 text-white'
                               : seatStatus === 'Còn chỗ'
                                 ? 'cursor-pointer border-green-700 bg-green-500 text-white hover:bg-green-600'
                                 : 'cursor-progress border-gray-300 bg-white font-bold text-black'
-                          } group`}
+                            } group`}
                         >
                           {ticket.seat_id[0]?.ordinal_numbers}
                           <div
