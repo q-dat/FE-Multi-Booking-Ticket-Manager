@@ -16,7 +16,7 @@ const CartPage: React.FC = () => {
 
     selectedSeats.forEach(ticket => {
       const storedStartTime = localStorage.getItem(`startTime_${ticket._id}`);
-      const countdownDuration = 600; //Đặt thời gian 600s = 10p
+      const countdownDuration = 600; // Đặt thời gian 600s = 10p
 
       if (storedStartTime) {
         const startTime = parseInt(storedStartTime, 10);
@@ -62,6 +62,21 @@ const CartPage: React.FC = () => {
 
     return () => clearInterval(intervalId);
   }, [selectedSeats, removeSeat]);
+
+  // Hàm để xoá tất cả ghế và countdowns
+  const handleClearSeats = () => {
+    // Gọi hàm clearSeats từ context
+    clearSeats();
+
+    // Xoá tất cả các giá trị thời gian bắt đầu trong localStorage
+    selectedSeats.forEach(ticket => {
+      localStorage.removeItem(`startTime_${ticket._id}`); // Xoá thông tin thời gian bắt đầu cho từng ghế
+    });
+
+    // Đặt lại countdowns
+    setCountdowns({});
+    localStorage.removeItem('countdowns'); // Xoá countdowns khỏi localStorage
+  };
 
   return (
     <div className="mb-5 w-full rounded-md bg-white text-black dark:bg-transparent dark:text-white">
@@ -130,7 +145,7 @@ const CartPage: React.FC = () => {
             <div className="flex w-full items-center justify-center gap-2">
               <Button
                 size="sm"
-                onClick={clearSeats}
+                onClick={handleClearSeats}
                 className="bg-red-500 text-xs text-white"
               >
                 Xóa tất cả
