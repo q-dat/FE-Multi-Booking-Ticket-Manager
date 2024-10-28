@@ -29,7 +29,7 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({
       const parsedCart = JSON.parse(storedCart) as ITicket[];
       setSelectedSeats(parsedCart);
     }
-  }, []);
+  }, [setSelectedSeats]);
   //Add
   const addSeat = useCallback(
     (ticket: ITicket) => {
@@ -38,9 +38,9 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({
       );
       if (ticket.seat_id[0]?.status === 'Đang chọn') {
         Toastify(`Ghế ${ticket.seat_id[0]?.name} đang chọn!`, 401);
-        return; 
+        return;
       }
-  
+
       if (!isSeatSelected && ticket.seat_id[0]?.status === 'Còn chỗ') {
         const updatedSelectedSeats = [...selectedSeats, ticket];
         setSelectedSeats(updatedSelectedSeats);
