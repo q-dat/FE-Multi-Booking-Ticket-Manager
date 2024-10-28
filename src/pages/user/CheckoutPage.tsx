@@ -73,7 +73,7 @@ const CheckoutPage: React.FC = () => {
     const promises = seats.map(async (seat) => {
       const updatedSeat = { ...seat.seat_id[0], status: 'Hết chỗ' };
       await updateSeatApi(seat.seat_id[0]?._id, updatedSeat);
-  
+
       // Cập nhật lại sessionStorage nếu cần
       const storedTickets = sessionStorage.getItem('searchResults');
       if (storedTickets) {
@@ -85,39 +85,39 @@ const CheckoutPage: React.FC = () => {
         );
         sessionStorage.setItem('searchResults', JSON.stringify(updatedTickets));
       }
-  
+
       Toastify(`Ghế ${seat.seat_id[0]?.name} đã được cập nhật trạng thái!`, 200);
     });
-  
+
     await Promise.all(promises); // Chờ tất cả các cập nhật hoàn thành
   };
-  
+
   const onSubmitHandler = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
       const orderItems = selectedSeats.map((seat) => {
-              const selectedDiscount = selectedDiscounts[seat._id] || 'Người lớn';
-              const discountedPrice = calculateDiscountedPrice(seat.price, selectedDiscount);
-              return {
-                departureDate: seat.trip_id.departure_date,
-                time: seat.trip_id.departure_time,
-                departurePoint: seat.trip_id.departure_point.name,
-                destinationPoint: seat.trip_id.destination_point.name,
-                seat: seat.seat_id[0]?.name,
-                vehicle: seat.seat_id[0]?.seat_catalog_id.vehicle_id.name,
-                seatCatalog: seat.seat_id[0]?.seat_catalog_id.name,
-                price: discountedPrice,
-                quantity: 1,
-              };
-            });
-      
-            const orderData = {
-              items: orderItems,
-              amount: totalPrice,
-              address: formData,
-              paymentMethod: method === 'cod' ? 'COD' : 'Stripe',
-            };
-  
+        const selectedDiscount = selectedDiscounts[seat._id] || 'Người lớn';
+        const discountedPrice = calculateDiscountedPrice(seat.price, selectedDiscount);
+        return {
+          departureDate: seat.trip_id.departure_date,
+          time: seat.trip_id.departure_time,
+          departurePoint: seat.trip_id.departure_point.name,
+          destinationPoint: seat.trip_id.destination_point.name,
+          seat: seat.seat_id[0]?.name,
+          vehicle: seat.seat_id[0]?.seat_catalog_id.vehicle_id.name,
+          seatCatalog: seat.seat_id[0]?.seat_catalog_id.name,
+          price: discountedPrice,
+          quantity: 1,
+        };
+      });
+
+      const orderData = {
+        items: orderItems,
+        amount: totalPrice,
+        address: formData,
+        paymentMethod: method === 'cod' ? 'COD' : 'Stripe',
+      };
+
       if (method === 'cod') {
         const response = await axios.post('/api/order/place', orderData);
         if (response.data.success) {
@@ -134,21 +134,21 @@ const CheckoutPage: React.FC = () => {
           window.location.replace(session_url); // Chuyển hướng đến Stripe
         }
       } else {
-              Toastify('Vui lòng chọn phương thức thanh toán hợp lệ', 500);
-            }
-          } catch (error) {
-            const errorMessage = isIErrorResponse(error)
-              ? error.data?.message
-              : 'Đặt hàng thất bại!';
-            Toastify(`Lỗi: ${errorMessage}`, 500);
-          }
-        };
+        Toastify('Vui lòng chọn phương thức thanh toán hợp lệ', 500);
+      }
+    } catch (error) {
+      const errorMessage = isIErrorResponse(error)
+        ? error.data?.message
+        : 'Đặt hàng thất bại!';
+      Toastify(`Lỗi: ${errorMessage}`, 500);
+    }
+  };
 
   return (
     <div className="pb-[20px] xl:pt-[80px]">
       <div className="w-full mx-auto px-4 sm:px-8 md:px-24 py-2">
         {/* Header */}
-        <div className="grid grid-cols-6 bg-red-200 p-4">
+        <div className="hidden sm:grid grid-cols-6 bg-red-200 p-4">
           <p className="col-span-1 font-semibold">Đối tượng</p>
           <p className="col-span-1 font-semibold">Chuyến đi</p>
           <p className="col-span-1 font-semibold">Giá vé</p>
@@ -163,31 +163,52 @@ const CheckoutPage: React.FC = () => {
           const discountedPrice = calculateDiscountedPrice(ticket.price, selectedDiscount);
 
           return (
-            <div key={index} className="grid grid-cols-6 border-b p-4 items-center">
-              <div className="col-span-1">
+            <div
+              key={index}
+              className="grid grid-cols-1 sm:grid-cols-6 border-b p-4 items-center gap-y-2 sm:gap-y-0"
+            >
+              {/* Đối tượng */}
+              <div className="col-span-1 flex sm:block">
+                <label className="sm:hidden font-semibold mr-2">Đối tượng:</label>
                 <select
                   value={selectedDiscount}
                   onChange={(e) => handleDiscountChange(ticket._id, e.target.value)}
-                  className="border rounded px-2 py-1"
+                  className="border rounded px-2 py-1 w-auto sm:w-auto"
                 >
                   <option value="Trẻ em">Trẻ em</option>
                   <option value="Người lớn">Người lớn</option>
                 </select>
               </div>
+
+              {/* Chuyến đi */}
               <div className="col-span-1">
+                <p className="sm:hidden font-semibold">Chuyến đi:</p>
                 <p>
-                  {ticket.trip_id.departure_point.name}
-                  <span> - </span>
-                  {ticket.trip_id.destination_point.name}
+                  {ticket.trip_id.departure_point.name} - {ticket.trip_id.destination_point.name}
                 </p>
-                <p>{ticket.seat_id[0]?.seat_catalog_id.vehicle_id.name}</p>
+                <p className="text-gray-500">{ticket.seat_id[0]?.seat_catalog_id.vehicle_id.name}</p>
               </div>
-              <p className="col-span-1">{(ticket.price * 1000).toLocaleString('vi-VN')} VND</p>
+
+              {/* Giá vé */}
               <p className="col-span-1">
+                <span className="sm:hidden font-semibold">Giá vé: </span>
+                {(ticket.price * 1000).toLocaleString('vi-VN')} VND
+              </p>
+
+              {/* Giảm đối tượng */}
+              <p className="col-span-1">
+                <span className="sm:hidden font-semibold">Giảm đối tượng: </span>
                 {selectedDiscount === 'Trẻ em' ? 'Giảm 20%' : '0'}
               </p>
-              <p className="col-span-1">{(discountedPrice * 1000).toLocaleString('vi-VN')} VND</p>
-              <div className="flex justify-center">
+
+              {/* Thành tiền */}
+              <p className="col-span-1">
+                <span className="sm:hidden font-semibold">Thành tiền: </span>
+                {(discountedPrice * 1000).toLocaleString('vi-VN')} VND
+              </p>
+
+              {/* Thao tác */}
+              <div className="col-span-1 sm:justify-start">
                 <p
                   onClick={() => {
                     const seatId = ticket.seat_id[0]?._id;
@@ -215,7 +236,7 @@ const CheckoutPage: React.FC = () => {
         </div>
 
         {/* Form thanh toán */}
-        <form onSubmit={onSubmitHandler} className="flex flex-col sm:flex-row justify-between gap-4 pt-5 sm:pt-14 min-h-[80vh] border-t mt-8">
+        <form onSubmit={onSubmitHandler} className="flex flex-col sm:flex-row justify-between gap-4 pt-5 sm:pt-14 border-t mt-8">
           {/* Left Side */}
           <div className="flex flex-col gap-4 w-full sm:max-w-[480px]">
             <h2 className="text-lg font-semibold">Thông tin người mua</h2>

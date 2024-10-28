@@ -48,7 +48,8 @@ const OrderPage: React.FC = () => {
         toast.error(response.data.message);
       }
     } catch (error) {
-
+      console.error(error);
+      toast.error('Failed to fetch orders');
     }
   };
 
@@ -97,9 +98,19 @@ const OrderPage: React.FC = () => {
                 <p>Ngày đặt: {new Date(order.date).toLocaleDateString()}</p>
               </div>
               <p className='text-sm sm:text-[15px]'>{(order.amount * 1000).toLocaleString('vi-VN')} VNĐ</p>
-              <select onChange={(event) => statusHandler(event, order._id)} value={order.status} className='p-2 font-semibold'>
-                <option value='Đã đặt'>Đã đặt</option>
-                <option value='Đã nhận vé'>Đã nhận vé</option>
+              <select
+                onChange={(event) => statusHandler(event, order._id)}
+                value={order.payment ? 'Đã nhận vé' : order.status}
+                className='p-2 font-semibold'
+                disabled={order.payment}
+              >
+                {!order.payment && (
+                  <>
+                    <option value='Đã đặt'>Đã đặt</option>
+                    <option value='Đã nhận vé'>Đã nhận vé</option>
+                  </>
+                )}
+                {order.payment && <option value='Đã nhận vé'>Đã nhận vé</option>}
               </select>
             </div>
           ))
