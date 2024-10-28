@@ -116,6 +116,14 @@ const Home: React.FC = () => {
     value: location.name,
     label: location.name
   }));
+  // Tính toán ngày hôm nay
+  const today = new Date();
+  const yyyy = today.getFullYear();
+  const mm = String(today.getMonth() + 1).padStart(2, '0'); 
+  const dd = String(today.getDate()).padStart(2, '0');
+
+  const minDate = `${yyyy}-${mm}-${dd}`;
+
   return (
     <div className="pb-[20px] xl:pt-[80px]">
       {/* Mobile */}
@@ -188,6 +196,7 @@ const Home: React.FC = () => {
                 type={'date'}
                 placeholder={`${t('UserPage.DepartureDatePlaceholder')}`}
                 {...register('departure_date')}
+                min={minDate}
                 classNameLabel=" dark:text-[#122969] bg-white dark:peer-focus:text-primary "
               />
               <MdOutlineArrowRightAlt className="hidden text-xl text-primary xl:flex" />
