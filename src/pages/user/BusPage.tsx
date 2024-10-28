@@ -125,6 +125,7 @@ const BusesPage: React.FC = () => {
                   placeholder={`${t('UserPage.DepartureDatePlaceholder')}`}
                   {...register('departure_date')}
                   classNameLabel=" bg-white  dark:bg-gray-700"
+                  min=''
                 />
                 <MdOutlineArrowRightAlt className="hidden text-primary dark:text-white xl:flex" />
                 <div>
@@ -153,6 +154,7 @@ const BusesPage: React.FC = () => {
                 type="hidden"
                 value="Xe khách"
                 {...register('vehicle_catalog_name')}
+                min=''
               />
               <div>
                 <Button

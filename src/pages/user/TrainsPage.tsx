@@ -53,6 +53,13 @@ const TrainsPage: React.FC = () => {
   useEffect(() => {
     getAllLocations();
   }, []);
+  // Tính toán ngày hôm nay
+  const today = new Date();
+  const yyyy = today.getFullYear();
+  const mm = String(today.getMonth() + 1).padStart(2, '0');
+  const dd = String(today.getDate()).padStart(2, '0');
+
+  const minDate = `${yyyy}-${mm}-${dd}`;
 
   return (
     <div className="pb-[20px] xl:pt-[80px]">
@@ -124,6 +131,7 @@ const TrainsPage: React.FC = () => {
                   placeholder={`${t('UserPage.DepartureDatePlaceholder')}`}
                   {...register('departure_date')}
                   classNameLabel=" bg-white  dark:bg-gray-700"
+                  min={minDate}
                 />
                 <MdOutlineArrowRightAlt className="hidden text-primary dark:text-white xl:flex" />
                 <div>
@@ -152,6 +160,7 @@ const TrainsPage: React.FC = () => {
                 type="hidden"
                 value="Tàu"
                 {...register('vehicle_catalog_name')}
+                min=''
               />
               <div>
                 <Button
