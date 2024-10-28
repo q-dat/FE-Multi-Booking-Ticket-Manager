@@ -67,16 +67,16 @@ const TicketBusesResultsPage: React.FC = () => {
 
   const ticketsByClass = selectedBus
     ? ticketsByBus[selectedBus].reduce(
-        (acc: { [key: string]: ITicket[] }, ticket) => {
-          const classId = ticket.seat_id[0]?.seat_catalog_id._id;
-          if (!acc[classId]) {
-            acc[classId] = [];
-          }
-          acc[classId].push(ticket);
-          return acc;
-        },
-        {}
-      )
+      (acc: { [key: string]: ITicket[] }, ticket) => {
+        const classId = ticket.seat_id[0]?.seat_catalog_id._id;
+        if (!acc[classId]) {
+          acc[classId] = [];
+        }
+        acc[classId].push(ticket);
+        return acc;
+      },
+      {}
+    )
     : {};
 
   const handleSeatClick = (ticket: ITicket) => {
@@ -108,7 +108,7 @@ const TicketBusesResultsPage: React.FC = () => {
           <div className="mb-8 flex flex-wrap justify-center space-x-4">
             {Object.entries(ticketsByBus).map(([busName, busTickets]) => (
               <div
-                className={`hover:bg-white group mb-4 flex h-[280px] w-[250px] cursor-pointer flex-col items-center justify-around rounded-[30px] border bg-black bg-opacity-20 p-1 px-2 shadow-lg ${selectedBus === busName ? 'bg-primary bg-opacity-100' : ''}`}
+                className={`hover:bg-white group mb-4 flex h-[250px] w-[250px] cursor-pointer flex-col items-center justify-around rounded-[30px] border bg-black bg-opacity-20 p-1 px-2 shadow-lg ${selectedBus === busName ? 'bg-primary bg-opacity-100' : ''}`}
                 onClick={() => setSelectedBus(busName)}
                 key={busName}
               >
@@ -117,7 +117,7 @@ const TicketBusesResultsPage: React.FC = () => {
                     {busTickets[0].seat_id[0]?.seat_catalog_id.vehicle_id.name}
                   </p>
                 </div>
-                <div className="h-[150px] w-full rounded-3xl bg-white p-2 text-start text-lg font-light">
+                <div className="h-[150px] w-full rounded-3xl bg-white p-2 text-start text-lg font-light  border-white border-2 group-hover:border-gray-400">
                   <p>
                     Ngày đi:
                     {new Date(
@@ -125,10 +125,33 @@ const TicketBusesResultsPage: React.FC = () => {
                     ).toLocaleDateString('vi-VN')}
                   </p>
                   <p>
-                    Giờ đi: {busTickets[0].trip_id?.departure_time}
+                    Ngày về:
+                    {new Date(
+                      busTickets[0].trip_id.return_date
+                    ).toLocaleDateString('vi-VN')}
                   </p>
+                  <p>Giờ đi: {busTickets[0].trip_id?.departure_time}</p>
+                  <p>Giờ về: {busTickets[0].trip_id?.return_time}</p>
                 </div>
-                
+                <div className="flex items-center gap-6">
+                  <div className="h-6 w-6 rounded-full bg-white group-hover:border group-hover:border-white group-hover:bg-primary dark:group-hover:bg-secondary"></div>
+                  <div className="w-9">
+                    <hr className="w-full border-white border-2 group-hover:border-gray-400" />
+
+                    <hr className="w-full border-white border-2 group-hover:border-gray-400" />
+                  </div>
+                  <div className="h-6 w-6 rounded-full bg-white group-hover:border group-hover:border-white group-hover:bg-primary dark:group-hover:bg-secondary"></div>
+                </div>
+                <div className='relative'>
+                  <div
+                    className="w-[40px] h-[50px] bg-slate-400 bg-opacity-100 absolute left-32 bottom-36 rounded-r-full"
+                    style={{ clipPath: "polygon(0 60%, 100% 50%, 100% 100%, 0% 100%)" }}
+                  />
+                  <div
+                    className="w-[40px] h-[50px] bg-slate-400 bg-opacity-100 absolute right-32 bottom-36 rounded-l-full"
+                    style={{ clipPath: "polygon(0% 50%, 100% 60%, 100% 100%, 0% 100%)" }}
+                  />
+                </div>
               </div>
             ))}
           </div>
@@ -154,11 +177,10 @@ const TicketBusesResultsPage: React.FC = () => {
                         <div
                           onClick={() => handleSeatClick(ticket)}
                           key={index}
-                          className={`relative flex h-14 w-14 items-center justify-center rounded-md border transition-all duration-200 ease-in-out ${
-                            seatStatus === 'Còn chỗ'
-                              ? 'cursor-pointer border-green-700 bg-green-500 text-white hover:bg-green-600'
-                              : 'cursor-not-allowed border-red-700 bg-red-500 text-white'
-                          } group`}
+                          className={`relative flex h-10 w-1/4 items-center justify-center rounded-md border transition-all duration-200 ease-in-out ${seatStatus === 'Còn chỗ'
+                            ? 'cursor-pointer border-green-700 bg-green-500 text-white hover:bg-green-600'
+                            : 'cursor-not-allowed border-red-700 bg-red-500 text-white'
+                            } group`}
                         >
                           {ticket.seat_id[0]?.ordinal_numbers}
 
