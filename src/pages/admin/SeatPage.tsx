@@ -133,7 +133,7 @@ const SeatPage: React.FC = () => {
             <div className="flex flex-col items-start justify-center gap-2 md:flex-row md:items-end">
               <div className="flex flex-row gap-2">
                 <Button
-                  color="primary"
+                  color="success"
                   onClick={openModalCreateAdmin}
                   className="w-[100px] text-sm font-light text-white"
                 >

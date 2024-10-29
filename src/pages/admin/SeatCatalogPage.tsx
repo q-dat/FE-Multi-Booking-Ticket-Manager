@@ -78,7 +78,7 @@ const SeatCatalogPage: React.FC = () => {
           Title_NavtitleAdmin="Quản Lý Loại Ghế"
           Btn_Create={
             <Button
-            color="primary"
+            color="success"
             onClick={openModalCreateAdmin}
             className="w-[100px] text-sm font-light text-white"
           >

@@ -72,7 +72,7 @@ const ServicePage: React.FC = () => {
           Title_NavtitleAdmin="Quản Lý Dịch Vụ"
           Btn_Create={
             <Button
-            color="primary"
+            color="success"
             onClick={openModalCreateAdmin}
             className="w-[100px] text-sm font-light text-white"
           >

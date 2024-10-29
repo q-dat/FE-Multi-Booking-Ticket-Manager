@@ -64,14 +64,12 @@ const BlogPage: React.FC = () => {
           Title_NavtitleAdmin="Quản lý Bài Viết"
           Btn_Create={
             <Button
-              color="primary"
+              color="success"
               onClick={() => openModal(setIsModalCreateOpen)}
-              className="text-sm font-light text-white"
+              className="w-[100px] text-sm font-light text-white"
             >
-              <div className="flex items-center space-x-1">
-                <RiAddBoxLine className="text-xl" />
-                <p> Thêm Bài Viết</p>
-              </div>
+              <RiAddBoxLine className="text-xl" color="white" />
+              Thêm
             </Button>
           }
         />
