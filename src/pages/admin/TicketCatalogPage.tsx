@@ -15,6 +15,7 @@ import { useNavigate } from 'react-router-dom';
 import ModalCreateTicketCatalogPageAdmin from '../../components/admin/Modal/ModalTicketCatalog/ModalCreateTicketCatalogPageAdmin';
 import ModalDeleteTicketCatalogPageAdmin from '../../components/admin/Modal/ModalTicketCatalog/ModalDeleteTicketCatalogPageAdmin';
 import ModalEditTicketCatalogPageAdmin from '../../components/admin/Modal/ModalTicketCatalog/ModalEditTicketCatalogPageAdmin';
+import { isIErrorResponse } from '../../types/error/error';
 
 const TicketCatalogPage: React.FC = () => {
   const {
@@ -58,7 +59,10 @@ const TicketCatalogPage: React.FC = () => {
         getAllTicketCatalogs();
         navigate('/admin/ticket-catalog');
       } catch (error) {
-        Toastify('Xoá loại vé thất bại!', 500);
+        const errorMessage = isIErrorResponse(error)
+          ? error.data?.message
+          : 'Xoá loại vé thất bại!';
+        Toastify(`Lỗi: ${errorMessage}`, 500);
       }
     }
   };

@@ -15,6 +15,7 @@ import { useNavigate } from 'react-router-dom';
 import ModalCreateVehicleCatalogPageAdmin from '../../components/admin/Modal/ModalVehicleCatalog/ModalCreateVehicleCatalogPageAdmin';
 import ModalDeleteVehicleCatalogPageAdmin from '../../components/admin/Modal/ModalVehicleCatalog/ModalDeleteVehicleCatalogPageAdmin';
 import ModalEditVehicleCatalogPageAdmin from '../../components/admin/Modal/ModalVehicleCatalog/ModalEditVehicleCatalogPageAdmin';
+import { isIErrorResponse } from '../../types/error/error';
 
 const VehicleCatalogPage: React.FC = () => {
   const {
@@ -58,7 +59,10 @@ const VehicleCatalogPage: React.FC = () => {
         getAllVehicleCatalogs();
         navigate('/admin/vehicle-catalog');
       } catch (error) {
-        Toastify('Xoá loại phương tiện thất bại!', 500);
+        const errorMessage = isIErrorResponse(error)
+          ? error.data?.message
+          : 'Xoá phương tiện thất bại!';
+        Toastify(`Lỗi: ${errorMessage}`, 500);
       }
     }
   };

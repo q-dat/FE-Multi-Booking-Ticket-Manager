@@ -54,7 +54,7 @@ const AgePage: React.FC = () => {
         Toastify('Bạn đã xoá độ tuổi thành công', 201);
         getAllAges();
         navigate('/admin/age');
-      } catch (error) {
+      } catch {
         const errorMessage = isIErrorResponse(error)
           ? error.data?.message
           : 'Xoá độ tuổi thất bại!';
