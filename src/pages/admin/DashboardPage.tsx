@@ -50,14 +50,14 @@ const DashboardCard: React.FC<DashboardCardProps> = ({
 const DashboardPage: React.FC<{}> = () => {
 
   const { vehicles } = useContext(VehicleContext);
-  const { trips, getAllTrips } = useContext(TripContext); // Lấy trips và phương thức getAllTrips từ TripContext
-  const { tickets, getAllTickets } = useContext(TicketContext); // Thêm TicketContext
+  const { trips, getAllTrips } = useContext(TripContext);
+  const { tickets, getAllTickets } = useContext(TicketContext);
   const [orders, setOrders] = useState<Order[]>([]);
   const [orderData, setOrderData] = useState<number[]>([]);
   const [revenueData, setRevenueData] = useState<number[]>([]);
   const [vehicleData, setVehicleData] = useState<number[]>([]);
   const [tripData, setTripData] = useState<number[]>([]);
-  const [ticketData, setTicketData] = useState<number[]>([]); // Thêm state cho vé
+  const [ticketData, setTicketData] = useState<number[]>([]);
 
   // Hàm lấy dữ liệu từ API
   const fetchAllOrders = async () => {
@@ -74,18 +74,17 @@ const DashboardPage: React.FC<{}> = () => {
     }
   };
 
-  // Hàm tính toán dữ liệu cho biểu đồ
   const calculateStatistics = () => {
     const monthlyOrders = new Array(12).fill(0);
     const monthlyRevenue = new Array(12).fill(0);
     const monthlyVehicles = new Array(12).fill(0);
     const monthlyTrips = new Array(12).fill(0);
-    const monthlyTickets = new Array(12).fill(0); // Khởi tạo mảng chứa dữ liệu số lượng vé theo tháng
+    const monthlyTickets = new Array(12).fill(0);
 
     orders.forEach((order) => {
       const month = new Date(order.date).getMonth();
       monthlyOrders[month] += 1;
-      monthlyRevenue[month] += order.amount;
+      monthlyRevenue[month] += order.amount * 1000;
     });
 
     vehicles.forEach((vehicle) => {
@@ -99,28 +98,28 @@ const DashboardPage: React.FC<{}> = () => {
     });
 
     tickets.forEach((ticket) => {
-      const month = new Date(ticket.createAt!).getMonth(); // Giả sử bạn có thuộc tính createAt trong vé
-      monthlyTickets[month] += 1; // Tăng số lượng vé cho tháng tương ứng
+      const month = new Date(ticket.createAt!).getMonth();
+      monthlyTickets[month] += 1;
     });
 
     setOrderData(monthlyOrders);
     setRevenueData(monthlyRevenue);
     setVehicleData(monthlyVehicles);
     setTripData(monthlyTrips);
-    setTicketData(monthlyTickets); // Cập nhật dữ liệu số lượng vé
+    setTicketData(monthlyTickets);
   };
 
   useEffect(() => {
     fetchAllOrders();
-    getAllTrips(); // Gọi phương thức lấy chuyến đi
-    getAllTickets(); // Gọi phương thức lấy vé
-  }, [getAllTrips, getAllTickets]); // Đảm bảo rằng phương thức này được gọi
+    getAllTrips();
+    getAllTickets();
+  }, [getAllTrips, getAllTickets]);
 
   useEffect(() => {
     if (orders.length > 0 || vehicles.length > 0 || trips.length > 0 || tickets.length > 0) {
       calculateStatistics();
     }
-  }, [orders, vehicles, trips, tickets]); // Thêm tickets vào dependencies
+  }, [orders, vehicles, trips, tickets]);
 
   return (
     <div className="w-full">
@@ -130,51 +129,45 @@ const DashboardPage: React.FC<{}> = () => {
 
         <div className="grid grid-cols-2 gap-4 md:grid-cols-5">
           <DashboardCard
-            Icons="https://cdn-icons-png.flaticon.com/128/4394/4394574.png"
+            Icons="https://cdn-icons-png.flaticon.com/128/3762/3762066.png"
             Percentage="25% (30 days)"
-            Value={tripData.reduce((a, b) => a + b, 0).toString()} // Tính tổng chuyến đi
+            Value={tripData.reduce((a, b) => a + b, 0).toString()}
             Label={'Số lượng chuyến đi'}
             isLoading={false}
           />
           <DashboardCard
-            Icons="https://cdn-icons-png.flaticon.com/128/4394/4394574.png"
+            Icons="https://cdn-icons-png.flaticon.com/128/2942/2942934.png"
             Percentage="25% (30 days)"
-            Value={ticketData.reduce((a, b) => a + b, 0).toString()} // Tính tổng chuyến đi
-            Label={'Số lượng chuyến đi'}
+            Value={ticketData.reduce((a, b) => a + b, 0).toString()}
+            Label={'Số lượng vé'}
             isLoading={false}
           />
           <DashboardCard
-            Icons="https://cdn-icons-png.flaticon.com/128/3082/3082854.png"
+            Icons="https://cdn-icons-png.flaticon.com/128/3753/3753033.png"
             Percentage="25% (30 days)"
-            Value={orderData.reduce((a, b) => a + b, 0).toString()} // Tính tổng chuyến đi
+            Value={orderData.reduce((a, b) => a + b, 0).toString()}
             Label={'Số lượng đơn hàng'}
             isLoading={false}
           />
           <DashboardCard
-            Icons="https://cdn-icons-png.flaticon.com/128/9028/9028221.png"
+            Icons="https://cdn-icons-png.flaticon.com/128/713/713309.png"
             Percentage="25% (30 days)"
-            Value={vehicleData.reduce((a, b) => a + b, 0).toString()} // Tính tổng chuyến đi
+            Value={vehicleData.reduce((a, b) => a + b, 0).toString()}
             Label={'Số lượng phương tiện'}
             isLoading={false}
           />
           <DashboardCard
             Icons="https://cdn-icons-png.flaticon.com/128/4256/4256900.png"
             Percentage="25% (30 days)"
-            Value={revenueData.reduce((a, b) => a + b, 0).toString()} // Tính tổng chuyến đi
+            Value={revenueData.reduce((a, b) => a + b, 0).toString()}
             Label={'Số lượng doanh thu'}
             isLoading={false}
           />
         </div>
 
-        {/* Title */}
         <div className="flex flex-col py-6">
-          <h1 className="text-[25px] font-bold text-black dark:text-white">
-            Thống kê 
-          </h1>
-          <p className="text-xs text-gray-500">Xem thống kê gần đây.</p>
+          <LineChartComponent orderData={orderData} revenueData={revenueData} vehicleData={vehicleData} tripData={tripData} ticketData={ticketData} />
         </div>
-        <LineChartComponent orderData={orderData} revenueData={revenueData} vehicleData={vehicleData} tripData={tripData} ticketData={ticketData}/>
-        {/* Cart */}
       </div>
     </div>
   );
