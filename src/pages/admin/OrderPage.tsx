@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
 import axios from '../../config/axiosConfig';
 import LogoAdmin from '../../assets/image-represent/payment/parcel_icon.svg';
+import NavbarMobile from '../../components/admin/Reponsive/Mobile/NavbarMobile';
+import NavtitleAdmin from '../../components/admin/NavtitleAdmin';
 
 interface Item {
   departureDate: Date;
@@ -58,8 +60,15 @@ const OrderPage: React.FC = () => {
   }, []);
 
   return (
-    <div>
-      <div>
+    <div className="w-full">
+      <NavbarMobile Title_NavbarMobile="Đơn vé" />
+      <div className="px-2 xl:px-0">
+        <NavtitleAdmin
+          Title_NavtitleAdmin="Quản Lý Đơn Vé"
+          Btn_Create={
+            ""
+          }
+        />
         {
           orders.map((order) => (
             <div className='grid grid-cols-1 sm:grid-cols-[0.5fr_2fr_1fr] lg:grid-cols-[0.5fr_2fr_1fr_1fr_1fr] gap-3 items-start border-2 border-gray-200 p-5 md:p-8 my-3 md:my-4 text-xs sm:text-sm text-gray-700' key={order._id}>
