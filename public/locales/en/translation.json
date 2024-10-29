@@ -141,6 +141,23 @@
       "titleBuses1": "Ticket Type",
       "titleBuses2": "Departure Point"
 
+    },
+    "TicketTrainsResults":{
+      "TripFrom": "Trip From",
+      "To": "To",
+      "DepartureTime": "Departure Time",
+      "DestinationTime": "Destination Time",
+      "Location" : "Location"
+
+    },
+    "CartTranlate":{
+      "TicketQuantity": "Ticket Cart - Quantity",
+      "CartNotification": "Your ticket cart is empty!",
+      "Second": "Second",
+      "Total": "Total",
+      "DeleteAll": "Delete All",
+      "BuyTickets": "Buy Tickets",
+      "DeleteAllTicket": "All seats removed from cart!"
     }
   },
   "NotificationPopup": {

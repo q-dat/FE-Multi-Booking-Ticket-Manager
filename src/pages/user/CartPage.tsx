@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { useCart } from '../../context/cart/CartContext';
+import { useTranslation } from 'react-i18next';
 import { Button } from 'react-daisyui';
 import { IoIosCloseCircleOutline } from 'react-icons/io';
 import { MdOutlinePayment } from 'react-icons/md';
 import { useNavigate } from 'react-router-dom';
 
 const CartPage: React.FC = () => {
+  const { t } = useTranslation();
   const { selectedSeats, removeSeat, clearSeats, totalPrice } = useCart();
   const [countdowns, setCountdowns] = useState<{ [key: string]: number }>({});
   const navigate = useNavigate();
@@ -81,24 +83,24 @@ const CartPage: React.FC = () => {
   return (
     <div className="mb-5 w-full rounded-md bg-white text-black dark:bg-transparent dark:text-white">
       <h1 className="mx-2 mb-5 border-[4px] border-b-0 border-r-0 border-t-0 border-primary bg-blue-200 px-5 py-1 text-center text-xl text-black dark:border-white dark:bg-gray-400 dark:text-white xl:text-start">
-        Giỏ vé - Số lượng:&nbsp; {selectedSeats.length}
+        {t('UserPage.CartTranlate.TicketQuantity')}:&nbsp; {selectedSeats.length}
       </h1>
       {selectedSeats.length === 0 ? (
         <>
           <div className="text-center">
-            <p className="text-red-400">Giỏ vé của bạn đang trống!</p>
+            <p className="text-red-400">{t('UserPage.CartTranlate.CartNotification')}</p>
           </div>
         </>
       ) : (
         <div className="flex flex-col gap-2 ">
           <div className='scrollbar-hide overflow-y-auto h-[200px] xl:h-[340px]'>
-            {selectedSeats.map((ticket,index:number) => (
+            {selectedSeats.map((ticket, index: number) => (
               <div
                 key={ticket._id}
                 className=" flex items-center justify-between border border-b border-l-0 border-r-0 border-t-0 p-2 text-xs"
               >
                 <div className="flex flex-col items-start justify-start">
-                  <strong className='text-red-500'>#{index+1}</strong>
+                  <strong className='text-red-500'>#{index + 1}</strong>
                   <p className="flex gap-1">
                     {ticket.trip_id.departure_point.name}
                     <span>-</span>
@@ -132,7 +134,7 @@ const CartPage: React.FC = () => {
                     <IoIosCloseCircleOutline />
                   </p>
                   <span className="text-red-500">
-                    {countdowns[ticket?._id]} giây
+                    {countdowns[ticket?._id]} {t('UserPage.CartTranlate.Second')}
                   </span>
                 </div>
               </div>
@@ -140,7 +142,7 @@ const CartPage: React.FC = () => {
           </div>
           <div className="flex flex-col gap-1">
             <div className="text-end text-xs font-bold">
-              Tổng tiền: {(totalPrice * 1000).toLocaleString('vi-VN')}
+              {t('UserPage.CartTranlate.Total')}: {(totalPrice * 1000).toLocaleString('vi-VN')}
               &nbsp;VND
             </div>
             <div className="flex w-full items-center justify-center gap-2">
@@ -149,7 +151,7 @@ const CartPage: React.FC = () => {
                 onClick={handleClearSeats}
                 className="bg-red-500 text-xs text-white"
               >
-                Xóa tất cả
+                {t('UserPage.CartTranlate.DeleteAll')}
               </Button>
               <Button
                 onClick={() => navigate('/checkout')}
@@ -157,7 +159,7 @@ const CartPage: React.FC = () => {
                 className="bg-green-500 text-xs text-white"
               >
                 <MdOutlinePayment className="text-xl" />
-                Mua vé
+                {t('UserPage.CartTranlate.BuyTickets')}
               </Button>
             </div>
           </div>

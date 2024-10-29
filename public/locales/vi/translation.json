@@ -140,6 +140,22 @@
     "BusesTickets":{
       "titleBuses1":"Loại Vé",
       "titleBuses2":"Điểm Khởi Hành"
+    },
+    "TicketTrainsResults":{
+      "TripFrom": "Chuyến đi từ",
+      "To": "Đến",
+      "DepartureTime": "Thời Gian Đi",
+      "DestinationTime": "Thời Gian Đến",
+      "Location" : "Vị Trí"
+    },
+    "CartTranlate":{
+      "TicketQuantity": "Giỏ vé - Số lượng",
+      "CartNotification": "Giỏ vé của bạn đang trống!",
+      "Second": "Giấy",
+      "Total": "Tổng Tiền",
+      "DeleteAll": "Xóa tất cả",
+      "BuyTickets": "Mua Vé",
+      "DeleteAllTicket": "Đã xóa tất cả ghế khỏi giỏ hàng!"
     }
   },
   "NotificationPopup": {
