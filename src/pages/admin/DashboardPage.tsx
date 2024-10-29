@@ -1,12 +1,12 @@
 import React, { useContext, useEffect, useState } from 'react';
 import NavtitleAdmin from '../../components/admin/NavtitleAdmin';
 import NavbarMobile from '../../components/admin/Reponsive/Mobile/NavbarMobile';
-import LineChartComponent from './LineChartComponent';
-import { toast } from 'react-toastify';
+import LineChartComponent from '../../components/LineChartComponent';
 import axios from '../../config/axiosConfig';
 import { VehicleContext } from '../../context/vehicle/VehicleContext';
 import { TripContext } from '../../context/trip/TripContext';
 import { TicketContext } from '../../context/ticket/TicketContext';
+import { Toastify } from '../../helper/Toastify';
 
 interface Order {
   _id: string;
@@ -66,11 +66,11 @@ const DashboardPage: React.FC<{}> = () => {
       if (response.data.success) {
         setOrders(response.data.orders);
       } else {
-        toast.error(response.data.message);
+        Toastify(response.data.message, 500);
       }
     } catch (error) {
       console.error(error);
-      toast.error('Failed to fetch orders');
+      Toastify('Failed to fetch orders', 500);
     }
   };
 
