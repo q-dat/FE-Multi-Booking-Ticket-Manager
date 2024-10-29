@@ -133,19 +133,20 @@ const TicketFlightsResultsPage: React.FC = () => {
                 <><div
                 className="w-[100px] h-[100px] bg-primary bg-opacity-100"
                 style={{ clipPath: "polygon(20% 75%, 100% 60%, 100% 100%, 0% 100%)" }} /><div
-                  className={`group mb-4 flex h-[160px] w-[250px] cursor-pointer flex-col items-center justify-around gap-1 rounded-lg border border-white bg-black bg-opacity-20 p-3 shadow-lg 
-                ${selectedFlight === flightName ? 'bg-primary bg-opacity-100' : ''}`}
+                className={`group mb-4 flex h-[260px] w-[180px] cursor-pointer flex-col items-center justify-around gap-1 rounded-[150px] border border-white bg-black bg-opacity-20 p-12 shadow-lg 
+                  ${selectedFlight === flightName ? 'bg-primary bg-opacity-100' : ''}`}
+  
                   onClick={() => handleFlightChange(flightName)}
                   key={flightName}
                 >
-                  <div className="w-full rounded-md bg-white text-black group-hover:bg-primary group-hover:text-white dark:group-hover:bg-secondary p-2">
+                  <div className="w-[150px] rounded-md bg-white text-black group-hover:bg-primary group-hover:text-white dark:group-hover:bg-secondary p-2">
                     <p className="text-center text-base font-medium truncate">
                       {flightTickets[0]?.seat_id[0]?.seat_catalog_id.vehicle_id.name}
                     </p>
                   </div>
 
 
-                  <div className="w-full rounded-md bg-white p-2 text-start text-sm font-medium">
+                  <div className="w-[150px] rounded-md bg-white p-2 text-start text-sm font-medium">
                     <p>
                       <span className="font-semibold">Ngày đi:</span>{' '}
                       {new Date(flightTickets[0]?.trip_id?.departure_date).toLocaleDateString('vi-VN')}
