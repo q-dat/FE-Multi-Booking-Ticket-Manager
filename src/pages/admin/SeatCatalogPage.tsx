@@ -15,6 +15,7 @@ import ModalDeleteSeatCatalogPageAdmin from '../../components/admin/Modal/ModalS
 import ModalEditSeatCatalogPageAdmin from '../../components/admin/Modal/ModalSeatCatalog/ModalEditSeatCatalogPageAdmin';
 import ModalCreateSeatCatalogPageAdmin from '../../components/admin/Modal/ModalSeatCatalog/ModalCreateSeatCatalogPageAdmin';
 import { ISeatCatalog } from '../../types/type/seat-catalog/seat-catalog';
+import { isIErrorResponse } from '../../types/error/error';
 
 const SeatCatalogPage: React.FC = () => {
   const {
@@ -58,7 +59,10 @@ const SeatCatalogPage: React.FC = () => {
         getAllSeatCatalogs();
         navigate('/admin/seat-catalog');
       } catch (error) {
-        Toastify('Xoá loại ghế thất bại!', 500);
+        const errorMessage = isIErrorResponse(error)
+          ? error.data?.message
+          : 'Xoá loại ghế thất bại!';
+        Toastify(`Lỗi: ${errorMessage}`, 500);
       }
     }
   };

@@ -102,13 +102,12 @@ const VehiclePage: React.FC = () => {
                 <span className="line-clamp-1">#{index + 1}</span>
                 <span className="line-clamp-1">{vehicle?.name}</span>
                 <span
-                  className={`inline-block w-[150px] rounded-lg px-4 py-2 font-medium ${
-                    vehicle?.status === 'Đang hoạt động'
+                  className={`inline-block w-[150px] rounded-lg px-4 py-2 font-medium ${vehicle?.status === 'Đang hoạt động'
                       ? 'border border-green-600 bg-[#a6e3d5] text-green-600'
                       : vehicle?.status === 'Đang bảo trì'
                         ? 'border border-yellow-600 bg-yellow-200 text-yellow-600'
                         : 'border border-red-600 bg-red-200 text-red-600'
-                  }`}
+                    }`}
                 >
                   {vehicle?.status}
                 </span>
