@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import { toast } from 'react-toastify';
 import axios from '../../config/axiosConfig';
 import LogoAdmin from '../../assets/image-represent/payment/parcel_icon.svg';
 import NavbarMobile from '../../components/admin/Reponsive/Mobile/NavbarMobile';
 import NavtitleAdmin from '../../components/admin/NavtitleAdmin';
+import { Toastify } from '../../helper/Toastify';
 
 interface Item {
   departureDate: Date;
@@ -47,11 +47,11 @@ const OrderPage: React.FC = () => {
       if (response.data.success) {
         setOrders(response.data.orders);
       } else {
-        toast.error(response.data.message);
+        Toastify(response.data.message, 500);
       }
     } catch (error) {
       console.error(error);
-      toast.error('Failed to fetch orders');
+      Toastify('Failed to fetch orders', 500);
     }
   };
 
