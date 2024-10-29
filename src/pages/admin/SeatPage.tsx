@@ -144,10 +144,13 @@ const SeatPage: React.FC = () => {
                 </Button>
                 {/*  */}
                 <div className="dropdown dropdown-hover relative flex h-12 w-[100px] cursor-pointer flex-col items-center justify-center rounded-md bg-primary text-white">
-                  <p className="flex flex-row items-center justify-center gap-1">
+                  <Button
+                    color="primary"
+                    className="flex flex-row items-center justify-center gap-1 text-white"
+                  >
                     <LuFilter />
                     <span>Lọc</span>
-                  </p>
+                  </Button>
                   <div className="dropdown-content absolute top-[100%] z-10 w-[350px] space-y-1 rounded-md bg-slate-50 p-2 shadow-headerMenu drop-shadow-md">
                     <div className="flex flex-row gap-4">
                       {/* Phương Tiện */}

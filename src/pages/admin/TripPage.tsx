@@ -19,9 +19,15 @@ import { useNavigate } from 'react-router-dom';
 import { VehicleCatalogContext } from '../../context/vehicleCatalog/VehicleCatalogContext';
 
 const TripPage: React.FC = () => {
-  const { trips, loading, error, deleteTrip, getAllTrips, filterTripsByVehicleCatalogId }  =
-    useContext(TripContext);
-  const {vehicleCatalogs} = useContext(VehicleCatalogContext);
+  const {
+    trips,
+    loading,
+    error,
+    deleteTrip,
+    getAllTrips,
+    filterTripsByVehicleCatalogId
+  } = useContext(TripContext);
+  const { vehicleCatalogs } = useContext(VehicleCatalogContext);
   const [isModalCreateOpen, setIsModalCreateOpen] = useState(false);
   const [isModalDeleteOpen, setIsModalDeleteOpen] = useState(false);
   const [isModalEditOpen, setIsModalEditOpen] = useState(false);
@@ -76,7 +82,7 @@ const TripPage: React.FC = () => {
           Title_NavtitleAdmin="Quản Lý Chuyến Đi"
           Btn_Create={
             <div className="flex flex-col items-start justify-center gap-2 md:flex-row md:items-end">
-            <div className="flex gap-4">
+              <div className="flex gap-4">
                 {vehicleCatalogs.map(vehicleCatalog => (
                   <label key={vehicleCatalog._id} className="flex items-center">
                     <input
@@ -92,16 +98,14 @@ const TripPage: React.FC = () => {
                   </label>
                 ))}
               </div>
-            <Button
-              color="primary"
-              onClick={openModalCreateAdmin}
-              className="text-sm font-light text-white"
-            >
-              <div className="flex items-center space-x-1">
-                <RiAddBoxLine className="text-xl" />
-                <p>Thêm</p>
-              </div>
-            </Button>
+              <Button
+                color="primary"
+                onClick={openModalCreateAdmin}
+                className="w-[100px] text-sm font-light text-white"
+              >
+                <RiAddBoxLine className="text-xl" color="white" />
+                Thêm
+              </Button>
             </div>
           }
         />

@@ -4,9 +4,9 @@ import { Toastify } from '../../helper/Toastify';
 import LoadingLocal from '../../components/orther/loading/LoadingLocal';
 import NavtitleAdmin from '../../components/admin/NavtitleAdmin';
 import { RiAddBoxLine, RiListSettingsLine } from 'react-icons/ri';
-import { Button, Table } from 'react-daisyui';
+import { Button, Select, Table } from 'react-daisyui';
 import { ITicket } from '../../types/type/ticket/ticket';
-import { MdDelete } from 'react-icons/md';
+import { MdDelete, MdDeleteSweep } from 'react-icons/md';
 import ErrorLoading from '../../components/orther/error/ErrorLoading';
 import { FaCircleInfo, FaPenToSquare } from 'react-icons/fa6';
 import { isIErrorResponse } from '../../types/error/error';
@@ -20,6 +20,7 @@ import { TicketCatalogContext } from '../../context/ticketCatalog/TicketCatalogC
 import { VehicleCatalogContext } from '../../context/vehicleCatalog/VehicleCatalogContext';
 import { LocationContext } from '../../context/location/LocationContext';
 import { LuFilter } from 'react-icons/lu';
+import { VehicleContext } from '../../context/vehicle/VehicleContext';
 const TicketPage: React.FC = () => {
   const {
     tickets,
@@ -52,6 +53,7 @@ const TicketPage: React.FC = () => {
   const { ticketCatalogs } = useContext(TicketCatalogContext);
   const { vehicleCatalogs } = useContext(VehicleCatalogContext);
   const { locations } = useContext(LocationContext);
+  const { vehicles } = useContext(VehicleContext);
 
   //Filter
   const [ticketCatalog, setTicketCatalog] = useState<string>('');
@@ -147,24 +149,24 @@ const TicketPage: React.FC = () => {
           Title_NavtitleAdmin="Quản Lý Vé"
           Btn_Create={
             <div className="flex flex-col items-start justify-center gap-2 md:flex-row md:items-end">
+              {/*  */}
+            
               {/* */}
               <div className="flex flex-row gap-2">
                 <Button
                   color="primary"
                   onClick={openModalCreateAdmin}
-                  className="w-[100px] text-sm font-light text-white"
+                  className="min-w-[100px] text-sm font-light text-white"
                 >
-                  <div className="flex items-center space-x-1">
-                    <RiAddBoxLine className="text-xl" />
-                    <p>Thêm</p>
-                  </div>
+                  <RiAddBoxLine className="text-xl" color="white" />
+                  Thêm
                 </Button>
                 {/*  */}
-                <div className="dropdown dropdown-hover relative flex h-12 w-[100px] cursor-pointer flex-col items-center justify-center rounded-md bg-primary text-white">
-                  <p className="flex flex-row items-center justify-center gap-1">
-                    <LuFilter />
-                    <span>Lọc</span>
-                  </p>
+                <div className="dropdown dropdown-hover relative flex h-12 min-w-[100px] cursor-grab flex-col items-center justify-center rounded-md bg-primary text-white">
+                  <Button color="primary" className="text-white">
+                    <LuFilter className="text-xl" color="white" />
+                    Lọc
+                  </Button>
                   <div className="dropdown-content absolute top-[100%] z-10 w-[350px] space-y-1 rounded-md bg-slate-50 p-2 shadow-headerMenu drop-shadow-md">
                     <div className="flex flex-row gap-4">
                       {/* Loại Vé */}
@@ -258,7 +260,7 @@ const TicketPage: React.FC = () => {
                 </div>
 
                 {/*  */}
-                <div className="dropdown dropdown-hover relative flex h-12 w-[100px] cursor-pointer flex-col items-center justify-center rounded-md bg-primary text-white">
+                <div className="dropdown dropdown-hover relative flex h-12 min-w-[100px] cursor-pointer flex-col items-center justify-center rounded-md bg-primary text-white">
                   <p className="">
                     <RiListSettingsLine className="text-xl" />
                   </p>

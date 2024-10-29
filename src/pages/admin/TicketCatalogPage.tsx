@@ -78,15 +78,13 @@ const TicketCatalogPage: React.FC = () => {
           Title_NavtitleAdmin="Quản Lý Loại Vé"
           Btn_Create={
             <Button
-              color="primary"
-              onClick={openModalCreateAdmin}
-              className="text-sm font-light text-white"
-            >
-              <div className="flex items-center space-x-1">
-                <RiAddBoxLine className="text-xl" />
-                <p>Thêm</p>
-              </div>
-            </Button>
+                color="primary"
+                onClick={openModalCreateAdmin}
+                className="w-[100px] text-sm font-light text-white"
+              >
+                <RiAddBoxLine className="text-xl" color="white" />
+                Thêm
+              </Button>
           }
         />
       </div>

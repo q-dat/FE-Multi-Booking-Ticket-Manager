@@ -99,10 +99,8 @@ const AgePage: React.FC = () => {
                 onClick={openModalCreateAdmin}
                 className="w-[100px] text-sm font-light text-white"
               >
-                <div className="flex items-center space-x-1">
-                  <RiAddBoxLine className="text-xl" />
-                  <p>Thêm</p>
-                </div>
+                <RiAddBoxLine className="text-xl" color="white" />
+                Thêm
               </Button>
             </div>
           }
