@@ -9,8 +9,10 @@ import { ITicket } from '../../types/type/ticket/ticket';
 import {
   createTicketApi,
   deleteTicketApi,
+  deleteTicketsByVehicleIdApi,
   filterTicketsApi,
   getAllTicketsApi,
+  getTicketsByVehicleIdApi,
   searchTicketsApi,
   updateTicketApi
 } from '../../axios/api/ticketApi';
@@ -24,6 +26,8 @@ interface TicketContextType {
     create: boolean;
     update: boolean;
     delete: boolean;
+    getByVehicle: boolean;
+    deleteByVehicle: boolean;
   };
   error: string | null;
   searchTickets: (searchParams: Record<string, string>) => Promise<ITicket[]>;
@@ -33,6 +37,8 @@ interface TicketContextType {
   createTicket: (ticket: ITicket) => Promise<void>;
   updateTicket: (_id: string, ticket: ITicket) => Promise<void>;
   deleteTicket: (_id: string) => Promise<void>;
+  getTicketsByVehicleId: (vehicleId: string) => Promise<ITicket[]>;
+  deleteTicketsByVehicleId: (vehicleId: string) => Promise<void>;
 }
 
 const defaultContextValue: TicketContextType = {
@@ -43,7 +49,9 @@ const defaultContextValue: TicketContextType = {
     filter: false,
     create: false,
     update: false,
-    delete: false
+    delete: false,
+    getByVehicle: false,
+    deleteByVehicle: false
   },
   error: null,
   searchTickets: async () => [],
@@ -52,7 +60,9 @@ const defaultContextValue: TicketContextType = {
   getTicketById: () => undefined,
   createTicket: async () => {},
   updateTicket: async () => {},
-  deleteTicket: async () => {}
+  deleteTicket: async () => {},
+  getTicketsByVehicleId: async () => [],
+  deleteTicketsByVehicleId: async () => {}
 };
 
 export const TicketContext =
@@ -66,7 +76,9 @@ export const TicketProvider = ({ children }: { children: ReactNode }) => {
     filter: false,
     create: false,
     update: false,
-    delete: false
+    delete: false,
+    getByVehicle: false,
+    deleteByVehicle: false
   });
   const [error, setError] = useState<string | null>(null);
 
@@ -174,6 +186,40 @@ export const TicketProvider = ({ children }: { children: ReactNode }) => {
       'delete'
     );
   }, []);
+  // Get Multiple Tickets by Vehicle ID
+  const getTicketsByVehicleId = useCallback(
+    async (vehicleId: string): Promise<ITicket[]> => {
+      let ticketsData: ITicket[] = [];
+      await fetchData(
+        () => getTicketsByVehicleIdApi(vehicleId),
+        data => {
+          ticketsData = data.tickets || [];
+          setTickets(ticketsData);
+        },
+        'getByVehicle'
+      );
+      return ticketsData;
+    },
+    []
+  );
+
+  // Delete Multiple Tickets by Vehicle ID
+  const deleteTicketsByVehicleId = useCallback(
+    async (vehicleId: string): Promise<void> => {
+      await fetchData(
+        () => deleteTicketsByVehicleIdApi(vehicleId),
+        () =>
+          setTickets(prevTickets =>
+            prevTickets.filter(ticket => 
+              !ticket.seat_id.some(seat => seat.seat_catalog_id.vehicle_id._id === vehicleId)
+            )
+          ),
+        'deleteByVehicle'
+      );
+    },
+    []
+  );
+  
 
   useEffect(() => {
     getAllTickets();
@@ -191,7 +237,9 @@ export const TicketProvider = ({ children }: { children: ReactNode }) => {
         getTicketById,
         createTicket,
         updateTicket,
-        deleteTicket
+        deleteTicket,
+        getTicketsByVehicleId,
+        deleteTicketsByVehicleId
       }}
     >
       {children}

@@ -90,14 +90,15 @@ const CartPage: React.FC = () => {
           </div>
         </>
       ) : (
-        <div className="flex flex-col gap-2">
-          <div>
-            {selectedSeats.map(ticket => (
+        <div className="flex flex-col gap-2 ">
+          <div className='scrollbar-hide overflow-y-auto h-[200px] xl:h-[340px]'>
+            {selectedSeats.map((ticket,index:number) => (
               <div
                 key={ticket._id}
-                className="flex items-center justify-between border border-b border-l-0 border-r-0 border-t-0 p-2 text-xs"
+                className=" flex items-center justify-between border border-b border-l-0 border-r-0 border-t-0 p-2 text-xs"
               >
                 <div className="flex flex-col items-start justify-start">
+                  <strong className='text-red-500'>#{index+1}</strong>
                   <p className="flex gap-1">
                     {ticket.trip_id.departure_point.name}
                     <span>-</span>

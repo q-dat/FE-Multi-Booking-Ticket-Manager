@@ -35,3 +35,11 @@ export const updateTicketApi = (id: string, ticket: ITicket) => {
 export const deleteTicketApi = (id: string) => {
   return axios.delete(`/api/tickets/${id}`);
 };
+// Get Multiple Tickets by Vehicle ID
+export const getTicketsByVehicleIdApi = (vehicleId: string) => {
+  return axios.get<{ tickets: ITicket[] }>(`/api/tickets/vehicle/${vehicleId}`);
+};
+// Delete Multiple Tickets by Vehicle ID
+export const deleteTicketsByVehicleIdApi = (vehicleId: string) => {
+  return axios.delete(`/api/tickets/vehicle/${vehicleId}`);
+};
