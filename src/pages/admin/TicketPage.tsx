@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect } from 'react';
+import React, { useContext, useState, useEffect, useRef } from 'react';
 import { TicketContext } from '../../context/ticket/TicketContext';
 import { Toastify } from '../../helper/Toastify';
 import LoadingLocal from '../../components/orther/loading/LoadingLocal';
@@ -23,6 +23,7 @@ import { LuFilter } from 'react-icons/lu';
 import { VehicleContext } from '../../context/vehicle/VehicleContext';
 import LabelForm from '../../components/admin/LabelForm';
 import { PiWarningOctagonFill } from 'react-icons/pi';
+import { TiArrowSync } from 'react-icons/ti';
 const TicketPage: React.FC = () => {
   const {
     tickets,
@@ -139,10 +140,19 @@ const TicketPage: React.FC = () => {
       return newItems;
     });
   };
+  //Reset Select
+  const trainSelectRef = useRef<HTMLSelectElement>(null);
+  const busSelectRef = useRef<HTMLSelectElement>(null);
+  const planeSelectRef = useRef<HTMLSelectElement>(null);
 
-  if (loading.getAll) return <LoadingLocal />;
-  if (error) return <ErrorLoading />;
+  const resetSelects = () => {
+    if (trainSelectRef.current) trainSelectRef.current.value = '';
+    if (busSelectRef.current) busSelectRef.current.value = '';
+    if (planeSelectRef.current) planeSelectRef.current.value = '';
 
+    if (loading.getAll) return <LoadingLocal />;
+    if (error) return <ErrorLoading />;
+  };
   return (
     <div className="w-full">
       <NavbarMobile Title_NavbarMobile="Các Vé" />
@@ -160,16 +170,19 @@ const TicketPage: React.FC = () => {
                   <MdDeleteSweep className="text-xl" color="white" /> Xoá vé
                   phương tiện
                 </Button>
-                <div className="dropdown-content absolute top-[100%] z-10 flex min-w-[150px] flex-col gap-2 rounded-md bg-slate-50 p-2 shadow-headerMenu drop-shadow-md dark:bg-gray-900">
-                  <p className="flex flex-row items-center gap-1 text-black dark:text-white">
-                    <PiWarningOctagonFill className="text-lg text-warning" />
-                    <strong>Lưu ý: </strong>
-                    <span>Chỉ chọn 1 phương tiện duy nhất</span>
-                  </p>
+                <div className="dropdown-content absolute top-[100%] z-10 flex min-w-[150px] flex-col gap-5 rounded-md bg-slate-50 px-5 py-2 shadow-headerMenu drop-shadow-md dark:bg-gray-900">
+                  <div className="flex flex-col xl:flex-row">
+                    <p className="flex flex-row items-center gap-1 text-black dark:text-white">
+                      <PiWarningOctagonFill className="text-lg text-warning" />
+                      <strong>Lưu ý: </strong>
+                    </p>
+                    <p>Chỉ chọn 1 phương tiện duy nhất</p>
+                  </div>
                   <div className="flex flex-col gap-2 xl:flex-row">
                     <div className="flex flex-col">
                       <LabelForm title="Tàu Hoả" />
                       <Select
+                        ref={trainSelectRef}
                         defaultValue=""
                         className="min-w-[130px] border border-gray-700 border-opacity-50 bg-white text-black focus:border-primary focus:outline-none dark:border-secondary dark:bg-gray-700 dark:text-white dark:focus:border-white md:w-[300px] lg:w-[400px] xl:w-full"
                       >
@@ -189,6 +202,7 @@ const TicketPage: React.FC = () => {
                       {' '}
                       <LabelForm title="Xe Khách" />
                       <Select
+                        ref={busSelectRef}
                         defaultValue=""
                         className="min-w-[130px] border border-gray-700 border-opacity-50 bg-white text-black focus:border-primary focus:outline-none dark:border-secondary dark:bg-gray-700 dark:text-white dark:focus:border-white md:w-[300px] lg:w-[400px] xl:w-full"
                       >
@@ -205,9 +219,9 @@ const TicketPage: React.FC = () => {
                       </Select>
                     </div>
                     <div className="flex flex-col">
-                      {' '}
                       <LabelForm title="Máy Bay" />
                       <Select
+                        ref={planeSelectRef}
                         defaultValue=""
                         className="min-w-[130px] border border-gray-700 border-opacity-50 bg-white text-black focus:border-primary focus:outline-none dark:border-secondary dark:bg-gray-700 dark:text-white dark:focus:border-white md:w-[300px] lg:w-[400px] xl:w-full"
                       >
@@ -224,8 +238,18 @@ const TicketPage: React.FC = () => {
                       </Select>
                     </div>
                   </div>
+                  <div className="flex justify-end">
+                    <button
+                      onClick={resetSelects}
+                      className="flex w-[50px] cursor-pointer items-center gap-[1px] bg-transparent text-blue-500 underline shadow-none"
+                    >
+                      <TiArrowSync className="text-2xl font-bold" />
+                      <span className="text-xs font-semibold">Reset</span>
+                    </button>
+                  </div>
                   <Button size="sm" color="error" className="text-white">
-                    Xoá Vé Phương Tiện
+                    <MdDeleteSweep className="text-xl" color="white" /> Xoá Vé
+                    Đã Chọn
                   </Button>
                 </div>
               </div>
@@ -241,7 +265,7 @@ const TicketPage: React.FC = () => {
                 </Button>
                 {/*  */}
                 <div className="dropdown dropdown-hover relative flex h-12 min-w-[100px] cursor-grab flex-col items-center justify-center rounded-md bg-primary text-white">
-                  <Button color="primary" className="text-white">
+                  <Button color="primary" className="text-white font-light">
                     <LuFilter className="text-xl" color="white" />
                     Lọc
                   </Button>
