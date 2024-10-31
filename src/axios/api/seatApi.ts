@@ -18,7 +18,7 @@ export const createSeatApi = (location: ISeat) => {
 
 // Put
 export const updateSeatApi = (id: string, location: ISeat) => {
-  return axios.put<{ location: ISeat }>(`/api/seats/${id}`, location);
+  return axios.put<{ seat: ISeat }>(`/api/seats/${id}`, location);
 };
 
 // Delete
@@ -27,7 +27,15 @@ export const deleteSeatApi = (id: string) => {
 };
 
 // Search
-export const searchSeatsByVehicleNameApi = (filterParams: Record<string, string>) => {
+export const searchSeatsByVehicleNameApi = (
+  filterParams: Record<string, string>
+) => {
   const query = new URLSearchParams(filterParams).toString();
   return axios.get<{ tickets: ISeat[] }>(`/api/seat/search?${query}`);
+};
+//Get List_ID By VehicleName
+export const getListIdByVehicleNameApi = (vehicleName: string) => {
+  return axios.get<{ seat: ISeat }>('/api/seat/list-id', {
+    params: { vehicleName }
+  });
 };

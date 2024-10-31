@@ -146,13 +146,17 @@ export const AgeProvider = ({ children }: { children: ReactNode }) => {
   }, []);
 
   // Search by name
-  const searchAgesByName = useCallback((name: string) => {
-    fetchData(
-      () => searchAgesByNameApi(name),
-      data => setAges(data.seats || []),
-      'search'
-    );
-  }, []);
+  const searchAgesByName = useCallback(
+    (name: string) => {
+      fetchData(
+        () => searchAgesByNameApi(name),
+        data => setAges(data.ages || []),
+        'search'
+      );
+      return ages;
+    },
+    [ages]
+  );
   useEffect(() => {
     getAllAges();
   }, [getAllAges]);

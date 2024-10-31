@@ -11,7 +11,8 @@ import {
   deleteSeatApi,
   getSeatsApi,
   updateSeatApi,
-  searchSeatsByVehicleNameApi
+  searchSeatsByVehicleNameApi,
+  getListIdByVehicleNameApi
 } from '../../axios/api/seatApi';
 
 interface SeatContextType {
@@ -22,6 +23,7 @@ interface SeatContextType {
     update: boolean;
     delete: boolean;
     filter: boolean;
+    getListIdByVehicleName: boolean;
   };
   error: string | null;
   getAllSeats: () => void;
@@ -30,6 +32,7 @@ interface SeatContextType {
   updateSeat: (_id: string, seat: ISeat) => Promise<void>;
   deleteSeat: (_id: string) => Promise<void>;
   searchSeatsByName: (filterParams: Record<string, string>) => Promise<ISeat[]>;
+  getListIdByVehicleName: (vehicleName: string) => void;
 }
 
 const defaultContextValue: SeatContextType = {
@@ -40,6 +43,7 @@ const defaultContextValue: SeatContextType = {
     update: false,
     delete: false,
     filter: false,
+    getListIdByVehicleName: false
   },
   error: null,
   getAllSeats: () => {},
@@ -47,7 +51,8 @@ const defaultContextValue: SeatContextType = {
   createSeat: async () => {},
   updateSeat: async () => {},
   deleteSeat: async () => {},
-  searchSeatsByName:  async () => [],
+  searchSeatsByName: async () => [],
+  getListIdByVehicleName: async () => {}
 };
 
 export const SeatContext = createContext<SeatContextType>(defaultContextValue);
@@ -60,12 +65,14 @@ export const SeatProvider = ({ children }: { children: ReactNode }) => {
     update: boolean;
     delete: boolean;
     filter: boolean;
+    getListIdByVehicleName: boolean;
   }>({
     getAll: false,
     create: false,
     update: false,
     delete: false,
-    filter: false
+    filter: false,
+    getListIdByVehicleName: false
   });
   const [error, setError] = useState<string | null>(null);
 
@@ -143,7 +150,7 @@ export const SeatProvider = ({ children }: { children: ReactNode }) => {
     );
   }, []);
 
-//Search Seats By Vehicles
+  //Search Seats By Vehicles
   const searchSeatsByName = useCallback(
     async (filterParams: Record<string, string>): Promise<ISeat[]> => {
       await fetchData(
@@ -158,6 +165,14 @@ export const SeatProvider = ({ children }: { children: ReactNode }) => {
     [seats]
   );
 
+  //Get List_ID By VehicleName
+  const getListIdByVehicleName = useCallback((vehicleName: string) => {
+    fetchData(
+      () => getListIdByVehicleNameApi(vehicleName),
+      data => setSeats(data.seats || []),
+      'getListIdByVehicleName'
+    );
+  }, []);
   useEffect(() => {
     getAllSeats();
   }, [getAllSeats]);
@@ -173,7 +188,8 @@ export const SeatProvider = ({ children }: { children: ReactNode }) => {
         createSeat,
         updateSeat,
         deleteSeat,
-        searchSeatsByName
+        searchSeatsByName,
+        getListIdByVehicleName
       }}
     >
       {children}
