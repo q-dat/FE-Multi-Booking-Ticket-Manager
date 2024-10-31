@@ -471,7 +471,7 @@ const TicketPage: React.FC = () => {
                 {fillter[2] === 'Phương Tiện' ? (
                   <span>
                     <span>
-                      {ticket.seat_id.map(seat => (
+                      {ticket.seat_id?.map(seat => (
                         <span key={seat._id} className="line-clamp-1">
                           {seat.seat_catalog_id?.vehicle_id?.name}
                         </span>
@@ -483,7 +483,7 @@ const TicketPage: React.FC = () => {
                 )}
                 {fillter[3] === 'Khoang/Toa' ? (
                   <span className="line-clamp-1">
-                    {ticket.seat_id.map(seat => (
+                    {ticket.seat_id?.map(seat => (
                       <span key={seat._id}>{seat.seat_catalog_id?.name}</span>
                     ))}
                   </span>
@@ -492,7 +492,7 @@ const TicketPage: React.FC = () => {
                 )}
                 {fillter[4] === 'Chỗ Ngồi' ? (
                   <span className="font-bold">
-                    {ticket.seat_id.map(seat => (
+                    {ticket.seat_id?.map(seat => (
                       <>
                         <span key={seat._id}>{seat?.ordinal_numbers}</span>
                       </>
