@@ -23,7 +23,6 @@ import { LuFilter } from 'react-icons/lu';
 import { LabelForm } from '../../components/auth';
 import { VehicleContext } from '../../context/vehicle/VehicleContext';
 import { PiWarningOctagonFill } from 'react-icons/pi';
-import { TiArrowSync } from 'react-icons/ti';
 
 const TicketPage: React.FC = () => {
   const {
@@ -32,7 +31,8 @@ const TicketPage: React.FC = () => {
     error,
     deleteTicket,
     getAllTickets,
-    filterTickets
+    filterTickets,
+    deleteTicketsByVehicleId
   } = useContext(TicketContext);
   const [isModalCreateOpen, setIsModalCreateOpen] = useState(false);
   const [isModalDeleteOpen, setIsModalDeleteOpen] = useState(false);
@@ -65,6 +65,10 @@ const TicketPage: React.FC = () => {
   const [vehicleCatalog, setVehicleCatalog] = useState<string>('');
   const [departurePoint, setDeparturePoint] = useState<string>('');
   const [shouldSearch, setShouldSearch] = useState(false);
+  //Delete By Vehicle
+  const [selectedVehicleId, setSelectedVehicleId] = useState<string | null>(
+    null
+  );
 
   useEffect(() => {
     getAllTickets();
@@ -95,7 +99,7 @@ const TicketPage: React.FC = () => {
     };
     await filterTickets(filterParams);
   };
-  //
+  //Delete single tickets
   const navigate = useNavigate();
   const handleDeleteTicket = async () => {
     if (selectedTicketId) {
@@ -113,6 +117,25 @@ const TicketPage: React.FC = () => {
       }
     }
   };
+  //Delete tickets multi
+  const handleDeleteSelectedVehicle = async () => {
+    if (selectedVehicleId) {
+      try {
+        await deleteTicketsByVehicleId(selectedVehicleId);
+        Toastify('Bạn đã xoá vé thành công', 201);
+        getAllTickets();
+        navigate('/admin/ticket');
+      } catch (error) {
+        const errorMessage = isIErrorResponse(error)
+          ? error.data?.message
+          : 'Xoá vé thất bại!';
+        Toastify(`Lỗi: ${errorMessage}`, 500);
+      }
+    } else {
+      Toastify('Vui lòng chọn phương tiện để xoá', 400);
+    }
+  };
+
   const [fillter, setFillter] = useState<string[]>([
     'STT',
     'Loại Vé',
@@ -147,11 +170,25 @@ const TicketPage: React.FC = () => {
     });
   };
 
-  const resetSelects = () => {
-    if (trainSelectRef.current) trainSelectRef.current.value = '';
-    if (busSelectRef.current) busSelectRef.current.value = '';
-    if (planeSelectRef.current) planeSelectRef.current.value = '';
+  const handleSingleSelect = (
+    event: React.ChangeEvent<HTMLSelectElement>,
+    type: string // loại phương tiện: 'train', 'bus', 'plane'
+  ) => {
+    setSelectedVehicleId(event.target.value);
+
+    // Reset các Select không được chọn
+    if (type === 'train') {
+      if (busSelectRef.current) busSelectRef.current.value = '';
+      if (planeSelectRef.current) planeSelectRef.current.value = '';
+    } else if (type === 'bus') {
+      if (trainSelectRef.current) trainSelectRef.current.value = '';
+      if (planeSelectRef.current) planeSelectRef.current.value = '';
+    } else if (type === 'plane') {
+      if (trainSelectRef.current) trainSelectRef.current.value = '';
+      if (busSelectRef.current) busSelectRef.current.value = '';
+    }
   };
+
   if (loading.getAll) return <LoadingLocal />;
   if (error) return <ErrorLoading />;
   return (
@@ -185,6 +222,7 @@ const TicketPage: React.FC = () => {
                       <Select
                         ref={trainSelectRef}
                         defaultValue=""
+                        onChange={e => handleSingleSelect(e, 'train')}
                         className="min-w-[130px] border border-gray-700 border-opacity-50 bg-white text-black focus:border-primary focus:outline-none dark:border-secondary dark:bg-gray-700 dark:text-white dark:focus:border-white md:w-[300px] lg:w-[400px] xl:w-full"
                       >
                         <option disabled value="">
@@ -195,7 +233,7 @@ const TicketPage: React.FC = () => {
                             vehicle.name.toLowerCase().includes('tàu')
                           )
                           .map(vehicle => (
-                            <option value={vehicle.name}>{vehicle.name}</option>
+                            <option value={vehicle._id} key={vehicle.name}>{vehicle.name}</option>
                           ))}
                       </Select>
                     </div>
@@ -205,6 +243,7 @@ const TicketPage: React.FC = () => {
                       <Select
                         ref={busSelectRef}
                         defaultValue=""
+                        onChange={e => handleSingleSelect(e, 'bus')}
                         className="min-w-[130px] border border-gray-700 border-opacity-50 bg-white text-black focus:border-primary focus:outline-none dark:border-secondary dark:bg-gray-700 dark:text-white dark:focus:border-white md:w-[300px] lg:w-[400px] xl:w-full"
                       >
                         <option disabled value="">
@@ -215,7 +254,7 @@ const TicketPage: React.FC = () => {
                             vehicle.name.toLowerCase().includes('xe khách')
                           )
                           .map(vehicle => (
-                            <option value={vehicle._id}>{vehicle.name}</option>
+                            <option value={vehicle._id} key={vehicle.name}>{vehicle.name}</option>
                           ))}
                       </Select>
                     </div>
@@ -224,6 +263,7 @@ const TicketPage: React.FC = () => {
                       <Select
                         ref={planeSelectRef}
                         defaultValue=""
+                        onChange={e => handleSingleSelect(e, 'plane')}
                         className="min-w-[130px] border border-gray-700 border-opacity-50 bg-white text-black focus:border-primary focus:outline-none dark:border-secondary dark:bg-gray-700 dark:text-white dark:focus:border-white md:w-[300px] lg:w-[400px] xl:w-full"
                       >
                         <option disabled value="">
@@ -234,21 +274,17 @@ const TicketPage: React.FC = () => {
                             vehicle.name.toLowerCase().includes('máy bay')
                           )
                           .map(vehicle => (
-                            <option value={vehicle.name}>{vehicle.name}</option>
+                            <option value={vehicle._id} key={vehicle.name}>{vehicle.name}</option>
                           ))}
                       </Select>
                     </div>
                   </div>
-                  <div className="flex justify-end">
-                    <button
-                      onClick={resetSelects}
-                      className="flex w-[50px] cursor-pointer items-center gap-[1px] bg-transparent text-blue-500 underline shadow-none"
-                    >
-                      <TiArrowSync className="text-2xl font-bold" />
-                      <span className="text-xs font-semibold">Reset</span>
-                    </button>
-                  </div>
-                  <Button size="sm" color="error" className="text-white">
+                  <Button
+                    onClick={handleDeleteSelectedVehicle}
+                    size="sm"
+                    color="error"
+                    className="text-white"
+                  >
                     <MdDeleteSweep className="text-xl" color="white" /> Xoá Vé
                     Đã Chọn
                   </Button>
@@ -281,7 +317,7 @@ const TicketPage: React.FC = () => {
                         {ticketCatalogs.map(item => (
                           <label
                             className="flex h-8 cursor-pointer items-center gap-2"
-                            key={item.name}
+                            key={item._id}
                           >
                             <input
                               type="checkbox"
@@ -310,7 +346,7 @@ const TicketPage: React.FC = () => {
                         {vehicleCatalogs.map(item => (
                           <label
                             className="flex h-8 cursor-pointer items-center gap-2"
-                            key={item.name}
+                            key={item._id}
                           >
                             <input
                               type="checkbox"
@@ -339,7 +375,7 @@ const TicketPage: React.FC = () => {
                         {locations.map(item => (
                           <label
                             className="flex h-8 cursor-pointer items-center gap-2"
-                            key={item.name}
+                            key={item._id}
                           >
                             <input
                               type="checkbox"
@@ -370,7 +406,7 @@ const TicketPage: React.FC = () => {
                   </p>
                   <div className="dropdown-content absolute top-[100%] z-10 w-52 space-y-1 rounded-md bg-slate-50 p-2 shadow-headerMenu drop-shadow-md">
                     {list.map((items, index) => (
-                      <div className="flex" key={index}>
+                      <div className="flex" key={index+1}>
                         <label className="flex h-8 cursor-pointer items-center gap-2">
                           <input
                             type="checkbox"
@@ -456,7 +492,7 @@ const TicketPage: React.FC = () => {
                   <span className="font-bold">
                     {ticket.seat_id.map(seat => (
                       <>
-                        <span>{seat?.ordinal_numbers}</span>
+                        <span key={seat._id}>{seat?.ordinal_numbers}</span>
                       </>
                     ))}
                   </span>
