@@ -17,6 +17,7 @@ import {
 
 interface SeatContextType {
   seats: ISeat[];
+  seatIds: string[];
   loading: {
     getAll: boolean;
     create: boolean;
@@ -37,6 +38,7 @@ interface SeatContextType {
 
 const defaultContextValue: SeatContextType = {
   seats: [],
+  seatIds: [],
   loading: {
     getAll: false,
     create: false,
@@ -59,6 +61,7 @@ export const SeatContext = createContext<SeatContextType>(defaultContextValue);
 
 export const SeatProvider = ({ children }: { children: ReactNode }) => {
   const [seats, setSeats] = useState<ISeat[]>([]);
+  const [seatIds, setSeatIds] = useState<string[]>([]); 
   const [loading, setLoading] = useState<{
     getAll: boolean;
     create: boolean;
@@ -165,11 +168,11 @@ export const SeatProvider = ({ children }: { children: ReactNode }) => {
     [seats]
   );
 
-  //Get List_ID By VehicleName
+  //Get List_ID By VehicleName  
   const getListIdByVehicleName = useCallback((vehicleName: string) => {
     fetchData(
       () => getListIdByVehicleNameApi(vehicleName),
-      data => setSeats(data.seats || []),
+      data => setSeatIds(data.seatIds || []),
       'getListIdByVehicleName'
     );
   }, []);
@@ -181,6 +184,7 @@ export const SeatProvider = ({ children }: { children: ReactNode }) => {
     <SeatContext.Provider
       value={{
         seats,
+        seatIds, 
         loading,
         error,
         getAllSeats,
