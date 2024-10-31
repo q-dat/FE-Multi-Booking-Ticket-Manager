@@ -230,7 +230,7 @@ const TicketPage: React.FC = () => {
                           )
                           .map(vehicle => (
                             <option value={vehicle._id} key={vehicle.name}>
-                              {vehicle.name}
+                              {vehicle?.name}
                             </option>
                           ))}
                       </Select>
@@ -253,7 +253,7 @@ const TicketPage: React.FC = () => {
                           )
                           .map(vehicle => (
                             <option value={vehicle._id} key={vehicle.name}>
-                              {vehicle.name}
+                              {vehicle?.name}
                             </option>
                           ))}
                       </Select>
@@ -275,7 +275,7 @@ const TicketPage: React.FC = () => {
                           )
                           .map(vehicle => (
                             <option value={vehicle._id} key={vehicle.name}>
-                              {vehicle.name}
+                              {vehicle?.name}
                             </option>
                           ))}
                       </Select>
@@ -334,7 +334,7 @@ const TicketPage: React.FC = () => {
                               }
                             />
                             <span className="text-primary hover:text-secondary">
-                              {item.name}
+                              {item?.name}
                             </span>
                           </label>
                         ))}
@@ -363,7 +363,7 @@ const TicketPage: React.FC = () => {
                               }
                             />
                             <span className="text-primary hover:text-secondary">
-                              {item.name}
+                              {item?.name}
                             </span>
                           </label>
                         ))}
@@ -392,7 +392,7 @@ const TicketPage: React.FC = () => {
                               }
                             />
                             <span className="text-primary hover:text-secondary">
-                              {item.name}
+                              {item?.name}
                             </span>
                           </label>
                         ))}

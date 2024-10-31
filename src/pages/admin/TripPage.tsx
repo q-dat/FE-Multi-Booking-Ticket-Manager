@@ -91,7 +91,7 @@ const TripPage: React.FC = () => {
                         handleSearchByCategory(vehicleCatalog._id);
                       }}
                     />
-                    <span className="ml-2">{vehicleCatalog.name}</span>
+                    <span className="ml-2">{vehicleCatalog?.name}</span>
                   </label>
                 ))}
               </div>
@@ -131,17 +131,19 @@ const TripPage: React.FC = () => {
                   <p className="text-primary">-</p>
                   {trip.destination_point?.name}
                 </span>
-                <span>{trip.vehicle_catalog_id?.name}</span>
                 <span>
-                  {trip.departure_time}-
-                  {new Date(trip.departure_date).toLocaleDateString('vi-VN')}
+                  {trip?.vehicle_catalog_id?.name || 'Không có danh mục!'}
                 </span>
                 <span>
-                  {trip.return_time}-
-                  {new Date(trip.return_date).toLocaleDateString('vi-VN')}
+                  {trip?.departure_time}-
+                  {new Date(trip?.departure_date).toLocaleDateString('vi-VN')}
                 </span>
                 <span>
-                  {(trip.price * 1000).toLocaleString('vi-VN')}&nbsp;VND
+                  {trip?.return_time}-
+                  {new Date(trip?.return_date).toLocaleDateString('vi-VN')}
+                </span>
+                <span>
+                  {(trip?.price * 1000).toLocaleString('vi-VN')}&nbsp;VND
                 </span>
                 <span>
                   <details>

@@ -44,7 +44,7 @@ const SeatPage: React.FC = () => {
     setIsModalEditOpen(true);
   };
   const closeModalEditAdmin = () => setIsModalEditOpen(false);
-//Delete
+  //Delete
   const handleDeleteSeat = async () => {
     if (selectedSeatId) {
       try {
@@ -170,7 +170,7 @@ const SeatPage: React.FC = () => {
                               }
                             />
                             <span className="text-primary hover:text-secondary">
-                              {item.name}
+                              {item?.name}
                             </span>
                           </label>
                         ))}
@@ -211,7 +211,7 @@ const SeatPage: React.FC = () => {
                                 }
                               />
                               <span className="text-primary hover:text-secondary">
-                                {item.seat_catalog_id.name}
+                                {item.seat_catalog_id?.name}
                               </span>
                             </label>
                           ))}
@@ -295,7 +295,7 @@ const SeatPage: React.FC = () => {
                 )}
                 {fillter[4] === 'Danh Mục' ? (
                   <span className="line-clamp-1">
-                    {seat?.seat_catalog_id.name}
+                    {seat?.seat_catalog_id?.name || 'Không có danh mục!'}
                   </span>
                 ) : (
                   <></>
@@ -317,7 +317,7 @@ const SeatPage: React.FC = () => {
                 )}
                 {fillter[6] === 'Mô Tả' ? (
                   <span className="line-clamp-1">
-                    {seat.des || 'Không có mô tả!'}
+                    {seat?.des || 'Không có mô tả!'}
                   </span>
                 ) : (
                   <></>

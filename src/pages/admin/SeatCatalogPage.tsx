@@ -75,13 +75,13 @@ const SeatCatalogPage: React.FC = () => {
           Title_NavtitleAdmin="Quản Lý Loại Ghế"
           Btn_Create={
             <Button
-            color="success"
-            onClick={openModalCreateAdmin}
-            className="w-[100px] text-sm font-light text-white"
-          >
-            <RiAddBoxLine className="text-xl" color="white" />
-            Thêm
-          </Button>
+              color="success"
+              onClick={openModalCreateAdmin}
+              className="w-[100px] text-sm font-light text-white"
+            >
+              <RiAddBoxLine className="text-xl" color="white" />
+              Thêm
+            </Button>
           }
         />
       </div>
@@ -102,7 +102,9 @@ const SeatCatalogPage: React.FC = () => {
               <Table.Row key={index}>
                 <span className="line-clamp-1">#{index + 1}</span>
                 <span className="line-clamp-1">{catalog?.name}</span>
-                <span className="line-clamp-1">{catalog?.vehicle_id.name}</span>
+                <span className="line-clamp-1">
+                  {catalog?.vehicle_id?.name || 'Không có danh mục!'}
+                </span>
                 <span>
                   <details>
                     <summary className="inline cursor-pointer text-base text-warning">

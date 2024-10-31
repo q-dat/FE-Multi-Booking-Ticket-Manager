@@ -91,12 +91,12 @@ const BlogPage: React.FC = () => {
               {posts?.map((post, index) => (
                 <Table.Row key={post._id}>
                   <span className="line-clamp-1">#{index + 1}</span>
-                  <span className="line-clamp-1">{post.title}</span>
+                  <span className="line-clamp-1">{post?.title}</span>
                   <span className="line-clamp-1">
                     {new Date(post.createAt).toLocaleDateString()}
                   </span>
                   <span className="line-clamp-1">
-                    {post.post_catalog_id.name}
+                    {post.post_catalog_id?.name}
                   </span>
                   <span>
                     <details>
