@@ -10,6 +10,7 @@ import {
   createVehicleApi,
   deleteVehicleApi,
   getAllVehiclesApi,
+  searchVehicleByNameApi,
   updateVehicleApi
 } from '../../axios/api/vehicleApi';
 
@@ -20,6 +21,7 @@ interface VehicleContextType {
     create: boolean;
     update: boolean;
     delete: boolean;
+    search: boolean;
   };
   error: string | null;
   getAllVehicles: () => void;
@@ -27,6 +29,7 @@ interface VehicleContextType {
   createVehicle: (vehicle: IVehicle) => Promise<void>;
   updateVehicle: (_id: string, vehicle: IVehicle) => Promise<void>;
   deleteVehicle: (_id: string) => Promise<void>;
+  searchVehicleByName(name: string): Promise<IVehicle[]>;
 }
 
 const defaultContextValue: VehicleContextType = {
@@ -35,14 +38,16 @@ const defaultContextValue: VehicleContextType = {
     getAll: false,
     create: false,
     update: false,
-    delete: false
+    delete: false,
+    search: false
   },
   error: null,
   getAllVehicles: () => {},
   getVehicleById: () => undefined,
   createVehicle: async () => {},
   updateVehicle: async () => {},
-  deleteVehicle: async () => {}
+  deleteVehicle: async () => {},
+  searchVehicleByName: async () => [],
 };
 
 export const VehicleContext =
@@ -55,11 +60,13 @@ export const VehicleProvider = ({ children }: { children: ReactNode }) => {
     create: boolean;
     update: boolean;
     delete: boolean;
+    search: boolean;
   }>({
     getAll: false,
     create: false,
     update: false,
-    delete: false
+    delete: false,
+    search: false
   });
   const [error, setError] = useState<string | null>(null);
 
@@ -150,6 +157,23 @@ export const VehicleProvider = ({ children }: { children: ReactNode }) => {
       'delete'
     );
   }, []);
+//Searh By Name
+const searchVehicleByName = useCallback(
+  async (name: string): Promise<IVehicle[]> => {
+    let vehiclesData: IVehicle[] = [];
+    await fetchData(
+      () => searchVehicleByNameApi(name),
+      data => {
+        vehiclesData = data.vehicles || []; 
+        setVehicles(vehiclesData);
+      },
+      'search'
+    );
+    return vehiclesData; 
+  },
+  []
+);
+
 
   useEffect(() => {
     getAllVehicles();
@@ -165,7 +189,8 @@ export const VehicleProvider = ({ children }: { children: ReactNode }) => {
         getVehicleById,
         createVehicle,
         updateVehicle,
-        deleteVehicle
+        deleteVehicle,
+        searchVehicleByName
       }}
     >
       {children}
