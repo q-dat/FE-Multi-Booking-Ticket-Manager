@@ -12,7 +12,6 @@ import { FaCircleInfo, FaPenToSquare } from 'react-icons/fa6';
 import { isIErrorResponse } from '../../types/error/error';
 import TableListAdmin from '../../components/admin/TablelistAdmin';
 import NavbarMobile from '../../components/admin/Reponsive/Mobile/NavbarMobile';
-import { useNavigate } from 'react-router-dom';
 import ModalCreateTicketPageAdmin from '../../components/admin/Modal/ModalTicket/ModalCreateTicketPageAdmin';
 import ModalDeleteTicketPageAdmin from '../../components/admin/Modal/ModalTicket/ModalDeleteTicketPageAdmin';
 import ModalEditTicketPageAdmin from '../../components/admin/Modal/ModalTicket/ModalEditTicketPageAdmin';
@@ -100,7 +99,6 @@ const TicketPage: React.FC = () => {
     await filterTickets(filterParams);
   };
   //Delete single tickets
-  const navigate = useNavigate();
   const handleDeleteTicket = async () => {
     if (selectedTicketId) {
       try {
@@ -108,7 +106,6 @@ const TicketPage: React.FC = () => {
         closeModalDeleteAdmin();
         Toastify('Bạn đã xoá vé thành công', 201);
         getAllTickets();
-        navigate('/admin/ticket');
       } catch (error) {
         const errorMessage = isIErrorResponse(error)
           ? error.data?.message
@@ -124,7 +121,6 @@ const TicketPage: React.FC = () => {
         await deleteTicketsByVehicleId(selectedVehicleId);
         Toastify('Bạn đã xoá vé thành công', 201);
         getAllTickets();
-        navigate('/admin/ticket');
       } catch (error) {
         const errorMessage = isIErrorResponse(error)
           ? error.data?.message
@@ -233,7 +229,9 @@ const TicketPage: React.FC = () => {
                             vehicle.name.toLowerCase().includes('tàu')
                           )
                           .map(vehicle => (
-                            <option value={vehicle._id} key={vehicle.name}>{vehicle.name}</option>
+                            <option value={vehicle._id} key={vehicle.name}>
+                              {vehicle.name}
+                            </option>
                           ))}
                       </Select>
                     </div>
@@ -254,7 +252,9 @@ const TicketPage: React.FC = () => {
                             vehicle.name.toLowerCase().includes('xe khách')
                           )
                           .map(vehicle => (
-                            <option value={vehicle._id} key={vehicle.name}>{vehicle.name}</option>
+                            <option value={vehicle._id} key={vehicle.name}>
+                              {vehicle.name}
+                            </option>
                           ))}
                       </Select>
                     </div>
@@ -274,7 +274,9 @@ const TicketPage: React.FC = () => {
                             vehicle.name.toLowerCase().includes('máy bay')
                           )
                           .map(vehicle => (
-                            <option value={vehicle._id} key={vehicle.name}>{vehicle.name}</option>
+                            <option value={vehicle._id} key={vehicle.name}>
+                              {vehicle.name}
+                            </option>
                           ))}
                       </Select>
                     </div>
@@ -406,7 +408,7 @@ const TicketPage: React.FC = () => {
                   </p>
                   <div className="dropdown-content absolute top-[100%] z-10 w-52 space-y-1 rounded-md bg-slate-50 p-2 shadow-headerMenu drop-shadow-md">
                     {list.map((items, index) => (
-                      <div className="flex" key={index+1}>
+                      <div className="flex" key={index + 1}>
                         <label className="flex h-8 cursor-pointer items-center gap-2">
                           <input
                             type="checkbox"

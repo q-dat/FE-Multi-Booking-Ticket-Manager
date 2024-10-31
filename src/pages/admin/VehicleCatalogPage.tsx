@@ -11,7 +11,6 @@ import ErrorLoading from '../../components/orther/error/ErrorLoading';
 import { FaCircleInfo, FaPenToSquare } from 'react-icons/fa6';
 import TableListAdmin from '../../components/admin/TablelistAdmin';
 import NavbarMobile from '../../components/admin/Reponsive/Mobile/NavbarMobile';
-import { useNavigate } from 'react-router-dom';
 import ModalCreateVehicleCatalogPageAdmin from '../../components/admin/Modal/ModalVehicleCatalog/ModalCreateVehicleCatalogPageAdmin';
 import ModalDeleteVehicleCatalogPageAdmin from '../../components/admin/Modal/ModalVehicleCatalog/ModalDeleteVehicleCatalogPageAdmin';
 import ModalEditVehicleCatalogPageAdmin from '../../components/admin/Modal/ModalVehicleCatalog/ModalEditVehicleCatalogPageAdmin';
@@ -49,7 +48,6 @@ const VehicleCatalogPage: React.FC = () => {
     getAllVehicleCatalogs();
   }, [getAllVehicleCatalogs]);
 
-  const navigate = useNavigate();
   const handleDeleteVehicleCatalog = async () => {
     if (selectedVehicleCatalogId) {
       try {
@@ -57,7 +55,6 @@ const VehicleCatalogPage: React.FC = () => {
         closeModalDeleteAdmin();
         Toastify('Bạn đã xoá loại phương tiện thành công', 201);
         getAllVehicleCatalogs();
-        navigate('/admin/vehicle-catalog');
       } catch (error) {
         const errorMessage = isIErrorResponse(error)
           ? error.data?.message

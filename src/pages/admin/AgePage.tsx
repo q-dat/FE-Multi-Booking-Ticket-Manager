@@ -15,7 +15,6 @@ import { FaCircleInfo, FaPenToSquare } from 'react-icons/fa6';
 import { isIErrorResponse } from '../../types/error/error';
 import TableListAdmin from '../../components/admin/TablelistAdmin';
 import NavbarMobile from '../../components/admin/Reponsive/Mobile/NavbarMobile';
-import { useNavigate } from 'react-router-dom';
 import { VehicleCatalogContext } from '../../context/vehicleCatalog/VehicleCatalogContext';
 
 const AgePage: React.FC = () => {
@@ -45,7 +44,6 @@ const AgePage: React.FC = () => {
     getAllAges();
   }, [getAllAges]);
 
-  const navigate = useNavigate();
   const handleDeleteAge = async () => {
     if (selectedAgeId) {
       try {
@@ -53,7 +51,6 @@ const AgePage: React.FC = () => {
         closeModalDeleteAdmin();
         Toastify('Bạn đã xoá độ tuổi thành công', 201);
         getAllAges();
-        navigate('/admin/age');
       } catch {
         const errorMessage = isIErrorResponse(error)
           ? error.data?.message

@@ -10,7 +10,6 @@ import ErrorLoading from '../../components/orther/error/ErrorLoading';
 import { FaCircleInfo, FaPenToSquare } from 'react-icons/fa6';
 import TableListAdmin from '../../components/admin/TablelistAdmin';
 import NavbarMobile from '../../components/admin/Reponsive/Mobile/NavbarMobile';
-import { useNavigate } from 'react-router-dom';
 import ModalDeleteSeatCatalogPageAdmin from '../../components/admin/Modal/ModalSeatCatalog/ModalDeleteSeatCatalogPageAdmin';
 import ModalEditSeatCatalogPageAdmin from '../../components/admin/Modal/ModalSeatCatalog/ModalEditSeatCatalogPageAdmin';
 import ModalCreateSeatCatalogPageAdmin from '../../components/admin/Modal/ModalSeatCatalog/ModalCreateSeatCatalogPageAdmin';
@@ -49,7 +48,6 @@ const SeatCatalogPage: React.FC = () => {
     getAllSeatCatalogs();
   }, [getAllSeatCatalogs]);
 
-  const navigate = useNavigate();
   const handleDeleteSeatCatalog = async () => {
     if (selectedSeatCatalogId) {
       try {
@@ -57,7 +55,6 @@ const SeatCatalogPage: React.FC = () => {
         closeModalDeleteAdmin();
         Toastify('Bạn đã xoá loại ghế thành công', 201);
         getAllSeatCatalogs();
-        navigate('/admin/seat-catalog');
       } catch (error) {
         const errorMessage = isIErrorResponse(error)
           ? error.data?.message

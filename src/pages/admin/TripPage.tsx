@@ -15,7 +15,6 @@ import { FaCircleInfo, FaPenToSquare } from 'react-icons/fa6';
 import { isIErrorResponse } from '../../types/error/error';
 import TableListAdmin from '../../components/admin/TablelistAdmin';
 import NavbarMobile from '../../components/admin/Reponsive/Mobile/NavbarMobile';
-import { useNavigate } from 'react-router-dom';
 import { VehicleCatalogContext } from '../../context/vehicleCatalog/VehicleCatalogContext';
 
 const TripPage: React.FC = () => {
@@ -50,7 +49,6 @@ const TripPage: React.FC = () => {
     getAllTrips();
   }, [getAllTrips]);
 
-  const navigate = useNavigate();
   const handleDeleteTrip = async () => {
     if (selectedTripId) {
       try {
@@ -58,7 +56,6 @@ const TripPage: React.FC = () => {
         closeModalDeleteAdmin();
         Toastify('Bạn đã xoá chuyến đi thành công', 201);
         getAllTrips();
-        navigate('/admin/trip');
       } catch (error) {
         const errorMessage = isIErrorResponse(error)
           ? error.data?.message

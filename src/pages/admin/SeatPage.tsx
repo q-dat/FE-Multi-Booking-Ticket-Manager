@@ -13,7 +13,6 @@ import { FaCircleInfo, FaPenToSquare } from 'react-icons/fa6';
 import { isIErrorResponse } from '../../types/error/error';
 import TableListAdmin from '../../components/admin/TablelistAdmin';
 import NavbarMobile from '../../components/admin/Reponsive/Mobile/NavbarMobile';
-import { useNavigate } from 'react-router-dom';
 import { SeatContext } from '../../context/seat/SeatContext';
 import { ISeat } from '../../types/type/seat/seat';
 import { LuFilter } from 'react-icons/lu';
@@ -45,8 +44,7 @@ const SeatPage: React.FC = () => {
     setIsModalEditOpen(true);
   };
   const closeModalEditAdmin = () => setIsModalEditOpen(false);
-
-  const navigate = useNavigate();
+//Delete
   const handleDeleteSeat = async () => {
     if (selectedSeatId) {
       try {
@@ -54,7 +52,6 @@ const SeatPage: React.FC = () => {
         closeModalDeleteAdmin();
         Toastify('Bạn đã xoá ghế ngồi thành công', 201);
         getAllSeats();
-        navigate('/admin/seat');
       } catch (error) {
         const errorMessage = isIErrorResponse(error)
           ? error.data?.message

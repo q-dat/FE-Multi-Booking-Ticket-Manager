@@ -15,7 +15,6 @@ import { FaCircleInfo, FaPenToSquare } from 'react-icons/fa6';
 import { isIErrorResponse } from '../../types/error/error';
 import TableListAdmin from '../../components/admin/TablelistAdmin';
 import NavbarMobile from '../../components/admin/Reponsive/Mobile/NavbarMobile';
-import { useNavigate } from 'react-router-dom';
 
 const LocationPage: React.FC = () => {
   const { locations, loading, error, deleteLocation, getAllLocations } =
@@ -43,7 +42,6 @@ const LocationPage: React.FC = () => {
     getAllLocations();
   }, [getAllLocations]);
 
-  const navigate = useNavigate();
   const handleDeleteLocation = async () => {
     if (selectedLocationId) {
       try {
@@ -51,7 +49,6 @@ const LocationPage: React.FC = () => {
         closeModalDeleteAdmin();
         Toastify('Bạn đã xoá địa chỉ thành công', 201);
         getAllLocations();
-        navigate('/admin/location');
       } catch (error) {
         const errorMessage = isIErrorResponse(error)
           ? error.data?.message

@@ -11,7 +11,6 @@ import ErrorLoading from '../../components/orther/error/ErrorLoading';
 import { FaCircleInfo, FaPenToSquare } from 'react-icons/fa6';
 import TableListAdmin from '../../components/admin/TablelistAdmin';
 import NavbarMobile from '../../components/admin/Reponsive/Mobile/NavbarMobile';
-import { useNavigate } from 'react-router-dom';
 import ModalCreateTicketCatalogPageAdmin from '../../components/admin/Modal/ModalTicketCatalog/ModalCreateTicketCatalogPageAdmin';
 import ModalDeleteTicketCatalogPageAdmin from '../../components/admin/Modal/ModalTicketCatalog/ModalDeleteTicketCatalogPageAdmin';
 import ModalEditTicketCatalogPageAdmin from '../../components/admin/Modal/ModalTicketCatalog/ModalEditTicketCatalogPageAdmin';
@@ -49,7 +48,6 @@ const TicketCatalogPage: React.FC = () => {
     getAllTicketCatalogs();
   }, [getAllTicketCatalogs]);
 
-  const navigate = useNavigate();
   const handleDeleteTicketCatalog = async () => {
     if (selectedTicketCatalogId) {
       try {
@@ -57,7 +55,6 @@ const TicketCatalogPage: React.FC = () => {
         closeModalDeleteAdmin();
         Toastify('Bạn đã xoá loại vé thành công', 201);
         getAllTicketCatalogs();
-        navigate('/admin/ticket-catalog');
       } catch (error) {
         const errorMessage = isIErrorResponse(error)
           ? error.data?.message

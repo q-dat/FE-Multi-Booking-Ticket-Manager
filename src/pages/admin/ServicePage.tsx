@@ -15,7 +15,6 @@ import { FaCircleInfo, FaPenToSquare } from 'react-icons/fa6';
 import { isIErrorResponse } from '../../types/error/error';
 import TableListAdmin from '../../components/admin/TablelistAdmin';
 import NavbarMobile from '../../components/admin/Reponsive/Mobile/NavbarMobile';
-import { useNavigate } from 'react-router-dom';
 
 const ServicePage: React.FC = () => {
   const { services, loading, error, deleteService, getAllServices } =
@@ -43,7 +42,6 @@ const ServicePage: React.FC = () => {
     getAllServices();
   }, [getAllServices]);
 
-  const navigate = useNavigate();
   const handleDeleteService = async () => {
     if (selectedServiceId) {
       try {
@@ -51,7 +49,6 @@ const ServicePage: React.FC = () => {
         closeModalDeleteAdmin();
         Toastify('Bạn đã xoá dịch vụ thành công', 201);
         getAllServices();
-        navigate('/admin/service');
       } catch (error) {
         const errorMessage = isIErrorResponse(error)
           ? error.data?.message

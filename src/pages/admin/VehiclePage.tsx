@@ -15,7 +15,6 @@ import { FaCircleInfo, FaPenToSquare } from 'react-icons/fa6';
 import { isIErrorResponse } from '../../types/error/error';
 import TableListAdmin from '../../components/admin/TablelistAdmin';
 import NavbarMobile from '../../components/admin/Reponsive/Mobile/NavbarMobile';
-import { useNavigate } from 'react-router-dom';
 
 const VehiclePage: React.FC = () => {
   const { vehicles, loading, error, deleteVehicle, getAllVehicles } =
@@ -43,7 +42,6 @@ const VehiclePage: React.FC = () => {
     getAllVehicles();
   }, [getAllVehicles]);
 
-  const navigate = useNavigate();
   const handleDeleteVehicle = async () => {
     if (selectedVehicleId) {
       try {
@@ -51,7 +49,6 @@ const VehiclePage: React.FC = () => {
         closeModalDeleteAdmin();
         Toastify('Bạn đã xoá phương tiện thành công', 201);
         getAllVehicles();
-        navigate('/admin/vehicle');
       } catch (error) {
         const errorMessage = isIErrorResponse(error)
           ? error.data?.message
