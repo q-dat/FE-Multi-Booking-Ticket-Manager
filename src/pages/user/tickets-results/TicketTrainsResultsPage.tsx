@@ -108,16 +108,16 @@ const TicketTrainsResultsPage: React.FC = () => {
 
   const ticketsByCarriage = selectedTrain
     ? ticketsByTrain[selectedTrain].reduce(
-      (acc: { [key: string]: ITicket[] }, ticket) => {
-        const carriageId = ticket.seat_id[0]?.seat_catalog_id._id;
-        if (!acc[carriageId]) {
-          acc[carriageId] = [];
-        }
-        acc[carriageId].push(ticket);
-        return acc;
-      },
-      {}
-    )
+        (acc: { [key: string]: ITicket[] }, ticket) => {
+          const carriageId = ticket.seat_id[0]?.seat_catalog_id._id;
+          if (!acc[carriageId]) {
+            acc[carriageId] = [];
+          }
+          acc[carriageId].push(ticket);
+          return acc;
+        },
+        {}
+      )
     : {};
 
   // Khi người dùng chọn một tàu khác, tự động chọn danh mục ghế đầu tiên của tàu đó
@@ -138,7 +138,9 @@ const TicketTrainsResultsPage: React.FC = () => {
         {/* Title */}
         <div className="w-full">
           <h1 className="mx-2 mb-5 border-[4px] border-b-0 border-r-0 border-t-0 border-primary bg-blue-200 px-5 py-1 text-center text-xl text-black dark:border-white dark:bg-gray-400 dark:text-white xl:text-start">
-            {t('UserPage.TicketTrainsResults.TripFrom')} <strong>{tripInfo.departure_point?.name}</strong> {t('UserPage.TicketTrainsResults.To')}{' '}
+            {t('UserPage.TicketTrainsResults.TripFrom')}{' '}
+            <strong>{tripInfo.departure_point?.name}</strong>{' '}
+            {t('UserPage.TicketTrainsResults.To')}{' '}
             <strong>{tripInfo.destination_point?.name}</strong> &nbsp;(
             <strong>{ticketCatalogInfo.name}</strong>)
           </h1>
@@ -171,8 +173,14 @@ const TicketTrainsResultsPage: React.FC = () => {
                       trainTickets[0].trip_id.return_date
                     ).toLocaleDateString('vi-VN')}
                   </p>
-                  <p>{t('UserPage.TicketTrainsResults.DepartureTime')} {trainTickets[0].trip_id?.departure_time}</p>
-                  <p>{t('UserPage.TicketTrainsResults.DestinationTime')}: {trainTickets[0].trip_id?.return_time}</p>
+                  <p>
+                    {t('UserPage.TicketTrainsResults.DepartureTime')}{' '}
+                    {trainTickets[0].trip_id?.departure_time}
+                  </p>
+                  <p>
+                    {t('UserPage.TicketTrainsResults.DestinationTime')}:{' '}
+                    {trainTickets[0].trip_id?.return_time}
+                  </p>
                 </div>
                 <div className="flex flex-row gap-10">
                   <div className="h-6 w-6 rounded-full bg-white group-hover:border group-hover:border-white group-hover:bg-primary dark:group-hover:bg-secondary"></div>
@@ -192,10 +200,11 @@ const TicketTrainsResultsPage: React.FC = () => {
                       color="primary"
                       size="sm"
                       onClick={() => setSelectedClassId(classId)}
-                      className={`text-md font-semibold text-white dark:bg-white dark:text-primary ${selectedClassId === classId
+                      className={`text-md font-semibold text-white dark:bg-white dark:text-primary ${
+                        selectedClassId === classId
                           ? 'bg-opacity-100'
                           : 'bg-opacity-50'
-                        }`}
+                      }`}
                     >
                       {classTickets[0].seat_id[0]?.seat_catalog_id.name}
                     </Button>
@@ -205,41 +214,50 @@ const TicketTrainsResultsPage: React.FC = () => {
               <div className="p-4">
                 {selectedClassId && ticketsByCarriage[selectedClassId] && (
                   <div className="flex flex-wrap items-center justify-between gap-2 rounded-xl border border-primary p-2 dark:border-white">
-                    {ticketsByCarriage[selectedClassId].map((ticket, index) => {
-                      const seatStatus = ticket.seat_id[0]?.status;
-                      return (
-                        <div
-                          onClick={() => addSeat(ticket)}
-                          key={index}
-                          className={`relative flex h-14 w-14 items-center justify-center rounded-md border transition-all duration-200 ease-in-out ${seatStatus === 'Hết chỗ'
-                              ? 'cursor-not-allowed border-red-700 bg-red-500 text-white'
-                              : seatStatus === 'Còn chỗ'
-                                ? 'cursor-pointer border-green-700 bg-green-500 text-white hover:bg-green-600'
-                                : 'cursor-progress border-gray-300 bg-white font-bold text-black'
-                            } group`}
-                        >
-                          {ticket.seat_id[0]?.ordinal_numbers}
+                    {ticketsByCarriage[selectedClassId]
+                      .sort(
+                        (a, b) =>
+                          a.seat_id[0]?.ordinal_numbers -
+                          b.seat_id[0]?.ordinal_numbers
+                      )
+                      .map((ticket, index) => {
+                        const seatStatus = ticket.seat_id[0]?.status;
+                        return (
                           <div
-                            className={`absolute bottom-10 left-1/2 z-10 w-[100px] -translate-x-1/2 transform rounded bg-white p-2 text-center text-xs text-black opacity-0 shadow-headerMenu shadow-primary transition-opacity duration-200 ease-in-out group-hover:opacity-100`}
+                            onClick={() => addSeat(ticket)}
+                            key={index}
+                            className={`relative flex h-14 w-14 items-center justify-center rounded-md border transition-all duration-200 ease-in-out ${
+                              seatStatus === 'Hết chỗ'
+                                ? 'cursor-not-allowed border-red-700 bg-red-500 text-white'
+                                : seatStatus === 'Còn chỗ'
+                                  ? 'cursor-pointer border-green-700 bg-green-500 text-white hover:bg-green-600'
+                                  : 'cursor-progress border-gray-300 bg-white font-bold text-black'
+                            } group`}
                           >
-                            {seatStatus === 'Còn chỗ' ? (
-                              <>
-                                <strong>{ticket.seat_id[0]?.name}</strong>
-                                <p>
-                                  <strong>{t('UserPage.TicketPrice')}:                                  </strong>{' '}
-                                  {(ticket.price * 1000).toLocaleString(
-                                    'vi-VN'
-                                  )}{' '}
-                                  VNĐ
-                                </p>
-                              </>
-                            ) : (
-                              <p>{seatStatus}</p>
-                            )}
+                            {ticket.seat_id[0]?.ordinal_numbers}
+                            <div
+                              className={`absolute bottom-10 left-1/2 z-10 w-[100px] -translate-x-1/2 transform rounded bg-white p-2 text-center text-xs text-black opacity-0 shadow-headerMenu shadow-primary transition-opacity duration-200 ease-in-out group-hover:opacity-100`}
+                            >
+                              {seatStatus === 'Còn chỗ' ? (
+                                <>
+                                  <strong>{ticket.seat_id[0]?.name}</strong>
+                                  <p>
+                                    <strong>
+                                      {t('UserPage.TicketPrice')}:{' '}
+                                    </strong>{' '}
+                                    {(ticket.price * 1000).toLocaleString(
+                                      'vi-VN'
+                                    )}{' '}
+                                    VNĐ
+                                  </p>
+                                </>
+                              ) : (
+                                <p>{seatStatus}</p>
+                              )}
+                            </div>
                           </div>
-                        </div>
-                      );
-                    })}
+                        );
+                      })}
                   </div>
                 )}
               </div>
