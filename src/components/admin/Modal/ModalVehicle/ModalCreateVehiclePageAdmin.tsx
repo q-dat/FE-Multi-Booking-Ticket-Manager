@@ -24,7 +24,7 @@ const ModalCreateVehiclePageAdmin: React.FC<ModalCreateVehicleProps> = ({
       Toastify('Tạo phương tiện thành công!', 201);
       reset();
       onClose();
-    } catch {
+    } catch (err) {
       Toastify(`Lỗi: ${error}`, 500);
     }
   };

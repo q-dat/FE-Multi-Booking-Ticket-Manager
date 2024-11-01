@@ -43,7 +43,7 @@ const ModalEditServicePageAdmin: React.FC<ModalEditServiceProps> = ({
       reset();
       getAllServices();
       onClose();
-    } catch {
+    } catch (err) {
       Toastify(`Lỗi: ${error}`, 200);
     }
   };

@@ -53,7 +53,7 @@ const ModalEditTripPageAdmin: React.FC<ModalEditTripProps> = ({
       reset();
       getAllTrips();
       onClose();
-    } catch {
+    } catch (err) {
       Toastify(`Lỗi: ${error}`, 500);
     }
   };

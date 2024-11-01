@@ -47,7 +47,7 @@ const ModalEditTicketCatalogPageAdmin: React.FC<
       reset();
       getAllTicketCatalogs();
       onClose();
-    } catch {
+    } catch (err) {
       Toastify(`Lỗi: ${error}`, 500);
     }
   };

@@ -30,7 +30,7 @@ const ModalCreateTripPageAdmin: React.FC<ModalCreateTicketProps> = ({
       reset();
       getAllTrips();
       onClose();
-    } catch {
+    } catch (err) {
       Toastify(`Lỗi: ${error}`, 500);
     }
   };

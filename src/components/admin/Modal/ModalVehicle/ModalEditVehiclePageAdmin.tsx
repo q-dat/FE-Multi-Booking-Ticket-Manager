@@ -42,7 +42,7 @@ const ModalEditVehiclePageAdmin: React.FC<ModalEditVehicleProps> = ({
       reset();
       getAllVehicles();
       onClose();
-    } catch {
+    } catch (err) {
       Toastify(`Lỗi: ${error}`, 500);
     }
   };

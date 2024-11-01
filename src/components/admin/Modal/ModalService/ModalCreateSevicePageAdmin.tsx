@@ -25,7 +25,7 @@ const ModalCreateServicePageAdmin: React.FC<ModalCreateServiceProps> = ({
       reset();
       onClose();
       getAllServices();
-    } catch {
+    } catch (err) {
       Toastify(`Lỗi: ${error}`, 500);
     }
   };

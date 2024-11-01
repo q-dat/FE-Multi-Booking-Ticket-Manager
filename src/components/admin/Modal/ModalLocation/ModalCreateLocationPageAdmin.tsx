@@ -24,7 +24,7 @@ const ModalCreateLocationPageAdmin: React.FC<ModalCreateLocationProps> = ({
       Toastify('Tạo địa điểm thành công!', 201);
       reset();
       onClose();
-    } catch {
+    } catch (err) {
       Toastify(`Lỗi: ${error}`, 500);
     }
   };

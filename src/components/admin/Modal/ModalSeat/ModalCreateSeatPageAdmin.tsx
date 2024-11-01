@@ -30,7 +30,7 @@ const ModalCreateSeatPageAdmin: React.FC<ModalCreateSeatProps> = ({
       Toastify('Tạo ghế thành công!', 201);
       reset();
       onClose();
-    } catch {
+    } catch (err) {
       Toastify(`Lỗi: ${error}`, 500);
     }
   };

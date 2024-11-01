@@ -24,7 +24,7 @@ const ModalCreateAgePageAdmin: React.FC<ModalCreateAgeProps> = ({
       Toastify('Tạo độ tuổi thành công!', 201);
       reset();
       onClose();
-    } catch {
+    } catch (err){
       Toastify(`Lỗi: ${error}`, 500);
     }
   };

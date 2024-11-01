@@ -24,7 +24,7 @@ const ModalCreateSeatCatalogPageAdmin: React.FC<
       Toastify('Tạo danh mục phương tiện thành công!', 201);
       reset();
       onClose();
-    } catch {
+    } catch (err) {
       Toastify(`Lỗi: ${error}`, 500);
     }
   };

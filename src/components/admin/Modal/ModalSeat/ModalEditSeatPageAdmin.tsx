@@ -49,7 +49,7 @@ const ModalEditSeatPageAdmin: React.FC<ModalEditSeatProps> = ({
       reset();
       getAllSeats();
       onClose();
-    } catch {
+    } catch (err) {
       Toastify(`Lỗi: ${error}`, 500);
     }
   };

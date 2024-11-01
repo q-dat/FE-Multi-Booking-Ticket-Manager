@@ -44,7 +44,7 @@ const ModalEditLocationPageAdmin: React.FC<ModalEditLocationProps> = ({
       reset();
       getAllLocations();
       onClose();
-    } catch {
+    } catch (err) {
       Toastify(`Lỗi: ${error}`, 500);
     }
   };

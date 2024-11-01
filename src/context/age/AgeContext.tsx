@@ -85,6 +85,7 @@ export const AgeProvider = ({ children }: { children: ReactNode }) => {
       onSuccess(response.data);
     } catch (err: any) {
       handleError(err);
+      throw err;
     } finally {
       setLoading(prev => ({ ...prev, [requestType]: false }));
     }
@@ -153,7 +154,6 @@ export const AgeProvider = ({ children }: { children: ReactNode }) => {
         data => setAges(data.ages || []),
         'search'
       );
-      return ages;
     },
     [ages]
   );

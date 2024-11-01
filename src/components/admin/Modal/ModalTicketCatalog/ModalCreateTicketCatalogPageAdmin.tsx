@@ -23,7 +23,7 @@ const ModalCreateTicketCatalogPageAdmin: React.FC<
       Toastify('Tạo danh mục vé thành công!', 201);
       reset();
       onClose();
-    } catch {
+    } catch (err) {
       Toastify(`Lỗi: ${error}`, 500);
     }
   };

@@ -56,7 +56,7 @@ const ModalEditTicketPageAdmin: React.FC<ModalEditTicketProps> = ({
       reset();
       getAllTickets();
       onClose();
-    } catch {
+    } catch (err) {
       Toastify(`Lỗi: ${error}`, 500);
     }
   };
