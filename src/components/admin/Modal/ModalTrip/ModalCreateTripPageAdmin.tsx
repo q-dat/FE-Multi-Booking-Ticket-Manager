@@ -55,7 +55,7 @@ const ModalCreateTripPageAdmin: React.FC<ModalCreateTicketProps> = ({
           className="flex flex-col gap-5 rounded-lg bg-white p-10 text-start shadow dark:bg-gray-800"
         >
           <p className="text-xl font-bold text-black dark:text-white">
-            Tạo vé mới
+            Tạo Chuyến Đi
           </p>
           <div className="flex flex-row items-center justify-center gap-2 md:gap-5">
             <div className="flex flex-col">
