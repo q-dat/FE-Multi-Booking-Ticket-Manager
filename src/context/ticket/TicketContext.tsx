@@ -98,7 +98,6 @@ export const TicketProvider = ({ children }: { children: ReactNode }) => {
       onSuccess(response.data);
     } catch (err: any) {
       handleError(err);
-      throw err;
     } finally {
       setLoading(prev => ({ ...prev, [requestType]: false }));
     }
@@ -211,8 +210,11 @@ export const TicketProvider = ({ children }: { children: ReactNode }) => {
         () => deleteTicketsByVehicleIdApi(vehicleId),
         () =>
           setTickets(prevTickets =>
-            prevTickets.filter(ticket => 
-              !ticket.seat_id.some(seat => seat.seat_catalog_id.vehicle_id._id === vehicleId)
+            prevTickets.filter(
+              ticket =>
+                !ticket.seat_id.some(
+                  seat => seat.seat_catalog_id.vehicle_id._id === vehicleId
+                )
             )
           ),
         'deleteByVehicle'
@@ -220,7 +222,6 @@ export const TicketProvider = ({ children }: { children: ReactNode }) => {
     },
     []
   );
-  
 
   useEffect(() => {
     getAllTickets();

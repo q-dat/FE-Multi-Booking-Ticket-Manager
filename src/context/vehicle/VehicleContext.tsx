@@ -86,7 +86,6 @@ export const VehicleProvider = ({ children }: { children: ReactNode }) => {
       onSuccess(response.data);
     } catch (err: any) {
       handleError(err);
-      throw err;
     } finally {
       setLoading(prev => ({ ...prev, [requestType]: false }));
     }
