@@ -119,7 +119,7 @@ const Home: React.FC = () => {
   // Tính toán ngày hôm nay
   const today = new Date();
   const yyyy = today.getFullYear();
-  const mm = String(today.getMonth() + 1).padStart(2, '0'); 
+  const mm = String(today.getMonth() + 1).padStart(2, '0');
   const dd = String(today.getDate()).padStart(2, '0');
 
   const minDate = `${yyyy}-${mm}-${dd}`;
@@ -191,39 +191,54 @@ const Home: React.FC = () => {
             </div>
             {/* Form Mobile 2 */}
             <div className="m-2 flex flex-grow items-center justify-between gap-2 md:m-[10px] md:gap-[20px] xl:m-0 xl:gap-0">
-              <InputForm
-                className="h-[48px] min-w-[150px] border border-primary bg-white text-sm text-black hover:border-gray-700 hover:border-opacity-50 hover:outline-none focus:outline-none dark:border-primary dark:hover:border-gray-700 dark:hover:border-opacity-50 xs:max-w-[150px] sm:max-w-[300px] md:w-[300px] lg:w-[400px] xl:w-full xl:rounded-none"
-                type={'date'}
-                placeholder={`${t('UserPage.DepartureDatePlaceholder')}`}
-                {...register('departure_date')}
-                min={minDate}
-                classNameLabel=" dark:text-[#122969] bg-white dark:peer-focus:text-primary "
-              />
-              <MdOutlineArrowRightAlt className="hidden text-xl text-primary xl:flex" />
-              <div>
-                <ReactSelect
-                  name="ticket_catalog_name"
-                  control={control}
-                  options={ticketCatalog}
-                  placeholder={t('UserPage.TicketSelectDefault')}
-                  isMulti={false}
-                  className="xl:rounded-none"
+              <div className="flex items-center">
+                <InputForm
+                  className="h-[48px] min-w-[150px] border border-primary bg-white text-sm text-black hover:border-gray-700 hover:border-opacity-50 hover:outline-none focus:outline-none dark:border-primary dark:hover:border-gray-700 dark:hover:border-opacity-50 xs:max-w-[150px] sm:max-w-[300px] md:w-[300px] lg:w-[400px] xl:w-full xl:rounded-none"
+                  type={'date'}
+                  placeholder={`${t('UserPage.DepartureDatePlaceholder')}`}
+                  {...register('departure_date')}
+                  min={minDate}
+                  classNameLabel=" dark:text-[#122969] bg-white dark:peer-focus:text-primary "
                 />
+                <MdOutlineArrowRightAlt className="hidden text-xl text-primary xl:flex" />
+              </div>
+              <div className="flex items-center">
+                <InputForm
+                  className="h-[48px] min-w-[150px] border border-primary bg-white text-sm text-black hover:border-gray-700 hover:border-opacity-50 hover:outline-none focus:outline-none dark:border-primary dark:hover:border-gray-700 dark:hover:border-opacity-50 xs:max-w-[150px] sm:max-w-[300px] md:w-[300px] lg:w-[400px] xl:w-full xl:rounded-none"
+                  type={'date'}
+                  placeholder={`${t('UserPage.ReturnDatePlaceholder')}`}
+                  {...register('return_date')}
+                  min={minDate}
+                  classNameLabel=" dark:text-[#122969] bg-white dark:peer-focus:text-primary "
+                />
+                <MdOutlineArrowRightAlt className="hidden text-xl text-primary xl:flex" />
               </div>
             </div>
             {/* Form Mobile 3 */}
             <div className="m-2 flex flex-grow items-center justify-between gap-2 md:m-[10px] md:gap-[20px] xl:m-0 xl:gap-0">
-              <MdOutlineArrowRightAlt className="hidden text-xl text-primary xl:flex" />
-              <div>
+              <div className="flex items-center">
                 <ReactSelect
                   name="vehicle_catalog_name"
                   control={control}
                   options={vehicleCatalog}
                   placeholder={t('UserPage.VehicleSelectDefault')}
                   isMulti={false}
+                  className="xl:rounded-none"
+                />
+                <MdOutlineArrowRightAlt className="hidden text-xl text-primary xl:flex" />
+              </div>
+              <div className="flex items-center">
+                <ReactSelect
+                  name="ticket_catalog_name"
+                  control={control}
+                  options={ticketCatalog}
+                  placeholder={t('UserPage.TicketSelectDefault')}
+                  isMulti={false}
                   className="xl:rounded-l-none"
                 />
               </div>
+            </div>
+            <div className="m-2 flex flex-grow items-center justify-between gap-2 md:m-[10px] md:gap-[20px] xl:m-0 xl:gap-0">
               <div>
                 <Button
                   type="submit"

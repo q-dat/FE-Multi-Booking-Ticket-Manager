@@ -119,7 +119,7 @@ const BusesTickets: React.FC = () => {
             </div>
           </div>
         </div>
-        <div className="my-5 grid w-full grid-cols-2 items-center justify-center gap-5">
+        <div className="my-5 grid w-full grid-cols-1 items-center justify-center gap-5 md:grid-cols-2">
           {filteredTickets.map((ticket: ITicket) => (
             <div
               key={ticket._id}
@@ -145,7 +145,9 @@ const BusesTickets: React.FC = () => {
                   <IoTrainSharp color="#12296999" /> Phương tiện:
                   <span className="font-semibold">
                     {ticket.seat_id.map(seat => (
-                      <span  key={seat._id}>({seat.seat_catalog_id.vehicle_id?.name})</span>
+                      <span key={seat._id}>
+                        ({seat.seat_catalog_id.vehicle_id?.name})
+                      </span>
                     ))}
                   </span>
                 </div>
@@ -156,12 +158,14 @@ const BusesTickets: React.FC = () => {
                   <p>
                     <span className="font-semibold">
                       {ticket.seat_id.map(seat => (
-                        <span  key={seat._id}>({seat?.name})</span>
+                        <span key={seat._id}>({seat?.name})</span>
                       ))}
                     </span>
                     <span className="font-semibold">
                       {ticket.seat_id.map(seat => (
-                        <span  key={seat._id}>({seat.seat_catalog_id?.name})</span>
+                        <span key={seat._id}>
+                          ({seat.seat_catalog_id?.name})
+                        </span>
                       ))}
                     </span>
                   </p>

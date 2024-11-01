@@ -53,6 +53,13 @@ const FlightsPage: React.FC = () => {
   useEffect(() => {
     getAllLocations();
   }, []);
+  // Tính toán ngày hôm nay
+  const today = new Date();
+  const yyyy = today.getFullYear();
+  const mm = String(today.getMonth() + 1).padStart(2, '0');
+  const dd = String(today.getDate()).padStart(2, '0');
+
+  const minDate = `${yyyy}-${mm}-${dd}`;
 
   return (
     <div className="pb-[20px] xl:pt-[80px]">
@@ -82,49 +89,68 @@ const FlightsPage: React.FC = () => {
             <div className="flex flex-col rounded-lg border border-secondary border-opacity-50 bg-white p-3 shadow-headerMenu dark:bg-gray-700 md:p-10 xl:flex-row xl:px-10 xl:py-8">
               {/* Form Mobile 1 */}
               <div className="m-2 flex flex-grow items-center justify-between gap-2 md:m-[10px] md:gap-[20px] xl:m-0 xl:gap-0">
-                <Select
-                  defaultValue=""
-                  className="w-[150px] border border-gray-700 border-opacity-50 bg-white text-black focus:border-primary focus:outline-none dark:border-secondary dark:bg-gray-700 dark:text-white dark:focus:border-white md:w-[300px] lg:w-[400px] xl:w-full xl:rounded-r-none"
-                  {...register('departure_point_name')}
-                >
-                  <option value="" disabled>
-                    {t('UserPage.DeparturePlaceholder')}
-                  </option>
-                  {locations.map(location => (
-                    <option key={location._id} value={location.name}>
-                      {location.name}
+                <div className="flex items-center">
+                  <Select
+                    defaultValue=""
+                    className="w-[150px] border border-gray-700 border-opacity-50 bg-white text-black focus:border-primary focus:outline-none dark:border-secondary dark:bg-gray-700 dark:text-white dark:focus:border-white md:w-[300px] lg:w-[400px] xl:w-full xl:rounded-r-none"
+                    {...register('departure_point_name')}
+                  >
+                    <option value="" disabled>
+                      {t('UserPage.DeparturePlaceholder')}
                     </option>
-                  ))}
-                </Select>
-                <MdOutlineArrowRightAlt className="hidden text-primary dark:text-white xl:flex" />
-                <Select
-                  defaultValue=""
-                  className="w-[150px] border border-gray-700 border-opacity-50 bg-white text-black focus:border-primary focus:outline-none dark:border-secondary dark:bg-gray-700 dark:text-white dark:focus:border-white md:w-[300px] lg:w-[400px] xl:w-full xl:rounded-none"
-                  {...register('destination_point_name')}
-                >
-                  <option value="" disabled>
-                    {t('UserPage.DestinationPlaceholder')}
-                  </option>
-                  {locations.map(location => (
-                    <option key={location._id} value={location.name}>
-                      {location.name}
+                    {locations.map(location => (
+                      <option key={location._id} value={location.name}>
+                        {location.name}
+                      </option>
+                    ))}
+                  </Select>
+                  <MdOutlineArrowRightAlt className="hidden text-xl text-primary xl:flex" />
+                </div>
+                <div className="flex items-center">
+                  <Select
+                    defaultValue=""
+                    className="w-[150px] border border-gray-700 border-opacity-50 bg-white text-black focus:border-primary focus:outline-none dark:border-secondary dark:bg-gray-700 dark:text-white dark:focus:border-white md:w-[300px] lg:w-[400px] xl:w-full xl:rounded-none"
+                    {...register('destination_point_name')}
+                  >
+                    <option value="" disabled>
+                      {t('UserPage.DestinationPlaceholder')}
                     </option>
-                  ))}
-                </Select>
-                <MdOutlineArrowRightAlt className="hidden text-primary dark:text-white xl:flex" />
+                    {locations.map(location => (
+                      <option key={location._id} value={location.name}>
+                        {location.name}
+                      </option>
+                    ))}
+                  </Select>
+                  <MdOutlineArrowRightAlt className="hidden text-xl text-primary xl:flex" />
+                </div>
               </div>
               {/* Form Mobile 2 */}
               <div className="m-2 flex flex-grow items-center justify-between gap-2 md:m-[10px] md:gap-[20px] xl:m-0 xl:gap-0">
-                <InputForm
-                  className="w-[150px] border border-gray-700 border-opacity-50 bg-white text-black focus:border-primary focus:outline-none dark:border-secondary dark:bg-gray-700 dark:text-white dark:focus:border-white md:w-[300px] lg:w-[400px] xl:w-full xl:rounded-none"
-                  type={'date'}
-                  placeholder={`${t('UserPage.DepartureDatePlaceholder')}`}
-                  {...register('departure_date')}
-                  classNameLabel=" bg-white  dark:bg-gray-700"
-                  min=''
-                />
-                <MdOutlineArrowRightAlt className="hidden text-primary dark:text-white xl:flex" />
-                <div>
+                <div className="flex items-center">
+                  <InputForm
+                    className="w-[150px] border border-gray-700 border-opacity-50 bg-white text-black focus:border-primary focus:outline-none dark:border-secondary dark:bg-gray-700 dark:text-white dark:focus:border-white md:w-[300px] lg:w-[400px] xl:w-full xl:rounded-none"
+                    type={'date'}
+                    placeholder={`${t('UserPage.DepartureDatePlaceholder')}`}
+                    {...register('departure_date')}
+                    classNameLabel=" bg-white  dark:bg-gray-700"
+                    min={minDate}
+                  />
+                  <MdOutlineArrowRightAlt className="hidden text-xl text-primary xl:flex" />
+                </div>
+                <div className="flex items-center">
+                  <InputForm
+                    className="w-[150px] border border-gray-700 border-opacity-50 bg-white text-black focus:border-primary focus:outline-none dark:border-secondary dark:bg-gray-700 dark:text-white dark:focus:border-white md:w-[300px] lg:w-[400px] xl:w-full xl:rounded-none"
+                    type={'date'}
+                    placeholder={`${t('UserPage.ReturnDatePlaceholder')}`}
+                    {...register('return_date')}
+                    classNameLabel=" bg-white  dark:bg-gray-700"
+                    min={minDate}
+                  />
+                  <MdOutlineArrowRightAlt className="hidden text-xl text-primary xl:flex" />
+                </div>
+              </div>
+              <div className="m-2 flex flex-grow items-center justify-between gap-2 md:m-[10px] md:gap-[20px] xl:m-0 xl:gap-0">
+                <div className="flex items-center">
                   <Select
                     defaultValue=""
                     className="w-[150px] border border-gray-700 border-opacity-50 bg-white text-black focus:border-primary focus:outline-none dark:border-secondary dark:bg-gray-700 dark:text-white dark:focus:border-white md:w-[300px] lg:w-[400px] xl:w-full xl:rounded-l-none"
@@ -142,27 +168,28 @@ const FlightsPage: React.FC = () => {
                       </option>
                     ))}
                   </Select>
+                  <InputForm
+                    placeholder={''}
+                    classNameLabel={''}
+                    type="hidden"
+                    value="Máy bay"
+                    {...register('vehicle_catalog_name')}
+                    min=""
+                  />
                 </div>
-              </div>
-              <InputForm
-                placeholder={''}
-                classNameLabel={''}
-                type="hidden"
-                value="Máy bay"
-                {...register('vehicle_catalog_name')}
-                min=''
-              />
-              <div>
-                <Button
-                  type="submit"
-                  disabled={loading.search}
-                  className="w-[150px] bg-primary text-sm text-white hover:border-primary hover:bg-white hover:text-primary dark:hover:bg-gray-700 md:w-[300px] lg:w-[400px] xl:ml-3 xl:w-full"
-                >
-                  <IoSearch />
-                  {loading.search
-                    ? `${t('UserPage.Loading')}`
-                    : `${t('UserPage.SearchButton')}`}
-                </Button>
+
+                <div>
+                  <Button
+                    type="submit"
+                    disabled={loading.search}
+                    className="w-[150px] bg-primary text-sm text-white hover:border-primary hover:bg-white hover:text-primary dark:hover:bg-gray-700 md:w-[300px] lg:w-[400px] xl:ml-3 xl:w-full"
+                  >
+                    <IoSearch />
+                    {loading.search
+                      ? `${t('UserPage.Loading')}`
+                      : `${t('UserPage.SearchButton')}`}
+                  </Button>
+                </div>
               </div>
             </div>
           </div>

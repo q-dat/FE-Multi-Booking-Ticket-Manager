@@ -91,7 +91,8 @@ const FlightTickets: React.FC = () => {
             {/* Điểm Khởi Hành */}
             <div>
               <p className="flex items-center gap-1 bg-blue-50 font-bold text-primary">
-                <PiMapPinAreaDuotone /> {t('UserPage.BusesTickets.titleBuses2')}:
+                <PiMapPinAreaDuotone /> {t('UserPage.BusesTickets.titleBuses2')}
+                :
               </p>
               <div className="grid grid-cols-3 items-center justify-center gap-3 md:grid-cols-6 xl:grid-cols-7">
                 {locations.map(item => (
@@ -120,7 +121,7 @@ const FlightTickets: React.FC = () => {
             </div>
           </div>
         </div>
-        <div className="my-5 grid w-full grid-cols-2 items-center justify-center gap-6">
+        <div className="my-5 grid w-full grid-cols-1 items-center justify-center gap-5 md:grid-cols-2">
           {filteredTickets.map((ticket: ITicket) => (
             <div
               key={ticket._id}
@@ -145,9 +146,11 @@ const FlightTickets: React.FC = () => {
                 <div className="flex items-center gap-1">
                   <IoTrainSharp color="#12296999" /> Phương tiện:
                   <span className="font-semibold">
-                  {ticket.seat_id.map(seat => (
-                        <span key={seat._id}>({seat.seat_catalog_id.vehicle_id?.name})</span>
-                      ))}
+                    {ticket.seat_id.map(seat => (
+                      <span key={seat._id}>
+                        ({seat.seat_catalog_id.vehicle_id?.name})
+                      </span>
+                    ))}
                   </span>
                 </div>
                 <div className="flex items-start gap-1">
@@ -162,7 +165,9 @@ const FlightTickets: React.FC = () => {
                     </span>
                     <span className="font-semibold">
                       {ticket.seat_id.map(seat => (
-                        <span key={seat._id}>({seat.seat_catalog_id?.name})</span>
+                        <span key={seat._id}>
+                          ({seat.seat_catalog_id?.name})
+                        </span>
                       ))}
                     </span>
                   </p>

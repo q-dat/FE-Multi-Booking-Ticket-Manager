@@ -213,7 +213,7 @@ const TicketTrainsResultsPage: React.FC = () => {
               </div>
               <div className="p-4">
                 {selectedClassId && ticketsByCarriage[selectedClassId] && (
-                  <div className="flex flex-wrap items-center justify-between gap-2 rounded-xl border border-primary p-2 dark:border-white">
+                  <div className="flex flex-wrap items-center justify-between gap-x-2 gap-y-8 rounded-xl border border-primary p-2 dark:border-white">
                     {ticketsByCarriage[selectedClassId]
                       .sort(
                         (a, b) =>
