@@ -121,7 +121,7 @@ const ModalCreateTicketPageAdmin: React.FC<ModalCreateTicketProps> = ({
             Tạo vé mới
           </p>
           <div className="flex flex-col items-start justify-center gap-1 xl:flex-row xl:gap-5">
-            <div className="flex flex-col gap-2 w-full">
+            <div className="flex w-full flex-col gap-2">
               <LabelForm title={'Loại phương tiện'} />
               <DaisySelect
                 defaultValue=""
@@ -158,7 +158,7 @@ const ModalCreateTicketPageAdmin: React.FC<ModalCreateTicketProps> = ({
               <Select
                 isMulti
                 isClearable
-                className="h-[70px] w-full overflow-auto border-none text-primary xl:h-[300px] xl:max-w-[500px]"
+                className="h-[75px] w-full overflow-y-auto border-none text-primary md:overflow-visible md:h-full xl:max-w-[500px]"
                 options={seats.map(seat => ({
                   value: seat._id,
                   label: seat.name || seat._id
@@ -171,7 +171,7 @@ const ModalCreateTicketPageAdmin: React.FC<ModalCreateTicketProps> = ({
               />
             </div>
 
-            <div className="flex flex-col gap-2 w-full">
+            <div className="flex w-full flex-col gap-2">
               <LabelForm title={'Loại vé'} />
               <DaisySelect
                 defaultValue=""
