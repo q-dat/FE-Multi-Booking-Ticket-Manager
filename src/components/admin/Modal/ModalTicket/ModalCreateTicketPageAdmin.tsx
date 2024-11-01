@@ -87,7 +87,13 @@ const ModalCreateTicketPageAdmin: React.FC<ModalCreateTicketProps> = ({
     setSelectedSeats(seatData);
     setValue('seat_id', seatData);
   };
-
+  // 
+  useEffect(() => {
+    if (!isOpen) {
+      reset();
+      setSelectedSeats([]);
+    }
+  }, [isOpen, reset]);
   // const handleRemoveSeat = (seatId: string) => {
   //   setSelectedSeats(prev => prev.filter(seat => seat._id !== seatId));
   // };
@@ -158,7 +164,7 @@ const ModalCreateTicketPageAdmin: React.FC<ModalCreateTicketProps> = ({
               <Select
                 isMulti
                 isClearable
-                className="h-[75px] w-full overflow-y-auto border-none text-primary md:overflow-visible md:h-full xl:max-w-[500px]"
+                className="h-[75px] w-full overflow-y-auto border-none text-primary md:h-full md:overflow-visible xl:max-w-[500px]"
                 options={seats.map(seat => ({
                   value: seat._id,
                   label: seat.name || seat._id
