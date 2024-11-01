@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { ITicket } from '../../../../types/type/ticket/ticket';
 import { TicketContext } from '../../../../context/ticket/TicketContext';
@@ -11,7 +11,7 @@ import { VehicleCatalogContext } from '../../../../context/vehicleCatalog/Vehicl
 import { SeatContext } from '../../../../context/seat/SeatContext';
 import InputModal from '../../InputModal';
 import { TripContext } from '../../../../context/trip/TripContext';
-import Select from 'react-select';
+import Select, { MultiValue } from 'react-select';
 import { ISeat } from '../../../../types/type/seat/seat';
 
 interface ModalCreateTicketProps {
@@ -31,14 +31,14 @@ const ModalCreateTicketPageAdmin: React.FC<ModalCreateTicketProps> = ({
   const { seats, seatIds, getListIdByVehicleName } = useContext(SeatContext);
   const { trips } = useContext(TripContext);
 
+  const [selectedSeats, setSelectedSeats] = useState<ISeat[]>([]);
+
   const handleGetListIdByVehicleName = async (vehicleName: string) => {
     await getListIdByVehicleName(vehicleName);
   };
 
   const onSubmit: SubmitHandler<ITicket> = async formData => {
-    formData.seat_id = seatIds.map(
-      seatId => seats.find(seat => seat._id === seatId) as ISeat
-    );
+    formData.seat_id = selectedSeats;
     try {
       await createTicket(formData);
       Toastify('Tạo vé thành công!', 201);
@@ -57,17 +57,15 @@ const ModalCreateTicketPageAdmin: React.FC<ModalCreateTicketProps> = ({
       onClose();
     }
   };
-
+  //
   useEffect(() => {
-    const selectedSeats = seatIds
-      .map(seatId => {
-        return seats.find(seat => seat._id === seatId);
-      })
-      .filter(seat => seat !== undefined) as ISeat[];
+    const autoSelectedSeats = seatIds
+      .map(seatId => seats.find(seat => seat._id === seatId))
+      .filter((seat): seat is ISeat => seat !== undefined);
 
-    setValue('seat_id', selectedSeats);
-  }, [seatIds, setValue, seats]);
-
+    setSelectedSeats(prev => [...new Set([...prev, ...autoSelectedSeats])]);
+  }, [seatIds, seats]);
+  //
   const handleVehicleChange = (vehicleId: string) => {
     const vehicleName = vehicles.find(
       vehicle => vehicle._id === vehicleId
@@ -76,7 +74,37 @@ const ModalCreateTicketPageAdmin: React.FC<ModalCreateTicketProps> = ({
       handleGetListIdByVehicleName(vehicleName);
     }
   };
+  //
+  const handleSeatChange = (
+    newValue: MultiValue<{ value: string; label: string }>
+  ) => {
+    const seatData: ISeat[] = newValue
+      .map(option => {
+        const selectedSeat = seats.find(seat => seat._id === option.value);
+        return selectedSeat || null;
+      })
+      .filter((seat): seat is ISeat => seat !== null);
+    setSelectedSeats(seatData);
+    setValue('seat_id', seatData);
+  };
 
+  // const handleRemoveSeat = (seatId: string) => {
+  //   setSelectedSeats(prev => prev.filter(seat => seat._id !== seatId));
+  // };
+  {
+    /* {selectedSeats.map(seat => (
+                <div key={seat._id} className="flex items-center justify-between">
+                  <span>{seat.name}</span>
+                  <button
+                    type="button"
+                    onClick={() => handleRemoveSeat(seat._id)}
+                    className="text-red-500 hover:text-red-700"
+                  >
+                    Xóa
+                  </button>
+                </div>
+              ))} */
+  }
   if (!isOpen) return null;
 
   return (
@@ -87,13 +115,13 @@ const ModalCreateTicketPageAdmin: React.FC<ModalCreateTicketProps> = ({
       >
         <div
           onClick={e => e.stopPropagation()}
-          className="flex flex-col gap-5 rounded-lg bg-white p-10 text-start shadow dark:bg-gray-800"
+          className="flex flex-col gap-5 rounded-lg bg-white px-10 py-3 text-start shadow dark:bg-gray-800 xl:p-10"
         >
           <p className="text-xl font-bold text-black dark:text-white">
             Tạo vé mới
           </p>
-          <div className="flex flex-row items-start justify-center gap-2 md:gap-5">
-            <div className="flex flex-col gap-2">
+          <div className="flex flex-col items-start justify-center gap-1 xl:flex-row xl:gap-5">
+            <div className="flex flex-col gap-2 w-full">
               <LabelForm title={'Loại phương tiện'} />
               <DaisySelect
                 defaultValue=""
@@ -129,43 +157,21 @@ const ModalCreateTicketPageAdmin: React.FC<ModalCreateTicketProps> = ({
               <LabelForm title={'Chọn chỗ ngồi'} />
               <Select
                 isMulti
-                className="border-none text-primary"
+                isClearable
+                className="h-[70px] w-full overflow-auto border-none text-primary xl:h-[300px] xl:max-w-[500px]"
                 options={seats.map(seat => ({
                   value: seat._id,
                   label: seat.name || seat._id
                 }))}
-                value={seatIds.map(seatId => ({
-                  value: seatId,
-                  label: seats.find(seat => seat._id === seatId)?.name || ''
+                value={selectedSeats.map(seat => ({
+                  value: seat._id,
+                  label: seat.name || seat._id
                 }))}
-                onChange={selectedOptions => {
-                  const seatData: ISeat[] = selectedOptions
-                    .map(option => {
-                      const selectedSeat = seats.find(
-                        seat => seat._id === option.value
-                      );
-                      if (!selectedSeat) {
-                        return null;
-                      }
-                      return {
-                        _id: selectedSeat._id,
-                        name: selectedSeat.name || '',
-                        price: selectedSeat.price || 0,
-                        status: selectedSeat.status || '',
-                        ordinal_numbers: selectedSeat.ordinal_numbers || 0,
-                        seat_catalog_id: selectedSeat.seat_catalog_id,
-                        createAt: selectedSeat.createAt || '',
-                        updateAt: selectedSeat.updateAt || ''
-                      };
-                    })
-                    .filter(seat => seat !== null) as ISeat[];
-
-                  setValue('seat_id', seatData);
-                }}
+                onChange={handleSeatChange}
               />
             </div>
 
-            <div className="flex flex-col gap-2">
+            <div className="flex flex-col gap-2 w-full">
               <LabelForm title={'Loại vé'} />
               <DaisySelect
                 defaultValue=""
