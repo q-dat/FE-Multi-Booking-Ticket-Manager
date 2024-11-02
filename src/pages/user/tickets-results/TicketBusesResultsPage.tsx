@@ -155,60 +155,60 @@ const TicketBusesResultsPage: React.FC = () => {
               </div>
             ))}
           </div>
-
-          {selectedBus &&
-            ticketsByClass &&
-            Object.entries(ticketsByClass).map(
-              ([classId, classTickets]) => (
-                <div key={classId} className="mb-6 xl:mx-[20px]">
-                  <Button
-                    color="primary"
-                    size="sm"
-                    className="text-md mb-10 font-semibold text-white dark:bg-white dark:text-primary"
-                  >
-                    {classTickets[0].seat_id[0]?.seat_catalog_id.name}
-                  </Button>
-                  <p className='p-1 font-bold'>Vị trí:</p>
-                  <div className="flex flex-wrap items-center justify-between gap-2 rounded-xl border border-primary p-2 dark:border-white">
-                    {classTickets.map((ticket, index) => {
-                      const seatStatus = ticket.seat_id[0]?.status;
-
-                      return (
-                        <div
-                          onClick={() => handleSeatClick(ticket)}
-                          key={index}
-                          className={`relative flex h-10 w-1/4 items-center justify-center rounded-md border transition-all duration-200 ease-in-out ${seatStatus === 'Còn chỗ'
-                            ? 'cursor-pointer border-green-700 bg-green-500 text-white hover:bg-green-600'
-                            : 'cursor-not-allowed border-red-700 bg-red-500 text-white'
-                            } group`}
-                        >
-                          {ticket.seat_id[0]?.ordinal_numbers}
-
+          <div className=' flex flex-col  justify-center sm:flex-row '>
+            {selectedBus &&
+              ticketsByClass &&
+              Object.entries(ticketsByClass).map(
+                ([classId, classTickets]) => (
+                  <div key={classId} className="mb-6 xl:mx-[20px] w-full sm:w-[90%] md:w-[45%] pl-10">
+                    <Button
+                      color="primary"
+                      size="sm"
+                      className="text-md mb-10 font-semibold text-white dark:bg-white dark:text-primary"
+                    >
+                      {classTickets[0].seat_id[0]?.seat_catalog_id.name}
+                    </Button>
+                    <p className='p-1 font-bold'>Vị trí:</p>
+                    <div className="flex flex-wrap items-center gap-2 rounded-xl border border-primary p-3 dark:border-white w-[250px]">
+                      {classTickets.map((ticket, index) => {
+                        const seatStatus = ticket.seat_id[0]?.status;
+                        return (
                           <div
-                            className={`absolute bottom-10 left-1/2 z-10 w-[100px] -translate-x-1/2 transform rounded bg-white p-2 text-center text-xs text-black opacity-0 shadow-headerMenu shadow-primary transition-opacity duration-200 ease-in-out group-hover:opacity-100`}
+                            onClick={() => handleSeatClick(ticket)}
+                            key={index}
+                            className={`relative flex h-12 w-[30%] items-center justify-center rounded-md border transition-all duration-200 ease-in-out ${seatStatus === 'Còn chỗ'
+                              ? 'cursor-pointer border-green-700 bg-green-500 text-white hover:bg-green-600'
+                              : 'cursor-not-allowed border-red-700 bg-red-500 text-white'
+                              } group`}
                           >
-                            {seatStatus === 'Còn chỗ' ? (
-                              <>
-                                <strong>{ticket.seat_id[0]?.name}</strong>
-                                <p>
-                                  <strong>Giá:</strong>{' '}
-                                  {(ticket.price * 1000).toLocaleString(
-                                    'vi-VN'
-                                  )}{' '}
-                                  VNĐ
-                                </p>
-                              </>
-                            ) : (
-                              <p>{seatStatus}</p>
-                            )}
+                            {ticket.seat_id[0]?.ordinal_numbers}
+
+                            <div
+                              className={`absolute bottom-12 left-1/2 z-10 w-[100px] -translate-x-1/2 transform rounded bg-white p-2 text-center text-xs text-black opacity-0 shadow-headerMenu shadow-primary transition-opacity duration-200 ease-in-out group-hover:opacity-100`}
+                            >
+                              {seatStatus === 'Còn chỗ' ? (
+                                <>
+                                  <strong>{ticket.seat_id[0]?.name}</strong>
+                                  <p>
+                                    <strong>Giá:</strong>{' '}
+                                    {(ticket.price * 1000).toLocaleString(
+                                      'vi-VN'
+                                    )}{' '}
+                                    VNĐ
+                                  </p>
+                                </>
+                              ) : (
+                                <p>{seatStatus}</p>
+                              )}
+                            </div>
                           </div>
-                        </div>
-                      );
-                    })}
+                        );
+                      })}
+                    </div>
                   </div>
-                </div>
-              )
-            )}
+                )
+              )}
+          </div>
         </div>
         <div className="hidden w-full xl:block">
           <CartPage />
