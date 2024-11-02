@@ -160,11 +160,11 @@ const ModalCreateTicketPageAdmin: React.FC<ModalCreateTicketProps> = ({
                 ))}
               </DaisySelect>
 
-              <LabelForm title={'Chọn chỗ ngồi'} />
+              <LabelForm title={'Chỗ ngồi'} />
               <Select
                 isMulti
                 isClearable
-                className="h-[75px] w-full overflow-y-auto border-none text-primary md:h-full md:overflow-visible xl:max-w-[500px]"
+                className="h-[75px] w-full overflow-y-auto border-none text-primary md:h-full  xl:max-h-[200px] xl:max-w-[500px]"
                 options={seats.map(seat => ({
                   value: seat._id,
                   label: seat.name || seat._id
