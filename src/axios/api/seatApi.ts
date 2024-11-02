@@ -39,3 +39,12 @@ export const getListIdByVehicleNameApi = (vehicleName: string) => {
     params: { vehicleName }
   });
 };
+// Create multiple seats
+export const createMultipleSeatsApi = (data: { quantity: number; seatCatalogId: string; price: number }) => {
+  return axios.post<{ savedSeats: ISeat[] }>('/api/seats/multiple', data);
+};
+
+// Delete Seats by SeatCatalogId
+export const deleteSeatsByCatalogIdApi = (seatCatalogId: string) => {
+  return axios.delete(`/api/seats/catalog/${seatCatalogId}`);
+};

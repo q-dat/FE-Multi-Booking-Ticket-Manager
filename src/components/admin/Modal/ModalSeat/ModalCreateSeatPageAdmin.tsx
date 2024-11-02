@@ -18,7 +18,7 @@ const ModalCreateSeatPageAdmin: React.FC<ModalCreateSeatProps> = ({
 }) => {
   const { seatCatalogs, getAllSeatCatalogs, error } =
     useContext(SeatCatalogContext);
-  const { createSeat } = React.useContext(SeatContext);
+  const { createSeat } = useContext(SeatContext);
   const { register, handleSubmit, reset } = useForm<ISeat>();
 
   useEffect(() => {
@@ -94,7 +94,7 @@ const ModalCreateSeatPageAdmin: React.FC<ModalCreateSeatProps> = ({
               {...register('seat_catalog_id._id')}
             >
               <option value="" disabled>
-                Chọn danh mục
+                Chọn Danh Mục
               </option>
               {seatCatalogs.map(seatCatalog => (
                 <option key={seatCatalog._id} value={seatCatalog._id}>

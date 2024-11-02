@@ -1,10 +1,4 @@
-import {
-  createContext,
-  useState,
-  ReactNode,
-  useCallback,
-  useEffect
-} from 'react';
+import { createContext, useState, ReactNode, useCallback, useEffect } from 'react';
 import { ISeat } from '../../types/type/seat/seat';
 import {
   createSeatApi,
@@ -12,7 +6,9 @@ import {
   getSeatsApi,
   updateSeatApi,
   searchSeatsByVehicleNameApi,
-  getListIdByVehicleNameApi
+  getListIdByVehicleNameApi,
+  createMultipleSeatsApi,
+  deleteSeatsByCatalogIdApi
 } from '../../axios/api/seatApi';
 
 interface SeatContextType {
@@ -25,6 +21,8 @@ interface SeatContextType {
     delete: boolean;
     filter: boolean;
     getListIdByVehicleName: boolean;
+    createMultipleSeats: boolean;
+    deleteSeatsByCatalogId: boolean;
   };
   error: string | null;
   getAllSeats: () => void;
@@ -34,6 +32,12 @@ interface SeatContextType {
   deleteSeat: (_id: string) => Promise<void>;
   searchSeatsByName: (filterParams: Record<string, string>) => Promise<ISeat[]>;
   getListIdByVehicleName: (vehicleName: string) => void;
+  createMultipleSeats: (data: {
+    quantity: number;
+    seatCatalogId: string;
+    price: number;
+  }) => Promise<void>;
+  deleteSeatsByCatalogId: (seatCatalogId: string) => Promise<void>;
 }
 
 const defaultContextValue: SeatContextType = {
@@ -45,7 +49,9 @@ const defaultContextValue: SeatContextType = {
     update: false,
     delete: false,
     filter: false,
-    getListIdByVehicleName: false
+    getListIdByVehicleName: false,
+    createMultipleSeats: false,
+    deleteSeatsByCatalogId: false
   },
   error: null,
   getAllSeats: () => {},
@@ -54,14 +60,16 @@ const defaultContextValue: SeatContextType = {
   updateSeat: async () => {},
   deleteSeat: async () => {},
   searchSeatsByName: async () => [],
-  getListIdByVehicleName: async () => {}
+  getListIdByVehicleName: async () => {},
+  createMultipleSeats: async () => {},
+  deleteSeatsByCatalogId: async () => {}
 };
 
 export const SeatContext = createContext<SeatContextType>(defaultContextValue);
 
 export const SeatProvider = ({ children }: { children: ReactNode }) => {
   const [seats, setSeats] = useState<ISeat[]>([]);
-  const [seatIds, setSeatIds] = useState<string[]>([]); 
+  const [seatIds, setSeatIds] = useState<string[]>([]);
   const [loading, setLoading] = useState<{
     getAll: boolean;
     create: boolean;
@@ -69,13 +77,17 @@ export const SeatProvider = ({ children }: { children: ReactNode }) => {
     delete: boolean;
     filter: boolean;
     getListIdByVehicleName: boolean;
+    createMultipleSeats: boolean;
+    deleteSeatsByCatalogId: boolean;
   }>({
     getAll: false,
     create: false,
     update: false,
     delete: false,
     filter: false,
-    getListIdByVehicleName: false
+    getListIdByVehicleName: false,
+    createMultipleSeats: false,
+    deleteSeatsByCatalogId: false
   });
   const [error, setError] = useState<string | null>(null);
 
@@ -153,7 +165,7 @@ export const SeatProvider = ({ children }: { children: ReactNode }) => {
     );
   }, []);
 
-  //Search Seats By Vehicles
+  // Search Seats By Vehicles
   const searchSeatsByName = useCallback(
     async (filterParams: Record<string, string>): Promise<ISeat[]> => {
       await fetchData(
@@ -168,7 +180,7 @@ export const SeatProvider = ({ children }: { children: ReactNode }) => {
     [seats]
   );
 
-  //Get List_ID By VehicleName  
+  // Get List_ID By VehicleName
   const getListIdByVehicleName = useCallback((vehicleName: string) => {
     fetchData(
       () => getListIdByVehicleNameApi(vehicleName),
@@ -176,6 +188,43 @@ export const SeatProvider = ({ children }: { children: ReactNode }) => {
       'getListIdByVehicleName'
     );
   }, []);
+
+  // Create Multiple Seats
+  const createMultipleSeats = useCallback(
+    async (data: {
+      quantity: number;
+      seatCatalogId: string;
+      price: number;
+    }): Promise<void> => {
+      await fetchData(
+        () => createMultipleSeatsApi(data),
+        response => {
+          if (response.savedSeats) {
+            setSeats(prevSeats => [...prevSeats, ...response.savedSeats]);
+          }
+        },
+        'createMultipleSeats'
+      );
+    },
+    []
+  );
+
+  // Delete Seats by SeatCatalogId
+  const deleteSeatsByCatalogId = useCallback(
+    async (seatCatalogId: string): Promise<void> => {
+      await fetchData(
+        () => deleteSeatsByCatalogIdApi(seatCatalogId),
+        () => {
+          setSeats(prevSeats => 
+            prevSeats.filter(seat => seat.seat_catalog_id._id !== seatCatalogId)
+          );
+                  },
+        'deleteSeatsByCatalogId'
+      );
+    },
+    []
+  );
+
   useEffect(() => {
     getAllSeats();
   }, [getAllSeats]);
@@ -184,7 +233,7 @@ export const SeatProvider = ({ children }: { children: ReactNode }) => {
     <SeatContext.Provider
       value={{
         seats,
-        seatIds, 
+        seatIds,
         loading,
         error,
         getAllSeats,
@@ -193,7 +242,9 @@ export const SeatProvider = ({ children }: { children: ReactNode }) => {
         updateSeat,
         deleteSeat,
         searchSeatsByName,
-        getListIdByVehicleName
+        getListIdByVehicleName,
+        createMultipleSeats,
+        deleteSeatsByCatalogId
       }}
     >
       {children}

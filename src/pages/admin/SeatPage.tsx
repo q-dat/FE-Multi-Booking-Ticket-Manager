@@ -7,7 +7,7 @@ import { Button, Table } from 'react-daisyui';
 import ModalDeleteSeatPageAdmin from '../../components/admin/Modal/ModalSeat/ModalDeleteSeatPageAdmin';
 import ModalEditSeatPageAdmin from '../../components/admin/Modal/ModalSeat/ModalEditSeatPageAdmin';
 import ModalCreateSeatPageAdmin from '../../components/admin/Modal/ModalSeat/ModalCreateSeatPageAdmin';
-import { MdDelete } from 'react-icons/md';
+import { MdDelete, MdDeleteSweep } from 'react-icons/md';
 import ErrorLoading from '../../components/orther/error/ErrorLoading';
 import { FaCircleInfo, FaPenToSquare } from 'react-icons/fa6';
 import { isIErrorResponse } from '../../types/error/error';
@@ -17,21 +17,25 @@ import { SeatContext } from '../../context/seat/SeatContext';
 import { ISeat } from '../../types/type/seat/seat';
 import { LuFilter } from 'react-icons/lu';
 import { VehicleContext } from '../../context/vehicle/VehicleContext';
+import ModalCreatSeatMultiPageAdmin from '../../components/admin/Modal/ModalSeat/ModalCreatSeatMultiPageAdmin';
+import ModalDeleteSeatMultiPageAdmin from '../../components/admin/Modal/ModalSeat/ModalDeleteSeatMultiPageAdmin';
 
 const SeatPage: React.FC = () => {
   const { seats, loading, error, deleteSeat, getAllSeats, searchSeatsByName } =
     useContext(SeatContext);
   const { vehicles } = useContext(VehicleContext);
-
   const [isModalCreateOpen, setIsModalCreateOpen] = useState(false);
   const [isModalDeleteOpen, setIsModalDeleteOpen] = useState(false);
   const [isModalEditOpen, setIsModalEditOpen] = useState(false);
+  const [isModalCreateMultiOpen, setIsModalCreateMultiOpen] = useState(false);
+  const [isModalDeleteMultiOpen, setIsModalDeleteMultiOpen] = useState(false);
+  //
   const [selectedSeatId, setSelectedSeatId] = useState<string | null>(null);
   //
-
   useEffect(() => {
     getAllSeats();
   }, [getAllSeats]);
+  //
   const openModalCreateAdmin = () => setIsModalCreateOpen(true);
   const closeModalCreateAdmin = () => setIsModalCreateOpen(false);
   const openModalDeleteAdmin = (id: string) => {
@@ -44,22 +48,11 @@ const SeatPage: React.FC = () => {
     setIsModalEditOpen(true);
   };
   const closeModalEditAdmin = () => setIsModalEditOpen(false);
-  //Delete
-  const handleDeleteSeat = async () => {
-    if (selectedSeatId) {
-      try {
-        await deleteSeat(selectedSeatId);
-        closeModalDeleteAdmin();
-        Toastify('Bạn đã xoá ghế ngồi thành công', 201);
-        getAllSeats();
-      } catch (error) {
-        const errorMessage = isIErrorResponse(error)
-          ? error.data?.message
-          : 'Xoá ghế ngồi thất bại!';
-        Toastify(`Lỗi: ${errorMessage}`, 500);
-      }
-    }
-  };
+  const openModalCreateMultiAdmin = () => setIsModalCreateMultiOpen(true);
+  const closeModalCreateMultiAdmin = () => setIsModalCreateMultiOpen(false);
+  const openModalDeleteMultiAdmin = () => setIsModalDeleteMultiOpen(true);
+  const closeModalDeleteMultiAdmin = () => setIsModalDeleteMultiOpen(false);
+
   const [fillter, setFillter] = useState<string[]>([
     'STT',
     'Tên',
@@ -116,6 +109,22 @@ const SeatPage: React.FC = () => {
     setter(newValue);
     setShouldSearch(true);
   };
+  //Delete
+  const handleDeleteSeat = async () => {
+    if (selectedSeatId) {
+      try {
+        await deleteSeat(selectedSeatId);
+        closeModalDeleteAdmin();
+        Toastify('Bạn đã xoá ghế ngồi thành công', 201);
+        getAllSeats();
+      } catch (error) {
+        const errorMessage = isIErrorResponse(error)
+          ? error.data?.message
+          : 'Xoá ghế ngồi thất bại!';
+        Toastify(`Lỗi: ${errorMessage}`, 500);
+      }
+    }
+  };
 
   if (loading.getAll) return <LoadingLocal />;
   if (error) return <ErrorLoading />;
@@ -128,6 +137,29 @@ const SeatPage: React.FC = () => {
           Title_NavtitleAdmin="Quản Lý Ghế Ngồi"
           Btn_Create={
             <div className="flex flex-col items-start justify-center gap-2 md:flex-row md:items-end">
+              {/*  */}
+              <Button
+                color="error"
+                onClick={openModalDeleteMultiAdmin}
+                className="w-[200px] text-sm font-light text-white"
+              >
+                <div className="flex items-center space-x-1">
+                  <MdDeleteSweep className="text-xl" />
+                  <p>Xoá DS Ghế</p>
+                </div>
+              </Button>
+              {/*  */}
+              <Button
+                  color="success"
+                  onClick={openModalCreateMultiAdmin}
+                className="w-[200px] text-sm font-light text-white"
+              >
+                <div className="flex items-center space-x-1">
+                  <RiAddBoxLine className="text-xl" />
+                  <p>Thêm DS Ghế</p>
+                </div>
+              </Button>
+              {/*  */}
               <div className="flex flex-row gap-2">
                 <Button
                   color="success"
@@ -140,7 +172,7 @@ const SeatPage: React.FC = () => {
                   </div>
                 </Button>
                 {/*  */}
-                <div className="dropdown dropdown-hover relative flex h-12 w-[100px] cursor-pointer flex-col items-center justify-center rounded-md bg-primary text-white">
+                <div className="dropdown dropdown-hover relative flex h-12 w-[100px] cursor-pointer flex-col items-center justify-center rounded-md bg-primary">
                   <Button color="primary" className="font-light text-white">
                     <LuFilter className="text-xl" color="white" />
                     Lọc
@@ -356,6 +388,14 @@ const SeatPage: React.FC = () => {
             ))}
           </Table.Body>
         }
+      />
+      <ModalDeleteSeatMultiPageAdmin
+        isOpen={isModalDeleteMultiOpen}
+        onClose={closeModalDeleteMultiAdmin}
+      />
+      <ModalCreatSeatMultiPageAdmin
+        isOpen={isModalCreateMultiOpen}
+        onClose={closeModalCreateMultiAdmin}
       />
       <ModalCreateSeatPageAdmin
         isOpen={isModalCreateOpen}

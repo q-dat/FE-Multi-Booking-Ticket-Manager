@@ -304,7 +304,7 @@ const TicketPage: React.FC = () => {
                   Thêm
                 </Button>
                 {/*  */}
-                <div className="dropdown dropdown-hover relative flex h-12 min-w-[100px] cursor-grab flex-col items-center justify-center rounded-md bg-primary text-white">
+                <div className="dropdown dropdown-hover relative flex h-12 min-w-[100px] cursor-grab flex-col items-center justify-center rounded-md bg-primary ">
                   <Button color="primary" className="font-light text-white">
                     <LuFilter className="text-xl" color="white" />
                     Lọc
@@ -402,9 +402,9 @@ const TicketPage: React.FC = () => {
                 </div>
 
                 {/*  */}
-                <div className="dropdown dropdown-hover relative flex h-12 min-w-[100px] cursor-pointer flex-col items-center justify-center rounded-md bg-primary text-white">
+                <div className="dropdown dropdown-hover relative flex h-12 min-w-[100px] cursor-pointer flex-col items-center justify-center rounded-md bg-primary">
                   <p className="">
-                    <RiListSettingsLine className="text-xl" />
+                    <RiListSettingsLine className="text-xl text-white" />
                   </p>
                   <div className="dropdown-content absolute top-[100%] z-10 w-52 space-y-1 rounded-md bg-slate-50 p-2 shadow-headerMenu drop-shadow-md">
                     {list.map((items, index) => (
