@@ -7,6 +7,8 @@ import { ITicket } from '../../../types/type/ticket/ticket';
 import { useCart } from '../../../context/cart/CartContext';
 import CartPage from '../CartPage';
 import { Button } from 'react-daisyui';
+import { GiSteeringWheel } from "react-icons/gi";
+import { GiBusDoors } from "react-icons/gi";
 
 const TicketBusesResultsPage: React.FC = () => {
   const { t } = useTranslation();
@@ -105,10 +107,10 @@ const TicketBusesResultsPage: React.FC = () => {
             <strong>{tripInfo.destination_point.name}</strong> &nbsp;(<strong>{tickets[0]?.seat_id[0]?.seat_catalog_id.vehicle_id.name}</strong>)
           </h1>
 
-          <div className="mb-8 flex flex-wrap justify-center space-x-4">
+          <div className="mb-8 flex flex-wrap justify-center space-x-16">
             {Object.entries(ticketsByBus).map(([busName, busTickets]) => (
               <div
-                className={`hover:bg-white group mb-4 flex h-[250px] w-[250px] cursor-pointer flex-col items-center justify-around rounded-[30px] border bg-black bg-opacity-20 p-1 px-2 shadow-lg ${selectedBus === busName ? 'bg-primary bg-opacity-100' : ''}`}
+                className={`hover:bg-white group mb-4 flex h-[250px] w-[225px] cursor-pointer flex-col items-center justify-around rounded-[30px] border bg-black bg-opacity-20 p-1 px-2 shadow-lg ${selectedBus === busName ? 'bg-primary bg-opacity-100' : ''}`}
                 onClick={() => setSelectedBus(busName)}
                 key={busName}
               >
@@ -137,18 +139,17 @@ const TicketBusesResultsPage: React.FC = () => {
                   <div className="h-6 w-6 rounded-full bg-white group-hover:border group-hover:border-white group-hover:bg-primary dark:group-hover:bg-secondary"></div>
                   <div className="w-9">
                     <hr className="w-full border-white border-2 group-hover:border-gray-400" />
-
                     <hr className="w-full border-white border-2 group-hover:border-gray-400" />
                   </div>
                   <div className="h-6 w-6 rounded-full bg-white group-hover:border group-hover:border-white group-hover:bg-primary dark:group-hover:bg-secondary"></div>
                 </div>
                 <div className='relative'>
                   <div
-                    className="w-[40px] h-[50px] bg-slate-400 bg-opacity-100 absolute left-32 bottom-36 rounded-r-full"
+                    className="w-[35px] h-[50px] bg-slate-400 bg-opacity-100 absolute left-28 bottom-36 rounded-r-full"
                     style={{ clipPath: "polygon(0 60%, 100% 50%, 100% 100%, 0% 100%)" }}
                   />
                   <div
-                    className="w-[40px] h-[50px] bg-slate-400 bg-opacity-100 absolute right-32 bottom-36 rounded-l-full"
+                    className="w-[40px] h-[50px] bg-slate-400 bg-opacity-100 absolute right-28 bottom-36 rounded-l-full"
                     style={{ clipPath: "polygon(0% 50%, 100% 60%, 100% 100%, 0% 100%)" }}
                   />
                 </div>
@@ -168,23 +169,39 @@ const TicketBusesResultsPage: React.FC = () => {
                     >
                       {classTickets[0].seat_id[0]?.seat_catalog_id.name}
                     </Button>
-                    <p className='p-1 font-bold'>Vị trí:</p>
-                    <div className="flex flex-wrap items-center gap-2 rounded-xl border border-primary p-3 dark:border-white w-[250px]">
+                    <p className='p-1 font-bold'>Vị trí ghế ngồi:</p>
+                    <div className='flex'>
+                      <Button
+                        size="md"
+                        className="text-black  shadow-xl "
+                      >
+                        <GiSteeringWheel />
+                        Lái Xe
+                      </Button>
+                      <Button
+                        size="md"
+                        className="text-black mb-2 ml-10 shadow-xl"
+                      >
+                        <GiBusDoors />
+                        Cửa Lên
+                      </Button>
+                    </div>
+                    <div className="flex flex-wrap items-center gap-4 rounded-xl  dark:border-white w-[250px]">
                       {classTickets.map((ticket, index) => {
                         const seatStatus = ticket.seat_id[0]?.status;
                         return (
                           <div
                             onClick={() => handleSeatClick(ticket)}
                             key={index}
-                            className={`relative flex h-12 w-[30%] items-center justify-center rounded-md border transition-all duration-200 ease-in-out ${seatStatus === 'Còn chỗ'
-                              ? 'cursor-pointer border-green-700 bg-green-500 text-white hover:bg-green-600'
-                              : 'cursor-not-allowed border-red-700 bg-red-500 text-white'
-                              } group`}
+                            className={`relative flex h-12 w-1/4 items-center justify-center rounded-md border transition-all duration-200 ease-in-out ${seatStatus === 'Còn chỗ'
+                              ? 'cursor-pointer  border-blue-500 bg-blue-300 text-black hover:bg-blue-400'
+                              : 'cursor-not-allowed border-gray-500 bg-gray-500 text-white'
+                              } group m-1`}
                           >
                             {ticket.seat_id[0]?.ordinal_numbers}
 
                             <div
-                              className={`absolute bottom-12 left-1/2 z-10 w-[100px] -translate-x-1/2 transform rounded bg-white p-2 text-center text-xs text-black opacity-0 shadow-headerMenu shadow-primary transition-opacity duration-200 ease-in-out group-hover:opacity-100`}
+                              className={`absolute -bottom-8 left-1/2 z-10 w-[100px] -translate-x-1/2 transform rounded bg-white p-2 text-center text-xs text-black opacity-0 group-hover:opacity-100 shadow-headerMenu shadow-primary transition-opacity duration-200 ease-in-out `}
                             >
                               {seatStatus === 'Còn chỗ' ? (
                                 <>
