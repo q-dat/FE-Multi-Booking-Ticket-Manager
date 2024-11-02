@@ -237,7 +237,7 @@ const TicketTrainsResultsPage: React.FC = () => {
                           <div
                             onClick={() => addSeat(ticket)}
                             key={index}
-                            className={`relative flex h-10 w-10 items-center justify-center rounded-md shadow-headerMenu shadow-black transition-all duration-200 ease-in-out ${
+                            className={`relative flex h-8 w-8 items-center justify-center rounded-md shadow-headerMenu shadow-black transition-all duration-200 ease-in-out font-semibold ${
                               seatStatus === 'Hết chỗ'
                                 ? 'cursor-not-allowed border-red-700 bg-red-500 text-white'
                                 : seatStatus === 'Còn chỗ'
