@@ -452,6 +452,11 @@
     "@jridgewell/resolve-uri" "^3.1.0"
     "@jridgewell/sourcemap-codec" "^1.4.14"
 
+"@kurkle/color@^0.3.0":
+  version "0.3.2"
+  resolved "https://registry.yarnpkg.com/@kurkle/color/-/color-0.3.2.tgz#5acd38242e8bde4f9986e7913c8fdf49d3aa199f"
+  integrity sha512-fuscdXJ9G1qb7W8VdHi+IwRqij3lBkosAm4ydQtEmbY58OzHXqQhvlxqEkoz0yssNVn38bcpRWgA9PP+OGoisw==
+
 "@messageformat/core@^3.0.0":
   version "3.3.0"
   resolved "https://registry.npmjs.org/@messageformat/core/-/core-3.3.0.tgz"
@@ -1038,6 +1043,13 @@ chalk@^4.0.0:
     ansi-styles "^4.1.0"
     supports-color "^7.1.0"
 
+chart.js@^4.4.6:
+  version "4.4.6"
+  resolved "https://registry.yarnpkg.com/chart.js/-/chart.js-4.4.6.tgz#da39b84ca752298270d4c0519675c7659936abec"
+  integrity sha512-8Y406zevUPbbIBA/HRk33khEmQPk5+cxeflWE/2rx1NJsjVWMPw/9mSP9rxHP5eqi6LNoPBVMfZHxbwLSgldYA==
+  dependencies:
+    "@kurkle/color" "^0.3.0"
+
 chokidar@^3.5.3:
   version "3.6.0"
   resolved "https://registry.npmjs.org/chokidar/-/chokidar-3.6.0.tgz"
@@ -1174,8 +1186,9 @@ daisyui@^4.12.10:
     "@tanstack/react-query" "^5.51.21"
     axios "^1.7.3"
     boring-avatars "^1.10.2"
+    chart.js "^4.4.6"
     daisyui "^4.12.10"
-    datn "file:../../Library/Caches/Yarn/v6/npm-datn-0.0.0-ac67b8fb-5a0d-48df-a43e-e8cb0a9db432-1729680593684/node_modules/datn"
+    datn "file:C:/Users/datng/AppData/Local/Yarn/Cache/v6/npm-datn-0.0.0-672be16b-ef92-4009-8824-94673a298499-1730516611446/node_modules/datn"
     eslint-config-prettier "^9.1.0"
     eslint-plugin-prettier "^5.2.1"
     i18n "^0.15.1"
@@ -1184,6 +1197,7 @@ daisyui@^4.12.10:
     i18next-http-backend "^2.6.1"
     i18next-resources-for-ts "^1.5.0"
     react "^18.3.1"
+    react-chartjs-2 "^5.2.0"
     react-country-flag "^3.1.0"
     react-daisyui "^5.0.0"
     react-dom "^18.3.1"
@@ -1192,6 +1206,7 @@ daisyui@^4.12.10:
     react-icons "^5.2.1"
     react-redux "^9.1.2"
     react-router-dom "^6.25.1"
+    react-select "^5.8.1"
     react-spinners "^0.14.1"
     react-toastify "^10.0.5"
     redux-persist "^6.0.0"
@@ -2227,6 +2242,11 @@ queue-microtask@^1.2.2:
   version "1.2.3"
   resolved "https://registry.npmjs.org/queue-microtask/-/queue-microtask-1.2.3.tgz"
   integrity sha512-NuaNSa6flKT5JaSYQzJok04JzTL1CA6aGhv5rfLW3PgqA+M2ChpZQnAC8h8i4ZFkBS8X5RqkDBHA7r4hej3K9A==
+
+react-chartjs-2@^5.2.0:
+  version "5.2.0"
+  resolved "https://registry.yarnpkg.com/react-chartjs-2/-/react-chartjs-2-5.2.0.tgz#43c1e3549071c00a1a083ecbd26c1ad34d385f5d"
+  integrity sha512-98iN5aguJyVSxp5U3CblRLH67J8gkfyGNbiK3c+l1QI/G4irHMPQw44aEPmjVag+YKTyQ260NcF82GTQ3bdscA==
 
 react-country-flag@^3.1.0:
   version "3.1.0"
