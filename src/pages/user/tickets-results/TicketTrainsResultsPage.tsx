@@ -192,17 +192,19 @@ const TicketTrainsResultsPage: React.FC = () => {
           {/* SeatCatalog */}
           {selectedTrain && ticketsByCarriage && (
             <div>
-              <div className="mb-4 flex flex-row items-center justify-center space-x-2">
+              <div className="mb-4 flex flex-row items-center justify-center ">
                 <img
                   width={50}
                   height={50}
                   src='https://i.ibb.co/3sKMBgp/tau.jpg'
                   alt="Vehicle"
-                  className="scale-x-[-1]"
+                  className="scale-x-[-1] rounded-md rounded-r-full"
                 />
                 {Object.entries(ticketsByCarriage).map(
                   ([classId, classTickets]) => (
-                    <Button
+                   <div className=' flex flex-row items-end justify-center '>
+                    <strong className='text-black dark:text-white'>-</strong>
+                     <Button
                       key={classId}
                       size='sm'
                       onClick={() => setSelectedClassId(classId)}
@@ -214,6 +216,7 @@ const TicketTrainsResultsPage: React.FC = () => {
                     >
                       {classTickets[0].seat_id[0]?.seat_catalog_id.name}
                     </Button>
+                   </div>
                   )
                 )}
               </div>
