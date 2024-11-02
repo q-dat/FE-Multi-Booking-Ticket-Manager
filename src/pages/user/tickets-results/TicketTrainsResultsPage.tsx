@@ -192,18 +192,24 @@ const TicketTrainsResultsPage: React.FC = () => {
           {/* SeatCatalog */}
           {selectedTrain && ticketsByCarriage && (
             <div>
-              <div className="mb-4 flex justify-center space-x-4">
+              <div className="mb-4 flex flex-row items-center justify-center space-x-2">
+                <img
+                  width={50}
+                  height={50}
+                  src='https://i.ibb.co/3sKMBgp/tau.jpg'
+                  alt="Vehicle"
+                  className="scale-x-[-1]"
+                />
                 {Object.entries(ticketsByCarriage).map(
                   ([classId, classTickets]) => (
                     <Button
                       key={classId}
-                      color="primary"
-                      size="sm"
+                      size='sm'
                       onClick={() => setSelectedClassId(classId)}
-                      className={`text-md font-semibold text-white dark:bg-white dark:text-primary ${
+                      className={`text-md  p-1 text-xs font-light text-white border border-white hover:bg-secondary  ${
                         selectedClassId === classId
-                          ? 'bg-opacity-100'
-                          : 'bg-opacity-50'
+                          ? ' bg-primary'
+                          : 'bg-gray-50'
                       }`}
                     >
                       {classTickets[0].seat_id[0]?.seat_catalog_id.name}
@@ -211,9 +217,9 @@ const TicketTrainsResultsPage: React.FC = () => {
                   )
                 )}
               </div>
-              <div className="p-4">
+              <div className="">
                 {selectedClassId && ticketsByCarriage[selectedClassId] && (
-                  <div className="flex flex-wrap items-center justify-between gap-x-2 gap-y-8 rounded-xl border border-primary p-2 dark:border-white">
+                  <div className="grid-cols-14 grid grid-flow-col grid-rows-3 items-center justify-around gap-x-1 gap-y-6 overflow-x-auto rounded-xl border border-primary p-2 scrollbar-hide dark:border-white xl:overflow-visible">
                     {ticketsByCarriage[selectedClassId]
                       .sort(
                         (a, b) =>
@@ -226,7 +232,7 @@ const TicketTrainsResultsPage: React.FC = () => {
                           <div
                             onClick={() => addSeat(ticket)}
                             key={index}
-                            className={`relative flex h-14 w-14 items-center justify-center rounded-md border transition-all duration-200 ease-in-out ${
+                            className={`relative flex h-8 w-8 items-center justify-center rounded-md border transition-all duration-200 ease-in-out ${
                               seatStatus === 'Hết chỗ'
                                 ? 'cursor-not-allowed border-red-700 bg-red-500 text-white'
                                 : seatStatus === 'Còn chỗ'
@@ -236,7 +242,7 @@ const TicketTrainsResultsPage: React.FC = () => {
                           >
                             {ticket.seat_id[0]?.ordinal_numbers}
                             <div
-                              className={`absolute bottom-10 left-1/2 z-10 w-[100px] -translate-x-1/2 transform rounded bg-white p-2 text-center text-xs text-black opacity-0 shadow-headerMenu shadow-primary transition-opacity duration-200 ease-in-out group-hover:opacity-100`}
+                              className={`pointer-events-none absolute bottom-10 left-1/2 z-[99999] w-[100px] -translate-x-1/2 transform rounded bg-white p-2 text-center text-xs text-black opacity-0 shadow-headerMenu shadow-primary transition-opacity duration-200 ease-in-out group-hover:opacity-100`}
                             >
                               {seatStatus === 'Còn chỗ' ? (
                                 <>
