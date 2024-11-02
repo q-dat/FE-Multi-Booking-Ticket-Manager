@@ -148,7 +148,7 @@ const TicketTrainsResultsPage: React.FC = () => {
           <div className="mb-8 flex w-full flex-row items-center justify-center gap-5 overflow-x-auto scrollbar-hide">
             {Object.entries(ticketsByTrain).map(([trainName, trainTickets]) => (
               <div
-                className={`boder-white group mb-4 flex h-[180px] w-[180px] cursor-pointer flex-col items-center justify-around gap-2 rounded-[30px] border bg-black bg-opacity-20 p-1 px-2 shadow-lg ${selectedTrain === trainName ? 'bg-primary bg-opacity-100' : ''}`}
+                className={`boder-white group mb-4 flex h-[180px] w-[180px] cursor-pointer flex-col items-center justify-around gap-2 rounded-[30px] border bg-black bg-opacity-20 p-1 px-2 shadow-lg ${selectedTrain === trainName ? 'bg-primary bg-opacity-60' : ''}`}
                 onClick={() => handleTrainChange(trainName)}
                 key={trainName}
               >
@@ -192,37 +192,39 @@ const TicketTrainsResultsPage: React.FC = () => {
           {/* SeatCatalog */}
           {selectedTrain && ticketsByCarriage && (
             <div>
-              <div className="mb-4 flex flex-row items-center justify-center ">
+              <div className="mb-4 flex flex-row items-center justify-center">
                 <img
                   width={50}
                   height={50}
-                  src='https://i.ibb.co/3sKMBgp/tau.jpg'
+                  src="https://i.ibb.co/3sKMBgp/tau.jpg"
                   alt="Vehicle"
                   className="scale-x-[-1] rounded-md rounded-r-full"
                 />
                 {Object.entries(ticketsByCarriage).map(
                   ([classId, classTickets]) => (
-                   <div className=' flex flex-row items-end justify-center '>
-                    <strong className='text-black dark:text-white'>-</strong>
-                     <Button
-                      key={classId}
-                      size='sm'
-                      onClick={() => setSelectedClassId(classId)}
-                      className={`text-md  p-1 text-xs font-light text-white border border-white hover:bg-secondary  ${
-                        selectedClassId === classId
-                          ? ' bg-primary'
-                          : 'bg-gray-50'
-                      }`}
-                    >
-                      {classTickets[0].seat_id[0]?.seat_catalog_id.name}
-                    </Button>
-                   </div>
+                    <div className="flex flex-row items-end justify-center">
+                      <strong className="text-black dark:text-white">-</strong>
+                      <div className="rounded-sm border border-b-[5px] border-l-0 border-r-0 border-t-0 border-dotted border-black dark:border-white">
+                        <Button
+                          key={classId}
+                          size="xs"
+                          onClick={() => setSelectedClassId(classId)}
+                          className={`text-md rounded-sm border-none text-xs font-semibold shadow-headerMenu shadow-black hover:bg-secondary ${
+                            selectedClassId === classId
+                              ? 'bg-[#0084c1] text-white'
+                              : 'bg-black bg-opacity-20 text-black dark:bg-white dark:text-[#0084c1]'
+                          }`}
+                        >
+                          {classTickets[0].seat_id[0]?.seat_catalog_id.name}
+                        </Button>
+                      </div>
+                    </div>
                   )
                 )}
               </div>
               <div className="">
                 {selectedClassId && ticketsByCarriage[selectedClassId] && (
-                  <div className="grid-cols-14 grid grid-flow-col grid-rows-3 items-center justify-around gap-x-1 gap-y-6 overflow-x-auto rounded-xl border border-primary p-2 scrollbar-hide dark:border-white xl:overflow-visible">
+                  <div className="zebra-background grid-cols-14 grid grid-flow-col grid-rows-3 items-center justify-around gap-x-1 gap-y-10 overflow-x-auto rounded-xl border border-l-0 border-r-0 border-primary p-2 scrollbar-hide dark:border-white xl:overflow-visible">
                     {ticketsByCarriage[selectedClassId]
                       .sort(
                         (a, b) =>
@@ -235,7 +237,7 @@ const TicketTrainsResultsPage: React.FC = () => {
                           <div
                             onClick={() => addSeat(ticket)}
                             key={index}
-                            className={`relative flex h-8 w-8 items-center justify-center rounded-md border transition-all duration-200 ease-in-out ${
+                            className={`relative flex h-10 w-10 items-center justify-center rounded-md shadow-headerMenu shadow-black transition-all duration-200 ease-in-out ${
                               seatStatus === 'Hết chỗ'
                                 ? 'cursor-not-allowed border-red-700 bg-red-500 text-white'
                                 : seatStatus === 'Còn chỗ'

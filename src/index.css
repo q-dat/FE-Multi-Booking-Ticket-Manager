@@ -63,3 +63,19 @@
   border: 1px solid #ccc;
   padding: 10px;
 }
+.zebra-background {
+  background-image: 
+    linear-gradient(#fff 23%, transparent 20%),
+    linear-gradient(#ddd 25%, transparent 20%),
+    linear-gradient(#fff 28%, transparent 20%),
+    linear-gradient(#ddd 25%, transparent 20%),
+    linear-gradient(#fff 30%, transparent 20%);
+
+  background-size: 100%;
+  background-position:
+    0 0,
+    0 30px,
+    0 60px,
+    0 100px,
+    0 140px;
+}
