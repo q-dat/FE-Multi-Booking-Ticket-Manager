@@ -37,7 +37,7 @@ const CheckoutPage: React.FC = () => {
 
   useEffect(() => {
     if (selectedSeats.length === 0) {
-      navigate('/ticket-trains-results');
+      navigate('/');
     }
   }, [selectedSeats, navigate]);
 
@@ -121,7 +121,7 @@ const CheckoutPage: React.FC = () => {
       if (method === 'cod') {
         const response = await axios.post('/api/order/place', orderData);
         if (response.data.success) {
-          await updateSeatStatusApi(selectedSeats); 
+          await updateSeatStatusApi(selectedSeats);
           Toastify('Bạn đã đặt vé thành công', 201);
           clearSeats();
         }
@@ -129,8 +129,8 @@ const CheckoutPage: React.FC = () => {
         const responseStripe = await axios.post('/api/order/stripe', orderData);
         if (responseStripe.data.success) {
           const { session_url } = responseStripe.data;
-          await updateSeatStatusApi(selectedSeats); 
-          clearSeats(); 
+          await updateSeatStatusApi(selectedSeats);
+          clearSeats();
           window.location.replace(session_url);
         }
       } else {
