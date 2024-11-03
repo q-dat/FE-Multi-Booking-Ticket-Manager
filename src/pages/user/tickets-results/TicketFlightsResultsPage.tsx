@@ -37,8 +37,12 @@ const TicketFlightsResultsPage: React.FC = () => {
             }
             const freshTicket = allTickets.find(t => t._id === ticket._id);
             return freshTicket || ticket;
-          });
-
+          })
+          .sort(
+            (a, b) =>
+              a.seat_id[0]?.ordinal_numbers -
+              b.seat_id[0]?.ordinal_numbers
+          )
           setTickets(updatedTickets);
           sessionStorage.setItem('searchResults', JSON.stringify(updatedTickets));
 
@@ -129,13 +133,13 @@ const TicketFlightsResultsPage: React.FC = () => {
           </h1>
           <div className="mb-8 flex w-full flex-row items-center justify-center overflow-x-auto scrollbar-hide">
             {Object.entries(ticketsByFlight).map(([flightName, flightTickets]) => (
-              
-                <><div
+
+              <><div
                 className="w-[100px] h-[100px] bg-primary bg-opacity-100"
                 style={{ clipPath: "polygon(20% 75%, 100% 60%, 100% 100%, 0% 100%)" }} /><div
-                className={`group mb-4 flex h-[260px] w-[180px] cursor-pointer flex-col items-center justify-around gap-1 rounded-[150px] border border-white bg-black bg-opacity-20 p-12 shadow-lg 
+                  className={`group mb-4 flex h-[260px] w-[180px] cursor-pointer flex-col items-center justify-around gap-1 rounded-[150px] border border-white bg-black bg-opacity-20 p-12 shadow-lg 
                   ${selectedFlight === flightName ? 'bg-primary bg-opacity-100' : ''}`}
-  
+
                   onClick={() => handleFlightChange(flightName)}
                   key={flightName}
                 >
@@ -174,8 +178,8 @@ const TicketFlightsResultsPage: React.FC = () => {
                       size="sm"
                       onClick={() => setSelectedClassId(classId)}
                       className={`text-md font-semibold text-white dark:bg-white dark:text-primary ${selectedClassId === classId
-                          ? 'bg-opacity-100'
-                          : 'bg-opacity-50'
+                        ? 'bg-opacity-100'
+                        : 'bg-opacity-50'
                         }`}
                     >
                       {classTickets[0].seat_id[0]?.seat_catalog_id.name}
@@ -193,15 +197,16 @@ const TicketFlightsResultsPage: React.FC = () => {
                           onClick={() => addSeat(ticket)}
                           key={index}
                           className={`relative flex h-14 w-14 items-center justify-center rounded-md border transition-all duration-200 ease-in-out ${seatStatus === 'Hết chỗ'
-                              ? 'cursor-not-allowed border-red-700 bg-red-500 text-white'
-                              : seatStatus === 'Còn chỗ'
-                                ? 'cursor-pointer border-green-700 bg-green-500 text-white hover:bg-green-600'
-                                : 'cursor-progress border-gray-300 bg-white font-bold text-black'
+                            ? 'cursor-not-allowed border-red-700 bg-red-500 text-white'
+                            : seatStatus === 'Còn chỗ'
+
+                              ? 'cursor-pointer border-green-700 bg-green-500 text-white hover:bg-green-600'
+                              : 'cursor-progress border-gray-300 bg-white font-bold text-black'
                             } group`}
                         >
                           {ticket.seat_id[0]?.ordinal_numbers}
                           <div
-                            className={`absolute bottom-10 left-1/2 z-10 w-[100px] -translate-x-1/2 transform rounded bg-white p-2 text-center text-xs text-black opacity-0 shadow-headerMenu shadow-primary transition-opacity duration-200 ease-in-out group-hover:opacity-100`}
+                            className={`absolute pointer-events-none bottom-10 left-1/2 z-10 w-[100px] -translate-x-1/2 transform rounded bg-white p-2 text-center text-xs text-black opacity-0 shadow-headerMenu shadow-primary transition-opacity duration-200 ease-in-out group-hover:opacity-100`}
                           >
                             {seatStatus === 'Còn chỗ' ? (
                               <>
