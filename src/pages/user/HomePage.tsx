@@ -128,7 +128,7 @@ const Home: React.FC = () => {
     <div className="pb-[20px] xl:pt-[80px]">
       {/* Mobile */}
       <div>
-        <HeaderResponsive Title_NavbarMobile="Trang Chủ" />
+        <HeaderResponsive Title_NavbarMobile={t('UserPage.Navbar.Home')} />
       </div>
       {/* Banner */}
       <div className="relative">

@@ -9,6 +9,7 @@ import { useNavigate } from 'react-router-dom';
 import { ITicket } from '../../types/type/ticket/ticket';
 import { updateSeatApi } from '../../axios/api/seatApi';
 import { isIErrorResponse } from '../../types/error/error';
+import HeaderResponsive from '../../components/UserPage/HeaderResponsive';
 
 interface FormData {
   fullName: string;
@@ -146,6 +147,7 @@ const CheckoutPage: React.FC = () => {
 
   return (
     <div className="pb-[20px] xl:pt-[80px]">
+        <HeaderResponsive Title_NavbarMobile="Thanh Toán" />
       <div className="w-full mx-auto px-4 sm:px-8 md:px-24 py-2">
         {/* Header */}
         <div className="hidden sm:grid grid-cols-6 bg-red-200 p-4">

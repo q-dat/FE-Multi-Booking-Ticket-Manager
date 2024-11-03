@@ -9,7 +9,7 @@ const CheckTicketPage: React.FC = () => {
   return (
     <div className="pb-[20px] xl:pt-[80px]">
       {/* Mobile */}
-      <HeaderResponsive Title_NavbarMobile="Kiểm Tra Vé" />
+      <HeaderResponsive Title_NavbarMobile={t('UserPage.Navbar.CheckTicket')}/>
       <div className="w-full">
         {/*  */}
         <div className="my-4 text-center">

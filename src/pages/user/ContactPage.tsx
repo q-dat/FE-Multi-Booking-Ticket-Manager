@@ -46,7 +46,7 @@ const ContactPage: React.FC = () => {
 
   return (
     <div className="xl:pt-[80px]">
-      <HeaderResponsive Title_NavbarMobile="Liên Hệ" />
+      <HeaderResponsive Title_NavbarMobile={t('UserPage.Navbar.Contact')} />
       <div className="my-4 text-center">
         <p className="w-full text-[40px] font-bold uppercase text-primary dark:text-white">
           {t('UserPage.ContactUs')}
