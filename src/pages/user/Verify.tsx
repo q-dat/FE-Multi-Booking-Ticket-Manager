@@ -20,7 +20,7 @@ const Verify: React.FC = () => {
       if (response.data.success) {
         navigate('/')
       } else {
-        navigate('/ticket-trains-results')
+        navigate('/checkout')
       }
 
     } catch (error) {
@@ -37,7 +37,7 @@ const Verify: React.FC = () => {
 
   return (
     <div className="pb-[20px] xl:pt-[80px]">
-      Thanh toán thành công!!!
+      Thanh toán thành công, vui lòng kiểm tra gmail!!!
     </div>
   )
 
