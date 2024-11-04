@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import axios from '../../config/axiosConfig';
-import LogoAdmin from '../../assets/image-represent/payment/parcel_icon.svg';
 import NavbarMobile from '../../components/admin/Reponsive/Mobile/NavbarMobile';
 import NavtitleAdmin from '../../components/admin/NavtitleAdmin';
 import { Toastify } from '../../helper/Toastify';
+import { LogoOrder } from '../../assets/image-represent';
 
 interface Item {
   departureDate: Date;
+  destinationDate: Date;
+  ticketCatalog: string;
   time: string;
   departurePoint: string;
   destinationPoint: string;
@@ -40,6 +42,7 @@ interface Order {
 
 const OrderPage: React.FC = () => {
   const [orders, setOrders] = useState<Order[]>([]);
+  console.log(orders);
 
   const fetchAllOrders = async () => {
     try {
@@ -72,17 +75,18 @@ const OrderPage: React.FC = () => {
         {
           orders.map((order) => (
             <div className='grid grid-cols-1 sm:grid-cols-[0.5fr_2fr_1fr] lg:grid-cols-[0.5fr_2fr_1fr_1fr_1fr] gap-3 items-start border-2 border-gray-200 p-5 md:p-8 my-3 md:my-4 text-xs sm:text-sm text-gray-700' key={order._id}>
-              <img src={LogoAdmin} className='w-12' alt='' />
+              <img src={LogoOrder} className='w-12' alt='' />
               <div>
                 <div>
                   {order.items.map((item, index) => (
-                    <p className='py-0.5' key={index}>
-                      {item.seat} x {item.seatCatalog} x {item.vehicle} x {item.quantity}
+                    <div className='py-0.5' key={index}>
+                      <p>{item.seat} x {item.vehicle} x {item.quantity}</p>
+                      <p><span className='mt-3 mb-2 font-medium'>Loại vé:</span> {item.ticketCatalog}</p>
                       {index < order.items.length - 1 && ','}
-                    </p>
+                    </div>
                   ))}
                 </div>
-                <p className='mt-3 mb-2 font-medium'>{order.address.fullName}</p>
+                <p><span className='mt-3 mb-2 font-medium'>Họ và tên:</span> {order.address.fullName}</p>
                 <p><span className='mt-3 mb-2 font-medium'>Số điện thoại: </span>{order.address.phone}</p>
               </div>
               <div>

@@ -6,7 +6,7 @@ import { IoMdRefreshCircle } from 'react-icons/io';
 const ErrorLoading: React.FC<{}> = () => {
   const navigate = useNavigate();
   return (
-    <div className="flex flex-col items-center justify-center gap-2 object-cover py-36">
+    <div className="flex flex-col items-center justify-center gap-2 py-36">
       <img
         src={IMG404}
         alt=""
