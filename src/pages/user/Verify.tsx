@@ -3,6 +3,8 @@ import { Toastify } from '../../helper/Toastify';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { isIErrorResponse } from '../../types/error/error';
 import axios from '../../config/axiosConfig';
+import { Success } from '../../assets/image-represent';
+import HeaderResponsive from '../../components/UserPage/HeaderResponsive';
 
 const Verify: React.FC = () => {
 
@@ -18,7 +20,8 @@ const Verify: React.FC = () => {
       const response = await axios.post('/api/order/verifyStripe', { success, orderId })
 
       if (response.data.success) {
-        navigate('/')
+        const userPath = localStorage.getItem('userPath') || '/';
+        navigate(userPath);
       } else {
         navigate('/checkout')
       }
@@ -37,7 +40,14 @@ const Verify: React.FC = () => {
 
   return (
     <div className="pb-[20px] xl:pt-[80px]">
-      Thanh toán thành công, vui lòng kiểm tra gmail!!!
+      <HeaderResponsive Title_NavbarMobile="Thành công" />
+      <div className='flex flex-col items-center justify-center py-10'>
+        <div className='shadow-mainMenu shadow-gray-50 flex flex-col items-center justify-center py-20 px-[200px] rounded-md'>
+          <img className='mb-5' src={Success} alt="" />
+          <p className='font-bold'>Cảm ơn bạn đã đặt vé tại LacLacTrip</p>
+          <p className=''>Vui lòng kiểm tra mail để xem thông tin đặt vé</p>
+        </div>
+      </div>
     </div>
   )
 

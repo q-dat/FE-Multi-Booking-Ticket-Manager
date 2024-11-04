@@ -11,6 +11,9 @@ export { default as BannerC1 } from './Banner-c1.jpg';
 export { default as BannerC2 } from './Banner-c2.jpg';
 export { default as BannerLogin } from './BannerLogin.jpg';
 export { default as IMG404 } from './404.jpg';
+export { default as Success } from './payment/success.png';
+export { default as LogoStripe } from './payment/stripe_logo.png';
+export { default as LogoOrder } from './payment/parcel_icon.svg';
 
 // Travel
 export { default as HaNoi } from './travel/HaNoi.jpg';

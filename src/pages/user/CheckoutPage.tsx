@@ -1,7 +1,6 @@
 import React, { useState, useMemo, useEffect } from 'react';
 import { useCart } from '../../context/cart/CartContext';
 import { Button } from 'react-daisyui';
-import stripeLogo from '../../assets/image-represent/payment/stripe_logo.png';
 import { Toastify } from '../../helper/Toastify';
 import { IoIosCloseCircleOutline } from 'react-icons/io';
 import axios from '../../config/axiosConfig';
@@ -10,6 +9,7 @@ import { ITicket } from '../../types/type/ticket/ticket';
 import { updateSeatApi } from '../../axios/api/seatApi';
 import { isIErrorResponse } from '../../types/error/error';
 import HeaderResponsive from '../../components/UserPage/HeaderResponsive';
+import { LogoStripe } from '../../assets/image-represent';
 
 interface FormData {
   fullName: string;
@@ -38,7 +38,8 @@ const CheckoutPage: React.FC = () => {
 
   useEffect(() => {
     if (selectedSeats.length === 0) {
-      navigate('/');
+      const userPath = localStorage.getItem('userPath') || '/';
+      navigate(userPath);
     }
   }, [selectedSeats, navigate]);
 
@@ -101,6 +102,8 @@ const CheckoutPage: React.FC = () => {
         const discountedPrice = calculateDiscountedPrice(seat.price, selectedDiscount);
         return {
           departureDate: seat.trip_id.departure_date,
+          destinationDate: seat.trip_id.return_date,
+          ticketCatalog: seat.ticket_catalog_id.name,
           time: seat.trip_id.departure_time,
           departurePoint: seat.trip_id.departure_point.name,
           destinationPoint: seat.trip_id.destination_point.name,
@@ -147,7 +150,7 @@ const CheckoutPage: React.FC = () => {
 
   return (
     <div className="pb-[20px] xl:pt-[80px]">
-        <HeaderResponsive Title_NavbarMobile="Thanh Toán" />
+      <HeaderResponsive Title_NavbarMobile="Thanh Toán" />
       <div className="w-full mx-auto px-4 sm:px-8 md:px-24 py-2">
         {/* Header */}
         <div className="hidden sm:grid grid-cols-6 bg-red-200 p-4">
@@ -264,7 +267,7 @@ const CheckoutPage: React.FC = () => {
             <div className="flex gap-3 flex-col lg:flex-row">
               <div onClick={() => setMethod('stripe')} className="flex items-center gap-3 border p-2 px-3 cursor-pointer hover:bg-gray-100 transition">
                 <span className={`min-w-4 h-4 border rounded-full ${method === 'stripe' ? 'bg-green-400' : ''}`}></span>
-                <img className="h-5 mx-4" src={stripeLogo} alt="Stripe logo" />
+                <img className="h-5 mx-4" src={LogoStripe} alt="Stripe logo" />
               </div>
               <div onClick={() => setMethod('cod')} className="flex items-center gap-3 border p-2 px-3 cursor-pointer hover:bg-gray-100 transition">
                 <span className={`min-w-4 h-4 border rounded-full ${method === 'cod' ? 'bg-green-400' : ''}`}></span>
