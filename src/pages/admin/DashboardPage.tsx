@@ -1,12 +1,12 @@
 import React, { useContext, useEffect, useState } from 'react';
 import NavtitleAdmin from '../../components/admin/NavtitleAdmin';
 import NavbarMobile from '../../components/admin/Reponsive/Mobile/NavbarMobile';
-import LineChartComponent from '../../components/admin/Modal/LineChartComponent';
 import axios from '../../config/axiosConfig';
 import { VehicleContext } from '../../context/vehicle/VehicleContext';
 import { TripContext } from '../../context/trip/TripContext';
 import { TicketContext } from '../../context/ticket/TicketContext';
 import { Toastify } from '../../helper/Toastify';
+import LineChartComponent from '../../components/admin/Chart/LineChartComponent';
 
 interface Order {
   _id: string;

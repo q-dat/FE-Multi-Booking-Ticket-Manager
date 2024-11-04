@@ -7,7 +7,7 @@ import { ITrip } from '../../../../types/type/trip/trip';
 import { LocationContext } from '../../../../context/location/LocationContext';
 import { TripContext } from '../../../../context/trip/TripContext';
 import InputModal from '../../InputModal';
-import { VehicleCatalogContext } from '../../../../context/vehicleCatalog/VehicleCatalogContext';
+import { VehicleContext } from '../../../../context/vehicle/VehicleContext';
 
 interface ModalCreateTicketProps {
   isOpen: boolean;
@@ -20,7 +20,7 @@ const ModalCreateTripPageAdmin: React.FC<ModalCreateTicketProps> = ({
 }) => {
   const { createTrip, getAllTrips, error } = useContext(TripContext);
   const { locations } = useContext(LocationContext);
-  const { vehicleCatalogs } = useContext(VehicleCatalogContext);
+  const { vehicles } = useContext(VehicleContext);
   const { register, handleSubmit, reset } = useForm<ITrip>();
 
   const onSubmit: SubmitHandler<ITrip> = async formData => {
@@ -91,14 +91,14 @@ const ModalCreateTripPageAdmin: React.FC<ModalCreateTicketProps> = ({
               <Select
                 defaultValue=""
                 className="mb-5 w-full border border-gray-700 border-opacity-50 bg-white text-black focus:border-primary focus:outline-none dark:border-secondary dark:bg-gray-700 dark:text-white dark:focus:border-white"
-                {...register('vehicle_catalog_id._id', { required: true })}
+                {...register('vehicle_id._id', { required: true })}
               >
                 <option disabled value="">
                   Chọn Phương Tiện
                 </option>
-                {vehicleCatalogs.map(vehicleCatalog => (
-                  <option key={vehicleCatalog._id} value={vehicleCatalog._id}>
-                    {vehicleCatalog.name}
+                {vehicles.map(vehicle => (
+                  <option key={vehicle._id} value={vehicle._id}>
+                    {vehicle.name}
                   </option>
                 ))}
               </Select>

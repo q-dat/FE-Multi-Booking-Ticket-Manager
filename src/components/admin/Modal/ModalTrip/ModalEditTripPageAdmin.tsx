@@ -7,7 +7,7 @@ import { ITrip } from '../../../../types/type/trip/trip';
 import { TripContext } from '../../../../context/trip/TripContext';
 import LabelForm from '../../LabelForm';
 import { LocationContext } from '../../../../context/location/LocationContext';
-import { VehicleCatalogContext } from '../../../../context/vehicleCatalog/VehicleCatalogContext';
+import { VehicleContext } from '../../../../context/vehicle/VehicleContext';
 
 interface ModalEditTripProps {
   isOpen: boolean;
@@ -20,10 +20,10 @@ const ModalEditTripPageAdmin: React.FC<ModalEditTripProps> = ({
   onClose,
   tripId
 }) => {
-  const { getAllTrips, updateTrip, getTripById, trips ,error} =
+  const { getAllTrips, updateTrip, getTripById, trips, error } =
     useContext(TripContext);
   const { locations } = useContext(LocationContext);
-  const { vehicleCatalogs } = useContext(VehicleCatalogContext);
+  const { vehicles } = useContext(VehicleContext);
   const { register, handleSubmit, reset, setValue } = useForm<ITrip>();
 
   useEffect(() => {
@@ -42,7 +42,7 @@ const ModalEditTripPageAdmin: React.FC<ModalEditTripProps> = ({
       setValue('return_date', tripData.return_date);
       setValue('return_time', tripData.return_time);
       setValue('price', tripData.price);
-      setValue('vehicle_catalog_id', tripData.vehicle_catalog_id);
+      setValue('vehicle_id', tripData.vehicle_id);
     }
   }, [trips, tripId, setValue]);
 
@@ -115,14 +115,14 @@ const ModalEditTripPageAdmin: React.FC<ModalEditTripProps> = ({
               <Select
                 defaultValue=""
                 className="mb-5 w-full border border-gray-700 border-opacity-50 bg-white text-black focus:border-primary focus:outline-none dark:border-secondary dark:bg-gray-700 dark:text-white dark:focus:border-white"
-                {...register('vehicle_catalog_id._id')}
+                {...register('vehicle_id._id')}
               >
                 <option disabled value="">
                   Chọn Phương Tiện
                 </option>
-                {vehicleCatalogs.map(vehicleCatalog => (
-                  <option key={vehicleCatalog._id} value={vehicleCatalog._id}>
-                    {vehicleCatalog.name}
+                {vehicles.map(vehicle => (
+                  <option key={vehicle._id} value={vehicle._id}>
+                    {vehicle.name}
                   </option>
                 ))}
               </Select>

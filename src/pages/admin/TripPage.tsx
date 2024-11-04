@@ -3,7 +3,7 @@ import { TripContext } from '../../context/trip/TripContext';
 import { Toastify } from '../../helper/Toastify';
 import LoadingLocal from '../../components/orther/loading/LoadingLocal';
 import NavtitleAdmin from '../../components/admin/NavtitleAdmin';
-import { RiAddBoxLine } from 'react-icons/ri';
+import { RiAddBoxLine, RiListSettingsLine } from 'react-icons/ri';
 import { Button, Table } from 'react-daisyui';
 import { ITrip } from '../../types/type/trip/trip';
 import ModalDeleteTripPageAdmin from '../../components/admin/Modal/ModalTrip/ModalDeleteTripPageAdmin';
@@ -15,7 +15,7 @@ import { FaCircleInfo, FaPenToSquare } from 'react-icons/fa6';
 import { isIErrorResponse } from '../../types/error/error';
 import TableListAdmin from '../../components/admin/TablelistAdmin';
 import NavbarMobile from '../../components/admin/Reponsive/Mobile/NavbarMobile';
-import { VehicleCatalogContext } from '../../context/vehicleCatalog/VehicleCatalogContext';
+import { VehicleContext } from '../../context/vehicle/VehicleContext';
 
 const TripPage: React.FC = () => {
   const {
@@ -24,9 +24,9 @@ const TripPage: React.FC = () => {
     error,
     deleteTrip,
     getAllTrips,
-    filterTripsByVehicleCatalogId
+    filterTripsByVehicleId
   } = useContext(TripContext);
-  const { vehicleCatalogs } = useContext(VehicleCatalogContext);
+  const { vehicles } = useContext(VehicleContext);
   const [isModalCreateOpen, setIsModalCreateOpen] = useState(false);
   const [isModalDeleteOpen, setIsModalDeleteOpen] = useState(false);
   const [isModalEditOpen, setIsModalEditOpen] = useState(false);
@@ -65,8 +65,8 @@ const TripPage: React.FC = () => {
     }
   };
   //Filter
-  const handleSearchByCategory = async (vehicleCatalog: string) => {
-    await filterTripsByVehicleCatalogId(vehicleCatalog);
+  const handleSearchByCategory = async (vehicle: string) => {
+    await filterTripsByVehicleId(vehicle);
   };
   if (loading.getAll) return <LoadingLocal />;
   if (error) return <ErrorLoading />;
@@ -79,22 +79,6 @@ const TripPage: React.FC = () => {
           Title_NavtitleAdmin="Quản Lý Chuyến Đi"
           Btn_Create={
             <div className="flex flex-col items-start justify-center gap-2 md:flex-row md:items-end">
-              <div className="flex gap-4">
-                {vehicleCatalogs.map(vehicleCatalog => (
-                  <label key={vehicleCatalog._id} className="flex items-center">
-                    <input
-                      type="checkbox"
-                      className="cursor-pointer"
-                      checked={checkboxCategory === vehicleCatalog._id}
-                      onChange={() => {
-                        setCheckboxCategory(vehicleCatalog._id);
-                        handleSearchByCategory(vehicleCatalog._id);
-                      }}
-                    />
-                    <span className="ml-2">{vehicleCatalog?.name}</span>
-                  </label>
-                ))}
-              </div>
               <Button
                 color="success"
                 onClick={openModalCreateAdmin}
@@ -103,6 +87,27 @@ const TripPage: React.FC = () => {
                 <RiAddBoxLine className="text-xl" color="white" />
                 Thêm
               </Button>
+              <div className="dropdown dropdown-hover relative flex h-12 min-w-[100px] cursor-pointer flex-col items-center justify-center rounded-md bg-primary">
+                <p className="">
+                  <RiListSettingsLine className="text-xl text-white" />
+                </p>
+                <div className="dropdown-content absolute top-[100%] z-10 w-52 space-y-1 rounded-md bg-slate-50 p-2 shadow-headerMenu drop-shadow-md">
+                  {vehicles.map(vehicle => (
+                    <label key={vehicle._id} className="flex items-center">
+                      <input
+                        type="checkbox"
+                        className="cursor-pointer"
+                        checked={checkboxCategory === vehicle._id}
+                        onChange={() => {
+                          setCheckboxCategory(vehicle._id);
+                          handleSearchByCategory(vehicle._id);
+                        }}
+                      />
+                      <span className="ml-2">{vehicle?.name}</span>
+                    </label>
+                  ))}
+                </div>
+              </div>
             </div>
           }
         />
@@ -131,9 +136,7 @@ const TripPage: React.FC = () => {
                   <p className="text-primary">-</p>
                   {trip.destination_point?.name}
                 </span>
-                <span>
-                  {trip?.vehicle_catalog_id?.name || 'Không có danh mục!'}
-                </span>
+                <span>{trip?.vehicle_id?.name || 'Không có danh mục!'}</span>
                 <span>
                   {trip?.departure_time}-
                   {new Date(trip?.departure_date).toLocaleDateString('vi-VN')}

@@ -1,9 +1,9 @@
 import { ILocation } from '../location/location';
-import { IVehicleCatalog } from '../vehicle-catalog/vehicle-catalog';
+import { IVehicle } from '../vehicle/vehicle';
 
 export interface ITrip {
   _id: string;
-  vehicle_catalog_id: IVehicleCatalog;
+  vehicle_id: IVehicle;
   departure_point: ILocation;
   destination_point: ILocation;
   price: number;

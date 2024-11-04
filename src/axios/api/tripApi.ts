@@ -27,10 +27,10 @@ export const deleteTripApi = (id: string) => {
 };
 
 //Filter
-export const filterTripsByVehicleCatalogIdApi = (
-  vehicle_catalog_id: string
+export const filterTripsByVehicleIdApi = (
+  vehicle_id: string
 ) => {
   return axios.get<{ trip: ITrip }>(
-    `/api/trips/vehicle-catalog-id/${vehicle_catalog_id} `
+    `/api/trips/vehicle-id/${vehicle_id} `
   );
 };

@@ -11,7 +11,7 @@ import {
   deleteTripApi,
   getAllTripsApi,
   updateTripApi,
-  filterTripsByVehicleCatalogIdApi
+  filterTripsByVehicleIdApi
 } from '../../axios/api/tripApi';
 
 interface TripContextType {
@@ -29,7 +29,7 @@ interface TripContextType {
   createTrip: (trip: ITrip) => Promise<void>;
   updateTrip: (_id: string, trip: ITrip) => Promise<void>;
   deleteTrip: (_id: string) => Promise<void>;
-  filterTripsByVehicleCatalogId: (vehicle_catalog_id: string) => void;
+  filterTripsByVehicleId: (vehicle_id: string) => void;
 }
 
 const defaultContextValue: TripContextType = {
@@ -47,7 +47,7 @@ const defaultContextValue: TripContextType = {
   createTrip: async () => {},
   updateTrip: async () => {},
   deleteTrip: async () => {},
-  filterTripsByVehicleCatalogId: () => {}
+  filterTripsByVehicleId: () => {}
 };
 
 export const TripContext = createContext<TripContextType>(defaultContextValue);
@@ -143,10 +143,10 @@ export const TripProvider = ({ children }: { children: ReactNode }) => {
     );
   }, []);
   // Filter By Vehicle Catalog ID
-  const filterTripsByVehicleCatalogId = useCallback(
-    (vehicle_catalog_id: string) => {
+  const filterTripsByVehicleId = useCallback(
+    (vehicle_id: string) => {
       fetchData(
-        () => filterTripsByVehicleCatalogIdApi(vehicle_catalog_id),
+        () => filterTripsByVehicleIdApi(vehicle_id),
         data => setTrips(data.trips || []),
         'filter'
       );
@@ -168,7 +168,7 @@ export const TripProvider = ({ children }: { children: ReactNode }) => {
         createTrip,
         updateTrip,
         deleteTrip,
-        filterTripsByVehicleCatalogId
+        filterTripsByVehicleId
       }}
     >
       {children}
