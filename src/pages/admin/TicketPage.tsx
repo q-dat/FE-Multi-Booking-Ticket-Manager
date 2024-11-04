@@ -527,7 +527,7 @@ const TicketPage: React.FC = () => {
                 ) : (
                   <></>
                 )}
-                {fillter[8] === 'Thời Gian Về' ? (
+                  {fillter[8] === 'Thời Gian Về' && ticket.ticket_catalog_id?.name.toLowerCase() !== 'một chiều' ? (
                   <span className="">
                     <span className="text-blue-500">
                       {ticket.trip_id?.return_time}&nbsp;

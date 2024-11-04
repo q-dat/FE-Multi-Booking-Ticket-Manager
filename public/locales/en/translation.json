@@ -96,7 +96,9 @@
     "DeparturePlaceholder": "Departure...",
     "DestinationPlaceholder": "Destination...",
     "DepartureDatePlaceholder": "Departure Date",
+    "DepartureTimePlaceholder": "Departure Time",
     "ReturnDatePlaceholder": "Return Date",
+    "ReturnTimePlaceholder": "Return Time",
     "VehicleSelectDefault": "Select Vehicle Group",
     "TicketSelectDefault": "Select Ticket Group",
     "SectionOneTitle": "Compare Cheap Train And Bus Tickets With Flights",
@@ -137,20 +139,16 @@
       "buttonform": "Lookup",
       "linkform": "Forgot booking code?"
     },
-    "BusesTickets":{
+    "BusesTickets": {
       "titleBuses1": "Ticket Type",
       "titleBuses2": "Departure Point"
-
     },
-    "TicketTrainsResults":{
+    "TicketTrainsResults": {
       "TripFrom": "Trip From",
       "To": "To",
-      "DepartureTime": "Departure Time",
-      "DestinationTime": "Destination Time",
-      "Location" : "Location"
-
+      "Location": "Location"
     },
-    "CartTranlate":{
+    "CartTranlate": {
       "TicketQuantity": "Ticket Cart - Quantity",
       "CartNotification": "Your ticket cart is empty!",
       "Second": "Second",

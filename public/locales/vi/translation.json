@@ -96,7 +96,9 @@
     "DeparturePlaceholder": "Điểm Khởi Hành...",
     "DestinationPlaceholder": "Điểm Đến...",
     "DepartureDatePlaceholder": "Ngày Đi",
+    "DepartureTimePlaceholder": "Thời Gian Đi",
     "ReturnDatePlaceholder": "Ngày Về",
+    "ReturnTimePlaceholder": "Thời Gian Về",
     "VehicleSelectDefault": "Chọn Phương Tiện",
     "TicketSelectDefault": "Chọn Vé",
     "SectionOneTitle": "So Sánh Giá Vé Máy Bay Và Tàu Hỏa Giá Rẻ Với Xe Buýt",
@@ -144,8 +146,6 @@
     "TicketTrainsResults":{
       "TripFrom": "Chuyến đi từ",
       "To": "Đến",
-      "DepartureTime": "Thời Gian Đi",
-      "DestinationTime": "Thời Gian Đến",
       "Location" : "Vị Trí"
     },
     "CartTranlate":{

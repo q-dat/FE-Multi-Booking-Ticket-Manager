@@ -97,7 +97,9 @@ interface Resources {
       "DeparturePlaceholder": "Departure...",
       "DestinationPlaceholder": "Destination...",
       "DepartureDatePlaceholder": "Departure Date",
+      "DepartureTimePlaceholder": "Departure Time",
       "ReturnDatePlaceholder": "Return Date",
+      "ReturnTimePlaceholder": "Return Time",
       "VehicleSelectDefault": "Select Vehicle Group",
       "TicketSelectDefault": "Select Ticket Group",
       "SectionOneTitle": "Compare Cheap Train And Bus Tickets With Flights",
@@ -145,8 +147,6 @@ interface Resources {
       "TicketTrainsResults": {
         "TripFrom": "Trip From",
         "To": "To",
-        "DepartureTime": "Departure Time",
-        "DestinationTime": "Destination Time",
         "Location": "Location"
       },
       "CartTranlate": {

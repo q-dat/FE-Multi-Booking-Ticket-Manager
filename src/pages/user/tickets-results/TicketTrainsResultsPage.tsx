@@ -108,16 +108,16 @@ const TicketTrainsResultsPage: React.FC = () => {
 
   const ticketsByCarriage = selectedTrain
     ? ticketsByTrain[selectedTrain].reduce(
-      (acc: { [key: string]: ITicket[] }, ticket) => {
-        const carriageId = ticket.seat_id[0]?.seat_catalog_id._id;
-        if (!acc[carriageId]) {
-          acc[carriageId] = [];
-        }
-        acc[carriageId].push(ticket);
-        return acc;
-      },
-      {}
-    )
+        (acc: { [key: string]: ITicket[] }, ticket) => {
+          const carriageId = ticket.seat_id[0]?.seat_catalog_id._id;
+          if (!acc[carriageId]) {
+            acc[carriageId] = [];
+          }
+          acc[carriageId].push(ticket);
+          return acc;
+        },
+        {}
+      )
     : {};
 
   // Khi người dùng chọn một tàu khác, tự động chọn danh mục ghế đầu tiên của tàu đó
@@ -138,9 +138,9 @@ const TicketTrainsResultsPage: React.FC = () => {
         {/* Title */}
         <div className="w-full">
           <h1 className="mx-2 mb-5 border-[4px] border-b-0 border-r-0 border-t-0 border-primary bg-blue-200 px-5 py-1 text-center text-xl text-black dark:border-white dark:bg-gray-400 dark:text-white xl:text-start">
-            {t('UserPage.TicketTrainsResults.TripFrom')}{' '}
-            <strong>{tripInfo.departure_point?.name}</strong>{' '}
-            {t('UserPage.TicketTrainsResults.To')}{' '}
+            {t('UserPage.TicketTrainsResults.TripFrom')}
+            <strong>{tripInfo.departure_point?.name}</strong>
+            {t('UserPage.TicketTrainsResults.To')}
             <strong>{tripInfo.destination_point?.name}</strong> &nbsp;(
             <strong>{ticketCatalogInfo.name}</strong>)
           </h1>
@@ -160,26 +160,43 @@ const TicketTrainsResultsPage: React.FC = () => {
                     }
                   </p>
                 </div>
-                <div className="h-[150px] w-full rounded-2xl bg-white p-2 text-start text-sm font-bold">
+                <div className="h-[150px] w-full rounded-2xl bg-white p-2 text-start text-sm">
                   <p>
-                    {t('UserPage.DepartureDatePlaceholder')}:
+                    <strong>{t('UserPage.DepartureDatePlaceholder')}:</strong>
                     {new Date(
                       trainTickets[0].trip_id.departure_date
                     ).toLocaleDateString('vi-VN')}
                   </p>
                   <p>
-                    {t('UserPage.ReturnDatePlaceholder')}:
-                    {new Date(
-                      trainTickets[0].trip_id.return_date
-                    ).toLocaleDateString('vi-VN')}
-                  </p>
-                  <p>
-                    {t('UserPage.TicketTrainsResults.DepartureTime')}{' '}
+                    <strong>{t('UserPage.DepartureTimePlaceholder')}:</strong>
                     {trainTickets[0].trip_id?.departure_time}
                   </p>
                   <p>
-                    {t('UserPage.TicketTrainsResults.DestinationTime')}:{' '}
-                    {trainTickets[0].trip_id?.return_time}
+                    {trainTickets[0].ticket_catalog_id?.name.toLowerCase() !==
+                      'một chiều' && (
+                      <>
+                        <p>
+                          <strong>
+                            {t('UserPage.ReturnDatePlaceholder')}:
+                          </strong>
+                          {trainTickets[0].ticket_catalog_id?.name.toLowerCase() !==
+                          'một chiều'
+                            ? new Date(
+                                trainTickets[0].trip_id.return_date
+                              ).toLocaleDateString('vi-VN')
+                            : 'N/A'}
+                        </p>
+                        <p>
+                          <strong>
+                            {t('UserPage.ReturnTimePlaceholder')}:
+                          </strong>
+                          {trainTickets[0].ticket_catalog_id?.name.toLowerCase() !==
+                          'một chiều'
+                            ? trainTickets[0].trip_id?.return_time
+                            : 'N/A'}
+                        </p>
+                      </>
+                    )}
                   </p>
                 </div>
                 <div className="flex flex-row gap-10">
@@ -200,12 +217,15 @@ const TicketTrainsResultsPage: React.FC = () => {
                   alt="Vehicle"
                   className="scale-x-[-1] rounded-md rounded-r-full"
                 />
-                {Object.entries(ticketsByCarriage).sort(([, classTicketsA], [, classTicketsB]) => {
-                  const nameA = classTicketsA[0].seat_id[0]?.seat_catalog_id.name || '';
-                  const nameB = classTicketsB[0].seat_id[0]?.seat_catalog_id.name || '';
-                  return nameA.localeCompare(nameB);
-                }).map(
-                  ([classId, classTickets]) => (
+                {Object.entries(ticketsByCarriage)
+                  .sort(([, classTicketsA], [, classTicketsB]) => {
+                    const nameA =
+                      classTicketsA[0].seat_id[0]?.seat_catalog_id.name || '';
+                    const nameB =
+                      classTicketsB[0].seat_id[0]?.seat_catalog_id.name || '';
+                    return nameA.localeCompare(nameB);
+                  })
+                  .map(([classId, classTickets]) => (
                     <div className="flex flex-row items-end justify-center">
                       <strong className="text-black dark:text-white">-</strong>
                       <div className="rounded-sm border border-b-[5px] border-l-0 border-r-0 border-t-0 border-dotted border-black dark:border-white">
@@ -213,17 +233,17 @@ const TicketTrainsResultsPage: React.FC = () => {
                           key={classId}
                           size="xs"
                           onClick={() => setSelectedClassId(classId)}
-                          className={`text-md rounded-sm border-none text-xs font-semibold shadow-headerMenu shadow-black hover:bg-secondary ${selectedClassId === classId
+                          className={`text-md rounded-sm border-none text-xs font-semibold shadow-headerMenu shadow-black hover:bg-secondary ${
+                            selectedClassId === classId
                               ? 'bg-[#0084c1] text-white'
                               : 'bg-black bg-opacity-20 text-black dark:bg-white dark:text-[#0084c1]'
-                            }`}
+                          }`}
                         >
                           {classTickets[0].seat_id[0]?.seat_catalog_id.name}
                         </Button>
                       </div>
                     </div>
-                  )
-                )}
+                  ))}
               </div>
               <div className="">
                 {selectedClassId && ticketsByCarriage[selectedClassId] && (
@@ -240,12 +260,13 @@ const TicketTrainsResultsPage: React.FC = () => {
                           <div
                             onClick={() => addSeat(ticket)}
                             key={index}
-                            className={`relative flex h-8 w-8 items-center justify-center rounded-md shadow-headerMenu shadow-black transition-all duration-200 ease-in-out font-semibold ${seatStatus === 'Hết chỗ'
+                            className={`relative flex h-8 w-8 items-center justify-center rounded-md font-semibold shadow-headerMenu shadow-black transition-all duration-200 ease-in-out ${
+                              seatStatus === 'Hết chỗ'
                                 ? 'cursor-not-allowed border-red-700 bg-red-500 text-white'
                                 : seatStatus === 'Còn chỗ'
                                   ? 'cursor-pointer border-green-700 bg-green-500 text-white hover:bg-green-600'
                                   : 'cursor-progress border-gray-300 bg-white font-bold text-black'
-                              } group`}
+                            } group`}
                           >
                             {ticket.seat_id[0]?.ordinal_numbers}
                             <div
@@ -256,11 +277,11 @@ const TicketTrainsResultsPage: React.FC = () => {
                                   <strong>{ticket.seat_id[0]?.name}</strong>
                                   <p>
                                     <strong>
-                                      {t('UserPage.TicketPrice')}:{' '}
-                                    </strong>{' '}
+                                      {t('UserPage.TicketPrice')}:
+                                    </strong>
                                     {(ticket.price * 1000).toLocaleString(
                                       'vi-VN'
-                                    )}{' '}
+                                    )}
                                     VNĐ
                                   </p>
                                 </>
