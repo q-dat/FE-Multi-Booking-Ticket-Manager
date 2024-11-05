@@ -17,6 +17,7 @@ interface Item {
   seatCatalog: string;
   price: number;
   quantity: number;
+  ticketCode: string;
 }
 
 interface Address {
@@ -79,24 +80,25 @@ const OrderPage: React.FC = () => {
               <div>
                 <div>
                   {order.items.map((item, index) => (
-                    <div className='py-0.5' key={index}>
+                    <div key={index}>
                       <p>{item.seat} x {item.vehicle} x {item.quantity}</p>
-                      <p><span className='mt-3 mb-2 font-medium'>Loại vé:</span> {item.ticketCatalog}</p>
+                      <p><strong>Loại vé:</strong> {item.ticketCatalog}</p>
+                      <p><strong>Mã vé: </strong>{item.ticketCode}</p>
                       {index < order.items.length - 1 && ','}
                     </div>
                   ))}
                 </div>
-                <p><span className='mt-3 mb-2 font-medium'>Họ và tên:</span> {order.address.fullName}</p>
-                <p><span className='mt-3 mb-2 font-medium'>Số điện thoại: </span>{order.address.phone}</p>
+                <p><strong>Họ và tên:</strong> {order.address.fullName}</p>
+                <p><strong>Số điện thoại: </strong>{order.address.phone}</p>
               </div>
               <div>
-                <p><span className='mt-3 mb-2 font-medium'>Số lượng:</span> {order.items.length}</p>
-                <p><span className='mt-3 mb-2 font-medium'>PTTT:</span> {order.paymentMethod}</p>
-                <p><span className='mt-3 mb-2 font-medium'>Ngày đặt:</span> {new Date(order.date).toLocaleDateString()}</p>
-                <p><span className='mt-3 mb-2 font-medium'>Địa chỉ:</span> {order.address.street + ', ' + order.address.city + ', ' + order.address.country}</p>
+                <p><strong>Số lượng:</strong> {order.items.length}</p>
+                <p><strong>PTTT:</strong> {order.paymentMethod}</p>
+                <p><strong>Ngày đặt:</strong> {new Date(order.date).toLocaleDateString()}</p>
+                <p><strong>Địa chỉ:</strong> {order.address.street + ', ' + order.address.city + ', ' + order.address.country}</p>
               </div>
-              <p className='text-sm sm:text-[15px]'>{(order.amount * 1000).toLocaleString('vi-VN')} VNĐ</p>
-              <p><span className='mt-3 mb-2 font-medium'>Tình trạng:</span> {order.payment ? 'Đã thanh toán' : 'Chưa thanh toán'}</p>
+              <p className='text-sm sm:text-[15px] text-red-600'>{(order.amount * 1000).toLocaleString('vi-VN')} VNĐ</p>
+              <p><strong>Tình trạng:</strong> {order.payment ? 'Đã thanh toán' : 'Chưa thanh toán'}</p>
             </div>
           ))
         }
