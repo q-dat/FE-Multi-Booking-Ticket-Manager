@@ -100,20 +100,20 @@ const NotificationPopup: React.FC = () => {
                             name="email"
                             type="email"
                             placeholder={t('UserPage.Email')}
-                            className="border-none bg-white text-black shadow-inner shadow-gray-50 focus:border-primary focus:shadow-inner focus:shadow-primary dark:bg-gray-700 dark:text-white dark:shadow-none dark:shadow-white xs:w-[300px] sm:w-[350px] md:w-[650px] xl:w-[350px]"
+                            className="border border-black bg-white text-black focus:border-primary focus:shadow-inner focus:shadow-primary dark:bg-gray-700 dark:text-white dark:shadow-none dark:shadow-white xs:w-[300px] sm:w-[350px] md:w-[650px] xl:w-[350px]"
                             classNameLabel="bg-white dark:bg-gray-700"
                           />
                           <InputForm
                             name="name"
                             type="text"
-                            className="border-none bg-white text-black shadow-inner shadow-gray-50 focus:border-primary focus:shadow-inner focus:shadow-primary dark:bg-gray-700 dark:text-white dark:shadow-none dark:shadow-white xs:w-[300px] sm:w-[350px] md:w-[650px] xl:w-[250px]"
+                            className="border border-black bg-white text-black focus:border-primary focus:shadow-inner focus:shadow-primary dark:bg-gray-700 dark:text-white dark:shadow-none dark:shadow-white xs:w-[300px] sm:w-[350px] md:w-[650px] xl:w-[250px]"
                             placeholder={t('UserPage.YourNameBtn')}
                             classNameLabel="bg-white dark:bg-gray-700"
                           />
                         </div>
                         <Textarea
                           name="feedback"
-                          className="border-none bg-white pb-20 text-black shadow-inner shadow-gray-50 focus:border-primary focus:shadow-inner focus:shadow-primary focus:outline-none dark:bg-gray-700 dark:text-white dark:shadow-none dark:shadow-white xs:w-full sm:w-[350px] md:w-[650px] lg:w-full"
+                          className="border border-black bg-white pb-20 text-black focus:border-primary focus:shadow-inner focus:shadow-primary focus:outline-none dark:bg-gray-700 dark:text-white dark:shadow-none dark:shadow-white xs:w-full sm:w-[350px] md:w-[650px] lg:w-full"
                           placeholder={t('UserPage.FeedbackBtn')}
                         />
                         <div className="w-full">
