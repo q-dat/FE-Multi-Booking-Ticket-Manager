@@ -4,35 +4,11 @@ import NavbarMobile from '../../components/admin/Reponsive/Mobile/NavbarMobile';
 import NavtitleAdmin from '../../components/admin/NavtitleAdmin';
 import { Toastify } from '../../helper/Toastify';
 import { LogoOrder } from '../../assets/image-represent';
-
-interface Item {
-  departureDate: Date;
-  destinationDate: Date;
-  ticketCatalog: string;
-  time: string;
-  departurePoint: string;
-  destinationPoint: string;
-  seat: string;
-  vehicle: string;
-  seatCatalog: string;
-  price: number;
-  quantity: number;
-  ticketCode: string;
-}
-
-interface Address {
-  fullName: string;
-  email: string;
-  street: string;
-  city: string;
-  cccd: number;
-  country: string;
-  phone: string;
-}
+import { Address, OrderItem } from '../../types/type/order/orderItem';
 
 interface Order {
   _id: string;
-  items: Item[];
+  items: OrderItem[];
   amount: number;
   address: Address;
   status: string;

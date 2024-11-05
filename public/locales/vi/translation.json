@@ -112,12 +112,9 @@
       "NotificationOne": "Theo quy định của Tổng công ty Đường sắt Việt Nam, hành khách có thông tin giấy tờ tùy thân trùng với thông tin trên vé điện tử mới đủ điều kiện lên tàu",
       "NotificationTwo": "Để đảm bảo quyền lợi cho hành khách, tránh mua phải vé giả, hoặc vé không đúng với quy định, quý khách có thể kiểm tra lại vé điện tử của mình bằng cách điền đầy đủ các thông tin dưới đây.",
       "SearchTicketCode": "Mã vé",
-      "SearchTrainCode": "Mã tàu",
-      "SearchDepartureStation": "Ga đi",
-      "SearchArrivalStation": "Ga đến",
-      "SearchDepartureDate": "Ngày đi",
-      "SearchDocumentNumber": "Số giấy tờ",
-      "SearchCheck": "Kiểm Tra"
+      "SearchPhone": "Số điện thoại",
+      "SearchCCCD": "Số CCCD",
+      "title": "Để hiển thị vé cần kiểm tra, vui lòng điền 3 thông tin chính xác dưới đây:"
     },
     "Location": {
       "HaNoi": "Hà Nội",
@@ -139,16 +136,16 @@
       "buttonform": "Tra Cứu",
       "linkform": "Quên mã đặt chỗ?"
     },
-    "BusesTickets":{
-      "titleBuses1":"Loại Vé",
-      "titleBuses2":"Điểm Khởi Hành"
+    "BusesTickets": {
+      "titleBuses1": "Loại Vé",
+      "titleBuses2": "Điểm Khởi Hành"
     },
-    "TicketTrainsResults":{
+    "TicketTrainsResults": {
       "TripFrom": "Chuyến đi từ",
       "To": "Đến",
-      "Location" : "Vị Trí"
+      "Location": "Vị Trí"
     },
-    "CartTranlate":{
+    "CartTranlate": {
       "TicketQuantity": "Giỏ vé - Số lượng",
       "CartNotification": "Giỏ vé của bạn đang trống!",
       "Second": "Giấy",

@@ -113,12 +113,9 @@ interface Resources {
         "NotificationOne": "According to the regulations of Vietnam Railways Corporation, passengers are only eligible to board the train if the information on their identification documents matches the information on the electronic ticket.",
         "NotificationTwo": "To ensure the rights of passengers and avoid purchasing counterfeit tickets or tickets that do not comply with regulations, you can verify your electronic ticket by filling in the information below.",
         "SearchTicketCode": "Ticket Code",
-        "SearchTrainCode": "Train Code",
-        "SearchDepartureStation": "Departure Station",
-        "SearchArrivalStation": "Arrival Station",
-        "SearchDepartureDate": "Departure Date",
-        "SearchDocumentNumber": "Document Number",
-        "SearchCheck": "Check"
+        "SearchPhone": "Phone Number",
+        "SearchCCCD": "Citizen Identification Card",
+        "title": "To display the ticket for verification, please provide the following three pieces of accurate information:"
       },
       "Location": {
         "HaNoi": "Ha Noi",
