@@ -133,13 +133,14 @@ const TicketFlightsResultsPage: React.FC = () => {
           </h1>
           <div className="mb-8 flex w-full flex-row items-center justify-center overflow-x-auto scrollbar-hide">
             {Object.entries(ticketsByFlight).map(([flightName, flightTickets]) => (
-
-              <><div
-                className="w-[100px] h-[100px] bg-primary bg-opacity-100"
-                style={{ clipPath: "polygon(20% 75%, 100% 60%, 100% 100%, 0% 100%)" }} /><div
+              <>
+                <div
+                  className="w-[100px] h-[100px] bg-primary bg-opacity-100"
+                  style={{ clipPath: "polygon(20% 75%, 100% 60%, 100% 100%, 0% 100%)" }}
+                />
+                <div
                   className={`group mb-4 flex h-[260px] w-[180px] cursor-pointer flex-col items-center justify-around gap-1 rounded-[150px] border border-white bg-black bg-opacity-20 p-12 shadow-lg 
                   ${selectedFlight === flightName ? 'bg-primary bg-opacity-100' : ''}`}
-
                   onClick={() => handleFlightChange(flightName)}
                   key={flightName}
                 >
@@ -148,8 +149,6 @@ const TicketFlightsResultsPage: React.FC = () => {
                       {flightTickets[0]?.seat_id[0]?.seat_catalog_id.vehicle_id.name}
                     </p>
                   </div>
-
-
                   <div className="w-[150px] rounded-md bg-white p-2 text-start text-sm font-medium">
                     <p>
                       <span className="font-semibold">Ngày đi:</span>{' '}
@@ -158,13 +157,24 @@ const TicketFlightsResultsPage: React.FC = () => {
                     <p>
                       <span className="font-semibold">Giờ đi:</span> {flightTickets[0]?.trip_id?.departure_time}
                     </p>
+                    {flightTickets[0]?.ticket_catalog_id?.name.toLowerCase() !== 'một chiều' && (
+                      <>
+                        <p>
+                          <span className="font-semibold">Ngày về:</span>{' '}
+                          {new Date(flightTickets[0]?.trip_id?.return_date).toLocaleDateString('vi-VN')}
+                        </p>
+                        <p>
+                          <span className="font-semibold">Giờ về:</span> {flightTickets[0]?.trip_id?.return_time}
+                        </p>
+                      </>
+                    )}
                   </div>
                 </div>
                 <div
                   className="w-[100px] h-[100px] bg-primary bg-opacity-100"
                   style={{ clipPath: "polygon(0 60%, 80% 75%, 100% 100%, 0% 100%)" }}
-                /></>
-
+                />
+              </>
             ))}
           </div>
           {selectedFlight && ticketsByClass && (
