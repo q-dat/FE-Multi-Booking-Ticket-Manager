@@ -20,44 +20,26 @@ const TicketTrainsResultsPage: React.FC = () => {
 
   useEffect(() => {
     const fetchTickets = async () => {
+      setLoading(true);
       try {
-        // Lấy dữ liệu vé từ sessionStorage
         const storedTickets = sessionStorage.getItem('searchResults');
-        if (storedTickets) {
-          const parsedTickets = JSON.parse(storedTickets) as ITicket[];
-          setTickets(parsedTickets);
-
-          // Gọi API để lấy dữ liệu mới cho các vé
-          const allTicketsResponse = await getAllTicketsApi();
-          const allTickets = allTicketsResponse.data.tickets;
-
-          // Cập nhật dữ liệu trong sessionStorage với dữ liệu mới
-          const updatedTickets = parsedTickets.map(ticket => {
-            // Nếu trạng thái của vé là 'Đang chọn', không cập nhật
-            if (ticket.seat_id[0]?.status === 'Đang chọn') {
-              return ticket;
-            }
-            // Nếu trạng thái không phải 'Đang chọn', cập nhật bằng dữ liệu mới
-            const freshTicket = allTickets.find(t => t._id === ticket._id);
-            return freshTicket || ticket; // Trả về vé mới hoặc vé cũ nếu không tìm thấy
-          });
-
-          setTickets(updatedTickets);
-          sessionStorage.setItem(
-            'searchResults',
-            JSON.stringify(updatedTickets)
-          );
-
-          // Tự động chọn tàu và loại ghế đầu tiên nếu có vé
-          const initialTrainName =
-            updatedTickets[0]?.seat_id[0]?.seat_catalog_id.vehicle_id.name ||
-            null;
-          setSelectedTrain(initialTrainName);
-          const firstClassId =
-            updatedTickets[0]?.seat_id[0]?.seat_catalog_id._id || null;
-          setSelectedClassId(firstClassId);
-        } else {
-          setError('Không tìm thấy dữ liệu vé trong session.');
+        if (!storedTickets) throw new Error('Không tìm thấy dữ liệu vé trong session.');
+  
+        const parsedTickets = JSON.parse(storedTickets) as ITicket[];
+        const { data: { tickets: allTickets } } = await getAllTicketsApi();
+  
+        const updatedTickets = parsedTickets.map(ticket => 
+          ticket.seat_id[0]?.status === 'Đang chọn'
+            ? ticket 
+            : allTickets.find(t => t._id === ticket._id) || ticket
+        );
+  
+        setTickets(updatedTickets);
+        sessionStorage.setItem('searchResults', JSON.stringify(updatedTickets));
+  
+        if (updatedTickets.length > 0) {
+          setSelectedTrain(updatedTickets[0].seat_id[0]?.seat_catalog_id.vehicle_id.name);
+          setSelectedClassId(updatedTickets[0].seat_id[0]?.seat_catalog_id._id);
         }
       } catch (err) {
         console.error(err);
@@ -66,9 +48,10 @@ const TicketTrainsResultsPage: React.FC = () => {
         setLoading(false);
       }
     };
-
+  
     fetchTickets();
   }, []);
+  
 
   useEffect(() => {
     const storedTickets = sessionStorage.getItem('searchResults');
@@ -92,41 +75,22 @@ const TicketTrainsResultsPage: React.FC = () => {
     return <LoadingLocal />;
   }
 
+  
   const tripInfo = tickets[0]?.trip_id;
   const ticketCatalogInfo = tickets[0]?.ticket_catalog_id;
-  const ticketsByTrain = tickets.reduce(
-    (acc: { [key: string]: ITicket[] }, ticket) => {
-      const trainName = ticket.seat_id[0]?.seat_catalog_id.vehicle_id.name;
-      if (!acc[trainName]) {
-        acc[trainName] = [];
-      }
-      acc[trainName].push(ticket);
-      return acc;
-    },
-    {}
-  );
+  const ticketsByTrain = tickets.reduce((acc, ticket) => {
+    const trainName = ticket.seat_id[0]?.seat_catalog_id.vehicle_id.name;
+    acc[trainName] = acc[trainName] ? [...acc[trainName], ticket] : [ticket];
+    return acc;
+  }, {} as Record<string, ITicket[]>);
 
-  const ticketsByCarriage = selectedTrain
-    ? ticketsByTrain[selectedTrain].reduce(
-        (acc: { [key: string]: ITicket[] }, ticket) => {
-          const carriageId = ticket.seat_id[0]?.seat_catalog_id._id;
-          if (!acc[carriageId]) {
-            acc[carriageId] = [];
-          }
-          acc[carriageId].push(ticket);
-          return acc;
-        },
-        {}
-      )
-    : {};
+  const ticketsByCarriage = selectedTrain ? ticketsByTrain[selectedTrain].reduce((acc, ticket) => {
+    const carriageId = ticket.seat_id[0]?.seat_catalog_id._id;
+    acc[carriageId] = acc[carriageId] ? [...acc[carriageId], ticket] : [ticket];
+    return acc;
+  }, {} as Record<string, ITicket[]>) : {};
 
-  // Khi người dùng chọn một tàu khác, tự động chọn danh mục ghế đầu tiên của tàu đó
-  const handleTrainChange = (trainName: string) => {
-    setSelectedTrain(trainName);
-    setSelectedClassId(
-      ticketsByTrain[trainName][0]?.seat_id[0]?.seat_catalog_id._id || null
-    );
-  };
+ 
 
   return (
     <div className="pb-[20px] xl:pt-[90px]">
@@ -149,7 +113,6 @@ const TicketTrainsResultsPage: React.FC = () => {
             {Object.entries(ticketsByTrain).map(([trainName, trainTickets]) => (
               <div
                 className={`boder-white group mb-4 flex h-[180px] w-[180px] cursor-pointer flex-col items-center justify-around gap-2 rounded-[30px] border bg-black bg-opacity-20 p-1 px-2 shadow-lg ${selectedTrain === trainName ? 'bg-primary bg-opacity-60' : ''}`}
-                onClick={() => handleTrainChange(trainName)}
                 key={trainName}
               >
                 <div className="w-[100px] rounded-3xl bg-white text-black group-hover:bg-primary group-hover:text-white dark:group-hover:bg-secondary">
