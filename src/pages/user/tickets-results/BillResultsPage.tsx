@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 import { OrderItem } from '../../../types/type/order/orderItem';
 import { useLocation } from 'react-router-dom';
 import HeaderResponsive from '../../../components/UserPage/HeaderResponsive';
@@ -9,7 +9,6 @@ interface Order {
 }
 
 const BillResultsPage: React.FC = () => {
-
   const { t } = useTranslation();
   const location = useLocation();
   const order = location.state?.order as Order;
@@ -17,10 +16,12 @@ const BillResultsPage: React.FC = () => {
   return (
     <div className="pb-[20px] xl:pt-[80px]">
       <HeaderResponsive Title_NavbarMobile={t('UserPage.Navbar.CheckTicket')} />
-      <div className='px-2'>
+      <div className="flex flex-col items-center justify-center px-2">
         {order && (
-          <div className="w-full max-w-2xl rounded-lg border border-gray-300 bg-white p-8 shadow-lg dark:bg-gray-800 dark:text-white my-5">
-            <h2 className="mb-6 text-center text-3xl font-bold text-primary dark:text-white">Thông tin vé</h2>
+          <div className="my-5 w-full max-w-2xl rounded-lg border border-gray-300 bg-white p-8 shadow-lg dark:bg-gray-800 dark:text-white">
+            <h2 className="mb-6 text-center text-3xl font-bold text-primary dark:text-white">
+              Thông tin vé
+            </h2>
             {/* Ticket Details */}
             <div className="mb-6 border-b border-gray-200 pb-4">
               <div className="grid grid-cols-2 gap-4 text-sm">
@@ -30,11 +31,19 @@ const BillResultsPage: React.FC = () => {
                 </div>
                 <div className="flex justify-between">
                   <span className="font-semibold">Ngày đi:</span>
-                  <span>{new Date(order.items[0].departureDate).toLocaleDateString('vi-VN')}</span>
+                  <span>
+                    {new Date(order.items[0].departureDate).toLocaleDateString(
+                      'vi-VN'
+                    )}
+                  </span>
                 </div>
                 <div className="flex justify-between">
                   <span className="font-semibold">Ngày về:</span>
-                  <span>{new Date(order.items[0].destinationDate).toLocaleDateString('vi-VN')}</span>
+                  <span>
+                    {new Date(
+                      order.items[0].destinationDate
+                    ).toLocaleDateString('vi-VN')}
+                  </span>
                 </div>
                 <div className="flex justify-between">
                   <span className="font-semibold">Giờ đi:</span>
@@ -69,9 +78,16 @@ const BillResultsPage: React.FC = () => {
 
             {/* Pricing Information */}
             <div className="mb-6 border-b border-gray-200 pb-4">
-              <div className="flex justify-between text-lg font-bold mt-2">
+              <div className="mt-2 flex justify-between text-lg font-bold">
                 <span>Giá vé:</span>
-                <span>{(order.items[0].price * 1000 * order.items[0].quantity).toLocaleString('vi-VN')} VNĐ</span>
+                <span>
+                  {(
+                    order.items[0].price *
+                    1000 *
+                    order.items[0].quantity
+                  ).toLocaleString('vi-VN')}{' '}
+                  VNĐ
+                </span>
               </div>
             </div>
 
@@ -84,9 +100,8 @@ const BillResultsPage: React.FC = () => {
         )}
       </div>
     </div>
+  );
+};
 
+export default BillResultsPage;
 
-  )
-}
-
-export default BillResultsPage

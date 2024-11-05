@@ -12,14 +12,12 @@ interface Order {
 }
 
 const CheckTicketPage: React.FC = () => {
-
   const { t } = useTranslation();
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const [ticketCode, setTicketCode] = useState('');
   const [phone, setPhone] = useState('');
-  const [cccd, setCccd] = useState(''); // Thêm state cho CCCD
-  const [order, setOrder] = useState<Order | null>(null);
-  console.log(order)
+  const [cccd, setCccd] = useState('');
+  const [, setOrder] = useState<Order | null>(null);
   const [error, setError] = useState('');
 
   const handleCheckTicket = async (e: React.FormEvent) => {
@@ -30,11 +28,11 @@ const CheckTicketPage: React.FC = () => {
         params: {
           ticketCode,
           phone,
-          cccd,
-        },
+          cccd
+        }
       });
       setOrder(response.data.order);
-      navigate('/bill-results', { state: { order: response.data.order } })
+      navigate('/bill-results', { state: { order: response.data.order } });
       setError('');
     } catch (err) {
       setOrder(null);
@@ -65,7 +63,7 @@ const CheckTicketPage: React.FC = () => {
                   type="text"
                   placeholder={`${t('UserPage.CheckTicketPage.SearchTicketCode')}`}
                   value={ticketCode}
-                  onChange={(e) => setTicketCode(e.target.value)}
+                  onChange={e => setTicketCode(e.target.value)}
                   className="border border-gray-300 bg-white text-black focus:border-primary dark:bg-gray-700 dark:text-white xs:w-[300px] sm:w-[350px] md:w-[650px] xl:w-[800px]"
                   classNameLabel="bg-white dark:bg-gray-700"
                 />
@@ -73,7 +71,7 @@ const CheckTicketPage: React.FC = () => {
                   type="text"
                   placeholder={`${t('UserPage.CheckTicketPage.SearchPhone')}`}
                   value={phone}
-                  onChange={(e) => setPhone(e.target.value)}
+                  onChange={e => setPhone(e.target.value)}
                   className="border border-gray-300 bg-white text-black focus:border-primary dark:bg-gray-700 dark:text-white xs:w-[300px] sm:w-[350px] md:w-[650px] xl:w-[800px]"
                   classNameLabel="bg-white dark:bg-gray-700"
                 />
@@ -81,7 +79,7 @@ const CheckTicketPage: React.FC = () => {
                   type="text"
                   placeholder={`${t('UserPage.CheckTicketPage.SearchCCCD')}`}
                   value={cccd}
-                  onChange={(e) => setCccd(e.target.value)}
+                  onChange={e => setCccd(e.target.value)}
                   className="border border-gray-300 bg-white text-black focus:border-primary dark:bg-gray-700 dark:text-white xs:w-[300px] sm:w-[350px] md:w-[650px] xl:w-[800px]"
                   classNameLabel="bg-white dark:bg-gray-700"
                 />
