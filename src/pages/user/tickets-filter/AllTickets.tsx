@@ -190,11 +190,11 @@ const AllTickets: React.FC = () => {
                   <div className="w-full">
                     <div className="mb-2 flex items-center justify-center gap-1 font-semibold">
                       <span className="font-semibold text-primary">
-                        {ticket.trip_id.departure_point?.name}
+                        {ticket.trip_id?.departure_point?.name}
                       </span>
                       <p className="text-primary">-</p>
                       <span className="font-semibold text-primary">
-                        {ticket.trip_id.destination_point?.name}
+                        {ticket.trip_id?.destination_point?.name}
                       </span>
                     </div>
                     <div className="flex items-center gap-1">

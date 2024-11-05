@@ -130,11 +130,11 @@ const FlightTickets: React.FC = () => {
               <div className="flex flex-col gap-1 p-4 font-light">
                 <div className="mb-2 flex items-center justify-center gap-1 font-semibold">
                   <span className="font-semibold">
-                    {ticket.trip_id.departure_point?.name}
+                    {ticket.trip_id?.departure_point?.name}
                   </span>
                   <FaArrowRightArrowLeft color="#12296999" />
                   <span className="font-semibold">
-                    {ticket.trip_id.destination_point?.name}
+                    {ticket.trip_id?.destination_point?.name}
                   </span>
                 </div>
                 <div className="flex items-center gap-1">

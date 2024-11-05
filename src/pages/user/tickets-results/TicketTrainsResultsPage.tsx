@@ -147,7 +147,7 @@ const TicketTrainsResultsPage: React.FC = () => {
                   <p>
                     <strong>{t('UserPage.DepartureDatePlaceholder')}:</strong>
                     {new Date(
-                      trainTickets[0].trip_id.departure_date
+                      trainTickets[0].trip_id?.departure_date
                     ).toLocaleDateString('vi-VN')}
                   </p>
                   <p>
@@ -165,7 +165,7 @@ const TicketTrainsResultsPage: React.FC = () => {
                           {trainTickets[0].ticket_catalog_id?.name.toLowerCase() !==
                           'một chiều'
                             ? new Date(
-                                trainTickets[0].trip_id.return_date
+                                trainTickets[0].trip_id?.return_date
                               ).toLocaleDateString('vi-VN')
                             : 'N/A'}
                         </p>

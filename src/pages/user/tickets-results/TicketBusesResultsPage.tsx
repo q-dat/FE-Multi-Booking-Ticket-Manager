@@ -169,7 +169,7 @@ const TicketBusesResultsPage: React.FC = () => {
                   <p>
                     Ngày về:
                     {new Date(
-                      busTickets[0].trip_id.return_date
+                      busTickets[0].trip_id?.return_date
                     ).toLocaleDateString('vi-VN')}
                   </p>
                   <p>Giờ về: {busTickets[0].trip_id?.return_time}</p>
