@@ -163,14 +163,18 @@ const TicketBusesResultsPage: React.FC = () => {
                       busTickets[0].trip_id?.departure_date
                     ).toLocaleDateString('vi-VN')}
                   </p>
+                  <p>Giờ đi: {busTickets[0].trip_id?.departure_time}</p>
+                  {busTickets[0]?.ticket_catalog_id?.name.toLowerCase() !== 'một chiều' && (
+                    <>
                   <p>
                     Ngày về:
                     {new Date(
                       busTickets[0].trip_id.return_date
                     ).toLocaleDateString('vi-VN')}
                   </p>
-                  <p>Giờ đi: {busTickets[0].trip_id?.departure_time}</p>
                   <p>Giờ về: {busTickets[0].trip_id?.return_time}</p>
+                  </>
+                   )} 
                 </div>
                 <div className="flex items-center gap-6">
                   <div className="h-6 w-6 rounded-full bg-white group-hover:border group-hover:border-white group-hover:bg-primary dark:group-hover:bg-secondary"></div>
