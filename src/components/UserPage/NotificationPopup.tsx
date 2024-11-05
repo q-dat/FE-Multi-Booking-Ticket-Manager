@@ -66,7 +66,7 @@ const NotificationPopup: React.FC = () => {
 
           <div
             id="popup"
-            className="fixed left-1/2 top-1/2 z-50 -translate-x-1/2 -translate-y-1/2 transform overflow-auto rounded-lg border border-white bg-white dark:bg-gray-900"
+            className="fixed left-1/2 top-1/2 z-50 -translate-x-1/2 -translate-y-1/2 transform overflow-auto rounded-lg border border-white bg-white "
           >
             <div className="flex flex-col items-end justify-center rounded-lg">
               <Hero>
@@ -81,10 +81,10 @@ const NotificationPopup: React.FC = () => {
                       </p>
                     </div>
                     <div className="flex flex-col items-center justify-center">
-                      <p className="text-[40px] font-bold uppercase text-primary dark:text-white">
+                      <p className="text-[40px] font-bold uppercase text-primary  ">
                         {t('UserPage.ContactUs')}
                       </p>
-                      <p className="font-semibold text-primary dark:text-white">
+                      <p className="font-semibold text-primary  ">
                         {t('UserPage.Questions')}
                       </p>
                     </div>
@@ -100,20 +100,20 @@ const NotificationPopup: React.FC = () => {
                             name="email"
                             type="email"
                             placeholder={t('UserPage.Email')}
-                            className="border border-black bg-white text-black focus:border-primary focus:shadow-inner focus:shadow-primary dark:bg-gray-700 dark:text-white dark:shadow-none dark:shadow-white xs:w-[300px] sm:w-[350px] md:w-[650px] xl:w-[350px]"
-                            classNameLabel="bg-white dark:bg-gray-700"
+                            className="border border-black bg-white text-black focus:border-primary focus:shadow-inner focus:shadow-primary    dark:shadow-none dark:shadow-white xs:w-[300px] sm:w-[350px] md:w-[650px] xl:w-[350px]"
+                            classNameLabel="bg-white dark:peer-placeholder-shown:text-black dark:peer-focus:text-black"
                           />
                           <InputForm
                             name="name"
                             type="text"
-                            className="border border-black bg-white text-black focus:border-primary focus:shadow-inner focus:shadow-primary dark:bg-gray-700 dark:text-white dark:shadow-none dark:shadow-white xs:w-[300px] sm:w-[350px] md:w-[650px] xl:w-[250px]"
+                            className="border border-black bg-white text-black focus:border-primary focus:shadow-inner focus:shadow-primary    dark:shadow-none dark:shadow-white xs:w-[300px] sm:w-[350px] md:w-[650px] xl:w-[250px]"
                             placeholder={t('UserPage.YourNameBtn')}
-                            classNameLabel="bg-white dark:bg-gray-700"
+                            classNameLabel="bg-white dark:peer-placeholder-shown:text-black dark:peer-focus:text-black"
                           />
                         </div>
                         <Textarea
                           name="feedback"
-                          className="border border-black bg-white pb-20 text-black focus:border-primary focus:shadow-inner focus:shadow-primary focus:outline-none dark:bg-gray-700 dark:text-white dark:shadow-none dark:shadow-white xs:w-full sm:w-[350px] md:w-[650px] lg:w-full"
+                          className="border border-black bg-white pb-20 text-black focus:border-primary focus:shadow-inner focus:shadow-primary focus:outline-none    dark:shadow-none dark:shadow-white xs:w-full sm:w-[350px] md:w-[650px] lg:w-full"
                           placeholder={t('UserPage.FeedbackBtn')}
                         />
                         <div className="w-full">
