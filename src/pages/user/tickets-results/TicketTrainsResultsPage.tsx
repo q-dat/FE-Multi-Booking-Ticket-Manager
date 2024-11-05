@@ -23,22 +23,27 @@ const TicketTrainsResultsPage: React.FC = () => {
       setLoading(true);
       try {
         const storedTickets = sessionStorage.getItem('searchResults');
-        if (!storedTickets) throw new Error('Không tìm thấy dữ liệu vé trong session.');
-  
+        if (!storedTickets)
+          throw new Error('Không tìm thấy dữ liệu vé trong session.');
+
         const parsedTickets = JSON.parse(storedTickets) as ITicket[];
-        const { data: { tickets: allTickets } } = await getAllTicketsApi();
-  
-        const updatedTickets = parsedTickets.map(ticket => 
+        const {
+          data: { tickets: allTickets }
+        } = await getAllTicketsApi();
+
+        const updatedTickets = parsedTickets.map(ticket =>
           ticket.seat_id[0]?.status === 'Đang chọn'
-            ? ticket 
+            ? ticket
             : allTickets.find(t => t._id === ticket._id) || ticket
         );
-  
+
         setTickets(updatedTickets);
         sessionStorage.setItem('searchResults', JSON.stringify(updatedTickets));
-  
+
         if (updatedTickets.length > 0) {
-          setSelectedTrain(updatedTickets[0].seat_id[0]?.seat_catalog_id.vehicle_id.name);
+          setSelectedTrain(
+            updatedTickets[0].seat_id[0]?.seat_catalog_id.vehicle_id.name
+          );
           setSelectedClassId(updatedTickets[0].seat_id[0]?.seat_catalog_id._id);
         }
       } catch (err) {
@@ -48,10 +53,9 @@ const TicketTrainsResultsPage: React.FC = () => {
         setLoading(false);
       }
     };
-  
+
     fetchTickets();
   }, []);
-  
 
   useEffect(() => {
     const storedTickets = sessionStorage.getItem('searchResults');
@@ -75,22 +79,37 @@ const TicketTrainsResultsPage: React.FC = () => {
     return <LoadingLocal />;
   }
 
-  
   const tripInfo = tickets[0]?.trip_id;
   const ticketCatalogInfo = tickets[0]?.ticket_catalog_id;
-  const ticketsByTrain = tickets.reduce((acc, ticket) => {
-    const trainName = ticket.seat_id[0]?.seat_catalog_id.vehicle_id.name;
-    acc[trainName] = acc[trainName] ? [...acc[trainName], ticket] : [ticket];
-    return acc;
-  }, {} as Record<string, ITicket[]>);
+  const ticketsByTrain = tickets.reduce(
+    (acc, ticket) => {
+      const trainName = ticket.seat_id[0]?.seat_catalog_id.vehicle_id.name;
+      acc[trainName] = acc[trainName] ? [...acc[trainName], ticket] : [ticket];
+      return acc;
+    },
+    {} as Record<string, ITicket[]>
+  );
 
-  const ticketsByCarriage = selectedTrain ? ticketsByTrain[selectedTrain].reduce((acc, ticket) => {
-    const carriageId = ticket.seat_id[0]?.seat_catalog_id._id;
-    acc[carriageId] = acc[carriageId] ? [...acc[carriageId], ticket] : [ticket];
-    return acc;
-  }, {} as Record<string, ITicket[]>) : {};
+  const ticketsByCarriage = selectedTrain
+    ? ticketsByTrain[selectedTrain].reduce(
+        (acc, ticket) => {
+          const carriageId = ticket.seat_id[0]?.seat_catalog_id._id;
+          acc[carriageId] = acc[carriageId]
+            ? [...acc[carriageId], ticket]
+            : [ticket];
+          return acc;
+        },
+        {} as Record<string, ITicket[]>
+      )
+    : {};
 
- 
+  // Khi người dùng chọn một tàu khác, tự động chọn danh mục ghế đầu tiên của tàu đó
+  const handleTrainChange = (trainName: string) => {
+    setSelectedTrain(trainName);
+    setSelectedClassId(
+      ticketsByTrain[trainName][0]?.seat_id[0]?.seat_catalog_id._id || null
+    );
+  };
 
   return (
     <div className="pb-[20px] xl:pt-[90px]">
@@ -114,6 +133,7 @@ const TicketTrainsResultsPage: React.FC = () => {
               <div
                 className={`boder-white group mb-4 flex h-[180px] w-[180px] cursor-pointer flex-col items-center justify-around gap-2 rounded-[30px] border bg-black bg-opacity-20 p-1 px-2 shadow-lg ${selectedTrain === trainName ? 'bg-primary bg-opacity-60' : ''}`}
                 key={trainName}
+                onClick={() => handleTrainChange(trainName)}
               >
                 <div className="w-[100px] rounded-3xl bg-white text-black group-hover:bg-primary group-hover:text-white dark:group-hover:bg-secondary">
                   <p className="text-center">
@@ -171,8 +191,8 @@ const TicketTrainsResultsPage: React.FC = () => {
           </div>
           {/* SeatCatalog */}
           {selectedTrain && ticketsByCarriage && (
-            <div>
-              <div className="mb-4 flex flex-row items-center justify-center">
+            <div className="w-full">
+              <div className="mb-4 flex w-full flex-row items-start justify-start overflow-auto scrollbar-hide">
                 <img
                   width={50}
                   height={50}
@@ -190,19 +210,21 @@ const TicketTrainsResultsPage: React.FC = () => {
                   })
                   .map(([classId, classTickets]) => (
                     <div className="flex flex-row items-end justify-center">
-                      <strong className="text-black dark:text-white">-</strong>
+                      <p className="text-black dark:text-white">+</p>
                       <div className="rounded-sm border border-b-[5px] border-l-0 border-r-0 border-t-0 border-dotted border-black dark:border-white">
                         <Button
                           key={classId}
                           size="xs"
                           onClick={() => setSelectedClassId(classId)}
-                          className={`text-md rounded-sm border-none text-xs font-semibold shadow-headerMenu shadow-black hover:bg-secondary ${
+                          className={`text-md min-w-[100px] rounded-sm border-none text-xs font-semibold shadow-headerMenu shadow-black hover:bg-secondary ${
                             selectedClassId === classId
                               ? 'bg-[#0084c1] text-white'
                               : 'bg-black bg-opacity-20 text-black dark:bg-white dark:text-[#0084c1]'
                           }`}
                         >
-                          {classTickets[0].seat_id[0]?.seat_catalog_id.name}
+                          <p className="inline-block">
+                            {classTickets[0].seat_id[0]?.seat_catalog_id.name}
+                          </p>
                         </Button>
                       </div>
                     </div>
@@ -210,7 +232,7 @@ const TicketTrainsResultsPage: React.FC = () => {
               </div>
               <div className="">
                 {selectedClassId && ticketsByCarriage[selectedClassId] && (
-                  <div className="zebra-background grid-cols-14 grid grid-flow-col grid-rows-3 items-center justify-around gap-x-1 gap-y-10 overflow-x-auto rounded-xl border border-l-0 border-r-0 border-primary p-2 scrollbar-hide dark:border-white xl:overflow-visible">
+                  <div className="zebra-background grid-cols-14 grid grid-flow-col grid-rows-3 items-center justify-around gap-x-5 gap-y-10 overflow-x-auto rounded-xl border border-l-0 border-r-0 border-primary p-2 scrollbar-hide dark:border-white xl:gap-x-1 xl:overflow-visible">
                     {ticketsByCarriage[selectedClassId]
                       .sort(
                         (a, b) =>
