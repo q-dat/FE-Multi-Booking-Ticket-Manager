@@ -9,6 +9,7 @@ import { IoMdPricetag } from 'react-icons/io';
 import { PiMapPinAreaDuotone, PiSeatFill } from 'react-icons/pi';
 import { FaArrowRightArrowLeft, FaCartPlus } from 'react-icons/fa6';
 import { t } from 'i18next';
+import Pagination from '../../../components/UserPage/Pagination';
 
 const BusesTickets: React.FC = () => {
   const { tickets, getAllTickets, filterTickets } = useContext(TicketContext);
@@ -19,7 +20,9 @@ const BusesTickets: React.FC = () => {
   const [vehicleCatalog] = useState<string>('Xe khách');
   const [departurePoint, setDeparturePoint] = useState<string>('');
   const [shouldSearch, setShouldSearch] = useState(false);
-
+  //
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 6;
   useEffect(() => {
     getAllTickets();
   }, [getAllTickets]);
@@ -53,6 +56,24 @@ const BusesTickets: React.FC = () => {
   const filteredTickets = tickets.filter(
     ticket => ticket.vehicle_catalog_id?.name === vehicleCatalog
   );
+
+  const totalPages = Math.ceil(filteredTickets.length / itemsPerPage);
+
+  // Tính toán sản phẩm hiển thị dựa trên trang hiện tại
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const currentProducts = filteredTickets.slice(
+    indexOfFirstItem,
+    indexOfLastItem
+  );
+
+  const handleNextPage = () => {
+    if (currentPage < totalPages) setCurrentPage(currentPage + 1);
+  };
+
+  const handlePrevPage = () => {
+    if (currentPage > 1) setCurrentPage(currentPage - 1);
+  };
   return (
     <div className="px-2 xl:px-[100px]">
       <div className="my-5">
@@ -122,7 +143,7 @@ const BusesTickets: React.FC = () => {
           </div>
         </div>
         <div className="my-5 grid w-full grid-cols-1 items-center justify-center gap-5 md:grid-cols-2">
-          {filteredTickets.map((ticket: ITicket) => (
+          {currentProducts.map((ticket: ITicket) => (
             <div
               key={ticket._id}
               className="w-full transform rounded-lg bg-white text-black shadow-md shadow-primary transition-transform duration-300 ease-in-out hover:bg-primary hover:bg-opacity-10 dark:hover:bg-gray-50"
@@ -191,6 +212,12 @@ const BusesTickets: React.FC = () => {
             </div>
           ))}
         </div>
+        <Pagination
+          currentPage={currentPage}
+          totalPages={totalPages}
+          onNextPage={handleNextPage}
+          onPrevPage={handlePrevPage}
+        />
       </div>
     </div>
   );
