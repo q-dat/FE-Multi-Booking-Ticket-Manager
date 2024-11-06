@@ -37,22 +37,26 @@ const BillResultsPage: React.FC = () => {
                     )}
                   </span>
                 </div>
-                <div className="flex justify-between">
-                  <span className="font-semibold">Ngày về:</span>
-                  <span>
-                    {new Date(
-                      order.items[0].destinationDate
-                    ).toLocaleDateString('vi-VN')}
-                  </span>
-                </div>
+                {order.items[0].ticketCatalog === 'Khứ hồi' && (
+                  <div className="flex justify-between">
+                    <span className="font-semibold">Ngày về:</span>
+                    <span>
+                      {new Date(
+                        order.items[0].destinationDate
+                      ).toLocaleDateString('vi-VN')}
+                    </span>
+                  </div>
+                )}
                 <div className="flex justify-between">
                   <span className="font-semibold">Giờ đi:</span>
                   <span>{order.items[0].departureTime}</span>
                 </div>
-                <div className="flex justify-between">
-                  <span className="font-semibold">Giờ về:</span>
-                  <span>{order.items[0].returnTime}</span>
-                </div>
+                {order.items[0].ticketCatalog === 'Khứ hồi' && (
+                  <div className="flex justify-between">
+                    <span className="font-semibold">Giờ về:</span>
+                    <span>{order.items[0].returnTime}</span>
+                  </div>
+                )}
                 <div className="flex justify-between">
                   <span className="font-semibold">Điểm đi:</span>
                   <span>{order.items[0].departurePoint}</span>
