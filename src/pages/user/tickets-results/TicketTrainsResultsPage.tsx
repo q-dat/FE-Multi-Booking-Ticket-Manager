@@ -232,7 +232,7 @@ const TicketTrainsResultsPage: React.FC = () => {
               </div>
               <div className="">
                 {selectedClassId && ticketsByCarriage[selectedClassId] && (
-                  <div className="zebra-background grid-cols-14 grid grid-flow-col grid-rows-3 items-center justify-around gap-x-5 gap-y-10 overflow-x-auto rounded-xl border border-l-0 border-r-0 border-primary p-2 scrollbar-hide dark:border-white xl:gap-x-1 xl:overflow-visible">
+                  <div className="zebra-background grid-cols-16 grid grid-flow-col grid-rows-4 items-center justify-around gap-x-5 gap-y-10 overflow-x-auto rounded-xl border border-l-0 border-r-0 border-primary p-2 scrollbar-hide dark:border-white xl:gap-x-1 xl:overflow-visible">
                     {ticketsByCarriage[selectedClassId]
                       .sort(
                         (a, b) =>
