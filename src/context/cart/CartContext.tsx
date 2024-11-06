@@ -33,6 +33,10 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({
   //Add
   const addSeat = useCallback(
     (ticket: ITicket) => {
+      if (selectedSeats.length >= 10) {
+        Toastify("Bạn chỉ được chọn tối đa 10 ghế!", 401);
+        return;
+      }
       const isSeatSelected = selectedSeats.some(
         seat => seat._id === ticket._id
       );
