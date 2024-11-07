@@ -33,7 +33,7 @@ const ModalDeleteTicketPageAdmin: React.FC<ModalDeleteAdminProps> = ({
       >
         <div className="">
           <p className="font-bold text-black dark:text-white">
-            Địa chỉ này sẽ bị xoá!
+            Vé này sẽ bị xoá!
             <label className="pl-1 text-secondary">{/*  */}</label>
           </p>
         </div>
