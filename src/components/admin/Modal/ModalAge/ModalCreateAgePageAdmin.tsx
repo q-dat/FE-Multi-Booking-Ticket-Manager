@@ -15,7 +15,7 @@ const ModalCreateAgePageAdmin: React.FC<ModalCreateAgeProps> = ({
   isOpen,
   onClose
 }) => {
-  const { createAge, error } = useContext(AgeContext);
+  const { getAllAges, createAge, error } = useContext(AgeContext);
   const { register, handleSubmit, reset } = useForm<IAge>();
 
   const onSubmit: SubmitHandler<IAge> = async formData => {
@@ -23,8 +23,9 @@ const ModalCreateAgePageAdmin: React.FC<ModalCreateAgeProps> = ({
       await createAge(formData);
       Toastify('Tạo độ tuổi thành công!', 201);
       reset();
+      getAllAges();
       onClose();
-    } catch (err){
+    } catch (err) {
       Toastify(`Lỗi: ${error}`, 500);
     }
   };

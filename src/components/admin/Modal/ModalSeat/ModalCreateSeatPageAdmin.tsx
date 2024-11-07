@@ -18,7 +18,7 @@ const ModalCreateSeatPageAdmin: React.FC<ModalCreateSeatProps> = ({
 }) => {
   const { seatCatalogs, getAllSeatCatalogs, error } =
     useContext(SeatCatalogContext);
-  const { createSeat } = useContext(SeatContext);
+  const { getAllSeats, createSeat } = useContext(SeatContext);
   const { register, handleSubmit, reset } = useForm<ISeat>();
 
   useEffect(() => {
@@ -29,6 +29,7 @@ const ModalCreateSeatPageAdmin: React.FC<ModalCreateSeatProps> = ({
       await createSeat(formData);
       Toastify('Tạo ghế thành công!', 201);
       reset();
+      getAllSeats();
       onClose();
     } catch (err) {
       Toastify(`Lỗi: ${error}`, 500);

@@ -15,7 +15,7 @@ const ModalCreateLocationPageAdmin: React.FC<ModalCreateLocationProps> = ({
   isOpen,
   onClose
 }) => {
-  const { createLocation, error } = React.useContext(LocationContext);
+  const { getAllLocations,createLocation, error } = React.useContext(LocationContext);
   const { register, handleSubmit, reset } = useForm<ILocation>();
 
   const onSubmit: SubmitHandler<ILocation> = async formData => {
@@ -23,6 +23,7 @@ const ModalCreateLocationPageAdmin: React.FC<ModalCreateLocationProps> = ({
       await createLocation(formData);
       Toastify('Tạo địa điểm thành công!', 201);
       reset();
+      getAllLocations();
       onClose();
     } catch (err) {
       Toastify(`Lỗi: ${error}`, 500);

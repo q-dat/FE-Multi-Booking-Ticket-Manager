@@ -15,7 +15,7 @@ const ModalCreateVehiclePageAdmin: React.FC<ModalCreateVehicleProps> = ({
   isOpen,
   onClose
 }) => {
-  const { createVehicle, error } = useContext(VehicleContext);
+  const { getAllVehicles, createVehicle, error } = useContext(VehicleContext);
   const { register, handleSubmit, reset } = useForm<IVehicle>();
 
   const onSubmit: SubmitHandler<IVehicle> = async formData => {
@@ -23,6 +23,7 @@ const ModalCreateVehiclePageAdmin: React.FC<ModalCreateVehicleProps> = ({
       await createVehicle(formData);
       Toastify('Tạo phương tiện thành công!', 201);
       reset();
+      getAllVehicles();
       onClose();
     } catch (err) {
       Toastify(`Lỗi: ${error}`, 500);

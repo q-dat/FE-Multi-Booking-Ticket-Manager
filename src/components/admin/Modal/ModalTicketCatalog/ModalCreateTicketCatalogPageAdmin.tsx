@@ -14,7 +14,8 @@ interface ModalCreateTicketCatalogProps {
 const ModalCreateTicketCatalogPageAdmin: React.FC<
   ModalCreateTicketCatalogProps
 > = ({ isOpen, onClose }) => {
-  const { createTicketCatalog, error } = useContext(TicketCatalogContext);
+  const { getAllTicketCatalogs, createTicketCatalog, error } =
+    useContext(TicketCatalogContext);
   const { register, handleSubmit, reset } = useForm<ITicketCatalog>();
 
   const onSubmit: SubmitHandler<ITicketCatalog> = async formData => {
@@ -22,6 +23,7 @@ const ModalCreateTicketCatalogPageAdmin: React.FC<
       await createTicketCatalog(formData);
       Toastify('Tạo danh mục vé thành công!', 201);
       reset();
+      getAllTicketCatalogs();
       onClose();
     } catch (err) {
       Toastify(`Lỗi: ${error}`, 500);

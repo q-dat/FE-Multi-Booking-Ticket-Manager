@@ -15,7 +15,7 @@ interface ModalCreateSeatCatalogProps {
 const ModalCreateSeatCatalogPageAdmin: React.FC<
   ModalCreateSeatCatalogProps
 > = ({ isOpen, onClose }) => {
-  const { createSeatCatalog, error } = useContext(SeatCatalogContext);
+  const {getAllSeatCatalogs,  createSeatCatalog, error } = useContext(SeatCatalogContext);
   const { register, handleSubmit, reset } = useForm<ISeatCatalog>();
   const { vehicles } = useContext(VehicleContext);
   const onSubmit: SubmitHandler<ISeatCatalog> = async formData => {
@@ -24,6 +24,7 @@ const ModalCreateSeatCatalogPageAdmin: React.FC<
       Toastify('Tạo danh mục phương tiện thành công!', 201);
       reset();
       onClose();
+      getAllSeatCatalogs()
     } catch (err) {
       Toastify(`Lỗi: ${error}`, 500);
     }

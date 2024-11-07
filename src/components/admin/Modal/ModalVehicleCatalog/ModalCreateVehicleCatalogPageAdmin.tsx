@@ -14,7 +14,7 @@ interface ModalCreateVehicleCatalogProps {
 const ModalCreateVehicleCatalogPageAdmin: React.FC<
   ModalCreateVehicleCatalogProps
 > = ({ isOpen, onClose }) => {
-  const { createVehicleCatalog, error } = useContext(VehicleCatalogContext);
+  const { getAllVehicleCatalogs,createVehicleCatalog, error } = useContext(VehicleCatalogContext);
   const { register, handleSubmit, reset } = useForm<IVehicleCatalog>();
 
   const onSubmit: SubmitHandler<IVehicleCatalog> = async formData => {
@@ -22,6 +22,7 @@ const ModalCreateVehicleCatalogPageAdmin: React.FC<
       await createVehicleCatalog(formData);
       Toastify('Tạo danh mục phương tiện thành công!', 201);
       reset();
+      getAllVehicleCatalogs();
       onClose();
     } catch {
       Toastify(`Lỗi: ${error}`, 500);
