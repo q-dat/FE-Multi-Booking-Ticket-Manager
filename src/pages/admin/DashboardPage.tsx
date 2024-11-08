@@ -7,6 +7,7 @@ import { TripContext } from '../../context/trip/TripContext';
 import { TicketContext } from '../../context/ticket/TicketContext';
 import { Toastify } from '../../helper/Toastify';
 import LineChartComponent from '../../components/admin/Chart/LineChartComponent';
+import CountUp from 'react-countup';
 
 interface Order {
   _id: string;
@@ -16,7 +17,7 @@ interface Order {
 
 interface DashboardCardProps {
   Icons: React.ReactNode;
-  Value: string;
+  Value: number;
   Label: string;
   Percentage: string;
   isLoading: boolean;
@@ -37,7 +38,13 @@ const DashboardCard: React.FC<DashboardCardProps> = ({
           <div className="text-md font-semibold text-black">Đang tải...</div>
         ) : (
           <>
-            <div className="text-xl font-semibold text-black">{Value}</div>
+            <div className="text-xl font-semibold text-black">
+              <CountUp
+                className="text-xl font-semibold text-black"
+                end={Value}
+                duration={2}
+              />
+            </div>
             <div className="text-xs text-gray-800">{Label}</div>
             <div className="text-[10px] text-gray-800">{Percentage}</div>
           </>
@@ -48,7 +55,6 @@ const DashboardCard: React.FC<DashboardCardProps> = ({
 };
 
 const DashboardPage: React.FC<{}> = () => {
-
   const { vehicles } = useContext(VehicleContext);
   const { trips, getAllTrips } = useContext(TripContext);
   const { tickets, getAllTickets } = useContext(TicketContext);
@@ -81,23 +87,23 @@ const DashboardPage: React.FC<{}> = () => {
     const monthlyTrips = new Array(12).fill(0);
     const monthlyTickets = new Array(12).fill(0);
 
-    orders.forEach((order) => {
+    orders.forEach(order => {
       const month = new Date(order.date).getMonth();
       monthlyOrders[month] += 1;
       monthlyRevenue[month] += order.amount * 1000;
     });
 
-    vehicles.forEach((vehicle) => {
+    vehicles.forEach(vehicle => {
       const month = new Date(vehicle.createAt).getMonth();
       monthlyVehicles[month] += 1;
     });
 
-    trips.forEach((trip) => {
+    trips.forEach(trip => {
       const month = new Date(trip.departure_date).getMonth();
       monthlyTrips[month] += 1;
     });
 
-    tickets.forEach((ticket) => {
+    tickets.forEach(ticket => {
       const month = new Date(ticket.createAt!).getMonth();
       monthlyTickets[month] += 1;
     });
@@ -116,7 +122,12 @@ const DashboardPage: React.FC<{}> = () => {
   }, [getAllTrips, getAllTickets]);
 
   useEffect(() => {
-    if (orders.length > 0 || vehicles.length > 0 || trips.length > 0 || tickets.length > 0) {
+    if (
+      orders.length > 0 ||
+      vehicles.length > 0 ||
+      trips.length > 0 ||
+      tickets.length > 0
+    ) {
       calculateStatistics();
     }
   }, [orders, vehicles, trips, tickets]);
@@ -131,42 +142,48 @@ const DashboardPage: React.FC<{}> = () => {
           <DashboardCard
             Icons="https://cdn-icons-png.flaticon.com/128/3762/3762066.png"
             Percentage="25% (30 days)"
-            Value={tripData.reduce((a, b) => a + b, 0).toString()}
+            Value={tripData.reduce((a, b) => a + b, 0)}
             Label={'Số lượng chuyến đi'}
             isLoading={false}
           />
           <DashboardCard
             Icons="https://cdn-icons-png.flaticon.com/128/2942/2942934.png"
             Percentage="25% (30 days)"
-            Value={ticketData.reduce((a, b) => a + b, 0).toString()}
+            Value={ticketData.reduce((a, b) => a + b, 0)}
             Label={'Số lượng vé'}
             isLoading={false}
           />
           <DashboardCard
             Icons="https://cdn-icons-png.flaticon.com/128/3753/3753033.png"
             Percentage="25% (30 days)"
-            Value={orderData.reduce((a, b) => a + b, 0).toString()}
+            Value={orderData.reduce((a, b) => a + b, 0)}
             Label={'Số lượng đơn hàng'}
             isLoading={false}
           />
           <DashboardCard
             Icons="https://cdn-icons-png.flaticon.com/128/713/713309.png"
             Percentage="25% (30 days)"
-            Value={vehicleData.reduce((a, b) => a + b, 0).toString()}
+            Value={vehicleData.reduce((a, b) => a + b, 0)}
             Label={'Số lượng phương tiện'}
             isLoading={false}
           />
           <DashboardCard
             Icons="https://cdn-icons-png.flaticon.com/128/4256/4256900.png"
             Percentage="25% (30 days)"
-            Value={revenueData.reduce((a, b) => a + b, 0).toString()}
+            Value={revenueData.reduce((a, b) => a + b, 0)}
             Label={'Số lượng doanh thu'}
             isLoading={false}
           />
         </div>
 
         <div className="flex flex-col py-6">
-          <LineChartComponent orderData={orderData} revenueData={revenueData} vehicleData={vehicleData} tripData={tripData} ticketData={ticketData} />
+          <LineChartComponent
+            orderData={orderData}
+            revenueData={revenueData}
+            vehicleData={vehicleData}
+            tripData={tripData}
+            ticketData={ticketData}
+          />
         </div>
       </div>
     </div>
