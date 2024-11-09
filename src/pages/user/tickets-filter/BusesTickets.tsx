@@ -17,7 +17,7 @@ const BusesTickets: React.FC = () => {
   const { locations } = useContext(LocationContext);
 
   const [ticketCatalog, setTicketCatalog] = useState<string>('');
-  const [vehicleCatalog] = useState<string>('Xe Khách');
+  const [vehicleCatalog] = useState<string>('xe khách');
   const [departurePoint, setDeparturePoint] = useState<string>('');
   const [shouldSearch, setShouldSearch] = useState(false);
   //
@@ -54,7 +54,7 @@ const BusesTickets: React.FC = () => {
   };
   // Lọc vé xe khách
   const filteredTickets = tickets.filter(
-    ticket => ticket.vehicle_catalog_id?.name === vehicleCatalog
+    ticket => ticket.vehicle_catalog_id?.name.toLowerCase() === vehicleCatalog
   );
 
   const totalPages = Math.ceil(filteredTickets.length / itemsPerPage);
