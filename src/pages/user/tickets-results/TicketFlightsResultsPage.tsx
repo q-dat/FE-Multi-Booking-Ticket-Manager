@@ -139,8 +139,12 @@ const TicketFlightsResultsPage: React.FC = () => {
           <div className="flex flex-row items-start justify-between">
             <div className="w-full">
               <h1 className="mx-2 mb-5 border-[4px] border-b-0 border-r-0 border-t-0 border-primary bg-blue-200 px-5 py-1 text-center text-xl text-black dark:border-white dark:bg-gray-400 dark:text-white xl:text-start">
-                Chuyến bay từ <strong>{tripInfo.departure_point.name}</strong>{' '}
-                đến <strong>{tripInfo.destination_point.name}</strong>
+                 <strong>
+                 {t('UserPage.TicketTrainsResults.TripFrom')}
+                 
+                  {tripInfo.departure_point.name}</strong>{' '}
+                 <strong>
+                 {t('UserPage.TicketTrainsResults.To')}{tripInfo.destination_point.name}</strong>
               </h1>
               <div className="mb-8 flex w-full flex-row items-center justify-center overflow-x-auto scrollbar-hide">
                 {Object.entries(ticketsByFlight).map(
@@ -154,7 +158,7 @@ const TicketFlightsResultsPage: React.FC = () => {
                         }}
                       />
                       <div
-                        className={`group mb-4 flex h-[260px] w-[180px] cursor-pointer flex-col items-center justify-around gap-1 rounded-[150px] border border-white bg-black bg-opacity-20 p-12 shadow-lg ${selectedFlight === flightName ? 'bg-primary bg-opacity-100' : ''}`}
+                        className={`group mb-4 flex h-[300px] w-[180px] cursor-pointer flex-col items-center justify-around gap-1 rounded-[150px] border border-white bg-black bg-opacity-20 p-12 shadow-lg ${selectedFlight === flightName ? 'bg-primary bg-opacity-100' : ''}`}
                         onClick={() => handleFlightChange(flightName)}
                         key={flightName}
                       >
@@ -168,26 +172,26 @@ const TicketFlightsResultsPage: React.FC = () => {
                         </div>
                         <div className="w-[150px] rounded-md bg-white p-2 text-start text-sm font-medium">
                           <p>
-                            <span className="font-semibold">Ngày đi:</span>{' '}
+                            <span className="font-semibold">{t('UserPage.DepartureDatePlaceholder')}:</span>{' '}
                             {new Date(
                               flightTickets[0]?.trip_id?.departure_date
                             ).toLocaleDateString('vi-VN')}
                           </p>
                           <p>
-                            <span className="font-semibold">Giờ đi:</span>{' '}
+                            <span className="font-semibold">{t('UserPage.DepartureTimePlaceholder')}:</span>{' '}
                             {flightTickets[0]?.trip_id?.departure_time}
                           </p>
                           {flightTickets[0]?.ticket_catalog_id?.name.toLowerCase() !==
                             'một chiều' && (
                             <>
                               <p>
-                                <span className="font-semibold">Ngày về:</span>{' '}
+                                <span className="font-semibold">{t('UserPage.ReturnDatePlaceholder')}:</span>{' '}
                                 {new Date(
                                   flightTickets[0]?.trip_id?.return_date
                                 ).toLocaleDateString('vi-VN')}
                               </p>
                               <p>
-                                <span className="font-semibold">Giờ về:</span>{' '}
+                                <span className="font-semibold">{t('UserPage.ReturnTimePlaceholder')}:</span>{' '}
                                 {flightTickets[0]?.trip_id?.return_time}
                               </p>
                             </>
@@ -234,14 +238,14 @@ const TicketFlightsResultsPage: React.FC = () => {
               </div>
               <div>
                 {selectedClassId && ticketsByClass[selectedClassId] && (
-                  <div className="grid grid-flow-col grid-cols-[32] grid-rows-6 items-center justify-center gap-2 overflow-x-auto rounded-xl border border-primary p-2 scrollbar-hide dark:border-white">
+                  <div className="grid grid-flow-col grid-cols-[32] grid-rows-6 items-center justify-start gap-2 overflow-x-auto rounded-xl border border-primary p-2 scrollbar-hide dark:border-white">
                     {ticketsByClass[selectedClassId].map((ticket, index) => {
                       const seatStatus = ticket.seat_id[0]?.status;
                       return (
                         <div
                           onClick={() => addSeat(ticket)}
                           key={index}
-                          className={`relative flex h-[42px] w-[42px] items-center justify-center rounded-md border transition-all duration-200 ease-in-out ${
+                          className={`relative flex h-[40px] w-[40px] items-center justify-center rounded-md border transition-all duration-200 ease-in-out ${
                             seatStatus === 'Hết chỗ'
                               ? 'cursor-not-allowed border-red-700 bg-red-500 text-white'
                               : seatStatus === 'Còn chỗ'
