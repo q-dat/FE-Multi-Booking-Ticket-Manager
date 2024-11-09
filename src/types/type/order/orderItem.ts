@@ -1,4 +1,7 @@
 export interface OrderItem {
+  name: string;
+  cccd: string;
+  phone: string;
   departureDate: string;
   destinationDate: string;
   ticketCatalog: string;
@@ -12,14 +15,15 @@ export interface OrderItem {
   price: number;
   quantity: number;
   ticketCode: string;
+  status: string;
+  discount: string;
 }
-
 export interface Address {
   fullName: string;
   email: string;
   street: string;
   city: string;
-  cccd: number;
+  cccd: string;
   country: string;
   phone: string;
 }

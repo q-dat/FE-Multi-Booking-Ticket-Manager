@@ -58,19 +58,22 @@ const OrderPage: React.FC = () => {
                   {order.items.map((item, index) => (
                     <div key={index}>
                       <p>{item.seat} x {item.vehicle} x {item.quantity}</p>
+                      <p><strong>Họ và tên:</strong> {item.name}</p>
+                      <p><strong>Đối tượng:</strong> {item.discount}</p>
                       <p><strong>Loại vé:</strong> {item.ticketCatalog}</p>
                       <p><strong>Mã vé: </strong>{item.ticketCode}</p>
+                      <p><strong>Trạng thái: </strong>{item.status}</p>
                       {index < order.items.length - 1 && ','}
                     </div>
                   ))}
                 </div>
-                <p><strong>Họ và tên:</strong> {order.address.fullName}</p>
-                <p><strong>Số điện thoại: </strong>{order.address.phone}</p>
               </div>
               <div>
                 <p><strong>Số lượng:</strong> {order.items.length}</p>
                 <p><strong>PTTT:</strong> {order.paymentMethod}</p>
                 <p><strong>Ngày đặt:</strong> {new Date(order.date).toLocaleDateString()}</p>
+                <p><strong>Họ và tên:</strong> {order.address.fullName}</p>
+                <p><strong>Số điện thoại: </strong>{order.address.phone}</p>
                 <p><strong>Địa chỉ:</strong> {order.address.street + ', ' + order.address.city + ', ' + order.address.country}</p>
               </div>
               <p className='text-sm sm:text-[15px] text-red-600'>{(order.amount * 1000).toLocaleString('vi-VN')} VNĐ</p>

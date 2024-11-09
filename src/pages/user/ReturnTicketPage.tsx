@@ -1,12 +1,42 @@
-import React from 'react';
+import React, { useState } from 'react';
 import HeaderResponsive from '../../components/UserPage/HeaderResponsive';
 import InputForm from '../../components/UserPage/InputForm';
 import { Button } from 'react-daisyui';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+import axios from '../../config/axiosConfig';
 
 const ReturnTicketPage: React.FC = () => {
+
   const { t } = useTranslation();
+
+  const [ticketCode, setTicketCode] = useState('');
+  const [cccd, setCccd] = useState('');
+  const [phone, setPhone] = useState('');
+  const [reason, setReason] = useState('');
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+
+    try {
+      const response = await axios.post('/api/order/refund', {
+        ticketCode,
+        cccd,
+        phone,
+        reason,
+      });
+
+      if (response.data.success) {
+        alert('Hoàn vé thành công');
+      } else {
+        alert('Có lỗi xảy ra khi hoàn vé');
+      }
+    } catch (error) {
+      console.error('Error returning ticket:', error);
+      alert('Có lỗi xảy ra khi hoàn vé');
+    }
+  };
+
   return (
     <div className="pb-[20px] xl:pt-[80px]">
       {/* Mobile */}
@@ -21,7 +51,7 @@ const ReturnTicketPage: React.FC = () => {
           </h1>
         </div>
         {/* Form */}
-        <form>
+        <form onSubmit={handleSubmit}>
           <div className="my-5">
             <div className="flex flex-col items-center justify-center px-2 md:px-0 lg:gap-5">
               <div className="flex w-full flex-col items-center justify-center gap-5 rounded-lg border border-primary bg-white p-4 md:w-auto">
@@ -30,19 +60,33 @@ const ReturnTicketPage: React.FC = () => {
                 </p>
                 <InputForm
                   type="text"
+                  value={ticketCode}
+                  onChange={(e) => setTicketCode(e.target.value)}
                   placeholder={`${t('UserPage.ReturnTicketPage.forminput1')}`}
                   className="border border-gray-300 bg-white text-black focus:border-primary xs:w-[300px] sm:w-[350px] md:w-[650px] xl:w-[800px]"
                   classNameLabel="bg-white dark:peer-placeholder-shown:text-black dark:peer-focus:text-black"
                 />
                 <InputForm
                   type="text"
+                  value={phone}
+                  onChange={(e) => setPhone(e.target.value)}
+                  placeholder={`${t('UserPage.ReturnTicketPage.forminput3')}`}
+                  className="border border-gray-300 bg-white text-black focus:border-primary xs:w-[300px] sm:w-[350px] md:w-[650px] xl:w-[800px]"
+                  classNameLabel="bg-white dark:peer-placeholder-shown:text-black dark:peer-focus:text-black"
+                />
+                <InputForm
+                  type="text"
+                  value={cccd}
+                  onChange={(e) => setCccd(e.target.value)}
                   placeholder={`${t('UserPage.ReturnTicketPage.forminput2')}`}
                   className="border border-gray-300 bg-white text-black focus:border-primary xs:w-[300px] sm:w-[350px] md:w-[650px] xl:w-[800px]"
                   classNameLabel="bg-white dark:peer-placeholder-shown:text-black dark:peer-focus:text-black"
                 />
                 <InputForm
                   type="text"
-                  placeholder={`${t('UserPage.ReturnTicketPage.forminput3')}`}
+                  value={reason}
+                  onChange={(e) => setReason(e.target.value)}
+                  placeholder={t('UserPage.ReturnTicketPage.forminput4')}
                   className="border border-gray-300 bg-white text-black focus:border-primary xs:w-[300px] sm:w-[350px] md:w-[650px] xl:w-[800px]"
                   classNameLabel="bg-white dark:peer-placeholder-shown:text-black dark:peer-focus:text-black"
                 />
