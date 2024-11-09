@@ -17,7 +17,7 @@ const FlightTickets: React.FC = () => {
   const { locations } = useContext(LocationContext);
 
   const [ticketCatalog, setTicketCatalog] = useState<string>('');
-  const [vehicleCatalog] = useState<string>('Máy bay');
+  const [vehicleCatalog] = useState<string>('Máy Bay');
   const [departurePoint, setDeparturePoint] = useState<string>('');
   const [shouldSearch, setShouldSearch] = useState(false);
   //

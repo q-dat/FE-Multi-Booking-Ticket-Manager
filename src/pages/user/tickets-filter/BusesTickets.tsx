@@ -17,7 +17,7 @@ const BusesTickets: React.FC = () => {
   const { locations } = useContext(LocationContext);
 
   const [ticketCatalog, setTicketCatalog] = useState<string>('');
-  const [vehicleCatalog] = useState<string>('Xe khách');
+  const [vehicleCatalog] = useState<string>('Xe Khách');
   const [departurePoint, setDeparturePoint] = useState<string>('');
   const [shouldSearch, setShouldSearch] = useState(false);
   //
