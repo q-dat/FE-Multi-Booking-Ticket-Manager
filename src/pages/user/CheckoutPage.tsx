@@ -16,9 +16,9 @@ interface FormData {
   email: string;
   street: string;
   city: string;
-  cccd: string | number;
+  cccd: string;
   country: string;
-  phone: string | number;
+  phone: string;
 }
 
 const CheckoutPage: React.FC = () => {
@@ -35,6 +35,7 @@ const CheckoutPage: React.FC = () => {
   const [method, setMethod] = useState<'stripe' | 'cod'>('cod');
   const navigate = useNavigate();
   const [selectedDiscounts, setSelectedDiscounts] = useState<{ [key: string]: string }>({});
+  const [userDetails, setUserDetails] = useState<{ [key: string]: { name: string; cccd: string, phone: string } }>({});
 
   useEffect(() => {
     if (selectedSeats.length === 0) {
@@ -47,6 +48,16 @@ const CheckoutPage: React.FC = () => {
     setSelectedDiscounts((prev) => ({
       ...prev,
       [ticketId]: value,
+    }));
+  };
+
+  const handleInputChange = (ticketId: string, field: string, value: string) => {
+    setUserDetails((prev) => ({
+      ...prev,
+      [ticketId]: {
+        ...prev[ticketId],
+        [field]: value,
+      },
     }));
   };
 
@@ -76,7 +87,6 @@ const CheckoutPage: React.FC = () => {
       const updatedSeat = { ...seat.seat_id[0], status: 'Hết chỗ' };
       await updateSeatApi(seat.seat_id[0]?._id, updatedSeat);
 
-      // Cập nhật lại sessionStorage nếu cần
       const storedTickets = sessionStorage.getItem('searchResults');
       if (storedTickets) {
         const parsedTickets = JSON.parse(storedTickets) as ITicket[];
@@ -98,9 +108,13 @@ const CheckoutPage: React.FC = () => {
     e.preventDefault();
     try {
       const orderItems = selectedSeats.map((seat) => {
+        const ticketDetails = userDetails[seat._id] || { name: '', cccd: '', phone: '' };
         const selectedDiscount = selectedDiscounts[seat._id] || 'Người lớn';
         const discountedPrice = calculateDiscountedPrice(seat.price, selectedDiscount);
         return {
+          name: ticketDetails.name,
+          cccd: ticketDetails.cccd,
+          phone: ticketDetails.phone,
           departureDate: seat.trip_id.departure_date,
           destinationDate: seat.trip_id.return_date,
           ticketCatalog: seat.ticket_catalog_id.name,
@@ -113,6 +127,7 @@ const CheckoutPage: React.FC = () => {
           seatCatalog: seat.seat_id[0]?.seat_catalog_id.name,
           price: discountedPrice,
           quantity: 1,
+          discount: selectedDiscount,
         };
       });
 
@@ -165,6 +180,7 @@ const CheckoutPage: React.FC = () => {
 
         {/* Ticket Rows */}
         {selectedSeats.map((ticket, index) => {
+          const ticketDetails = userDetails[ticket._id] || { name: '', cccd: '', phone: '' };
           const selectedDiscount = selectedDiscounts[ticket._id] || 'Người lớn';
           const discountedPrice = calculateDiscountedPrice(ticket.price, selectedDiscount);
 
@@ -175,6 +191,27 @@ const CheckoutPage: React.FC = () => {
             >
               {/* Đối tượng */}
               <div className="col-span-1 flex sm:block">
+                <input
+                  type="text"
+                  name="name"
+                  value={ticketDetails.name}
+                  placeholder="Họ và tên"
+                  onChange={(e) => handleInputChange(ticket._id, 'name', e.target.value)}
+                />
+                <input
+                  type="text"
+                  name="phone"
+                  value={ticketDetails.phone}
+                  placeholder="Số điện thoại"
+                  onChange={(e) => handleInputChange(ticket._id, 'phone', e.target.value)}
+                />
+                <input
+                  type="text"
+                  name="cccd"
+                  value={ticketDetails.cccd}
+                  placeholder="CCCD"
+                  onChange={(e) => handleInputChange(ticket._id, 'cccd', e.target.value)}
+                />
                 <label className="sm:hidden font-semibold mr-2">Đối tượng:</label>
                 <select
                   value={selectedDiscount}
@@ -252,9 +289,9 @@ const CheckoutPage: React.FC = () => {
             <input required onChange={onChangeHandler} name="email" value={formData.email} className="border border-gray-300 rounded py-1.5 px-3.5 w-full" type="email" placeholder="Email (bắt buộc)" />
             <input required onChange={onChangeHandler} name="phone" value={formData.phone} className="border border-gray-300 rounded py-1.5 px-3.5 w-full" type="tel" placeholder="Số điện thoại (bắt buộc)" />
             <div className="flex gap-3">
-              <input required onChange={onChangeHandler} name="street" value={formData.street} className="border border-gray-300 rounded py-1.5 px-3.5 w-full" type="text" placeholder="Địa chỉ" />
-              <input required onChange={onChangeHandler} name="city" value={formData.city} className="border border-gray-300 rounded py-1.5 px-3.5 w-full" type="text" placeholder="Tỉnh/Thành phố" />
-              <input required onChange={onChangeHandler} name="country" value={formData.country} className="border border-gray-300 rounded py-1.5 px-3.5 w-full" type="text" placeholder="Quốc gia" />
+              <input required onChange={onChangeHandler} name="street" value={formData.street} className="border border-gray-300 rounded py-1.5 px-3.5 w-full" type="text" placeholder="Đường" />
+              <input required onChange={onChangeHandler} name="city" value={formData.city} className="border border-gray-300 rounded py-1.5 px-3.5 w-full" type="text" placeholder="Quận/ Huyện" />
+              <input required onChange={onChangeHandler} name="country" value={formData.country} className="border border-gray-300 rounded py-1.5 px-3.5 w-full" type="text" placeholder="Tĩnh/ Thành Phố" />
             </div>
             <div className="flex gap-3">
               <input required onChange={onChangeHandler} name="cccd" value={formData.cccd} className="border border-gray-300 rounded py-1.5 px-3.5 w-full" type="number" placeholder="Số CCCD/Hộ chiếu (12 số)" />

@@ -24,6 +24,7 @@ const BillResultsPage: React.FC = () => {
             </h2>
             {/* Ticket Details */}
             <div className="mb-6 border-b border-gray-200 pb-4">
+              <p className='mb-2'> <span className="font-semibold">Họ và tên:</span> {order.items[0].name}</p>
               <div className="grid grid-cols-2 gap-4 text-sm">
                 <div className="flex justify-between">
                   <span className="font-semibold">Loại vé:</span>
