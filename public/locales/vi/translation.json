@@ -129,11 +129,12 @@
       "title": "Trả Vé",
       "notification1": "Trả vé chỉ áp dụng với trường hợp khách hàng đã thanh toán trực tuyến (qua cổng thanh toán, ví điện tử, app ngân hàng) và có điền mail khi mua vé.",
       "notification2": "  Nếu quý khách thanh toán bằng tiền mặt, trả sau qua ứng dụng ngân hàng và atm, chuyển khoản hoặc trả vé khi có sự cố bãi bỏ vé vui lòng thực hiện thủ tục tại các quầy bán vé.",
-      "titlefrom": "Để hiển thị vé cần trả, vui lòng điền 3 thông tin chính xác dưới đây:",
-      "forminput1": "Mã Đặt Chỗ",
-      "forminput2": "Email",
-      "forminput3": "Điện Thoại",
-      "buttonform": "Tra Cứu",
+      "titlefrom": "Để trả vé, vui lòng điền thông tin chính xác dưới đây:",
+      "forminput1": "Mã vé",
+      "forminput2": "Số điện thoại",
+      "forminput3": "Số CCCD",
+      "forminput4": "Lý do",
+      "buttonform": "Trả vé",
       "linkform": "Quên mã đặt chỗ?"
     },
     "BusesTickets": {
@@ -153,6 +154,29 @@
       "DeleteAll": "Xóa tất cả",
       "BuyTickets": "Mua Vé",
       "DeleteAllTicket": "Đã xóa tất cả ghế khỏi giỏ hàng!"
+    },
+    "CheckoutPage":{
+      "ip1":"Đối tượng",
+      "ip2":"Chuyến đi",
+      "ip3":"Giá vé",
+      "ip4":"Giảm đối tượng",
+      "ip5":"Thành tiền (VND)",
+      "ip6":"Thao tác",
+      "ip7":"Họ và tên",
+      "ip8":"Số điện thoại",
+      "ip9":"Số CCCD",
+      "ip10":"Người lớn",
+      "ip11":"Trẻ em",
+      "ip12":"Xoá tất cả",
+      "ip13":"Tổng tiền",
+      "ip14":"Email",
+      "ip15":"Đường",
+      "ip16":"Quận/ Huyện",
+      "ip17":"Tĩnh/ Thành phố",
+      "ip18":"Thông tin người mua",
+      "ip19":"Phương thức thanh toán",
+      "ip20":"Thanh toán khi nhận vé",
+      "ip21":"Thanh toán"
     }
   },
   "NotificationPopup": {

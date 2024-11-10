@@ -2,13 +2,16 @@ import React, { useState } from 'react';
 import HeaderResponsive from '../../components/UserPage/HeaderResponsive';
 import InputForm from '../../components/UserPage/InputForm';
 import { Button } from 'react-daisyui';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import axios from '../../config/axiosConfig';
+import { Toastify } from '../../helper/Toastify';
+import { isIErrorResponse } from '../../types/error/error';
 
 const ReturnTicketPage: React.FC = () => {
 
   const { t } = useTranslation();
+  const navigate = useNavigate()
 
   const [ticketCode, setTicketCode] = useState('');
   const [cccd, setCccd] = useState('');
@@ -27,13 +30,16 @@ const ReturnTicketPage: React.FC = () => {
       });
 
       if (response.data.success) {
-        alert('Hoàn vé thành công');
+        Toastify('Hoàn vé thành công', 201);
+        navigate('/')
       } else {
-        alert('Có lỗi xảy ra khi hoàn vé');
+        Toastify('Vé đã được trả hoặc không đúng thông tin vé', 500);
       }
     } catch (error) {
-      console.error('Error returning ticket:', error);
-      alert('Có lỗi xảy ra khi hoàn vé');
+      const errorMessage = isIErrorResponse(error)
+        ? error.data?.message
+        : 'Vui lòng nhập đầy đủ thông tin!';
+      Toastify(`${errorMessage}`, 500);
     }
   };
 
@@ -70,7 +76,7 @@ const ReturnTicketPage: React.FC = () => {
                   type="text"
                   value={phone}
                   onChange={(e) => setPhone(e.target.value)}
-                  placeholder={`${t('UserPage.ReturnTicketPage.forminput3')}`}
+                  placeholder={`${t('UserPage.ReturnTicketPage.forminput2')}`}
                   className="border border-gray-300 bg-white text-black focus:border-primary xs:w-[300px] sm:w-[350px] md:w-[650px] xl:w-[800px]"
                   classNameLabel="bg-white dark:peer-placeholder-shown:text-black dark:peer-focus:text-black"
                 />
@@ -78,7 +84,7 @@ const ReturnTicketPage: React.FC = () => {
                   type="text"
                   value={cccd}
                   onChange={(e) => setCccd(e.target.value)}
-                  placeholder={`${t('UserPage.ReturnTicketPage.forminput2')}`}
+                  placeholder={`${t('UserPage.ReturnTicketPage.forminput3')}`}
                   className="border border-gray-300 bg-white text-black focus:border-primary xs:w-[300px] sm:w-[350px] md:w-[650px] xl:w-[800px]"
                   classNameLabel="bg-white dark:peer-placeholder-shown:text-black dark:peer-focus:text-black"
                 />

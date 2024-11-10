@@ -130,11 +130,12 @@ interface Resources {
         "title": "Return Ticket",
         "notification1": "Ticket returns only apply to customers who have paid online (via payment gateway, e-wallet, banking app) and provided an email when purchasing the ticket.",
         "notification2": "If you paid in cash, via postpaid banking app or ATM, by bank transfer, or in case of ticket cancellation due to issues, please proceed with the return procedure at the ticket counters.",
-        "titlefrom": "To display the ticket to be returned, please enter the following 3 accurate details:",
-        "forminput1": "Booking Code",
-        "forminput2": "Email",
-        "forminput3": "Phone",
-        "buttonform": "Lookup",
+        "titlefrom": "To return the ticket, please fill in the correct information below:",
+        "forminput1": "Ticket Code",
+        "forminput2": "Phone Number",
+        "forminput3": "Citizen Identification Card",
+        "forminput4": "Reason",
+        "buttonform": "Return Ticket",
         "linkform": "Forgot booking code?"
       },
       "BusesTickets": {
@@ -154,6 +155,29 @@ interface Resources {
         "DeleteAll": "Delete All",
         "BuyTickets": "Buy Tickets",
         "DeleteAllTicket": "All seats removed from cart!"
+      },
+      "CheckoutPage": {
+        "ip1": "Customer Type",
+        "ip2": "Trip",
+        "ip3": "Ticket Price",
+        "ip4": "Discount",
+        "ip5": "Total Amount (VND)",
+        "ip6": "Actions",
+        "ip7": "Full Name",
+        "ip8": "Phone Number",
+        "ip9": "Citizen Identification Card",
+        "ip10": "Adults",
+        "ip11": "Children",
+        "ip12": "Delete All",
+        "ip13": "Total Amount",
+        "ip14": "Email",
+        "ip15": "Street",
+        "ip16": "District",
+        "ip17": "Province/City",
+        "ip18": "Buyer Information",
+        "ip19": "Payment Method",
+        "ip20": "Pay Upon Ticket Collection",
+        "ip21": "Pay Now"
       }
     },
     "NotificationPopup": {

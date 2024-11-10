@@ -10,6 +10,7 @@ import { updateSeatApi } from '../../axios/api/seatApi';
 import { isIErrorResponse } from '../../types/error/error';
 import HeaderResponsive from '../../components/UserPage/HeaderResponsive';
 import { LogoStripe } from '../../assets/image-represent';
+import { useTranslation } from 'react-i18next';
 
 interface FormData {
   fullName: string;
@@ -22,6 +23,9 @@ interface FormData {
 }
 
 const CheckoutPage: React.FC = () => {
+
+  const { t } = useTranslation();
+
   const { selectedSeats, removeSeat, clearSeats } = useCart();
   const [formData, setFormData] = useState<FormData>({
     fullName: '',
@@ -170,12 +174,12 @@ const CheckoutPage: React.FC = () => {
       <div className="w-full mx-auto px-4 sm:px-8 md:px-24 py-2">
         {/* Header */}
         <div className="hidden sm:grid grid-cols-6 bg-red-200 p-4">
-          <p className="col-span-1 font-semibold">Đối tượng</p>
-          <p className="col-span-1 font-semibold">Chuyến đi</p>
-          <p className="col-span-1 font-semibold">Giá vé</p>
-          <p className="col-span-1 font-semibold">Giảm đối tượng</p>
-          <p className="col-span-1 font-semibold">Thành tiền (VND)</p>
-          <p className="col-span-1 font-semibold">Thao tác</p>
+          <p className="col-span-1 font-semibold text-center">{t('UserPage.CheckoutPage.ip1')}</p>
+          <p className="col-span-1 font-semibold text-center">{t('UserPage.CheckoutPage.ip2')}</p>
+          <p className="col-span-1 font-semibold text-center">{t('UserPage.CheckoutPage.ip3')}</p>
+          <p className="col-span-1 font-semibold text-center">{t('UserPage.CheckoutPage.ip4')}</p>
+          <p className="col-span-1 font-semibold text-center">{t('UserPage.CheckoutPage.ip5')}</p>
+          <p className="col-span-1 font-semibold text-center">{t('UserPage.CheckoutPage.ip6')}</p>
         </div>
 
         {/* Ticket Rows */}
@@ -190,42 +194,46 @@ const CheckoutPage: React.FC = () => {
               className="grid grid-cols-1 sm:grid-cols-6 border-b p-4 items-center gap-y-2 sm:gap-y-0"
             >
               {/* Đối tượng */}
-              <div className="col-span-1 flex sm:block">
+              <div className="col-span-1 flex flex-col gap-2 sm:gap-4 justify-center items-center">
                 <input
                   type="text"
                   name="name"
                   value={ticketDetails.name}
-                  placeholder="Họ và tên"
+                  placeholder={t('UserPage.CheckoutPage.ip7')}
                   onChange={(e) => handleInputChange(ticket._id, 'name', e.target.value)}
+                  className="border rounded px-3 py-2 w-full sm:w-2/3"
                 />
                 <input
                   type="text"
                   name="phone"
                   value={ticketDetails.phone}
-                  placeholder="Số điện thoại"
+                  placeholder={t('UserPage.CheckoutPage.ip8')}
                   onChange={(e) => handleInputChange(ticket._id, 'phone', e.target.value)}
+                  className="border rounded px-3 py-2 w-full sm:w-2/3"
                 />
                 <input
                   type="text"
                   name="cccd"
                   value={ticketDetails.cccd}
-                  placeholder="CCCD"
+                  placeholder={t('UserPage.CheckoutPage.ip9')}
                   onChange={(e) => handleInputChange(ticket._id, 'cccd', e.target.value)}
+                  className="border rounded px-3 py-2 w-full sm:w-2/3"
                 />
-                <label className="sm:hidden font-semibold mr-2">Đối tượng:</label>
-                <select
-                  value={selectedDiscount}
-                  onChange={(e) => handleDiscountChange(ticket._id, e.target.value)}
-                  className="border rounded px-2 py-1 w-auto sm:w-auto"
-                >
-                  <option value="Trẻ em">Trẻ em</option>
-                  <option value="Người lớn">Người lớn</option>
-                </select>
+                <div className="flex items-center gap-2 sm:gap-0">
+                  <select
+                    value={selectedDiscount}
+                    onChange={(e) => handleDiscountChange(ticket._id, e.target.value)}
+                    className="border rounded px-2 py-1 w-full sm:w-full"
+                  >
+                    <option value="Người lớn">{t('UserPage.CheckoutPage.ip10')}</option>
+                    <option value="Trẻ em">{t('UserPage.CheckoutPage.ip11')}</option>
+                  </select>
+                </div>
               </div>
 
               {/* Chuyến đi */}
-              <div className="col-span-1">
-                <p className="sm:hidden font-semibold">Chuyến đi:</p>
+              <div className="col-span-1 text-center">
+                <p className="sm:hidden font-semibold">{t('UserPage.CheckoutPage.ip2')}: </p>
                 <p>
                   {ticket.trip_id.departure_point.name} - {ticket.trip_id.destination_point.name}
                 </p>
@@ -233,25 +241,25 @@ const CheckoutPage: React.FC = () => {
               </div>
 
               {/* Giá vé */}
-              <p className="col-span-1">
-                <span className="sm:hidden font-semibold">Giá vé: </span>
+              <p className="col-span-1 text-center">
+                <span className="sm:hidden font-semibold">{t('UserPage.CheckoutPage.ip3')}: </span>
                 {(ticket.price * 1000).toLocaleString('vi-VN')} VND
               </p>
 
               {/* Giảm đối tượng */}
-              <p className="col-span-1">
-                <span className="sm:hidden font-semibold">Giảm đối tượng: </span>
+              <p className="col-span-1 text-center">
+                <span className="sm:hidden font-semibold">{t('UserPage.CheckoutPage.ip4')}: </span>
                 {selectedDiscount === 'Trẻ em' ? 'Giảm 20%' : '0'}
               </p>
 
               {/* Thành tiền */}
-              <p className="col-span-1">
-                <span className="sm:hidden font-semibold">Thành tiền: </span>
+              <p className="col-span-1 text-center">
+                <span className="sm:hidden font-semibold">{t('UserPage.CheckoutPage.ip5')}: </span>
                 {(discountedPrice * 1000).toLocaleString('vi-VN')} VND
               </p>
 
               {/* Thao tác */}
-              <div className="col-span-1 sm:justify-start">
+              <div className="col-span-1 flex justify-center items-center">
                 <p
                   onClick={() => {
                     const seatId = ticket.seat_id[0]?._id;
@@ -265,16 +273,17 @@ const CheckoutPage: React.FC = () => {
                 </p>
               </div>
             </div>
+
           );
         })}
 
         {/* Footer Actions */}
         <div className="flex justify-between items-center mt-4">
           <Button size="sm" onClick={clearSeats} className="bg-red-500 text-xs text-white hover:bg-red-600 transition">
-            Xóa tất cả
+            {t('UserPage.CheckoutPage.ip12')}
           </Button>
           <div className="font-bold text-lg">
-            Tổng tiền: {(totalPrice * 1000).toLocaleString('vi-VN')} VND
+            {t('UserPage.CheckoutPage.ip13')}: {(totalPrice * 1000).toLocaleString('vi-VN')} VND
           </div>
         </div>
 
@@ -282,25 +291,25 @@ const CheckoutPage: React.FC = () => {
         <form onSubmit={onSubmitHandler} className="flex flex-col sm:flex-row justify-between gap-4 pt-5 sm:pt-14 border-t mt-8">
           {/* Left Side */}
           <div className="flex flex-col gap-4 w-full sm:max-w-[480px]">
-            <h2 className="text-lg font-semibold">Thông tin người mua</h2>
+            <h2 className="text-lg font-semibold">{t('UserPage.CheckoutPage.ip18')}</h2>
             <div className="flex gap-3">
-              <input required onChange={onChangeHandler} name="fullName" value={formData.fullName} className="border border-gray-300 rounded py-1.5 px-3.5 w-full" type="text" placeholder="Họ và tên" />
+              <input required onChange={onChangeHandler} name="fullName" value={formData.fullName} className="border border-gray-300 rounded py-1.5 px-3.5 w-full" type="text" placeholder={t('UserPage.CheckoutPage.ip7')} />
             </div>
-            <input required onChange={onChangeHandler} name="email" value={formData.email} className="border border-gray-300 rounded py-1.5 px-3.5 w-full" type="email" placeholder="Email (bắt buộc)" />
-            <input required onChange={onChangeHandler} name="phone" value={formData.phone} className="border border-gray-300 rounded py-1.5 px-3.5 w-full" type="tel" placeholder="Số điện thoại (bắt buộc)" />
+            <input required onChange={onChangeHandler} name="email" value={formData.email} className="border border-gray-300 rounded py-1.5 px-3.5 w-full" type="email" placeholder={t('UserPage.CheckoutPage.ip14')} />
+            <input required onChange={onChangeHandler} name="phone" value={formData.phone} className="border border-gray-300 rounded py-1.5 px-3.5 w-full" type="tel" placeholder={t('UserPage.CheckoutPage.ip8')} />
             <div className="flex gap-3">
-              <input required onChange={onChangeHandler} name="street" value={formData.street} className="border border-gray-300 rounded py-1.5 px-3.5 w-full" type="text" placeholder="Đường" />
-              <input required onChange={onChangeHandler} name="city" value={formData.city} className="border border-gray-300 rounded py-1.5 px-3.5 w-full" type="text" placeholder="Quận/ Huyện" />
-              <input required onChange={onChangeHandler} name="country" value={formData.country} className="border border-gray-300 rounded py-1.5 px-3.5 w-full" type="text" placeholder="Tĩnh/ Thành Phố" />
+              <input required onChange={onChangeHandler} name="street" value={formData.street} className="border border-gray-300 rounded py-1.5 px-3.5 w-full" type="text" placeholder={t('UserPage.CheckoutPage.ip15')} />
+              <input required onChange={onChangeHandler} name="city" value={formData.city} className="border border-gray-300 rounded py-1.5 px-3.5 w-full" type="text" placeholder={t('UserPage.CheckoutPage.ip16')} />
+              <input required onChange={onChangeHandler} name="country" value={formData.country} className="border border-gray-300 rounded py-1.5 px-3.5 w-full" type="text" placeholder={t('UserPage.CheckoutPage.ip17')} />
             </div>
             <div className="flex gap-3">
-              <input required onChange={onChangeHandler} name="cccd" value={formData.cccd} className="border border-gray-300 rounded py-1.5 px-3.5 w-full" type="number" placeholder="Số CCCD/Hộ chiếu (12 số)" />
+              <input required onChange={onChangeHandler} name="cccd" value={formData.cccd} className="border border-gray-300 rounded py-1.5 px-3.5 w-full" type="number" placeholder={t('UserPage.CheckoutPage.ip9')} />
             </div>
           </div>
 
           {/* Right Side */}
           <div className="flex flex-col gap-6">
-            <h2 className="text-lg font-semibold">Phương thức thanh toán</h2>
+            <h2 className="text-lg font-semibold">{t('UserPage.CheckoutPage.ip19')}</h2>
             {/* Payment Method Selection */}
             <div className="flex gap-3 flex-col lg:flex-row">
               <div onClick={() => setMethod('stripe')} className="flex items-center gap-3 border p-2 px-3 cursor-pointer hover:bg-gray-100 transition">
@@ -309,12 +318,12 @@ const CheckoutPage: React.FC = () => {
               </div>
               <div onClick={() => setMethod('cod')} className="flex items-center gap-3 border p-2 px-3 cursor-pointer hover:bg-gray-100 transition">
                 <span className={`min-w-4 h-4 border rounded-full ${method === 'cod' ? 'bg-green-400' : ''}`}></span>
-                <p className="text-gray-500 text-sm font-medium mx-4">Thanh toán khi nhận vé</p>
+                <p className="text-gray-500 text-sm font-medium mx-4">{t('UserPage.CheckoutPage.ip20')}</p>
               </div>
             </div>
 
             <div className="w-full text-right mt-8">
-              <button type="submit" className="bg-black text-white px-16 py-3 text-sm hover:bg-gray-800 transition">Thanh toán</button>
+              <button type="submit" className="bg-black text-white px-16 py-3 text-sm hover:bg-gray-800 transition">{t('UserPage.CheckoutPage.ip21')}</button>
             </div>
           </div>
         </form>
