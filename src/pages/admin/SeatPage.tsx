@@ -19,6 +19,8 @@ import { LuFilter } from 'react-icons/lu';
 import { VehicleContext } from '../../context/vehicle/VehicleContext';
 import ModalCreatSeatMultiPageAdmin from '../../components/admin/Modal/ModalSeat/ModalCreatSeatMultiPageAdmin';
 import ModalDeleteSeatMultiPageAdmin from '../../components/admin/Modal/ModalSeat/ModalDeleteSeatMultiPageAdmin';
+import { updateSeatApi } from '../../axios/api/seatApi';
+import ModalResetSeatPageAdmin from '../../components/admin/Modal/ModalSeat/ModalResetSeatPageAdmin';
 
 const SeatPage: React.FC = () => {
   const { seats, loading, error, deleteSeat, getAllSeats, searchSeatsByName } =
@@ -28,7 +30,9 @@ const SeatPage: React.FC = () => {
   const [isModalDeleteOpen, setIsModalDeleteOpen] = useState(false);
   const [isModalEditOpen, setIsModalEditOpen] = useState(false);
   const [isModalCreateMultiOpen, setIsModalCreateMultiOpen] = useState(false);
+  const [loadingReset, setLoadingReset] = useState(false);
   const [isModalDeleteMultiOpen, setIsModalDeleteMultiOpen] = useState(false);
+  const [isModalResetOpen, setIsModalResetOpen] = useState(false);
   //
   const [selectedSeatId, setSelectedSeatId] = useState<string | null>(null);
   //
@@ -52,7 +56,8 @@ const SeatPage: React.FC = () => {
   const closeModalCreateMultiAdmin = () => setIsModalCreateMultiOpen(false);
   const openModalDeleteMultiAdmin = () => setIsModalDeleteMultiOpen(true);
   const closeModalDeleteMultiAdmin = () => setIsModalDeleteMultiOpen(false);
-
+  const openModalResetAdmin = () => setIsModalResetOpen(true);
+  const closeModalResetAdmin = () => setIsModalResetOpen(false);
   const [fillter, setFillter] = useState<string[]>([
     'STT',
     'Tên',
@@ -125,8 +130,29 @@ const SeatPage: React.FC = () => {
       }
     }
   };
+  const updateSeatStatusApi = async (seats: ISeat[]) => {
+    const promises = seats.map(async seat => {
+      const updatedSeat = { ...seat, status: 'Còn chỗ' };
+      await updateSeatApi(seat._id, updatedSeat);
+    });
 
-  if (loading.getAll) return <LoadingLocal />;
+    await Promise.all(promises);
+  };
+  const handleResetSeats = async () => {
+    setLoadingReset(true);
+    try {
+      await updateSeatStatusApi(seats);
+      Toastify('Trạng thái ghế đã được đặt lại thành công', 201);
+    } catch (error) {
+      Toastify('Có lỗi xảy ra trong quá trình reset', 500);
+    } finally {
+      getAllSeats();
+      setLoadingReset(false);
+      closeModalResetAdmin();
+    }
+  };
+
+  if (loading.getAll || loadingReset) return <LoadingLocal />;
   if (error) return <ErrorLoading />;
 
   return (
@@ -136,12 +162,12 @@ const SeatPage: React.FC = () => {
         <NavtitleAdmin
           Title_NavtitleAdmin="Quản Lý Ghế Ngồi"
           Btn_Create={
-            <div className="flex flex-col items-start justify-center gap-2 md:flex-row md:items-end">
+            <div className="flex flex-col items-start justify-center gap-2 md:items-end xl:flex-row">
               {/*  */}
               <Button
                 color="error"
                 onClick={openModalDeleteMultiAdmin}
-                className="w-[200px] text-sm font-light text-white"
+                className="w-full text-sm font-light text-white xl:w-[200px]"
               >
                 <div className="flex items-center space-x-1">
                   <MdDeleteSweep className="text-xl" />
@@ -150,9 +176,9 @@ const SeatPage: React.FC = () => {
               </Button>
               {/*  */}
               <Button
-                  color="success"
-                  onClick={openModalCreateMultiAdmin}
-                className="w-[200px] text-sm font-light text-white"
+                color="success"
+                onClick={openModalCreateMultiAdmin}
+                className="w-full text-sm font-light text-white xl:w-[200px]"
               >
                 <div className="flex items-center space-x-1">
                   <RiAddBoxLine className="text-xl" />
@@ -280,6 +306,14 @@ const SeatPage: React.FC = () => {
                   </div>
                 </div>
               </div>
+              {/*  */}
+              <Button
+                color="error"
+                onClick={openModalResetAdmin}
+                className="w-full text-sm font-light text-white xl:w-[100px]"
+              >
+                <p>Reset</p>
+              </Button>
             </div>
           }
         />
@@ -410,6 +444,11 @@ const SeatPage: React.FC = () => {
         isOpen={isModalEditOpen}
         onClose={closeModalEditAdmin}
         seatId={selectedSeatId ?? ''}
+      />
+      <ModalResetSeatPageAdmin
+        isOpen={isModalResetOpen}
+        onClose={closeModalResetAdmin}
+        onConfirm={handleResetSeats}
       />
     </div>
   );
