@@ -52,12 +52,12 @@ const ModalCreateSeatCatalogPageAdmin: React.FC<
         >
           <div>
             <p className="font-bold text-black dark:text-white">
-              Tạo khoang(toa) mới
+              Tạo khoang/toa mới
             </p>
             <InputModal
               type="text"
               {...register('name', { required: true })}
-              placeholder="Tên khoang(toa)"
+              placeholder="Tên khoang/toa"
             />
             <Select
               defaultValue=""
@@ -70,6 +70,7 @@ const ModalCreateSeatCatalogPageAdmin: React.FC<
               {vehicles.map(vehicle => (
                 <option key={vehicle._id} value={vehicle._id}>
                   {vehicle.name}
+                  &emsp; {vehicle?.des}
                 </option>
               ))}
             </Select>

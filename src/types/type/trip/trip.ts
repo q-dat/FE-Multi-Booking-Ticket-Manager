@@ -7,6 +7,7 @@ export interface ITrip {
   departure_point: ILocation;
   destination_point: ILocation;
   price: number;
+  des?: string;
   departure_date: string;
   departure_time: string;
   return_date: string;

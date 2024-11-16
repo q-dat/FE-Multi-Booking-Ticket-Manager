@@ -123,6 +123,7 @@ const TripPage: React.FC = () => {
             <span>Thời Gian Đi</span>
             <span>Thời Gian Về</span>
             <span>Giá</span>
+            <span>Mô Tả</span>
             <span>Hành Động</span>
           </Table.Head>
         }
@@ -148,6 +149,7 @@ const TripPage: React.FC = () => {
                 <span>
                   {(trip?.price * 1000).toLocaleString('vi-VN')}&nbsp;VND
                 </span>
+                <span>{trip.des || 'Không có mô tả!'}</span>
                 <span>
                   <details>
                     <summary className="inline cursor-pointer text-base text-warning">

@@ -77,12 +77,12 @@ const ModalEditSeatCatalogPageAdmin: React.FC<ModalEditSeatCatalogProps> = ({
           className="flex flex-col space-y-10 rounded-lg bg-white p-10 text-start shadow dark:bg-gray-800"
         >
           <p className="text-xl font-bold text-black dark:text-white">
-            Chỉnh sửa danh mục ghế
+            Chỉnh sửa khoang/toa
           </p>
           <div>
             <LabelForm title={'Khoang(Toa)'} />
             <InputModal
-              placeholder="Tên Khoang(Toa)"
+              placeholder="Tên Khoang/Toa"
               type="text"
               {...register('name')}
             />
@@ -97,6 +97,7 @@ const ModalEditSeatCatalogPageAdmin: React.FC<ModalEditSeatCatalogProps> = ({
               {vehicles.map(vehicle => (
                 <option key={vehicle._id} value={vehicle._id}>
                   {vehicle.name}
+                  &emsp; {vehicle?.des}
                 </option>
               ))}
             </Select>

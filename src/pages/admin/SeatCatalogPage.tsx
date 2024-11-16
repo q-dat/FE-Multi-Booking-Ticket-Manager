@@ -69,10 +69,10 @@ const SeatCatalogPage: React.FC = () => {
 
   return (
     <div className="w-full">
-      <NavbarMobile Title_NavbarMobile="Loại Ghế" />
+      <NavbarMobile Title_NavbarMobile="Khoang/Toa" />
       <div className="px-2 xl:px-0">
         <NavtitleAdmin
-          Title_NavtitleAdmin="Quản Lý Loại Ghế"
+          Title_NavtitleAdmin="Quản Lý Khoang/Toa"
           Btn_Create={
             <Button
               color="success"
@@ -98,12 +98,13 @@ const SeatCatalogPage: React.FC = () => {
         }
         table_body={
           <Table.Body className="text-center text-sm">
-            {seatCatalogs.map((catalog: ISeatCatalog, index: number) => (
+            {seatCatalogs.map((seatCatalog: ISeatCatalog, index: number) => (
               <Table.Row key={index}>
                 <span className="line-clamp-1">#{index + 1}</span>
-                <span className="line-clamp-1">{catalog?.name}</span>
+                <span className="line-clamp-1">{seatCatalog?.name}</span>
                 <span className="line-clamp-1">
-                  {catalog?.vehicle_id?.name || 'Không có danh mục!'}
+                  {seatCatalog?.vehicle_id?.name || 'Không có danh mục!'}
+                  &emsp;{seatCatalog?.vehicle_id?.des}
                 </span>
                 <span>
                   <details>
@@ -115,14 +116,14 @@ const SeatCatalogPage: React.FC = () => {
                     <div className="flex flex-col items-center justify-center space-y-2">
                       <Button
                         color="success"
-                        onClick={() => openModalEditAdmin(catalog._id ?? '')}
+                        onClick={() => openModalEditAdmin(seatCatalog._id ?? '')}
                         className="w-full max-w-[140px] text-sm font-light text-white"
                       >
                         <FaPenToSquare />
                         Cập Nhật
                       </Button>
                       <Button
-                        onClick={() => openModalDeleteAdmin(catalog._id ?? '')}
+                        onClick={() => openModalDeleteAdmin(seatCatalog._id ?? '')}
                         className="w-full max-w-[140px] bg-red-600 text-sm font-light text-white"
                       >
                         <MdDelete />

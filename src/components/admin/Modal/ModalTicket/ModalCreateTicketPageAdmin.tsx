@@ -87,7 +87,7 @@ const ModalCreateTicketPageAdmin: React.FC<ModalCreateTicketProps> = ({
     setSelectedSeats(seatData);
     setValue('seat_id', seatData);
   };
-  // 
+  //
   useEffect(() => {
     if (!isOpen) {
       reset();
@@ -126,7 +126,7 @@ const ModalCreateTicketPageAdmin: React.FC<ModalCreateTicketProps> = ({
           <p className="text-xl font-bold text-black dark:text-white">
             Tạo vé mới
           </p>
-          <div className="flex flex-col items-start justify-center gap-1 xl:flex-row xl:gap-5">
+          <div className="flex flex-row items-start justify-center gap-1 md:gap-5">
             <div className="flex w-full flex-col gap-2">
               <LabelForm title={'Loại phương tiện'} />
               <DaisySelect
@@ -156,6 +156,7 @@ const ModalCreateTicketPageAdmin: React.FC<ModalCreateTicketProps> = ({
                 {vehicles.map(vehicle => (
                   <option value={vehicle._id} key={vehicle._id}>
                     {vehicle.name}
+                  &emsp;  {vehicle?.des} 
                   </option>
                 ))}
               </DaisySelect>
@@ -164,7 +165,7 @@ const ModalCreateTicketPageAdmin: React.FC<ModalCreateTicketProps> = ({
               <Select
                 isMulti
                 isClearable
-                className="h-[75px] w-full overflow-y-auto border-none text-primary md:h-full  xl:max-h-[200px] xl:max-w-[500px]"
+                className="h-[75px] w-full overflow-y-auto border-none text-primary md:h-full xl:max-h-[200px] xl:max-w-[500px]"
                 options={seats.map(seat => ({
                   value: seat._id,
                   label: seat.name || seat._id

@@ -231,6 +231,7 @@ const TicketPage: React.FC = () => {
                           .map(vehicle => (
                             <option value={vehicle._id} key={vehicle.name}>
                               {vehicle?.name}
+                              &emsp; {vehicle?.des}
                             </option>
                           ))}
                       </Select>
@@ -304,7 +305,7 @@ const TicketPage: React.FC = () => {
                   Thêm
                 </Button>
                 {/*  */}
-                <div className="dropdown dropdown-hover relative flex h-12 min-w-[100px] cursor-grab flex-col items-center justify-center rounded-md bg-primary ">
+                <div className="dropdown dropdown-hover relative flex h-12 min-w-[100px] cursor-grab flex-col items-center justify-center rounded-md bg-primary">
                   <Button color="primary" className="font-light text-white">
                     <LuFilter className="text-xl" color="white" />
                     Lọc
@@ -527,7 +528,8 @@ const TicketPage: React.FC = () => {
                 ) : (
                   <></>
                 )}
-                  {fillter[8] === 'Thời Gian Về' && ticket.ticket_catalog_id?.name.toLowerCase() !== 'một chiều' ? (
+                {fillter[8] === 'Thời Gian Về' &&
+                ticket.ticket_catalog_id?.name.toLowerCase() !== 'một chiều' ? (
                   <span className="">
                     <span className="text-blue-500">
                       {ticket.trip_id?.return_time}&nbsp;

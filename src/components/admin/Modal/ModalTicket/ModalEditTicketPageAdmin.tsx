@@ -107,15 +107,14 @@ const ModalEditTicketPageAdmin: React.FC<ModalEditTicketProps> = ({
               <LabelForm title={'Phương tiện'} />
               <Select
                 defaultValue=""
+                disabled
                 className="w-full border border-gray-700 border-opacity-50 bg-white text-black focus:border-primary focus:outline-none dark:border-secondary dark:bg-gray-700 dark:text-white dark:focus:border-white"
                 {...register('seat_id.0.seat_catalog_id.vehicle_id._id')}
               >
-                <option disabled value="">
-                  Chọn Phương Tiện
-                </option>
                 {vehicles.map(vehicle => (
                   <option value={vehicle._id} key={vehicle._id}>
                     {vehicle.name}
+                    &emsp; {vehicle?.des}
                   </option>
                 ))}
               </Select>
