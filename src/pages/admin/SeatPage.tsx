@@ -361,7 +361,9 @@ const SeatPage: React.FC = () => {
                 )}
                 {fillter[4] === 'Danh Mục' ? (
                   <span className="line-clamp-1">
-                    {seat?.seat_catalog_id?.name || 'Không có danh mục!'}
+                    {seat?.seat_catalog_id?.name || 'Không có danh mục!'}&emsp;
+                    {seat?.seat_catalog_id?.vehicle_id.name}&emsp;
+                    {seat?.seat_catalog_id?.vehicle_id.des}
                   </span>
                 ) : (
                   <></>

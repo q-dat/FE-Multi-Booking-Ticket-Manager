@@ -100,6 +100,9 @@ const ModalCreateSeatPageAdmin: React.FC<ModalCreateSeatProps> = ({
               {seatCatalogs.map(seatCatalog => (
                 <option key={seatCatalog._id} value={seatCatalog._id}>
                   {seatCatalog.name}
+                  &emsp;
+                    {seatCatalog?.vehicle_id?.name}&emsp;
+                    {seatCatalog?.vehicle_id?.des}
                 </option>
               ))}
             </Select>
