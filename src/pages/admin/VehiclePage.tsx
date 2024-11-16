@@ -87,6 +87,7 @@ const VehiclePage: React.FC = () => {
             <span>STT</span>
             <span>Tên Phương Tiện</span>
             <span>Trạng Thái</span>
+            <span>Mô Tả</span>
             <span>Hành Động</span>
           </Table.Head>
         }
@@ -106,6 +107,9 @@ const VehiclePage: React.FC = () => {
                   }`}
                 >
                   {vehicle?.status}
+                </span>
+                <span className="line-clamp-2">
+                  {vehicle?.des || 'Không có mô tả!'}
                 </span>
                 <span>
                   <details>

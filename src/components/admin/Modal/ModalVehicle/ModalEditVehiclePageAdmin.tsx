@@ -31,6 +31,7 @@ const ModalEditVehiclePageAdmin: React.FC<ModalEditVehicleProps> = ({
     const vehicleData = vehicles.find(vehicle => vehicle._id === vehicleId);
     if (vehicleData) {
       setValue('name', vehicleData.name);
+      setValue('des', vehicleData.des);
       setValue('status', vehicleData.status);
     }
   }, [vehicles, vehicleId, setValue]);
@@ -67,20 +68,16 @@ const ModalEditVehiclePageAdmin: React.FC<ModalEditVehicleProps> = ({
           onClick={e => e.stopPropagation()}
           className="flex flex-col space-y-10 rounded-lg bg-white p-10 text-start shadow dark:bg-gray-800"
         >
-          <p className="text-xl font-bold text-black dark:text-white">
-            Chỉnh sửa phương tiện
-          </p>
           <div>
-            <label className="block text-sm font-medium text-gray-700">
-              Tên phương tiện
-            </label>
+            <p className="text-xl font-bold text-black dark:text-white">
+              Chỉnh sửa phương tiện
+            </p>
             <InputModal
-              placeholder={'ví dụ: Xe buýt A'}
               type={'text'}
               {...register('name')}
+              placeholder="Tên phương tiện"
             />
-          </div>
-          <div>
+            <InputModal placeholder="Mô tả" type="text" {...register('des')} />
             <Select
               defaultValue=""
               className="mb-5 w-full border border-gray-700 border-opacity-50 bg-white text-black focus:border-primary focus:outline-none dark:border-secondary dark:bg-gray-700 dark:text-white dark:focus:border-white"
