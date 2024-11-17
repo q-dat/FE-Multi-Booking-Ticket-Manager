@@ -210,25 +210,25 @@ const SeatPage: React.FC = () => {
                         <span className="font-semibold text-primary hover:text-secondary">
                           Phương Tiện
                         </span>
-                        {vehicles.map(item => (
+                        {vehicles.map(vehicle => (
                           <label
                             className="flex h-8 cursor-pointer items-center gap-2"
-                            key={item.name}
+                            key={vehicle.name}
                           >
                             <input
                               type="checkbox"
                               className="cursor-pointer"
-                              checked={vehiclesName === item.name}
+                              checked={vehiclesName === vehicle.name}
                               onChange={() =>
                                 handleCheckboxChange(
                                   setVehiclesName,
-                                  item.name,
+                                  vehicle.name,
                                   vehiclesName
                                 )
                               }
                             />
                             <span className="text-primary hover:text-secondary">
-                              {item?.name}
+                              {vehicle?.name}
                             </span>
                           </label>
                         ))}
@@ -241,35 +241,36 @@ const SeatPage: React.FC = () => {
                         </span>
                         {seats
                           .filter(
-                            (item, index, self) =>
+                            (seat, index, self) =>
                               index ===
                               self.findIndex(
                                 t =>
-                                  t.seat_catalog_id.name ===
-                                  item.seat_catalog_id.name
+                                  t.seat_catalog_id?.name ===
+                                  seat.seat_catalog_id?.name
                               )
                           )
-                          .map(item => (
+                          .map(seat => (
                             <label
                               className="flex h-8 cursor-pointer items-center gap-2"
-                              key={item.seat_catalog_id.name}
+                              key={seat.seat_catalog_id?.name}
                             >
                               <input
                                 type="checkbox"
                                 className="cursor-pointer"
                                 checked={
-                                  seatCatalogsName === item.seat_catalog_id.name
+                                  seatCatalogsName ===
+                                  seat.seat_catalog_id?.name
                                 }
                                 onChange={() =>
                                   handleCheckboxChange(
                                     setSeatCatalogsName,
-                                    item.seat_catalog_id.name,
+                                    seat.seat_catalog_id?.name,
                                     seatCatalogsName
                                   )
                                 }
                               />
                               <span className="text-primary hover:text-secondary">
-                                {item.seat_catalog_id?.name}
+                                {seat.seat_catalog_id?.name}
                               </span>
                             </label>
                           ))}
@@ -362,7 +363,7 @@ const SeatPage: React.FC = () => {
                 {fillter[4] === 'Danh Mục' ? (
                   <span className="line-clamp-1">
                     {seat?.seat_catalog_id?.name || 'Không có danh mục!'}&emsp;
-                    {seat?.seat_catalog_id?.vehicle_id.name}&emsp;
+                    {seat?.seat_catalog_id?.vehicle_id?.name}&emsp;
                     {seat?.seat_catalog_id?.vehicle_id.des}
                   </span>
                 ) : (

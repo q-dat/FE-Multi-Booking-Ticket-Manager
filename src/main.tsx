@@ -21,6 +21,7 @@ import { AgeProvider } from './context/age/AgeContext.tsx';
 import { ServiceProvider } from './context/service/ServiceContext.tsx';
 import { CartProvider } from './context/cart/CartContext.tsx';
 import { TripProvider } from './context/trip/TripContext.tsx';
+import { BackupProvider } from './context/backup/DataContext.tsx';
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
@@ -42,7 +43,9 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
                                   <AgeProvider>
                                     <ServiceProvider>
                                       <ToastContainer />
+                                      <BackupProvider>
                                       <App />
+                                      </BackupProvider>
                                     </ServiceProvider>
                                   </AgeProvider>
                                 </PostProvider>

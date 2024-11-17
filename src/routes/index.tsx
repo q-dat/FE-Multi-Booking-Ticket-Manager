@@ -21,19 +21,19 @@ const TicketBusesResultsPage = lazy(
 const TicketFlightsResultsPage = lazy(
   () => import('../pages/user/tickets-results/TicketFlightsResultsPage')
 );
-const CheckoutPage = lazy(
-  () => import('../pages/user/CheckoutPage')
-)
-const Verify = lazy(
-  () => import('../pages/user/Verify')
-)
+const CheckoutPage = lazy(() => import('../pages/user/CheckoutPage'));
+const Verify = lazy(() => import('../pages/user/Verify'));
 const BillResultsPage = lazy(
   () => import('../pages/user/tickets-results/BillResultsPage')
-)
+);
 //auth
 const Auth = lazy(() => import('../pages/auth/Auth'));
 const SignUpPage = lazy(() => import('../pages/auth/SignUpPage'));
 const LoginPage = lazy(() => import('../pages/auth/LoginPage'));
+//backup-manager
+const BackupManagerPage = lazy(
+  () => import('../pages/admin/BackupManagerPage')
+);
 
 // admin
 const Admin = lazy(() => import('../pages/admin/Admin'));
@@ -97,6 +97,10 @@ export default function AppRoutes() {
             <Route path="login" element={<LoginPage />} />
             <Route path="register" element={<SignUpPage />} />
           </Route>
+        </Route>
+        {/* BackupManager  */}
+        <Route element={<DefaultLayout />}>
+          <Route path="/backup-manager" element={<BackupManagerPage />}></Route>
         </Route>
 
         {/* Admin */}
