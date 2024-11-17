@@ -1,9 +1,4 @@
-import {
-  createContext,
-  useState,
-  ReactNode,
-  useCallback,
-} from 'react';
+import { createContext, useState, ReactNode, useCallback } from 'react';
 import axios from '../../config/axiosConfig';
 
 interface BackupContextType {
@@ -12,6 +7,7 @@ interface BackupContextType {
     import: boolean;
     listFiles: boolean;
     downloadFile: boolean;
+    deleteFile: boolean;
   };
   error: string | null;
   success: string | null;
@@ -20,6 +16,7 @@ interface BackupContextType {
   importData: (file: File) => Promise<void>;
   fetchBackupFiles: () => Promise<void>;
   downloadBackupFile: (fileName: string) => Promise<void>;
+  deleteBackupFile: (fileName: string) => Promise<void>;
 }
 
 const defaultContextValue: BackupContextType = {
@@ -28,6 +25,7 @@ const defaultContextValue: BackupContextType = {
     import: false,
     listFiles: false,
     downloadFile: false,
+    deleteFile: false
   },
   error: null,
   success: null,
@@ -36,9 +34,11 @@ const defaultContextValue: BackupContextType = {
   importData: async () => {},
   fetchBackupFiles: async () => {},
   downloadBackupFile: async () => {},
+  deleteBackupFile: async () => {}
 };
 
-export const BackupContext = createContext<BackupContextType>(defaultContextValue);
+export const BackupContext =
+  createContext<BackupContextType>(defaultContextValue);
 
 export const BackupProvider = ({ children }: { children: ReactNode }) => {
   const [loading, setLoading] = useState({
@@ -46,6 +46,7 @@ export const BackupProvider = ({ children }: { children: ReactNode }) => {
     import: false,
     listFiles: false,
     downloadFile: false,
+    deleteFile: false
   });
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState<string | null>(null);
@@ -53,18 +54,20 @@ export const BackupProvider = ({ children }: { children: ReactNode }) => {
 
   const handleError = (err: any) => {
     setError(err.response?.data?.message || 'Đã xảy ra lỗi!');
-    setSuccess(null); 
+    setSuccess(null);
   };
 
   const handleSuccess = (message: string) => {
     setSuccess(message);
-    setError(null); 
+    setError(null);
   };
 
   const exportData = useCallback(async () => {
-    setLoading((prev) => ({ ...prev, export: true }));
+    setLoading(prev => ({ ...prev, export: true }));
     try {
-      const response = await axios.get('/api/data/export', { responseType: 'blob' });
+      const response = await axios.get('/api/data/export', {
+        responseType: 'blob'
+      });
       const blob = new Blob([response.data], { type: 'application/json' });
       const url = URL.createObjectURL(blob);
       const link = document.createElement('a');
@@ -75,29 +78,29 @@ export const BackupProvider = ({ children }: { children: ReactNode }) => {
     } catch (error) {
       handleError(error);
     } finally {
-      setLoading((prev) => ({ ...prev, export: false }));
+      setLoading(prev => ({ ...prev, export: false }));
     }
   }, []);
 
   const importData = useCallback(async (file: File) => {
-    setLoading((prev) => ({ ...prev, import: true }));
+    setLoading(prev => ({ ...prev, import: true }));
     const formData = new FormData();
     formData.append('file', file);
 
     try {
       await axios.post('/api/data/import', formData, {
-        headers: { 'Content-Type': 'multipart/form-data' },
+        headers: { 'Content-Type': 'multipart/form-data' }
       });
       handleSuccess('Nhập dữ liệu thành công!');
     } catch (error) {
       handleError(error);
     } finally {
-      setLoading((prev) => ({ ...prev, import: false }));
+      setLoading(prev => ({ ...prev, import: false }));
     }
   }, []);
 
   const fetchBackupFiles = useCallback(async () => {
-    setLoading((prev) => ({ ...prev, listFiles: true }));
+    setLoading(prev => ({ ...prev, listFiles: true }));
     try {
       const response = await axios.get('/api/data/backups');
       setBackupFiles(response.data.files);
@@ -105,14 +108,16 @@ export const BackupProvider = ({ children }: { children: ReactNode }) => {
     } catch (error) {
       handleError(error);
     } finally {
-      setLoading((prev) => ({ ...prev, listFiles: false }));
+      setLoading(prev => ({ ...prev, listFiles: false }));
     }
   }, []);
 
   const downloadBackupFile = useCallback(async (fileName: string) => {
-    setLoading((prev) => ({ ...prev, downloadFile: true }));
+    setLoading(prev => ({ ...prev, downloadFile: true }));
     try {
-      const response = await axios.get(`/api/data/backups/${fileName}`, { responseType: 'blob' });
+      const response = await axios.get(`/api/data/backups/${fileName}`, {
+        responseType: 'blob'
+      });
       const blob = new Blob([response.data], { type: 'application/json' });
       const url = URL.createObjectURL(blob);
       const link = document.createElement('a');
@@ -123,9 +128,24 @@ export const BackupProvider = ({ children }: { children: ReactNode }) => {
     } catch (error) {
       handleError(error);
     } finally {
-      setLoading((prev) => ({ ...prev, downloadFile: false }));
+      setLoading(prev => ({ ...prev, downloadFile: false }));
     }
   }, []);
+  const deleteBackupFile = useCallback(
+    async (fileName: string) => {
+      setLoading(prev => ({ ...prev, deleteFile: true }));
+      try {
+        await axios.delete(`/api/data/backups/${fileName}`);
+        handleSuccess(`Xóa file ${fileName} thành công!`);
+        await fetchBackupFiles(); // Refresh danh sách file sau khi xóa
+      } catch (error) {
+        handleError(error);
+      } finally {
+        setLoading(prev => ({ ...prev, deleteFile: false }));
+      }
+    },
+    [fetchBackupFiles]
+  );
 
   return (
     <BackupContext.Provider
@@ -138,9 +158,11 @@ export const BackupProvider = ({ children }: { children: ReactNode }) => {
         importData,
         fetchBackupFiles,
         downloadBackupFile,
+        deleteBackupFile
       }}
     >
       {children}
     </BackupContext.Provider>
   );
 };
+
