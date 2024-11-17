@@ -1,6 +1,7 @@
 import { useContext, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { BackupContext } from '../../context/backup/DataContext';
+import { Toastify } from '../../helper/Toastify';
 
 interface ImportFormData {
   file: FileList;
@@ -29,23 +30,44 @@ const BackupManagerPage = () => {
   }, [fetchBackupFiles]);
 
   const handleExport = async () => {
-    await exportData();
+    try {
+      await exportData();
+      Toastify('Dữ liệu đã được xuất thành công', 200);
+    } catch (error) {
+      Toastify('Lỗi khi xuất dữ liệu!', 500);
+    }
   };
 
   const handleImport = async (data: ImportFormData) => {
     const file = data.file[0];
     if (file) {
-      await importData(file);
-      fetchBackupFiles();
+      try {
+        await importData(file);
+        fetchBackupFiles();
+        Toastify('Dữ liệu đã được nhập thành công', 200);
+      } catch (error) {
+        Toastify('Lỗi khi nhập dữ liệu!', 500);
+      }
     }
   };
 
   const handleDownload = async (fileName: string) => {
-    await downloadBackupFile(fileName);
+    try {
+      await downloadBackupFile(fileName);
+      Toastify('File đã được tải xuống', 200);
+    } catch (error) {
+      Toastify('Lỗi khi tải file!', 500);
+    }
   };
 
   const handleDelete = async (fileName: string) => {
-    await deleteBackupFile(fileName);
+    try {
+      await deleteBackupFile(fileName);
+      fetchBackupFiles();
+      Toastify('File đã được xóa thành công', 200);
+    } catch (error) {
+      Toastify('Lỗi khi xóa file!', 500);
+    }
   };
 
   return (
