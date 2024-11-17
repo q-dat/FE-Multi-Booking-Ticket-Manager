@@ -17,6 +17,7 @@ const BackupManagerPage = () => {
     downloadBackupFile,
     deleteBackupFile
   } = useContext(BackupContext);
+
   const {
     register,
     handleSubmit,
@@ -94,7 +95,7 @@ const BackupManagerPage = () => {
 
       {/* Backup Files List */}
       <div>
-        <h2 className="mt-6 text-xl font-semibold">Danh sách file backup</h2>
+        <h2 className="mt-6 text-xl font-semibold">Lịch sử danh sách file backup</h2>
         {loading.listFiles && <p>Đang tải danh sách file...</p>}
         {!loading.listFiles && backupFiles.length === 0 && (
           <p>Không có file backup nào.</p>
@@ -102,20 +103,23 @@ const BackupManagerPage = () => {
         <ul className="mt-4 space-y-2">
           {backupFiles.map(file => (
             <li
-              key={file}
+              key={file.name}
               className="flex items-center justify-between rounded-md border p-2"
             >
-              <span>{file}</span>
+              <div>
+                <span>{file.name}</span>
+                <p className="text-sm text-gray-500">{`Ngày tạo: ${new Date(file.createdAt).toLocaleString()}`}</p>
+              </div>
               <div className="flex space-x-4">
                 <button
-                  onClick={() => handleDownload(file)}
+                  onClick={() => handleDownload(file.name)}
                   className="rounded-md bg-blue-500 px-4 py-2 text-white disabled:bg-gray-400"
                   disabled={loading.downloadFile}
                 >
                   {loading.downloadFile ? 'Đang tải...' : 'Tải về'}
                 </button>
                 <button
-                  onClick={() => handleDelete(file)}
+                  onClick={() => handleDelete(file.name)}
                   className="rounded-md bg-red-500 px-4 py-2 text-white disabled:bg-gray-400"
                   disabled={loading.deleteFile}
                 >

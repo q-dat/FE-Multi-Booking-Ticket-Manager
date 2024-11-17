@@ -1,6 +1,11 @@
 import { createContext, useState, ReactNode, useCallback } from 'react';
 import axios from '../../config/axiosConfig';
 
+interface BackupFile {
+  name: string;
+  createdAt: string;
+}
+
 interface BackupContextType {
   loading: {
     export: boolean;
@@ -11,7 +16,7 @@ interface BackupContextType {
   };
   error: string | null;
   success: string | null;
-  backupFiles: string[];
+  backupFiles: BackupFile[];
   exportData: () => Promise<void>;
   importData: (file: File) => Promise<void>;
   fetchBackupFiles: () => Promise<void>;
@@ -37,8 +42,7 @@ const defaultContextValue: BackupContextType = {
   deleteBackupFile: async () => {}
 };
 
-export const BackupContext =
-  createContext<BackupContextType>(defaultContextValue);
+export const BackupContext = createContext<BackupContextType>(defaultContextValue);
 
 export const BackupProvider = ({ children }: { children: ReactNode }) => {
   const [loading, setLoading] = useState({
@@ -50,7 +54,7 @@ export const BackupProvider = ({ children }: { children: ReactNode }) => {
   });
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState<string | null>(null);
-  const [backupFiles, setBackupFiles] = useState<string[]>([]);
+  const [backupFiles, setBackupFiles] = useState<BackupFile[]>([]);
 
   const handleError = (err: any) => {
     setError(err.response?.data?.message || 'Đã xảy ra lỗi!');
@@ -63,7 +67,7 @@ export const BackupProvider = ({ children }: { children: ReactNode }) => {
   };
 
   const exportData = useCallback(async () => {
-    setLoading(prev => ({ ...prev, export: true }));
+    setLoading((prev) => ({ ...prev, export: true }));
     try {
       const response = await axios.get('/api/data/export', {
         responseType: 'blob'
@@ -78,12 +82,12 @@ export const BackupProvider = ({ children }: { children: ReactNode }) => {
     } catch (error) {
       handleError(error);
     } finally {
-      setLoading(prev => ({ ...prev, export: false }));
+      setLoading((prev) => ({ ...prev, export: false }));
     }
   }, []);
 
   const importData = useCallback(async (file: File) => {
-    setLoading(prev => ({ ...prev, import: true }));
+    setLoading((prev) => ({ ...prev, import: true }));
     const formData = new FormData();
     formData.append('file', file);
 
@@ -95,25 +99,29 @@ export const BackupProvider = ({ children }: { children: ReactNode }) => {
     } catch (error) {
       handleError(error);
     } finally {
-      setLoading(prev => ({ ...prev, import: false }));
+      setLoading((prev) => ({ ...prev, import: false }));
     }
   }, []);
 
   const fetchBackupFiles = useCallback(async () => {
-    setLoading(prev => ({ ...prev, listFiles: true }));
+    setLoading((prev) => ({ ...prev, listFiles: true }));
     try {
       const response = await axios.get('/api/data/backups');
-      setBackupFiles(response.data.files);
+      const files: BackupFile[] = response.data.files.map((file: any) => ({
+        name: file.name,
+        createdAt: file.createdAt
+      }));
+      setBackupFiles(files);
       handleSuccess('Lấy danh sách file backup thành công!');
     } catch (error) {
       handleError(error);
     } finally {
-      setLoading(prev => ({ ...prev, listFiles: false }));
+      setLoading((prev) => ({ ...prev, listFiles: false }));
     }
   }, []);
 
   const downloadBackupFile = useCallback(async (fileName: string) => {
-    setLoading(prev => ({ ...prev, downloadFile: true }));
+    setLoading((prev) => ({ ...prev, downloadFile: true }));
     try {
       const response = await axios.get(`/api/data/backups/${fileName}`, {
         responseType: 'blob'
@@ -128,24 +136,22 @@ export const BackupProvider = ({ children }: { children: ReactNode }) => {
     } catch (error) {
       handleError(error);
     } finally {
-      setLoading(prev => ({ ...prev, downloadFile: false }));
+      setLoading((prev) => ({ ...prev, downloadFile: false }));
     }
   }, []);
-  const deleteBackupFile = useCallback(
-    async (fileName: string) => {
-      setLoading(prev => ({ ...prev, deleteFile: true }));
-      try {
-        await axios.delete(`/api/data/backups/${fileName}`);
-        handleSuccess(`Xóa file ${fileName} thành công!`);
-        await fetchBackupFiles(); // Refresh danh sách file sau khi xóa
-      } catch (error) {
-        handleError(error);
-      } finally {
-        setLoading(prev => ({ ...prev, deleteFile: false }));
-      }
-    },
-    [fetchBackupFiles]
-  );
+
+  const deleteBackupFile = useCallback(async (fileName: string) => {
+    setLoading((prev) => ({ ...prev, deleteFile: true }));
+    try {
+      await axios.delete(`/api/data/backups/${fileName}`);
+      handleSuccess(`Xóa file ${fileName} thành công!`);
+      await fetchBackupFiles(); // Refresh danh sách file sau khi xóa
+    } catch (error) {
+      handleError(error);
+    } finally {
+      setLoading((prev) => ({ ...prev, deleteFile: false }));
+    }
+  }, [fetchBackupFiles]);
 
   return (
     <BackupContext.Provider
@@ -165,4 +171,3 @@ export const BackupProvider = ({ children }: { children: ReactNode }) => {
     </BackupContext.Provider>
   );
 };
-
