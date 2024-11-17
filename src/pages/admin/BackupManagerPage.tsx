@@ -1,4 +1,4 @@
-import { useContext, useState } from 'react';
+import { useContext, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { BackupContext } from '../../context/backup/DataContext';
 
@@ -7,27 +7,42 @@ interface ImportFormData {
 }
 
 const BackupManagerPage = () => {
-  const { loading, exportData, importData, error } = useContext(BackupContext);
+  const {
+    loading,
+    error,
+    exportData,
+    importData,
+    fetchBackupFiles,
+    backupFiles,
+    downloadBackupFile,
+  } = useContext(BackupContext);
   const { register, handleSubmit, formState: { errors } } = useForm<ImportFormData>();
-  const [isImporting, setIsImporting] = useState(false);
+
+  // Fetch backup files on component mount
+  useEffect(() => {
+    fetchBackupFiles();
+  }, [fetchBackupFiles]);
 
   const handleExport = async () => {
-    await exportData(); // Call export from context
+    await exportData();
   };
 
   const handleImport = async (data: ImportFormData) => {
-    setIsImporting(true);
     const file = data.file[0];
     if (file) {
-      await importData(file); // Call import from context
+      await importData(file);
+      fetchBackupFiles(); // Refresh the list after importing
     }
-    setIsImporting(false);
+  };
+
+  const handleDownload = async (fileName: string) => {
+    await downloadBackupFile(fileName);
   };
 
   return (
     <div className="space-y-8 p-6">
       <h1 className="text-2xl font-bold">Quản lý Dữ Liệu</h1>
-      
+
       {/* Export Button */}
       <div>
         <button
@@ -39,7 +54,7 @@ const BackupManagerPage = () => {
         </button>
         {error && <p className="text-red-500 text-sm mt-2">{error}</p>}
       </div>
-      
+
       {/* Import Form */}
       <form onSubmit={handleSubmit(handleImport)} className="space-y-4">
         <div>
@@ -56,11 +71,32 @@ const BackupManagerPage = () => {
         <button
           type="submit"
           className="w-full px-4 py-2 bg-blue-500 text-white rounded-md disabled:bg-gray-400"
-          disabled={isImporting || loading.import}
+          disabled={loading.import}
         >
-          {isImporting || loading.import ? 'Đang tải...' : 'Import Dữ liệu'}
+          {loading.import ? 'Đang tải...' : 'Import Dữ liệu'}
         </button>
       </form>
+
+      {/* Backup Files List */}
+      <div>
+        <h2 className="text-xl font-semibold mt-6">Danh sách file backup</h2>
+        {loading.listFiles && <p>Đang tải danh sách file...</p>}
+        {!loading.listFiles && backupFiles.length === 0 && <p>Không có file backup nào.</p>}
+        <ul className="mt-4 space-y-2">
+          {backupFiles.map((file) => (
+            <li key={file} className="flex items-center justify-between border p-2 rounded-md">
+              <span>{file}</span>
+              <button
+                onClick={() => handleDownload(file)}
+                className="px-4 py-2 bg-blue-500 text-white rounded-md disabled:bg-gray-400"
+                disabled={loading.downloadFile}
+              >
+                {loading.downloadFile ? 'Đang tải...' : 'Tải về'}
+              </button>
+            </li>
+          ))}
+        </ul>
+      </div>
     </div>
   );
 };
