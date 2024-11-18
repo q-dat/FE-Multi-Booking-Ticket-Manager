@@ -368,18 +368,18 @@ const SeatPage: React.FC = () => {
                     {seat?.seat_catalog_id?.vehicle_id?.name}
                     <sup
                       className={`mx-1 rounded-sm px-1 font-bold text-white ${
-                        seat?.seat_catalog_id?.vehicle_id.des?.includes('1')
+                        seat?.seat_catalog_id?.vehicle_id?.des?.includes('1')
                           ? 'bg-red-500'
-                          : seat?.seat_catalog_id?.vehicle_id.des?.includes('2')
+                          : seat?.seat_catalog_id?.vehicle_id?.des?.includes('2')
                             ? 'bg-blue-500'
-                            : seat?.seat_catalog_id?.vehicle_id.des?.includes(
+                            : seat?.seat_catalog_id?.vehicle_id?.des?.includes(
                                   '3'
                                 )
                               ? 'bg-yellow-500'
                               : 'bg-green-500'
                       }`}
                     >
-                      {seat?.seat_catalog_id?.vehicle_id.des}
+                      {seat?.seat_catalog_id?.vehicle_id?.des}
                     </sup>
                   </span>
                 ) : (
