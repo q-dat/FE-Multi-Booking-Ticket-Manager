@@ -139,8 +139,17 @@ const TripPage: React.FC = () => {
                 </span>
                 <span>
                   {trip?.vehicle_id?.name || 'Không có danh mục!'}
-                  <sup className="mx-1 rounded-sm bg-red-500 px-1 font-bold text-white">
-                    {' '}
+                  <sup
+                    className={`mx-1 rounded-sm px-1 font-bold text-white ${
+                      trip.vehicle_id?.des?.includes('1')
+                        ? 'bg-red-500'
+                        : trip.vehicle_id?.des?.includes('2')
+                          ? 'bg-blue-500'
+                          : trip.vehicle_id?.des?.includes('3')
+                            ? 'bg-yellow-500'
+                            : 'bg-green-500'
+                    }`}
+                  >
                     {trip.vehicle_id?.des || ''}
                   </sup>
                 </span>

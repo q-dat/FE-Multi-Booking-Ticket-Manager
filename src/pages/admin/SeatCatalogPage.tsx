@@ -104,7 +104,19 @@ const SeatCatalogPage: React.FC = () => {
                 <span className="line-clamp-1">{seatCatalog?.name}</span>
                 <span className="line-clamp-1">
                   {seatCatalog?.vehicle_id?.name || 'Không có danh mục!'}
-                  &emsp;{seatCatalog?.vehicle_id?.des}
+                  <sup
+                    className={`mx-1 rounded-sm px-1 font-bold text-white ${
+                      seatCatalog?.vehicle_id?.des?.includes('1')
+                        ? 'bg-red-500'
+                        : seatCatalog?.vehicle_id?.des?.includes('2')
+                          ? 'bg-blue-500'
+                          : seatCatalog?.vehicle_id?.des?.includes('3')
+                            ? 'bg-yellow-500'
+                            : 'bg-green-500'
+                    }`}
+                  >
+                    {seatCatalog?.vehicle_id?.des || 'Không có mô tả!'}
+                  </sup>
                 </span>
                 <span>
                   <details>
@@ -116,14 +128,18 @@ const SeatCatalogPage: React.FC = () => {
                     <div className="flex flex-col items-center justify-center space-y-2">
                       <Button
                         color="success"
-                        onClick={() => openModalEditAdmin(seatCatalog._id ?? '')}
+                        onClick={() =>
+                          openModalEditAdmin(seatCatalog._id ?? '')
+                        }
                         className="w-full max-w-[140px] text-sm font-light text-white"
                       >
                         <FaPenToSquare />
                         Cập Nhật
                       </Button>
                       <Button
-                        onClick={() => openModalDeleteAdmin(seatCatalog._id ?? '')}
+                        onClick={() =>
+                          openModalDeleteAdmin(seatCatalog._id ?? '')
+                        }
                         className="w-full max-w-[140px] bg-red-600 text-sm font-light text-white"
                       >
                         <MdDelete />

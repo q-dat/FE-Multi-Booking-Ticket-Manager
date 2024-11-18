@@ -108,9 +108,20 @@ const VehiclePage: React.FC = () => {
                 >
                   {vehicle?.status}
                 </span>
-                <span className="line-clamp-2">
+                <span
+                  className={`mx-1 line-clamp-2 rounded-sm px-1 font-bold text-white ${
+                    vehicle?.des?.includes('1')
+                      ? 'bg-red-500'
+                      : vehicle?.des?.includes('2')
+                        ? 'bg-blue-500'
+                        : vehicle?.des?.includes('3')
+                          ? 'bg-yellow-500'
+                          : 'bg-green-500'
+                  }`}
+                >
                   {vehicle?.des || 'Không có mô tả!'}
                 </span>
+
                 <span>
                   <details>
                     <summary className="inline cursor-pointer text-base text-warning">
