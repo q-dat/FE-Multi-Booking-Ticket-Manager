@@ -475,6 +475,9 @@ const TicketPage: React.FC = () => {
                       {ticket.seat_id?.map(seat => (
                         <span key={seat._id} className="line-clamp-1">
                           {seat.seat_catalog_id?.vehicle_id?.name}
+                          <sup className="font-bold px-1 mx-1 rounded-sm bg-red-500 text-white">
+                            {seat.seat_catalog_id.vehicle_id?.des || ''}
+                          </sup>
                         </span>
                       ))}
                     </span>
@@ -495,7 +498,15 @@ const TicketPage: React.FC = () => {
                   <span className="font-bold">
                     {ticket.seat_id?.map(seat => (
                       <>
-                        <span key={seat._id}>{seat?.ordinal_numbers}</span>
+                        <span
+                          className={
+                            seat?.status === 'Còn chỗ'
+                              ? 'bg-green-500 px-4 py-[2px] text-white rounded-md'
+                              : 'bg-red-500 px-4 py-[2px] text-white rounded-md'
+                          }
+                        >
+                          <span key={seat._id}>{seat?.ordinal_numbers}</span>
+                        </span>
                       </>
                     ))}
                   </span>

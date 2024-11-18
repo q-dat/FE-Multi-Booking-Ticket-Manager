@@ -137,23 +137,25 @@ const TripPage: React.FC = () => {
                   <p className="text-primary">-</p>
                   {trip.destination_point?.name}
                 </span>
-                <span>{trip?.vehicle_id?.name || 'Không có danh mục!'}</span>
                 <span>
-                    <span className="text-blue-500">
-                      {trip?.departure_time}&nbsp;
-                    </span>
-                    {new Date(
-                      trip?.departure_date
-                    ).toLocaleDateString('vi-VN')}
+                  {trip?.vehicle_id?.name || 'Không có danh mục!'}
+                  <sup className="mx-1 rounded-sm bg-red-500 px-1 font-bold text-white">
+                    {' '}
+                    {trip.vehicle_id?.des || ''}
+                  </sup>
+                </span>
+                <span>
+                  <span className="text-blue-500">
+                    {trip?.departure_time}&nbsp;
                   </span>
-                  <span className="">
-                    <span className="text-blue-500">
-                      {trip?.return_time}&nbsp;
-                    </span>
-                    {new Date(trip?.return_date).toLocaleDateString(
-                      'vi-VN'
-                    )}
+                  {new Date(trip?.departure_date).toLocaleDateString('vi-VN')}
+                </span>
+                <span className="">
+                  <span className="text-blue-500">
+                    {trip?.return_time}&nbsp;
                   </span>
+                  {new Date(trip?.return_date).toLocaleDateString('vi-VN')}
+                </span>
                 <span>
                   {(trip?.price * 1000).toLocaleString('vi-VN')}&nbsp;VND
                 </span>
