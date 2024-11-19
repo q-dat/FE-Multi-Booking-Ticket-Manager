@@ -66,7 +66,7 @@ export const BackupProvider = ({ children }: { children: ReactNode }) => {
     setSuccess(message);
     setError(null);
   };
-
+  //Export
   const exportData = useCallback(async () => {
     setLoading(prev => ({ ...prev, export: true }));
     try {
@@ -88,7 +88,7 @@ export const BackupProvider = ({ children }: { children: ReactNode }) => {
       setLoading(prev => ({ ...prev, export: false }));
     }
   }, []);
-
+  //Import
   const importData = useCallback(async (file: File) => {
     setLoading(prev => ({ ...prev, import: true }));
 
@@ -113,7 +113,7 @@ export const BackupProvider = ({ children }: { children: ReactNode }) => {
       setLoading(prev => ({ ...prev, import: false }));
     }
   }, []);
-
+  //Get
   const fetchBackupFiles = useCallback(async () => {
     setLoading(prev => ({ ...prev, listFiles: true }));
     try {
@@ -130,7 +130,7 @@ export const BackupProvider = ({ children }: { children: ReactNode }) => {
       setLoading(prev => ({ ...prev, listFiles: false }));
     }
   }, []);
-
+  //Download
   const downloadBackupFile = useCallback(async (fileName: string) => {
     setLoading(prev => ({ ...prev, downloadFile: true }));
     try {
@@ -152,14 +152,14 @@ export const BackupProvider = ({ children }: { children: ReactNode }) => {
       setLoading(prev => ({ ...prev, downloadFile: false }));
     }
   }, []);
-
+  //Delete
   const deleteBackupFile = useCallback(
     async (fileName: string) => {
       setLoading(prev => ({ ...prev, deleteFile: true }));
       try {
         await axios.delete(`/api/data/backups/${fileName}`);
         handleSuccess(`Xóa file ${fileName} thành công!`);
-        await fetchBackupFiles(); 
+        await fetchBackupFiles();
       } catch (error) {
         handleError(error);
       } finally {
