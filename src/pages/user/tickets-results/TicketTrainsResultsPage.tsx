@@ -122,8 +122,8 @@ const TicketTrainsResultsPage: React.FC = () => {
         <div className="w-full">
           <h1 className="mx-2 mb-5 border-[4px] border-b-0 border-r-0 border-t-0 border-primary bg-blue-200 px-5 py-1 text-center text-xl text-black dark:border-white dark:bg-gray-400 dark:text-white xl:text-start">
             {t('UserPage.TicketTrainsResults.TripFrom')}
-            <strong>{tripInfo.departure_point?.name}</strong>
-            {t('UserPage.TicketTrainsResults.To')}
+            &nbsp; <strong>{tripInfo.departure_point?.name}</strong>
+            <span className="px-2">{t('UserPage.TicketTrainsResults.To')}</span>
             <strong>{tripInfo.destination_point?.name}</strong> &nbsp;(
             <strong>{ticketCatalogInfo.name}</strong>)
           </h1>
@@ -188,6 +188,21 @@ const TicketTrainsResultsPage: React.FC = () => {
                 </div>
               </div>
             ))}
+          </div>
+          {/*  */}
+          <div className="mb-10 flex w-full flex-row items-center justify-center gap-5">
+            <div className="flex items-center justify-center gap-1">
+              <p className="h-5 w-5 rounded-md border border-black bg-green-500"></p>
+              <p>Còn Chỗ</p>
+            </div>
+            <div className="flex items-center justify-center gap-1">
+              <p className="h-5 w-5 rounded-md border border-black bg-red-500"></p>
+              <p>Hết Chỗ</p>
+            </div>
+            <div className="flex items-center justify-center gap-1">
+              <p className="h-5 w-5 rounded-md border border-black bg-white"></p>
+              <p>Đang Chọn</p>
+            </div>
           </div>
           {/* SeatCatalog */}
           {selectedTrain && ticketsByCarriage && (

@@ -207,15 +207,15 @@ const TicketBusesResultsPage: React.FC = () => {
           </div>
           <div className="mb-10 flex w-full flex-row items-center justify-center gap-5">
             <div className="flex items-center justify-center gap-1">
-              <p className="h-5 w-5 rounded-md bg-blue-500"></p>
+              <p className="h-5 w-5 rounded-md border border-black bg-blue-500"></p>
               <p>Còn Chỗ</p>
             </div>
             <div className="flex items-center justify-center gap-1">
-              <p className="h-5 w-5 rounded-md bg-orange-500"></p>
+              <p className="h-5 w-5 rounded-md border border-black bg-orange-500"></p>
               <p>Hết Chỗ</p>
             </div>
             <div className="flex items-center justify-center gap-1">
-              <p className="h-5 w-5 rounded-md bg-gray-500"></p>
+              <p className="h-5 w-5 rounded-md border border-black bg-gray-500"></p>
               <p>Đang Chọn</p>
             </div>
           </div>
@@ -230,7 +230,7 @@ const TicketBusesResultsPage: React.FC = () => {
                   <Button
                     color="primary"
                     size="sm"
-                    className="text-md mb-10 font-semibold text-white rounded-sm dark:bg-white pointer-events-none dark:text-primary"
+                    className="text-md pointer-events-none mb-10 rounded-sm font-semibold text-white dark:bg-white dark:text-primary"
                   >
                     {classTickets[0].seat_id[0]?.seat_catalog_id.name}
                   </Button>
