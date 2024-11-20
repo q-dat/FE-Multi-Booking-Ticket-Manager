@@ -108,16 +108,16 @@ const TicketFlightsResultsPage: React.FC = () => {
 
   const ticketsByClass = selectedFlight
     ? ticketsByFlight[selectedFlight].reduce(
-        (acc: { [key: string]: ITicket[] }, ticket) => {
-          const classId = ticket.seat_id[0]?.seat_catalog_id._id;
-          if (!acc[classId]) {
-            acc[classId] = [];
-          }
-          acc[classId].push(ticket);
-          return acc;
-        },
-        {}
-      )
+      (acc: { [key: string]: ITicket[] }, ticket) => {
+        const classId = ticket.seat_id[0]?.seat_catalog_id._id;
+        if (!acc[classId]) {
+          acc[classId] = [];
+        }
+        acc[classId].push(ticket);
+        return acc;
+      },
+      {}
+    )
     : {};
 
   const handleFlightChange = (flightName: string) => {
@@ -139,12 +139,11 @@ const TicketFlightsResultsPage: React.FC = () => {
           <div className="flex flex-row items-start justify-between">
             <div className="w-full">
               <h1 className="mx-2 mb-5 border-[4px] border-b-0 border-r-0 border-t-0 border-primary bg-blue-200 px-5 py-1 text-center text-xl text-black dark:border-white dark:bg-gray-400 dark:text-white xl:text-start">
-                 <strong>
-                 {t('UserPage.TicketTrainsResults.TripFrom')}
-                 
-                  {tripInfo.departure_point.name}</strong>{' '}
-                 <strong>
-                 {t('UserPage.TicketTrainsResults.To')}{tripInfo.destination_point.name}</strong>
+                {t('UserPage.TicketTrainsResults.TripFrom')}
+                &nbsp; <strong>{tripInfo.departure_point?.name}</strong>
+                <span className="px-2">{t('UserPage.TicketTrainsResults.To')}</span>
+                <strong>{tripInfo.destination_point?.name}</strong> &nbsp;
+
               </h1>
               <div className="mb-8 flex w-full flex-row items-center justify-center overflow-x-auto scrollbar-hide">
                 {Object.entries(ticketsByFlight).map(
@@ -183,19 +182,19 @@ const TicketFlightsResultsPage: React.FC = () => {
                           </p>
                           {flightTickets[0]?.ticket_catalog_id?.name.toLowerCase() !==
                             'một chiều' && (
-                            <>
-                              <p>
-                                <span className="font-semibold">{t('UserPage.ReturnDatePlaceholder')}:</span>{' '}
-                                {new Date(
-                                  flightTickets[0]?.trip_id?.return_date
-                                ).toLocaleDateString('vi-VN')}
-                              </p>
-                              <p>
-                                <span className="font-semibold">{t('UserPage.ReturnTimePlaceholder')}:</span>{' '}
-                                {flightTickets[0]?.trip_id?.return_time}
-                              </p>
-                            </>
-                          )}
+                              <>
+                                <p>
+                                  <span className="font-semibold">{t('UserPage.ReturnDatePlaceholder')}:</span>{' '}
+                                  {new Date(
+                                    flightTickets[0]?.trip_id?.return_date
+                                  ).toLocaleDateString('vi-VN')}
+                                </p>
+                                <p>
+                                  <span className="font-semibold">{t('UserPage.ReturnTimePlaceholder')}:</span>{' '}
+                                  {flightTickets[0]?.trip_id?.return_time}
+                                </p>
+                              </>
+                            )}
                         </div>
                       </div>
                       <div
@@ -208,13 +207,30 @@ const TicketFlightsResultsPage: React.FC = () => {
                     </>
                   )
                 )}
+
               </div>
+              {/*  */}
+              <div className="mb-10 flex w-full flex-row items-center justify-center gap-5">
+                <div className="flex items-center justify-center gap-1">
+                  <p className="h-5 w-5 rounded-md border border-black bg-green-500"></p>
+                  <p>Còn Chỗ</p>
+                </div>
+                <div className="flex items-center justify-center gap-1">
+                  <p className="h-5 w-5 rounded-md border border-black bg-red-500"></p>
+                  <p>Hết Chỗ</p>
+                </div>
+                <div className="flex items-center justify-center gap-1">
+                  <p className="h-5 w-5 rounded-md border border-black bg-white"></p>
+                  <p>Đang Chọn</p>
+                </div>
+              </div>
+              {/*  */}
             </div>
             <div className="hidden w-full xl:block">
               <CartPage />
             </div>
+
           </div>
-          {/*  */}
           {selectedFlight && ticketsByClass && (
             <div>
               <div className="mb-4 flex justify-center space-x-4">
@@ -225,17 +241,17 @@ const TicketFlightsResultsPage: React.FC = () => {
                       color="primary"
                       size="sm"
                       onClick={() => setSelectedClassId(classId)}
-                      className={`text-md font-semibold text-white dark:bg-white dark:text-primary ${
-                        selectedClassId === classId
+                      className={`text-md font-semibold text-white dark:bg-white dark:text-primary ${selectedClassId === classId
                           ? 'bg-opacity-100'
                           : 'bg-opacity-50'
-                      }`}
+                        }`}
                     >
                       {classTickets[0].seat_id[0]?.seat_catalog_id.name}
                     </Button>
                   )
                 )}
               </div>
+
               <div>
                 {selectedClassId && ticketsByClass[selectedClassId] && (
                   <div className="grid grid-flow-col grid-cols-[32] grid-rows-6 items-center justify-start gap-2 overflow-x-auto rounded-xl border border-primary p-2 scrollbar-hide dark:border-white">
@@ -245,13 +261,12 @@ const TicketFlightsResultsPage: React.FC = () => {
                         <div
                           onClick={() => addSeat(ticket)}
                           key={index}
-                          className={`relative flex h-[40px] w-[40px] items-center justify-center rounded-md border transition-all duration-200 ease-in-out ${
-                            seatStatus === 'Hết chỗ'
+                          className={`relative flex h-[40px] w-[40px] items-center justify-center rounded-md border transition-all duration-200 ease-in-out ${seatStatus === 'Hết chỗ'
                               ? 'cursor-not-allowed border-red-700 bg-red-500 text-white'
                               : seatStatus === 'Còn chỗ'
                                 ? 'cursor-pointer border-green-700 bg-green-500 text-white hover:bg-green-600'
                                 : 'cursor-progress border-gray-300 bg-white font-bold text-black'
-                          } group`}
+                            } group`}
                         >
                           {ticket.seat_id[0]?.ordinal_numbers}
                           <div
