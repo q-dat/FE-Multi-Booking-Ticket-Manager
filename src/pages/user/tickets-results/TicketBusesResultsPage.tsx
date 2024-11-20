@@ -230,7 +230,7 @@ const TicketBusesResultsPage: React.FC = () => {
                   <Button
                     color="primary"
                     size="sm"
-                    className="text-md mb-10 font-semibold text-white dark:bg-white dark:text-primary"
+                    className="text-md mb-10 font-semibold text-white rounded-sm dark:bg-white pointer-events-none dark:text-primary"
                   >
                     {classTickets[0].seat_id[0]?.seat_catalog_id.name}
                   </Button>
