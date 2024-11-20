@@ -109,14 +109,14 @@ const VehiclePage: React.FC = () => {
                   {vehicle?.status}
                 </span>
                 <span
-                  className={`mx-1 line-clamp-2 rounded-sm px-1 font-bold text-white ${
+                  className={`mx-1 line-clamp-2 rounded-sm px-1 ${
                     vehicle?.des?.includes('1')
-                      ? 'bg-red-500'
+                      ? 'bg-red-500 text-white'
                       : vehicle?.des?.includes('2')
-                        ? 'bg-blue-500'
+                        ? 'bg-blue-500 text-white'
                         : vehicle?.des?.includes('3')
-                          ? 'bg-yellow-500'
-                          : 'bg-green-500'
+                          ? 'bg-yellow-500 text-white'
+                          : 'text-black'
                   }`}
                 >
                   {vehicle?.des || 'Không có mô tả!'}

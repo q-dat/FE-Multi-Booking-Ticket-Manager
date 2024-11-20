@@ -115,7 +115,7 @@ const SeatCatalogPage: React.FC = () => {
                             : 'bg-green-500'
                     }`}
                   >
-                    {seatCatalog?.vehicle_id?.des || 'Không có mô tả!'}
+                    {seatCatalog?.vehicle_id?.des}
                   </sup>
                 </span>
                 <span>
