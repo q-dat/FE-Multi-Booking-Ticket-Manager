@@ -242,8 +242,8 @@ const TicketFlightsResultsPage: React.FC = () => {
                       size="sm"
                       onClick={() => setSelectedClassId(classId)}
                       className={`text-md font-semibold text-white dark:bg-white dark:text-primary ${selectedClassId === classId
-                          ? 'bg-opacity-100'
-                          : 'bg-opacity-50'
+                        ? 'bg-opacity-100'
+                        : 'bg-opacity-50'
                         }`}
                     >
                       {classTickets[0].seat_id[0]?.seat_catalog_id.name}
@@ -254,42 +254,71 @@ const TicketFlightsResultsPage: React.FC = () => {
 
               <div>
                 {selectedClassId && ticketsByClass[selectedClassId] && (
-                  <div className="grid grid-flow-col grid-cols-[32] grid-rows-6 items-center justify-start gap-2 overflow-x-auto rounded-xl border border-primary p-2 scrollbar-hide dark:border-white">
-                    {ticketsByClass[selectedClassId].map((ticket, index) => {
-                      const seatStatus = ticket.seat_id[0]?.status;
-                      return (
+                  <div className="plane mx-auto max-w-[300px] my-5">
+                    <div className="relative overflow-hidden text-center border-b-5 border-gray-300 w-[300px] h-[250px]">
+                      <div className="absolute bottom-0 left-0 w-full h-[250px] bg-primary rounded-t-[150px] flex justify-center items-center ">
                         <div
-                          onClick={() => addSeat(ticket)}
-                          key={index}
-                          className={`relative flex h-[40px] w-[40px] items-center justify-center rounded-md border transition-all duration-200 ease-in-out ${seatStatus === 'Hết chỗ'
-                              ? 'cursor-not-allowed border-red-700 bg-red-500 text-white'
-                              : seatStatus === 'Còn chỗ'
-                                ? 'cursor-pointer border-green-700 bg-green-500 text-white hover:bg-green-600'
-                                : 'cursor-progress border-gray-300 bg-white font-bold text-black'
-                            } group`}
-                        >
-                          {ticket.seat_id[0]?.ordinal_numbers}
-                          <div
-                            className={`pointer-events-none absolute bottom-10 left-1/2 z-10 w-[100px] -translate-x-1/2 transform rounded bg-white p-2 text-center text-xs text-black opacity-0 shadow-headerMenu shadow-primary transition-opacity duration-200 ease-in-out group-hover:opacity-100`}
-                          >
-                            {seatStatus === 'Còn chỗ' ? (
-                              <>
-                                <strong>{ticket.seat_id[0]?.name}</strong>
-                                <p>
-                                  <strong>Giá:</strong>{' '}
-                                  {(ticket.price * 1000).toLocaleString(
-                                    'vi-VN'
-                                  )}{' '}
-                                  VNĐ
-                                </p>
-                              </>
-                            ) : (
-                              <p>{seatStatus}</p>
-                            )}
-                          </div>
+                          className="h-[100px] w-[130px] bg-white bg-opacity-100"
+                          style={{
+                            clipPath: '  polygon(100% 25%, 100% 100%, 50% 70%, 0 100%, 0 25%, 50% 0)'
+                          }}
+                        />
+                        <div
+                          className="h-[100px] w-[130px] bg-white bg-opacity-100"
+                          style={{
+                            clipPath: '   polygon(100% 25%, 100% 100%, 50% 70%, 0 100%, 0 25%, 50% 0)'
+                          }}
+                        />
+                      </div>
+                    </div>
+                    <div className="exit exit--front fuselage h-12 relative">
+                      <span className="absolute left-0 top-1/2 transform -translate-y-1/2 bg-green-500 text-white text-xs font-bold px-2">EXIT</span>
+                      <span className="absolute right-0 top-1/2 transform -translate-y-1/2 bg-green-500 text-white text-xs font-bold px-2">EXIT</span>
+                    </div>
+                    <div className="flex justify-center">
+                      <div className="border border-gray-400 p-2">
+                        <div className="grid grid-cols-6 gap-2">
+                          {ticketsByClass[selectedClassId].map((ticket, index) => {
+                            const seatStatus = ticket.seat_id[0]?.status;
+
+                            return (
+                              <div
+                                key={index}
+                                onClick={() => seatStatus === 'Còn chỗ' && addSeat(ticket)}
+                                className={`relative flex h-[40px] w-[40px] items-center justify-center rounded-md border transition-all duration-200 ease-in-out ${seatStatus === 'Hết chỗ'
+                                  ? 'cursor-not-allowed border-red-700 bg-red-500 text-white'
+                                  : seatStatus === 'Còn chỗ'
+                                    ? 'cursor-pointer border-green-700 bg-green-500 text-white hover:bg-green-600'
+                                    : 'cursor-progress border-gray-300 bg-white font-bold text-black'
+                                  } group`}
+                              >
+                                {ticket.seat_id[0]?.ordinal_numbers}
+                                <div
+                                  className={`pointer-events-none absolute bottom-10 left-1/2 z-10 w-[100px] -translate-x-1/2 transform rounded bg-white p-2 text-center text-xs text-black opacity-0 shadow-headerMenu shadow-primary transition-opacity duration-200 ease-in-out group-hover:opacity-100`}
+                                >
+                                  {seatStatus === 'Còn chỗ' ? (
+                                    <>
+                                      <strong>{ticket.seat_id[0]?.name}</strong>
+                                      <p>
+                                        <strong>Giá:</strong>{' '}
+                                        {(ticket.price * 1000).toLocaleString('vi-VN')}{' '}
+                                        VNĐ
+                                      </p>
+                                    </>
+                                  ) : (
+                                    <p>{seatStatus}</p>
+                                  )}
+                                </div>
+                              </div>
+                            );
+                          })}
                         </div>
-                      );
-                    })}
+                      </div>
+                    </div>
+                    <div className="exit exit--back fuselage h-12 relative">
+                      <span className="absolute left-0 top-1/2 transform -translate-y-1/2 bg-green-500 text-white text-xs font-bold px-2">EXIT</span>
+                      <span className="absolute right-0 top-1/2 transform -translate-y-1/2 bg-green-500 text-white text-xs font-bold px-2">EXIT</span>
+                    </div>
                   </div>
                 )}
               </div>
