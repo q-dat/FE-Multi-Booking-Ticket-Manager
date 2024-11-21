@@ -6,6 +6,8 @@ import { useTranslation } from 'react-i18next';
 import axios from '../../config/axiosConfig';
 import { OrderItem } from '../../types/type/order/orderItem';
 import { useNavigate } from 'react-router-dom';
+import { isIErrorResponse } from '../../types/error/error';
+import { Toastify } from '../../helper/Toastify';
 
 interface Order {
   items: OrderItem[];
@@ -18,7 +20,6 @@ const CheckTicketPage: React.FC = () => {
   const [phone, setPhone] = useState('');
   const [cccd, setCccd] = useState('');
   const [, setOrder] = useState<Order | null>(null);
-  const [error, setError] = useState('');
 
   const handleCheckTicket = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -32,11 +33,13 @@ const CheckTicketPage: React.FC = () => {
         }
       });
       setOrder(response.data.order);
+      Toastify('Kiểm tra vé thành công', 201);
       navigate('/bill-results', { state: { order: response.data.order } });
-      setError('');
-    } catch (err) {
-      setOrder(null);
-      setError('Vui lòng nhập đúng thông tin!!!');
+    } catch (error) {
+      const errorMessage = isIErrorResponse(error)
+        ? error.data?.message
+        : 'Vui lòng nhập đầy đủ thông tin!';
+      Toastify(`${errorMessage}`, 500);
     }
   };
 
@@ -83,17 +86,11 @@ const CheckTicketPage: React.FC = () => {
                   className="border border-gray-300 bg-white text-black focus:border-primary xs:w-[300px] sm:w-[350px] md:w-[650px] xl:w-[800px]"
                   classNameLabel="bg-white dark:peer-placeholder-shown:text-black dark:peer-focus:text-black"
                 />
-                {/* Hiển thị thông báo lỗi nếu có */}
-                {error && (
-                  <div className="text-red-600">
-                    <p>{error}</p>
-                  </div>
-                )}
                 <Button
                   className="w-32 bg-primary text-sm text-white hover:border-primary hover:bg-white hover:text-primary dark:hover:bg-gray-700"
                   size="md"
                 >
-                  {t('UserPage.ReturnTicketPage.buttonform')}
+                  {t('UserPage.CheckTicketPage.buttonform')}
                 </Button>
               </div>
             </div>
