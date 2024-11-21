@@ -115,6 +115,7 @@ interface Resources {
         "SearchTicketCode": "Ticket Code",
         "SearchPhone": "Phone Number",
         "SearchCCCD": "Citizen Identification Card",
+        "buttonform": "Check",
         "title": "To display the ticket for verification, please provide the following three pieces of accurate information:"
       },
       "Location": {

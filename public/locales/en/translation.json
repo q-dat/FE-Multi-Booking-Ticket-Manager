@@ -114,6 +114,7 @@
       "SearchTicketCode": "Ticket Code",
       "SearchPhone": "Phone Number",
       "SearchCCCD": "Citizen Identification Card",
+      "buttonform": "Check",
       "title": "To display the ticket for verification, please provide the following three pieces of accurate information:"
     },
     "Location": {
@@ -177,7 +178,7 @@
       "ip19": "Payment Method",
       "ip20": "Pay Upon Ticket Collection",
       "ip21": "Pay Now"
-    }    
+    }
   },
   "NotificationPopup": {
     "CustomerService": "Customer Service",

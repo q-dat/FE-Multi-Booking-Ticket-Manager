@@ -114,6 +114,7 @@
       "SearchTicketCode": "Mã vé",
       "SearchPhone": "Số điện thoại",
       "SearchCCCD": "Số CCCD",
+      "buttonform": "Kiểm tra",
       "title": "Để hiển thị vé cần kiểm tra, vui lòng điền 3 thông tin chính xác dưới đây:"
     },
     "Location": {
@@ -155,28 +156,28 @@
       "BuyTickets": "Mua Vé",
       "DeleteAllTicket": "Đã xóa tất cả ghế khỏi giỏ hàng!"
     },
-    "CheckoutPage":{
-      "ip1":"Đối tượng",
-      "ip2":"Chuyến đi",
-      "ip3":"Giá vé",
-      "ip4":"Giảm đối tượng",
-      "ip5":"Thành tiền (VND)",
-      "ip6":"Thao tác",
-      "ip7":"Họ và tên",
-      "ip8":"Số điện thoại",
-      "ip9":"Số CCCD",
-      "ip10":"Người lớn",
-      "ip11":"Trẻ em",
-      "ip12":"Xoá tất cả",
-      "ip13":"Tổng tiền",
-      "ip14":"Email",
-      "ip15":"Đường",
-      "ip16":"Quận/ Huyện",
-      "ip17":"Tĩnh/ Thành phố",
-      "ip18":"Thông tin người mua",
-      "ip19":"Phương thức thanh toán",
-      "ip20":"Thanh toán khi nhận vé",
-      "ip21":"Thanh toán"
+    "CheckoutPage": {
+      "ip1": "Đối tượng",
+      "ip2": "Chuyến đi",
+      "ip3": "Giá vé",
+      "ip4": "Giảm đối tượng",
+      "ip5": "Thành tiền (VND)",
+      "ip6": "Thao tác",
+      "ip7": "Họ và tên",
+      "ip8": "Số điện thoại",
+      "ip9": "Số CCCD",
+      "ip10": "Người lớn",
+      "ip11": "Trẻ em",
+      "ip12": "Xoá tất cả",
+      "ip13": "Tổng tiền",
+      "ip14": "Email",
+      "ip15": "Đường",
+      "ip16": "Quận/ Huyện",
+      "ip17": "Tĩnh/ Thành phố",
+      "ip18": "Thông tin người mua",
+      "ip19": "Phương thức thanh toán",
+      "ip20": "Thanh toán khi nhận vé",
+      "ip21": "Thanh toán"
     }
   },
   "NotificationPopup": {
