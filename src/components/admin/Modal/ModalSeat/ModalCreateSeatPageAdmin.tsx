@@ -16,7 +16,7 @@ const ModalCreateSeatPageAdmin: React.FC<ModalCreateSeatProps> = ({
   isOpen,
   onClose
 }) => {
-  const { seatCatalogs, getAllSeatCatalogs, error } =
+  const { seatCatalogs, getAllSeatCatalogs } =
     useContext(SeatCatalogContext);
   const { getAllSeats, createSeat } = useContext(SeatContext);
   const { register, handleSubmit, reset } = useForm<ISeat>();
@@ -32,7 +32,8 @@ const ModalCreateSeatPageAdmin: React.FC<ModalCreateSeatProps> = ({
       getAllSeats();
       onClose();
     } catch (err) {
-      Toastify(`Lỗi: ${error}`, 500);
+      Toastify('Lỗi: Ghế đã tồn tại!', 500);
+      getAllSeats();
     }
   };
 
@@ -101,8 +102,8 @@ const ModalCreateSeatPageAdmin: React.FC<ModalCreateSeatProps> = ({
                 <option key={seatCatalog._id} value={seatCatalog._id}>
                   {seatCatalog.name}
                   &emsp;
-                    {seatCatalog?.vehicle_id?.name}&emsp;
-                    {seatCatalog?.vehicle_id?.des}
+                  {seatCatalog?.vehicle_id?.name}&emsp;
+                  {seatCatalog?.vehicle_id?.des}
                 </option>
               ))}
             </Select>

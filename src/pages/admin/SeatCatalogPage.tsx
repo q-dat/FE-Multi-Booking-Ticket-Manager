@@ -53,12 +53,12 @@ const SeatCatalogPage: React.FC = () => {
       try {
         await deleteSeatCatalog(selectedSeatCatalogId);
         closeModalDeleteAdmin();
-        Toastify('Bạn đã xoá loại ghế thành công', 201);
+        Toastify('Bạn đã xoá danh mục chỗ ngồi thành công', 201);
         getAllSeatCatalogs();
       } catch (error) {
         const errorMessage = isIErrorResponse(error)
           ? error.data?.message
-          : 'Xoá loại ghế thất bại!';
+          : 'Xoá danh mục chỗ ngồi thất bại!';
         Toastify(`Lỗi: ${errorMessage}`, 500);
       }
     }
@@ -87,7 +87,7 @@ const SeatCatalogPage: React.FC = () => {
       </div>
 
       <TableListAdmin
-        Title_TableListAdmin={`Danh Sách loại ghế (${seatCatalogs.length})`}
+        Title_TableListAdmin={`Danh Sách Danh Mục Chỗ Ngồi (${seatCatalogs.length})`}
         table_head={
           <Table.Head className="bg-primary text-center text-white">
             <span>STT</span>

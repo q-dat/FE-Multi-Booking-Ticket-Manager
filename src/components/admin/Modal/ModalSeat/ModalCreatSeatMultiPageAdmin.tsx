@@ -16,7 +16,7 @@ const ModalCreatSeatMultiPageAdmin: React.FC<ModalCreateSeatProps> = ({
   isOpen,
   onClose
 }) => {
-  const { seatCatalogs, getAllSeatCatalogs, error } =
+  const { seatCatalogs, getAllSeatCatalogs } =
     useContext(SeatCatalogContext);
   const { createMultipleSeats, getAllSeats } = useContext(SeatContext);
   const { register, handleSubmit, reset } = useForm();
@@ -32,7 +32,8 @@ const ModalCreatSeatMultiPageAdmin: React.FC<ModalCreateSeatProps> = ({
       getAllSeats();
       onClose();
     } catch (err) {
-      Toastify(`Lỗi: ${error}`, 500);
+      Toastify('Lỗi: Danh sách ghế đã tồn tại!', 500);
+      getAllSeats();
     }
   };
 

@@ -12,7 +12,7 @@ import {
   getAllLocationsApi,
   updateLocationApi
 } from '../../axios/api/locationApi';
-
+import { AxiosResponse } from 'axios';
 interface LocationContextType {
   locations: ILocation[];
   loading: {
@@ -24,9 +24,12 @@ interface LocationContextType {
   error: string | null;
   getAllLocations: () => void;
   getLocationById: (_id: string) => ILocation | undefined;
-  createLocation: (location: ILocation) => Promise<void>;
-  updateLocation: (_id: string, location: ILocation) => Promise<void>;
-  deleteLocation: (_id: string) => Promise<void>;
+  createLocation: (location: ILocation) => Promise<AxiosResponse<any>>;
+  updateLocation: (
+    _id: string,
+    location: ILocation
+  ) => Promise<AxiosResponse<any>>;
+  deleteLocation: (_id: string) => Promise<AxiosResponse<any>>;
 }
 
 const defaultContextValue: LocationContextType = {
@@ -40,9 +43,10 @@ const defaultContextValue: LocationContextType = {
   error: null,
   getAllLocations: () => {},
   getLocationById: () => undefined,
-  createLocation: async () => {},
-  updateLocation: async () => {},
-  deleteLocation: async () => {}
+  createLocation: async () =>
+    ({ data: { savedLocation: null } }) as AxiosResponse,
+  updateLocation: async () => ({ data: { location: null } }) as AxiosResponse,
+  deleteLocation: async () => ({ data: { deleted: true } }) as AxiosResponse
 };
 
 export const LocationContext =
@@ -68,17 +72,19 @@ export const LocationProvider = ({ children }: { children: ReactNode }) => {
   };
 
   const fetchData = async (
-    apiCall: () => Promise<any>,
+    apiCall: () => Promise<AxiosResponse<any>>,
     onSuccess: (data: any) => void,
     requestType: keyof typeof loading // 'getAll', 'create', 'update', 'delete'
-  ) => {
+  ): Promise<AxiosResponse<any>> => {
     setLoading(prev => ({ ...prev, [requestType]: true }));
     setError(null);
     try {
       const response = await apiCall();
       onSuccess(response.data);
+      return response;
     } catch (err: any) {
       handleError(err);
+      throw err;
     } finally {
       setLoading(prev => ({ ...prev, [requestType]: false }));
     }
@@ -92,7 +98,8 @@ export const LocationProvider = ({ children }: { children: ReactNode }) => {
       'getAll'
     );
   }, []);
-  //Get By Id
+
+  // Get By Id
   const getLocationById = useCallback(
     (id: string) => {
       return locations.find(location => location._id === id);
@@ -100,10 +107,10 @@ export const LocationProvider = ({ children }: { children: ReactNode }) => {
     [locations]
   );
 
-  // Post
+  // Create Location
   const createLocation = useCallback(
-    async (location: ILocation): Promise<void> => {
-      await fetchData(
+    async (location: ILocation): Promise<AxiosResponse<any>> => {
+      return await fetchData(
         () => createLocationApi(location),
         data => {
           if (data.savedLocation) {
@@ -119,10 +126,10 @@ export const LocationProvider = ({ children }: { children: ReactNode }) => {
     []
   );
 
-  // Put
+  // Update Location
   const updateLocation = useCallback(
-    async (id: string, location: ILocation): Promise<void> => {
-      await fetchData(
+    async (id: string, location: ILocation): Promise<AxiosResponse<any>> => {
+      return await fetchData(
         () => updateLocationApi(id, location),
         data => {
           if (data.location) {
@@ -137,17 +144,20 @@ export const LocationProvider = ({ children }: { children: ReactNode }) => {
     []
   );
 
-  // Delete
-  const deleteLocation = useCallback(async (id: string): Promise<void> => {
-    await fetchData(
-      () => deleteLocationApi(id),
-      () =>
-        setLocations(prevLocations =>
-          prevLocations.filter(location => location._id !== id)
-        ),
-      'delete'
-    );
-  }, []);
+  // Delete Location
+  const deleteLocation = useCallback(
+    async (id: string): Promise<AxiosResponse<any>> => {
+      return await fetchData(
+        () => deleteLocationApi(id),
+        () =>
+          setLocations(prevLocations =>
+            prevLocations.filter(location => location._id !== id)
+          ),
+        'delete'
+      );
+    },
+    []
+  );
 
   useEffect(() => {
     getAllLocations();

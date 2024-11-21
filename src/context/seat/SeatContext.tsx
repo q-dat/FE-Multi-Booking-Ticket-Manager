@@ -10,6 +10,7 @@ import {
   createMultipleSeatsApi,
   deleteSeatsByCatalogIdApi
 } from '../../axios/api/seatApi';
+import { AxiosResponse } from 'axios';
 
 interface SeatContextType {
   seats: ISeat[];
@@ -27,18 +28,19 @@ interface SeatContextType {
   error: string | null;
   getAllSeats: () => void;
   getSeatById: (_id: string) => ISeat | undefined;
-  createSeat: (seat: ISeat) => Promise<void>;
-  updateSeat: (_id: string, seat: ISeat) => Promise<void>;
-  deleteSeat: (_id: string) => Promise<void>;
+  createSeat: (seat: ISeat) => Promise<AxiosResponse<any>>;
+  updateSeat: (_id: string, seat: ISeat) => Promise<AxiosResponse<any>>;
+  deleteSeat: (_id: string) => Promise<AxiosResponse<any>>;
   searchSeatsByName: (filterParams: Record<string, string>) => Promise<ISeat[]>;
-  getListIdByVehicleName: (vehicleName: string) => void;
+  getListIdByVehicleName: (vehicleName: string) => Promise<void>; // Giữ kiểu Promise<void>
   createMultipleSeats: (data: {
     quantity: number;
     seatCatalogId: string;
     price: number;
-  }) => Promise<void>;
-  deleteSeatsByCatalogId: (seatCatalogId: string) => Promise<void>;
+  }) => Promise<AxiosResponse<any>>;
+  deleteSeatsByCatalogId: (seatCatalogId: string) => Promise<AxiosResponse<any>>;
 }
+
 
 const defaultContextValue: SeatContextType = {
   seats: [],
@@ -56,13 +58,18 @@ const defaultContextValue: SeatContextType = {
   error: null,
   getAllSeats: () => {},
   getSeatById: () => undefined,
-  createSeat: async () => {},
-  updateSeat: async () => {},
-  deleteSeat: async () => {},
+  createSeat: async () =>
+    ({ data: { savedSeat: null } }) as AxiosResponse,
+  updateSeat: async () =>
+    ({ data: { seat: null } }) as AxiosResponse,
+  deleteSeat: async () =>
+    ({ data: { deleted: true } }) as AxiosResponse,
   searchSeatsByName: async () => [],
   getListIdByVehicleName: async () => {},
-  createMultipleSeats: async () => {},
-  deleteSeatsByCatalogId: async () => {}
+  createMultipleSeats: async () =>
+    ({ data: { savedSeats: [] } }) as AxiosResponse,
+  deleteSeatsByCatalogId: async () =>
+    ({ data: { deleted: true } }) as AxiosResponse
 };
 
 export const SeatContext = createContext<SeatContextType>(defaultContextValue);
@@ -70,16 +77,7 @@ export const SeatContext = createContext<SeatContextType>(defaultContextValue);
 export const SeatProvider = ({ children }: { children: ReactNode }) => {
   const [seats, setSeats] = useState<ISeat[]>([]);
   const [seatIds, setSeatIds] = useState<string[]>([]);
-  const [loading, setLoading] = useState<{
-    getAll: boolean;
-    create: boolean;
-    update: boolean;
-    delete: boolean;
-    filter: boolean;
-    getListIdByVehicleName: boolean;
-    createMultipleSeats: boolean;
-    deleteSeatsByCatalogId: boolean;
-  }>({
+  const [loading, setLoading] = useState<SeatContextType['loading']>({
     getAll: false,
     create: false,
     update: false,
@@ -96,17 +94,19 @@ export const SeatProvider = ({ children }: { children: ReactNode }) => {
   };
 
   const fetchData = async (
-    apiCall: () => Promise<any>,
+    apiCall: () => Promise<AxiosResponse<any>>,
     onSuccess: (data: any) => void,
-    requestType: keyof typeof loading // 'getAll', 'create', 'update', 'delete', 'filter'
-  ) => {
+    requestType: keyof typeof loading
+  ): Promise<AxiosResponse<any>> => {
     setLoading(prev => ({ ...prev, [requestType]: true }));
     setError(null);
     try {
       const response = await apiCall();
       onSuccess(response.data);
+      return response;
     } catch (err: any) {
       handleError(err);
+      throw err;
     } finally {
       setLoading(prev => ({ ...prev, [requestType]: false }));
     }
@@ -119,109 +119,100 @@ export const SeatProvider = ({ children }: { children: ReactNode }) => {
 
   // Get By Id
   const getSeatById = useCallback(
-    (id: string) => {
-      return seats.find(seat => seat._id === id);
-    },
+    (id: string) => seats.find(seat => seat._id === id),
     [seats]
   );
 
-  // Post
-  const createSeat = useCallback(async (seat: ISeat): Promise<void> => {
-    await fetchData(
-      () => createSeatApi(seat),
-      data => {
-        if (data.savedSeat) {
-          setSeats(prevSeats => [...prevSeats, data.savedSeat]);
-        }
-      },
-      'create'
-    );
-  }, []);
+  // Create
+  const createSeat = useCallback(
+    async (seat: ISeat): Promise<AxiosResponse<any>> =>
+      fetchData(
+        () => createSeatApi(seat),
+        data => {
+          if (data.savedSeat) setSeats(prev => [...prev, data.savedSeat]);
+        },
+        'create'
+      ),
+    []
+  );
 
-  // Put
+  // Update
   const updateSeat = useCallback(
-    async (id: string, seat: ISeat): Promise<void> => {
-      await fetchData(
+    async (id: string, seat: ISeat): Promise<AxiosResponse<any>> =>
+      fetchData(
         () => updateSeatApi(id, seat),
         data => {
-          if (data.seat) {
-            setSeats(prevSeats =>
-              prevSeats.map(s => (s._id === id ? data.seat : s))
+          if (data.seat)
+            setSeats(prev =>
+              prev.map(s => (s._id === id ? data.seat : s))
             );
-          }
         },
         'update'
-      );
-    },
+      ),
     []
   );
 
   // Delete
-  const deleteSeat = useCallback(async (id: string): Promise<void> => {
-    await fetchData(
-      () => deleteSeatApi(id),
-      () => setSeats(prevSeats => prevSeats.filter(seat => seat._id !== id)),
-      'delete'
-    );
-  }, []);
-
-  // Search Seats By Vehicles
-  const searchSeatsByName = useCallback(
-    async (filterParams: Record<string, string>): Promise<ISeat[]> => {
-      await fetchData(
-        () => searchSeatsByVehicleNameApi(filterParams),
-        data => {
-          setSeats(data.seats || []);
-        },
-        'filter'
-      );
-      return seats;
-    },
-    [seats]
+  const deleteSeat = useCallback(
+    async (id: string): Promise<AxiosResponse<any>> =>
+      fetchData(
+        () => deleteSeatApi(id),
+        () => setSeats(prev => prev.filter(seat => seat._id !== id)),
+        'delete'
+      ),
+    []
   );
 
-  // Get List_ID By VehicleName
-  const getListIdByVehicleName = useCallback((vehicleName: string) => {
-    fetchData(
-      () => getListIdByVehicleNameApi(vehicleName),
-      data => setSeatIds(data.seatIds || []),
-      'getListIdByVehicleName'
-    );
-  }, []);
-
-  // Create Multiple Seats
-  const createMultipleSeats = useCallback(
-    async (data: {
-      quantity: number;
-      seatCatalogId: string;
-      price: number;
-    }): Promise<void> => {
-      await fetchData(
-        () => createMultipleSeatsApi(data),
-        response => {
-          if (response.savedSeats) {
-            setSeats(prevSeats => [...prevSeats, ...response.savedSeats]);
-          }
-        },
-        'createMultipleSeats'
+  // Search by Vehicle Name
+  const searchSeatsByName = useCallback(
+    async (filterParams: Record<string, string>): Promise<ISeat[]> => {
+      const response = await fetchData(
+        () => searchSeatsByVehicleNameApi(filterParams),
+        data => setSeats(data.seats || []),
+        'filter'
       );
+      return response.data.seats || [];
     },
     []
   );
 
-  // Delete Seats by SeatCatalogId
-  const deleteSeatsByCatalogId = useCallback(
-    async (seatCatalogId: string): Promise<void> => {
+  // Get List IDs by Vehicle Name
+  const getListIdByVehicleName = useCallback(
+    async (vehicleName: string): Promise<void> => {
+      // Gọi fetchData nhưng không cần trả về AxiosResponse
       await fetchData(
-        () => deleteSeatsByCatalogIdApi(seatCatalogId),
-        () => {
-          setSeats(prevSeats => 
-            prevSeats.filter(seat => seat.seat_catalog_id._id !== seatCatalogId)
-          );
-                  },
-        'deleteSeatsByCatalogId'
+        () => getListIdByVehicleNameApi(vehicleName),
+        data => setSeatIds(data.seatIds || []),
+        'getListIdByVehicleName'
       );
     },
+    []
+  );
+  
+  
+  // Create Multiple Seats
+  const createMultipleSeats = useCallback(
+    async (data: { quantity: number; seatCatalogId: string; price: number }): Promise<AxiosResponse<any>> =>
+      fetchData(
+        () => createMultipleSeatsApi(data),
+        response => {
+          if (response.savedSeats)
+            setSeats(prev => [...prev, ...response.savedSeats]);
+        },
+        'createMultipleSeats'
+      ),
+    []
+  );
+
+  // Delete Seats by Catalog ID
+  const deleteSeatsByCatalogId = useCallback(
+    async (seatCatalogId: string): Promise<AxiosResponse<any>> =>
+      fetchData(
+        () => deleteSeatsByCatalogIdApi(seatCatalogId),
+        () =>
+          setSeats(prev => prev.filter(seat => seat.seat_catalog_id._id !== seatCatalogId)),
+        'deleteSeatsByCatalogId'
+      ),
     []
   );
 

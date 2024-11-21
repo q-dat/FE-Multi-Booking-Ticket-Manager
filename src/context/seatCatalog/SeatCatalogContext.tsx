@@ -1,11 +1,6 @@
 import { ISeatCatalog } from '../../types/type/seat-catalog/seat-catalog';
-import {
-  createContext,
-  useState,
-  ReactNode,
-  useCallback,
-  useEffect
-} from 'react';
+import { createContext, useState, ReactNode, useCallback, useEffect } from 'react';
+import { AxiosResponse } from 'axios';
 import {
   createSeatCatalogApi,
   deleteSeatCatalogApi,
@@ -25,9 +20,9 @@ interface SeatCatalogContextType {
   error: string | null;
   getAllSeatCatalogs: () => void;
   getSeatCatalogById: (_id: string) => ISeatCatalog | undefined;
-  createSeatCatalog: (seatCatalog: ISeatCatalog) => Promise<void>;
-  updateSeatCatalog: (_id: string, seatCatalog: ISeatCatalog) => Promise<void>;
-  deleteSeatCatalog: (_id: string) => Promise<void>;
+  createSeatCatalog: (seatCatalog: ISeatCatalog) => Promise<AxiosResponse<any>>;
+  updateSeatCatalog: (_id: string, seatCatalog: ISeatCatalog) => Promise<AxiosResponse<any>>;
+  deleteSeatCatalog: (_id: string) => Promise<AxiosResponse<any>>;
 }
 
 const defaultContextValue: SeatCatalogContextType = {
@@ -42,13 +37,12 @@ const defaultContextValue: SeatCatalogContextType = {
   error: null,
   getAllSeatCatalogs: () => {},
   getSeatCatalogById: () => undefined,
-  createSeatCatalog: async () => {},
-  updateSeatCatalog: async () => {},
-  deleteSeatCatalog: async () => {}
+  createSeatCatalog: async () => ({ data: {} }) as AxiosResponse<any>,
+  updateSeatCatalog: async () => ({ data: {} }) as AxiosResponse<any>,
+  deleteSeatCatalog: async () => ({ data: {} }) as AxiosResponse<any>
 };
 
-export const SeatCatalogContext =
-  createContext<SeatCatalogContextType>(defaultContextValue);
+export const SeatCatalogContext = createContext<SeatCatalogContextType>(defaultContextValue);
 
 export const SeatCatalogProvider = ({ children }: { children: ReactNode }) => {
   const [seatCatalogs, setSeatCatalogs] = useState<ISeatCatalog[]>([]);
@@ -72,7 +66,7 @@ export const SeatCatalogProvider = ({ children }: { children: ReactNode }) => {
   };
 
   const fetchData = async (
-    apiCall: () => Promise<any>,
+    apiCall: () => Promise<AxiosResponse<any>>,
     onSuccess: (data: any) => void,
     requestType: keyof typeof loading // 'getAll', 'getById', 'create', 'update', 'delete'
   ) => {
@@ -81,8 +75,10 @@ export const SeatCatalogProvider = ({ children }: { children: ReactNode }) => {
     try {
       const response = await apiCall();
       onSuccess(response.data);
+      return response; // Trả về AxiosResponse
     } catch (err: any) {
       handleError(err);
+      throw err;
     } finally {
       setLoading(prev => ({ ...prev, [requestType]: false }));
     }
@@ -107,8 +103,8 @@ export const SeatCatalogProvider = ({ children }: { children: ReactNode }) => {
 
   // Post
   const createSeatCatalog = useCallback(
-    async (seatCatalog: ISeatCatalog): Promise<void> => {
-      await fetchData(
+    async (seatCatalog: ISeatCatalog): Promise<AxiosResponse<any>> => {
+      return fetchData(
         () => createSeatCatalogApi(seatCatalog),
         data => {
           if (data.savedSeatCatalog) {
@@ -126,8 +122,8 @@ export const SeatCatalogProvider = ({ children }: { children: ReactNode }) => {
 
   // Put
   const updateSeatCatalog = useCallback(
-    async (id: string, seatCatalog: ISeatCatalog): Promise<void> => {
-      await fetchData(
+    async (id: string, seatCatalog: ISeatCatalog): Promise<AxiosResponse<any>> => {
+      return fetchData(
         () => updateSeatCatalogApi(id, seatCatalog),
         data => {
           if (data.seatCatalog) {
@@ -145,16 +141,19 @@ export const SeatCatalogProvider = ({ children }: { children: ReactNode }) => {
   );
 
   // Delete
-  const deleteSeatCatalog = useCallback(async (id: string): Promise<void> => {
-    await fetchData(
-      () => deleteSeatCatalogApi(id),
-      () =>
-        setSeatCatalogs(prevCatalogs =>
-          prevCatalogs.filter(catalog => catalog._id !== id)
-        ),
-      'delete'
-    );
-  }, []);
+  const deleteSeatCatalog = useCallback(
+    async (id: string): Promise<AxiosResponse<any>> => {
+      return fetchData(
+        () => deleteSeatCatalogApi(id),
+        () =>
+          setSeatCatalogs(prevCatalogs =>
+            prevCatalogs.filter(catalog => catalog._id !== id)
+          ),
+        'delete'
+      );
+    },
+    []
+  );
 
   useEffect(() => {
     getAllSeatCatalogs();

@@ -13,6 +13,7 @@ import {
   searchAgesByNameApi
 } from '../../axios/api/ageApi';
 import { IAge } from '../../types/type/age/age';
+import { AxiosResponse } from 'axios';
 
 interface AgeContextType {
   ages: IAge[];
@@ -26,10 +27,10 @@ interface AgeContextType {
   error: string | null;
   getAllAges: () => void;
   getAgeById: (_id: string) => IAge | undefined;
-  createAge: (age: IAge) => Promise<void>;
-  updateAge: (_id: string, age: IAge) => Promise<void>;
-  deleteAge: (_id: string) => Promise<void>;
-  searchAgesByName: (name: string) => void;
+  createAge: (age: IAge) => Promise<AxiosResponse<any>>;
+  updateAge: (_id: string, age: IAge) => Promise<AxiosResponse<any>>;
+  deleteAge: (_id: string) => Promise<AxiosResponse<any>>;
+  searchAgesByName: (name: string) => Promise<AxiosResponse<any>>;
 }
 
 const defaultContextValue: AgeContextType = {
@@ -44,10 +45,10 @@ const defaultContextValue: AgeContextType = {
   error: null,
   getAllAges: () => {},
   getAgeById: () => undefined,
-  createAge: async () => {},
-  updateAge: async () => {},
-  deleteAge: async () => {},
-  searchAgesByName: () => {}
+  createAge: async () => ({ data: { savedAge: null } }) as AxiosResponse,
+  updateAge: async () => ({ data: { updatedAge: null } }) as AxiosResponse,
+  deleteAge: async () => ({ data: { deleted: true } }) as AxiosResponse,
+  searchAgesByName: async () => ({ data: { ages: [] } }) as AxiosResponse
 };
 
 export const AgeContext = createContext<AgeContextType>(defaultContextValue);
@@ -74,17 +75,19 @@ export const AgeProvider = ({ children }: { children: ReactNode }) => {
   };
 
   const fetchData = async (
-    apiCall: () => Promise<any>,
+    apiCall: () => Promise<AxiosResponse<any>>,
     onSuccess: (data: any) => void,
-    requestType: keyof typeof loading
-  ) => {
+    requestType: keyof typeof loading // 'getAll', 'create', 'update', 'delete'
+  ): Promise<AxiosResponse<any>> => {
     setLoading(prev => ({ ...prev, [requestType]: true }));
     setError(null);
     try {
       const response = await apiCall();
       onSuccess(response.data);
+      return response;
     } catch (err: any) {
       handleError(err);
+      throw err;
     } finally {
       setLoading(prev => ({ ...prev, [requestType]: false }));
     }
@@ -103,23 +106,26 @@ export const AgeProvider = ({ children }: { children: ReactNode }) => {
     [ages]
   );
 
-  // Post
-  const createAge = useCallback(async (age: IAge): Promise<void> => {
-    await fetchData(
-      () => createAgeApi(age),
-      data => {
-        if (data.savedAge) {
-          setAges(prevAges => [...prevAges, data.savedAge]);
-        }
-      },
-      'create'
-    );
-  }, []);
+  // Create
+  const createAge = useCallback(
+    async (age: IAge): Promise<AxiosResponse<any>> => {
+      return await fetchData(
+        () => createAgeApi(age),
+        data => {
+          if (data.savedAge) {
+            setAges(prevAges => [...prevAges, data.savedAge]);
+          }
+        },
+        'create'
+      );
+    },
+    []
+  );
 
-  // Put
+  // Update
   const updateAge = useCallback(
-    async (id: string, age: IAge): Promise<void> => {
-      await fetchData(
+    async (id: string, age: IAge): Promise<AxiosResponse<any>> => {
+      return await fetchData(
         () => updateAgeApi(id, age),
         data => {
           if (data.updatedAge) {
@@ -137,25 +143,29 @@ export const AgeProvider = ({ children }: { children: ReactNode }) => {
   );
 
   // Delete
-  const deleteAge = useCallback(async (id: string): Promise<void> => {
-    await fetchData(
-      () => deleteAgeApi(id),
-      () => setAges(prevAges => prevAges.filter(age => age._id !== id)),
-      'delete'
-    );
-  }, []);
+  const deleteAge = useCallback(
+    async (id: string): Promise<AxiosResponse<any>> => {
+      return await fetchData(
+        () => deleteAgeApi(id),
+        () => setAges(prevAges => prevAges.filter(age => age._id !== id)),
+        'delete'
+      );
+    },
+    []
+  );
 
-  // Search by name
+  // Search By Name
   const searchAgesByName = useCallback(
-    (name: string) => {
-      fetchData(
+    async (name: string): Promise<AxiosResponse<any>> => {
+      return await fetchData(
         () => searchAgesByNameApi(name),
         data => setAges(data.ages || []),
         'search'
       );
     },
-    [ages]
+    []
   );
+
   useEffect(() => {
     getAllAges();
   }, [getAllAges]);

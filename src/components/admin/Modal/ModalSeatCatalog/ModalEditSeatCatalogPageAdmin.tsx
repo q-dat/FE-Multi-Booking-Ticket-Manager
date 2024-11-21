@@ -47,7 +47,7 @@ const ModalEditSeatCatalogPageAdmin: React.FC<ModalEditSeatCatalogProps> = ({
   const onSubmit: SubmitHandler<ISeatCatalog> = async formData => {
     try {
       await updateSeatCatalog(seatCatalogId, formData);
-      Toastify('Chỉnh sửa danh mục ghế thành công!', 200);
+      Toastify('Chỉnh sửa danh mục chỗ ngồi thành công!', 200);
       reset();
       getAllSeatCatalogs();
       onClose();

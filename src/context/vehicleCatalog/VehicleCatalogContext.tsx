@@ -1,10 +1,5 @@
-import {
-  createContext,
-  useState,
-  ReactNode,
-  useCallback,
-  useEffect
-} from 'react';
+import { createContext, useState, ReactNode, useCallback, useEffect } from 'react';
+import { AxiosResponse } from 'axios';
 import {
   createVehicleCatalogApi,
   deleteVehicleCatalogApi,
@@ -25,12 +20,9 @@ interface VehicleCatalogContextType {
   error: string | null;
   getAllVehicleCatalogs: () => void;
   getVehicleCatalogById: (_id: string) => IVehicleCatalog | undefined;
-  createVehicleCatalog: (vehicleCatalog: IVehicleCatalog) => Promise<void>;
-  updateVehicleCatalog: (
-    _id: string,
-    vehicleCatalog: IVehicleCatalog
-  ) => Promise<void>;
-  deleteVehicleCatalog: (_id: string) => Promise<void>;
+  createVehicleCatalog: (vehicleCatalog: IVehicleCatalog) => Promise<AxiosResponse<any>>;
+  updateVehicleCatalog: (_id: string, vehicleCatalog: IVehicleCatalog) => Promise<AxiosResponse<any>>;
+  deleteVehicleCatalog: (_id: string) => Promise<AxiosResponse<any>>;
 }
 
 const defaultContextValue: VehicleCatalogContextType = {
@@ -45,19 +37,15 @@ const defaultContextValue: VehicleCatalogContextType = {
   error: null,
   getAllVehicleCatalogs: () => {},
   getVehicleCatalogById: () => undefined,
-  createVehicleCatalog: async () => {},
-  updateVehicleCatalog: async () => {},
-  deleteVehicleCatalog: async () => {}
+  createVehicleCatalog: async () => ({ data: { savedVehicleCatalog: null } }) as AxiosResponse,
+  updateVehicleCatalog: async () => ({ data: { vehicleCatalog: null } }) as AxiosResponse,
+  deleteVehicleCatalog: async () => ({ data: { deleted: true } }) as AxiosResponse
 };
 
 export const VehicleCatalogContext =
   createContext<VehicleCatalogContextType>(defaultContextValue);
 
-export const VehicleCatalogProvider = ({
-  children
-}: {
-  children: ReactNode;
-}) => {
+export const VehicleCatalogProvider = ({ children }: { children: ReactNode }) => {
   const [vehicleCatalogs, setVehicleCatalogs] = useState<IVehicleCatalog[]>([]);
   const [loading, setLoading] = useState<{
     getAll: boolean;
@@ -79,17 +67,19 @@ export const VehicleCatalogProvider = ({
   };
 
   const fetchData = async (
-    apiCall: () => Promise<any>,
+    apiCall: () => Promise<AxiosResponse<any>>,
     onSuccess: (data: any) => void,
     requestType: keyof typeof loading // 'getAll', 'getById', 'create', 'update', 'delete'
-  ) => {
+  ): Promise<AxiosResponse<any>> => {
     setLoading(prev => ({ ...prev, [requestType]: true }));
     setError(null);
     try {
       const response = await apiCall();
       onSuccess(response.data);
+      return response; // trả về response AxiosResponse
     } catch (err: any) {
       handleError(err);
+      throw err;
     } finally {
       setLoading(prev => ({ ...prev, [requestType]: false }));
     }
@@ -114,8 +104,8 @@ export const VehicleCatalogProvider = ({
 
   // Post
   const createVehicleCatalog = useCallback(
-    async (vehicleCatalog: IVehicleCatalog): Promise<void> => {
-      await fetchData(
+    async (vehicleCatalog: IVehicleCatalog): Promise<AxiosResponse<any>> => {
+      return fetchData(
         () => createVehicleCatalogApi(vehicleCatalog),
         data => {
           if (data.savedVehicleCatalog) {
@@ -133,8 +123,8 @@ export const VehicleCatalogProvider = ({
 
   // Put
   const updateVehicleCatalog = useCallback(
-    async (id: string, vehicleCatalog: IVehicleCatalog): Promise<void> => {
-      await fetchData(
+    async (id: string, vehicleCatalog: IVehicleCatalog): Promise<AxiosResponse<any>> => {
+      return fetchData(
         () => updateVehicleCatalogApi(id, vehicleCatalog),
         data => {
           if (data.vehicleCatalog) {
@@ -153,8 +143,8 @@ export const VehicleCatalogProvider = ({
 
   // Delete
   const deleteVehicleCatalog = useCallback(
-    async (id: string): Promise<void> => {
-      await fetchData(
+    async (id: string): Promise<AxiosResponse<any>> => {
+      return fetchData(
         () => deleteVehicleCatalogApi(id),
         () =>
           setVehicleCatalogs(prevCatalogs =>
