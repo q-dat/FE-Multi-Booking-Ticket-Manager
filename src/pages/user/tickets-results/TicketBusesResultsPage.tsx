@@ -190,13 +190,13 @@ const TicketBusesResultsPage: React.FC = () => {
                 </div>
                 <div className="relative">
                   <div
-                    className="absolute bottom-36 left-28 h-[50px] w-[35px] rounded-r-full bg-slate-400 bg-opacity-100"
+                    className="absolute bottom-32 left-24 h-[50px] w-[35px] rounded-r-full bg-slate-400 bg-opacity-100"
                     style={{
                       clipPath: 'polygon(0 60%, 100% 50%, 100% 100%, 0% 100%)'
                     }}
                   />
                   <div
-                    className="absolute bottom-36 right-28 h-[50px] w-[40px] rounded-l-full bg-slate-400 bg-opacity-100"
+                    className="absolute bottom-32 right-24 h-[50px] w-[40px] rounded-l-full bg-slate-400 bg-opacity-100"
                     style={{
                       clipPath: 'polygon(0% 50%, 100% 60%, 100% 100%, 0% 100%)'
                     }}
@@ -251,7 +251,7 @@ const TicketBusesResultsPage: React.FC = () => {
                       Cửa Lên
                     </Button>
                   </div>
-                  <div className="flex w-[250px] flex-wrap items-center gap-4 rounded-xl dark:border-white">
+                  <div className=" w-[250px] grid grid-cols-3 gap-4 rounded-xl dark:border-white">
                     {classTickets
                       .sort(
                         (a, b) =>
@@ -264,7 +264,7 @@ const TicketBusesResultsPage: React.FC = () => {
                           <div
                             onClick={() => handleSeatClick(ticket)}
                             key={index}
-                            className={`relative flex h-10 w-10 items-center justify-center rounded-md border transition-all duration-200 ease-in-out ${
+                            className={`relative flex h-12 w-12 items-center justify-center rounded-md border transition-all duration-200 ease-in-out ${
                               seatStatus === 'Hết chỗ'
                                 ? 'cursor-not-allowed border-orange-400 bg-orange-400 text-white'
                                 : seatStatus === 'Còn chỗ'
@@ -275,7 +275,7 @@ const TicketBusesResultsPage: React.FC = () => {
                             {ticket.seat_id[0]?.ordinal_numbers}
 
                             <div
-                              className={`absolute -bottom-2 left-1/2 z-10 w-[100px] -translate-x-1/2 transform rounded bg-white p-2 text-center text-xs text-black opacity-0 shadow-headerMenu shadow-primary transition-opacity duration-200 ease-in-out group-hover:opacity-100`}
+                              className={`absolute -bottom-2 left-1/2 z-10 w-[120px] -translate-x-1/2 transform rounded bg-white p-2 text-center text-xs text-black opacity-0 shadow-headerMenu shadow-primary transition-opacity duration-200 ease-in-out group-hover:opacity-100`}
                             >
                               {seatStatus === 'Còn chỗ' ? (
                                 <>
