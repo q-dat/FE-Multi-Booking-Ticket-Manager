@@ -78,9 +78,10 @@ const TicketTrainsResultsPage: React.FC = () => {
   if (tickets.length === 0) {
     return <LoadingLocal />;
   }
-
+  //Tittle
   const tripInfo = tickets[0]?.trip_id;
   const ticketCatalogInfo = tickets[0]?.ticket_catalog_id;
+  //Ticket By Vehicle
   const ticketsByTrain = tickets.reduce(
     (acc, ticket) => {
       const trainName = ticket.seat_id[0]?.seat_catalog_id.vehicle_id.name;
@@ -89,7 +90,7 @@ const TicketTrainsResultsPage: React.FC = () => {
     },
     {} as Record<string, ITicket[]>
   );
-
+  //Ticket by Carriage(SeatCatalog)
   const ticketsByCarriage = selectedTrain
     ? ticketsByTrain[selectedTrain].reduce(
         (acc, ticket) => {
@@ -205,108 +206,111 @@ const TicketTrainsResultsPage: React.FC = () => {
             </div>
           </div>
           {/* SeatCatalog */}
-          {selectedTrain && ticketsByCarriage && (
-            <div className="w-full">
-              <div className="mb-4 flex w-full flex-row items-start justify-start overflow-auto scrollbar-hide">
-                <img
-                  width={50}
-                  height={50}
-                  src="https://i.ibb.co/3sKMBgp/tau.jpg"
-                  alt="Vehicle"
-                  className="scale-x-[-1] rounded-md rounded-r-full"
-                />
-                {Object.entries(ticketsByCarriage)
-                  .sort(([, classTicketsA], [, classTicketsB]) => {
-                    const nameA =
-                      classTicketsA[0].seat_id[0]?.seat_catalog_id.name || '';
-                    const nameB =
-                      classTicketsB[0].seat_id[0]?.seat_catalog_id.name || '';
-                    return nameA.localeCompare(nameB);
-                  })
-                  .map(([classId, classTickets]) => (
-                    <div className="flex flex-row items-end justify-center">
-                      <p className="text-black dark:text-white">+</p>
-                      <div className="rounded-sm border border-b-[5px] border-l-0 border-r-0 border-t-0 border-dotted border-black dark:border-white">
-                        <Button
-                          key={classId}
-                          size="xs"
-                          onClick={() => setSelectedClassId(classId)}
-                          className={`text-md min-w-[100px] rounded-sm border-none text-xs font-semibold shadow-headerMenu shadow-black hover:bg-secondary ${
-                            selectedClassId === classId
-                              ? 'bg-[#0084c1] text-white'
-                              : 'bg-black bg-opacity-20 text-black dark:bg-white dark:text-[#0084c1]'
-                          }`}
-                        >
-                          <p className="inline-block">
-                            {classTickets[0].seat_id[0]?.seat_catalog_id.name}
-                          </p>
-                        </Button>
-                      </div>
-                    </div>
-                  ))}
-              </div>
-              <div className="">
-                {selectedClassId && ticketsByCarriage[selectedClassId] && (
-                  <div
-                    className={`${
-                      ticketsByCarriage[selectedClassId].length === 64
-                        ? 'grid-cols-16 zebra-background64 grid-rows-4 gap-x-5 gap-y-10'
-                        : ticketsByCarriage[selectedClassId].length === 42
-                          ? 'grid-cols-14 zebra-background42 grid-rows-3 gap-x-5 gap-y-10'
-                          : ticketsByCarriage[selectedClassId].length === 28
-                            ? 'zebra-background28 grid-cols-12 grid-rows-2 gap-x-5 gap-y-10'
-                            : ''
-                    } grid-cols-16 grid grid-flow-col grid-rows-4 items-center justify-around gap-x-5 gap-y-10 overflow-x-auto rounded-xl border border-l-0 border-r-0 border-primary p-2 scrollbar-hide dark:border-white xl:gap-x-1 xl:overflow-visible`}
-                  >
-                    {ticketsByCarriage[selectedClassId]
-                      .sort(
-                        (a, b) =>
-                          a.seat_id[0]?.ordinal_numbers -
-                          b.seat_id[0]?.ordinal_numbers
-                      )
-                      .map((ticket, index) => {
-                        const seatStatus = ticket.seat_id[0]?.status;
-                        return (
-                          <div
-                            onClick={() => addSeat(ticket)}
-                            key={index}
-                            className={`relative flex h-8 w-8 items-center justify-center rounded-md font-semibold shadow-headerMenu shadow-black transition-all duration-200 ease-in-out ${
-                              seatStatus === 'Hết chỗ'
-                                ? 'cursor-not-allowed border-red-700 bg-red-500 text-white'
-                                : seatStatus === 'Còn chỗ'
-                                  ? 'cursor-pointer border-green-700 bg-green-500 text-white hover:bg-green-600'
-                                  : 'cursor-progress border-gray-300 bg-white font-bold text-black'
-                            } group`}
+          <div>
+            {selectedTrain && ticketsByCarriage && (
+              <div className="w-full">
+                <div className="mb-4 flex w-full flex-row items-start justify-start overflow-auto scrollbar-hide">
+                  <img
+                    width={50}
+                    height={50}
+                    src="https://i.ibb.co/3sKMBgp/tau.jpg"
+                    alt="Vehicle"
+                    className="scale-x-[-1] rounded-md rounded-r-full"
+                  />
+                  {Object.entries(ticketsByCarriage)
+                    .sort(([, classTicketsA], [, classTicketsB]) => {
+                      const nameA =
+                        classTicketsA[0].seat_id[0]?.seat_catalog_id.name || '';
+                      const nameB =
+                        classTicketsB[0].seat_id[0]?.seat_catalog_id.name || '';
+                      return nameA.localeCompare(nameB);
+                    })
+                    .map(([classId, classTickets]) => (
+                      <div className="flex flex-row items-end justify-center">
+                        <p className="text-black dark:text-white">+</p>
+                        <div className="rounded-sm border border-b-[5px] border-l-0 border-r-0 border-t-0 border-dotted border-black dark:border-white">
+                          <Button
+                            key={classId}
+                            size="xs"
+                            onClick={() => setSelectedClassId(classId)}
+                            className={`text-md min-w-[100px] rounded-sm border-none text-xs font-semibold shadow-headerMenu shadow-black hover:bg-secondary ${
+                              selectedClassId === classId
+                                ? 'bg-[#0084c1] text-white'
+                                : 'bg-black bg-opacity-20 text-black dark:bg-white dark:text-[#0084c1]'
+                            }`}
                           >
-                            {ticket.seat_id[0]?.ordinal_numbers}
+                            <p className="inline-block">
+                              {classTickets[0].seat_id[0]?.seat_catalog_id.name}
+                            </p>
+                          </Button>
+                        </div>
+                      </div>
+                    ))}
+                </div>
+                {/* SeatMap */}
+                <div className="">
+                  {selectedClassId && ticketsByCarriage[selectedClassId] && (
+                    <div
+                      className={`${
+                        ticketsByCarriage[selectedClassId].length === 64
+                          ? 'grid-cols-16 zebra-background64 grid-rows-4 gap-x-5 gap-y-10'
+                          : ticketsByCarriage[selectedClassId].length === 42
+                            ? 'grid-cols-14 zebra-background42 grid-rows-3 gap-x-5 gap-y-10'
+                            : ticketsByCarriage[selectedClassId].length === 28
+                              ? 'zebra-background28 grid-cols-12 grid-rows-2 gap-x-5 gap-y-10'
+                              : ''
+                      } grid-cols-16 grid grid-flow-col grid-rows-4 items-center justify-around gap-x-5 gap-y-10 overflow-x-auto rounded-xl border border-l-0 border-r-0 border-primary p-2 scrollbar-hide dark:border-white xl:gap-x-1 xl:overflow-visible`}
+                    >
+                      {ticketsByCarriage[selectedClassId]
+                        .sort(
+                          (a, b) =>
+                            a.seat_id[0]?.ordinal_numbers -
+                            b.seat_id[0]?.ordinal_numbers
+                        )
+                        .map((ticket, index) => {
+                          const seatStatus = ticket.seat_id[0]?.status;
+                          return (
                             <div
-                              className={`pointer-events-none absolute bottom-10 left-1/2 z-[99999] w-[100px] -translate-x-1/2 transform rounded bg-white p-2 text-center text-xs text-black opacity-0 shadow-headerMenu shadow-primary transition-opacity duration-200 ease-in-out group-hover:opacity-100`}
+                              onClick={() => addSeat(ticket)}
+                              key={index}
+                              className={`relative flex h-8 w-8 items-center justify-center rounded-md font-semibold shadow-headerMenu shadow-black transition-all duration-200 ease-in-out ${
+                                seatStatus === 'Hết chỗ'
+                                  ? 'cursor-not-allowed border-red-700 bg-red-500 text-white'
+                                  : seatStatus === 'Còn chỗ'
+                                    ? 'cursor-pointer border-green-700 bg-green-500 text-white hover:bg-green-600'
+                                    : 'cursor-progress border-gray-300 bg-white font-bold text-black'
+                              } group`}
                             >
-                              {seatStatus === 'Còn chỗ' ? (
-                                <>
-                                  <strong>{ticket.seat_id[0]?.name}</strong>
-                                  <p>
-                                    <strong>
-                                      {t('UserPage.TicketPrice')}:
-                                    </strong>
-                                    {(ticket.price * 1000).toLocaleString(
-                                      'vi-VN'
-                                    )}
-                                    VNĐ
-                                  </p>
-                                </>
-                              ) : (
-                                <p>{seatStatus}</p>
-                              )}
+                              {ticket.seat_id[0]?.ordinal_numbers}
+                              <div
+                                className={`pointer-events-none absolute bottom-10 left-1/2 z-[99999] w-[100px] -translate-x-1/2 transform rounded bg-white p-2 text-center text-xs text-black opacity-0 shadow-headerMenu shadow-primary transition-opacity duration-200 ease-in-out group-hover:opacity-100`}
+                              >
+                                {seatStatus === 'Còn chỗ' ? (
+                                  <>
+                                    <strong>{ticket.seat_id[0]?.name}</strong>
+                                    <p>
+                                      <strong>
+                                        {t('UserPage.TicketPrice')}:
+                                      </strong>
+                                      {(ticket.price * 1000).toLocaleString(
+                                        'vi-VN'
+                                      )}
+                                      VNĐ
+                                    </p>
+                                  </>
+                                ) : (
+                                  <p>{seatStatus}</p>
+                                )}
+                              </div>
                             </div>
-                          </div>
-                        );
-                      })}
-                  </div>
-                )}
+                          );
+                        })}
+                    </div>
+                  )}
+                </div>
               </div>
-            </div>
-          )}
+            )}
+          </div>
         </div>
         <div className="hidden w-full xl:block">
           <CartPage />
