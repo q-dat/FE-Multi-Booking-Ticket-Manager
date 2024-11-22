@@ -18,7 +18,7 @@ const ModalEditAgePageAdmin: React.FC<ModalEditAgeProps> = ({
   onClose,
   ageId
 }) => {
-  const { getAllAges, updateAge, getAgeById, ages, error } =
+  const { getAllAges, updateAge, getAgeById, ages } =
     useContext(AgeContext);
   const { register, handleSubmit, reset, setValue } = useForm<IAge>();
 
@@ -47,7 +47,8 @@ const ModalEditAgePageAdmin: React.FC<ModalEditAgeProps> = ({
       getAllAges();
       onClose();
     } catch (err) {
-      Toastify(`Lỗi: ${error}`, 500);
+      Toastify('Lỗi: Độ tuổi đã tồn tại ', 500);
+      getAllAges();
     }
   };
 

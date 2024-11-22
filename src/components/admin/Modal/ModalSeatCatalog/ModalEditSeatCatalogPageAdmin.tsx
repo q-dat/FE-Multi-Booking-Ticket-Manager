@@ -23,8 +23,7 @@ const ModalEditSeatCatalogPageAdmin: React.FC<ModalEditSeatCatalogProps> = ({
     getAllSeatCatalogs,
     updateSeatCatalog,
     getSeatCatalogById,
-    seatCatalogs,
-    error
+    seatCatalogs
   } = useContext(SeatCatalogContext);
   const { register, handleSubmit, reset, setValue } = useForm<ISeatCatalog>();
   const { vehicles } = useContext(VehicleContext);
@@ -52,7 +51,8 @@ const ModalEditSeatCatalogPageAdmin: React.FC<ModalEditSeatCatalogProps> = ({
       getAllSeatCatalogs();
       onClose();
     } catch (err) {
-      Toastify(`Lỗi: ${error}`, 500);
+      Toastify('Lỗi: Danh mục chỗ ngồi đã tồn tại!', 500);
+      getAllSeatCatalogs();
     }
   };
 

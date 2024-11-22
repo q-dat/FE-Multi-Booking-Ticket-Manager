@@ -18,7 +18,7 @@ const ModalEditLocationPageAdmin: React.FC<ModalEditLocationProps> = ({
   onClose,
   locationId
 }) => {
-  const { getAllLocations, updateLocation, getLocationById, locations, error } =
+  const { getAllLocations, updateLocation, getLocationById, locations } =
     useContext(LocationContext);
   const { register, handleSubmit, reset, setValue } = useForm<ILocation>();
 
@@ -45,7 +45,8 @@ const ModalEditLocationPageAdmin: React.FC<ModalEditLocationProps> = ({
       getAllLocations();
       onClose();
     } catch (err) {
-      Toastify(`Lỗi: ${error}`, 500);
+      Toastify('Lỗi: Địa điểm đã tồn tại ', 500);
+      getAllLocations();
     }
   };
 

@@ -20,8 +20,7 @@ const ModalEditTicketCatalogPageAdmin: React.FC<
     getAllTicketCatalogs,
     updateTicketCatalog,
     getTicketCatalogById,
-    ticketCatalogs,
-    error
+    ticketCatalogs
   } = useContext(TicketCatalogContext);
   const { register, handleSubmit, reset, setValue } = useForm<ITicketCatalog>();
 
@@ -48,7 +47,8 @@ const ModalEditTicketCatalogPageAdmin: React.FC<
       getAllTicketCatalogs();
       onClose();
     } catch (err) {
-      Toastify(`Lỗi: ${error}`, 500);
+      Toastify('Lỗi: Loại vé đã tồn tại!', 500);
+      getAllTicketCatalogs();
     }
   };
 

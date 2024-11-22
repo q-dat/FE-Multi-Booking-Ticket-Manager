@@ -18,7 +18,7 @@ const ModalEditSeatPageAdmin: React.FC<ModalEditSeatProps> = ({
   onClose,
   seatId
 }) => {
-  const { getAllSeats, updateSeat, getSeatById, seats, error } =
+  const { getAllSeats, updateSeat, getSeatById, seats } =
     useContext(SeatContext);
   //
   const { seatCatalogs } = useContext(SeatCatalogContext);
@@ -50,7 +50,8 @@ const ModalEditSeatPageAdmin: React.FC<ModalEditSeatProps> = ({
       getAllSeats();
       onClose();
     } catch (err) {
-      Toastify(`Lỗi: ${error}`, 500);
+      Toastify('Lỗi: Ghế đã tồn tại!', 500);
+      getAllSeats();
     }
   };
 

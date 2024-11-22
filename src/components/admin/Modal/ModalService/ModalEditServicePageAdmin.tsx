@@ -18,7 +18,7 @@ const ModalEditServicePageAdmin: React.FC<ModalEditServiceProps> = ({
   onClose,
   serviceId
 }) => {
-  const { getAllServices, updateService, getServiceById, services, error } =
+  const { getAllServices, updateService, getServiceById, services } =
     useContext(ServiceContext);
   const { register, handleSubmit, reset, setValue } = useForm<IService>();
 
@@ -44,7 +44,8 @@ const ModalEditServicePageAdmin: React.FC<ModalEditServiceProps> = ({
       getAllServices();
       onClose();
     } catch (err) {
-      Toastify(`Lỗi: ${error}`, 200);
+      Toastify('Lỗi: Dịch vụ đã tồn tại!', 500);
+      getAllServices();
     }
   };
 

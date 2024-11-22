@@ -19,8 +19,7 @@ const ModalEditVehicleCatalogPageAdmin: React.FC<
     getAllVehicleCatalogs,
     updateVehicleCatalog,
     getVehicleCatalogById,
-    vehicleCatalogs,
-    error
+    vehicleCatalogs
   } = useContext(VehicleCatalogContext);
   const { register, handleSubmit, reset, setValue } =
     useForm<IVehicleCatalog>();
@@ -48,7 +47,8 @@ const ModalEditVehicleCatalogPageAdmin: React.FC<
       getAllVehicleCatalogs();
       onClose();
     } catch {
-      Toastify(`Lỗi: ${error}`, 500);
+      Toastify('Lỗi: Danh mục phương tiện đã tồn tại!', 500);
+      getAllVehicleCatalogs();
     }
   };
 
