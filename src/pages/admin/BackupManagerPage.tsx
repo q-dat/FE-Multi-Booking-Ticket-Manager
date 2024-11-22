@@ -32,8 +32,10 @@ const BackupManagerPage = () => {
   const handleExport = async () => {
     try {
       await exportData();
+      fetchBackupFiles();
       Toastify('Dữ liệu đã được xuất thành công', 200);
     } catch (error) {
+      fetchBackupFiles();
       Toastify('Lỗi khi xuất dữ liệu!', 500);
     }
   };
@@ -46,6 +48,7 @@ const BackupManagerPage = () => {
         fetchBackupFiles();
         Toastify('Dữ liệu đã được nhập thành công', 200);
       } catch (error) {
+        fetchBackupFiles();
         Toastify('Lỗi khi nhập dữ liệu!', 500);
       }
     }
@@ -117,7 +120,9 @@ const BackupManagerPage = () => {
 
       {/* Backup Files List */}
       <div>
-        <h2 className="mt-6 text-xl font-semibold">Lịch sử danh sách file backup</h2>
+        <h2 className="mt-6 text-xl font-semibold">
+          Lịch sử danh sách file backup
+        </h2>
         {loading.listFiles && <p>Đang tải danh sách file...</p>}
         {!loading.listFiles && backupFiles.length === 0 && (
           <p>Không có file backup nào.</p>
