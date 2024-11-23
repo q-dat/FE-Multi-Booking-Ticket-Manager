@@ -84,34 +84,24 @@ const BackupManagerPage = () => {
       <div>
         <HeaderResponsive Title_NavbarMobile="Sao Lưu/Khôi Phục" />
       </div>
-      <div className="px-2 pb-[20px] xl:pt-[90px]">
-        <h1 className="text-center text-[40px] font-bold">Quản lý Dữ Liệu</h1>
+      <div className="px-2 pb-[20px] xl:pt-[90px] bg-white dark:bg-gray-900 h-screen">
+        <h1 className="mb-10 text-center text-[40px] font-bold text-black dark:text-white">
+          Sao Lưu/Khôi Phục
+        </h1>
         <div className="flex w-full flex-col items-center justify-around gap-5 xl:items-start">
-          {/* Export Button */}
-          <div className="w-full">
-            <Button
-              size="sm"
-              onClick={handleExport}
-              className="w-full rounded-sm bg-red-500 px-4 py-2 text-white disabled:bg-gray-400 md:w-[200px]"
-              disabled={loading.export}
-            >
-              {loading.export ? 'Đang tải...' : 'Export Dữ liệu'}
-              <FaFileExport />
-            </Button>
-            {error && <p className="mt-2 text-sm text-red-500">{error}</p>}
-          </div>
           {/* Import Form */}
           <form
             onSubmit={handleSubmit(handleImport)}
-            className="w-full rounded-md p-2 shadow-inner shadow-gray-50"
+            className="w-full rounded-md bg-primary bg-opacity-5 p-2 shadow shadow-gray-50"
           >
+            <h1 className="font-bold text-black dark:text-white">Khôi phục:</h1>
             <div>
-              <LabelForm title={'Tải lên file BSON'} />
+              <LabelForm title={'Tải lên file bson để khôi phục:'} />
               <Input
                 id="file"
                 type="file"
                 {...register('file', { required: 'File là bắt buộc!' })}
-                className="block rounded-md border-none px-0 focus:outline-none"
+                className="block w-[250px] text-black dark:text-white rounded-md border-none bg-transparent px-0 focus:outline-none"
               />
               {errors.file && (
                 <p className="text-sm text-red-500">{errors.file.message}</p>
@@ -121,17 +111,31 @@ const BackupManagerPage = () => {
             <Button
               size="sm"
               type="submit"
-              className="rounded-md bg-green-500 px-4 py-2 text-white disabled:bg-gray-400"
+              className="rounded-md bg-green-500 font-light text-white disabled:bg-gray-400  border border-dashed border-white"
               disabled={loading.import}
             >
-              {loading.import ? 'Đang tải...' : 'Import Dữ liệu'}
+              {loading.import ? 'Đang tải...' : 'Khôi phục (Import)'}
             </Button>
           </form>
+          {/* Export Button */}
+          <div className="w-full rounded-md bg-primary bg-opacity-5 p-2 shadow shadow-gray-50">
+            <h1 className="font-bold text-black dark:text-white">Sao lưu:</h1>
+            <Button
+              size="sm"
+              onClick={handleExport}
+              className="w-full rounded-md border border-dashed border-white bg-red-500 font-light text-white disabled:bg-gray-400 md:w-auto"
+              disabled={loading.export}
+            >
+              {loading.export ? 'Đang tải...' : 'Xuất dữ liệu (Export)'}
+              <FaFileExport />
+            </Button>
+            {error && <p className="mt-2 text-sm text-red-500">{error}</p>}
+          </div>
         </div>
-
         {/* Backup Files List */}
-        <div>
-          <h2 className="mt-6 text-xl font-semibold">
+        <div className="mt-5 text-black dark:text-white">
+          <hr />
+          <h2 className="text-xl font-semibold text-black dark:text-white">
             Lịch sử danh sách file backup
           </h2>
           {loading.listFiles && <p>Đang tải danh sách file...</p>}

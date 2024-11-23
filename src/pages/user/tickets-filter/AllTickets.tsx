@@ -175,16 +175,16 @@ const AllTickets: React.FC = () => {
             </div>
           </div>
         </div>
-        <div className="my-5 rounded-xl bg-white p-1 shadow-inner shadow-gray-50">
+        <div className="my-5 rounded-xl bg-transparent ">
           <div
             ref={scrollRef}
-            className="flex space-x-4 overflow-x-auto scroll-smooth p-3 scrollbar-hide"
+            className="flex space-x-4 overflow-x-auto scroll-smooth p-[1px] scrollbar-hide"
             style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
           >
             {filteredTickets.map((ticket: ITicket) => (
               <div
                 key={ticket._id}
-                className="w-full flex-none transform overflow-hidden rounded-lg bg-white text-black shadow-inner shadow-gray-50 transition-transform duration-300 ease-in-out hover:scale-105 hover:bg-primary hover:bg-opacity-10 sm:w-80"
+                className="w-full flex-none transform overflow-hidden rounded-lg bg-white text-black shadow shadow-black transition-transform duration-300 ease-in-out hover:scale-105 hover:bg-primary hover:bg-opacity-10 sm:w-80"
               >
                 <div className="flex min-h-[200px] flex-col justify-between gap-1 p-2 text-sm font-light text-gray-600">
                   <div className="w-full">
