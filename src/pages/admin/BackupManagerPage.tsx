@@ -2,6 +2,11 @@ import { useContext, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { BackupContext } from '../../context/backup/DataContext';
 import { Toastify } from '../../helper/Toastify';
+import Header from '../../components/UserPage/Header';
+import { Button, Input } from 'react-daisyui';
+import LabelForm from '../../components/admin/LabelForm';
+import { FaFileExport } from 'react-icons/fa';
+import HeaderResponsive from '../../components/UserPage/HeaderResponsive';
 
 interface ImportFormData {
   file: FileList;
@@ -74,88 +79,95 @@ const BackupManagerPage = () => {
   };
 
   return (
-    <div className="space-y-8 p-6">
-      <h1 className="text-2xl font-bold">Quản lý Dữ Liệu</h1>
-
-      {/* Export Button */}
+    <div>
+      <Header />
       <div>
-        <button
-          onClick={handleExport}
-          className="rounded-md bg-green-500 px-4 py-2 text-white disabled:bg-gray-400"
-          disabled={loading.export}
-        >
-          {loading.export ? 'Đang tải...' : 'Export Dữ liệu'}
-        </button>
-        {error && <p className="mt-2 text-sm text-red-500">{error}</p>}
+        <HeaderResponsive Title_NavbarMobile="Sao Lưu/Khôi Phục" />
       </div>
-
-      {/* Import Form */}
-      <form onSubmit={handleSubmit(handleImport)} className="space-y-4">
-        <div>
-          <label
-            htmlFor="file"
-            className="block text-sm font-medium text-gray-700"
+      <div className="px-2 pb-[20px] xl:pt-[90px]">
+        <h1 className="text-center text-[40px] font-bold">Quản lý Dữ Liệu</h1>
+        <div className="flex w-full flex-col items-center justify-around gap-5 xl:items-start">
+          {/* Export Button */}
+          <div className="w-full">
+            <Button
+              size="sm"
+              onClick={handleExport}
+              className="w-full rounded-sm bg-red-500 px-4 py-2 text-white disabled:bg-gray-400 md:w-[200px]"
+              disabled={loading.export}
+            >
+              {loading.export ? 'Đang tải...' : 'Export Dữ liệu'}
+              <FaFileExport />
+            </Button>
+            {error && <p className="mt-2 text-sm text-red-500">{error}</p>}
+          </div>
+          {/* Import Form */}
+          <form
+            onSubmit={handleSubmit(handleImport)}
+            className="w-full rounded-md p-2 shadow-inner shadow-gray-50"
           >
-            Tải lên file JSON
-          </label>
-          <input
-            id="file"
-            type="file"
-            {...register('file', { required: 'File là bắt buộc!' })}
-            className="mt-2 block w-full rounded-md border border-gray-300 text-sm text-gray-900 focus:border-indigo-500 focus:ring-indigo-500"
-          />
-          {errors.file && (
-            <p className="text-sm text-red-500">{errors.file.message}</p>
-          )}
+            <div>
+              <LabelForm title={'Tải lên file BSON'} />
+              <Input
+                id="file"
+                type="file"
+                {...register('file', { required: 'File là bắt buộc!' })}
+                className="block rounded-md border-none px-0 focus:outline-none"
+              />
+              {errors.file && (
+                <p className="text-sm text-red-500">{errors.file.message}</p>
+              )}
+            </div>
+
+            <Button
+              size="sm"
+              type="submit"
+              className="rounded-md bg-green-500 px-4 py-2 text-white disabled:bg-gray-400"
+              disabled={loading.import}
+            >
+              {loading.import ? 'Đang tải...' : 'Import Dữ liệu'}
+            </Button>
+          </form>
         </div>
 
-        <button
-          type="submit"
-          className="w-full rounded-md bg-blue-500 px-4 py-2 text-white disabled:bg-gray-400"
-          disabled={loading.import}
-        >
-          {loading.import ? 'Đang tải...' : 'Import Dữ liệu'}
-        </button>
-      </form>
-
-      {/* Backup Files List */}
-      <div>
-        <h2 className="mt-6 text-xl font-semibold">
-          Lịch sử danh sách file backup
-        </h2>
-        {loading.listFiles && <p>Đang tải danh sách file...</p>}
-        {!loading.listFiles && backupFiles.length === 0 && (
-          <p>Không có file backup nào.</p>
-        )}
-        <ul className="mt-4 space-y-2">
-          {backupFiles.map(file => (
-            <li
-              key={file.name}
-              className="flex items-center justify-between rounded-md border p-2"
-            >
-              <div>
-                <span>{file.name}</span>
-                <p className="text-sm text-gray-500">{`Ngày tạo: ${new Date(file.createdAt).toLocaleString()}`}</p>
-              </div>
-              <div className="flex space-x-4">
-                <button
-                  onClick={() => handleDownload(file.name)}
-                  className="rounded-md bg-blue-500 px-4 py-2 text-white disabled:bg-gray-400"
-                  disabled={loading.downloadFile}
-                >
-                  {loading.downloadFile ? 'Đang tải...' : 'Tải về'}
-                </button>
-                <button
-                  onClick={() => handleDelete(file.name)}
-                  className="rounded-md bg-red-500 px-4 py-2 text-white disabled:bg-gray-400"
-                  disabled={loading.deleteFile}
-                >
-                  {loading.deleteFile ? 'Đang xóa...' : 'Xóa'}
-                </button>
-              </div>
-            </li>
-          ))}
-        </ul>
+        {/* Backup Files List */}
+        <div>
+          <h2 className="mt-6 text-xl font-semibold">
+            Lịch sử danh sách file backup
+          </h2>
+          {loading.listFiles && <p>Đang tải danh sách file...</p>}
+          {!loading.listFiles && backupFiles.length === 0 && (
+            <p>Không có file backup nào.</p>
+          )}
+          <ul className="mt-4 space-y-2">
+            {backupFiles.map(file => (
+              <li
+                key={file.name}
+                className="flex items-center justify-between rounded-md border p-2"
+              >
+                <div>
+                  <span>{file.name}</span>
+                  <p className="text-sm text-gray-500">{`Ngày tạo: ${new Date(file.createdAt).toLocaleString()}`}</p>
+                </div>
+                <div className="flex space-x-4">
+                  <Button
+                    onClick={() => handleDownload(file.name)}
+                    className="rounded-md bg-blue-500 px-4 py-2 text-white disabled:bg-gray-400"
+                    disabled={loading.downloadFile}
+                  >
+                    {loading.downloadFile ? 'Đang tải...' : 'Tải về'}
+                  </Button>
+                  <Button
+                    onClick={() => handleDelete(file.name)}
+                    className="rounded-md bg-red-500 px-4 py-2 text-white disabled:bg-gray-400"
+                    disabled={loading.deleteFile}
+                  >
+                    {loading.deleteFile ? 'Đang xóa...' : 'Xóa'}
+                  </Button>
+                </div>
+              </li>
+            ))}
+          </ul>
+        </div>
       </div>
     </div>
   );
