@@ -7,10 +7,17 @@ import { MdOutlineCancel } from 'react-icons/md';
 const NotificationPopup: React.FC = () => {
   const { t } = useTranslation();
   const [isVisible, setIsVisible] = useState(false);
+  //Contact Form
+  const [result, setResult] = React.useState<string>('');
+  const formRef = useRef<HTMLFormElement>(null);
 
   useEffect(() => {
     if (!sessionStorage.getItem('popupShown')) {
-      setIsVisible(true);
+      const timer = setTimeout(() => {
+        setIsVisible(true);
+      }, 20000);
+
+      return () => clearTimeout(timer);
     }
   }, []);
 
@@ -18,9 +25,6 @@ const NotificationPopup: React.FC = () => {
     setIsVisible(false);
     sessionStorage.setItem('popupShown', 'true');
   };
-  //Contact Form
-  const [result, setResult] = React.useState<string>('');
-  const formRef = useRef<HTMLFormElement>(null);
 
   const onSubmit = async (
     event: React.FormEvent<HTMLFormElement>
