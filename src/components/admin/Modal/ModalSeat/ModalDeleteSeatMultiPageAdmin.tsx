@@ -15,7 +15,7 @@ const ModalDeleteSeatMultiPageAdmin: React.FC<ModalCreateSeatProps> = ({
   isOpen,
   onClose
 }) => {
-  const { seatCatalogs, getAllSeatCatalogs, error } =
+  const { seatCatalogs, getAllSeatCatalogs } =
     useContext(SeatCatalogContext);
   const {getAllSeats, deleteSeatsByCatalogId } = useContext(SeatContext);
   const { register, handleSubmit, reset } = useForm();
@@ -31,7 +31,8 @@ const ModalDeleteSeatMultiPageAdmin: React.FC<ModalCreateSeatProps> = ({
       getAllSeats();
       onClose();
     } catch (err) {
-      Toastify(`Lỗi: ${error}`, 500);
+      Toastify(`Lỗi: Danh sách ghế này không tồn tại!`, 500);
+      getAllSeats();
     }
   };
 
