@@ -113,10 +113,8 @@ interface Resources {
         "NotificationOne": "According to the regulations of Vietnam Railways Corporation, passengers are only eligible to board the train if the information on their identification documents matches the information on the electronic ticket.",
         "NotificationTwo": "To ensure the rights of passengers and avoid purchasing counterfeit tickets or tickets that do not comply with regulations, you can verify your electronic ticket by filling in the information below.",
         "SearchTicketCode": "Ticket Code",
-        "SearchPhone": "Phone Number",
-        "SearchCCCD": "Citizen Identification Card",
         "buttonform": "Check",
-        "title": "To display the ticket for verification, please provide the following three pieces of accurate information:"
+        "title": "To display the ticket for verification, please fill in the correct information below:"
       },
       "Location": {
         "HaNoi": "Ha Noi",
@@ -133,8 +131,6 @@ interface Resources {
         "notification2": "If you paid in cash, via postpaid banking app or ATM, by bank transfer, or in case of ticket cancellation due to issues, please proceed with the return procedure at the ticket counters.",
         "titlefrom": "To return the ticket, please fill in the correct information below:",
         "forminput1": "Ticket Code",
-        "forminput2": "Phone Number",
-        "forminput3": "Citizen Identification Card",
         "forminput4": "Reason",
         "buttonform": "Return Ticket",
         "linkform": "Forgot booking code?"
@@ -168,7 +164,7 @@ interface Resources {
         "ip8": "Phone Number",
         "ip9": "Citizen Identification Card",
         "ip10": "Adults",
-        "ip11": "Children",
+        "ip11": "Children (under 6 years old)",
         "ip12": "Delete All",
         "ip13": "Total Amount",
         "ip14": "Email",

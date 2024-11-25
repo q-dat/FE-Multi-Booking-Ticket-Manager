@@ -17,8 +17,6 @@ const CheckTicketPage: React.FC = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const [ticketCode, setTicketCode] = useState('');
-  const [phone, setPhone] = useState('');
-  const [cccd, setCccd] = useState('');
   const [, setOrder] = useState<Order | null>(null);
 
   const handleCheckTicket = async (e: React.FormEvent) => {
@@ -28,8 +26,6 @@ const CheckTicketPage: React.FC = () => {
       const response = await axios.get('api/order/ticket/:ticketCode', {
         params: {
           ticketCode,
-          phone,
-          cccd
         }
       });
       setOrder(response.data.order);
@@ -38,7 +34,7 @@ const CheckTicketPage: React.FC = () => {
     } catch (error) {
       const errorMessage = isIErrorResponse(error)
         ? error.data?.message
-        : 'Vui lòng nhập đầy đủ thông tin!';
+        : 'Vui lòng nhập đúng mã vé';
       Toastify(`${errorMessage}`, 500);
     }
   };
@@ -67,22 +63,6 @@ const CheckTicketPage: React.FC = () => {
                   placeholder={`${t('UserPage.CheckTicketPage.SearchTicketCode')}`}
                   value={ticketCode}
                   onChange={e => setTicketCode(e.target.value)}
-                  className="border border-gray-300 bg-white text-black focus:border-primary xs:w-[300px] sm:w-[350px] md:w-[650px] xl:w-[800px]"
-                  classNameLabel="bg-white dark:peer-placeholder-shown:text-black dark:peer-focus:text-black"
-                />
-                <InputForm
-                  type="text"
-                  placeholder={`${t('UserPage.CheckTicketPage.SearchPhone')}`}
-                  value={phone}
-                  onChange={e => setPhone(e.target.value)}
-                  className="border border-gray-300 bg-white text-black focus:border-primary xs:w-[300px] sm:w-[350px] md:w-[650px] xl:w-[800px]"
-                  classNameLabel="bg-white dark:peer-placeholder-shown:text-black dark:peer-focus:text-black"
-                />
-                <InputForm
-                  type="text"
-                  placeholder={`${t('UserPage.CheckTicketPage.SearchCCCD')}`}
-                  value={cccd}
-                  onChange={e => setCccd(e.target.value)}
                   className="border border-gray-300 bg-white text-black focus:border-primary xs:w-[300px] sm:w-[350px] md:w-[650px] xl:w-[800px]"
                   classNameLabel="bg-white dark:peer-placeholder-shown:text-black dark:peer-focus:text-black"
                 />
