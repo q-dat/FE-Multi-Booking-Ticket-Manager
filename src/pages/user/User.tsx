@@ -3,7 +3,7 @@ import { Outlet, useLocation } from 'react-router-dom';
 import Header from '../../components/UserPage/Header';
 import FooterFC from '../../components/UserPage/Footer';
 import ContactForm from '../../components/UserPage/ContactForm';
-import NotificationPopup from '../../components/UserPage/NotificationPopup';
+// import NotificationPopup from '../../components/UserPage/NotificationPopup';g
 
 const User: React.FC = () => {
   const location = useLocation();
@@ -18,7 +18,7 @@ const User: React.FC = () => {
         <Header />
         <Outlet />
         <ContactForm />
-        <NotificationPopup />
+        {/* <NotificationPopup /> */}
         <FooterFC />
       </div>
     </div>
