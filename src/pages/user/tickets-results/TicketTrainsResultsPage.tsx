@@ -248,7 +248,7 @@ const TicketTrainsResultsPage: React.FC = () => {
                     ))}
                 </div>
                 {/* SeatMap */}
-                <div className="">
+                <div className="w-full">
                   {selectedClassId && ticketsByCarriage[selectedClassId] && (
                     <div
                       className={`${
@@ -283,19 +283,21 @@ const TicketTrainsResultsPage: React.FC = () => {
                             >
                               {ticket.seat_id[0]?.ordinal_numbers}
                               <div
-                                className={`pointer-events-none absolute bottom-10 left-1/2 z-[99999] w-[100px] -translate-x-1/2 transform rounded bg-white p-2 text-center text-xs text-black opacity-0 shadow-headerMenu shadow-primary transition-opacity duration-200 ease-in-out group-hover:opacity-100`}
+                                className={`pointer-events-none absolute bottom-10 left-1/2 z-[99999] w-[100px] -translate-x-1/2 transform rounded bg-white p-2 text-start text-xs text-black opacity-0 shadow-headerMenu shadow-primary transition-opacity duration-200 ease-in-out group-hover:opacity-100`}
                               >
                                 {seatStatus === 'Còn chỗ' ? (
                                   <>
-                                    <strong>{ticket.seat_id[0]?.name}</strong>
-                                    <p>
-                                      <strong>
+                                    <p className='font-semibold text-[12px] '>{ticket.seat_id[0]?.name}</p>
+                                    <p className='text-red-500'>
+                                      <p className='text-black'>
                                         {t('UserPage.TicketPrice')}:
-                                      </strong>
+                                      </p>
                                       {(ticket.price * 1000).toLocaleString(
                                         'vi-VN'
                                       )}
+                                      <span className='text-black'>
                                       VNĐ
+                                      </span>
                                     </p>
                                   </>
                                 ) : (
