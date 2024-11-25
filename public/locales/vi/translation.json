@@ -111,11 +111,9 @@
       "NotificationTitle": "Kiểm tra vé",
       "NotificationOne": "Theo quy định của Tổng công ty Đường sắt Việt Nam, hành khách có thông tin giấy tờ tùy thân trùng với thông tin trên vé điện tử mới đủ điều kiện lên tàu",
       "NotificationTwo": "Để đảm bảo quyền lợi cho hành khách, tránh mua phải vé giả, hoặc vé không đúng với quy định, quý khách có thể kiểm tra lại vé điện tử của mình bằng cách điền đầy đủ các thông tin dưới đây.",
+      "title": "Để hiển thị vé cần kiểm tra, vui lòng điền thông tin chính xác dưới đây:",
       "SearchTicketCode": "Mã vé",
-      "SearchPhone": "Số điện thoại",
-      "SearchCCCD": "Số CCCD",
-      "buttonform": "Kiểm tra",
-      "title": "Để hiển thị vé cần kiểm tra, vui lòng điền 3 thông tin chính xác dưới đây:"
+      "buttonform": "Kiểm tra"
     },
     "Location": {
       "HaNoi": "Hà Nội",
@@ -132,8 +130,6 @@
       "notification2": "  Nếu quý khách thanh toán bằng tiền mặt, trả sau qua ứng dụng ngân hàng và atm, chuyển khoản hoặc trả vé khi có sự cố bãi bỏ vé vui lòng thực hiện thủ tục tại các quầy bán vé.",
       "titlefrom": "Để trả vé, vui lòng điền thông tin chính xác dưới đây:",
       "forminput1": "Mã vé",
-      "forminput2": "Số điện thoại",
-      "forminput3": "Số CCCD",
       "forminput4": "Lý do",
       "buttonform": "Trả vé",
       "linkform": "Quên mã đặt chỗ?"
@@ -167,7 +163,7 @@
       "ip8": "Số điện thoại",
       "ip9": "Số CCCD",
       "ip10": "Người lớn",
-      "ip11": "Trẻ em",
+      "ip11": "Trẻ em (dưới 6 tuổi)",
       "ip12": "Xoá tất cả",
       "ip13": "Tổng tiền",
       "ip14": "Email",

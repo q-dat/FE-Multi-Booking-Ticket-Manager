@@ -14,8 +14,6 @@ const ReturnTicketPage: React.FC = () => {
   const navigate = useNavigate()
 
   const [ticketCode, setTicketCode] = useState('');
-  const [cccd, setCccd] = useState('');
-  const [phone, setPhone] = useState('');
   const [reason, setReason] = useState('');
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -24,21 +22,19 @@ const ReturnTicketPage: React.FC = () => {
     try {
       const response = await axios.post('/api/order/refund', {
         ticketCode,
-        cccd,
-        phone,
         reason,
       });
 
       if (response.data.success) {
         Toastify('Hoàn vé thành công', 201);
-        navigate('/')
+        navigate('/');
       } else {
-        Toastify('Vé đã được trả hoặc không đúng thông tin vé', 500);
+        Toastify(response.data.message || 'Lỗi không xác định', 500);
       }
     } catch (error) {
       const errorMessage = isIErrorResponse(error)
         ? error.data?.message
-        : 'Vui lòng nhập đầy đủ thông tin!';
+        : 'Vui lòng nhập đầy đúng mã vé';
       Toastify(`${errorMessage}`, 500);
     }
   };
@@ -69,22 +65,6 @@ const ReturnTicketPage: React.FC = () => {
                   value={ticketCode}
                   onChange={(e) => setTicketCode(e.target.value)}
                   placeholder={`${t('UserPage.ReturnTicketPage.forminput1')}`}
-                  className="border border-gray-300 bg-white text-black focus:border-primary xs:w-[300px] sm:w-[350px] md:w-[650px] xl:w-[800px]"
-                  classNameLabel="bg-white dark:peer-placeholder-shown:text-black dark:peer-focus:text-black"
-                />
-                <InputForm
-                  type="text"
-                  value={phone}
-                  onChange={(e) => setPhone(e.target.value)}
-                  placeholder={`${t('UserPage.ReturnTicketPage.forminput2')}`}
-                  className="border border-gray-300 bg-white text-black focus:border-primary xs:w-[300px] sm:w-[350px] md:w-[650px] xl:w-[800px]"
-                  classNameLabel="bg-white dark:peer-placeholder-shown:text-black dark:peer-focus:text-black"
-                />
-                <InputForm
-                  type="text"
-                  value={cccd}
-                  onChange={(e) => setCccd(e.target.value)}
-                  placeholder={`${t('UserPage.ReturnTicketPage.forminput3')}`}
                   className="border border-gray-300 bg-white text-black focus:border-primary xs:w-[300px] sm:w-[350px] md:w-[650px] xl:w-[800px]"
                   classNameLabel="bg-white dark:peer-placeholder-shown:text-black dark:peer-focus:text-black"
                 />

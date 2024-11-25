@@ -40,6 +40,28 @@ const CheckoutPage: React.FC = () => {
   const navigate = useNavigate();
   const [selectedDiscounts, setSelectedDiscounts] = useState<{ [key: string]: string }>({});
   const [userDetails, setUserDetails] = useState<{ [key: string]: { name: string; cccd: string, phone: string } }>({});
+  const [errors, setErrors] = useState<{ [key: string]: string }>({});
+
+  const validateInput = (name: string, value: string) => {
+    let error = '';
+    if (name === 'email') {
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailRegex.test(value)) {
+        error = 'Email không hợp lệ';
+      }
+    } else if (name === 'phone') {
+      const phoneRegex = /^[0-9]{10,11}$/;
+      if (!phoneRegex.test(value)) {
+        error = 'Số điện thoại phải có 10-11 chữ số';
+      }
+    } else if (name === 'cccd') {
+      const cccdRegex = /^[0-9]{12}$/;
+      if (!cccdRegex.test(value)) {
+        error = 'CCCD phải có 12 chữ số';
+      }
+    }
+    return error;
+  };
 
   useEffect(() => {
     if (selectedSeats.length === 0) {
@@ -81,11 +103,19 @@ const CheckoutPage: React.FC = () => {
   }, [selectedSeats, selectedDiscounts]);
 
   const onChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
     setFormData({
       ...formData,
-      [e.target.name]: e.target.value,
+      [name]: value,
     });
+
+    const error = validateInput(name, value);
+    setErrors((prevErrors) => ({
+      ...prevErrors,
+      [name]: error,
+    }));
   };
+
   const updateSeatStatusApi = async (seats: ITicket[]) => {
     const promises = seats.map(async (seat) => {
       const updatedSeat = { ...seat.seat_id[0], status: 'Hết chỗ' };
@@ -110,6 +140,21 @@ const CheckoutPage: React.FC = () => {
 
   const onSubmitHandler = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
+    const newErrors: { [key: string]: string } = {};
+    Object.keys(formData).forEach((key) => {
+      const error = validateInput(key, formData[key as keyof FormData]);
+      if (error) {
+        newErrors[key] = error;
+      }
+    });
+
+    if (Object.keys(newErrors).length > 0) {
+      setErrors(newErrors);
+      Toastify('Vui lòng sửa lỗi trước khi gửi.', 500);
+      return;
+    }
+
     try {
       const orderItems = selectedSeats.map((seat) => {
         const ticketDetails = userDetails[seat._id] || { name: '', cccd: '', phone: '' };
@@ -292,18 +337,25 @@ const CheckoutPage: React.FC = () => {
           {/* Left Side */}
           <div className="flex flex-col gap-4 w-full sm:max-w-[480px]">
             <h2 className="text-lg font-semibold">{t('UserPage.CheckoutPage.ip18')}</h2>
-            <div className="flex gap-3">
+            <div>
               <input required onChange={onChangeHandler} name="fullName" value={formData.fullName} className="border border-gray-300 rounded py-1.5 px-3.5 w-full" type="text" placeholder={t('UserPage.CheckoutPage.ip7')} />
             </div>
-            <input required onChange={onChangeHandler} name="email" value={formData.email} className="border border-gray-300 rounded py-1.5 px-3.5 w-full" type="email" placeholder={t('UserPage.CheckoutPage.ip14')} />
-            <input required onChange={onChangeHandler} name="phone" value={formData.phone} className="border border-gray-300 rounded py-1.5 px-3.5 w-full" type="tel" placeholder={t('UserPage.CheckoutPage.ip8')} />
+            <div>
+              <input required onChange={onChangeHandler} name="email" value={formData.email} className={`border border-gray-300 rounded py-1.5 px-3.5 w-full ${errors.email ? 'border-red-500' : ''}`} type="email" placeholder={t('UserPage.CheckoutPage.ip14')} />
+              {errors.email && <p className="text-red-500 text-sm mt-1">{errors.email}</p>}
+            </div>
+            <div>
+              <input required onChange={onChangeHandler} name="phone" value={formData.phone} className={`border border-gray-300 rounded py-1.5 px-3.5 w-full ${errors.phone ? 'border-red-500' : ''}`} type="tel" placeholder={t('UserPage.CheckoutPage.ip8')} />
+              {errors.phone && <p className="text-red-500 text-sm mt-1">{errors.phone}</p>}
+            </div>
             <div className="flex gap-3">
               <input required onChange={onChangeHandler} name="street" value={formData.street} className="border border-gray-300 rounded py-1.5 px-3.5 w-full" type="text" placeholder={t('UserPage.CheckoutPage.ip15')} />
               <input required onChange={onChangeHandler} name="city" value={formData.city} className="border border-gray-300 rounded py-1.5 px-3.5 w-full" type="text" placeholder={t('UserPage.CheckoutPage.ip16')} />
               <input required onChange={onChangeHandler} name="country" value={formData.country} className="border border-gray-300 rounded py-1.5 px-3.5 w-full" type="text" placeholder={t('UserPage.CheckoutPage.ip17')} />
             </div>
-            <div className="flex gap-3">
-              <input required onChange={onChangeHandler} name="cccd" value={formData.cccd} className="border border-gray-300 rounded py-1.5 px-3.5 w-full" type="number" placeholder={t('UserPage.CheckoutPage.ip9')} />
+            <div>
+              <input required onChange={onChangeHandler} name="cccd" value={formData.cccd} className={`border border-gray-300 rounded py-1.5 px-3.5 w-full ${errors.cccd ? 'border-red-500' : ''}`} type="number" placeholder={t('UserPage.CheckoutPage.ip9')} />
+              {errors.cccd && <p className="text-red-500 text-sm mt-1">{errors.cccd}</p>}
             </div>
           </div>
 
