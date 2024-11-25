@@ -178,7 +178,13 @@
       "ip19": "Payment Method",
       "ip20": "Pay Upon Ticket Collection",
       "ip21": "Pay Now"
-    }
+    },
+    "TicketType": "Ticket:",
+    "Vehicle": "Vehicle:",
+    "Departure": "Departure Point:",
+    "Status": "Status",
+    "Seat": "Seat",
+    "Price": "Price"
   },
   "NotificationPopup": {
     "CustomerService": "Customer Service",

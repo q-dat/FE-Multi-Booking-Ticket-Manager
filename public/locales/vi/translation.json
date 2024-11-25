@@ -178,7 +178,13 @@
       "ip19": "Phương thức thanh toán",
       "ip20": "Thanh toán khi nhận vé",
       "ip21": "Thanh toán"
-    }
+    },
+    "TicketType": "Loại vé:",
+    "Vehicle": "Phương Tiện:",
+    "Departure": "Điểm Khởi Hành:",
+    "Status": "Trạng Thái",
+    "Seat": "Chỗ Ngồi",
+    "Price": "Giá vé"
   },
   "NotificationPopup": {
     "CustomerService": "Tư Vấn Khách Hàng",

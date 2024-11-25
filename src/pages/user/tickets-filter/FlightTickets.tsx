@@ -8,10 +8,12 @@ import { IoTicket, IoTrainSharp } from 'react-icons/io5';
 import { IoMdPricetag } from 'react-icons/io';
 import { PiMapPinAreaDuotone, PiSeatFill } from 'react-icons/pi';
 import { FaArrowRightArrowLeft, FaCartPlus } from 'react-icons/fa6';
-import { t } from 'i18next';
 import Pagination from '../../../components/UserPage/Pagination';
+import { useTranslation } from 'react-i18next';
 
 const FlightTickets: React.FC = () => {
+  //Translation
+  const { t } = useTranslation();
   const { tickets, getAllTickets, filterTickets } = useContext(TicketContext);
   const { ticketCatalogs } = useContext(TicketCatalogContext);
   const { locations } = useContext(LocationContext);
@@ -160,13 +162,13 @@ const FlightTickets: React.FC = () => {
                   </span>
                 </div>
                 <div className="flex items-center gap-1">
-                  <IoTicket color="#12296999" /> Loại Vé:
+                  <IoTicket color="#12296999" /> {t('UserPage.TicketType')}
                   <span className="font-semibold">
                     {ticket.ticket_catalog_id?.name}
                   </span>
                 </div>
                 <div className="flex items-center gap-1">
-                  <IoTrainSharp color="#12296999" /> Phương tiện:
+                  <IoTrainSharp color="#12296999" /> {t('UserPage.Vehicle')}
                   <span className="font-semibold">
                     {ticket.seat_id.map(seat => (
                       <span key={seat._id}>
@@ -177,7 +179,7 @@ const FlightTickets: React.FC = () => {
                 </div>
                 <div className="flex items-start gap-1">
                   <p className="flex items-center gap-1">
-                    <PiSeatFill color="#12296999" /> Ghế:
+                    <PiSeatFill color="#12296999" /> {t('UserPage.Seat')}
                   </p>
                   <p>
                     <span className="font-semibold">
@@ -195,7 +197,7 @@ const FlightTickets: React.FC = () => {
                   </p>
                 </div>
                 <div className="flex items-center gap-1">
-                  <IoMdPricetag color="#12296999" /> Giá vé:
+                  <IoMdPricetag color="#12296999" />{t('UserPage.Price')}
                   <span className="font-bold text-red-500">
                     {(ticket.price * 1000).toLocaleString('vi-VN')}
                   </span>

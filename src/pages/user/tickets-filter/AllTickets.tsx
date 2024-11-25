@@ -3,7 +3,6 @@ import { Button } from 'react-daisyui';
 import { FaChevronLeft, FaChevronRight } from 'react-icons/fa';
 import { ITicket } from '../../../types/type/ticket/ticket';
 import { TicketContext } from '../../../context/ticket/TicketContext';
-import { t } from 'i18next';
 import { LocationContext } from '../../../context/location/LocationContext';
 import { TicketCatalogContext } from '../../../context/ticketCatalog/TicketCatalogContext';
 import { VehicleCatalogContext } from '../../../context/vehicleCatalog/VehicleCatalogContext';
@@ -12,7 +11,10 @@ import { IoMdPricetag } from 'react-icons/io';
 import { PiMapPinAreaDuotone, PiSeatFill } from 'react-icons/pi';
 import { FaCartPlus } from 'react-icons/fa6';
 import { GrStatusInfo } from 'react-icons/gr';
+import { useTranslation } from 'react-i18next';
 const AllTickets: React.FC = () => {
+  //Translation
+  const { t } = useTranslation();
   // Get Ticket
   const { tickets, getAllTickets, filterTickets } = useContext(TicketContext);
   const [status] = useState<string>('còn chỗ');
@@ -72,9 +74,6 @@ const AllTickets: React.FC = () => {
   );
   return (
     <div className="px-2 xl:px-[100px]">
-      <div className="my-5 rounded-lg bg-primary py-2 text-center text-3xl font-bold text-white dark:bg-white dark:text-primary">
-        {t('UserPage.TicketPrice')}
-      </div>
       {/* Ticket */}
       <div className="my-5">
         {/*  */}
@@ -83,7 +82,8 @@ const AllTickets: React.FC = () => {
             {/* Loại Vé */}
             <div>
               <p className="flex items-center gap-1 bg-blue-50 font-bold text-primary">
-                <IoTicket /> Loại Vé:
+                <IoTicket />
+                {t('UserPage.TicketType')}
               </p>
               <div className="grid grid-cols-3 gap-3 md:grid-cols-6 xl:grid-cols-7">
                 {ticketCatalogs.map(item => (
@@ -115,7 +115,7 @@ const AllTickets: React.FC = () => {
             <div>
               {' '}
               <p className="flex items-center gap-1 bg-blue-50 font-bold text-primary">
-                <IoTrainSharp /> Phương tiện:
+                <IoTrainSharp /> {t('UserPage.Vehicle')}
               </p>
               <div className="grid grid-cols-3 gap-3 md:grid-cols-6 xl:grid-cols-7">
                 {vehicleCatalogs.map(item => (
@@ -146,7 +146,7 @@ const AllTickets: React.FC = () => {
             {/* Điểm Khởi Hành */}
             <div>
               <p className="flex items-center gap-1 bg-blue-50 font-bold text-primary">
-                <PiMapPinAreaDuotone /> Điểm Khởi Hành:
+                <PiMapPinAreaDuotone /> {t('UserPage.Departure')}
               </p>
               <div className="grid grid-cols-3 items-center justify-center gap-3 md:grid-cols-6 xl:grid-cols-7">
                 {locations.map(item => (
@@ -175,7 +175,7 @@ const AllTickets: React.FC = () => {
             </div>
           </div>
         </div>
-        <div className="my-5 rounded-xl bg-transparent ">
+        <div className="my-5 rounded-xl bg-transparent">
           <div
             ref={scrollRef}
             className="flex space-x-4 overflow-x-auto scroll-smooth p-[1px] scrollbar-hide"
@@ -198,13 +198,15 @@ const AllTickets: React.FC = () => {
                       </span>
                     </div>
                     <div className="flex items-center gap-1">
-                      <IoTicket className="text-gray-100" /> Loại Vé:
+                      <IoTicket className="text-gray-100" />
+                      {t('UserPage.TicketType')}
                       <span className="font-semibold text-primary">
                         {ticket.ticket_catalog_id?.name}
                       </span>
                     </div>
                     <div className="flex items-center gap-1">
-                      <IoTrainSharp className="text-gray-100" /> Phương tiện:
+                      <IoTrainSharp className="text-gray-100" />{' '}
+                      {t('UserPage.Vehicle')}
                       <span className="font-semibold text-primary">
                         {ticket.seat_id.map(seat => (
                           <span key={seat._id}>
@@ -214,7 +216,8 @@ const AllTickets: React.FC = () => {
                       </span>
                     </div>
                     <div className="flex items-center gap-1">
-                      <GrStatusInfo className="text-gray-100" /> Trạng thái:
+                      <GrStatusInfo className="text-gray-100" />{' '}
+                      {t('UserPage.Status')}
                       <span className="font-semibold text-primary">
                         {ticket.seat_id.map(seat => (
                           <span key={seat._id}>{seat?.status}</span>
@@ -223,7 +226,8 @@ const AllTickets: React.FC = () => {
                     </div>
                     <div className="flex items-start gap-1">
                       <p className="flex items-center gap-1">
-                        <PiSeatFill className="text-gray-100" /> Ghế:
+                        <PiSeatFill className="text-gray-100" />{' '}
+                        {t('UserPage.Seat')}
                       </p>
                       <p>
                         <span className="font-semibold text-primary">
@@ -242,7 +246,8 @@ const AllTickets: React.FC = () => {
                       </p>
                     </div>
                     <div className="flex items-center gap-1">
-                      <IoMdPricetag className="text-gray-100" /> Giá vé:
+                      <IoMdPricetag className="text-gray-100" />
+                      {t('UserPage.Price')}
                       <span className="font-semibold text-red-500">
                         {(ticket?.price * 1000).toLocaleString('vi-VN')}
                       </span>
