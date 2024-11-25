@@ -144,7 +144,7 @@ const TicketTrainsResultsPage: React.FC = () => {
                     }
                   </p>
                 </div>
-                <div className="h-[150px] w-full rounded-2xl bg-white p-2 text-start text-sm">
+                <div className="h-[150px]  text-[12px] w-full rounded-2xl bg-white p-2 text-start">
                   <p>
                     <strong>{t('UserPage.DepartureDatePlaceholder')}:</strong>
                     {new Date(
@@ -259,7 +259,7 @@ const TicketTrainsResultsPage: React.FC = () => {
                             : ticketsByCarriage[selectedClassId].length === 28
                               ? 'zebra-background28 grid-cols-12 grid-rows-2 gap-x-5 gap-y-10'
                               : ''
-                      } grid-cols-16 grid grid-flow-col grid-rows-4 items-center justify-around gap-x-5 gap-y-10 overflow-x-auto rounded-xl border border-l-0 border-r-0 border-primary p-2 scrollbar-hide dark:border-white xl:gap-x-1 xl:overflow-visible`}
+                      } grid grid-flow-col  items-center justify-around gap-x-5 gap-y-10 overflow-x-auto rounded-xl border border-l-0 border-r-0 border-primary p-2 scrollbar-hide dark:border-white xl:gap-x-1 xl:overflow-visible`}
                     >
                       {ticketsByCarriage[selectedClassId]
                         .sort(
