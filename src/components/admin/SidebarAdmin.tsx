@@ -161,7 +161,7 @@ const SidebarAdmin: React.FC<{}> = () => {
         </div>
         {/*  */}
         <div className="relative flex w-full flex-col justify-between bg-white dark:bg-gray-800 dark:text-white">
-          <div className="mb-2 mt-5 h-[250px] overflow-y-scroll scrollbar-hide md:h-[300px]">
+          <div className="mb-2 mt-5 h-[250px] overflow-y-scroll scrollbar-hide md:h-[420px]">
             <Menu className="flex-grow">
               {menuItems.map(item => {
                 const Icon = item.icon;
