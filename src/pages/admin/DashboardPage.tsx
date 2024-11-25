@@ -32,7 +32,7 @@ const DashboardCard: React.FC<DashboardCardProps> = ({
 }) => {
   return (
     <div className="flex w-full flex-row items-center justify-center rounded-lg bg-white to-primary to-90% p-7 shadow-md md:space-x-4">
-      <img width={`50px`} height={`auto`} src={`${Icons}`} alt="" />
+      <img width="50px" height="auto" src={`${Icons}`} alt="" />
       <div className="text-start">
         {isLoading ? (
           <div className="text-md font-semibold text-black">Đang tải...</div>
@@ -54,7 +54,7 @@ const DashboardCard: React.FC<DashboardCardProps> = ({
   );
 };
 
-const DashboardPage: React.FC<{}> = () => {
+const DashboardPage: React.FC = () => {
   const { vehicles } = useContext(VehicleContext);
   const { trips, getAllTrips } = useContext(TripContext);
   const { tickets, getAllTickets } = useContext(TicketContext);
@@ -65,7 +65,6 @@ const DashboardPage: React.FC<{}> = () => {
   const [tripData, setTripData] = useState<number[]>([]);
   const [ticketData, setTicketData] = useState<number[]>([]);
 
-  // Hàm lấy dữ liệu từ API
   const fetchAllOrders = async () => {
     try {
       const response = await axios.post('/api/order/list', {});
@@ -104,8 +103,12 @@ const DashboardPage: React.FC<{}> = () => {
     });
 
     tickets.forEach(ticket => {
-      const month = new Date(ticket.createAt!).getMonth();
-      monthlyTickets[month] += 1;
+      ticket.seat_id.forEach(seat => {
+        if (seat.status === 'Hết chỗ') {
+          const month = new Date(ticket.createAt ?? '').getMonth();
+          monthlyTickets[month] += 1;
+        }
+      });
     });
 
     setOrderData(monthlyOrders);
@@ -141,37 +144,37 @@ const DashboardPage: React.FC<{}> = () => {
         <div className="grid grid-cols-2 gap-4 md:grid-cols-5">
           <DashboardCard
             Icons="https://cdn-icons-png.flaticon.com/128/3762/3762066.png"
-            Percentage="25% (30 days)"
+            Percentage=""
             Value={tripData.reduce((a, b) => a + b, 0)}
-            Label={'Số lượng chuyến đi'}
+            Label={'Chuyến đi'}
             isLoading={false}
           />
           <DashboardCard
             Icons="https://cdn-icons-png.flaticon.com/128/2942/2942934.png"
-            Percentage="25% (30 days)"
+            Percentage=""
             Value={ticketData.reduce((a, b) => a + b, 0)}
-            Label={'Số lượng vé'}
+            Label={'Vé đã bán'}
             isLoading={false}
           />
           <DashboardCard
             Icons="https://cdn-icons-png.flaticon.com/128/3753/3753033.png"
-            Percentage="25% (30 days)"
+            Percentage=""
             Value={orderData.reduce((a, b) => a + b, 0)}
-            Label={'Số lượng đơn hàng'}
+            Label={'Đơn hàng'}
             isLoading={false}
           />
           <DashboardCard
             Icons="https://cdn-icons-png.flaticon.com/128/713/713309.png"
-            Percentage="25% (30 days)"
+            Percentage=""
             Value={vehicleData.reduce((a, b) => a + b, 0)}
-            Label={'Số lượng phương tiện'}
+            Label={'Phương tiện'}
             isLoading={false}
           />
           <DashboardCard
             Icons="https://cdn-icons-png.flaticon.com/128/4256/4256900.png"
-            Percentage="25% (30 days)"
+            Percentage=""
             Value={revenueData.reduce((a, b) => a + b, 0)}
-            Label={'Số lượng doanh thu'}
+            Label={'Doanh thu'}
             isLoading={false}
           />
         </div>
