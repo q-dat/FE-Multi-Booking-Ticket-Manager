@@ -99,13 +99,14 @@ const FlightsPage: React.FC = () => {
                       {t('UserPage.DeparturePlaceholder')}
                     </option>
                     {locations.map(location => (
-                      <option key={location._id} value={location.name}>
+                      <option key={location.name} value={location.name}>
                         {location.name}
                       </option>
                     ))}
                   </Select>
                   <MdOutlineArrowRightAlt className="hidden text-xl text-primary xl:flex" />
                 </div>
+
                 <div className="flex items-center">
                   <Select
                     defaultValue=""
@@ -116,7 +117,7 @@ const FlightsPage: React.FC = () => {
                       {t('UserPage.DestinationPlaceholder')}
                     </option>
                     {locations.map(location => (
-                      <option key={location._id} value={location.name}>
+                      <option key={location.name} value={location.name}>
                         {location.name}
                       </option>
                     ))}
@@ -127,33 +128,9 @@ const FlightsPage: React.FC = () => {
               {/* Form Mobile 2 */}
               <div className="m-2 flex flex-grow items-center justify-between gap-2 md:m-[10px] md:gap-[20px] xl:m-0 xl:gap-0">
                 <div className="flex items-center">
-                  <InputForm
-                    className="h-[48px] min-w-[150px] border border-primary bg-white text-sm text-black hover:border-gray-700 hover:border-opacity-50 hover:outline-none focus:outline-none dark:border-primary dark:hover:border-gray-700 dark:hover:border-opacity-50 xs:max-w-[150px] sm:max-w-[300px] md:w-[300px] lg:w-[400px] xl:w-full xl:rounded-none"
-                    type={'date'}
-                    placeholder={`${t('UserPage.DepartureDatePlaceholder')}`}
-                    {...register('departure_date')}
-                    classNameLabel=" dark:text-[#122969] bg-white dark:peer-focus:text-primary "
-                    min={minDate}
-                  />
-                  <MdOutlineArrowRightAlt className="hidden text-xl text-primary xl:flex" />
-                </div>
-                <div className="flex items-center">
-                  <InputForm
-                    className="h-[48px] min-w-[150px] border border-primary bg-white text-sm text-black hover:border-gray-700 hover:border-opacity-50 hover:outline-none focus:outline-none dark:border-primary dark:hover:border-gray-700 dark:hover:border-opacity-50 xs:max-w-[150px] sm:max-w-[300px] md:w-[300px] lg:w-[400px] xl:w-full xl:rounded-none"
-                    type={'date'}
-                    placeholder={`${t('UserPage.ReturnDatePlaceholder')}`}
-                    {...register('return_date')}
-                    classNameLabel=" dark:text-[#122969] bg-white dark:peer-focus:text-primary "
-                    min={minDate}
-                  />
-                  <MdOutlineArrowRightAlt className="hidden text-xl text-primary xl:flex" />
-                </div>
-              </div>
-              <div className="m-2 flex flex-grow items-center justify-between gap-2 md:m-[10px] md:gap-[20px] xl:m-0 xl:gap-0">
-                <div className="flex items-center">
                   <Select
                     defaultValue=""
-                    className="h-[48px] min-w-[150px] border border-primary bg-white text-sm text-black hover:border-gray-700 hover:border-opacity-50 hover:outline-none focus:outline-none dark:border-primary dark:hover:border-gray-700 dark:hover:border-opacity-50 xs:max-w-[150px] sm:max-w-[300px] md:w-[300px] lg:w-[400px] xl:w-full xl:rounded-l-none"
+                    className="h-[48px] min-w-[150px] border border-primary bg-white text-sm text-black hover:border-gray-700 hover:border-opacity-50 hover:outline-none focus:outline-none dark:border-primary dark:hover:border-gray-700 dark:hover:border-opacity-50 xs:max-w-[150px] sm:max-w-[300px] md:w-[300px] lg:w-[400px] xl:w-full xl:rounded-none"
                     {...register('ticket_catalog_name')}
                   >
                     <option value="" disabled>
@@ -168,6 +145,8 @@ const FlightsPage: React.FC = () => {
                       </option>
                     ))}
                   </Select>
+                  <MdOutlineArrowRightAlt className="hidden text-xl text-primary xl:flex" />
+                  {/* hide */}
                   <InputForm
                     placeholder={''}
                     classNameLabel={''}
@@ -177,12 +156,35 @@ const FlightsPage: React.FC = () => {
                     min=""
                   />
                 </div>
+                <div className="flex items-center">
+                  <InputForm
+                    className="h-[48px] min-w-[150px] border border-primary bg-white text-sm text-black hover:border-gray-700 hover:border-opacity-50 hover:outline-none focus:outline-none dark:border-primary dark:hover:border-gray-700 dark:hover:border-opacity-50 xs:max-w-[150px] sm:max-w-[300px] md:w-[300px] lg:w-[400px] xl:w-full xl:rounded-none"
+                    type={'date'}
+                    placeholder={`${t('UserPage.DepartureDatePlaceholder')}`}
+                    {...register('departure_date')}
+                    classNameLabel=" dark:text-[#122969] bg-white dark:peer-focus:text-primary "
+                    min={minDate}
+                  />
+                  <MdOutlineArrowRightAlt className="hidden text-xl text-primary xl:flex" />
+                </div>
+              </div>
+              <div className="m-2 flex flex-grow items-center justify-between gap-2 md:m-[10px] md:gap-[20px] xl:m-0 xl:gap-0">
+                <div className="flex items-center">
+                  <InputForm
+                    className="h-[48px] min-w-[150px] border border-primary bg-white text-sm text-black hover:border-gray-700 hover:border-opacity-50 hover:outline-none focus:outline-none dark:border-primary dark:hover:border-gray-700 dark:hover:border-opacity-50 xs:max-w-[150px] sm:max-w-[300px] md:w-[300px] lg:w-[400px] xl:w-full xl:rounded-l-none"
+                    type={'date'}
+                    placeholder={`${t('UserPage.ReturnDatePlaceholder')}`}
+                    {...register('return_date')}
+                    classNameLabel=" dark:text-[#122969] bg-white dark:peer-focus:text-primary "
+                    min={minDate}
+                  />
+                </div>
 
                 <div>
                   <Button
                     type="submit"
                     disabled={loading.search}
-                    className="w-[150px] bg-primary text-sm text-white hover:border-primary hover:bg-white hover:text-primary dark:hover:bg-gray-700 md:w-[300px] lg:w-[400px] xl:ml-3 xl:w-full"
+                    className="min-h-[48px] min-w-[150px] border border-white bg-primary text-sm text-white hover:border-primary hover:bg-white hover:text-primary first-letter:xs:max-w-[150px] sm:max-w-[300px] md:w-[300px] lg:w-[400px] xl:ml-3 xl:w-full"
                   >
                     <IoSearch />
                     {loading.search

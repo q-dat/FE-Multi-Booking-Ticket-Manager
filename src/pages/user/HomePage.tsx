@@ -192,6 +192,17 @@ const Home: React.FC = () => {
             {/* Form Mobile 2 */}
             <div className="m-2 flex flex-grow items-center justify-between gap-2 md:m-[10px] md:gap-[20px] xl:m-0 xl:gap-0">
               <div className="flex items-center">
+                <ReactSelect
+                  name="ticket_catalog_name"
+                  control={control}
+                  options={ticketCatalog}
+                  placeholder={t('UserPage.TicketSelectDefault')}
+                  isMulti={false}
+                  className="xl:rounded-none"
+                />
+                <MdOutlineArrowRightAlt className="hidden text-xl text-primary xl:flex" />
+              </div>
+              <div className="flex items-center">
                 <InputForm
                   className="h-[48px] min-w-[150px] border border-primary bg-white text-sm text-black hover:border-gray-700 hover:border-opacity-50 hover:outline-none focus:outline-none dark:border-primary dark:hover:border-gray-700 dark:hover:border-opacity-50 xs:max-w-[150px] sm:max-w-[300px] md:w-[300px] lg:w-[400px] xl:w-full xl:rounded-none"
                   type={'date'}
@@ -202,6 +213,9 @@ const Home: React.FC = () => {
                 />
                 <MdOutlineArrowRightAlt className="hidden text-xl text-primary xl:flex" />
               </div>
+            </div>
+            {/* Form Mobile 3 */}
+            <div className="m-2 flex flex-grow items-center justify-between gap-2 md:m-[10px] md:gap-[20px] xl:m-0 xl:gap-0">
               <div className="flex items-center">
                 <InputForm
                   className="h-[48px] min-w-[150px] border border-primary bg-white text-sm text-black hover:border-gray-700 hover:border-opacity-50 hover:outline-none focus:outline-none dark:border-primary dark:hover:border-gray-700 dark:hover:border-opacity-50 xs:max-w-[150px] sm:max-w-[300px] md:w-[300px] lg:w-[400px] xl:w-full xl:rounded-none"
@@ -213,26 +227,12 @@ const Home: React.FC = () => {
                 />
                 <MdOutlineArrowRightAlt className="hidden text-xl text-primary xl:flex" />
               </div>
-            </div>
-            {/* Form Mobile 3 */}
-            <div className="m-2 flex flex-grow items-center justify-between gap-2 md:m-[10px] md:gap-[20px] xl:m-0 xl:gap-0">
               <div className="flex items-center">
                 <ReactSelect
                   name="vehicle_catalog_name"
                   control={control}
                   options={vehicleCatalog}
                   placeholder={t('UserPage.VehicleSelectDefault')}
-                  isMulti={false}
-                  className="xl:rounded-none"
-                />
-                <MdOutlineArrowRightAlt className="hidden text-xl text-primary xl:flex" />
-              </div>
-              <div className="flex items-center">
-                <ReactSelect
-                  name="ticket_catalog_name"
-                  control={control}
-                  options={ticketCatalog}
-                  placeholder={t('UserPage.TicketSelectDefault')}
                   isMulti={false}
                   className="xl:rounded-l-none"
                 />
