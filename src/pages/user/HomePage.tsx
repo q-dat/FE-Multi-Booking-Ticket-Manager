@@ -35,11 +35,9 @@ interface Option {
 }
 
 const Home: React.FC = () => {
-  // State to store selected ticket catalog option
   const [selectedTicketCatalog, setSelectedTicketCatalog] = useState<
     string | string
   >('');
-  console.log(selectedTicketCatalog);
   //Translation
   const { t } = useTranslation();
   //Search Ticket
@@ -234,7 +232,7 @@ const Home: React.FC = () => {
             {/* Form Mobile 3 */}
             <div className="m-2 flex flex-grow items-center justify-between gap-2 md:m-[10px] md:gap-[20px] xl:m-0 xl:gap-0">
               <div
-                className={` ${selectedTicketCatalog === 'Một chiều' ? 'hidden' : ''}`}
+                className={`${selectedTicketCatalog === 'Một chiều' ? 'hidden' : ''}`}
               >
                 <div className="flex items-center">
                   <InputForm

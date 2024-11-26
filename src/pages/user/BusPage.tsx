@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import HeaderResponsive from '../../components/UserPage/HeaderResponsive';
 import { Button, Select } from 'react-daisyui';
 import InputForm from '../../components/UserPage/InputForm';
@@ -16,6 +16,9 @@ import { BannerBus } from '../../assets/image-represent';
 import BusesTickets from './tickets-filter/BusesTickets';
 
 const BusesPage: React.FC = () => {
+  const [selectedTicketCatalog, setSelectedTicketCatalog] = useState<
+    string | string
+  >('');
   //Translation
   const { t } = useTranslation();
   const { searchTickets, loading } = useContext(TicketContext);
@@ -135,6 +138,7 @@ const BusesPage: React.FC = () => {
                     defaultValue=""
                     className="h-[48px] min-w-[150px] border border-primary bg-white text-sm text-black hover:border-gray-700 hover:border-opacity-50 hover:outline-none focus:outline-none dark:border-primary dark:hover:border-gray-700 dark:hover:border-opacity-50 xs:max-w-[150px] sm:max-w-[300px] md:w-[300px] lg:w-[400px] xl:w-full xl:rounded-none"
                     {...register('ticket_catalog_name')}
+                    onChange={e => setSelectedTicketCatalog(e.target.value)}
                   >
                     <option value="" disabled>
                       {t('UserPage.TicketSelectDefault')}
@@ -168,19 +172,23 @@ const BusesPage: React.FC = () => {
                     classNameLabel=" dark:text-[#122969] bg-white dark:peer-focus:text-primary "
                     min={minDate}
                   />
-                  <MdOutlineArrowRightAlt className="hidden text-xl text-primary xl:flex" />
                 </div>
               </div>
               <div className="m-2 flex flex-grow items-center justify-between gap-2 md:m-[10px] md:gap-[20px] xl:m-0 xl:gap-0">
-                <div className="flex items-center">
-                  <InputForm
-                    className="h-[48px] min-w-[150px] border border-primary bg-white text-sm text-black hover:border-gray-700 hover:border-opacity-50 hover:outline-none focus:outline-none dark:border-primary dark:hover:border-gray-700 dark:hover:border-opacity-50 xs:max-w-[150px] sm:max-w-[300px] md:w-[300px] lg:w-[400px] xl:w-full xl:rounded-l-none"
-                    type={'date'}
-                    placeholder={`${t('UserPage.ReturnDatePlaceholder')}`}
-                    {...register('return_date')}
-                    classNameLabel=" dark:text-[#122969] bg-white dark:peer-focus:text-primary "
-                    min={minDate}
-                  />
+                <div
+                  className={`${selectedTicketCatalog === 'Một chiều' ? 'hidden' : ''}`}
+                >
+                  <div className="flex items-center">
+                    <MdOutlineArrowRightAlt className="hidden text-xl text-primary xl:flex" />
+                    <InputForm
+                      className="h-[48px] min-w-[150px] border border-primary bg-white text-sm text-black hover:border-gray-700 hover:border-opacity-50 hover:outline-none focus:outline-none dark:border-primary dark:hover:border-gray-700 dark:hover:border-opacity-50 xs:max-w-[150px] sm:max-w-[300px] md:w-[300px] lg:w-[400px] xl:w-full xl:rounded-l-none"
+                      type={'date'}
+                      placeholder={`${t('UserPage.ReturnDatePlaceholder')}`}
+                      {...register('return_date')}
+                      classNameLabel=" dark:text-[#122969] bg-white dark:peer-focus:text-primary "
+                      min={minDate}
+                    />
+                  </div>
                 </div>
 
                 <div>
