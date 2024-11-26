@@ -15,6 +15,7 @@ interface ReactSelectProps {
   placeholder?: string;
   isMulti?: boolean;
   className?: string;
+  onChange?: (value: string | string[] | Option | Option[]) => void;
 }
 
 const ReactSelect: React.FC<ReactSelectProps> = ({
@@ -23,14 +24,15 @@ const ReactSelect: React.FC<ReactSelectProps> = ({
   options,
   placeholder = '',
   isMulti = false,
-  className = ''
+  className = '',
+  onChange
 }) => {
   const {
-    field: { onChange, value, ref }
+    field: { onChange: hookOnChange, value, ref }
   } = useController({
     name,
     control,
-    defaultValue: isMulti ? [] : ''
+    defaultValue: isMulti ? [] : '' // Initial default value for multi-select or single-select
   });
 
   const customStyles = {
@@ -43,7 +45,6 @@ const ReactSelect: React.FC<ReactSelectProps> = ({
       boxShadow: 'none',
       borderRadius: '0'
     }),
-
     option: (provided: any) => ({
       ...provided,
       backgroundColor: 'white',
@@ -51,7 +52,6 @@ const ReactSelect: React.FC<ReactSelectProps> = ({
       fontSize: '14px',
       cursor: 'pointer'
     }),
-
     singleValue: (provided: any) => ({
       ...provided,
       whiteSpace: 'nowrap',
@@ -59,7 +59,6 @@ const ReactSelect: React.FC<ReactSelectProps> = ({
       fontWeight: 'bold',
       cursor: 'pointer'
     }),
-
     placeholder: (provided: any, state: any) => ({
       ...provided,
       color: state.isFocused ? 'white' : 'black',
@@ -76,21 +75,27 @@ const ReactSelect: React.FC<ReactSelectProps> = ({
     );
   };
 
+  // Handle value changes
+  const handleChange = (val: any) => {
+    if (isMulti) {
+      hookOnChange(val ? (val as Option[]).map(option => option.value) : []);
+      if (onChange) onChange(val ? (val as Option[]) : []);
+    } else {
+      const selectedValue = (val as Option)?.value ?? null;
+      hookOnChange(selectedValue);
+      if (onChange) onChange(selectedValue);
+    }
+  };
+
   return (
     <Select
       ref={ref}
       value={
         isMulti
-          ? options.filter(option => (value as string[]).includes(option.value))
-          : options.find(option => option.value === value) || null
+          ? options.filter((option) => (value as string[]).includes(option.value))
+          : options.find((option) => option.value === value) || null
       }
-      onChange={val => {
-        if (isMulti) {
-          onChange(val ? (val as Option[]).map(option => option.value) : []);
-        } else {
-          onChange((val as Option)?.value);
-        }
-      }}
+      onChange={handleChange}
       options={options}
       isMulti={isMulti}
       placeholder={placeholder}
@@ -102,4 +107,3 @@ const ReactSelect: React.FC<ReactSelectProps> = ({
 };
 
 export default ReactSelect;
-

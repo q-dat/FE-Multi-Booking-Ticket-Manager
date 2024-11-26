@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Button } from 'react-daisyui';
 import InputForm from '../../components/UserPage/InputForm';
 import { IoLocationOutline, IoSearch } from 'react-icons/io5';
@@ -35,6 +35,11 @@ interface Option {
 }
 
 const Home: React.FC = () => {
+  // State to store selected ticket catalog option
+  const [selectedTicketCatalog, setSelectedTicketCatalog] = useState<
+    string | string
+  >('');
+  console.log(selectedTicketCatalog);
   //Translation
   const { t } = useTranslation();
   //Search Ticket
@@ -199,6 +204,18 @@ const Home: React.FC = () => {
                   placeholder={t('UserPage.TicketSelectDefault')}
                   isMulti={false}
                   className="xl:rounded-none"
+                  onChange={selectedOption => {
+                    if (
+                      typeof selectedOption === 'object' &&
+                      'value' in selectedOption
+                    ) {
+                      setSelectedTicketCatalog(selectedOption.value);
+                    } else if (typeof selectedOption === 'string') {
+                      setSelectedTicketCatalog(selectedOption);
+                    } else {
+                      setSelectedTicketCatalog('');
+                    }
+                  }}
                 />
                 <MdOutlineArrowRightAlt className="hidden text-xl text-primary xl:flex" />
               </div>
@@ -216,17 +233,22 @@ const Home: React.FC = () => {
             </div>
             {/* Form Mobile 3 */}
             <div className="m-2 flex flex-grow items-center justify-between gap-2 md:m-[10px] md:gap-[20px] xl:m-0 xl:gap-0">
-              <div className="flex items-center">
-                <InputForm
-                  className="h-[48px] min-w-[150px] border border-primary bg-white text-sm text-black hover:border-gray-700 hover:border-opacity-50 hover:outline-none focus:outline-none dark:border-primary dark:hover:border-gray-700 dark:hover:border-opacity-50 xs:max-w-[150px] sm:max-w-[300px] md:w-[300px] lg:w-[400px] xl:w-full xl:rounded-none"
-                  type={'date'}
-                  placeholder={`${t('UserPage.ReturnDatePlaceholder')}`}
-                  {...register('return_date')}
-                  min={minDate}
-                  classNameLabel=" dark:text-[#122969] bg-white dark:peer-focus:text-primary "
-                />
-                <MdOutlineArrowRightAlt className="hidden text-xl text-primary xl:flex" />
+              <div
+                className={` ${selectedTicketCatalog === 'Một chiều' ? 'hidden' : ''}`}
+              >
+                <div className="flex items-center">
+                  <InputForm
+                    className="h-[48px] min-w-[150px] border border-primary bg-white text-sm text-black hover:border-gray-700 hover:border-opacity-50 hover:outline-none focus:outline-none dark:border-primary dark:hover:border-gray-700 dark:hover:border-opacity-50 xs:max-w-[150px] sm:max-w-[300px] md:w-[300px] lg:w-[400px] xl:w-full xl:rounded-none"
+                    type={'date'}
+                    placeholder={`${t('UserPage.ReturnDatePlaceholder')}`}
+                    {...register('return_date')}
+                    min={minDate}
+                    classNameLabel=" dark:text-[#122969] bg-white dark:peer-focus:text-primary "
+                  />
+                  <MdOutlineArrowRightAlt className="hidden text-xl text-primary xl:flex" />
+                </div>
               </div>
+
               <div className="flex items-center">
                 <ReactSelect
                   name="vehicle_catalog_name"
