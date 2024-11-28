@@ -49,7 +49,8 @@ const NewsPage: React.FC = () => {
         )}
 
         <div>
-          <h2 className="mb-6 text-[24px] font-semibold">{t('UserPage.Navbar.News')}</h2>
+          <hr />
+          <h2 className=" text-[20px] text-primary uppercase font-semibold">{t('UserPage.Navbar.News')}:</h2>
           <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
             {otherPosts.map(post => (
               <div
