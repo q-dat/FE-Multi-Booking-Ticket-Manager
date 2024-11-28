@@ -78,7 +78,8 @@ interface Resources {
         "Theme": "Theme",
         "Translate": "Translate",
         "LoginBtn": "Login",
-        "LogoutBtn": "Logout"
+        "LogoutBtn": "Logout",
+        "News": "News"
       },
       "Footer": {
         "Services": "Services",

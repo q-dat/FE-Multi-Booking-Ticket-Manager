@@ -66,6 +66,10 @@ const Header: React.FC = () => {
       ]
     },
     {
+      name: `${t('UserPage.Navbar.News')}`,
+      link: '/news'
+    },
+    {
       name: `${t('UserPage.Navbar.Contact')}`,
       link: '/contact'
     }

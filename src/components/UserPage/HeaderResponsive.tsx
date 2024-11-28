@@ -83,6 +83,10 @@ const HeaderResponsive: React.FC<HeaderResponsiveProps> = ({
       ]
     },
     {
+      name: `${t('UserPage.Navbar.News')}`,
+      link: '/news'
+    },
+    {
       name: `${t('UserPage.Navbar.Contact')}`,
       link: '/contact'
       // submenu: [

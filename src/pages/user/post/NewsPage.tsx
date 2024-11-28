@@ -1,8 +1,11 @@
 import React, { useContext, useEffect, useState } from 'react';
 import HeaderResponsive from '../../../components/UserPage/HeaderResponsive';
 import { PostContext } from '../../../context/post/PostContext';
+import { useTranslation } from 'react-i18next';
 
 const NewsPage: React.FC = () => {
+  //Translation
+  const {t} = useTranslation()
   const { posts, getAllPosts } = useContext(PostContext);
   const [selectedPost, setSelectedPost] = useState<(typeof posts)[0] | null>(
     null
@@ -27,7 +30,7 @@ const NewsPage: React.FC = () => {
 
   return (
     <div className="pb-[20px] xl:pt-[80px]">
-      <HeaderResponsive Title_NavbarMobile="Bản tin nổi bật" />
+      <HeaderResponsive Title_NavbarMobile={t('UserPage.Navbar.News')} />
       <div className="px-2 dark:bg-white xl:px-[100px]">
         {selectedPost && (
           <div className="mb-10">
