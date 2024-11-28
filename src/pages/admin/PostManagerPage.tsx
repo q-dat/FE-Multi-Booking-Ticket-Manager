@@ -90,7 +90,7 @@ const PostManagerPage: React.FC = () => {
             <span>Ảnh Đại Diện</span>
             <span>Danh Mục</span>
             <span>Ngày Tạo</span>
-            <span>Ngày Cập Nhật</span>
+            {/* <span>Ngày Cập Nhật</span> */}
             <span>Nội dung</span>
             <span>Hành Động</span>  
           </Table.Head>
@@ -109,8 +109,8 @@ const PostManagerPage: React.FC = () => {
                   />
                 </span>
                 <span className="line-clamp-1">{post?.catalog}</span>
-                <span>{new Date(post?.createdAt).toLocaleString('vi-VN')}</span>
-                <span>{new Date(post?.updatedAt).toLocaleString('vi-VN')}</span>
+                {/* <span>{new Date(post?.createdAt).toLocaleString('vi-VN')}</span> */}
+                <span>{new Date(post?.updatedAt).toLocaleDateString('vi-VN')}</span>
                 <span
                   className="line-clamp-2"
                   dangerouslySetInnerHTML={{ __html: post.content }}
