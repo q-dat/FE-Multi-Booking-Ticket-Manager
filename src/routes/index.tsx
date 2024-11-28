@@ -26,6 +26,7 @@ const Verify = lazy(() => import('../pages/user/Verify'));
 const BillResultsPage = lazy(
   () => import('../pages/user/tickets-results/BillResultsPage')
 );
+const NewsPage = lazy(() => import('../pages/user/post/NewsPage'));
 //auth
 const Auth = lazy(() => import('../pages/auth/Auth'));
 const SignUpPage = lazy(() => import('../pages/auth/SignUpPage'));
@@ -39,7 +40,7 @@ const BackupManagerPage = lazy(
 const Admin = lazy(() => import('../pages/admin/Admin'));
 const DashboardPage = lazy(() => import('../pages/admin/DashboardPage'));
 const LocationPage = lazy(() => import('../pages/admin/LocationPage'));
-const BlogPage = lazy(() => import('../pages/admin/BlogPage'));
+// const BlogPage = lazy(() => import('../pages/admin/BlogPage'));
 const VehiclePage = lazy(() => import('../pages/admin/VehiclePage'));
 const SeatPage = lazy(() => import('../pages/admin/SeatPage'));
 const AgePage = lazy(() => import('../pages/admin/AgePage'));
@@ -54,6 +55,8 @@ const TicketPage = lazy(() => import('../pages/admin/TicketPage'));
 const SeatCatalogPage = lazy(() => import('../pages/admin/SeatCatalogPage'));
 const TripPage = lazy(() => import('../pages/admin/TripPage'));
 const OrderPage = lazy(() => import('../pages/admin/OrderPage'));
+const PostManagerPage = lazy(() => import('../pages/admin/PostManagerPage'));
+
 // not found page
 const NotFound = lazy(() => import('../pages/404/NotFound'));
 export default function AppRoutes() {
@@ -88,6 +91,7 @@ export default function AppRoutes() {
             <Route path="contact" element={<ContactPage />} />
             <Route path="checkout" element={<CheckoutPage />} />
             <Route path="verify" element={<Verify />} />
+            <Route path="news" element={<NewsPage />} />
           </Route>
         </Route>
 
@@ -115,7 +119,7 @@ export default function AppRoutes() {
           >
             <Route index path="" element={<DashboardPage />} />
             <Route path="location" element={<LocationPage />} />
-            <Route path="blog" element={<BlogPage />} />
+            {/* <Route path="blog" element={<BlogPage />} /> */}
             <Route path="vehicle" element={<VehiclePage />} />
             <Route path="seat" element={<SeatPage />} />
             <Route path="age" element={<AgePage />} />
@@ -126,6 +130,7 @@ export default function AppRoutes() {
             <Route path="seat-catalog" element={<SeatCatalogPage />} />
             <Route path="trip" element={<TripPage />} />
             <Route path="order" element={<OrderPage />} />
+            <Route path="post-manager" element={<PostManagerPage />} />
           </Route>
         </Route>
         {/* 404 not found */}

@@ -15,13 +15,14 @@ import { VehicleProvider } from './context/vehicle/VehicleContext.tsx';
 import { VehicleCatalogProvider } from './context/vehicleCatalog/VehicleCatalogContext.tsx';
 import { SeatProvider } from './context/seat/SeatContext.tsx';
 import { SeatCatalogProvider } from './context/seatCatalog/SeatCatalogContext.tsx';
-import { PostProvider } from './context/post/PostContext.tsx';
-import { PostCatalogProvider } from './context/post/PostCatalogContext.tsx';
+// import { PostProvider } from './context/post/PostContext.tsx';
+// import { PostCatalogProvider } from './context/post/PostCatalogContext.tsx';
 import { AgeProvider } from './context/age/AgeContext.tsx';
 import { ServiceProvider } from './context/service/ServiceContext.tsx';
 import { CartProvider } from './context/cart/CartContext.tsx';
 import { TripProvider } from './context/trip/TripContext.tsx';
 import { BackupProvider } from './context/backup/DataContext.tsx';
+import { PostProvider } from './context/post/PostContext.tsx';
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
@@ -38,7 +39,7 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
                         <TripProvider>
                           <SeatCatalogProvider>
                             <SeatProvider>
-                              <PostCatalogProvider>
+                              {/* <PostCatalogProvider> */}
                                 <PostProvider>
                                   <AgeProvider>
                                     <ServiceProvider>
@@ -49,7 +50,7 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
                                     </ServiceProvider>
                                   </AgeProvider>
                                 </PostProvider>
-                              </PostCatalogProvider>
+                              {/* </PostCatalogProvider> */}
                             </SeatProvider>
                           </SeatCatalogProvider>
                         </TripProvider>

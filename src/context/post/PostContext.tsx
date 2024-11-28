@@ -1,90 +1,171 @@
-import React, {
+import {
   createContext,
-  useContext,
   useState,
-  useEffect,
-  ReactNode
+  useCallback,
+  ReactNode,
+  useEffect
 } from 'react';
-import axios from '../../config/axiosConfig';
-import { Post } from '../../types/post/post.type';
+import {
+  getAllPostsApi,
+  createPostApi,
+  updatePostApi,
+  deletePostApi
+} from '../../axios/api/postApi';
+import { IPost } from '../../types/type/post/post';
+import { AxiosResponse } from 'axios';
 
 interface PostContextType {
-  posts: Post[];
-  fetchPosts: () => Promise<void>;
-  createPost: (newPost: Omit<Post, '_id'>) => Promise<void>;
-  updatePost: (id: string, updatedPost: Omit<Post, '_id'>) => Promise<void>;
-  deletePost: (id: string) => Promise<void>;
+  posts: IPost[];
+  loading: {
+    getAll: boolean;
+    create: boolean;
+    update: boolean;
+    delete: boolean;
+  };
+  error: string | null;
+  getAllPosts: () => void;
+  getPostById: (_id: string) => IPost | undefined;
+  createPost: (post: FormData) => Promise<AxiosResponse<any>>;
+  updatePost: (id: string, post: FormData) => Promise<AxiosResponse<any>>;
+  deletePost: (id: string) => Promise<AxiosResponse<any>>;
 }
 
-export const PostContext = createContext<PostContextType | undefined>(
-  undefined
-);
-
-// Hook sử dụng context
-export const usePostContext = () => {
-  const context = useContext(PostContext);
-  if (!context) {
-    throw new Error('usePostContext must be used within a PostProvider');
-  }
-  return context;
+const defaultContextValue: PostContextType = {
+  posts: [],
+  loading: {
+    getAll: false,
+    create: false,
+    update: false,
+    delete: false
+  },
+  error: null,
+  getAllPosts: () => {},
+  getPostById: () => undefined,
+  createPost: async () => ({ data: { post: null } }) as AxiosResponse,
+  updatePost: async () => ({ data: { post: null } }) as AxiosResponse,
+  deletePost: async () => ({ data: { deleted: true } }) as AxiosResponse
 };
 
-export const PostProvider: React.FC<{ children: ReactNode }> = ({
-  children
-}) => {
-  const [posts, setPosts] = useState<Post[]>([]);
+export const PostContext = createContext<PostContextType>(defaultContextValue);
 
-  const fetchPosts = async () => {
+export const PostProvider = ({ children }: { children: ReactNode }) => {
+  const [posts, setPosts] = useState<IPost[]>([]);
+  const [loading, setLoading] = useState<{
+    getAll: boolean;
+    create: boolean;
+    update: boolean;
+    delete: boolean;
+  }>({
+    getAll: false,
+    create: false,
+    update: false,
+    delete: false
+  });
+  const [error, setError] = useState<string | null>(null);
+
+  const handleError = (err: any) => {
+    setError(err.response?.data?.message || 'Lỗi cục bộ!');
+  };
+
+  const fetchData = async (
+    apiCall: () => Promise<AxiosResponse<any>>,
+    onSuccess: (data: any) => void,
+    requestType: keyof typeof loading
+  ): Promise<AxiosResponse<any>> => {
+    setLoading(prev => ({ ...prev, [requestType]: true }));
+    setError(null);
     try {
-      const response = await axios.get('/api/blogs/posts');
-      setPosts(response.data.post);
-    } catch (error) {
-      if (axios.isAxiosError(error)) {
-        console.error('Axios Error:', error.message, error.config);
-      } else {
-        console.error('Unexpected Error:', error);
-      }
+      const response = await apiCall();
+      onSuccess(response.data);
+      return response;
+    } catch (err: any) {
+      handleError(err);
+      throw err;
+    } finally {
+      setLoading(prev => ({ ...prev, [requestType]: false }));
     }
   };
 
-  const createPost = async (newPost: Omit<Post, '_id'>) => {
-    try {
-      const response = await axios.post('/api/blogs/posts', newPost);
-      setPosts(prev => [...prev, response.data.savedPost]);
-    } catch (error) {
-      console.error('Lỗi khi tạo bài viết:', error);
-    }
-  };
+  // Get All
+  const getAllPosts = useCallback(() => {
+    fetchData(getAllPostsApi, data => setPosts(data.posts || []), 'getAll');
+  }, []);
 
-  const updatePost = async (id: string, updatedPost: Omit<Post, '_id'>) => {
-    try {
-      const response = await axios.put(`/api/blogs/posts/${id}`, updatedPost);
-      setPosts(prev =>
-        prev.map(post => (post._id === id ? response.data.updatedPost : post))
+  // Get By Id
+  const getPostById = useCallback(
+    (id: string) => {
+      return posts.find(post => post._id === id);
+    },
+    [posts]
+  );
+
+  // Create
+  const createPost = useCallback(
+    async (post: FormData): Promise<AxiosResponse<any>> => {
+      return await fetchData(
+        () => createPostApi(post),
+        data => {
+          if (data.post) {
+            setPosts(prevPosts => [...prevPosts, data.post]);
+          }
+        },
+        'create'
       );
-    } catch (error) {
-      console.error('Lỗi khi cập nhật bài viết:', error);
-    }
-  };
+    },
+    []
+  );
 
-  const deletePost = async (id: string) => {
-    try {
-      await axios.delete(`/api/blogs/posts/${id}`);
-      setPosts(prev => prev.filter(post => post._id !== id));
-    } catch (error) {
-      console.error('Lỗi khi xoá bài viết:', error);
-    }
-  };
+  // Update
+  const updatePost = useCallback(
+    async (id: string, post: FormData): Promise<AxiosResponse<any>> => {
+      return await fetchData(
+        () => updatePostApi(id, post),
+        data => {
+          if (data.post) {
+            setPosts(prevPosts =>
+              prevPosts.map(existingPost =>
+                existingPost._id === id ? data.post : existingPost
+              )
+            );
+          }
+        },
+        'update'
+      );
+    },
+    []
+  );
+
+  // Delete
+  const deletePost = useCallback(
+    async (id: string): Promise<AxiosResponse<any>> => {
+      return await fetchData(
+        () => deletePostApi(id),
+        () => setPosts(prevPosts => prevPosts.filter(post => post._id !== id)),
+        'delete'
+      );
+    },
+    []
+  );
 
   useEffect(() => {
-    fetchPosts();
-  }, []);
+    getAllPosts();
+  }, [getAllPosts]);
 
   return (
     <PostContext.Provider
-      value={{ posts, fetchPosts, createPost, updatePost, deletePost }}
+      value={{
+        posts,
+        loading,
+        error,
+        getAllPosts,
+        getPostById,
+        createPost,
+        updatePost,
+        deletePost
+      }}
     >
       {children}
     </PostContext.Provider>
   );
 };
+

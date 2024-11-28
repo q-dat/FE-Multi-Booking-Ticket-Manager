@@ -13,7 +13,6 @@ import { LocationContext } from '../../context/location/LocationContext';
 import { SeatContext } from '../../context/seat/SeatContext';
 import { VehicleContext } from '../../context/vehicle/VehicleContext';
 import { ServiceContext } from '../../context/service/ServiceContext';
-import { usePostContext } from '../../context/post/PostContext';
 import { AgeContext } from '../../context/age/AgeContext';
 import { TicketCatalogContext } from '../../context/ticketCatalog/TicketCatalogContext';
 import { VehicleCatalogContext } from '../../context/vehicleCatalog/VehicleCatalogContext';
@@ -22,6 +21,7 @@ import { IoIosTrain } from 'react-icons/io';
 import { GiAges } from 'react-icons/gi';
 import { TicketContext } from '../../context/ticket/TicketContext';
 import { TripContext } from '../../context/trip/TripContext';
+import { PostContext } from '../../context/post/PostContext';
 
 const SidebarAdmin: React.FC<{}> = () => {
   const { locations } = useContext(LocationContext);
@@ -29,7 +29,7 @@ const SidebarAdmin: React.FC<{}> = () => {
   const { vehicles } = useContext(VehicleContext);
   const { services } = useContext(ServiceContext);
   const { ages } = useContext(AgeContext);
-  const { posts } = usePostContext();
+  const { posts } = useContext(PostContext);
   const { ticketCatalogs } = useContext(TicketCatalogContext);
   const { vehicleCatalogs } = useContext(VehicleCatalogContext);
   const { seatCatalogs } = useContext(SeatCatalogContext);
@@ -54,7 +54,7 @@ const SidebarAdmin: React.FC<{}> = () => {
     {
       name: 'Bài Viết',
       icon: MdPostAdd,
-      link: '/admin/blog',
+      link: '/admin/post-manager',
       toastify: posts.length
     },
     {
