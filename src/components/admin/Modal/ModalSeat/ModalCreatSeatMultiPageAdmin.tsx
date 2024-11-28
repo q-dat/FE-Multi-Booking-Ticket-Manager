@@ -6,6 +6,7 @@ import { SeatContext } from '../../../../context/seat/SeatContext';
 import { SeatCatalogContext } from '../../../../context/seatCatalog/SeatCatalogContext';
 import LabelForm from '../../LabelForm';
 import InputModal from '../../InputModal';
+import { isIErrorResponse } from '../../../../types/error/error';
 
 interface ModalCreateSeatProps {
   isOpen: boolean;
@@ -31,9 +32,12 @@ const ModalCreatSeatMultiPageAdmin: React.FC<ModalCreateSeatProps> = ({
       reset();
       getAllSeats();
       onClose();
-    } catch (err) {
-      Toastify('Lỗi: Danh sách ghế đã tồn tại!', 500);
+    } catch (error) {
       getAllSeats();
+      const errorMessage = isIErrorResponse(error)
+        ? error.data?.message
+        : 'Danh sách ghế đã tồn tại!';
+      Toastify(`Lỗi: ${errorMessage}`, 500);
     }
   };
 

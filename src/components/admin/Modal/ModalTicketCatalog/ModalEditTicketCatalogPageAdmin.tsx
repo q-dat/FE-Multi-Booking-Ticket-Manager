@@ -6,6 +6,7 @@ import { Button } from 'react-daisyui';
 import { TicketCatalogContext } from '../../../../context/ticketCatalog/TicketCatalogContext';
 import { ITicketCatalog } from '../../../../types/type/ticket-catalog/ticket-catalog';
 import LabelForm from '../../LabelForm';
+import { isIErrorResponse } from '../../../../types/error/error';
 
 interface ModalEditTicketCatalogProps {
   isOpen: boolean;
@@ -42,13 +43,16 @@ const ModalEditTicketCatalogPageAdmin: React.FC<
   const onSubmit: SubmitHandler<ITicketCatalog> = async formData => {
     try {
       await updateTicketCatalog(ticketCatalogId, formData);
-      Toastify('Chỉnh sửa danh mục vé thành công!', 200);
+      Toastify('Chỉnh sửa loại vé thành công!', 200);
       reset();
       getAllTicketCatalogs();
       onClose();
-    } catch (err) {
-      Toastify('Lỗi: Loại vé đã tồn tại!', 500);
+    } catch (error) {
       getAllTicketCatalogs();
+      const errorMessage = isIErrorResponse(error)
+        ? error.data?.message
+        : 'Loại vé đã tồn tại!';
+      Toastify(`Lỗi: ${errorMessage}`, 500);
     }
   };
 

@@ -7,6 +7,7 @@ import { IPost } from '../../../../types/type/post/post';
 import { Toastify } from '../../../../helper/Toastify';
 import InputModal from '../../InputModal';
 import { PostContext } from '../../../../context/post/PostContext';
+import { isIErrorResponse } from '../../../../types/error/error';
 
 const modules = {
   toolbar: [
@@ -52,8 +53,12 @@ const ModalCreatePostPageAdmin: React.FC<ModalCreatePostProps> = ({
       getAllPosts();
       Toastify('Tạo bài viết thành công!', 201);
       onClose();
-    } catch (err) {
-      Toastify(`Lỗi khi tạo bài viết`, 500);
+    } catch (error) {
+      getAllPosts();
+      const errorMessage = isIErrorResponse(error)
+        ? error.data?.message
+        : 'Tạo bài viết thất bại!';
+      Toastify(`Lỗi: ${errorMessage}`, 500);
     }
   };
 

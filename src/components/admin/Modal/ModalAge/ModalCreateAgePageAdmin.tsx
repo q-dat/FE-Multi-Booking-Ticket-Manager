@@ -5,6 +5,7 @@ import InputModal from '../../InputModal';
 import { IAge } from '../../../../types/type/age/age';
 import { Toastify } from '../../../../helper/Toastify';
 import { AgeContext } from '../../../../context/age/AgeContext';
+import { isIErrorResponse } from '../../../../types/error/error';
 
 interface ModalCreateAgeProps {
   isOpen: boolean;
@@ -25,9 +26,12 @@ const ModalCreateAgePageAdmin: React.FC<ModalCreateAgeProps> = ({
       reset();
       getAllAges();
       onClose();
-    } catch (err) {
-      Toastify('Lỗi: Độ tuổi đã tồn tại ', 500);
+    } catch (error) {
       getAllAges();
+      const errorMessage = isIErrorResponse(error)
+        ? error.data?.message
+        : 'Độ tuổi đã tồn tại!';
+      Toastify(`Lỗi: ${errorMessage}`, 500);
     }
   };
 

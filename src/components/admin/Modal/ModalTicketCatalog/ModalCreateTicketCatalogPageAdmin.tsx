@@ -5,6 +5,7 @@ import InputModal from '../../InputModal';
 import { TicketCatalogContext } from '../../../../context/ticketCatalog/TicketCatalogContext';
 import { Toastify } from '../../../../helper/Toastify';
 import { ITicketCatalog } from '../../../../types/type/ticket-catalog/ticket-catalog';
+import { isIErrorResponse } from '../../../../types/error/error';
 
 interface ModalCreateTicketCatalogProps {
   isOpen: boolean;
@@ -25,9 +26,12 @@ const ModalCreateTicketCatalogPageAdmin: React.FC<
       reset();
       getAllTicketCatalogs();
       onClose();
-    } catch (err) {
-      Toastify('Lỗi: Loại vé đã tồn tại!', 500)
+    } catch (error) {
       getAllTicketCatalogs();
+      const errorMessage = isIErrorResponse(error)
+        ? error.data?.message
+        : 'Loại vé đã tồn tại!';
+      Toastify(`Lỗi: ${errorMessage}`, 500);
     }
   };
 

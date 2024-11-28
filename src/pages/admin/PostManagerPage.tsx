@@ -14,6 +14,7 @@ import ModalDeletePostPageAdmin from '../../components/admin/Modal/ModalPost/Mod
 import ModalEditPostPageAdmin from '../../components/admin/Modal/ModalPost/ModalEditPostPageAdmin';
 import { IPost } from '../../types/type/post/post';
 import { PostContext } from '../../context/post/PostContext';
+import { isIErrorResponse } from '../../types/error/error';
 
 const PostManagerPage: React.FC = () => {
   const { loading, posts, deletePost, getAllPosts, error } =
@@ -47,8 +48,11 @@ const PostManagerPage: React.FC = () => {
         closeModalDeleteAdmin();
         Toastify('Bạn đã xoá bài viết thành công', 201);
         getAllPosts();
-      } catch {
-        Toastify(`Lỗi khi xoá bài viết!`, 500);
+      }  catch (error) {
+        const errorMessage = isIErrorResponse(error)
+          ? error.data?.message
+          : 'Xoá bài viết thất bại!';
+        Toastify(`Lỗi: ${errorMessage}`, 500);
       }
     }
   };

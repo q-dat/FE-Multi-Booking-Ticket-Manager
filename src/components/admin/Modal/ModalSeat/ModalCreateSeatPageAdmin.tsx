@@ -6,6 +6,7 @@ import { ISeat } from '../../../../types/type/seat/seat';
 import { Toastify } from '../../../../helper/Toastify';
 import { SeatContext } from '../../../../context/seat/SeatContext';
 import { SeatCatalogContext } from '../../../../context/seatCatalog/SeatCatalogContext';
+import { isIErrorResponse } from '../../../../types/error/error';
 
 interface ModalCreateSeatProps {
   isOpen: boolean;
@@ -31,9 +32,12 @@ const ModalCreateSeatPageAdmin: React.FC<ModalCreateSeatProps> = ({
       reset();
       getAllSeats();
       onClose();
-    } catch (err) {
-      Toastify('Lỗi: Ghế đã tồn tại!', 500);
+    }catch (error) {
       getAllSeats();
+      const errorMessage = isIErrorResponse(error)
+        ? error.data?.message
+        : 'Ghế đã tồn tại!';
+      Toastify(`Lỗi: ${errorMessage}`, 500);
     }
   };
 

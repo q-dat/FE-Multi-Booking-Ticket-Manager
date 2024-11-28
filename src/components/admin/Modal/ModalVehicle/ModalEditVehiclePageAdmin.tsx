@@ -5,6 +5,7 @@ import { VehicleContext } from '../../../../context/vehicle/VehicleContext';
 import { Toastify } from '../../../../helper/Toastify';
 import InputModal from '../../InputModal';
 import { Button, Select } from 'react-daisyui';
+import { isIErrorResponse } from '../../../../types/error/error';
 
 interface ModalEditVehicleProps {
   isOpen: boolean;
@@ -17,7 +18,7 @@ const ModalEditVehiclePageAdmin: React.FC<ModalEditVehicleProps> = ({
   onClose,
   vehicleId
 }) => {
-  const { getAllVehicles, updateVehicle, getVehicleById, vehicles, error } =
+  const { getAllVehicles, updateVehicle, getVehicleById, vehicles } =
     useContext(VehicleContext);
   const { register, handleSubmit, reset, setValue } = useForm<IVehicle>();
 
@@ -43,8 +44,12 @@ const ModalEditVehiclePageAdmin: React.FC<ModalEditVehicleProps> = ({
       reset();
       getAllVehicles();
       onClose();
-    } catch (err) {
-      Toastify(`Lỗi: ${error}`, 500);
+    } catch (error) {
+      getAllVehicles();
+      const errorMessage = isIErrorResponse(error)
+        ? error.data?.message
+        : 'Sửa phương tiện thất bại!';
+      Toastify(`Lỗi: ${errorMessage}`, 500);
     }
   };
 

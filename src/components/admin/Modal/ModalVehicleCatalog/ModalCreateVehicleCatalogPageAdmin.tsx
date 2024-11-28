@@ -5,6 +5,7 @@ import InputModal from '../../InputModal';
 import { VehicleCatalogContext } from '../../../../context/vehicleCatalog/VehicleCatalogContext';
 import { Toastify } from '../../../../helper/Toastify';
 import { IVehicleCatalog } from '../../../../types/type/vehicle-catalog/vehicle-catalog';
+import { isIErrorResponse } from '../../../../types/error/error';
 
 interface ModalCreateVehicleCatalogProps {
   isOpen: boolean;
@@ -24,9 +25,12 @@ const ModalCreateVehicleCatalogPageAdmin: React.FC<
       reset();
       getAllVehicleCatalogs();
       onClose();
-    } catch {
-      Toastify('Lỗi: Danh mục phương tiện đã tồn tại!', 500);
+    } catch (error) {
       getAllVehicleCatalogs();
+      const errorMessage = isIErrorResponse(error)
+        ? error.data?.message
+        : 'Danh mục phương tiện đã tồn tại!';
+      Toastify(`Lỗi: ${errorMessage}`, 500);
     }
   };
 

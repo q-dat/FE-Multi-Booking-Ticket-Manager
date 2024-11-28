@@ -11,6 +11,7 @@ import { VehicleCatalogContext } from '../../../../context/vehicleCatalog/Vehicl
 import { SeatContext } from '../../../../context/seat/SeatContext';
 import { TripContext } from '../../../../context/trip/TripContext';
 import { TicketCatalogContext } from '../../../../context/ticketCatalog/TicketCatalogContext';
+import { isIErrorResponse } from '../../../../types/error/error';
 
 interface ModalEditTicketProps {
   isOpen: boolean;
@@ -23,7 +24,7 @@ const ModalEditTicketPageAdmin: React.FC<ModalEditTicketProps> = ({
   onClose,
   ticketId
 }) => {
-  const { getAllTickets, updateTicket, getTicketById, tickets, error } =
+  const { getAllTickets, updateTicket, getTicketById, tickets } =
     useContext(TicketContext);
   const { vehicles } = useContext(VehicleContext);
   const { vehicleCatalogs } = useContext(VehicleCatalogContext);
@@ -56,8 +57,12 @@ const ModalEditTicketPageAdmin: React.FC<ModalEditTicketProps> = ({
       reset();
       getAllTickets();
       onClose();
-    } catch (err) {
-      Toastify(`Lỗi: ${error}`, 500);
+    }catch (error) {
+      getAllTickets();
+      const errorMessage = isIErrorResponse(error)
+        ? error.data?.message
+        : 'Sửa vé thất bại!';
+      Toastify(`Lỗi: ${errorMessage}`, 500);
     }
   };
 

@@ -5,6 +5,7 @@ import InputModal from '../../InputModal';
 import { VehicleContext } from '../../../../context/vehicle/VehicleContext';
 import { IVehicle } from '../../../../types/type/vehicle/vehicle';
 import { Toastify } from '../../../../helper/Toastify';
+import { isIErrorResponse } from '../../../../types/error/error';
 
 interface ModalCreateVehicleProps {
   isOpen: boolean;
@@ -15,7 +16,7 @@ const ModalCreateVehiclePageAdmin: React.FC<ModalCreateVehicleProps> = ({
   isOpen,
   onClose
 }) => {
-  const { getAllVehicles, createVehicle, error } = useContext(VehicleContext);
+  const { getAllVehicles, createVehicle } = useContext(VehicleContext);
   const { register, handleSubmit, reset } = useForm<IVehicle>();
 
   const onSubmit: SubmitHandler<IVehicle> = async formData => {
@@ -25,8 +26,12 @@ const ModalCreateVehiclePageAdmin: React.FC<ModalCreateVehicleProps> = ({
       reset();
       getAllVehicles();
       onClose();
-    } catch (err) {
-      Toastify(`Lỗi: ${error}`, 500);
+    }catch (error) {
+      getAllVehicles();
+      const errorMessage = isIErrorResponse(error)
+        ? error.data?.message
+        : 'Tạo phương tiện thất bại!';
+      Toastify(`Lỗi: ${errorMessage}`, 500);
     }
   };
 

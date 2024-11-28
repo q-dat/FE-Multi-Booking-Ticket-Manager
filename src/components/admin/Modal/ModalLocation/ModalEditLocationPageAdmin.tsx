@@ -7,6 +7,7 @@ import { Toastify } from '../../../../helper/Toastify';
 import InputModal from '../../InputModal';
 import { Button } from 'react-daisyui';
 import LabelForm from '../../LabelForm';
+import { isIErrorResponse } from '../../../../types/error/error';
 
 interface ModalEditLocationProps {
   isOpen: boolean;
@@ -44,9 +45,12 @@ const ModalEditLocationPageAdmin: React.FC<ModalEditLocationProps> = ({
       reset();
       getAllLocations();
       onClose();
-    } catch (err) {
-      Toastify('Lỗi: Địa điểm đã tồn tại ', 500);
+    } catch (error) {
       getAllLocations();
+      const errorMessage = isIErrorResponse(error)
+        ? error.data?.message
+        : 'Địa điểm đã tồn tại!';
+      Toastify(`Lỗi: ${errorMessage}`, 500);
     }
   };
 

@@ -5,6 +5,7 @@ import InputModal from '../../InputModal';
 import { ServiceContext } from '../../../../context/service/ServiceContext';
 import { IService } from '../../../../types/type/service/service';
 import { Toastify } from '../../../../helper/Toastify';
+import { isIErrorResponse } from '../../../../types/error/error';
 
 interface ModalCreateServiceProps {
   isOpen: boolean;
@@ -25,9 +26,12 @@ const ModalCreateServicePageAdmin: React.FC<ModalCreateServiceProps> = ({
       reset();
       onClose();
       getAllServices();
-    } catch (err) {
-      Toastify('Lỗi: Dịch vụ đã tồn tại!', 500);
+    } catch (error) {
       getAllServices();
+      const errorMessage = isIErrorResponse(error)
+        ? error.data?.message
+        : 'Dịch vụ đã tồn tại!';
+      Toastify(`Lỗi: ${errorMessage}`, 500);
     }
   };
 

@@ -7,6 +7,7 @@ import { SeatContext } from '../../../../context/seat/SeatContext';
 import { ISeat } from '../../../../types/type/seat/seat';
 import { SeatCatalogContext } from '../../../../context/seatCatalog/SeatCatalogContext';
 import LabelForm from '../../LabelForm';
+import { isIErrorResponse } from '../../../../types/error/error';
 
 interface ModalEditSeatProps {
   isOpen: boolean;
@@ -49,9 +50,12 @@ const ModalEditSeatPageAdmin: React.FC<ModalEditSeatProps> = ({
       reset();
       getAllSeats();
       onClose();
-    } catch (err) {
-      Toastify('Lỗi: Ghế đã tồn tại!', 500);
+    } catch (error) {
       getAllSeats();
+      const errorMessage = isIErrorResponse(error)
+        ? error.data?.message
+        : 'Ghế đã tồn tại!';
+      Toastify(`Lỗi: ${errorMessage}`, 500);
     }
   };
 

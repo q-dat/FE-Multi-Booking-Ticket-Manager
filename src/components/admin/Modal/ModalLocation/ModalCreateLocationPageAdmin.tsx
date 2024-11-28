@@ -5,6 +5,7 @@ import InputModal from '../../InputModal';
 import { LocationContext } from '../../../../context/location/LocationContext';
 import { ILocation } from '../../../../types/type/location/location';
 import { Toastify } from '../../../../helper/Toastify';
+import { isIErrorResponse } from '../../../../types/error/error';
 
 interface ModalCreateLocationProps {
   isOpen: boolean;
@@ -25,9 +26,12 @@ const ModalCreateLocationPageAdmin: React.FC<ModalCreateLocationProps> = ({
       reset();
       getAllLocations();
       onClose();
-    } catch (err) {
-      Toastify('Lỗi: Địa điểm đã tồn tại ', 500);
+    } catch (error) {
       getAllLocations();
+      const errorMessage = isIErrorResponse(error)
+        ? error.data?.message
+        : 'Địa điểm đã tồn tại!';
+      Toastify(`Lỗi: ${errorMessage}`, 500);
     }
   };
 

@@ -8,6 +8,7 @@ import { TripContext } from '../../../../context/trip/TripContext';
 import LabelForm from '../../LabelForm';
 import { LocationContext } from '../../../../context/location/LocationContext';
 import { VehicleContext } from '../../../../context/vehicle/VehicleContext';
+import { isIErrorResponse } from '../../../../types/error/error';
 
 interface ModalEditTripProps {
   isOpen: boolean;
@@ -20,7 +21,7 @@ const ModalEditTripPageAdmin: React.FC<ModalEditTripProps> = ({
   onClose,
   tripId
 }) => {
-  const { getAllTrips, updateTrip, getTripById, trips, error } =
+  const { getAllTrips, updateTrip, getTripById,trips } =
     useContext(TripContext);
   const { locations } = useContext(LocationContext);
   const { vehicles } = useContext(VehicleContext);
@@ -54,8 +55,12 @@ const ModalEditTripPageAdmin: React.FC<ModalEditTripProps> = ({
       reset();
       getAllTrips();
       onClose();
-    } catch (err) {
-      Toastify(`Lỗi: ${error}`, 500);
+    } catch (error) {
+      getAllTrips();
+      const errorMessage = isIErrorResponse(error)
+        ? error.data?.message
+        : 'Sửa độ tuổi thất bại!';
+      Toastify(`Lỗi: ${errorMessage}`, 500);
     }
   };
 

@@ -6,6 +6,7 @@ import { Button } from 'react-daisyui';
 import { AgeContext } from '../../../../context/age/AgeContext';
 import { IAge } from '../../../../types/type/age/age';
 import LabelForm from '../../LabelForm';
+import { isIErrorResponse } from '../../../../types/error/error';
 
 interface ModalEditAgeProps {
   isOpen: boolean;
@@ -46,9 +47,12 @@ const ModalEditAgePageAdmin: React.FC<ModalEditAgeProps> = ({
       reset();
       getAllAges();
       onClose();
-    } catch (err) {
-      Toastify('Lỗi: Độ tuổi đã tồn tại ', 500);
+    } catch (error) {
       getAllAges();
+      const errorMessage = isIErrorResponse(error)
+        ? error.data?.message
+        : 'Độ tuổi đã tồn tại!';
+      Toastify(`Lỗi: ${errorMessage}`, 500);
     }
   };
 

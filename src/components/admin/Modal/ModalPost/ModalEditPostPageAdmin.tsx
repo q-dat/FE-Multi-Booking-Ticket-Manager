@@ -7,6 +7,7 @@ import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import { Toastify } from '../../../../helper/Toastify';
 import { PostContext } from '../../../../context/post/PostContext';
+import { isIErrorResponse } from '../../../../types/error/error';
 
 const modules = {
   toolbar: [
@@ -71,9 +72,12 @@ const ModalEditPostPageAdmin: React.FC<ModalEditPostPageAdminProps> = ({
       getAllPosts();
       Toastify('Bài viết đã được cập nhật!', 200);
       onClose();
-    } catch (err) {
+    } catch (error) {
       getAllPosts();
-      Toastify('Lỗi: Không thể cập nhật bài viết!', 500);
+      const errorMessage = isIErrorResponse(error)
+        ? error.data?.message
+        : 'Sửa bài viết thất bại!';
+      Toastify(`Lỗi: ${errorMessage}`, 500);
     }
   };
 

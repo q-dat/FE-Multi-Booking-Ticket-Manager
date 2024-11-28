@@ -7,6 +7,7 @@ import { SeatCatalogContext } from '../../../../context/seatCatalog/SeatCatalogC
 import { ISeatCatalog } from '../../../../types/type/seat-catalog/seat-catalog';
 import { VehicleContext } from '../../../../context/vehicle/VehicleContext';
 import LabelForm from '../../LabelForm';
+import { isIErrorResponse } from '../../../../types/error/error';
 
 interface ModalEditSeatCatalogProps {
   isOpen: boolean;
@@ -50,9 +51,12 @@ const ModalEditSeatCatalogPageAdmin: React.FC<ModalEditSeatCatalogProps> = ({
       reset();
       getAllSeatCatalogs();
       onClose();
-    } catch (err) {
-      Toastify('Lỗi: Danh mục chỗ ngồi đã tồn tại!', 500);
+    } catch (error) {
       getAllSeatCatalogs();
+      const errorMessage = isIErrorResponse(error)
+        ? error.data?.message
+        : 'Danh mục chỗ ngồi đã tồn tại!';
+      Toastify(`Lỗi: ${errorMessage}`, 500);
     }
   };
 

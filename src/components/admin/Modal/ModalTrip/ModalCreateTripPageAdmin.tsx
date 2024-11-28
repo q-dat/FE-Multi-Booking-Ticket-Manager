@@ -8,6 +8,7 @@ import { LocationContext } from '../../../../context/location/LocationContext';
 import { TripContext } from '../../../../context/trip/TripContext';
 import InputModal from '../../InputModal';
 import { VehicleContext } from '../../../../context/vehicle/VehicleContext';
+import { isIErrorResponse } from '../../../../types/error/error';
 
 interface ModalCreateTicketProps {
   isOpen: boolean;
@@ -18,7 +19,7 @@ const ModalCreateTripPageAdmin: React.FC<ModalCreateTicketProps> = ({
   isOpen,
   onClose
 }) => {
-  const { createTrip, getAllTrips, error } = useContext(TripContext);
+  const { createTrip, getAllTrips } = useContext(TripContext);
   const { locations } = useContext(LocationContext);
   const { vehicles } = useContext(VehicleContext);
   const { register, handleSubmit, reset } = useForm<ITrip>();
@@ -30,8 +31,12 @@ const ModalCreateTripPageAdmin: React.FC<ModalCreateTicketProps> = ({
       reset();
       getAllTrips();
       onClose();
-    } catch (err) {
-      Toastify(`Lỗi: ${error}`, 500);
+    } catch (error) {
+      getAllTrips();
+      const errorMessage = isIErrorResponse(error)
+        ? error.data?.message
+        : 'Tạo chuyến đi thất bại!';
+      Toastify(`Lỗi: ${errorMessage}`, 500);
     }
   };
 

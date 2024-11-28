@@ -13,6 +13,7 @@ import InputModal from '../../InputModal';
 import { TripContext } from '../../../../context/trip/TripContext';
 import Select, { MultiValue } from 'react-select';
 import { ISeat } from '../../../../types/type/seat/seat';
+import { isIErrorResponse } from '../../../../types/error/error';
 
 interface ModalCreateTicketProps {
   isOpen: boolean;
@@ -24,7 +25,7 @@ const ModalCreateTicketPageAdmin: React.FC<ModalCreateTicketProps> = ({
   onClose
 }) => {
   const { register, handleSubmit, reset, setValue } = useForm<ITicket>();
-  const { createTicket, getAllTickets, error } = useContext(TicketContext);
+  const { createTicket, getAllTickets } = useContext(TicketContext);
   const { ticketCatalogs } = useContext(TicketCatalogContext);
   const { vehicles } = useContext(VehicleContext);
   const { vehicleCatalogs } = useContext(VehicleCatalogContext);
@@ -45,8 +46,12 @@ const ModalCreateTicketPageAdmin: React.FC<ModalCreateTicketProps> = ({
       reset();
       getAllTickets();
       onClose();
-    } catch (err) {
-      Toastify(`Lỗi: ${error}`, 500);
+    } catch (error) {
+      getAllTickets();
+      const errorMessage = isIErrorResponse(error)
+        ? error.data?.message
+        : 'Tạo vé thất bại!';
+      Toastify(`Lỗi: ${errorMessage}`, 500);
     }
   };
 

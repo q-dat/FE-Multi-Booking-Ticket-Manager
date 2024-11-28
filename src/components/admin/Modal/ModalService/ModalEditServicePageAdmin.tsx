@@ -7,6 +7,7 @@ import { Toastify } from '../../../../helper/Toastify';
 import InputModal from '../../InputModal';
 import { Button } from 'react-daisyui';
 import LabelForm from '../../LabelForm';
+import { isIErrorResponse } from '../../../../types/error/error';
 
 interface ModalEditServiceProps {
   isOpen: boolean;
@@ -43,9 +44,12 @@ const ModalEditServicePageAdmin: React.FC<ModalEditServiceProps> = ({
       reset();
       getAllServices();
       onClose();
-    } catch (err) {
-      Toastify('Lỗi: Dịch vụ đã tồn tại!', 500);
+    }catch (error) {
       getAllServices();
+      const errorMessage = isIErrorResponse(error)
+        ? error.data?.message
+        : 'Dịch vụ đã tồn tại!';
+      Toastify(`Lỗi: ${errorMessage}`, 500);
     }
   };
 
