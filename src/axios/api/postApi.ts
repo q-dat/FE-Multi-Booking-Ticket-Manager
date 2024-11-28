@@ -8,12 +8,12 @@ export const getAllPostsApi = () => {
 
 // Get Post By ID
 export const getPostByIdApi = (_id: string) => {
-  return axios.get<{ post: IPost }>(`/api/post/${_id}`);
+  return axios.get<{ post: IPost }>(`/api/posts/${_id}`);
 };
 
 // Create Post
 export const createPostApi = (formData: FormData) => {
-  return axios.post('/api/post', formData, {
+  return axios.post('/api/posts', formData, {
     headers: {
       'Content-Type': 'multipart/form-data'
     }
@@ -22,7 +22,7 @@ export const createPostApi = (formData: FormData) => {
 
 // Update Post
 export const updatePostApi = async (_id: string, postData: FormData) => {
-  const response = await axios.put(`/api/post/${_id}`, postData, {
+  const response = await axios.put(`/api/posts/${_id}`, postData, {
     headers: {
       'Content-Type': 'multipart/form-data'
     }
@@ -32,5 +32,5 @@ export const updatePostApi = async (_id: string, postData: FormData) => {
 
 // Delete Post
 export const deletePostApi = (id: string) => {
-  return axios.delete(`/api/post/${id}`);
+  return axios.delete(`/api/posts/${id}`);
 };
