@@ -70,11 +70,11 @@ const PostDetail: React.FC = () => {
         <div>
           <h1 className="p-1 font-semibold uppercase">Bài viết khác</h1>
         </div>
-        <div className="relative grid grid-cols-2 gap-2 md:grid-cols-3 lg:grid-cols-4">
+        <div className="grid grid-cols-2 gap-2 md:grid-cols-3 lg:grid-cols-4">
           {otherPosts.map(post => (
             <div
               key={post._id}
-              className="cursor-pointer rounded border bg-white p-2 shadow-inner hover:shadow-lg"
+              className="relative cursor-pointer rounded border bg-white p-2 shadow-inner hover:shadow-lg"
               onClick={() => handlePostSelect(post)}
             >
               <p className="absolute left-1 top-1 rounded-sm bg-white px-2 text-[12px] text-primary shadow-headerMenu shadow-primary">
@@ -83,7 +83,7 @@ const PostDetail: React.FC = () => {
               <img
                 src={post.imageUrl}
                 alt="Ảnh đại diện"
-                className="h-[150px] w-[400px] rounded-sm object-cover xl:h-[230px]"
+                className="h-[150px] w-full rounded-sm object-cover xl:h-[230px]"
               />
               <p className="line-clamp-2 text-[18px] font-bold">{post.title}</p>
               <hr />
@@ -103,3 +103,4 @@ const PostDetail: React.FC = () => {
 };
 
 export default PostDetail;
+
