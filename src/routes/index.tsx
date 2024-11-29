@@ -27,6 +27,7 @@ const BillResultsPage = lazy(
   () => import('../pages/user/tickets-results/BillResultsPage')
 );
 const NewsPage = lazy(() => import('../pages/user/post/NewsPage'));
+const PostDetail = lazy(() => import('../pages/user/post/PostDetail'));
 //auth
 const Auth = lazy(() => import('../pages/auth/Auth'));
 const SignUpPage = lazy(() => import('../pages/auth/SignUpPage'));
@@ -92,6 +93,7 @@ export default function AppRoutes() {
             <Route path="checkout" element={<CheckoutPage />} />
             <Route path="verify" element={<Verify />} />
             <Route path="news" element={<NewsPage />} />
+            <Route path="post-detail/:title" element={<PostDetail />} />
           </Route>
         </Route>
 
