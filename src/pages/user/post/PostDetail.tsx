@@ -2,8 +2,11 @@ import React, { useContext, useEffect, useState } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import HeaderResponsive from '../../../components/UserPage/HeaderResponsive';
 import { PostContext } from '../../../context/post/PostContext';
+import { useTranslation } from 'react-i18next';
 
 const PostDetail: React.FC = () => {
+  //Translation
+  const {t} =useTranslation()
   const navigate = useNavigate();
   const { posts } = useContext(PostContext);
   const { title } = useParams<{ title: string }>();
@@ -38,10 +41,10 @@ const PostDetail: React.FC = () => {
       <div className="breadcrumbs glass mb-10 px-[10px] py-2 text-sm text-black dark:text-white lg:px-20">
         <ul className="font-light">
           <li>
-            <Link to="/">Trang Chủ</Link>
+            <Link to="/">{t('UserPage.Navbar.Home')}</Link>
           </li>
           <li>
-            <Link to="/news">Tin Tức</Link>
+            <Link to="/news">{t('UserPage.Navbar.News')}</Link>
           </li>
         </ul>
       </div>
@@ -51,10 +54,9 @@ const PostDetail: React.FC = () => {
             <div className="mb-10">
               <p className="text-[35px] font-bold">{selectedPost.title}</p>
               <p className="text-[14px] font-light">
-                Danh mục:&nbsp;{selectedPost.catalog}
+             {selectedPost.catalog}
               </p>
               <p className="text-[14px]">
-                Xuất bản:&nbsp;
                 {new Date(selectedPost.updatedAt).toLocaleDateString('vi-VN')}
               </p>
               <hr className="my-4" />

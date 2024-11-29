@@ -2,8 +2,11 @@ import React, { useContext, useEffect, useState } from 'react';
 import HeaderResponsive from '../../../components/UserPage/HeaderResponsive';
 import { Link, useNavigate } from 'react-router-dom';
 import { PostContext } from '../../../context/post/PostContext';
+import { useTranslation } from 'react-i18next';
 
 const NewsPage: React.FC = () => {
+  //Translation
+  const {t}= useTranslation()
   const { posts, getAllPosts } = useContext(PostContext);
   const [selectedPost, setSelectedPost] = useState<(typeof posts)[0] | null>(
     null
@@ -32,15 +35,15 @@ const NewsPage: React.FC = () => {
       <div className="breadcrumbs glass px-[10px] py-2 text-sm text-black dark:text-white lg:px-20">
         <ul className="font-light">
           <li>
-            <Link to="/">Trang Chủ</Link>
+            <Link to="/">{t('UserPage.Navbar.Home')}</Link>
           </li>
           <li>
-            <Link to="/news">Tin Tức</Link>
+            <Link to="/news">{t('UserPage.Navbar.News')}</Link>
           </li>
         </ul>
       </div>
       <div className="px-2 xl:px-[100px]">
-        <div className="text-center text-[40px] font-bold">Bản tin nổi bật</div>
+        <div className="text-center text-[40px] font-bold">{t('UserPage.Navbar.News')}</div>
         <div className="grid grid-cols-2 gap-2 md:grid-cols-3 lg:grid-cols-4">
           {posts.map(post => (
             <div
