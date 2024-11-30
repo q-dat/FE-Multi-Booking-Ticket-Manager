@@ -208,7 +208,7 @@ const CheckoutPage: React.FC = () => {
     } catch (error) {
       const errorMessage = isIErrorResponse(error)
         ? error.data?.message
-        : 'Đặt hàng thất bại!';
+        : 'Vui lòng nhập thông hành khách';
       Toastify(`Lỗi: ${errorMessage}`, 500);
     }
   };
