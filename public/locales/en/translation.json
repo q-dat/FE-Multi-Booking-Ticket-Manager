@@ -154,7 +154,7 @@
       "DeleteAllTicket": "All seats removed from cart!"
     },
     "CheckoutPage": {
-      "ip1": "Customer Type",
+      "ip1": "Passenger Information",
       "ip2": "Trip",
       "ip3": "Ticket Price",
       "ip4": "Discount",

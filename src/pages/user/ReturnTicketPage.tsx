@@ -34,7 +34,7 @@ const ReturnTicketPage: React.FC = () => {
     } catch (error) {
       const errorMessage = isIErrorResponse(error)
         ? error.data?.message
-        : 'Vui lòng nhập đầy đúng mã vé';
+        : 'Vui lòng nhập đúng mã vé';
       Toastify(`${errorMessage}`, 500);
     }
   };
