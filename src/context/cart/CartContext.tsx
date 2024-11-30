@@ -64,9 +64,9 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({
           );
         }
 
-        Toastify(`Đã thêm ghế ${ticket.seat_id[0]?.name} vào giỏ hàng!`, 200);
+        Toastify(`Đã thêm ${ticket.seat_id[0]?.name} vào giỏ vé!`, 200);
       } else {
-        Toastify(`Lỗi: Ghế ${ticket.seat_id[0]?.name} đã hết chỗ!`, 401);
+        Toastify(`Lỗi: ${ticket.seat_id[0]?.name} đã hết chỗ!`, 401);
       }
     },
     [selectedSeats]
@@ -90,7 +90,7 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({
         );
         sessionStorage.setItem('searchResults', JSON.stringify(updatedTickets));
       }
-      console.log('Đã xoá ghế khỏi giỏ hàng!');
+      console.log('Đã xoá ghế khỏi giỏ vé!');
     },
     [selectedSeats]
   );
@@ -108,7 +108,7 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({
     }
     setSelectedSeats([]);
     localStorage.setItem('cart', JSON.stringify([]));
-    Toastify('Đã xóa tất cả ghế khỏi giỏ hàng!', 200);
+    Toastify('Đã xóa tất cả ghế khỏi giỏ vé!', 200);
   }, [selectedSeats]);
 
   // Total price
