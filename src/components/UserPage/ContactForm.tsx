@@ -28,7 +28,7 @@ const ContactForm: React.FC = () => {
   }, [isExpanded]);
 
   return (
-    <div className="fixed bottom-16 right-0 z-[99999]">
+    <div className="fixed bottom-0 right-0 z-[99999]">
       <button
         className="mb-5 ml-1 flex items-center rounded-md border border-white bg-primary p-2 text-xs text-white shadow-mainMenu"
         onClick={toggleDropdown}
