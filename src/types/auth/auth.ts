@@ -1,52 +1,31 @@
+// types/auth/auth.ts
 export interface User {
   _id: string;
   fullName: string;
   username: string;
-  gender?: string;
-  role?: string;
-  bio?: string;
-  profession?: string;
-  profileImageUrl?: string;
+  email: string;
+  phone: string;
+  gender: 'male' | 'female';
+  role: 'admin' | 'user';
+  isVerified: boolean;
+}
+
+export interface RegisterData {
+  fullName: string;
+  username: string;
+  email: string;
+  phone: string;
+  gender: 'male' | 'female';
+  password: string;
 }
 
 export interface AuthContextType {
   user: User | null;
   token: string | null;
+  otpSent: boolean;
+  isOtpVerified: boolean;
   login: (username: string, password: string) => Promise<void>;
-  logout: () => Promise<void>;
-  register: (data: RegisterData) => Promise<void>;
-  updateUserProfile: (id: string, data: UpdateUserProfileData) => Promise<void>;
-  changePassword: (
-    id: string,
-    oldPassword: string,
-    newPassword: string
-  ) => Promise<void>;
-  getAllUsers: () => Promise<User[]>;
-  getUserById: (id: string) => Promise<User>;
-}
-
-export interface RegisterData {
-  username: string;
-  email: string;
-  password: string;
-  phone: string;
-  fullName: string;
-  gender: string;
-  profileImage?: string;
-}
-
-export interface UpdateUserProfileData {
-  username: string;
-  email: string;
-  phone: string;
-  fullName: string;
-  gender: string;
-  profileImage?: string;
-}
-export interface ILogoutError {
-  response?: {
-    data?: {
-      message?: string;
-    };
-  };
+  logout: () => void;
+  register: (registerData: RegisterData) => Promise<void>;
+  verifyOtp: (email: string, otp: string) => Promise<void>;
 }

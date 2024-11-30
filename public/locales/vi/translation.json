@@ -18,6 +18,7 @@
     "BackToHome": "Trở Về Trang Chủ",
     "Login": "Đăng Nhập",
     "Register": "Đăng Ký",
+    "VerifyOtp": "Xác nhận",
     "Or": "Hoặc",
     "LoginBy": "Đăng nhập bằng ",
     "ForgotPassword": "Quên mật khẩu?",
@@ -39,7 +40,8 @@
       "phone": "Số điện thoại",
       "sex": "Chọn giới tính",
       "genderMale": "Nam",
-      "genderFemale": "Nữ"
+      "genderFemale": "Nữ",
+      "otp":"Mã OTP"
     },
     "Errors": {
       "usernameRequired": "Tên đăng nhập là bắt buộc",

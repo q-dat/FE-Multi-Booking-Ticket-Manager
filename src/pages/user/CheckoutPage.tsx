@@ -209,7 +209,7 @@ const CheckoutPage: React.FC = () => {
       const errorMessage = isIErrorResponse(error)
         ? error.data?.message
         : 'Vui lòng nhập thông hành khách';
-      Toastify(`Lỗi: ${errorMessage}`, 500);
+      Toastify(`${errorMessage}`, 500);
     }
   };
 
