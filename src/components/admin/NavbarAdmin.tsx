@@ -15,7 +15,7 @@ import { useAuth } from '../../context/auth/AuthContext';
 import { RiUserUnfollowFill } from 'react-icons/ri';
 import { BiSolidUserRectangle } from 'react-icons/bi';
 import { Toastify } from '../../helper/Toastify';
-import { ILogoutError } from '../../types/auth/auth';
+import axios from 'axios';
 
 const NavbarAdmin: React.FC<{}> = () => {
   const [dropdownVisible, setDropdownVisible] = useState(false);
@@ -30,11 +30,14 @@ const NavbarAdmin: React.FC<{}> = () => {
       await logout();
       Toastify('Đăng xuất thành công', 200);
     } catch (error) {
-      const err = error as ILogoutError;
-      if (err.response?.data?.message === 'Không tìm thấy session để xóa') {
-        Toastify('Không tìm thấy session để xóa', 400);
+      if (axios.isAxiosError(error)) {
+        if (error.response?.data?.message === 'Không tìm thấy session để xóa') {
+          Toastify('Không tìm thấy session để xóa', 400);
+        } else {
+          Toastify('Đăng xuất thất bại', 400);
+        }
       } else {
-        Toastify('Đăng xuất thất bại', 400);
+        Toastify('Đã xảy ra lỗi không xác định', 400);
       }
     }
   };

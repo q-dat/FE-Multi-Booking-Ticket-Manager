@@ -8,7 +8,7 @@ import Avatar from 'boring-avatars';
 import { MdLogout } from 'react-icons/md';
 import { useAuth } from '../../../../context/auth/AuthContext';
 import { Toastify } from '../../../../helper/Toastify';
-import { ILogoutError } from '../../../../types/auth/auth';
+import axios from 'axios';
 
 const NavbarMobile: React.FC<{ Title_NavbarMobile: string }> = ({
   Title_NavbarMobile
@@ -29,14 +29,18 @@ const NavbarMobile: React.FC<{ Title_NavbarMobile: string }> = ({
       await logout();
       Toastify('Đăng xuất thành công', 200);
     } catch (error) {
-      const err = error as ILogoutError;
-      if (err.response?.data?.message === 'Không tìm thấy session để xóa') {
-        Toastify('Không tìm thấy session để xóa', 400);
+      if (axios.isAxiosError(error)) {
+        if (error.response?.data?.message === 'Không tìm thấy session để xóa') {
+          Toastify('Không tìm thấy session để xóa', 400);
+        } else {
+          Toastify('Đăng xuất thất bại', 400);
+        }
       } else {
-        Toastify('Đăng xuất thất bại', 400);
+        Toastify('Đã xảy ra lỗi không xác định', 400);
       }
     }
   };
+
   return (
     <div className="flex flex-col px-2 pb-6 xl:hidden xl:px-0">
       <div className="mb-6 flex items-center justify-between">
