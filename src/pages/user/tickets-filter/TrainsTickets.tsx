@@ -59,13 +59,16 @@ const BusesTickets: React.FC = () => {
   const filteredTickets = tickets.filter(
     ticket => ticket.vehicle_catalog_id?.name.toLowerCase() === vehicleCatalog
   );
-  
+
   const totalPages = Math.ceil(filteredTickets.length / itemsPerPage);
 
   // Tính toán sản phẩm hiển thị dựa trên trang hiện tại
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-  const currentProducts = filteredTickets.slice(indexOfFirstItem, indexOfLastItem);
+  const currentProducts = filteredTickets.slice(
+    indexOfFirstItem,
+    indexOfLastItem
+  );
 
   const handleNextPage = () => {
     if (currentPage < totalPages) setCurrentPage(currentPage + 1);
@@ -76,13 +79,14 @@ const BusesTickets: React.FC = () => {
   };
   return (
     <div className="px-2 xl:px-[100px]">
-      <div className="my-5">
+      <div className={`my-5 ${tickets.length === 0 ? 'hidden' : ''}`}>
         <div className="rounded-md bg-slate-50 p-2 shadow-headerMenu">
           <div className="flex flex-col gap-3">
             {/* Loại Vé */}
             <div>
               <p className="flex items-center gap-1 bg-blue-50 font-bold text-primary">
-                <IoTicket />{t('UserPage.TicketType')}
+                <IoTicket />
+                {t('UserPage.TicketType')}
               </p>
               <div className="grid grid-cols-3 gap-3 md:grid-cols-6 xl:grid-cols-7">
                 {ticketCatalogs.map(item => (
@@ -112,7 +116,8 @@ const BusesTickets: React.FC = () => {
             {/* Điểm Khởi Hành */}
             <div>
               <p className="flex items-center gap-1 bg-blue-50 font-bold text-primary">
-                <PiMapPinAreaDuotone />{t('UserPage.Departure')}
+                <PiMapPinAreaDuotone />
+                {t('UserPage.Departure')}
               </p>
               <div className="grid grid-cols-3 items-center justify-center gap-3 md:grid-cols-6 xl:grid-cols-7">
                 {locations.map(item => (

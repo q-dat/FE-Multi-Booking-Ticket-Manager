@@ -75,7 +75,7 @@ const AllTickets: React.FC = () => {
   return (
     <div className="px-2 xl:px-[100px]">
       {/* Ticket */}
-      <div className="my-5">
+      <div className={`my-5 ${tickets.length === 0 ? 'hidden' : ''}`}>
         {/*  */}
         <div className="rounded-md bg-slate-50 p-2 shadow-headerMenu">
           <div className="flex flex-col gap-3">

@@ -1,8 +1,8 @@
 import React, { ReactNode, useCallback, useEffect, useState } from 'react';
-import { Button, Drawer, Input, Menu } from 'react-daisyui';
+import { Button, Drawer, Menu } from 'react-daisyui';
 // Icon
 import { RxHamburgerMenu } from 'react-icons/rx';
-import { IoSearchOutline, IoSettingsSharp, IoTicket } from 'react-icons/io5';
+import {  IoSettingsSharp, IoTicket } from 'react-icons/io5';
 import { Link, NavLink, useLocation, useNavigate } from 'react-router-dom';
 import { FaHome, FaChevronDown, FaUser } from 'react-icons/fa';
 import { GiReturnArrow } from 'react-icons/gi';
@@ -225,11 +225,13 @@ const HeaderResponsive: React.FC<HeaderResponsiveProps> = ({
             }
           >
             <div
-              onClick={toggleLeftVisible}
-              className="flex flex-row items-center justify-center gap-2 py-4 text-2xl text-black dark:text-white xl:hidden"
-            >
-              <RxHamburgerMenu className="glass rounded-md bg-primary p-1 text-[25px] text-white shadow-headerMenu dark:text-white" />
-            </div>
+                onClick={toggleLeftVisible}
+                className="flex flex-row items-center justify-center gap-2 py-4 text-2xl text-black dark:text-white xl:hidden"
+              >
+                <div className="rounded-md p-1 text-[25px] text-primary">
+                  <RxHamburgerMenu />
+                </div>
+              </div>
           </Drawer>
         </div>
         {/* Title */}
@@ -302,23 +304,25 @@ const HeaderResponsive: React.FC<HeaderResponsiveProps> = ({
               </Menu>
             }
           >
-            <div
-              onClick={toggleRightVisible}
-              className="flex flex-row items-center justify-center gap-2 py-4 text-2xl text-black dark:text-white xl:hidden"
-            >
-              <IoSettingsSharp className="glass rounded-md bg-primary p-1 text-[25px] text-white shadow-headerMenu dark:text-white" />
-            </div>
+           <div
+                onClick={toggleRightVisible}
+                className="flex flex-row items-center justify-center gap-2 py-4 text-2xl text-black dark:text-white xl:hidden"
+              >
+                <div className="rounded-md p-1 text-[20px] text-primary">
+                  <IoSettingsSharp />
+                </div>
+              </div>
           </Drawer>
         </div>
       </div>
       {/* Input Search */}
-      <div className="relative flex items-center">
+      {/* <div className="relative flex items-center">
         <Input
           className="w-full text-black focus:outline-none dark:border-white dark:bg-transparent dark:text-white"
           type="text"
         />
         <IoSearchOutline className="absolute right-2 h-5 w-5 cursor-pointer text-gray-50" />
-      </div>
+      </div> */}
     </div>
   );
 };
