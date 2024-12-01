@@ -11,6 +11,8 @@ import HeaderAuth from '../../components/auth/HeaderAuth';
 import { BannerLogin } from '../../assets/image-represent';
 import { useAuth } from '../../context/auth/AuthContext';
 import { useForm } from 'react-hook-form';
+import { isIErrorResponse } from '../../types/error/error';
+import { Toastify } from '../../helper/Toastify';
 
 interface FormData {
   username: string;
@@ -19,7 +21,6 @@ interface FormData {
 
 const LoginPage: React.FC<{}> = () => {
   const { t } = useTranslation();
-  const navigate = useNavigate();
   const { login } = useAuth();
 
   const {
@@ -31,10 +32,12 @@ const LoginPage: React.FC<{}> = () => {
   const onSubmit = async (data: FormData) => {
     try {
       await login(data.username, data.password);
-      toast.success('Đăng nhập thành công');
-      navigate('/');
-    } catch (error) {
-      toast.error('Đăng nhập thất bại. Vui lòng kiểm tra lại thông tin.');
+      Toastify('Đăng nhập thành công', 201);
+    } catch (error: unknown) {
+      const errorMessage = isIErrorResponse(error)
+        ? error.data?.message
+        : 'Sai tên tài khoản hoặc mật khẩu';
+      Toastify(`${errorMessage}`, 5000);
     }
   };
 

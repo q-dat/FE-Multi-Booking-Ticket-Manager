@@ -19,6 +19,7 @@ interface Resources {
       "BackToHome": "Return To Home Page",
       "Login": "Log In",
       "Register": "Register",
+      "VerifyOtp": "Confirm",
       "Or": "Or",
       "LoginBy": "Login in with ",
       "ForgotPassword": "Forgot Password?",
@@ -40,7 +41,8 @@ interface Resources {
         "phone": "Phone Number",
         "sex": "Select Gender",
         "genderMale": "Male",
-        "genderFemale": "Female"
+        "genderFemale": "Female",
+        "otp": "OTP Code"
       },
       "Errors": {
         "usernameRequired": "Username is required",
