@@ -1,8 +1,7 @@
 import React from 'react';
 import { Button, Input } from 'react-daisyui';
-import { Link, NavLink, useNavigate } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import LabelForm from '../../components/auth/LabelForm';
 import ServiceForm from '../../components/auth/ServiceForm';
