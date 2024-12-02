@@ -9,7 +9,7 @@ import ModalEditSeatPageAdmin from '../../components/admin/Modal/ModalSeat/Modal
 import ModalCreateSeatPageAdmin from '../../components/admin/Modal/ModalSeat/ModalCreateSeatPageAdmin';
 import { MdDelete, MdDeleteSweep } from 'react-icons/md';
 import ErrorLoading from '../../components/orther/error/ErrorLoading';
-import { FaCircleInfo, FaPenToSquare } from 'react-icons/fa6';
+import { FaCircleInfo, FaPenToSquare, FaRotateRight } from 'react-icons/fa6';
 import { isIErrorResponse } from '../../types/error/error';
 import TableListAdmin from '../../components/admin/TablelistAdmin';
 import NavbarMobile from '../../components/admin/Reponsive/Mobile/NavbarMobile';
@@ -156,55 +156,59 @@ const SeatPage: React.FC = () => {
   if (error) return <ErrorLoading />;
 
   return (
-    <div className="w-full">
+    <div className="">
       <NavbarMobile Title_NavbarMobile="Ghế Ngồi" />
       <div className="px-2 xl:px-0">
         <NavtitleAdmin
           Title_NavtitleAdmin="Quản Lý Ghế Ngồi"
           Btn_Create={
-            <div className="flex flex-col items-start justify-center gap-2 md:items-end xl:flex-row">
-              {/*  */}
-              <Button
-                color="error"
-                onClick={openModalDeleteMultiAdmin}
-                className="w-full text-sm font-light text-white xl:w-[200px]"
-              >
-                <div className="flex items-center space-x-1">
-                  <MdDeleteSweep className="text-xl" />
-                  <p>Xoá DS Ghế</p>
-                </div>
-              </Button>
-              {/*  */}
-              <Button
-                color="success"
-                onClick={openModalCreateMultiAdmin}
-                className="w-full text-sm font-light text-white xl:w-[200px]"
-              >
-                <div className="flex items-center space-x-1">
-                  <RiAddBoxLine className="text-xl" />
-                  <p>Thêm DS Ghế</p>
-                </div>
-              </Button>
-              {/*  */}
+            <div className="flex w-full flex-col items-start justify-center gap-2 md:items-end xl:flex-row">
               <div className="flex flex-row gap-2">
+                {/*  */}
+                <Button
+                  color="error"
+                  onClick={openModalDeleteMultiAdmin}
+                  className="text-sm font-light text-white xl:w-[200px]"
+                >
+                  <div className="flex items-center space-x-1">
+                    <MdDeleteSweep className="text-xl" />
+                    <p>Xoá DS Ghế</p>
+                  </div>
+                </Button>
+                {/*  */}
                 <Button
                   color="success"
-                  onClick={openModalCreateAdmin}
-                  className="w-[100px] text-sm font-light text-white"
+                  onClick={openModalCreateMultiAdmin}
+                  className="text-sm font-light text-white xl:w-[200px]"
                 >
                   <div className="flex items-center space-x-1">
                     <RiAddBoxLine className="text-xl" />
-                    <p>Thêm</p>
+                    <p>Thêm DS Ghế</p>
                   </div>
                 </Button>
+
+                {/*  */}
+                <Button
+                  color="error"
+                  onClick={openModalResetAdmin}
+                  className="text-sm font-light text-white xl:w-[100px]"
+                >
+                  <p>
+                    <FaRotateRight />
+                  </p>
+                  <p className="hidden xl:block">Reset</p>
+                </Button>
+              </div>
+              {/*  */}
+              <div className="flex flex-row gap-2">
                 {/*  */}
                 <div className="dropdown dropdown-hover relative flex h-12 w-[100px] cursor-pointer flex-col items-center justify-center rounded-md bg-primary">
                   <Button color="primary" className="font-light text-white">
                     <LuFilter className="text-xl" color="white" />
                     Lọc
                   </Button>
-                  <div className="dropdown-content absolute top-[100%] z-10 w-[350px] space-y-1 rounded-md bg-slate-50 p-2 shadow-headerMenu drop-shadow-md">
-                    <div className="flex flex-row gap-4">
+                  <div className="dropdown-content absolute top-[100%] z-10 w-[400px] space-y-1 rounded-md bg-slate-50 p-2 shadow-headerMenu drop-shadow-md">
+                    <div className="flex flex-col items-center justify-center gap-4 xl:flex-row">
                       {/* Phương Tiện */}
                       <div className="flex flex-col">
                         <span className="font-semibold text-primary hover:text-secondary">
@@ -306,15 +310,18 @@ const SeatPage: React.FC = () => {
                     ))}
                   </div>
                 </div>
+                {/*  */}
+                <Button
+                  color="success"
+                  onClick={openModalCreateAdmin}
+                  className="w-[100px] text-sm font-light text-white"
+                >
+                  <div className="flex items-center space-x-1">
+                    <RiAddBoxLine className="text-xl" />
+                    <p>Thêm</p>
+                  </div>
+                </Button>
               </div>
-              {/*  */}
-              <Button
-                color="error"
-                onClick={openModalResetAdmin}
-                className="w-full text-sm font-light text-white xl:w-[100px]"
-              >
-                <p>Reset</p>
-              </Button>
             </div>
           }
         />
@@ -370,7 +377,9 @@ const SeatPage: React.FC = () => {
                       className={`mx-1 rounded-sm px-1 font-bold text-white ${
                         seat?.seat_catalog_id?.vehicle_id?.des?.includes('1')
                           ? 'bg-red-500'
-                          : seat?.seat_catalog_id?.vehicle_id?.des?.includes('2')
+                          : seat?.seat_catalog_id?.vehicle_id?.des?.includes(
+                                '2'
+                              )
                             ? 'bg-blue-500'
                             : seat?.seat_catalog_id?.vehicle_id?.des?.includes(
                                   '3'
@@ -419,14 +428,14 @@ const SeatPage: React.FC = () => {
                         <Button
                           color="success"
                           onClick={() => openModalEditAdmin(seat._id ?? '')}
-                          className="w-full max-w-[140px] text-sm font-light text-white"
+                          className="max-w-[140px] text-sm font-light text-white"
                         >
                           <FaPenToSquare />
                           Cập Nhật
                         </Button>
                         <Button
                           onClick={() => openModalDeleteAdmin(seat._id ?? '')}
-                          className="w-full max-w-[140px] bg-red-600 text-sm font-light text-white"
+                          className="max-w-[140px] bg-red-600 text-sm font-light text-white"
                         >
                           <MdDelete />
                           Xoá
