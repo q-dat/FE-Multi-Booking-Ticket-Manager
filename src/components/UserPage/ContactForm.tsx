@@ -76,7 +76,7 @@ const ContactForm: React.FC = () => {
           onClick={toggleDropdown}
           className={`flex items-center rounded-full border border-white bg-primary py-[2px] pl-3 text-xs text-white ${isExpanded ? '' : 'hidden'}`}
         >
-          Đóng
+         {t('UserPage.CloseBtn')}
           <IoIosCloseCircle className="text-2xl" />
         </button>
         <button
