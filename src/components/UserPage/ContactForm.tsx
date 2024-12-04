@@ -126,20 +126,20 @@ const ContactForm: React.FC = () => {
                     name="email"
                     type="email"
                     placeholder={t('UserPage.Email')}
-                    className="border border-black bg-white text-black focus:border-primary focus:shadow-inner focus:shadow-primary dark:shadow-none dark:shadow-white xs:w-[300px] sm:w-[350px] md:w-[650px] xl:w-[230px]"
+                    className="border border-black bg-white text-black  dark:shadow-none dark:shadow-white xs:w-[250px] sm:w-[300px] md:w-[650px] xl:w-[230px]"
                     classNameLabel="bg-white dark:peer-placeholder-shown:text-black dark:peer-focus:text-black"
                   />
                   <InputForm
                     name="name"
                     type="text"
-                    className="border border-black bg-white text-black focus:border-primary focus:shadow-inner focus:shadow-primary dark:shadow-none dark:shadow-white xs:w-[300px] sm:w-[350px] md:w-[650px] xl:w-[230px]"
+                    className="border border-black bg-white text-black  dark:shadow-none dark:shadow-white xs:w-[250px] sm:w-[300px] md:w-[650px] xl:w-[230px]"
                     placeholder={t('UserPage.YourNameBtn')}
                     classNameLabel="bg-white dark:peer-placeholder-shown:text-black dark:peer-focus:text-black"
                   />
                 </div>
                 <Textarea
                   name="feedback"
-                  className="border border-black bg-white pb-10 text-black focus:border-primary focus:shadow-inner focus:shadow-primary focus:outline-none dark:shadow-none dark:shadow-white xs:w-full sm:w-[350px] md:w-[650px] lg:w-full"
+                  className="border border-black bg-white pb-10 text-black  focus:outline-none dark:shadow-none dark:shadow-white xs:w-full sm:w-[300px] md:w-[650px] lg:w-full"
                   placeholder={t('UserPage.FeedbackBtn')}
                 />
                 <div className="w-full">
