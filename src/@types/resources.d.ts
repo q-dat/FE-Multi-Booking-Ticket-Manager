@@ -64,6 +64,7 @@ interface Resources {
       "TicketPrice": "Ticket Price",
       "Email": "Email",
       "SentBtn": "Sent",
+      "TitleContactForm": "Customer support",
       "YourNameBtn": "Your Name",
       "FeedbackBtn": "Do you want to ask any questions or provide any feedback?",
       "Sending": "Sending...",

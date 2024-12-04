@@ -41,7 +41,7 @@
       "sex": "Chọn giới tính",
       "genderMale": "Nam",
       "genderFemale": "Nữ",
-      "otp":"Mã OTP"
+      "otp": "Mã OTP"
     },
     "Errors": {
       "usernameRequired": "Tên đăng nhập là bắt buộc",
@@ -63,6 +63,7 @@
     "TicketPrice": "Giá",
     "Email": "Email",
     "SentBtn": "Gửi",
+    "TitleContactForm": "Hỗ trợ khách hàng",
     "YourNameBtn": "Tên của bạn",
     "FeedbackBtn": "Bạn muốn đặt câu hỏi hay góp ý gì?",
     "Sending": "Đang gửi...",
