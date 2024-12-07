@@ -1,4 +1,10 @@
-import { createContext, useState, ReactNode, useCallback, useEffect } from 'react';
+import {
+  createContext,
+  useState,
+  ReactNode,
+  useCallback,
+  useEffect
+} from 'react';
 import { ISeat } from '../../types/type/seat/seat';
 import {
   createSeatApi,
@@ -11,6 +17,12 @@ import {
   deleteSeatsByCatalogIdApi
 } from '../../axios/api/seatApi';
 import { AxiosResponse } from 'axios';
+import {
+  listenToNewSeats,
+  offSocketEvents,
+  postSocketSeat,
+  putSocketSeat
+} from '../../socket/seatSocket';
 
 interface SeatContextType {
   seats: ISeat[];
@@ -38,9 +50,10 @@ interface SeatContextType {
     seatCatalogId: string;
     price: number;
   }) => Promise<AxiosResponse<any>>;
-  deleteSeatsByCatalogId: (seatCatalogId: string) => Promise<AxiosResponse<any>>;
+  deleteSeatsByCatalogId: (
+    seatCatalogId: string
+  ) => Promise<AxiosResponse<any>>;
 }
-
 
 const defaultContextValue: SeatContextType = {
   seats: [],
@@ -58,12 +71,9 @@ const defaultContextValue: SeatContextType = {
   error: null,
   getAllSeats: () => {},
   getSeatById: () => undefined,
-  createSeat: async () =>
-    ({ data: { savedSeat: null } }) as AxiosResponse,
-  updateSeat: async () =>
-    ({ data: { seat: null } }) as AxiosResponse,
-  deleteSeat: async () =>
-    ({ data: { deleted: true } }) as AxiosResponse,
+  createSeat: async () => ({ data: { savedSeat: null } }) as AxiosResponse,
+  updateSeat: async () => ({ data: { seat: null } }) as AxiosResponse,
+  deleteSeat: async () => ({ data: { deleted: true } }) as AxiosResponse,
   searchSeatsByName: async () => [],
   getListIdByVehicleName: async () => {},
   createMultipleSeats: async () =>
@@ -129,7 +139,10 @@ export const SeatProvider = ({ children }: { children: ReactNode }) => {
       fetchData(
         () => createSeatApi(seat),
         data => {
-          if (data.savedSeat) setSeats(prev => [...prev, data.savedSeat]);
+          if (data.savedSeat) {
+            setSeats(prev => [...prev, data.savedSeat]);
+            postSocketSeat(data.savedSeat);
+          }
         },
         'create'
       ),
@@ -143,9 +156,8 @@ export const SeatProvider = ({ children }: { children: ReactNode }) => {
         () => updateSeatApi(id, seat),
         data => {
           if (data.seat)
-            setSeats(prev =>
-              prev.map(s => (s._id === id ? data.seat : s))
-            );
+            setSeats(prev => prev.map(s => (s._id === id ? data.seat : s)));
+          putSocketSeat(data.seat);
         },
         'update'
       ),
@@ -179,7 +191,6 @@ export const SeatProvider = ({ children }: { children: ReactNode }) => {
   // Get List IDs by Vehicle Name
   const getListIdByVehicleName = useCallback(
     async (vehicleName: string): Promise<void> => {
-      // Gọi fetchData nhưng không cần trả về AxiosResponse
       await fetchData(
         () => getListIdByVehicleNameApi(vehicleName),
         data => setSeatIds(data.seatIds || []),
@@ -188,11 +199,14 @@ export const SeatProvider = ({ children }: { children: ReactNode }) => {
     },
     []
   );
-  
-  
+
   // Create Multiple Seats
   const createMultipleSeats = useCallback(
-    async (data: { quantity: number; seatCatalogId: string; price: number }): Promise<AxiosResponse<any>> =>
+    async (data: {
+      quantity: number;
+      seatCatalogId: string;
+      price: number;
+    }): Promise<AxiosResponse<any>> =>
       fetchData(
         () => createMultipleSeatsApi(data),
         response => {
@@ -210,12 +224,25 @@ export const SeatProvider = ({ children }: { children: ReactNode }) => {
       fetchData(
         () => deleteSeatsByCatalogIdApi(seatCatalogId),
         () =>
-          setSeats(prev => prev.filter(seat => seat.seat_catalog_id._id !== seatCatalogId)),
+          setSeats(prev =>
+            prev.filter(seat => seat.seat_catalog_id._id !== seatCatalogId)
+          ),
         'deleteSeatsByCatalogId'
       ),
     []
   );
+  //
+  useEffect(() => {
+    const handleGetSeat = () => {
+      getAllSeats();
+    };
 
+    listenToNewSeats(handleGetSeat);
+
+    return () => {
+      offSocketEvents();
+    };
+  }, [getAllSeats]);
   useEffect(() => {
     getAllSeats();
   }, [getAllSeats]);
