@@ -97,7 +97,7 @@ const ContactForm: React.FC = () => {
         }}
       >
         {/*  */}
-        <div className="m-2 space-y-4 rounded-lg bg-white p-2 outline outline-offset-0 outline-primary">
+        <div className="m-2 space-y-4 rounded-lg bg-white p-2 border border-primary">
           <div className="flex flex-row items-start justify-between">
             {/*  */}
             <div className="flex flex-row items-center gap-1 text-xl text-primary">
