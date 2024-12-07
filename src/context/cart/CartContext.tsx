@@ -34,7 +34,7 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({
   const addSeat = useCallback(
     (ticket: ITicket) => {
       if (selectedSeats.length >= 10) {
-        Toastify("Bạn chỉ được chọn tối đa 10 ghế!", 401);
+        Toastify('Bạn chỉ được chọn tối đa 10 ghế!', 401);
         return;
       }
       const isSeatSelected = selectedSeats.some(
@@ -129,7 +129,9 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({
 export const useCart = () => {
   const context = useContext(CartContext);
   if (!context) {
-    throw new Error('Các component sử dụng hook useCart đều phải được bọc trong CartProvider!');
+    throw new Error(
+      'Các component sử dụng hook useCart đều phải được bọc trong CartProvider!'
+    );
   }
   return context;
 };

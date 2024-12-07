@@ -15,7 +15,9 @@ interface ModalCreateVehicleCatalogProps {
 const ModalCreateVehicleCatalogPageAdmin: React.FC<
   ModalCreateVehicleCatalogProps
 > = ({ isOpen, onClose }) => {
-  const { getAllVehicleCatalogs,createVehicleCatalog } = useContext(VehicleCatalogContext);
+  const { getAllVehicleCatalogs, createVehicleCatalog } = useContext(
+    VehicleCatalogContext
+  );
   const { register, handleSubmit, reset } = useForm<IVehicleCatalog>();
 
   const onSubmit: SubmitHandler<IVehicleCatalog> = async formData => {

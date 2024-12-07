@@ -63,4 +63,3 @@ const ModalResetSeatPageAdmin: React.FC<ModalResetSeatProps> = ({
 };
 
 export default ModalResetSeatPageAdmin;
-

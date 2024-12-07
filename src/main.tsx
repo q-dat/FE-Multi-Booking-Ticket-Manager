@@ -40,16 +40,16 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
                           <SeatCatalogProvider>
                             <SeatProvider>
                               {/* <PostCatalogProvider> */}
-                                <PostProvider>
-                                  <AgeProvider>
-                                    <ServiceProvider>
-                                      <ToastContainer />
-                                      <BackupProvider>
+                              <PostProvider>
+                                <AgeProvider>
+                                  <ServiceProvider>
+                                    <ToastContainer />
+                                    <BackupProvider>
                                       <App />
-                                      </BackupProvider>
-                                    </ServiceProvider>
-                                  </AgeProvider>
-                                </PostProvider>
+                                    </BackupProvider>
+                                  </ServiceProvider>
+                                </AgeProvider>
+                              </PostProvider>
                               {/* </PostCatalogProvider> */}
                             </SeatProvider>
                           </SeatCatalogProvider>

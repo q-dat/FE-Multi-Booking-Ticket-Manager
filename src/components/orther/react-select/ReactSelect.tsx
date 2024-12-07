@@ -92,8 +92,8 @@ const ReactSelect: React.FC<ReactSelectProps> = ({
       ref={ref}
       value={
         isMulti
-          ? options.filter((option) => (value as string[]).includes(option.value))
-          : options.find((option) => option.value === value) || null
+          ? options.filter(option => (value as string[]).includes(option.value))
+          : options.find(option => option.value === value) || null
       }
       onChange={handleChange}
       options={options}

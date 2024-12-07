@@ -25,7 +25,7 @@ const CheckTicketPage: React.FC = () => {
     try {
       const response = await axios.get('api/order/ticket/:ticketCode', {
         params: {
-          ticketCode,
+          ticketCode
         }
       });
       setOrder(response.data.order);

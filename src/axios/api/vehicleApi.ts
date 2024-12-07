@@ -26,8 +26,8 @@ export const deleteVehicleApi = (id: string) => {
   return axios.delete(`/api/vehicles/${id}`);
 };
 //Search
-export const searchVehicleByNameApi= (name: string) => {
+export const searchVehicleByNameApi = (name: string) => {
   return axios.get<{ vehicle: IVehicle[] }>('api/vehicle/search', {
     params: { name }
   });
-}
+};

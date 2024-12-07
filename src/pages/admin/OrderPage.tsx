@@ -43,47 +43,81 @@ const OrderPage: React.FC = () => {
     <div className="w-full">
       <NavbarMobile Title_NavbarMobile="Đơn vé" />
       <div className="px-2 xl:px-0">
-        <NavtitleAdmin
-          Title_NavtitleAdmin="Quản Lý Đơn Vé"
-          Btn_Create={
-            ""
-          }
-        />
-        {
-          orders.map((order) => (
-            <div className='grid grid-cols-1 sm:grid-cols-[0.5fr_2fr_1fr] lg:grid-cols-[0.5fr_2fr_1fr_1fr_1fr] gap-3 items-start border-2 border-gray-200 p-5 md:p-8 my-3 md:my-4 text-xs sm:text-sm text-gray-700' key={order._id}>
-              <img src={LogoOrder} className='w-12' alt='' />
+        <NavtitleAdmin Title_NavtitleAdmin="Quản Lý Đơn Vé" Btn_Create={''} />
+        {orders.map(order => (
+          <div
+            className="my-3 grid grid-cols-1 items-start gap-3 border-2 border-gray-200 p-5 text-xs text-gray-700 sm:grid-cols-[0.5fr_2fr_1fr] sm:text-sm md:my-4 md:p-8 lg:grid-cols-[0.5fr_2fr_1fr_1fr_1fr]"
+            key={order._id}
+          >
+            <img src={LogoOrder} className="w-12" alt="" />
+            <div>
               <div>
-                <div>
-                  {order.items.map((item, index) => (
-                    <div key={index}>
-                      <p>{item.seat} x {item.vehicle} x {item.quantity}</p>
-                      <p><strong>Họ và tên:</strong> {item.name}</p>
-                      <p><strong>Đối tượng:</strong> {item.discount}</p>
-                      <p><strong>Loại vé:</strong> {item.ticketCatalog}</p>
-                      <p><strong>Mã vé: </strong>{item.ticketCode}</p>
-                      <p><strong>Trạng thái: </strong>{item.status}</p>
-                      {index < order.items.length - 1 && ','}
-                    </div>
-                  ))}
-                </div>
+                {order.items.map((item, index) => (
+                  <div key={index}>
+                    <p>
+                      {item.seat} x {item.vehicle} x {item.quantity}
+                    </p>
+                    <p>
+                      <strong>Họ và tên:</strong> {item.name}
+                    </p>
+                    <p>
+                      <strong>Đối tượng:</strong> {item.discount}
+                    </p>
+                    <p>
+                      <strong>Loại vé:</strong> {item.ticketCatalog}
+                    </p>
+                    <p>
+                      <strong>Mã vé: </strong>
+                      {item.ticketCode}
+                    </p>
+                    <p>
+                      <strong>Trạng thái: </strong>
+                      {item.status}
+                    </p>
+                    {index < order.items.length - 1 && ','}
+                  </div>
+                ))}
               </div>
-              <div>
-                <p><strong>Số lượng:</strong> {order.items.length}</p>
-                <p><strong>PTTT:</strong> {order.paymentMethod}</p>
-                <p><strong>Ngày đặt:</strong> {new Date(order.date).toLocaleDateString()}</p>
-                <p><strong>Họ và tên:</strong> {order.address.fullName}</p>
-                <p><strong>Số điện thoại: </strong>{order.address.phone}</p>
-                <p><strong>Địa chỉ:</strong> {order.address.street + ', ' + order.address.city + ', ' + order.address.country}</p>
-              </div>
-              <p className='text-sm sm:text-[15px] text-red-600'>{(order.amount * 1000).toLocaleString('vi-VN')} VNĐ</p>
-              <p><strong>Tình trạng:</strong> {order.payment ? 'Đã thanh toán' : 'Chưa thanh toán'}</p>
             </div>
-          ))
-        }
+            <div>
+              <p>
+                <strong>Số lượng:</strong> {order.items.length}
+              </p>
+              <p>
+                <strong>PTTT:</strong> {order.paymentMethod}
+              </p>
+              <p>
+                <strong>Ngày đặt:</strong>{' '}
+                {new Date(order.date).toLocaleDateString()}
+              </p>
+              <p>
+                <strong>Họ và tên:</strong> {order.address.fullName}
+              </p>
+              <p>
+                <strong>Số điện thoại: </strong>
+                {order.address.phone}
+              </p>
+              <p>
+                <strong>Địa chỉ:</strong>{' '}
+                {order.address.street +
+                  ', ' +
+                  order.address.city +
+                  ', ' +
+                  order.address.country}
+              </p>
+            </div>
+            <p className="text-sm text-red-600 sm:text-[15px]">
+              {(order.amount * 1000).toLocaleString('vi-VN')} VNĐ
+            </p>
+            <p>
+              <strong>Tình trạng:</strong>{' '}
+              {order.payment ? 'Đã thanh toán' : 'Chưa thanh toán'}
+            </p>
+          </div>
+        ))}
       </div>
     </div>
   );
-}
+};
 
 export default OrderPage;

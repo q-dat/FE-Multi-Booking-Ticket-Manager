@@ -26,7 +26,7 @@ const ModalCreateVehiclePageAdmin: React.FC<ModalCreateVehicleProps> = ({
       reset();
       getAllVehicles();
       onClose();
-    }catch (error) {
+    } catch (error) {
       getAllVehicles();
       const errorMessage = isIErrorResponse(error)
         ? error.data?.message
@@ -64,11 +64,7 @@ const ModalCreateVehiclePageAdmin: React.FC<ModalCreateVehicleProps> = ({
               {...register('name', { required: true })}
               placeholder="Tên phương tiện"
             />
-            <InputModal
-              placeholder="Mô tả"
-              type="text"
-              {...register('des')}
-            />
+            <InputModal placeholder="Mô tả" type="text" {...register('des')} />
             <Select
               defaultValue=""
               className="mb-5 w-full border border-gray-700 border-opacity-50 bg-white text-black focus:border-primary focus:outline-none dark:border-secondary dark:bg-gray-700 dark:text-white dark:focus:border-white"

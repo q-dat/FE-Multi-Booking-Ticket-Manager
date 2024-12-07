@@ -62,7 +62,6 @@ const SignUpPage: React.FC = () => {
     }
   };
 
-
   return (
     <div className="xl:flex xl:flex-row xl:items-center xl:justify-center">
       <HeaderAuth Title_NavbarMobile={t('Auth.Register')} />
@@ -71,8 +70,16 @@ const SignUpPage: React.FC = () => {
           <h1 className="hidden text-center text-[40px] font-[600] text-primary dark:text-white xl:block">
             {t('Auth.Register')}
           </h1>
-          <img className="w-[180px] dark:hidden xl:hidden xl:w-[120px]" src={Logo} alt="" />
-          <img className="hidden w-[180px] dark:block xl:w-[120px] dark:xl:hidden" src={LogoTitle} alt="" />
+          <img
+            className="w-[180px] dark:hidden xl:hidden xl:w-[120px]"
+            src={Logo}
+            alt=""
+          />
+          <img
+            className="hidden w-[180px] dark:block xl:w-[120px] dark:xl:hidden"
+            src={LogoTitle}
+            alt=""
+          />
         </div>
         <div className="mt-10">
           <form onSubmit={handleSubmit(onSubmit)}>
@@ -87,7 +94,9 @@ const SignUpPage: React.FC = () => {
                     {...register('username', { required: true })}
                   />
                   {errors.username && (
-                    <span className="text-red-500">{t('Auth.Errors.usernameRequired')}</span>
+                    <span className="text-red-500">
+                      {t('Auth.Errors.usernameRequired')}
+                    </span>
                   )}
                 </div>
 
@@ -100,7 +109,9 @@ const SignUpPage: React.FC = () => {
                     {...register('fullName', { required: true })}
                   />
                   {errors.fullName && (
-                    <span className="text-red-500">{t('Auth.Errors.fullnameRequired')}</span>
+                    <span className="text-red-500">
+                      {t('Auth.Errors.fullnameRequired')}
+                    </span>
                   )}
                 </div>
 
@@ -113,7 +124,9 @@ const SignUpPage: React.FC = () => {
                     {...register('email', { required: true })}
                   />
                   {errors.email && (
-                    <span className="text-red-500">{t('Auth.Errors.emailRequired')}</span>
+                    <span className="text-red-500">
+                      {t('Auth.Errors.emailRequired')}
+                    </span>
                   )}
                 </div>
               </div>
@@ -128,7 +141,9 @@ const SignUpPage: React.FC = () => {
                     {...register('phone', { required: true })}
                   />
                   {errors.phone && (
-                    <span className="text-red-500">{t('Auth.Errors.phoneRequired')}</span>
+                    <span className="text-red-500">
+                      {t('Auth.Errors.phoneRequired')}
+                    </span>
                   )}
                 </div>
                 <div className="flex w-full flex-col gap-1">
@@ -140,7 +155,9 @@ const SignUpPage: React.FC = () => {
                     {...register('password', { required: true })}
                   />
                   {errors.username && (
-                    <span className="text-red-500">{t('Auth.Errors.passwordRequired')}</span>
+                    <span className="text-red-500">
+                      {t('Auth.Errors.passwordRequired')}
+                    </span>
                   )}
                 </div>
                 <div className="flex w-full flex-col gap-1">
@@ -152,18 +169,28 @@ const SignUpPage: React.FC = () => {
                     <option hidden value="">
                       {t('Auth.Placeholder.sex')}
                     </option>
-                    <option value="male">{t('Auth.Placeholder.genderMale')}</option>
-                    <option value="female">{t('Auth.Placeholder.genderFemale')}</option>
+                    <option value="male">
+                      {t('Auth.Placeholder.genderMale')}
+                    </option>
+                    <option value="female">
+                      {t('Auth.Placeholder.genderFemale')}
+                    </option>
                   </Select>
                   {errors.username && (
-                    <span className="text-red-500">{t('Auth.Errors.genderRequired')}</span>
+                    <span className="text-red-500">
+                      {t('Auth.Errors.genderRequired')}
+                    </span>
                   )}
                 </div>
               </div>
             </div>
 
             <div className="flex w-full flex-col gap-1">
-              <Button type="submit" color="primary" className="mt-10 border border-white text-white">
+              <Button
+                type="submit"
+                color="primary"
+                className="mt-10 border border-white text-white"
+              >
                 {t('Auth.Register')}
               </Button>
             </div>
@@ -176,7 +203,7 @@ const SignUpPage: React.FC = () => {
                 type="text"
                 placeholder={t('Auth.Placeholder.otp')}
                 value={otp}
-                onChange={(e) => setOtp(e.target.value)}
+                onChange={e => setOtp(e.target.value)}
               />
               <Button className="m-4 bg-green-400" onClick={onVerifyOtp}>
                 {t('Auth.VerifyOtp')}

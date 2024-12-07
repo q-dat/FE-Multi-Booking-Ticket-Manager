@@ -5,8 +5,8 @@ export interface OrderItem {
   departureDate: string;
   destinationDate: string;
   ticketCatalog: string;
-  departureTime: string
-  returnTime: string
+  departureTime: string;
+  returnTime: string;
   departurePoint: string;
   destinationPoint: string;
   seat: string;

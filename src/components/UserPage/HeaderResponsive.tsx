@@ -2,7 +2,7 @@ import React, { ReactNode, useCallback, useEffect, useState } from 'react';
 import { Button, Drawer, Menu } from 'react-daisyui';
 // Icon
 import { RxHamburgerMenu } from 'react-icons/rx';
-import {  IoSettingsSharp, IoTicket } from 'react-icons/io5';
+import { IoSettingsSharp, IoTicket } from 'react-icons/io5';
 import { Link, NavLink, useLocation, useNavigate } from 'react-router-dom';
 import { FaHome, FaChevronDown, FaUser } from 'react-icons/fa';
 import { GiReturnArrow } from 'react-icons/gi';
@@ -225,13 +225,13 @@ const HeaderResponsive: React.FC<HeaderResponsiveProps> = ({
             }
           >
             <div
-                onClick={toggleLeftVisible}
-                className="flex flex-row items-center justify-center gap-2 py-4 text-2xl text-black dark:text-white xl:hidden"
-              >
-                <div className="rounded-md p-1 text-[25px] text-primary">
-                  <RxHamburgerMenu />
-                </div>
+              onClick={toggleLeftVisible}
+              className="flex flex-row items-center justify-center gap-2 py-4 text-2xl text-black dark:text-white xl:hidden"
+            >
+              <div className="rounded-md p-1 text-[25px] text-primary">
+                <RxHamburgerMenu />
               </div>
+            </div>
           </Drawer>
         </div>
         {/* Title */}
@@ -304,14 +304,14 @@ const HeaderResponsive: React.FC<HeaderResponsiveProps> = ({
               </Menu>
             }
           >
-           <div
-                onClick={toggleRightVisible}
-                className="flex flex-row items-center justify-center gap-2 py-4 text-2xl text-black dark:text-white xl:hidden"
-              >
-                <div className="rounded-md p-1 text-[20px] text-primary">
-                  <IoSettingsSharp />
-                </div>
+            <div
+              onClick={toggleRightVisible}
+              className="flex flex-row items-center justify-center gap-2 py-4 text-2xl text-black dark:text-white xl:hidden"
+            >
+              <div className="rounded-md p-1 text-[20px] text-primary">
+                <IoSettingsSharp />
               </div>
+            </div>
           </Drawer>
         </div>
       </div>

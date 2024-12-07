@@ -197,7 +197,8 @@ const FlightTickets: React.FC = () => {
                   </p>
                 </div>
                 <div className="flex items-center gap-1">
-                  <IoMdPricetag color="#12296999" />{t('UserPage.Price')}
+                  <IoMdPricetag color="#12296999" />
+                  {t('UserPage.Price')}
                   <span className="font-bold text-red-500">
                     {(ticket.price * 1000).toLocaleString('vi-VN')}
                   </span>

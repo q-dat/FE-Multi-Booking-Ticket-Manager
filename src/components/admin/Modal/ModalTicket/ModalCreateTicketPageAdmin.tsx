@@ -161,7 +161,7 @@ const ModalCreateTicketPageAdmin: React.FC<ModalCreateTicketProps> = ({
                 {vehicles.map(vehicle => (
                   <option value={vehicle._id} key={vehicle._id}>
                     {vehicle.name}
-                  &emsp;  {vehicle?.des} 
+                    &emsp; {vehicle?.des}
                   </option>
                 ))}
               </DaisySelect>

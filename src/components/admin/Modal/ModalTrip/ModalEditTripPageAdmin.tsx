@@ -21,7 +21,7 @@ const ModalEditTripPageAdmin: React.FC<ModalEditTripProps> = ({
   onClose,
   tripId
 }) => {
-  const { getAllTrips, updateTrip, getTripById,trips } =
+  const { getAllTrips, updateTrip, getTripById, trips } =
     useContext(TripContext);
   const { locations } = useContext(LocationContext);
   const { vehicles } = useContext(VehicleContext);

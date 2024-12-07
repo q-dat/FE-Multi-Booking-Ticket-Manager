@@ -5,7 +5,9 @@ import { AuthContextType, RegisterData, User } from '../../types/auth/auth';
 
 const AuthContext = createContext<AuthContextType | null>(null);
 
-export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
+  children
+}) => {
   const [user, setUser] = useState<User | null>(null);
   const [token, setToken] = useState<string | null>(null);
   const [isOtpVerified, setIsOtpVerified] = useState<boolean>(false);
@@ -23,7 +25,11 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
   const login = async (username: string, password: string) => {
     try {
-      const { data } = await axios.post('/api/auth/login', { username, email: username, password });
+      const { data } = await axios.post('/api/auth/login', {
+        username,
+        email: username,
+        password
+      });
       setUser(data.user);
       setToken(data.token);
 

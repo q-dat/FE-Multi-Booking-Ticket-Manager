@@ -17,8 +17,7 @@ const ModalCreatSeatMultiPageAdmin: React.FC<ModalCreateSeatProps> = ({
   isOpen,
   onClose
 }) => {
-  const { seatCatalogs, getAllSeatCatalogs } =
-    useContext(SeatCatalogContext);
+  const { seatCatalogs, getAllSeatCatalogs } = useContext(SeatCatalogContext);
   const { createMultipleSeats, getAllSeats } = useContext(SeatContext);
   const { register, handleSubmit, reset } = useForm();
 
@@ -112,4 +111,3 @@ const ModalCreatSeatMultiPageAdmin: React.FC<ModalCreateSeatProps> = ({
 };
 
 export default ModalCreatSeatMultiPageAdmin;
-

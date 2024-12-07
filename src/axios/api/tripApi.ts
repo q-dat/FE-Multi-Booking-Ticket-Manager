@@ -27,10 +27,6 @@ export const deleteTripApi = (id: string) => {
 };
 
 //Filter
-export const filterTripsByVehicleIdApi = (
-  vehicle_id: string
-) => {
-  return axios.get<{ trip: ITrip }>(
-    `/api/trips/vehicle-id/${vehicle_id} `
-  );
+export const filterTripsByVehicleIdApi = (vehicle_id: string) => {
+  return axios.get<{ trip: ITrip }>(`/api/trips/vehicle-id/${vehicle_id} `);
 };

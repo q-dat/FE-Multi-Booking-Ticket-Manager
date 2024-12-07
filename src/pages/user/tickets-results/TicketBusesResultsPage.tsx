@@ -251,7 +251,7 @@ const TicketBusesResultsPage: React.FC = () => {
                       Cửa Lên
                     </Button>
                   </div>
-                  <div className=" w-[250px] grid grid-cols-3 gap-4 rounded-xl dark:border-white">
+                  <div className="grid w-[250px] grid-cols-3 gap-4 rounded-xl dark:border-white">
                     {classTickets
                       .sort(
                         (a, b) =>

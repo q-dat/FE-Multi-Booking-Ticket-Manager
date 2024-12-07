@@ -57,7 +57,7 @@ const ModalEditTicketPageAdmin: React.FC<ModalEditTicketProps> = ({
       reset();
       getAllTickets();
       onClose();
-    }catch (error) {
+    } catch (error) {
       getAllTickets();
       const errorMessage = isIErrorResponse(error)
         ? error.data?.message

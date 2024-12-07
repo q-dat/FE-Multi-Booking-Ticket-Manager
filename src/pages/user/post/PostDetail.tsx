@@ -6,7 +6,7 @@ import { useTranslation } from 'react-i18next';
 
 const PostDetail: React.FC = () => {
   //Translation
-  const {t} =useTranslation()
+  const { t } = useTranslation();
   const navigate = useNavigate();
   const { posts } = useContext(PostContext);
   const { title } = useParams<{ title: string }>();
@@ -53,9 +53,7 @@ const PostDetail: React.FC = () => {
           {selectedPost ? (
             <div className="mb-10">
               <p className="text-[35px] font-bold">{selectedPost.title}</p>
-              <p className="text-[14px] font-light">
-             {selectedPost.catalog}
-              </p>
+              <p className="text-[14px] font-light">{selectedPost.catalog}</p>
               <p className="text-[14px]">
                 {new Date(selectedPost.updatedAt).toLocaleDateString('vi-VN')}
               </p>
@@ -105,4 +103,3 @@ const PostDetail: React.FC = () => {
 };
 
 export default PostDetail;
-

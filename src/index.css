@@ -81,11 +81,9 @@
     0 150px,
     0 180px,
     0 196px;
-
 }
 .zebra-background42 {
-  background-image: 
-    linear-gradient(#fff 22%, transparent 20%),
+  background-image: linear-gradient(#fff 22%, transparent 20%),
     linear-gradient(#ddd 26%, transparent 20%),
     linear-gradient(#fff 28%, transparent 20%),
     linear-gradient(#ddd 32%, transparent 20%),

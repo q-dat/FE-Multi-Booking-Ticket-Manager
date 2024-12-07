@@ -47,7 +47,7 @@ const defaultContextValue: VehicleContextType = {
   createVehicle: async () => {},
   updateVehicle: async () => {},
   deleteVehicle: async () => {},
-  searchVehicleByName: async () => [],
+  searchVehicleByName: async () => []
 };
 
 export const VehicleContext =
@@ -157,23 +157,22 @@ export const VehicleProvider = ({ children }: { children: ReactNode }) => {
       'delete'
     );
   }, []);
-//Searh By Name
-const searchVehicleByName = useCallback(
-  async (name: string): Promise<IVehicle[]> => {
-    let vehiclesData: IVehicle[] = [];
-    await fetchData(
-      () => searchVehicleByNameApi(name),
-      data => {
-        vehiclesData = data.vehicles || []; 
-        setVehicles(vehiclesData);
-      },
-      'search'
-    );
-    return vehiclesData; 
-  },
-  []
-);
-
+  //Searh By Name
+  const searchVehicleByName = useCallback(
+    async (name: string): Promise<IVehicle[]> => {
+      let vehiclesData: IVehicle[] = [];
+      await fetchData(
+        () => searchVehicleByNameApi(name),
+        data => {
+          vehiclesData = data.vehicles || [];
+          setVehicles(vehiclesData);
+        },
+        'search'
+      );
+      return vehiclesData;
+    },
+    []
+  );
 
   useEffect(() => {
     getAllVehicles();

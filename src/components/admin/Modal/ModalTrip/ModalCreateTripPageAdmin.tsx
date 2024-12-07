@@ -146,7 +146,7 @@ const ModalCreateTripPageAdmin: React.FC<ModalCreateTicketProps> = ({
                 />
               </div>
             </div>
-            <div className="flex flex-col w-full">
+            <div className="flex w-full flex-col">
               <LabelForm title={'Mô Tả'} />
               <InputModal
                 placeholder={'Không bắt buộc!'}

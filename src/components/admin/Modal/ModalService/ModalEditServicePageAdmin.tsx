@@ -44,7 +44,7 @@ const ModalEditServicePageAdmin: React.FC<ModalEditServiceProps> = ({
       reset();
       getAllServices();
       onClose();
-    }catch (error) {
+    } catch (error) {
       getAllServices();
       const errorMessage = isIErrorResponse(error)
         ? error.data?.message

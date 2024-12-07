@@ -16,9 +16,8 @@ const ModalDeleteSeatMultiPageAdmin: React.FC<ModalCreateSeatProps> = ({
   isOpen,
   onClose
 }) => {
-  const { seatCatalogs, getAllSeatCatalogs } =
-    useContext(SeatCatalogContext);
-  const {getAllSeats, deleteSeatsByCatalogId } = useContext(SeatContext);
+  const { seatCatalogs, getAllSeatCatalogs } = useContext(SeatCatalogContext);
+  const { getAllSeats, deleteSeatsByCatalogId } = useContext(SeatContext);
   const { register, handleSubmit, reset } = useForm();
 
   useEffect(() => {
@@ -31,7 +30,7 @@ const ModalDeleteSeatMultiPageAdmin: React.FC<ModalCreateSeatProps> = ({
       reset();
       getAllSeats();
       onClose();
-    }catch (error) {
+    } catch (error) {
       getAllSeats();
       const errorMessage = isIErrorResponse(error)
         ? error.data?.message
@@ -96,4 +95,3 @@ const ModalDeleteSeatMultiPageAdmin: React.FC<ModalCreateSeatProps> = ({
 };
 
 export default ModalDeleteSeatMultiPageAdmin;
-

@@ -13,7 +13,7 @@ import { useTranslation } from 'react-i18next';
 
 const BusesTickets: React.FC = () => {
   //Translation
-  const {t}= useTranslation()
+  const { t } = useTranslation();
   const { tickets, getAllTickets, filterTickets } = useContext(TicketContext);
   const { ticketCatalogs } = useContext(TicketCatalogContext);
   const { locations } = useContext(LocationContext);

@@ -9,9 +9,8 @@ import { Toastify } from '../../helper/Toastify';
 import { isIErrorResponse } from '../../types/error/error';
 
 const ReturnTicketPage: React.FC = () => {
-
   const { t } = useTranslation();
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const [ticketCode, setTicketCode] = useState('');
   const [reason, setReason] = useState('');
@@ -22,7 +21,7 @@ const ReturnTicketPage: React.FC = () => {
     try {
       const response = await axios.post('/api/order/refund', {
         ticketCode,
-        reason,
+        reason
       });
 
       if (response.data.success) {
@@ -63,7 +62,7 @@ const ReturnTicketPage: React.FC = () => {
                 <InputForm
                   type="text"
                   value={ticketCode}
-                  onChange={(e) => setTicketCode(e.target.value)}
+                  onChange={e => setTicketCode(e.target.value)}
                   placeholder={`${t('UserPage.ReturnTicketPage.forminput1')}`}
                   className="border border-gray-300 bg-white text-black focus:border-primary xs:w-[300px] sm:w-[350px] md:w-[650px] xl:w-[800px]"
                   classNameLabel="bg-white dark:peer-placeholder-shown:text-black dark:peer-focus:text-black"
@@ -71,7 +70,7 @@ const ReturnTicketPage: React.FC = () => {
                 <InputForm
                   type="text"
                   value={reason}
-                  onChange={(e) => setReason(e.target.value)}
+                  onChange={e => setReason(e.target.value)}
                   placeholder={t('UserPage.ReturnTicketPage.forminput4')}
                   className="border border-gray-300 bg-white text-black focus:border-primary xs:w-[300px] sm:w-[350px] md:w-[650px] xl:w-[800px]"
                   classNameLabel="bg-white dark:peer-placeholder-shown:text-black dark:peer-focus:text-black"

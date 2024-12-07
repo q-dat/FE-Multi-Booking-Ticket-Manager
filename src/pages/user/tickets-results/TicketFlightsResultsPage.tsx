@@ -108,16 +108,16 @@ const TicketFlightsResultsPage: React.FC = () => {
 
   const ticketsByClass = selectedFlight
     ? ticketsByFlight[selectedFlight].reduce(
-      (acc: { [key: string]: ITicket[] }, ticket) => {
-        const classId = ticket.seat_id[0]?.seat_catalog_id._id;
-        if (!acc[classId]) {
-          acc[classId] = [];
-        }
-        acc[classId].push(ticket);
-        return acc;
-      },
-      {}
-    )
+        (acc: { [key: string]: ITicket[] }, ticket) => {
+          const classId = ticket.seat_id[0]?.seat_catalog_id._id;
+          if (!acc[classId]) {
+            acc[classId] = [];
+          }
+          acc[classId].push(ticket);
+          return acc;
+        },
+        {}
+      )
     : {};
 
   const handleFlightChange = (flightName: string) => {
@@ -141,9 +141,10 @@ const TicketFlightsResultsPage: React.FC = () => {
               <h1 className="mx-2 mb-5 border-[4px] border-b-0 border-r-0 border-t-0 border-primary bg-blue-200 px-5 py-1 text-center text-xl text-black dark:border-white dark:bg-gray-400 dark:text-white xl:text-start">
                 {t('UserPage.TicketTrainsResults.TripFrom')}
                 &nbsp; <strong>{tripInfo.departure_point?.name}</strong>
-                <span className="px-2">{t('UserPage.TicketTrainsResults.To')}</span>
+                <span className="px-2">
+                  {t('UserPage.TicketTrainsResults.To')}
+                </span>
                 <strong>{tripInfo.destination_point?.name}</strong> &nbsp;
-
               </h1>
               <div className="mb-8 flex w-full flex-row items-center justify-center overflow-x-auto scrollbar-hide">
                 {Object.entries(ticketsByFlight).map(
@@ -171,30 +172,38 @@ const TicketFlightsResultsPage: React.FC = () => {
                         </div>
                         <div className="w-[150px] rounded-md bg-white p-2 text-start text-sm font-medium">
                           <p>
-                            <span className="font-semibold">{t('UserPage.DepartureDatePlaceholder')}:</span>{' '}
+                            <span className="font-semibold">
+                              {t('UserPage.DepartureDatePlaceholder')}:
+                            </span>{' '}
                             {new Date(
                               flightTickets[0]?.trip_id?.departure_date
                             ).toLocaleDateString('vi-VN')}
                           </p>
                           <p>
-                            <span className="font-semibold">{t('UserPage.DepartureTimePlaceholder')}:</span>{' '}
+                            <span className="font-semibold">
+                              {t('UserPage.DepartureTimePlaceholder')}:
+                            </span>{' '}
                             {flightTickets[0]?.trip_id?.departure_time}
                           </p>
                           {flightTickets[0]?.ticket_catalog_id?.name.toLowerCase() !==
                             'một chiều' && (
-                              <>
-                                <p>
-                                  <span className="font-semibold">{t('UserPage.ReturnDatePlaceholder')}:</span>{' '}
-                                  {new Date(
-                                    flightTickets[0]?.trip_id?.return_date
-                                  ).toLocaleDateString('vi-VN')}
-                                </p>
-                                <p>
-                                  <span className="font-semibold">{t('UserPage.ReturnTimePlaceholder')}:</span>{' '}
-                                  {flightTickets[0]?.trip_id?.return_time}
-                                </p>
-                              </>
-                            )}
+                            <>
+                              <p>
+                                <span className="font-semibold">
+                                  {t('UserPage.ReturnDatePlaceholder')}:
+                                </span>{' '}
+                                {new Date(
+                                  flightTickets[0]?.trip_id?.return_date
+                                ).toLocaleDateString('vi-VN')}
+                              </p>
+                              <p>
+                                <span className="font-semibold">
+                                  {t('UserPage.ReturnTimePlaceholder')}:
+                                </span>{' '}
+                                {flightTickets[0]?.trip_id?.return_time}
+                              </p>
+                            </>
+                          )}
                         </div>
                       </div>
                       <div
@@ -207,7 +216,6 @@ const TicketFlightsResultsPage: React.FC = () => {
                     </>
                   )
                 )}
-
               </div>
               {/*  */}
               <div className="mb-10 flex w-full flex-row items-center justify-center gap-5">
@@ -229,7 +237,6 @@ const TicketFlightsResultsPage: React.FC = () => {
             <div className="hidden w-full xl:block">
               <CartPage />
             </div>
-
           </div>
           {selectedFlight && ticketsByClass && (
             <div>
@@ -241,10 +248,11 @@ const TicketFlightsResultsPage: React.FC = () => {
                       color="primary"
                       size="sm"
                       onClick={() => setSelectedClassId(classId)}
-                      className={`text-md font-semibold text-white dark:bg-white dark:text-primary ${selectedClassId === classId
-                        ? 'bg-opacity-100'
-                        : 'bg-opacity-50'
-                        }`}
+                      className={`text-md font-semibold text-white dark:bg-white dark:text-primary ${
+                        selectedClassId === classId
+                          ? 'bg-opacity-100'
+                          : 'bg-opacity-50'
+                      }`}
                     >
                       {classTickets[0].seat_id[0]?.seat_catalog_id.name}
                     </Button>
@@ -254,70 +262,89 @@ const TicketFlightsResultsPage: React.FC = () => {
 
               <div>
                 {selectedClassId && ticketsByClass[selectedClassId] && (
-                  <div className="plane mx-auto max-w-[300px] my-5">
-                    <div className="relative overflow-hidden text-center border-b-5 border-gray-300 w-[300px] h-[250px]">
-                      <div className="absolute bottom-0 left-0 w-full h-[250px] bg-primary rounded-t-[150px] flex justify-center items-center ">
+                  <div className="plane mx-auto my-5 max-w-[300px]">
+                    <div className="border-b-5 relative h-[250px] w-[300px] overflow-hidden border-gray-300 text-center">
+                      <div className="absolute bottom-0 left-0 flex h-[250px] w-full items-center justify-center rounded-t-[150px] bg-primary">
                         <div
                           className="h-[100px] w-[130px] bg-white bg-opacity-100"
                           style={{
-                            clipPath: '  polygon(100% 25%, 100% 100%, 50% 70%, 0 100%, 0 25%, 50% 0)'
+                            clipPath:
+                              '  polygon(100% 25%, 100% 100%, 50% 70%, 0 100%, 0 25%, 50% 0)'
                           }}
                         />
                         <div
                           className="h-[100px] w-[130px] bg-white bg-opacity-100"
                           style={{
-                            clipPath: '   polygon(100% 25%, 100% 100%, 50% 70%, 0 100%, 0 25%, 50% 0)'
+                            clipPath:
+                              '   polygon(100% 25%, 100% 100%, 50% 70%, 0 100%, 0 25%, 50% 0)'
                           }}
                         />
                       </div>
                     </div>
-                    <div className="exit exit--front fuselage h-12 relative">
-                      <span className="absolute left-0 top-1/2 transform -translate-y-1/2 bg-green-500 text-white text-xs font-bold px-2">EXIT</span>
-                      <span className="absolute right-0 top-1/2 transform -translate-y-1/2 bg-green-500 text-white text-xs font-bold px-2">EXIT</span>
+                    <div className="exit exit--front fuselage relative h-12">
+                      <span className="absolute left-0 top-1/2 -translate-y-1/2 transform bg-green-500 px-2 text-xs font-bold text-white">
+                        EXIT
+                      </span>
+                      <span className="absolute right-0 top-1/2 -translate-y-1/2 transform bg-green-500 px-2 text-xs font-bold text-white">
+                        EXIT
+                      </span>
                     </div>
                     <div className="flex justify-center">
                       <div className="border border-gray-400 p-2">
                         <div className="grid grid-cols-6 gap-2">
-                          {ticketsByClass[selectedClassId].map((ticket, index) => {
-                            const seatStatus = ticket.seat_id[0]?.status;
+                          {ticketsByClass[selectedClassId].map(
+                            (ticket, index) => {
+                              const seatStatus = ticket.seat_id[0]?.status;
 
-                            return (
-                              <div
-                                key={index}
-                                onClick={() => seatStatus === 'Còn chỗ' && addSeat(ticket)}
-                                className={`relative flex h-[40px] w-[40px] items-center justify-center rounded-md border transition-all duration-200 ease-in-out ${seatStatus === 'Hết chỗ'
-                                  ? 'cursor-not-allowed border-red-700 bg-red-500 text-white'
-                                  : seatStatus === 'Còn chỗ'
-                                    ? 'cursor-pointer border-green-700 bg-green-500 text-white hover:bg-green-600'
-                                    : 'cursor-progress border-gray-300 bg-white font-bold text-black'
-                                  } group`}
-                              >
-                                {ticket.seat_id[0]?.ordinal_numbers}
+                              return (
                                 <div
-                                  className={`pointer-events-none absolute bottom-10 left-1/2 z-10 w-[100px] -translate-x-1/2 transform rounded bg-white p-2 text-center text-xs text-black opacity-0 shadow-headerMenu shadow-primary transition-opacity duration-200 ease-in-out group-hover:opacity-100`}
+                                  key={index}
+                                  onClick={() =>
+                                    seatStatus === 'Còn chỗ' && addSeat(ticket)
+                                  }
+                                  className={`relative flex h-[40px] w-[40px] items-center justify-center rounded-md border transition-all duration-200 ease-in-out ${
+                                    seatStatus === 'Hết chỗ'
+                                      ? 'cursor-not-allowed border-red-700 bg-red-500 text-white'
+                                      : seatStatus === 'Còn chỗ'
+                                        ? 'cursor-pointer border-green-700 bg-green-500 text-white hover:bg-green-600'
+                                        : 'cursor-progress border-gray-300 bg-white font-bold text-black'
+                                  } group`}
                                 >
-                                  {seatStatus === 'Còn chỗ' ? (
-                                    <>
-                                      <strong>{ticket.seat_id[0]?.name}</strong>
-                                      <p>
-                                        <strong>Giá:</strong>{' '}
-                                        {(ticket.price * 1000).toLocaleString('vi-VN')}{' '}
-                                        VNĐ
-                                      </p>
-                                    </>
-                                  ) : (
-                                    <p>{seatStatus}</p>
-                                  )}
+                                  {ticket.seat_id[0]?.ordinal_numbers}
+                                  <div
+                                    className={`pointer-events-none absolute bottom-10 left-1/2 z-10 w-[100px] -translate-x-1/2 transform rounded bg-white p-2 text-center text-xs text-black opacity-0 shadow-headerMenu shadow-primary transition-opacity duration-200 ease-in-out group-hover:opacity-100`}
+                                  >
+                                    {seatStatus === 'Còn chỗ' ? (
+                                      <>
+                                        <strong>
+                                          {ticket.seat_id[0]?.name}
+                                        </strong>
+                                        <p>
+                                          <strong>Giá:</strong>{' '}
+                                          {(ticket.price * 1000).toLocaleString(
+                                            'vi-VN'
+                                          )}{' '}
+                                          VNĐ
+                                        </p>
+                                      </>
+                                    ) : (
+                                      <p>{seatStatus}</p>
+                                    )}
+                                  </div>
                                 </div>
-                              </div>
-                            );
-                          })}
+                              );
+                            }
+                          )}
                         </div>
                       </div>
                     </div>
-                    <div className="exit exit--back fuselage h-12 relative">
-                      <span className="absolute left-0 top-1/2 transform -translate-y-1/2 bg-green-500 text-white text-xs font-bold px-2">EXIT</span>
-                      <span className="absolute right-0 top-1/2 transform -translate-y-1/2 bg-green-500 text-white text-xs font-bold px-2">EXIT</span>
+                    <div className="exit exit--back fuselage relative h-12">
+                      <span className="absolute left-0 top-1/2 -translate-y-1/2 transform bg-green-500 px-2 text-xs font-bold text-white">
+                        EXIT
+                      </span>
+                      <span className="absolute right-0 top-1/2 -translate-y-1/2 transform bg-green-500 px-2 text-xs font-bold text-white">
+                        EXIT
+                      </span>
                     </div>
                   </div>
                 )}

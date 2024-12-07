@@ -40,7 +40,11 @@ export const getListIdByVehicleNameApi = (vehicleName: string) => {
   });
 };
 // Create multiple seats
-export const createMultipleSeatsApi = (data: { quantity: number; seatCatalogId: string; price: number }) => {
+export const createMultipleSeatsApi = (data: {
+  quantity: number;
+  seatCatalogId: string;
+  price: number;
+}) => {
   return axios.post<{ savedSeats: ISeat[] }>('/api/seats/multiple', data);
 };
 

@@ -1,6 +1,17 @@
-import { createContext, useState, ReactNode, useCallback, useEffect } from 'react';
+import {
+  createContext,
+  useState,
+  ReactNode,
+  useCallback,
+  useEffect
+} from 'react';
 import { AxiosResponse } from 'axios';
-import { createTicketCatalogApi, deleteTicketCatalogApi, getAllTicketCatalogsApi, updateTicketCatalogApi } from '../../axios/api/ticketCatalogApi';
+import {
+  createTicketCatalogApi,
+  deleteTicketCatalogApi,
+  getAllTicketCatalogsApi,
+  updateTicketCatalogApi
+} from '../../axios/api/ticketCatalogApi';
 import { ITicketCatalog } from '../../types/type/ticket-catalog/ticket-catalog';
 
 interface TicketCatalogContextType {
@@ -15,8 +26,13 @@ interface TicketCatalogContextType {
   error: string | null;
   getAllTicketCatalogs: () => void;
   getTicketCatalogById: (_id: string) => ITicketCatalog | undefined;
-  createTicketCatalog: (ticketCatalog: ITicketCatalog) => Promise<AxiosResponse<any>>;
-  updateTicketCatalog: (_id: string, ticketCatalog: ITicketCatalog) => Promise<AxiosResponse<any>>;
+  createTicketCatalog: (
+    ticketCatalog: ITicketCatalog
+  ) => Promise<AxiosResponse<any>>;
+  updateTicketCatalog: (
+    _id: string,
+    ticketCatalog: ITicketCatalog
+  ) => Promise<AxiosResponse<any>>;
   deleteTicketCatalog: (_id: string) => Promise<AxiosResponse<any>>;
 }
 
@@ -27,26 +43,34 @@ const defaultContextValue: TicketCatalogContextType = {
     getById: false,
     create: false,
     update: false,
-    delete: false,
+    delete: false
   },
   error: null,
   getAllTicketCatalogs: () => {},
   getTicketCatalogById: () => undefined,
-  createTicketCatalog: async () => ({ data: { savedTicketCatalog: null } }) as AxiosResponse,
-  updateTicketCatalog: async () => ({ data: { ticketCatalog: null } }) as AxiosResponse,
-  deleteTicketCatalog: async () => ({ data: { deleted: true } }) as AxiosResponse,
+  createTicketCatalog: async () =>
+    ({ data: { savedTicketCatalog: null } }) as AxiosResponse,
+  updateTicketCatalog: async () =>
+    ({ data: { ticketCatalog: null } }) as AxiosResponse,
+  deleteTicketCatalog: async () =>
+    ({ data: { deleted: true } }) as AxiosResponse
 };
 
-export const TicketCatalogContext = createContext<TicketCatalogContextType>(defaultContextValue);
+export const TicketCatalogContext =
+  createContext<TicketCatalogContextType>(defaultContextValue);
 
-export const TicketCatalogProvider = ({ children }: { children: ReactNode }) => {
+export const TicketCatalogProvider = ({
+  children
+}: {
+  children: ReactNode;
+}) => {
   const [ticketCatalogs, setTicketCatalogs] = useState<ITicketCatalog[]>([]);
   const [loading, setLoading] = useState<TicketCatalogContextType['loading']>({
     getAll: false,
     getById: false,
     create: false,
     update: false,
-    delete: false,
+    delete: false
   });
   const [error, setError] = useState<string | null>(null);
 
@@ -77,14 +101,15 @@ export const TicketCatalogProvider = ({ children }: { children: ReactNode }) => 
   const getAllTicketCatalogs = useCallback(() => {
     fetchData(
       getAllTicketCatalogsApi,
-      (data) => setTicketCatalogs(data.ticketCatalogs || []),
+      data => setTicketCatalogs(data.ticketCatalogs || []),
       'getAll'
     );
   }, []);
 
   // Get By ID
   const getTicketCatalogById = useCallback(
-    (id: string) => ticketCatalogs.find(ticketCatalog => ticketCatalog._id === id),
+    (id: string) =>
+      ticketCatalogs.find(ticketCatalog => ticketCatalog._id === id),
     [ticketCatalogs]
   );
 
@@ -93,7 +118,7 @@ export const TicketCatalogProvider = ({ children }: { children: ReactNode }) => 
     async (ticketCatalog: ITicketCatalog): Promise<AxiosResponse<any>> =>
       fetchData(
         () => createTicketCatalogApi(ticketCatalog),
-        (data) => {
+        data => {
           if (data.savedTicketCatalog) {
             setTicketCatalogs(prevCatalogs => [
               ...prevCatalogs,
@@ -108,10 +133,13 @@ export const TicketCatalogProvider = ({ children }: { children: ReactNode }) => 
 
   // Put
   const updateTicketCatalog = useCallback(
-    async (id: string, ticketCatalog: ITicketCatalog): Promise<AxiosResponse<any>> =>
+    async (
+      id: string,
+      ticketCatalog: ITicketCatalog
+    ): Promise<AxiosResponse<any>> =>
       fetchData(
         () => updateTicketCatalogApi(id, ticketCatalog),
-        (data) => {
+        data => {
           if (data.ticketCatalog) {
             setTicketCatalogs(prevCatalogs =>
               prevCatalogs.map(catalog =>
@@ -153,7 +181,7 @@ export const TicketCatalogProvider = ({ children }: { children: ReactNode }) => 
         getTicketCatalogById,
         createTicketCatalog,
         updateTicketCatalog,
-        deleteTicketCatalog,
+        deleteTicketCatalog
       }}
     >
       {children}

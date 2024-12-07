@@ -6,7 +6,7 @@ import { useTranslation } from 'react-i18next';
 
 const NewsPage: React.FC = () => {
   //Translation
-  const {t}= useTranslation()
+  const { t } = useTranslation();
   const { posts, getAllPosts } = useContext(PostContext);
   const [selectedPost, setSelectedPost] = useState<(typeof posts)[0] | null>(
     null
@@ -43,7 +43,9 @@ const NewsPage: React.FC = () => {
         </ul>
       </div>
       <div className="px-2 xl:px-[100px]">
-        <div className="text-center text-[40px] font-bold">{t('UserPage.Navbar.News')}</div>
+        <div className="text-center text-[40px] font-bold">
+          {t('UserPage.Navbar.News')}
+        </div>
         <div className="grid grid-cols-2 gap-2 md:grid-cols-3 lg:grid-cols-4">
           {posts.map(post => (
             <div
@@ -77,4 +79,3 @@ const NewsPage: React.FC = () => {
 };
 
 export default NewsPage;
-

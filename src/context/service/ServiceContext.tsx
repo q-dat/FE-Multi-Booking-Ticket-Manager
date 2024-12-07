@@ -1,4 +1,10 @@
-import { createContext, useState, ReactNode, useCallback, useEffect } from 'react';
+import {
+  createContext,
+  useState,
+  ReactNode,
+  useCallback,
+  useEffect
+} from 'react';
 import { AxiosResponse } from 'axios';
 import { IService } from '../../types/type/service/service';
 import {
@@ -20,7 +26,10 @@ interface ServiceContextType {
   getAllServices: () => void;
   getServiceById: (_id: string) => IService | undefined;
   createService: (service: IService) => Promise<AxiosResponse<any>>;
-  updateService: (_id: string, service: IService) => Promise<AxiosResponse<any>>;
+  updateService: (
+    _id: string,
+    service: IService
+  ) => Promise<AxiosResponse<any>>;
   deleteService: (_id: string) => Promise<AxiosResponse<any>>;
 }
 
@@ -40,7 +49,8 @@ const defaultContextValue: ServiceContextType = {
   deleteService: async () => ({ data: {} }) as AxiosResponse<any>
 };
 
-export const ServiceContext = createContext<ServiceContextType>(defaultContextValue);
+export const ServiceContext =
+  createContext<ServiceContextType>(defaultContextValue);
 
 export const ServiceProvider = ({ children }: { children: ReactNode }) => {
   const [services, setServices] = useState<IService[]>([]);
@@ -71,7 +81,7 @@ export const ServiceProvider = ({ children }: { children: ReactNode }) => {
     try {
       const response = await apiCall();
       onSuccess(response.data);
-      return response; 
+      return response;
     } catch (err: any) {
       handleError(err);
       throw err;

@@ -21,7 +21,6 @@ const ContactForm: React.FC = () => {
   const [result, setResult] = React.useState<string>('');
   const formRef = useRef<HTMLFormElement>(null);
 
-
   const onSubmit = async (
     event: React.FormEvent<HTMLFormElement>
   ): Promise<void> => {
@@ -76,7 +75,7 @@ const ContactForm: React.FC = () => {
           onClick={toggleDropdown}
           className={`flex items-center rounded-full border border-white bg-primary py-[2px] pl-3 text-xs text-white ${isExpanded ? '' : 'hidden'}`}
         >
-         {t('UserPage.CloseBtn')}
+          {t('UserPage.CloseBtn')}
           <IoIosCloseCircle className="text-2xl" />
         </button>
         <button
@@ -97,7 +96,7 @@ const ContactForm: React.FC = () => {
         }}
       >
         {/*  */}
-        <div className="m-2 space-y-4 rounded-lg bg-white p-2 border border-primary">
+        <div className="m-2 space-y-4 rounded-lg border border-primary bg-white p-2">
           <div className="flex flex-row items-start justify-between">
             {/*  */}
             <div className="flex flex-row items-center gap-1 text-xl text-primary">
@@ -120,32 +119,32 @@ const ContactForm: React.FC = () => {
               onSubmit={onSubmit}
               className="my-5 flex items-center justify-center rounded-xl bg-transparent"
             >
-              <div className="flex flex-col gap-5 items-center justify-center ">
-                <div className='space-y-2'>
+              <div className="flex flex-col items-center justify-center gap-5">
+                <div className="space-y-2">
                   <InputForm
                     name="email"
                     type="email"
                     placeholder={t('UserPage.Email')}
-                    className="border border-black bg-white text-black  dark:shadow-none dark:shadow-white xs:w-[250px] sm:w-[300px] md:w-[650px] xl:w-[230px]"
+                    className="border border-black bg-white text-black dark:shadow-none dark:shadow-white xs:w-[250px] sm:w-[300px] md:w-[650px] xl:w-[230px]"
                     classNameLabel="bg-white dark:peer-placeholder-shown:text-black dark:peer-focus:text-black"
                   />
                   <InputForm
                     name="name"
                     type="text"
-                    className="border border-black bg-white text-black  dark:shadow-none dark:shadow-white xs:w-[250px] sm:w-[300px] md:w-[650px] xl:w-[230px]"
+                    className="border border-black bg-white text-black dark:shadow-none dark:shadow-white xs:w-[250px] sm:w-[300px] md:w-[650px] xl:w-[230px]"
                     placeholder={t('UserPage.YourNameBtn')}
                     classNameLabel="bg-white dark:peer-placeholder-shown:text-black dark:peer-focus:text-black"
                   />
                 </div>
                 <Textarea
                   name="feedback"
-                  className="border border-black bg-white pb-10 text-black  focus:outline-none dark:shadow-none dark:shadow-white xs:w-full sm:w-[300px] md:w-[650px] lg:w-full"
+                  className="border border-black bg-white pb-10 text-black focus:outline-none dark:shadow-none dark:shadow-white xs:w-full sm:w-[300px] md:w-[650px] lg:w-full"
                   placeholder={t('UserPage.FeedbackBtn')}
                 />
                 <div className="w-full">
                   <Button
-                  size='sm'
-                    className="w-20 bg-primary text-sm text-white hover:bg-secondary outline outline-offset-1"
+                    size="sm"
+                    className="w-20 bg-primary text-sm text-white outline outline-offset-1 hover:bg-secondary"
                     type="submit"
                   >
                     <IoPaperPlane /> {t('UserPage.SentBtn')}

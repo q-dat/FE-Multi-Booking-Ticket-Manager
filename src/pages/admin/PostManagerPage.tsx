@@ -48,7 +48,7 @@ const PostManagerPage: React.FC = () => {
         closeModalDeleteAdmin();
         Toastify('Bạn đã xoá bài viết thành công', 201);
         getAllPosts();
-      }  catch (error) {
+      } catch (error) {
         const errorMessage = isIErrorResponse(error)
           ? error.data?.message
           : 'Xoá bài viết thất bại!';
@@ -92,7 +92,7 @@ const PostManagerPage: React.FC = () => {
             <span>Ngày Tạo</span>
             {/* <span>Ngày Cập Nhật</span> */}
             <span>Nội dung</span>
-            <span>Hành Động</span>  
+            <span>Hành Động</span>
           </Table.Head>
         }
         table_body={
@@ -110,7 +110,9 @@ const PostManagerPage: React.FC = () => {
                 </span>
                 <span className="line-clamp-1">{post?.catalog}</span>
                 {/* <span>{new Date(post?.createdAt).toLocaleString('vi-VN')}</span> */}
-                <span>{new Date(post?.updatedAt).toLocaleDateString('vi-VN')}</span>
+                <span>
+                  {new Date(post?.updatedAt).toLocaleDateString('vi-VN')}
+                </span>
                 <span
                   className="line-clamp-2"
                   dangerouslySetInnerHTML={{ __html: post.content }}
@@ -165,4 +167,3 @@ const PostManagerPage: React.FC = () => {
 };
 
 export default PostManagerPage;
-

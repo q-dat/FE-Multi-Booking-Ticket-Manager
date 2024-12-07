@@ -1,5 +1,11 @@
 import { ISeatCatalog } from '../../types/type/seat-catalog/seat-catalog';
-import { createContext, useState, ReactNode, useCallback, useEffect } from 'react';
+import {
+  createContext,
+  useState,
+  ReactNode,
+  useCallback,
+  useEffect
+} from 'react';
 import { AxiosResponse } from 'axios';
 import {
   createSeatCatalogApi,
@@ -21,7 +27,10 @@ interface SeatCatalogContextType {
   getAllSeatCatalogs: () => void;
   getSeatCatalogById: (_id: string) => ISeatCatalog | undefined;
   createSeatCatalog: (seatCatalog: ISeatCatalog) => Promise<AxiosResponse<any>>;
-  updateSeatCatalog: (_id: string, seatCatalog: ISeatCatalog) => Promise<AxiosResponse<any>>;
+  updateSeatCatalog: (
+    _id: string,
+    seatCatalog: ISeatCatalog
+  ) => Promise<AxiosResponse<any>>;
   deleteSeatCatalog: (_id: string) => Promise<AxiosResponse<any>>;
 }
 
@@ -42,7 +51,8 @@ const defaultContextValue: SeatCatalogContextType = {
   deleteSeatCatalog: async () => ({ data: {} }) as AxiosResponse<any>
 };
 
-export const SeatCatalogContext = createContext<SeatCatalogContextType>(defaultContextValue);
+export const SeatCatalogContext =
+  createContext<SeatCatalogContextType>(defaultContextValue);
 
 export const SeatCatalogProvider = ({ children }: { children: ReactNode }) => {
   const [seatCatalogs, setSeatCatalogs] = useState<ISeatCatalog[]>([]);
@@ -122,7 +132,10 @@ export const SeatCatalogProvider = ({ children }: { children: ReactNode }) => {
 
   // Put
   const updateSeatCatalog = useCallback(
-    async (id: string, seatCatalog: ISeatCatalog): Promise<AxiosResponse<any>> => {
+    async (
+      id: string,
+      seatCatalog: ISeatCatalog
+    ): Promise<AxiosResponse<any>> => {
       return fetchData(
         () => updateSeatCatalogApi(id, seatCatalog),
         data => {

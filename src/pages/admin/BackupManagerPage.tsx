@@ -84,7 +84,7 @@ const BackupManagerPage = () => {
       <div>
         <HeaderResponsive Title_NavbarMobile="Sao Lưu/Khôi Phục" />
       </div>
-      <div className="px-2 pb-[20px] xl:pt-[90px] bg-white dark:bg-gray-900 h-screen">
+      <div className="h-screen bg-white px-2 pb-[20px] dark:bg-gray-900 xl:pt-[90px]">
         <h1 className="mb-10 text-center text-[40px] font-bold text-black dark:text-white">
           Sao Lưu/Khôi Phục
         </h1>
@@ -101,7 +101,7 @@ const BackupManagerPage = () => {
                 id="file"
                 type="file"
                 {...register('file', { required: 'File là bắt buộc!' })}
-                className="block w-[250px] text-black dark:text-white rounded-md border-none bg-transparent px-0 focus:outline-none"
+                className="block w-[250px] rounded-md border-none bg-transparent px-0 text-black focus:outline-none dark:text-white"
               />
               {errors.file && (
                 <p className="text-sm text-red-500">{errors.file.message}</p>
@@ -111,7 +111,7 @@ const BackupManagerPage = () => {
             <Button
               size="sm"
               type="submit"
-              className="rounded-md bg-green-500 font-light text-white disabled:bg-gray-400  border border-dashed border-white"
+              className="rounded-md border border-dashed border-white bg-green-500 font-light text-white disabled:bg-gray-400"
               disabled={loading.import}
             >
               {loading.import ? 'Đang tải...' : 'Khôi phục (Import)'}
@@ -178,4 +178,3 @@ const BackupManagerPage = () => {
 };
 
 export default BackupManagerPage;
-

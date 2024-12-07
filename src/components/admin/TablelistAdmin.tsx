@@ -20,7 +20,10 @@ const TableListAdmin: React.FC<TableListAdminProps> = ({
         <NavtableAdmin Title_NavtableAdmin={Title_TableListAdmin} />
         <div className="w-screen overflow-x-auto border-8 border-transparent scrollbar-hide lg:w-full xl:px-4">
           {/* Phần Bảng */}
-          <Table className="w-full table-sm text-black dark:text-green-500" zebra>
+          <Table
+            className="table-sm w-full text-black dark:text-green-500"
+            zebra
+          >
             {table_head}
             {table_body}
           </Table>

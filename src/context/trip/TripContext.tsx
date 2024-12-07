@@ -120,7 +120,7 @@ export const TripProvider = ({ children }: { children: ReactNode }) => {
   const updateTrip = useCallback(
     async (id: string, trip: ITrip): Promise<void> => {
       await fetchData(
-() => updateTripApi(id, trip),
+        () => updateTripApi(id, trip),
         data => {
           if (data.trip) {
             setTrips(prevTrips =>
@@ -143,16 +143,13 @@ export const TripProvider = ({ children }: { children: ReactNode }) => {
     );
   }, []);
   // Filter By Vehicle Catalog ID
-  const filterTripsByVehicleId = useCallback(
-    (vehicle_id: string) => {
-      fetchData(
-        () => filterTripsByVehicleIdApi(vehicle_id),
-        data => setTrips(data.trips || []),
-        'filter'
-      );
-    },
-    []
-  );
+  const filterTripsByVehicleId = useCallback((vehicle_id: string) => {
+    fetchData(
+      () => filterTripsByVehicleIdApi(vehicle_id),
+      data => setTrips(data.trips || []),
+      'filter'
+    );
+  }, []);
   useEffect(() => {
     getAllTrips();
   }, [getAllTrips]);

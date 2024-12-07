@@ -17,8 +17,7 @@ const ModalCreateSeatPageAdmin: React.FC<ModalCreateSeatProps> = ({
   isOpen,
   onClose
 }) => {
-  const { seatCatalogs, getAllSeatCatalogs } =
-    useContext(SeatCatalogContext);
+  const { seatCatalogs, getAllSeatCatalogs } = useContext(SeatCatalogContext);
   const { getAllSeats, createSeat } = useContext(SeatContext);
   const { register, handleSubmit, reset } = useForm<ISeat>();
 
@@ -32,7 +31,7 @@ const ModalCreateSeatPageAdmin: React.FC<ModalCreateSeatProps> = ({
       reset();
       getAllSeats();
       onClose();
-    }catch (error) {
+    } catch (error) {
       getAllSeats();
       const errorMessage = isIErrorResponse(error)
         ? error.data?.message

@@ -1,4 +1,10 @@
-import { createContext, useState, ReactNode, useCallback, useEffect } from 'react';
+import {
+  createContext,
+  useState,
+  ReactNode,
+  useCallback,
+  useEffect
+} from 'react';
 import { AxiosResponse } from 'axios';
 import {
   createVehicleCatalogApi,
@@ -20,8 +26,13 @@ interface VehicleCatalogContextType {
   error: string | null;
   getAllVehicleCatalogs: () => void;
   getVehicleCatalogById: (_id: string) => IVehicleCatalog | undefined;
-  createVehicleCatalog: (vehicleCatalog: IVehicleCatalog) => Promise<AxiosResponse<any>>;
-  updateVehicleCatalog: (_id: string, vehicleCatalog: IVehicleCatalog) => Promise<AxiosResponse<any>>;
+  createVehicleCatalog: (
+    vehicleCatalog: IVehicleCatalog
+  ) => Promise<AxiosResponse<any>>;
+  updateVehicleCatalog: (
+    _id: string,
+    vehicleCatalog: IVehicleCatalog
+  ) => Promise<AxiosResponse<any>>;
   deleteVehicleCatalog: (_id: string) => Promise<AxiosResponse<any>>;
 }
 
@@ -37,15 +48,22 @@ const defaultContextValue: VehicleCatalogContextType = {
   error: null,
   getAllVehicleCatalogs: () => {},
   getVehicleCatalogById: () => undefined,
-  createVehicleCatalog: async () => ({ data: { savedVehicleCatalog: null } }) as AxiosResponse,
-  updateVehicleCatalog: async () => ({ data: { vehicleCatalog: null } }) as AxiosResponse,
-  deleteVehicleCatalog: async () => ({ data: { deleted: true } }) as AxiosResponse
+  createVehicleCatalog: async () =>
+    ({ data: { savedVehicleCatalog: null } }) as AxiosResponse,
+  updateVehicleCatalog: async () =>
+    ({ data: { vehicleCatalog: null } }) as AxiosResponse,
+  deleteVehicleCatalog: async () =>
+    ({ data: { deleted: true } }) as AxiosResponse
 };
 
 export const VehicleCatalogContext =
   createContext<VehicleCatalogContextType>(defaultContextValue);
 
-export const VehicleCatalogProvider = ({ children }: { children: ReactNode }) => {
+export const VehicleCatalogProvider = ({
+  children
+}: {
+  children: ReactNode;
+}) => {
   const [vehicleCatalogs, setVehicleCatalogs] = useState<IVehicleCatalog[]>([]);
   const [loading, setLoading] = useState<{
     getAll: boolean;
@@ -123,7 +141,10 @@ export const VehicleCatalogProvider = ({ children }: { children: ReactNode }) =>
 
   // Put
   const updateVehicleCatalog = useCallback(
-    async (id: string, vehicleCatalog: IVehicleCatalog): Promise<AxiosResponse<any>> => {
+    async (
+      id: string,
+      vehicleCatalog: IVehicleCatalog
+    ): Promise<AxiosResponse<any>> => {
       return fetchData(
         () => updateVehicleCatalogApi(id, vehicleCatalog),
         data => {

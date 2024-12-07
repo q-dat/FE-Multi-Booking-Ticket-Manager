@@ -31,4 +31,3 @@ export const offSocketEvents = (): void => {
   socket.off('connection');
   socket.off('disconnect');
 };
-

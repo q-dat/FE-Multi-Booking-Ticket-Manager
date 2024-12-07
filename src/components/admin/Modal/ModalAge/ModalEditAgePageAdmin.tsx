@@ -19,8 +19,7 @@ const ModalEditAgePageAdmin: React.FC<ModalEditAgeProps> = ({
   onClose,
   ageId
 }) => {
-  const { getAllAges, updateAge, getAgeById, ages } =
-    useContext(AgeContext);
+  const { getAllAges, updateAge, getAgeById, ages } = useContext(AgeContext);
   const { register, handleSubmit, reset, setValue } = useForm<IAge>();
 
   useEffect(() => {
