@@ -5,8 +5,6 @@ import { Toastify } from '../../helper/Toastify';
 import { IoIosCloseCircleOutline } from 'react-icons/io';
 import axios from '../../config/axiosConfig';
 import { useNavigate } from 'react-router-dom';
-import { ITicket } from '../../types/type/ticket/ticket';
-import { updateSeatApi } from '../../axios/api/seatApi';
 import { isIErrorResponse } from '../../types/error/error';
 import HeaderResponsive from '../../components/UserPage/HeaderResponsive';
 import { LogoStripe } from '../../assets/image-represent';
@@ -35,7 +33,7 @@ const CheckoutPage: React.FC = () => {
     country: '',
     phone: ''
   });
-  const [method, setMethod] = useState<'stripe' | 'cod'>('cod');
+  const [method, setMethod] = useState<'stripe' | 'cod'>('stripe');
   const navigate = useNavigate();
   const [selectedDiscounts, setSelectedDiscounts] = useState<{
     [key: string]: string;
@@ -129,31 +127,6 @@ const CheckoutPage: React.FC = () => {
     }));
   };
 
-  const updateSeatStatusApi = async (seats: ITicket[]) => {
-    const promises = seats.map(async seat => {
-      const updatedSeat = { ...seat.seat_id[0], status: 'Hết chỗ' };
-      await updateSeatApi(seat.seat_id[0]?._id, updatedSeat);
-
-      const storedTickets = sessionStorage.getItem('searchResults');
-      if (storedTickets) {
-        const parsedTickets = JSON.parse(storedTickets) as ITicket[];
-        const updatedTickets = parsedTickets.map(t =>
-          t._id === seat._id
-            ? { ...t, seat_id: [{ ...t.seat_id[0], status: 'Hết chỗ' }] }
-            : t
-        );
-        sessionStorage.setItem('searchResults', JSON.stringify(updatedTickets));
-      }
-
-      Toastify(
-        `Ghế ${seat.seat_id[0]?.name} đã được cập nhật trạng thái!`,
-        200
-      );
-    });
-
-    await Promise.all(promises);
-  };
-
   const onSubmitHandler = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
@@ -213,7 +186,6 @@ const CheckoutPage: React.FC = () => {
       if (method === 'cod') {
         const response = await axios.post('/api/order/place', orderData);
         if (response.data.success) {
-          await updateSeatStatusApi(selectedSeats);
           Toastify('Bạn đã đặt vé thành công', 201);
           clearSeats();
         }
@@ -221,7 +193,6 @@ const CheckoutPage: React.FC = () => {
         const responseStripe = await axios.post('/api/order/stripe', orderData);
         if (responseStripe.data.success) {
           const { session_url } = responseStripe.data;
-          await updateSeatStatusApi(selectedSeats);
           clearSeats();
           window.location.replace(session_url);
         }
@@ -377,7 +348,7 @@ const CheckoutPage: React.FC = () => {
                       removeSeat(ticket._id, seatId);
                     }
                   }}
-                  className="cursor-pointer text-2xl text-red-500 transition hover:text-red-700"
+                  className="cursor-pointer text-2xl text-red-500"
                 >
                   <IoIosCloseCircleOutline />
                 </p>
@@ -511,7 +482,7 @@ const CheckoutPage: React.FC = () => {
                 ></span>
                 <img className="mx-4 h-5" src={LogoStripe} alt="Stripe logo" />
               </div>
-              <div
+              {/* <div
                 onClick={() => setMethod('cod')}
                 className="flex cursor-pointer items-center gap-3 border p-2 px-3 transition hover:bg-gray-100"
               >
@@ -521,7 +492,7 @@ const CheckoutPage: React.FC = () => {
                 <p className="mx-4 text-sm font-medium text-gray-500">
                   {t('UserPage.CheckoutPage.ip20')}
                 </p>
-              </div>
+              </div> */}
             </div>
 
             <div className="mt-8 w-full text-right">

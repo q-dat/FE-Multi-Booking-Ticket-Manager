@@ -116,7 +116,7 @@
       "NotificationTitle": "Check Ticket",
       "NotificationOne": "According to the regulations of Vietnam Railways Corporation, passengers are only eligible to board the train if the information on their identification documents matches the information on the electronic ticket.",
       "NotificationTwo": "To ensure the rights of passengers and avoid purchasing counterfeit tickets or tickets that do not comply with regulations, you can verify your electronic ticket by filling in the information below.",
-      "SearchTicketCode": "Ticket Code",
+      "SearchInvoiceCode": "Invoice Code",
       "buttonform": "Check",
       "title": "To display the ticket for verification, please fill in the correct information below:"
     },

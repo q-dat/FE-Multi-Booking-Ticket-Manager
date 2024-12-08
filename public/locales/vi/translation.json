@@ -117,7 +117,7 @@
       "NotificationOne": "Theo quy định của Tổng công ty Đường sắt Việt Nam, hành khách có thông tin giấy tờ tùy thân trùng với thông tin trên vé điện tử mới đủ điều kiện lên tàu",
       "NotificationTwo": "Để đảm bảo quyền lợi cho hành khách, tránh mua phải vé giả, hoặc vé không đúng với quy định, quý khách có thể kiểm tra lại vé điện tử của mình bằng cách điền đầy đủ các thông tin dưới đây.",
       "title": "Để hiển thị vé cần kiểm tra, vui lòng điền thông tin chính xác dưới đây:",
-      "SearchTicketCode": "Mã vé",
+      "SearchInvoiceCode": "Mã đơn hàng",
       "buttonform": "Kiểm tra"
     },
     "Location": {
