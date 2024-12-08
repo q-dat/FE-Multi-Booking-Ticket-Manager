@@ -12,13 +12,13 @@ export const getSeatByIdApi = (id: string) => {
 };
 
 // Post
-export const createSeatApi = (location: ISeat) => {
-  return axios.post<{ seat: ISeat }>('/api/seats', location);
+export const createSeatApi = (seat: ISeat) => {
+  return axios.post<{ seat: ISeat }>('/api/seats', seat);
 };
 
 // Put
-export const updateSeatApi = (id: string, location: ISeat) => {
-  return axios.put<{ seat: ISeat }>(`/api/seats/${id}`, location);
+export const updateSeatApi = (id: string, seat: ISeat) => {
+  return axios.put<{ seat: ISeat }>(`/api/seats/${id}`, seat);
 };
 
 // Delete
