@@ -16,25 +16,21 @@ interface Order {
 const CheckTicketPage: React.FC = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
-  const [ticketCode, setTicketCode] = useState('');
+  const [invoiceCode, setInvoiceCode] = useState('');
   const [, setOrder] = useState<Order | null>(null);
 
   const handleCheckTicket = async (e: React.FormEvent) => {
     e.preventDefault();
 
     try {
-      const response = await axios.get('api/order/ticket/:ticketCode', {
-        params: {
-          ticketCode
-        }
-      });
+      const response = await axios.get(`api/order/ticket/${invoiceCode}`);
       setOrder(response.data.order);
       Toastify('Kiểm tra vé thành công', 201);
       navigate('/bill-results', { state: { order: response.data.order } });
     } catch (error) {
       const errorMessage = isIErrorResponse(error)
         ? error.data?.message
-        : 'Vui lòng nhập đúng mã vé';
+        : 'Vui lòng nhập đúng mã hóa đơn';
       Toastify(`${errorMessage}`, 500);
     }
   };
@@ -60,9 +56,9 @@ const CheckTicketPage: React.FC = () => {
                 </p>
                 <InputForm
                   type="text"
-                  placeholder={`${t('UserPage.CheckTicketPage.SearchTicketCode')}`}
-                  value={ticketCode}
-                  onChange={e => setTicketCode(e.target.value)}
+                  placeholder={`${t('UserPage.CheckTicketPage.SearchInvoiceCode')}`}
+                  value={invoiceCode}
+                  onChange={e => setInvoiceCode(e.target.value)}
                   className="border border-gray-300 bg-white text-black focus:border-primary xs:w-[300px] sm:w-[350px] md:w-[650px] xl:w-[800px]"
                   classNameLabel="bg-white dark:peer-placeholder-shown:text-black dark:peer-focus:text-black"
                 />

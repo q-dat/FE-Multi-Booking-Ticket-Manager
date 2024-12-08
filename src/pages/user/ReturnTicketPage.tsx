@@ -18,9 +18,11 @@ const ReturnTicketPage: React.FC = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
+    const ticketCodes = [ticketCode];
+
     try {
       const response = await axios.post('/api/order/refund', {
-        ticketCode,
+        ticketCodes,
         reason
       });
 
@@ -33,7 +35,7 @@ const ReturnTicketPage: React.FC = () => {
     } catch (error) {
       const errorMessage = isIErrorResponse(error)
         ? error.data?.message
-        : 'Vui lòng nhập đúng mã vé';
+        : 'Vé đã được trả hoặc sai mã vé';
       Toastify(`${errorMessage}`, 500);
     }
   };
