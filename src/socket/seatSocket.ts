@@ -1,5 +1,6 @@
 import io from 'socket.io-client';
 import { ISeat } from '../types/type/seat/seat';
+import { ITicket } from '../types/type/ticket/ticket';
 
 const socket = io(import.meta.env.VITE_API_PORT, {
   transports: ['websocket'],
@@ -8,6 +9,11 @@ const socket = io(import.meta.env.VITE_API_PORT, {
 
 export const listenToNewSeats = (callback: (seat: ISeat) => void): void => {
   socket.on('get_seat', callback);
+};
+export const listenToNewTickets = (
+  callback: (ticket: ITicket) => void
+): void => {
+  socket.on('get_ticket', callback);
 };
 
 export const putSocketSeat = (seat: ISeat): void => {
