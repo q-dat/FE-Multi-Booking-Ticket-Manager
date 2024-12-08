@@ -22,8 +22,8 @@ const TicketBusesResultsPage: React.FC = () => {
   useEffect(() => {
     const fetchTickets = async () => {
       try {
-        // Lấy dữ liệu vé từ sessionStorage
-        const storedTickets = sessionStorage.getItem('searchResults');
+        // Lấy dữ liệu vé từ localStorage
+        const storedTickets = localStorage.getItem('searchResults');
         if (storedTickets) {
           const parsedTickets = JSON.parse(storedTickets) as ITicket[];
           setTickets(parsedTickets);
@@ -32,7 +32,7 @@ const TicketBusesResultsPage: React.FC = () => {
           const allTicketsResponse = await getAllTicketsApi();
           const allTickets = allTicketsResponse.data.tickets;
 
-          // Cập nhật dữ liệu trong sessionStorage với dữ liệu mới
+          // Cập nhật dữ liệu trong localStorage với dữ liệu mới
           const updatedTickets = parsedTickets.map(ticket => {
             // Nếu trạng thái của vé là 'Đang chọn', không cập nhật
             if (ticket.seat_id[0]?.status === 'Đang chọn') {
@@ -44,10 +44,7 @@ const TicketBusesResultsPage: React.FC = () => {
           });
 
           setTickets(updatedTickets);
-          sessionStorage.setItem(
-            'searchResults',
-            JSON.stringify(updatedTickets)
-          );
+          localStorage.setItem('searchResults', JSON.stringify(updatedTickets));
 
           // Tự động chọn tàu và loại ghế đầu tiên nếu có vé
           const initialBusName =
@@ -69,7 +66,7 @@ const TicketBusesResultsPage: React.FC = () => {
   }, []);
 
   useEffect(() => {
-    const storedTickets = sessionStorage.getItem('searchResults');
+    const storedTickets = localStorage.getItem('searchResults');
     if (storedTickets) {
       const parsedTickets = JSON.parse(storedTickets) as ITicket[];
       setTickets(parsedTickets);
@@ -126,7 +123,7 @@ const TicketBusesResultsPage: React.FC = () => {
         : t
     );
 
-    sessionStorage.setItem('searchResults', JSON.stringify(updatedTickets));
+    localStorage.setItem('searchResults', JSON.stringify(updatedTickets));
     setTickets(updatedTickets);
   };
 

@@ -22,7 +22,7 @@ const TicketTrainsResultsPage: React.FC = () => {
     const fetchTickets = async () => {
       setLoading(true);
       try {
-        const storedTickets = sessionStorage.getItem('searchResults');
+        const storedTickets = localStorage.getItem('searchResults');
         if (!storedTickets)
           throw new Error('Không tìm thấy dữ liệu vé trong session.');
 
@@ -38,7 +38,7 @@ const TicketTrainsResultsPage: React.FC = () => {
         );
 
         setTickets(updatedTickets);
-        sessionStorage.setItem('searchResults', JSON.stringify(updatedTickets));
+        localStorage.setItem('searchResults', JSON.stringify(updatedTickets));
 
         if (updatedTickets.length > 0) {
           setSelectedTrain(
@@ -58,7 +58,7 @@ const TicketTrainsResultsPage: React.FC = () => {
   }, []);
 
   useEffect(() => {
-    const storedTickets = sessionStorage.getItem('searchResults');
+    const storedTickets = localStorage.getItem('searchResults');
     if (storedTickets) {
       const parsedTickets = JSON.parse(storedTickets) as ITicket[];
       setTickets(parsedTickets);

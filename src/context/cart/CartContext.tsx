@@ -7,12 +7,13 @@ import React, {
 } from 'react';
 import { ITicket } from '../../types/type/ticket/ticket';
 import { Toastify } from '../../helper/Toastify';
+import { updateSeatApi } from '../../axios/api/seatApi';
 
 interface CartContextType {
   selectedSeats: ITicket[];
   totalPrice: number;
   addSeat: (ticket: ITicket) => void;
-  removeSeat: (ticketId: string, seatId: string) => void;
+  removeSeat: (ticketId: string) => void;
   clearSeats: () => void;
 }
 
@@ -30,16 +31,15 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({
       setSelectedSeats(parsedCart);
     }
   }, [setSelectedSeats]);
-  //Add
+
+  // Add seat
   const addSeat = useCallback(
-    (ticket: ITicket) => {
+    async (ticket: ITicket) => {
       if (selectedSeats.length >= 10) {
         Toastify('Bạn chỉ được chọn tối đa 10 ghế!', 401);
         return;
       }
-      const isSeatSelected = selectedSeats.some(
-        seat => seat._id === ticket._id
-      );
+      const isSeatSelected = selectedSeats.some(seat => seat._id === ticket._id);
       if (ticket.seat_id[0]?.status === 'Đang chọn') {
         Toastify(`Ghế ${ticket.seat_id[0]?.name} đang chọn!`, 401);
         return;
@@ -50,7 +50,12 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({
         setSelectedSeats(updatedSelectedSeats);
         localStorage.setItem('cart', JSON.stringify(updatedSelectedSeats));
 
-        const storedTickets = sessionStorage.getItem('searchResults');
+        // Cập nhật trạng thái ghế
+        const updatedSeat = { ...ticket.seat_id[0], status: 'Hết chỗ' };
+        await updateSeatApi(ticket.seat_id[0]._id, updatedSeat); // Thêm await
+
+        // Cập nhật thông tin trong 'searchResults'
+        const storedTickets = localStorage.getItem('searchResults');
         if (storedTickets) {
           const parsedTickets = JSON.parse(storedTickets) as ITicket[];
           const updatedTickets = parsedTickets.map(t =>
@@ -58,10 +63,7 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({
               ? { ...t, seat_id: [{ ...t.seat_id[0], status: 'Đang chọn' }] }
               : t
           );
-          sessionStorage.setItem(
-            'searchResults',
-            JSON.stringify(updatedTickets)
-          );
+          localStorage.setItem('searchResults', JSON.stringify(updatedTickets));
         }
 
         Toastify(`Đã thêm ${ticket.seat_id[0]?.name} vào giỏ vé!`, 200);
@@ -71,16 +73,28 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({
     },
     [selectedSeats]
   );
-  //removeSeat
+
+  // Remove seat
   const removeSeat = useCallback(
-    (ticketId: string) => {
+    async (ticketId: string) => {
+      // Cập nhật trạng thái ghế về "Còn chỗ"
+      const seatToUpdate = selectedSeats.find(seat => seat._id === ticketId);
+      if (seatToUpdate && seatToUpdate.seat_id[0]) {
+        await updateSeatApi(seatToUpdate.seat_id[0]._id, {
+          ...seatToUpdate.seat_id[0],
+          status: 'Còn chỗ'
+        }); // Thêm await
+      }
+
+      // Xoá ghế khỏi giỏ hàng
       setSelectedSeats(prev => {
         const newSelectedSeats = prev.filter(seat => seat._id !== ticketId);
         localStorage.setItem('cart', JSON.stringify(newSelectedSeats));
         return newSelectedSeats;
       });
 
-      const storedTickets = sessionStorage.getItem('searchResults');
+      // Cập nhật thông tin trong 'searchResults'
+      const storedTickets = localStorage.getItem('searchResults');
       if (storedTickets) {
         const parsedTickets = JSON.parse(storedTickets) as ITicket[];
         const updatedTickets = parsedTickets.map(t =>
@@ -88,15 +102,27 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({
             ? { ...t, seat_id: [{ ...t.seat_id[0], status: 'Còn chỗ' }] }
             : t
         );
-        sessionStorage.setItem('searchResults', JSON.stringify(updatedTickets));
+        localStorage.setItem('searchResults', JSON.stringify(updatedTickets));
       }
       console.log('Đã xoá ghế khỏi giỏ vé!');
     },
     [selectedSeats]
   );
-  //clearSeats
-  const clearSeats = useCallback(() => {
-    const storedTickets = sessionStorage.getItem('searchResults');
+
+  // Clear seats
+  const clearSeats = useCallback(async () => {
+    // Cập nhật tất cả ghế đã chọn về trạng thái "Còn chỗ"
+    for (const seat of selectedSeats) {
+      if (seat.seat_id[0]) {
+        await updateSeatApi(seat.seat_id[0]._id, {
+          ...seat.seat_id[0],
+          status: 'Còn chỗ'
+        }); // Thêm await
+      }
+    }
+
+    // Cập nhật thông tin trong 'searchResults'
+    const storedTickets = localStorage.getItem('searchResults');
     if (storedTickets) {
       const parsedTickets = JSON.parse(storedTickets) as ITicket[];
       const updatedTickets = parsedTickets.map(t =>
@@ -104,7 +130,7 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({
           ? { ...t, seat_id: [{ ...t.seat_id[0], status: 'Còn chỗ' }] }
           : t
       );
-      sessionStorage.setItem('searchResults', JSON.stringify(updatedTickets));
+      localStorage.setItem('searchResults', JSON.stringify(updatedTickets));
     }
     setSelectedSeats([]);
     localStorage.setItem('cart', JSON.stringify([]));

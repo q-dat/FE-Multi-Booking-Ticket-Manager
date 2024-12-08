@@ -63,7 +63,7 @@ const Home: React.FC = () => {
     if (searchResults.length > 0) {
       const selectedVehicle = searchResults[0];
       const vehicleType = selectedVehicle.vehicle_catalog_id.name;
-      sessionStorage.setItem('searchResults', JSON.stringify(searchResults));
+      localStorage.setItem('searchResults', JSON.stringify(searchResults));
 
       //
       switch (vehicleType) {

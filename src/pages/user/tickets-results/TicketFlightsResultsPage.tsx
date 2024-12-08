@@ -21,7 +21,7 @@ const TicketFlightsResultsPage: React.FC = () => {
   useEffect(() => {
     const fetchTickets = async () => {
       try {
-        const storedTickets = sessionStorage.getItem('searchResults');
+        const storedTickets = localStorage.getItem('searchResults');
         if (storedTickets) {
           const parsedTickets = JSON.parse(storedTickets) as ITicket[];
           setTickets(parsedTickets);
@@ -30,7 +30,7 @@ const TicketFlightsResultsPage: React.FC = () => {
           const allTicketsResponse = await getAllTicketsApi();
           const allTickets = allTicketsResponse.data.tickets;
 
-          // Cập nhật dữ liệu trong sessionStorage với dữ liệu mới
+          // Cập nhật dữ liệu trong localStorage với dữ liệu mới
           const updatedTickets = parsedTickets
             .map(ticket => {
               if (ticket.seat_id[0]?.status === 'Đang chọn') {
@@ -44,7 +44,7 @@ const TicketFlightsResultsPage: React.FC = () => {
                 a.seat_id[0]?.ordinal_numbers - b.seat_id[0]?.ordinal_numbers
             );
           setTickets(updatedTickets);
-          sessionStorage.setItem(
+          localStorage.setItem(
             'searchResults',
             JSON.stringify(updatedTickets)
           );
@@ -72,7 +72,7 @@ const TicketFlightsResultsPage: React.FC = () => {
   }, []);
 
   useEffect(() => {
-    const storedTickets = sessionStorage.getItem('searchResults');
+    const storedTickets = localStorage.getItem('searchResults');
     if (storedTickets) {
       const parsedTickets = JSON.parse(storedTickets) as ITicket[];
       setTickets(parsedTickets);
