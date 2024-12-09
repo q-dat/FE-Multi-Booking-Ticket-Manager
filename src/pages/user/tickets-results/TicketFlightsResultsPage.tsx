@@ -8,6 +8,7 @@ import { useCart } from '../../../context/cart/CartContext';
 import CartPage from '../CartPage';
 import { Button } from 'react-daisyui';
 import { getAllTicketsApi } from '../../../axios/api/ticketApi'; // Thêm import API
+import { listenToNewTickets, offSocketEvents } from '../../../socket/seatSocket';
 
 const TicketFlightsResultsPage: React.FC = () => {
   const { t } = useTranslation();
@@ -69,6 +70,15 @@ const TicketFlightsResultsPage: React.FC = () => {
     };
 
     fetchTickets();
+    const handleNewTicket = () => {
+      fetchTickets();
+    };
+
+    listenToNewTickets(handleNewTicket);
+
+    return () => {
+      offSocketEvents();
+    };
   }, []);
 
   useEffect(() => {

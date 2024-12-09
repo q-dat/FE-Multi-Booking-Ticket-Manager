@@ -10,6 +10,7 @@ import { Button } from 'react-daisyui';
 import { GiSteeringWheel } from 'react-icons/gi';
 import { GiBusDoors } from 'react-icons/gi';
 import { getAllTicketsApi } from '../../../axios/api/ticketApi';
+import { listenToNewTickets, offSocketEvents } from '../../../socket/seatSocket';
 
 const TicketBusesResultsPage: React.FC = () => {
   const { t } = useTranslation();
@@ -63,6 +64,15 @@ const TicketBusesResultsPage: React.FC = () => {
     };
 
     fetchTickets();
+    const handleNewTicket = () => {
+      fetchTickets();
+    };
+
+    listenToNewTickets(handleNewTicket);
+
+    return () => {
+      offSocketEvents();
+    };
   }, []);
 
   useEffect(() => {
