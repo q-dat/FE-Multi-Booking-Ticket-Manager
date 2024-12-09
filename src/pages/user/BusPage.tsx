@@ -37,7 +37,7 @@ const BusesPage: React.FC = () => {
     const searchResults: ITicket[] = await searchTickets(searchParams);
 
     if (searchResults.length > 0) {
-      sessionStorage.setItem('searchResults', JSON.stringify(searchResults));
+      localStorage.setItem('searchResults', JSON.stringify(searchResults));
       navigate('/ticket-buses-results');
       Toastify('Tìm kiếm vé thành công', 200);
     } else {

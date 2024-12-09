@@ -8,6 +8,10 @@ import { useCart } from '../../../context/cart/CartContext';
 import CartPage from '../CartPage';
 import { Button } from 'react-daisyui';
 import { getAllTicketsApi } from '../../../axios/api/ticketApi';
+import {
+  listenToNewTickets,
+  offSocketEvents
+} from '../../../socket/seatSocket';
 
 const TicketTrainsResultsPage: React.FC = () => {
   const { t } = useTranslation();
@@ -53,8 +57,17 @@ const TicketTrainsResultsPage: React.FC = () => {
         setLoading(false);
       }
     };
-
     fetchTickets();
+
+    const handleNewTicket = () => {
+      fetchTickets();
+    };
+
+    listenToNewTickets(handleNewTicket);
+
+    return () => {
+      offSocketEvents();
+    };
   }, []);
 
   useEffect(() => {
