@@ -71,7 +71,7 @@ const OrderPage: React.FC = () => {
                       {item.ticketCode}
                     </p>
                     <p>
-                      <strong>Trạng thái: </strong>
+                      <strong>Trạng thái vé: </strong>
                       {item.status}
                     </p>
                     {index < order.items.length - 1 && ','}

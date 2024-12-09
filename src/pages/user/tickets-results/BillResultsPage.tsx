@@ -9,6 +9,7 @@ import { isIErrorResponse } from '../../../types/error/error';
 
 interface Order {
   items: OrderItem[];
+  payment: boolean;
 }
 
 const BillResultsPage: React.FC = () => {
@@ -70,7 +71,7 @@ const BillResultsPage: React.FC = () => {
     } catch (error) {
       const errorMessage = isIErrorResponse(error)
         ? error.data?.message
-        : 'Vé đã được hoàn trả trước đó.';
+        : 'Vé đã được hoàn trả hoặc hết thời gian hoàn trả.';
       Toastify(`${errorMessage}`, 500);
     }
   };
@@ -97,12 +98,15 @@ const BillResultsPage: React.FC = () => {
             {/* Ticket Details */}
             {orderState.items.map((item, index) => (
               <div key={index} className="mb-6 border-b border-gray-200 pb-4">
-                <div className="flex items-center">
-                  <p className="mb-2">
-                    <span className="font-semibold">Họ và tên:</span> {item.name}
-                  </p>
-                </div>
                 <div className="grid grid-cols-2 gap-4 text-sm">
+                  <div className="flex justify-between">
+                    <span className="font-semibold">Họ và tên:</span>
+                    <span>{item.name}</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="font-semibold">Đối tượng:</span>
+                    <span>{item.discount}</span>
+                  </div>
                   <div className="flex justify-between">
                     <span className="font-semibold">Loại vé:</span>
                     <span>{item.ticketCatalog}</span>
@@ -148,11 +152,19 @@ const BillResultsPage: React.FC = () => {
                     <span>{item.vehicle}</span>
                   </div>
                   <div className="flex justify-between">
-                    <span className="font-semibold">Trạng thái:</span>
+                    <span className="font-semibold">Mã vé:</span>
+                    <span>{item.ticketCode}</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="font-semibold">Giá:</span>
+                    <span>{(item.price * 1000).toLocaleString('vi-VN')} VNĐ</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="font-semibold">Trạng thái vé:</span>
                     <span>{item.status}</span>
                   </div>
                   <div className="flex justify-between">
-                    <span className="font-semibold">Chọn để hoàn vé:</span>
+                    <span className="font-semibold">Chọn để hoàn trả vé:</span>
                     <input
                       type="checkbox"
                       checked={selectedTickets.has(index)}
@@ -164,15 +176,11 @@ const BillResultsPage: React.FC = () => {
               </div>
             ))}
 
-            {/* Pricing Information */}
             <div className="mb-6 border-b border-gray-200 pb-4">
               <div className="mt-2 flex justify-between text-lg font-bold">
-                <span>Tổng giá vé:</span>
+                <span>Tình trạng thanh toán:</span>
                 <span>
-                  {orderState.items
-                    .reduce((total, item) => total + item.price * 1000 * item.quantity, 0)
-                    .toLocaleString('vi-VN')}{' '}
-                  VNĐ
+                  {orderState.payment ? 'Đã thanh toán' : 'Chưa thanh toán'}
                 </span>
               </div>
             </div>
