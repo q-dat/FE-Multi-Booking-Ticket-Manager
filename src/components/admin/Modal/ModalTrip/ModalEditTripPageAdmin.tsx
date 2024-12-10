@@ -113,7 +113,7 @@ const ModalEditTripPageAdmin: React.FC<ModalEditTripProps> = ({
                 />
                 <LabelForm title={'Thời Gian Đi'} />
                 <InputModal
-                  type={'text'}
+                  type={'time'}
                   {...register('departure_time')}
                   placeholder="vd: 06:00"
                 />
@@ -158,7 +158,7 @@ const ModalEditTripPageAdmin: React.FC<ModalEditTripProps> = ({
                 />
                 <LabelForm title={'Thời Gian Về'} />
                 <InputModal
-                  type={'text'}
+                  type={'time'}
                   {...register('return_time')}
                   placeholder="vd: 12:00"
                 />

@@ -88,7 +88,7 @@ const ModalCreateTripPageAdmin: React.FC<ModalCreateTicketProps> = ({
                 />
                 <LabelForm title={'Thời Gian Đi'} />
                 <InputModal
-                  type={'text'}
+                  type={'time'}
                   {...register('departure_time', { required: true })}
                   placeholder="vd: 06:00"
                 />
@@ -133,7 +133,7 @@ const ModalCreateTripPageAdmin: React.FC<ModalCreateTicketProps> = ({
                 />
                 <LabelForm title={'Thời Gian Về'} />
                 <InputModal
-                  type={'text'}
+                  type={'time'}
                   {...register('return_time', { required: true })}
                   placeholder="vd: 12:00"
                 />
