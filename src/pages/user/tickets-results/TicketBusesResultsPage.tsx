@@ -86,7 +86,7 @@ const TicketBusesResultsPage: React.FC = () => {
   }, [selectedSeats]);
 
   if (loading) {
-    return <LoadingLocal />;
+    // return <LoadingLocal />;
   }
 
   if (error) {
