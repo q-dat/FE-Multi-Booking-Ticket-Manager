@@ -55,14 +55,42 @@ const TicketTrainsResultsPage: React.FC = () => {
         setError('Lỗi khi tải vé.');
       } finally {
         setLoading(false);
+        // Đồng bộ trạng thái ghế sau khi fetch xong
+        updateSeatStatus();
       }
     };
-    fetchTickets();
 
-    const handleNewTicket = () => {
-      fetchTickets();
+    const updateSeatStatus = () => {
+      const storedListID = localStorage.getItem('listID');
+      if (!storedListID) return;
+
+      const listID = JSON.parse(storedListID) as string[];
+
+      const storedSearchResults = localStorage.getItem('searchResults');
+      if (!storedSearchResults) return;
+
+      const searchResults = JSON.parse(storedSearchResults) as ITicket[];
+
+      const updatedResults = searchResults.map(ticket => {
+        const isSeatSelected = listID.includes(ticket.seat_id[0]?._id || '');
+        return {
+          ...ticket,
+          seat_id: ticket.seat_id.map(seat => ({
+            ...seat,
+            status: isSeatSelected ? 'Đang chọn' : seat.status
+          }))
+        };
+      });
+
+      localStorage.setItem('searchResults', JSON.stringify(updatedResults));
+      setTickets(updatedResults);
     };
 
+    const handleNewTicket = () => {
+      fetchTickets(); // Gọi lại fetchTickets khi có dữ liệu mới từ socket
+    };
+
+    fetchTickets();
     listenToNewTickets(handleNewTicket);
 
     return () => {
@@ -78,7 +106,58 @@ const TicketTrainsResultsPage: React.FC = () => {
     } else {
       setTickets([]);
     }
+    //
+    const updateSeatIDList = () => {
+      const storedCart = localStorage.getItem('cart');
+      if (storedCart) {
+        const cartItems = JSON.parse(storedCart) as ITicket[];
+        const seatIDs = cartItems
+          .map(item => item.seat_id[0]?._id)
+          .filter(Boolean); // Lọc bỏ undefined/null
+        localStorage.setItem('listID', JSON.stringify(seatIDs));
+      } else {
+        localStorage.setItem('listID', JSON.stringify([])); // Lưu mảng rỗng nếu không có vé
+      }
+    };
+
+    // Cập nhật danh sách ID khi component render
+    updateSeatIDList();
   }, [selectedSeats]);
+  //
+  useEffect(() => {
+    const updateSeatStatus = () => {
+      // Lấy danh sách ID ghế từ localStorage
+      const storedListID = localStorage.getItem('listID');
+      if (!storedListID) return;
+
+      const listID = JSON.parse(storedListID) as string[];
+
+      // Lấy kết quả tìm kiếm hiện tại từ localStorage
+      const storedSearchResults = localStorage.getItem('searchResults');
+      if (!storedSearchResults) return;
+
+      const searchResults = JSON.parse(storedSearchResults) as ITicket[];
+
+      // Cập nhật trạng thái của ghế dựa vào listID
+      const updatedResults = searchResults.map(ticket => {
+        const isSeatSelected = listID.includes(ticket.seat_id[0]?._id || '');
+        return {
+          ...ticket,
+          seat_id: ticket.seat_id.map(seat => ({
+            ...seat,
+            status: isSeatSelected ? 'Đang chọn' : seat.status
+          }))
+        };
+      });
+
+      // Lưu kết quả cập nhật vào localStorage và state
+      localStorage.setItem('searchResults', JSON.stringify(updatedResults));
+      setTickets(updatedResults);
+    };
+
+    // Thực hiện cập nhật khi danh sách ID thay đổi
+    updateSeatStatus();
+  }, [selectedSeats]); // Thêm `selectedSeats` để cập nhật khi giỏ hàng thay đổi
 
   if (loading) {
     // return <LoadingLocal />;
