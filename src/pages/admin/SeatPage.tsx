@@ -427,14 +427,14 @@ const SeatPage: React.FC = () => {
                         <Button
                           color="success"
                           onClick={() => openModalEditAdmin(seat._id ?? '')}
-                          className="max-w-[140px] text-sm font-light text-white"
+                          className="w-full max-w-[140px] text-sm font-light text-white"
                         >
                           <FaPenToSquare />
                           Cập Nhật
                         </Button>
                         <Button
                           onClick={() => openModalDeleteAdmin(seat._id ?? '')}
-                          className="max-w-[140px] bg-red-600 text-sm font-light text-white"
+                          className="w-full max-w-[140px] bg-red-600 text-sm font-light text-white"
                         >
                           <MdDelete />
                           Xoá
