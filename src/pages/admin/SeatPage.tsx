@@ -1,6 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { Toastify } from '../../helper/Toastify';
-import LoadingLocal from '../../components/orther/loading/LoadingLocal';
 import NavtitleAdmin from '../../components/admin/NavtitleAdmin';
 import { RiAddBoxLine, RiListSettingsLine } from 'react-icons/ri';
 import { Button, Table } from 'react-daisyui';
@@ -151,8 +150,8 @@ const SeatPage: React.FC = () => {
       closeModalResetAdmin();
     }
   };
-
-  if (loading.getAll || loadingReset) return <LoadingLocal />;
+  console.log(loading.getAll || loadingReset);
+  // if (loading.getAll || loadingReset) return <LoadingLocal />;
   if (error) return <ErrorLoading />;
 
   return (

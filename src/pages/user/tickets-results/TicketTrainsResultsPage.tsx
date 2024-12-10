@@ -128,40 +128,38 @@ const TicketTrainsResultsPage: React.FC = () => {
     const updateSeatStatus = () => {
       // Lấy danh sách ID ghế từ localStorage
       const storedListID = localStorage.getItem('listID');
-      if (!storedListID) return;
-
-      const listID = JSON.parse(storedListID) as string[];
-
-      // Lấy kết quả tìm kiếm hiện tại từ localStorage
       const storedSearchResults = localStorage.getItem('searchResults');
-      if (!storedSearchResults) return;
-
+    
+      if (!storedSearchResults) return; // Nếu không có dữ liệu, thoát sớm
+    
       const searchResults = JSON.parse(storedSearchResults) as ITicket[];
-
-      // Cập nhật trạng thái của ghế dựa vào listID
-      const updatedResults = searchResults.map(ticket => {
-        const isSeatSelected = listID.includes(ticket.seat_id[0]?._id || '');
-        return {
-          ...ticket,
-          seat_id: ticket.seat_id.map(seat => ({
-            ...seat,
-            status: isSeatSelected ? 'Đang chọn' : seat.status
-          }))
-        };
-      });
-
+      const listID = storedListID ? JSON.parse(storedListID) as string[] : [];
+    
+      // Cập nhật trạng thái ghế
+      const updatedResults = searchResults.map(ticket => ({
+        ...ticket,
+        seat_id: ticket.seat_id.map(seat => ({
+          ...seat,
+          status: listID.length > 0 && listID.includes(seat._id) 
+            ? 'Đang chọn' // Đặt trạng thái là "Đang chọn" nếu ghế có trong listID
+            : 'Còn chỗ'   // Nếu không, ghế trở về trạng thái "Còn chỗ"
+        })),
+      }));
+    
       // Lưu kết quả cập nhật vào localStorage và state
       localStorage.setItem('searchResults', JSON.stringify(updatedResults));
       setTickets(updatedResults);
     };
-
+    
     // Thực hiện cập nhật khi danh sách ID thay đổi
     updateSeatStatus();
   }, [selectedSeats]); // Thêm `selectedSeats` để cập nhật khi giỏ hàng thay đổi
 
-  if (loading) {
-    // return <LoadingLocal />;
-  }
+  // if (loading) {
+  // return <LoadingLocal />;
+  // }
+  console.log(loading);
+
 
   if (error) {
     return <ErrorLoading />;
