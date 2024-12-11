@@ -55,7 +55,6 @@ const TicketTrainsResultsPage: React.FC = () => {
         setError('Lỗi khi tải vé.');
       } finally {
         setLoading(false);
-        // Đồng bộ trạng thái ghế sau khi fetch xong
         updateSeatStatus();
       }
     };
@@ -87,7 +86,7 @@ const TicketTrainsResultsPage: React.FC = () => {
     };
 
     const handleNewTicket = () => {
-      fetchTickets(); // Gọi lại fetchTickets khi có dữ liệu mới từ socket
+      fetchTickets();
     };
 
     fetchTickets();
@@ -116,50 +115,41 @@ const TicketTrainsResultsPage: React.FC = () => {
           .filter(Boolean); // Lọc bỏ undefined/null
         localStorage.setItem('listID', JSON.stringify(seatIDs));
       } else {
-        localStorage.setItem('listID', JSON.stringify([])); // Lưu mảng rỗng nếu không có vé
+        localStorage.setItem('listID', JSON.stringify([]));
       }
     };
-
-    // Cập nhật danh sách ID khi component render
-    updateSeatIDList();
-  }, [selectedSeats]);
-  //
-  useEffect(() => {
     const updateSeatStatus = () => {
-      // Lấy danh sách ID ghế từ localStorage
       const storedListID = localStorage.getItem('listID');
       const storedSearchResults = localStorage.getItem('searchResults');
-    
-      if (!storedSearchResults) return; // Nếu không có dữ liệu, thoát sớm
-    
+
+      if (!storedSearchResults) return;
+
       const searchResults = JSON.parse(storedSearchResults) as ITicket[];
-      const listID = storedListID ? JSON.parse(storedListID) as string[] : [];
-    
+      const listID = storedListID ? (JSON.parse(storedListID) as string[]) : [];
+
       // Cập nhật trạng thái ghế
       const updatedResults = searchResults.map(ticket => ({
         ...ticket,
         seat_id: ticket.seat_id.map(seat => ({
           ...seat,
-          status: listID.length > 0 && listID.includes(seat._id) 
-            ? 'Đang chọn' // Đặt trạng thái là "Đang chọn" nếu ghế có trong listID
-            : 'Còn chỗ'   // Nếu không, ghế trở về trạng thái "Còn chỗ"
-        })),
+          status:
+            listID.length > 0 && listID.includes(seat._id)
+              ? 'Đang chọn'
+              : 'Còn chỗ'
+        }))
       }));
-    
-      // Lưu kết quả cập nhật vào localStorage và state
+
       localStorage.setItem('searchResults', JSON.stringify(updatedResults));
       setTickets(updatedResults);
     };
-    
-    // Thực hiện cập nhật khi danh sách ID thay đổi
+    updateSeatIDList();
     updateSeatStatus();
-  }, [selectedSeats]); // Thêm `selectedSeats` để cập nhật khi giỏ hàng thay đổi
+  }, [selectedSeats]);
 
   // if (loading) {
   // return <LoadingLocal />;
   // }
   console.log(loading);
-
 
   if (error) {
     return <ErrorLoading />;
@@ -245,7 +235,7 @@ const TicketTrainsResultsPage: React.FC = () => {
                     <strong>{t('UserPage.DepartureTimePlaceholder')}:</strong>
                     {trainTickets[0].trip_id?.departure_time}
                   </p>
-                  <p>
+                  <div>
                     {trainTickets[0].ticket_catalog_id?.name.toLowerCase() !==
                       'một chiều' && (
                       <>
@@ -271,7 +261,7 @@ const TicketTrainsResultsPage: React.FC = () => {
                         </p>
                       </>
                     )}
-                  </p>
+                  </div>
                 </div>
                 <div className="flex flex-row gap-10">
                   <div className="h-6 w-6 rounded-full bg-white group-hover:border group-hover:border-white group-hover:bg-primary dark:group-hover:bg-secondary"></div>
@@ -316,11 +306,13 @@ const TicketTrainsResultsPage: React.FC = () => {
                       return nameA.localeCompare(nameB);
                     })
                     .map(([classId, classTickets]) => (
-                      <div className="flex flex-row items-end justify-center">
+                      <div
+                        key={classId}
+                        className="flex flex-row items-end justify-center"
+                      >
                         <p className="text-black dark:text-white">+</p>
                         <div className="rounded-sm border border-b-[5px] border-l-0 border-r-0 border-t-0 border-dotted border-black dark:border-white">
                           <Button
-                            key={classId}
                             size="xs"
                             onClick={() => setSelectedClassId(classId)}
                             className={`text-md min-w-[100px] rounded-sm border-none text-xs font-semibold shadow-headerMenu shadow-black hover:bg-secondary ${
@@ -380,7 +372,7 @@ const TicketTrainsResultsPage: React.FC = () => {
                                     <p className="text-[12px] font-semibold">
                                       {ticket.seat_id[0]?.name}
                                     </p>
-                                    <p className="text-red-500">
+                                    <div className="text-red-500">
                                       <p className="text-black">
                                         {t('UserPage.TicketPrice')}:
                                       </p>
@@ -388,7 +380,7 @@ const TicketTrainsResultsPage: React.FC = () => {
                                         'vi-VN'
                                       )}
                                       <span className="text-black">VNĐ</span>
-                                    </p>
+                                    </div>
                                   </>
                                 ) : (
                                   <p>{seatStatus}</p>
