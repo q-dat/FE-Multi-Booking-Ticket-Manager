@@ -3,7 +3,7 @@ import { Outlet, useLocation } from 'react-router-dom';
 import Header from '../../components/UserPage/Header';
 import FooterFC from '../../components/UserPage/Footer';
 import ScrollToTopButton from '../../components/orther/scrollToTop/ScrollToTopButton';
-// import ContactForm from '../../components/UserPage/ContactForm';
+import ContactForm from '../../components/UserPage/ContactForm';
 // import NotificationPopup from '../../components/UserPage/NotificationPopup';g
 
 const User: React.FC = () => {
@@ -19,7 +19,7 @@ const User: React.FC = () => {
         <Header />
         <Outlet />
         <ScrollToTopButton />
-        {/* <ContactForm /> */}
+        <ContactForm />
         {/* <NotificationPopup /> */}
         <FooterFC />
       </div>

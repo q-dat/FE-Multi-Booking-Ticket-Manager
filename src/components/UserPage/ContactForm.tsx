@@ -6,7 +6,6 @@ import {
   LogoMessenger,
   LogoZalo
 } from '../../assets/images';
-import { FaUsers } from 'react-icons/fa';
 
 import { IoIosCloseCircle } from 'react-icons/io';
 import { IoChatbubbleEllipsesOutline, IoPaperPlane } from 'react-icons/io5';
@@ -73,10 +72,10 @@ const ContactForm: React.FC = () => {
       <div className="flex w-full justify-end">
         <button
           onClick={toggleDropdown}
-          className={`flex items-center rounded-full border border-white bg-primary py-[2px] pl-3 text-xs text-white ${isExpanded ? '' : 'hidden'}`}
+          className={`flex items-center rounded-full border border-white bg-primary py-[2px] pl-2 text-xs text-white ${isExpanded ? '' : 'hidden'}`}
         >
           {t('UserPage.CloseBtn')}
-          <IoIosCloseCircle className="text-2xl" />
+          <IoIosCloseCircle className="text-xl" />
         </button>
         <button
           onClick={toggleDropdown}
@@ -100,8 +99,9 @@ const ContactForm: React.FC = () => {
           <div className="flex flex-row items-start justify-between">
             {/*  */}
             <div className="flex flex-row items-center gap-1 text-xl text-primary">
-              <FaUsers />
-              <p>{t('UserPage.TitleContactForm')}</p>
+              <p className="from-primary to-red-500 bg-gradient-to-r bg-clip-text text-2xl text-transparent font-semibold">
+                {t('UserPage.TitleContactForm')}
+              </p>
             </div>
             {/*  */}
             <div>
@@ -119,32 +119,32 @@ const ContactForm: React.FC = () => {
               onSubmit={onSubmit}
               className="my-5 flex items-center justify-center rounded-xl bg-transparent"
             >
-              <div className="flex flex-col items-center justify-center gap-5">
-                <div className="space-y-2">
+              <div className="flex flex-col items-center justify-center gap-2">
+                <div className="w-full space-y-2">
                   <InputForm
                     name="email"
                     type="email"
                     placeholder={t('UserPage.Email')}
-                    className="border border-black bg-white text-black dark:shadow-none dark:shadow-white xs:w-[250px] sm:w-[300px] md:w-[650px] xl:w-[230px]"
-                    classNameLabel="bg-white dark:peer-placeholder-shown:text-black dark:peer-focus:text-black"
+                    className="size-10 border border-black bg-white text-black dark:shadow-none dark:shadow-white w-full"
+                    classNameLabel="bg-white dark:peer-placeholder-shown:text-black dark:peer-focus:text-black peer-placeholder-shown:top-2"
                   />
                   <InputForm
                     name="name"
                     type="text"
-                    className="border border-black bg-white text-black dark:shadow-none dark:shadow-white xs:w-[250px] sm:w-[300px] md:w-[650px] xl:w-[230px]"
+                    className="size-10 border border-black bg-white text-black dark:shadow-none dark:shadow-white w-full"
                     placeholder={t('UserPage.YourNameBtn')}
-                    classNameLabel="bg-white dark:peer-placeholder-shown:text-black dark:peer-focus:text-black"
+                    classNameLabel="bg-white dark:peer-placeholder-shown:text-black dark:peer-focus:text-black peer-placeholder-shown:top-2"
                   />
                 </div>
-                <Textarea
-                  name="feedback"
-                  className="border border-black bg-white pb-10 text-black focus:outline-none dark:shadow-none dark:shadow-white xs:w-full sm:w-[300px] md:w-[650px] lg:w-full"
-                  placeholder={t('UserPage.FeedbackBtn')}
-                />
                 <div className="w-full">
+                  <Textarea
+                    name="feedback"
+                    className="border border-black bg-white pb-8 text-black focus:outline-none dark:shadow-none dark:shadow-white w-full"
+                    placeholder={t('UserPage.FeedbackBtn')}
+                  />
                   <Button
                     size="sm"
-                    className="w-20 bg-primary text-sm text-white outline outline-offset-1 hover:bg-secondary"
+                    className="bg-green-500 text-sm text-white hover:bg-secondary"
                     type="submit"
                   >
                     <IoPaperPlane /> {t('UserPage.SentBtn')}
