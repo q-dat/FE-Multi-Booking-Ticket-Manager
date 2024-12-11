@@ -215,15 +215,15 @@ const TicketBusesResultsPage: React.FC = () => {
           <div className="mb-10 flex w-full flex-row items-center justify-center gap-5">
             <div className="flex items-center justify-center gap-1">
               <p className="h-5 w-5 rounded-md border border-black bg-blue-500"></p>
-              <p>Còn Chỗ</p>
+              <p> {t('UserPage.TicketTrainsResults.EmptySeats')}</p>
             </div>
             <div className="flex items-center justify-center gap-1">
               <p className="h-5 w-5 rounded-md border border-black bg-orange-500"></p>
-              <p>Hết Chỗ</p>
+              <p> {t('UserPage.TicketTrainsResults.NoSeats')}</p>
             </div>
             <div className="flex items-center justify-center gap-1">
               <p className="h-5 w-5 rounded-md border border-black bg-gray-500"></p>
-              <p>Đang Chọn</p>
+              <p> {t('UserPage.TicketTrainsResults.Selecting')}</p>
             </div>
           </div>
           <div className="flex flex-col justify-center sm:flex-row">

@@ -226,9 +226,9 @@ const HeaderResponsive: React.FC<HeaderResponsiveProps> = ({
           >
             <div
               onClick={toggleLeftVisible}
-              className="flex flex-row items-center justify-center gap-2 py-4 text-2xl text-black dark:text-white xl:hidden"
+              className="flex flex-row items-center justify-center gap-2 py-4 text-2xl  xl:hidden"
             >
-              <div className="rounded-md p-1 text-[25px] text-primary">
+              <div className="rounded-md p-1 text-[25px]  text-primary dark:text-white">
                 <RxHamburgerMenu />
               </div>
             </div>
@@ -306,9 +306,9 @@ const HeaderResponsive: React.FC<HeaderResponsiveProps> = ({
           >
             <div
               onClick={toggleRightVisible}
-              className="flex flex-row items-center justify-center gap-2 py-4 text-2xl text-black dark:text-white xl:hidden"
+              className="flex flex-row items-center justify-center gap-2 py-4 text-2xl xl:hidden"
             >
-              <div className="rounded-md p-1 text-[20px] text-primary">
+              <div className="rounded-md p-1 text-[20px] t text-primary dark:text-white ">
                 <IoSettingsSharp />
               </div>
             </div>

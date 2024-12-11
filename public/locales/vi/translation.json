@@ -144,6 +144,9 @@
       "titleBuses2": "Điểm Khởi Hành"
     },
     "TicketTrainsResults": {
+      "EmptySeats": "Còn chỗ",
+      "NoSeats": "Hết chỗ",
+      "Selecting": "Đang chọn",
       "TripFrom": "Chuyến đi từ",
       "To": "Đến",
       "Location": "Vị Trí"

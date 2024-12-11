@@ -145,6 +145,9 @@ interface Resources {
         "titleBuses2": "Departure Point"
       },
       "TicketTrainsResults": {
+        "EmptySeats": "Empty Seats",
+        "NoSeats": "No Seats",
+        "Selecting": "Selecting",
         "TripFrom": "Trip From",
         "To": "To",
         "Location": "Location"
