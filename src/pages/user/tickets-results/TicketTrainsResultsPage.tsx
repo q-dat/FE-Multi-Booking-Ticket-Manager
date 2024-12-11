@@ -23,31 +23,37 @@ const TicketTrainsResultsPage: React.FC = () => {
   const { addSeat, selectedSeats } = useCart();
 
   useEffect(() => {
+    let consecutiveCalls = 0; // Biến đếm số lần gọi liên tiếp
+    const MAX_CONSECUTIVE_CALLS = 2; // Số lần gọi tối đa liên tiếp cho phép
+    
     const fetchTickets = async () => {
+      if (consecutiveCalls >= MAX_CONSECUTIVE_CALLS) {
+        console.warn('Đã vượt quá số lần gọi liên tiếp cho phép.');
+        return; // Dừng nếu gọi quá số lần cho phép
+      }
+    
+      consecutiveCalls++; // Tăng biến đếm khi gọi API
+    
       setLoading(true);
       try {
         const storedTickets = localStorage.getItem('searchResults');
-        if (!storedTickets)
-          throw new Error('Không tìm thấy dữ liệu vé trong session.');
-
+        if (!storedTickets) throw new Error('Không tìm thấy dữ liệu vé trong session.');
+    
         const parsedTickets = JSON.parse(storedTickets) as ITicket[];
-        const {
-          data: { tickets: allTickets }
-        } = await getAllTicketsApi();
-
+        const response = await getAllTicketsApi()
+        const allTickets = response.data.tickets;
+    
         const updatedTickets = parsedTickets.map(ticket =>
           ticket.seat_id[0]?.status === 'Đang chọn'
             ? ticket
             : allTickets.find(t => t._id === ticket._id) || ticket
         );
-
+    
         setTickets(updatedTickets);
         localStorage.setItem('searchResults', JSON.stringify(updatedTickets));
-
+    
         if (updatedTickets.length > 0) {
-          setSelectedTrain(
-            updatedTickets[0].seat_id[0]?.seat_catalog_id.vehicle_id.name
-          );
+          setSelectedTrain(updatedTickets[0].seat_id[0]?.seat_catalog_id.vehicle_id.name);
           setSelectedClassId(updatedTickets[0].seat_id[0]?.seat_catalog_id._id);
         }
       } catch (err) {
@@ -56,6 +62,11 @@ const TicketTrainsResultsPage: React.FC = () => {
       } finally {
         setLoading(false);
         updateSeatStatus();
+    
+        // Reset đếm sau khi một khoảng thời gian nhất định
+        setTimeout(() => {
+          consecutiveCalls = 0;
+        }, 5000); // Reset sau 5 giây (hoặc thời gian bạn mong muốn)
       }
     };
 
