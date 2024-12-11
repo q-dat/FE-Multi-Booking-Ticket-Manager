@@ -35,6 +35,8 @@ const FlightsPage: React.FC = () => {
     );
 
     const searchResults: ITicket[] = await searchTickets(searchParams);
+    sessionStorage.setItem('searchParams', JSON.stringify(searchParams));
+
 
     if (searchResults.length > 0) {
       localStorage.setItem('searchResults', JSON.stringify(searchResults));

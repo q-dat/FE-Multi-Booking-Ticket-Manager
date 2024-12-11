@@ -70,7 +70,7 @@
     linear-gradient(#ddd 16%, transparent 15%),
     linear-gradient(#fff 14%, transparent 14%),
     linear-gradient(#ddd 17%, transparent 16%),
-    linear-gradient(#fff 16%, transparent 16%);
+    linear-gradient(#fff 20%, transparent 20%);
 
   background-size: 100%;
   background-position:
@@ -80,7 +80,7 @@
     0 110px,
     0 150px,
     0 180px,
-    0 196px;
+    0 225px;
 }
 .zebra-background42 {
   background-image: linear-gradient(#fff 22%, transparent 20%),

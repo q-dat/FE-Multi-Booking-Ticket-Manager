@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import HeaderResponsive from '../../../components/UserPage/HeaderResponsive';
 import { useTranslation } from 'react-i18next';
 import LoadingLocal from '../../../components/orther/loading/LoadingLocal';
@@ -7,13 +7,14 @@ import { ITicket } from '../../../types/type/ticket/ticket';
 import { useCart } from '../../../context/cart/CartContext';
 import CartPage from '../CartPage';
 import { Button } from 'react-daisyui';
-import { getAllTicketsApi } from '../../../axios/api/ticketApi';
 import {
   listenToNewTickets,
   offSocketEvents
 } from '../../../socket/seatSocket';
+import { TicketContext } from '../../../context/ticket/TicketContext';
 
 const TicketTrainsResultsPage: React.FC = () => {
+  const { searchTickets } = useContext(TicketContext);
   const { t } = useTranslation();
   const [tickets, setTickets] = useState<ITicket[]>([]);
   const [loading, setLoading] = useState(true);
@@ -25,35 +26,53 @@ const TicketTrainsResultsPage: React.FC = () => {
   useEffect(() => {
     let consecutiveCalls = 0; // Biến đếm số lần gọi liên tiếp
     const MAX_CONSECUTIVE_CALLS = 2; // Số lần gọi tối đa liên tiếp cho phép
-    
+
     const fetchTickets = async () => {
       if (consecutiveCalls >= MAX_CONSECUTIVE_CALLS) {
         console.warn('Đã vượt quá số lần gọi liên tiếp cho phép.');
         return; // Dừng nếu gọi quá số lần cho phép
       }
-    
+
       consecutiveCalls++; // Tăng biến đếm khi gọi API
-    
+
       setLoading(true);
       try {
         const storedTickets = localStorage.getItem('searchResults');
-        if (!storedTickets) throw new Error('Không tìm thấy dữ liệu vé trong session.');
-    
+        if (!storedTickets)
+          throw new Error('Không tìm thấy dữ liệu vé trong session.');
         const parsedTickets = JSON.parse(storedTickets) as ITicket[];
-        const response = await getAllTicketsApi()
-        const allTickets = response.data.tickets;
-    
+        const searchParams = sessionStorage.getItem('searchParams');
+        if (!searchParams) {
+          throw new Error('Không tìm thấy tham số tìm kiếm trong session.');
+        }
+        const parsedSearchParams = JSON.parse(searchParams);
+
+        // Tạo đối tượng tìm kiếm từ thông tin trong session
+        const filterParams = {
+          departure_date: parsedSearchParams.departure_date,
+          departure_point_name: parsedSearchParams.departure_point_name,
+          destination_point_name: parsedSearchParams.destination_point_name,
+          return_date: parsedSearchParams.return_date,
+          ticket_catalog_name: parsedSearchParams.ticket_catalog_name,
+          vehicle_catalog_name: parsedSearchParams.vehicle_catalog_name
+        };
+
+        // Gọi API tìm kiếm vé
+        const filteredTickets = await searchTickets(filterParams);
+
         const updatedTickets = parsedTickets.map(ticket =>
           ticket.seat_id[0]?.status === 'Đang chọn'
             ? ticket
-            : allTickets.find(t => t._id === ticket._id) || ticket
+            : filteredTickets.find(t => t._id === ticket._id) || ticket
         );
-    
+
         setTickets(updatedTickets);
         localStorage.setItem('searchResults', JSON.stringify(updatedTickets));
-    
+
         if (updatedTickets.length > 0) {
-          setSelectedTrain(updatedTickets[0].seat_id[0]?.seat_catalog_id.vehicle_id.name);
+          setSelectedTrain(
+            updatedTickets[0].seat_id[0]?.seat_catalog_id.vehicle_id.name
+          );
           setSelectedClassId(updatedTickets[0].seat_id[0]?.seat_catalog_id._id);
         }
       } catch (err) {
@@ -62,11 +81,10 @@ const TicketTrainsResultsPage: React.FC = () => {
       } finally {
         setLoading(false);
         updateSeatStatus();
-    
-        // Reset đếm sau khi một khoảng thời gian nhất định
+
         setTimeout(() => {
           consecutiveCalls = 0;
-        }, 5000); // Reset sau 5 giây (hoặc thời gian bạn mong muốn)
+        }, 5000);
       }
     };
 
@@ -95,12 +113,12 @@ const TicketTrainsResultsPage: React.FC = () => {
       localStorage.setItem('searchResults', JSON.stringify(updatedResults));
       setTickets(updatedResults);
     };
+    fetchTickets();
 
     const handleNewTicket = () => {
       fetchTickets();
     };
 
-    fetchTickets();
     listenToNewTickets(handleNewTicket);
 
     return () => {
@@ -129,7 +147,7 @@ const TicketTrainsResultsPage: React.FC = () => {
         localStorage.setItem('listID', JSON.stringify([]));
       }
     };
-    const updateSeatStatus = () => {
+    const updateSeatStatusIDList = () => {
       const storedListID = localStorage.getItem('listID');
       const storedSearchResults = localStorage.getItem('searchResults');
 
@@ -154,7 +172,7 @@ const TicketTrainsResultsPage: React.FC = () => {
       setTickets(updatedResults);
     };
     updateSeatIDList();
-    updateSeatStatus();
+    updateSeatStatusIDList();
   }, [selectedSeats]);
 
   // if (loading) {

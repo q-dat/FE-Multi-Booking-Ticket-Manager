@@ -59,6 +59,7 @@ const Home: React.FC = () => {
 
     //
     const searchResults: ITicket[] = await searchTickets(searchParams);
+    sessionStorage.setItem('searchParams', JSON.stringify(searchParams));
 
     if (searchResults.length > 0) {
       const selectedVehicle = searchResults[0];
