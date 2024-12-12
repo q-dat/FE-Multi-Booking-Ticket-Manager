@@ -126,14 +126,14 @@ const ContactForm: React.FC = () => {
                     type="email"
                     placeholder={t('UserPage.Email')}
                     className="size-10 border border-black bg-white text-black dark:shadow-none dark:shadow-white w-full"
-                    classNameLabel="bg-white dark:peer-placeholder-shown:text-black dark:peer-focus:text-black peer-placeholder-shown:top-2"
+                    classNameLabel="bg-white dark:peer-placeholder-shown:text-black dark:peer-focus:text-black peer-placeholder-shown:top-[8px]"
                   />
                   <InputForm
                     name="name"
                     type="text"
                     className="size-10 border border-black bg-white text-black dark:shadow-none dark:shadow-white w-full"
                     placeholder={t('UserPage.YourNameBtn')}
-                    classNameLabel="bg-white dark:peer-placeholder-shown:text-black dark:peer-focus:text-black peer-placeholder-shown:top-2"
+                    classNameLabel="bg-white dark:peer-placeholder-shown:text-black dark:peer-focus:text-black peer-placeholder-shown:top-[8px]"
                   />
                 </div>
                 <div className="w-full">
