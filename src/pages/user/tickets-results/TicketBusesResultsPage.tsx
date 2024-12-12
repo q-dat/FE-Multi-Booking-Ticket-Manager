@@ -1,4 +1,4 @@
-import React, { useEffect, useState,useContext } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import HeaderResponsive from '../../../components/UserPage/HeaderResponsive';
 import { useTranslation } from 'react-i18next';
 import LoadingLocal from '../../../components/orther/loading/LoadingLocal';
@@ -9,17 +9,20 @@ import CartPage from '../CartPage';
 import { Button } from 'react-daisyui';
 import { GiSteeringWheel } from 'react-icons/gi';
 import { GiBusDoors } from 'react-icons/gi';
-import { listenToNewTickets, offSocketEvents } from '../../../socket/seatSocket';
+import {
+  listenToNewTickets,
+  offSocketEvents
+} from '../../../socket/seatSocket';
 import { TicketContext } from '../../../context/ticket/TicketContext';
 
 const TicketBusesResultsPage: React.FC = () => {
-  const {searchTickets } = useContext(TicketContext);
+  const { searchTickets } = useContext(TicketContext);
   const { t } = useTranslation();
   const [tickets, setTickets] = useState<ITicket[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [selectedBus, setSelectedBus] = useState<string | null>(null);
-  const [selectedClassId, setSelectedClassId] = useState<string | null>(null);
+  // const [selectedClassId, setSelectedClassId] = useState<string | null>(null);
   const { addSeat, selectedSeats } = useCart();
 
   useEffect(() => {
@@ -33,81 +36,81 @@ const TicketBusesResultsPage: React.FC = () => {
       consecutiveCalls++; // Tăng biến đếm khi gọi API
       setLoading(true);
       try {
-              const storedTickets = localStorage.getItem('searchResults');
-              if (!storedTickets)
-                throw new Error('Không tìm thấy dữ liệu vé trong session.');
-              const parsedTickets = JSON.parse(storedTickets) as ITicket[];
-              const searchParams = sessionStorage.getItem('searchParams');
-              if (!searchParams) {
-                throw new Error('Không tìm thấy tham số tìm kiếm trong session.');
-              }
-              const parsedSearchParams = JSON.parse(searchParams);
-      
-              // Tạo đối tượng tìm kiếm từ thông tin trong session
-              const filterParams = {
-                departure_date: parsedSearchParams.departure_date,
-                departure_point_name: parsedSearchParams.departure_point_name,
-                destination_point_name: parsedSearchParams.destination_point_name,
-                return_date: parsedSearchParams.return_date,
-                ticket_catalog_name: parsedSearchParams.ticket_catalog_name,
-                vehicle_catalog_name: parsedSearchParams.vehicle_catalog_name
-              };
-      
-              // Gọi API tìm kiếm vé
-              const filteredTickets = await searchTickets(filterParams);
-      
-              const updatedTickets = parsedTickets.map(ticket =>
-                ticket.seat_id[0]?.status === 'Đang chọn'
-                  ? ticket
-                  : filteredTickets.find(t => t._id === ticket._id) || ticket
-              );
-      
-              setTickets(updatedTickets);
-              localStorage.setItem('searchResults', JSON.stringify(updatedTickets));
-      
-              if (updatedTickets.length > 0) {
-                setSelectedBus(
-                  updatedTickets[0].seat_id[0]?.seat_catalog_id.vehicle_id.name
-                );
-                setSelectedClassId(updatedTickets[0].seat_id[0]?.seat_catalog_id._id);
-              }
-            } catch (err) {
-              console.error(err);
-              setError('Lỗi khi tải vé.');
-            } finally {
-              setLoading(false);
-              updateSeatStatus();
-      
-              setTimeout(() => {
-                consecutiveCalls = 0;
-              }, 5000);
-            }
+        const storedTickets = localStorage.getItem('searchResults');
+        if (!storedTickets)
+          throw new Error('Không tìm thấy dữ liệu vé trong session.');
+        const parsedTickets = JSON.parse(storedTickets) as ITicket[];
+        const searchParams = sessionStorage.getItem('searchParams');
+        if (!searchParams) {
+          throw new Error('Không tìm thấy tham số tìm kiếm trong session.');
+        }
+        const parsedSearchParams = JSON.parse(searchParams);
+
+        // Tạo đối tượng tìm kiếm từ thông tin trong session
+        const filterParams = {
+          departure_date: parsedSearchParams.departure_date,
+          departure_point_name: parsedSearchParams.departure_point_name,
+          destination_point_name: parsedSearchParams.destination_point_name,
+          return_date: parsedSearchParams.return_date,
+          ticket_catalog_name: parsedSearchParams.ticket_catalog_name,
+          vehicle_catalog_name: parsedSearchParams.vehicle_catalog_name
+        };
+
+        // Gọi API tìm kiếm vé
+        const filteredTickets = await searchTickets(filterParams);
+
+        const updatedTickets = parsedTickets.map(ticket =>
+          ticket.seat_id[0]?.status === 'Đang chọn'
+            ? ticket
+            : filteredTickets.find(t => t._id === ticket._id) || ticket
+        );
+
+        setTickets(updatedTickets);
+        localStorage.setItem('searchResults', JSON.stringify(updatedTickets));
+
+        if (updatedTickets.length > 0) {
+          setSelectedBus(
+            updatedTickets[0].seat_id[0]?.seat_catalog_id.vehicle_id.name
+          );
+          // setSelectedClassId(updatedTickets[0].seat_id[0]?.seat_catalog_id._id);
+        }
+      } catch (err) {
+        console.error(err);
+        setError('Lỗi khi tải vé.');
+      } finally {
+        setLoading(false);
+        updateSeatStatus();
+
+        setTimeout(() => {
+          consecutiveCalls = 0;
+        }, 5000);
+      }
     };
     const updateSeatStatus = () => {
-          const storedListID = localStorage.getItem('listID');
-          if (!storedListID) return;
-    
-          const listID = JSON.parse(storedListID) as string[];
-    
-          const storedSearchResults = localStorage.getItem('searchResults');
-          if (!storedSearchResults) return;
-    
-          const searchResults = JSON.parse(storedSearchResults) as ITicket[];
-    
-          const updatedResults = searchResults.map(ticket => {
-            const isSeatSelected = listID.includes(ticket.seat_id[0]?._id || '');
-            return {
-              ...ticket,
-              seat_id: ticket.seat_id.map(seat => ({
-                ...seat,
-                status: isSeatSelected ? 'Đang chọn' : seat.status
-              }))
-            };
-          });
-    
-          localStorage.setItem('searchResults', JSON.stringify(updatedResults));
-          setTickets(updatedResults);
+      const storedListID = localStorage.getItem('listID');
+      if (!storedListID) return;
+
+      const listID = JSON.parse(storedListID) as string[];
+
+      const storedSearchResults = localStorage.getItem('searchResults');
+      if (!storedSearchResults) return;
+
+      const searchResults = JSON.parse(storedSearchResults) as ITicket[];
+
+      const updatedResults = searchResults.map(ticket => {
+        const isSeatSelected = listID.includes(ticket.seat_id[0]?._id || '');
+        return {
+          ...ticket,
+          seat_id: ticket.seat_id.map(seat => ({
+            ...seat,
+            status: isSeatSelected ? 'Đang chọn' : seat.status
+          }))
         };
+      });
+
+      localStorage.setItem('searchResults', JSON.stringify(updatedResults));
+      setTickets(updatedResults);
+    };
 
     fetchTickets();
     const handleNewTicket = () => {
@@ -122,55 +125,55 @@ const TicketBusesResultsPage: React.FC = () => {
   }, []);
 
   useEffect(() => {
-      const storedTickets = localStorage.getItem('searchResults');
-      if (storedTickets) {
-        const parsedTickets = JSON.parse(storedTickets) as ITicket[];
-        setTickets(parsedTickets);
+    const storedTickets = localStorage.getItem('searchResults');
+    if (storedTickets) {
+      const parsedTickets = JSON.parse(storedTickets) as ITicket[];
+      setTickets(parsedTickets);
+    } else {
+      setTickets([]);
+    }
+    //
+    const updateSeatIDList = () => {
+      const storedCart = localStorage.getItem('cart');
+      if (storedCart) {
+        const cartItems = JSON.parse(storedCart) as ITicket[];
+        const seatIDs = cartItems
+          .map(item => item.seat_id[0]?._id)
+          .filter(Boolean); // Lọc bỏ undefined/null
+        localStorage.setItem('listID', JSON.stringify(seatIDs));
       } else {
-        setTickets([]);
+        localStorage.setItem('listID', JSON.stringify([]));
       }
-      //
-      const updateSeatIDList = () => {
-        const storedCart = localStorage.getItem('cart');
-        if (storedCart) {
-          const cartItems = JSON.parse(storedCart) as ITicket[];
-          const seatIDs = cartItems
-            .map(item => item.seat_id[0]?._id)
-            .filter(Boolean); // Lọc bỏ undefined/null
-          localStorage.setItem('listID', JSON.stringify(seatIDs));
-        } else {
-          localStorage.setItem('listID', JSON.stringify([]));
-        }
-      };
-      const updateSeatStatusIDList = () => {
-        const storedListID = localStorage.getItem('listID');
-        const storedSearchResults = localStorage.getItem('searchResults');
-  
-        if (!storedSearchResults) return;
-  
-        const searchResults = JSON.parse(storedSearchResults) as ITicket[];
-        const listID = storedListID ? (JSON.parse(storedListID) as string[]) : [];
-  
-        // Cập nhật trạng thái ghế
-        const updatedResults = searchResults.map(ticket => ({
-          ...ticket,
-          seat_id: ticket.seat_id.map(seat => ({
-            ...seat,
-            status:
-              listID.length > 0 && listID.includes(seat._id)
-                ? 'Đang chọn'
-                : 'Còn chỗ'
-          }))
-        }));
-  
-        localStorage.setItem('searchResults', JSON.stringify(updatedResults));
-        setTickets(updatedResults);
-      };
-      updateSeatIDList();
-      updateSeatStatusIDList();
-    }, [selectedSeats]);
+    };
+    const updateSeatStatusIDList = () => {
+      const storedListID = localStorage.getItem('listID');
+      const storedSearchResults = localStorage.getItem('searchResults');
 
-   // if (loading) {
+      if (!storedSearchResults) return;
+
+      const searchResults = JSON.parse(storedSearchResults) as ITicket[];
+      const listID = storedListID ? (JSON.parse(storedListID) as string[]) : [];
+
+      // Cập nhật trạng thái ghế
+      const updatedResults = searchResults.map(ticket => ({
+        ...ticket,
+        seat_id: ticket.seat_id.map(seat => ({
+          ...seat,
+          status:
+            listID.length > 0 && listID.includes(seat._id)
+              ? 'Đang chọn'
+              : 'Còn chỗ'
+        }))
+      }));
+
+      localStorage.setItem('searchResults', JSON.stringify(updatedResults));
+      setTickets(updatedResults);
+    };
+    updateSeatIDList();
+    updateSeatStatusIDList();
+  }, [selectedSeats]);
+
+  // if (loading) {
   // return <LoadingLocal />;
   // }
   console.log(loading);
@@ -184,7 +187,7 @@ const TicketBusesResultsPage: React.FC = () => {
   }
   //Tittle
   const tripInfo = tickets[0]?.trip_id;
-  const ticketCatalogInfo = tickets[0]?.ticket_catalog_id;
+  // const ticketCatalogInfo = tickets[0]?.ticket_catalog_id;
   //Ticket By Vehicle
   const ticketsByBus = tickets.reduce(
     (acc, ticket) => {
@@ -208,13 +211,13 @@ const TicketBusesResultsPage: React.FC = () => {
       )
     : {};
 
-  // Khi người dùng chọn một tàu khác, tự động chọn danh mục ghế đầu tiên của tàu đó
-  const handleTrainChange = (busName: string) => {
-    setSelectedBus(busName);
-    setSelectedClassId(
-      ticketsByBus[busName][0]?.seat_id[0]?.seat_catalog_id._id || null
-    );
-  };
+  // // Khi người dùng chọn một tàu khác, tự động chọn danh mục ghế đầu tiên của tàu đó
+  // const handleTrainChange = (busName: string) => {
+  //   setSelectedBus(busName);
+  //   setSelectedClassId(
+  //     ticketsByBus[busName][0]?.seat_id[0]?.seat_catalog_id._id || null
+  //   );
+  // };
 
   return (
     <div className="pb-[20px] xl:pt-[90px]">
@@ -227,7 +230,10 @@ const TicketBusesResultsPage: React.FC = () => {
           <h1 className="mx-2 mb-5 border-[4px] border-b-0 border-r-0 border-t-0 border-primary bg-blue-200 px-5 py-1 text-center text-xl text-black dark:border-white dark:bg-gray-400 dark:text-white xl:text-start">
             Chuyến đi từ <strong>{tripInfo.departure_point.name}</strong> đến{' '}
             <strong>{tripInfo.destination_point.name}</strong> &nbsp;(
-            <strong>{tickets[0]?.seat_id[0]?.seat_catalog_id.vehicle_id.name}</strong>)
+            <strong>
+              {tickets[0]?.seat_id[0]?.seat_catalog_id.vehicle_id.name}
+            </strong>
+            )
           </h1>
 
           <div className="mb-8 flex flex-wrap justify-center space-x-16">
@@ -244,13 +250,20 @@ const TicketBusesResultsPage: React.FC = () => {
                 </div>
                 <div className="my-2 h-[150px] w-full rounded-3xl border-2 border-white bg-white p-2 text-start text-lg font-light group-hover:border-gray-400">
                   <p>
-                    Ngày đi: {new Date(busTickets[0].trip_id?.departure_date).toLocaleDateString('vi-VN')}
+                    Ngày đi:{' '}
+                    {new Date(
+                      busTickets[0].trip_id?.departure_date
+                    ).toLocaleDateString('vi-VN')}
                   </p>
                   <p>Giờ đi: {busTickets[0].trip_id?.departure_time}</p>
-                  {busTickets[0]?.ticket_catalog_id?.name.toLowerCase() !== 'một chiều' && (
+                  {busTickets[0]?.ticket_catalog_id?.name.toLowerCase() !==
+                    'một chiều' && (
                     <>
                       <p>
-                        Ngày về: {new Date(busTickets[0].trip_id?.return_date).toLocaleDateString('vi-VN')}
+                        Ngày về:{' '}
+                        {new Date(
+                          busTickets[0].trip_id?.return_date
+                        ).toLocaleDateString('vi-VN')}
                       </p>
                       <p>Giờ về: {busTickets[0].trip_id?.return_time}</p>
                     </>
@@ -267,11 +280,15 @@ const TicketBusesResultsPage: React.FC = () => {
                 <div className="relative">
                   <div
                     className="absolute bottom-32 left-24 h-[50px] w-[35px] rounded-r-full bg-slate-400 bg-opacity-100"
-                    style={{ clipPath: 'polygon(0 60%, 100% 50%, 100% 100%, 0% 100%)' }}
+                    style={{
+                      clipPath: 'polygon(0 60%, 100% 50%, 100% 100%, 0% 100%)'
+                    }}
                   />
                   <div
                     className="absolute bottom-32 right-24 h-[50px] w-[40px] rounded-l-full bg-slate-400 bg-opacity-100"
-                    style={{ clipPath: 'polygon(0% 50%, 100% 60%, 100% 100%, 0% 100%)' }}
+                    style={{
+                      clipPath: 'polygon(0% 50%, 100% 60%, 100% 100%, 0% 100%)'
+                    }}
                   />
                 </div>
               </div>
@@ -292,56 +309,83 @@ const TicketBusesResultsPage: React.FC = () => {
             </div>
           </div>
           <div className="flex flex-col justify-center sm:flex-row">
-            {selectedBus && ticketsByCarriage && Object.entries(ticketsByCarriage).map(([classId, classTickets]) => (
-              <div key={classId} className="mb-6 w-full pl-10 sm:w-[90%] md:w-[45%] xl:mx-[20px]">
-                <Button
-                  color="primary"
-                  size="sm"
-                  className="text-md pointer-events-none mb-10 rounded-sm font-semibold text-white dark:bg-white dark:text-primary"
-                >
-                  {classTickets[0].seat_id[0]?.seat_catalog_id.name}
-                </Button>
-                <p className="p-1 font-bold">Vị trí ghế ngồi:</p>
-                <div className="flex">
-                  <Button size="sm" className="pointer-events-none text-black shadow-xl">
-                    <GiSteeringWheel /> Lái Xe
-                  </Button>
-                  <Button size="sm" className="pointer-events-none mb-2 ml-10 text-black shadow-xl">
-                    <GiBusDoors /> Cửa Lên
-                  </Button>
-                </div>
-                <div className="grid w-[250px] grid-cols-3 gap-4 rounded-xl dark:border-white">
-                  {classTickets.sort((a, b) => a.seat_id[0]?.ordinal_numbers - b.seat_id[0]?.ordinal_numbers).map((ticket, index) => {
-                    const seatStatus = ticket.seat_id[0]?.status;
-                    return (
-                      <div
-                        onClick={() => addSeat(ticket)}
-                        key={index}
-                        className={`relative flex h-12 w-12 items-center justify-center rounded-md border transition-all duration-200 ease-in-out ${
-                          seatStatus === 'Hết chỗ'
-                            ? 'cursor-not-allowed border-orange-400 bg-orange-400 text-white'
-                            : seatStatus === 'Còn chỗ'
-                              ? 'cursor-pointer border-blue-500 bg-blue-300 text-black hover:bg-blue-400'
-                              : 'cursor-not-allowed border-gray-500 bg-gray-500 text-white'
-                        } group m-1`}
+            {selectedBus &&
+              ticketsByCarriage &&
+              Object.entries(ticketsByCarriage).map(
+                ([classId, classTickets]) => (
+                  <div
+                    key={classId}
+                    className="mb-6 w-full pl-10 sm:w-[90%] md:w-[45%] xl:mx-[20px]"
+                  >
+                    <Button
+                      color="primary"
+                      size="sm"
+                      className="text-md pointer-events-none mb-10 rounded-sm font-semibold text-white dark:bg-white dark:text-primary"
+                    >
+                      {classTickets[0].seat_id[0]?.seat_catalog_id.name}
+                    </Button>
+                    <p className="p-1 font-bold">Vị trí ghế ngồi:</p>
+                    <div className="flex">
+                      <Button
+                        size="sm"
+                        className="pointer-events-none text-black shadow-xl"
                       >
-                        {ticket.seat_id[0]?.ordinal_numbers}
-                        <div className={`absolute -bottom-2 left-1/2 z-10 w-[120px] -translate-x-1/2 transform rounded bg-white p-2 text-center text-xs text-black opacity-0 shadow-headerMenu shadow-primary transition-opacity duration-200 ease-in-out group-hover:opacity-100`}>
-                          {seatStatus === 'Còn chỗ' ? (
-                            <>
-                              <strong>{ticket.seat_id[0]?.name}</strong>
-                              <p><strong>Giá:</strong> {(ticket.price * 1000).toLocaleString('vi-VN')} VNĐ</p>
-                            </>
-                          ) : (
-                            <p>{seatStatus}</p>
-                          )}
-                        </div>
-                      </div>
-                    );
-                  })}
-                </div>
-              </div>
-            ))}
+                        <GiSteeringWheel /> Lái Xe
+                      </Button>
+                      <Button
+                        size="sm"
+                        className="pointer-events-none mb-2 ml-10 text-black shadow-xl"
+                      >
+                        <GiBusDoors /> Cửa Lên
+                      </Button>
+                    </div>
+                    <div className="grid w-[250px] grid-cols-3 gap-4 rounded-xl dark:border-white">
+                      {classTickets
+                        .sort(
+                          (a, b) =>
+                            a.seat_id[0]?.ordinal_numbers -
+                            b.seat_id[0]?.ordinal_numbers
+                        )
+                        .map((ticket, index) => {
+                          const seatStatus = ticket.seat_id[0]?.status;
+                          return (
+                            <div
+                              onClick={() => addSeat(ticket)}
+                              key={index}
+                              className={`relative flex h-12 w-12 items-center justify-center rounded-md border transition-all duration-200 ease-in-out ${
+                                seatStatus === 'Hết chỗ'
+                                  ? 'cursor-not-allowed border-orange-400 bg-orange-400 text-white'
+                                  : seatStatus === 'Còn chỗ'
+                                    ? 'cursor-pointer border-blue-500 bg-blue-300 text-black hover:bg-blue-400'
+                                    : 'cursor-not-allowed border-gray-500 bg-gray-500 text-white'
+                              } group m-1`}
+                            >
+                              {ticket.seat_id[0]?.ordinal_numbers}
+                              <div
+                                className={`absolute -bottom-2 left-1/2 z-10 w-[120px] -translate-x-1/2 transform rounded bg-white p-2 text-center text-xs text-black opacity-0 shadow-headerMenu shadow-primary transition-opacity duration-200 ease-in-out group-hover:opacity-100`}
+                              >
+                                {seatStatus === 'Còn chỗ' ? (
+                                  <>
+                                    <strong>{ticket.seat_id[0]?.name}</strong>
+                                    <p>
+                                      <strong>Giá:</strong>{' '}
+                                      {(ticket.price * 1000).toLocaleString(
+                                        'vi-VN'
+                                      )}{' '}
+                                      VNĐ
+                                    </p>
+                                  </>
+                                ) : (
+                                  <p>{seatStatus}</p>
+                                )}
+                              </div>
+                            </div>
+                          );
+                        })}
+                    </div>
+                  </div>
+                )
+              )}
           </div>
         </div>
         <div className="hidden w-full xl:block">
