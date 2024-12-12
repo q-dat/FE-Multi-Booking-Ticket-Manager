@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import HeaderResponsive from '../../components/UserPage/HeaderResponsive';
 import InputForm from '../../components/UserPage/InputForm';
 import { Button } from 'react-daisyui';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import axios from '../../config/axiosConfig';
 import { Toastify } from '../../helper/Toastify';
@@ -83,15 +83,6 @@ const ReturnTicketPage: React.FC = () => {
                 >
                   {t('UserPage.ReturnTicketPage.buttonform')}
                 </Button>
-                {/*  */}
-                <div className="w-full text-end">
-                  <Link
-                    to=""
-                    className="font-bold text-blue-700 underline dark:text-white"
-                  >
-                    {t('UserPage.ReturnTicketPage.linkform')}
-                  </Link>
-                </div>
               </div>
             </div>
           </div>

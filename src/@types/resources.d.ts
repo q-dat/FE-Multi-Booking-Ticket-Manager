@@ -78,6 +78,7 @@ interface Resources {
         "BookingInfo": "Reservation information",
         "ReturnTicket": "Return Ticket",
         "CheckTicket": "Check Ticket",
+        "CheckInvoiceCodePage": "Forgot Invoice Code",
         "Contact": "Contact",
         "Theme": "Theme",
         "Translate": "Translate",
@@ -138,7 +139,7 @@ interface Resources {
         "forminput1": "Ticket Code",
         "forminput4": "Reason",
         "buttonform": "Return Ticket",
-        "linkform": "Forgot booking code?"
+        "linkform": "Forgot InvoiceCode?"
       },
       "BusesTickets": {
         "titleBuses1": "Ticket Type",
@@ -183,6 +184,12 @@ interface Resources {
         "ip19": "Payment Method",
         "ip20": "Pay Upon Ticket Collection",
         "ip21": "Pay Now"
+      },
+      "CheckInvoiceCodePage": {
+        "NotificationTitle": "Forgot Invoice Code",
+        "title": "Enter the correct email, and we will send the invoice code to your email.",
+        "EmailPlaceholder": "Enter the ticket purchase email",
+        "buttonform": "Look Up"
       },
       "TicketType": "Ticket:",
       "Vehicle": "Vehicle:",

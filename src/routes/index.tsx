@@ -8,6 +8,7 @@ const User = lazy(() => import('../pages/user/User'));
 const HomePage = lazy(() => import('../pages/user/HomePage'));
 const CheckTicketPage = lazy(() => import('../pages/user/CheckTicketPage'));
 const ReturnTicketPage = lazy(() => import('../pages/user/ReturnTicketPage'));
+const CheckInvoiceCodePage = lazy(() => import('../pages/user/CheckInvoiceCodePage'))
 const ContactPage = lazy(() => import('../pages/user/ContactPage'));
 const FlightsPage = lazy(() => import('../pages/user/FlightsPage'));
 const BusPage = lazy(() => import('../pages/user/BusPage'));
@@ -89,6 +90,7 @@ export default function AppRoutes() {
             <Route path="bill-results" element={<BillResultsPage />} />
             <Route path="check-ticket" element={<CheckTicketPage />} />
             <Route path="return-ticket" element={<ReturnTicketPage />} />
+            <Route path="check-invoice" element={<CheckInvoiceCodePage />} />
             <Route path="contact" element={<ContactPage />} />
             <Route path="checkout" element={<CheckoutPage />} />
             <Route path="verify" element={<Verify />} />
