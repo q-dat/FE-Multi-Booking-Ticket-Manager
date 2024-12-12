@@ -11,7 +11,7 @@ import { useNavigate } from 'react-router-dom';
 const CheckInvoiceCodePage: React.FC = () => {
   const { t } = useTranslation();
   const [email, setEmail] = useState('');
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const handleCheckInvoiceCodePage = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -19,7 +19,7 @@ const CheckInvoiceCodePage: React.FC = () => {
     try {
       await axios.post('api/order/forgot-invoice-code', { email });
       Toastify('Mã hóa đơn đã được gửi tới email của bạn', 200);
-      navigate('/check-ticket')
+      navigate('/check-ticket');
     } catch (error) {
       const errorMessage = isIErrorResponse(error)
         ? error.data?.message
@@ -31,7 +31,9 @@ const CheckInvoiceCodePage: React.FC = () => {
   return (
     <div className="pb-[20px] xl:pt-[80px]">
       {/* Mobile */}
-      <HeaderResponsive Title_NavbarMobile={t('UserPage.Navbar.CheckInvoiceCodePage')} />
+      <HeaderResponsive
+        Title_NavbarMobile={t('UserPage.Navbar.CheckInvoiceCodePage')}
+      />
       <div className="w-full">
         {/*  */}
         <div className="my-4 text-center">

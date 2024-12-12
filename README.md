@@ -1,6 +1,5 @@
 <img width="1440" alt="image" src="https://github.com/user-attachments/assets/5880fa1d-8025-4704-a9d8-ce9fac09dc1e">
 
-
 # Building LacLacTrip Multimedia Ticket Booking Website (Train Ticket Booking Managerment)
 
 ## Demo

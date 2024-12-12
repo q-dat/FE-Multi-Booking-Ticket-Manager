@@ -134,16 +134,16 @@ const TicketFlightsResultsPage: React.FC = () => {
 
   const ticketsByClass = selectedFlight
     ? ticketsByFlight[selectedFlight].reduce(
-      (acc: { [key: string]: ITicket[] }, ticket) => {
-        const classId = ticket.seat_id[0]?.seat_catalog_id._id;
-        if (!acc[classId]) {
-          acc[classId] = [];
-        }
-        acc[classId].push(ticket);
-        return acc;
-      },
-      {}
-    )
+        (acc: { [key: string]: ITicket[] }, ticket) => {
+          const classId = ticket.seat_id[0]?.seat_catalog_id._id;
+          if (!acc[classId]) {
+            acc[classId] = [];
+          }
+          acc[classId].push(ticket);
+          return acc;
+        },
+        {}
+      )
     : {};
 
   // Sắp xếp vé theo số ghế
@@ -188,7 +188,10 @@ const TicketFlightsResultsPage: React.FC = () => {
                 >
                   <div className="w-[150px] rounded-md bg-white p-2 text-black group-hover:bg-primary group-hover:text-white dark:group-hover:bg-secondary">
                     <p className="truncate text-center text-base font-medium">
-                      {flightTickets[0]?.seat_id[0]?.seat_catalog_id.vehicle_id.name}
+                      {
+                        flightTickets[0]?.seat_id[0]?.seat_catalog_id.vehicle_id
+                          .name
+                      }
                     </p>
                   </div>
                   <div className="w-[150px] rounded-md bg-white p-2 text-start text-sm font-medium">
@@ -208,27 +211,27 @@ const TicketFlightsResultsPage: React.FC = () => {
                     </p>
                     {flightTickets[0]?.ticket_catalog_id?.name.toLowerCase() !==
                       'một chiều' && (
-                        <>
-                          <p>
-                            <span className="font-semibold">
-                              {t('UserPage.ReturnDatePlaceholder')}:
-                            </span>{' '}
-                            {new Date(
-                              flightTickets[0]?.trip_id?.return_date
-                            ).toLocaleDateString('vi-VN')}
-                          </p>
-                          <p>
-                            <span className="font-semibold">
-                              {t('UserPage.ReturnTimePlaceholder')}:
-                            </span>{' '}
-                            {flightTickets[0]?.trip_id?.return_time}
-                          </p>
-                        </>
-                      )}
+                      <>
+                        <p>
+                          <span className="font-semibold">
+                            {t('UserPage.ReturnDatePlaceholder')}:
+                          </span>{' '}
+                          {new Date(
+                            flightTickets[0]?.trip_id?.return_date
+                          ).toLocaleDateString('vi-VN')}
+                        </p>
+                        <p>
+                          <span className="font-semibold">
+                            {t('UserPage.ReturnTimePlaceholder')}:
+                          </span>{' '}
+                          {flightTickets[0]?.trip_id?.return_time}
+                        </p>
+                      </>
+                    )}
                   </div>
                 </div>
-              ))
-            }
+              )
+            )}
           </div>
           <div className="mb-10 flex w-full flex-row items-center justify-center gap-5">
             <div className="flex items-center justify-center gap-1">
@@ -254,10 +257,11 @@ const TicketFlightsResultsPage: React.FC = () => {
                       color="primary"
                       size="sm"
                       onClick={() => setSelectedClassId(classId)}
-                      className={`text-md font-semibold text-white dark:bg-white dark:text-primary ${selectedClassId === classId
+                      className={`text-md font-semibold text-white dark:bg-white dark:text-primary ${
+                        selectedClassId === classId
                           ? 'bg-opacity-100'
                           : 'bg-opacity-50'
-                        }`}
+                      }`}
                     >
                       {classTickets[0].seat_id[0]?.seat_catalog_id.name}
                     </Button>
@@ -307,12 +311,13 @@ const TicketFlightsResultsPage: React.FC = () => {
                                   onClick={() =>
                                     seatStatus === 'Còn chỗ' && addSeat(ticket)
                                   }
-                                  className={`relative flex h-[40px] w-[40px] items-center justify-center rounded-md border transition-all duration-200 ease-in-out ${seatStatus === 'Hết chỗ'
+                                  className={`relative flex h-[40px] w-[40px] items-center justify-center rounded-md border transition-all duration-200 ease-in-out ${
+                                    seatStatus === 'Hết chỗ'
                                       ? 'cursor-not-allowed border-red-700 bg-red-500 text-white'
                                       : seatStatus === 'Còn chỗ'
                                         ? 'cursor-pointer border-green-700 bg-green-500 text-white hover:bg-green-600'
                                         : 'cursor-progress border-gray-300 bg-white font-bold text-black'
-                                    } group`}
+                                  } group`}
                                 >
                                   {ticket.seat_id[0]?.ordinal_numbers}
                                   <div

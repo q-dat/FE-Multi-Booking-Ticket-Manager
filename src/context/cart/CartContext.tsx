@@ -39,25 +39,25 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({
         Toastify('Bạn chỉ được chọn tối đa 10 ghế!', 401);
         return;
       }
-  
-      const isSeatSelected = selectedSeats.some(seat => seat._id === ticket._id);
+
+      const isSeatSelected = selectedSeats.some(
+        seat => seat._id === ticket._id
+      );
       if (ticket.seat_id[0]?.status === 'Đang chọn') {
         Toastify(`Ghế ${ticket.seat_id[0]?.name} đang chọn!`, 401);
         return;
       }
-  
+
       if (!isSeatSelected && ticket.seat_id[0]?.status === 'Còn chỗ') {
         const updatedSelectedSeats = [...selectedSeats, ticket];
         setSelectedSeats(updatedSelectedSeats);
         localStorage.setItem('cart', JSON.stringify(updatedSelectedSeats));
-  
+
         const updatedSeat = { ...ticket.seat_id[0], status: 'Hết chỗ' };
-        updateSeatApi(ticket.seat_id[0]._id, updatedSeat)
-          .then(() => {
-            putSocketSeat(updatedSeat);
-          }
-        );
-  
+        updateSeatApi(ticket.seat_id[0]._id, updatedSeat).then(() => {
+          putSocketSeat(updatedSeat);
+        });
+
         const storedTickets = localStorage.getItem('searchResults');
         if (storedTickets) {
           const parsedTickets = JSON.parse(storedTickets) as ITicket[];
@@ -68,7 +68,7 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({
           );
           localStorage.setItem('searchResults', JSON.stringify(updatedTickets));
         }
-  
+
         Toastify(`Đã thêm ${ticket.seat_id[0]?.name} vào giỏ vé!`, 200);
       } else {
         Toastify(`Lỗi: ${ticket.seat_id[0]?.name} đã hết chỗ!`, 401);
@@ -91,13 +91,13 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({
           }); // Phát sự kiện `put_seat`
         });
       }
-  
+
       setSelectedSeats(prev => {
         const newSelectedSeats = prev.filter(seat => seat._id !== ticketId);
         localStorage.setItem('cart', JSON.stringify(newSelectedSeats));
         return newSelectedSeats;
       });
-  
+
       const storedTickets = localStorage.getItem('searchResults');
       if (storedTickets) {
         const parsedTickets = JSON.parse(storedTickets) as ITicket[];
@@ -112,7 +112,7 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({
     },
     [selectedSeats]
   );
-  
+
   //clearSeats
   const clearSeats = useCallback(() => {
     for (const seat of selectedSeats) {
@@ -125,7 +125,7 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({
         });
       }
     }
-  
+
     const storedTickets = localStorage.getItem('searchResults');
     if (storedTickets) {
       const parsedTickets = JSON.parse(storedTickets) as ITicket[];
@@ -140,7 +140,7 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({
     localStorage.setItem('cart', JSON.stringify([]));
     Toastify('Đã xóa tất cả ghế khỏi giỏ vé!', 200);
   }, [selectedSeats]);
-  
+
   // Total price
   const totalPrice = selectedSeats.reduce(
     (total, ticket) => total + ticket.price,

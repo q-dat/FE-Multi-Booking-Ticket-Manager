@@ -24,7 +24,9 @@ const BillResultsPage: React.FC = () => {
   const initialOrderState = savedOrder ? JSON.parse(savedOrder) : order;
 
   const [orderState, setOrderState] = useState<Order>(initialOrderState);
-  const [selectedTickets, setSelectedTickets] = useState<Set<number>>(new Set());
+  const [selectedTickets, setSelectedTickets] = useState<Set<number>>(
+    new Set()
+  );
   const [refundReason, setRefundReason] = useState<string>('');
 
   const handleCheckboxChange = (index: number) => {
@@ -38,7 +40,9 @@ const BillResultsPage: React.FC = () => {
   };
 
   const handleReturnTickets = async () => {
-    const ticketCodes = [...selectedTickets].map((index) => orderState.items[index].ticketCode);
+    const ticketCodes = [...selectedTickets].map(
+      index => orderState.items[index].ticketCode
+    );
 
     if (ticketCodes.length === 0 || !refundReason) {
       Toastify('Vui lòng chọn vé và nhập lý do hoàn trả.', 400);
@@ -48,7 +52,7 @@ const BillResultsPage: React.FC = () => {
     try {
       const response = await axios.post('/api/order/refund', {
         ticketCodes,
-        reason: refundReason,
+        reason: refundReason
       });
 
       if (response.data.success) {
@@ -113,12 +117,18 @@ const BillResultsPage: React.FC = () => {
                   </div>
                   <div className="flex justify-between">
                     <span className="font-semibold">Ngày đi:</span>
-                    <span>{new Date(item.departureDate).toLocaleDateString('vi-VN')}</span>
+                    <span>
+                      {new Date(item.departureDate).toLocaleDateString('vi-VN')}
+                    </span>
                   </div>
                   {item.ticketCatalog === 'Khứ hồi' && (
                     <div className="flex justify-between">
                       <span className="font-semibold">Ngày về:</span>
-                      <span>{new Date(item.destinationDate).toLocaleDateString('vi-VN')}</span>
+                      <span>
+                        {new Date(item.destinationDate).toLocaleDateString(
+                          'vi-VN'
+                        )}
+                      </span>
                     </div>
                   )}
                   <div className="flex justify-between">
@@ -157,7 +167,9 @@ const BillResultsPage: React.FC = () => {
                   </div>
                   <div className="flex justify-between">
                     <span className="font-semibold">Giá:</span>
-                    <span>{(item.price * 1000).toLocaleString('vi-VN')} VNĐ</span>
+                    <span>
+                      {(item.price * 1000).toLocaleString('vi-VN')} VNĐ
+                    </span>
                   </div>
                   <div className="flex justify-between">
                     <span className="font-semibold">Trạng thái vé:</span>
@@ -187,13 +199,15 @@ const BillResultsPage: React.FC = () => {
 
             {/* Refund Reason */}
             <div className="mb-6">
-              <label htmlFor="refundReason" className="font-semibold">Lý do hoàn trả</label>
+              <label htmlFor="refundReason" className="font-semibold">
+                Lý do hoàn trả
+              </label>
               <textarea
                 id="refundReason"
                 value={refundReason}
-                onChange={(e) => setRefundReason(e.target.value)}
+                onChange={e => setRefundReason(e.target.value)}
                 rows={4}
-                className="w-full mt-2 p-2 border border-gray-300 rounded"
+                className="mt-2 w-full rounded border border-gray-300 p-2"
               />
             </div>
 
@@ -202,7 +216,7 @@ const BillResultsPage: React.FC = () => {
               <div className="mt-4 text-center">
                 <button
                   onClick={handleReturnTickets}
-                  className="w-full bg-red-500 text-white py-2 rounded-md hover:bg-red-600"
+                  className="w-full rounded-md bg-red-500 py-2 text-white hover:bg-red-600"
                 >
                   Trả vé
                 </button>

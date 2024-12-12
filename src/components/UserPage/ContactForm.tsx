@@ -99,7 +99,7 @@ const ContactForm: React.FC = () => {
           <div className="flex flex-row items-start justify-between">
             {/*  */}
             <div className="flex flex-row items-center gap-1 text-xl text-primary">
-              <p className="from-primary to-red-500 bg-gradient-to-r bg-clip-text text-2xl text-transparent font-semibold">
+              <p className="bg-gradient-to-r from-primary to-red-500 bg-clip-text text-2xl font-semibold text-transparent">
                 {t('UserPage.TitleContactForm')}
               </p>
             </div>
@@ -125,13 +125,13 @@ const ContactForm: React.FC = () => {
                     name="email"
                     type="email"
                     placeholder={t('UserPage.Email')}
-                    className="size-10 border border-black bg-white text-black dark:shadow-none dark:shadow-white w-full"
+                    className="size-10 w-full border border-black bg-white text-black dark:shadow-none dark:shadow-white"
                     classNameLabel="bg-white dark:peer-placeholder-shown:text-black dark:peer-focus:text-black peer-placeholder-shown:top-[8px]"
                   />
                   <InputForm
                     name="name"
                     type="text"
-                    className="size-10 border border-black bg-white text-black dark:shadow-none dark:shadow-white w-full"
+                    className="size-10 w-full border border-black bg-white text-black dark:shadow-none dark:shadow-white"
                     placeholder={t('UserPage.YourNameBtn')}
                     classNameLabel="bg-white dark:peer-placeholder-shown:text-black dark:peer-focus:text-black peer-placeholder-shown:top-[8px]"
                   />
@@ -139,7 +139,7 @@ const ContactForm: React.FC = () => {
                 <div className="w-full">
                   <Textarea
                     name="feedback"
-                    className="border border-black bg-white pb-8 text-black focus:outline-none dark:shadow-none dark:shadow-white w-full"
+                    className="w-full border border-black bg-white pb-8 text-black focus:outline-none dark:shadow-none dark:shadow-white"
                     placeholder={t('UserPage.FeedbackBtn')}
                   />
                   <Button

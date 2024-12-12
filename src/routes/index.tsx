@@ -8,7 +8,9 @@ const User = lazy(() => import('../pages/user/User'));
 const HomePage = lazy(() => import('../pages/user/HomePage'));
 const CheckTicketPage = lazy(() => import('../pages/user/CheckTicketPage'));
 const ReturnTicketPage = lazy(() => import('../pages/user/ReturnTicketPage'));
-const CheckInvoiceCodePage = lazy(() => import('../pages/user/CheckInvoiceCodePage'))
+const CheckInvoiceCodePage = lazy(
+  () => import('../pages/user/CheckInvoiceCodePage')
+);
 const ContactPage = lazy(() => import('../pages/user/ContactPage'));
 const FlightsPage = lazy(() => import('../pages/user/FlightsPage'));
 const BusPage = lazy(() => import('../pages/user/BusPage'));
