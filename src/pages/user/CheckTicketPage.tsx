@@ -5,7 +5,7 @@ import InputForm from '../../components/UserPage/InputForm';
 import { useTranslation } from 'react-i18next';
 import axios from '../../config/axiosConfig';
 import { OrderItem } from '../../types/type/order/orderItem';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { isIErrorResponse } from '../../types/error/error';
 import { Toastify } from '../../helper/Toastify';
 
@@ -68,6 +68,15 @@ const CheckTicketPage: React.FC = () => {
                 >
                   {t('UserPage.CheckTicketPage.buttonform')}
                 </Button>
+                {/*  */}
+                <div className="w-full text-end">
+                  <Link
+                    to="/check-invoice"
+                    className="font-bold text-blue-700 underline dark:text-white"
+                  >
+                    {t('UserPage.ReturnTicketPage.linkform')}
+                  </Link>
+                </div>
               </div>
             </div>
           </div>

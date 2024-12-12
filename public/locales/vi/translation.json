@@ -77,6 +77,7 @@
       "BookingInfo": "Thông tin đặt vé",
       "ReturnTicket": "Trả vé",
       "CheckTicket": "Kiểm tra vé",
+      "CheckInvoiceCodePage": "Quên mã hoá đơn",
       "Contact": "Liên hệ",
       "Theme": "Giao diện",
       "Translate": "Ngôn ngữ",
@@ -117,7 +118,7 @@
       "NotificationOne": "Theo quy định của Tổng công ty Đường sắt Việt Nam, hành khách có thông tin giấy tờ tùy thân trùng với thông tin trên vé điện tử mới đủ điều kiện lên tàu",
       "NotificationTwo": "Để đảm bảo quyền lợi cho hành khách, tránh mua phải vé giả, hoặc vé không đúng với quy định, quý khách có thể kiểm tra lại vé điện tử của mình bằng cách điền đầy đủ các thông tin dưới đây.",
       "title": "Để hiển thị vé cần kiểm tra, vui lòng điền thông tin chính xác dưới đây:",
-      "SearchInvoiceCode": "Mã đơn hàng",
+      "SearchInvoiceCode": "Mã hoá đơn",
       "buttonform": "Kiểm tra"
     },
     "Location": {
@@ -137,7 +138,7 @@
       "forminput1": "Mã vé",
       "forminput4": "Lý do",
       "buttonform": "Trả vé",
-      "linkform": "Quên mã đặt chỗ?"
+      "linkform": "Quên mã hoá đơn?"
     },
     "BusesTickets": {
       "titleBuses1": "Loại Vé",
@@ -182,6 +183,12 @@
       "ip19": "Phương thức thanh toán",
       "ip20": "Thanh toán khi nhận vé",
       "ip21": "Thanh toán"
+    },
+    "CheckInvoiceCodePage": {
+      "NotificationTitle": "Quên mã hoá đơn",
+      "title": "Điền đúng email và chúng tôi sẽ gửi mã hoá đơn về email cho bạn",
+      "EmailPlaceholder": "Nhập email mua vé",
+      "buttonform": "Tra cứu"
     },
     "TicketType": "Loại vé:",
     "Vehicle": "Phương Tiện:",
