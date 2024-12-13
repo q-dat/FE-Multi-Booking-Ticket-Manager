@@ -129,7 +129,8 @@ const ModalEditTripPageAdmin: React.FC<ModalEditTripProps> = ({
                   </option>
                   {vehicles.map(vehicle => (
                     <option key={vehicle._id} value={vehicle._id}>
-                      {vehicle.name}
+                      {vehicle.name} &nbsp;
+                      {vehicle.des}
                     </option>
                   ))}
                 </Select>

@@ -104,7 +104,8 @@ const ModalCreateTripPageAdmin: React.FC<ModalCreateTicketProps> = ({
                   </option>
                   {vehicles.map(vehicle => (
                     <option key={vehicle._id} value={vehicle._id}>
-                      {vehicle.name}
+                      {vehicle.name} &nbsp;
+                      {vehicle.des}
                     </option>
                   ))}
                 </Select>

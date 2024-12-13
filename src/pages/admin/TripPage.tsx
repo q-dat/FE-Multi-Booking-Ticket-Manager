@@ -79,14 +79,6 @@ const TripPage: React.FC = () => {
           Title_NavtitleAdmin="Quản Lý Chuyến Đi"
           Btn_Create={
             <div className="flex flex-col items-start justify-center gap-2 md:flex-row md:items-end">
-              <Button
-                color="success"
-                onClick={openModalCreateAdmin}
-                className="w-[100px] text-sm font-light text-white"
-              >
-                <RiAddBoxLine className="text-xl" color="white" />
-                Thêm
-              </Button>
               <div className="dropdown dropdown-hover relative flex h-12 min-w-[100px] cursor-pointer flex-col items-center justify-center rounded-md bg-primary">
                 <p className="">
                   <RiListSettingsLine className="text-xl text-white" />
@@ -103,10 +95,23 @@ const TripPage: React.FC = () => {
                           handleSearchByCategory(vehicle._id);
                         }}
                       />
-                      <span className="ml-2">{vehicle?.name}</span>
+                      <span className="ml-2">
+                        {vehicle?.name} &nbsp;
+                        {vehicle?.des}
+                      </span>
                     </label>
                   ))}
                 </div>
+              </div>
+              <div>
+                <Button
+                  color="success"
+                  onClick={openModalCreateAdmin}
+                  className="w-[100px] text-sm font-light text-white"
+                >
+                  <RiAddBoxLine className="text-xl" color="white" />
+                  Thêm
+                </Button>
               </div>
             </div>
           }
