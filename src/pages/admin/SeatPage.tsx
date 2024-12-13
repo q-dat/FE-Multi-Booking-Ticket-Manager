@@ -209,13 +209,17 @@ const SeatPage: React.FC = () => {
                   <div className="dropdown-content absolute top-[100%] z-10 w-[400px] space-y-1 rounded-md bg-slate-50 p-2 shadow-headerMenu drop-shadow-md">
                     <div className="flex flex-col items-center justify-center gap-4 xl:flex-row">
                       {/* Phương Tiện */}
-                      <div className="flex flex-col w-full">
+                      <div className="flex w-full flex-col">
                         <span className="font-semibold text-primary hover:text-secondary">
                           Phương Tiện
                         </span>
-                        {vehicles.map(vehicle => (
+                        {[
+                          ...new Map(
+                            vehicles.map(vehicle => [vehicle.name, vehicle])
+                          ).values()
+                        ].map(vehicle => (
                           <label
-                            className="flex h-8 cursor-pointer items-center gap-2"
+                            className="flex h-8 cursor-pointer items-center gap-2 "
                             key={vehicle.name}
                           >
                             <input
@@ -230,7 +234,7 @@ const SeatPage: React.FC = () => {
                                 )
                               }
                             />
-                            <span className="text-primary hover:text-secondary">
+                            <span className="text-primary hover:text-secondary ">
                               {vehicle?.name}
                               &nbsp;
                               {vehicle?.des}
@@ -240,7 +244,7 @@ const SeatPage: React.FC = () => {
                       </div>
 
                       {/* Khoang/Toa */}
-                      <div className="flex flex-col">
+                      <div className="flex flex-col w-full gap-2">
                         <span className="font-semibold text-primary hover:text-secondary">
                           Khoang/Toa
                         </span>
