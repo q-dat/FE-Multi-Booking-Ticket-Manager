@@ -105,7 +105,7 @@ const TicketTrainsResultsPage: React.FC = () => {
           ...ticket,
           seat_id: ticket.seat_id.map(seat => ({
             ...seat,
-            status: isSeatSelected ? 'Đang chọn' : seat.status
+            status: isSeatSelected ? 'Đang chọn' : 'Còn chỗ'
           }))
         };
       });
@@ -164,7 +164,7 @@ const TicketTrainsResultsPage: React.FC = () => {
           status:
             listID.length > 0 && listID.includes(seat._id)
               ? 'Đang chọn'
-              : 'Còn chỗ'
+              : seat.status
         }))
       }));
 
