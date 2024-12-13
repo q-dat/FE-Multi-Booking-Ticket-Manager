@@ -209,7 +209,7 @@ const SeatPage: React.FC = () => {
                   <div className="dropdown-content absolute top-[100%] z-10 w-[400px] space-y-1 rounded-md bg-slate-50 p-2 shadow-headerMenu drop-shadow-md">
                     <div className="flex flex-col items-center justify-center gap-4 xl:flex-row">
                       {/* Phương Tiện */}
-                      <div className="flex flex-col">
+                      <div className="flex flex-col w-full">
                         <span className="font-semibold text-primary hover:text-secondary">
                           Phương Tiện
                         </span>
@@ -232,6 +232,8 @@ const SeatPage: React.FC = () => {
                             />
                             <span className="text-primary hover:text-secondary">
                               {vehicle?.name}
+                              &nbsp;
+                              {vehicle?.des}
                             </span>
                           </label>
                         ))}
