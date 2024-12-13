@@ -114,7 +114,7 @@ const PostManagerPage: React.FC = () => {
                   {new Date(post?.updatedAt).toLocaleDateString('vi-VN')}
                 </span>
                 <span
-                  className="line-clamp-2"
+                  className="line-clamp-2 max-w-[500px]"
                   dangerouslySetInnerHTML={{ __html: post.content }}
                 ></span>
                 <span>
