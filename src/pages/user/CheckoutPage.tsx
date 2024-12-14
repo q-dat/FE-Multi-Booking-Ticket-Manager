@@ -169,6 +169,7 @@ const CheckoutPage: React.FC = () => {
           destinationPoint: seat.trip_id.destination_point.name,
           seat: seat.seat_id[0]?.name,
           vehicle: seat.seat_id[0]?.seat_catalog_id.vehicle_id.name,
+          vehicleCatalog: seat.vehicle_catalog_id.name,
           seatCatalog: seat.seat_id[0]?.seat_catalog_id.name,
           price: discountedPrice,
           quantity: 1,
