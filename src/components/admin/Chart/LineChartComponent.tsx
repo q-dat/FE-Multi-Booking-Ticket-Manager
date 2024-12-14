@@ -1,4 +1,3 @@
-// LineChartComponent.tsx
 import React from 'react';
 import { Line } from 'react-chartjs-2';
 import {
@@ -9,7 +8,7 @@ import {
   LineElement,
   Title,
   Tooltip,
-  Legend
+  Legend,
 } from 'chart.js';
 
 ChartJS.register(
@@ -25,78 +24,70 @@ ChartJS.register(
 interface LineChartComponentProps {
   orderData: number[];
   revenueData: number[];
-  vehicleData: number[];
-  tripData: number[];
-  ticketData: number[];
+  vehicleOrders: Record<string, number[]>;
+  vehicleRevenue: Record<string, number[]>;
 }
 
 const LineChartComponent: React.FC<LineChartComponentProps> = ({
   orderData,
   revenueData,
-  vehicleData,
-  tripData,
-  ticketData
+  vehicleOrders,
+  vehicleRevenue,
 }) => {
   const data = {
     labels: [
-      'January',
-      'February',
-      'March',
-      'April',
-      'May',
-      'June',
-      'July',
-      'August',
-      'September',
-      'October',
-      'November',
-      'December'
+      'Tháng 1',
+      'Tháng 2',
+      'Tháng 3',
+      'Tháng 4',
+      'Tháng 5',
+      'Tháng 6',
+      'Tháng 7',
+      'Tháng 8',
+      'Tháng 9',
+      'Tháng 10',
+      'Tháng 11',
+      'Tháng 12',
     ],
     datasets: [
       {
-        label: 'Đơn hàng',
-        data: orderData,
-        borderColor: 'rgba(75,192,192,1)',
-        backgroundColor: 'rgba(75,192,192,0.2)'
-      },
-      {
-        label: 'Doanh thu (VNĐ)',
+        label: 'Tổng doanh thu (VNĐ)',
         data: revenueData,
         borderColor: 'rgba(255,99,132,1)',
-        backgroundColor: 'rgba(255,99,132,0.2)'
+        backgroundColor: 'rgba(255,99,132,0.2)',
       },
       {
-        label: 'Phương tiện',
-        data: vehicleData,
+        label: 'Tổng đơn hàng',
+        data: orderData,
+        borderColor: 'rgba(75,192,192,1)',
+        backgroundColor: 'rgba(75,192,192,0.2)',
+      },
+      ...Object.keys(vehicleOrders).map((vehicleCatalog) => ({
+        label: `Đơn hàng - ${vehicleCatalog}`,
+        data: vehicleOrders[vehicleCatalog],
         borderColor: 'rgba(54,162,235,1)',
-        backgroundColor: 'rgba(54,162,235,0.2)'
-      },
-      {
-        label: 'Chuyến di',
-        data: tripData,
-        borderColor: 'rgba(255,206,86,1)',
-        backgroundColor: 'rgba(255,206,86,0.2)'
-      },
-      {
-        label: 'Vé',
-        data: ticketData,
-        borderColor: 'rgba(153,102,255,1)',
-        backgroundColor: 'rgba(153,102,255,0.2)'
-      }
-    ]
+        backgroundColor: 'rgba(54,162,235,0.2)',
+      })),
+      ...Object.keys(vehicleRevenue).map((vehicleCatalog) => ({
+        label: `Doanh thu - ${vehicleCatalog} (VNĐ)`,
+        data: vehicleRevenue[vehicleCatalog],
+        borderColor: 'rgba(255,159,64,1)',
+        backgroundColor: 'rgba(255,159,64,0.2)',
+      })),
+    ],
   };
 
   const options = {
     responsive: true,
     plugins: {
       legend: {
-        position: 'top' as const
+        position: 'top' as const,
       },
       title: {
         display: true,
-        text: 'Thống kê trong năm'
-      }
-    }
+        text: 'Thống kê doanh thu và đơn hàng theo tháng',
+      },
+    },
   };
 
   return (
