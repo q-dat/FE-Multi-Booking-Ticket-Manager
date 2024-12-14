@@ -11,6 +11,7 @@ export interface OrderItem {
   destinationPoint: string;
   seat: string;
   vehicle: string;
+  vehicleCatalog: string;
   seatCatalog: string;
   price: number;
   quantity: number;
