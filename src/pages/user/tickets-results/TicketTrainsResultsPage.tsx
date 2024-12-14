@@ -85,7 +85,7 @@ const TicketTrainsResultsPage: React.FC = () => {
         setTimeout(() => {
           consecutiveCalls = 0;
         }, 5000);
-      } 
+      }
     };
 
     const updateSeatStatus = () => {
@@ -373,11 +373,16 @@ const TicketTrainsResultsPage: React.FC = () => {
                       } grid grid-flow-col items-center justify-around gap-x-5 gap-y-10 overflow-x-auto rounded-xl border border-l-0 border-r-0 border-primary p-2 scrollbar-hide dark:border-white xl:gap-x-1 xl:overflow-visible`}
                     >
                       {ticketsByCarriage[selectedClassId]
-                        .sort(
-                          (a, b) =>
-                            a.seat_id[0]?.ordinal_numbers -
-                            b.seat_id[0]?.ordinal_numbers
-                        )
+                        // .sort(
+                        //   (a, b) =>
+                        //     a.seat_id[0]?.ordinal_numbers -
+                        //     b.seat_id[0]?.ordinal_numbers
+                        // )
+                        .sort((a, b) => {
+                          const numA = parseInt(a.seat_id[0]?.ordinal_numbers || "0", 10);
+                          const numB = parseInt(b.seat_id[0]?.ordinal_numbers || "0", 10);
+                          return (isNaN(numA) ? 0 : numA) - (isNaN(numB) ? 0 : numB);
+                        })                        
                         .map((ticket, index) => {
                           const seatStatus = ticket.seat_id[0]?.status;
                           return (
@@ -392,7 +397,73 @@ const TicketTrainsResultsPage: React.FC = () => {
                                     : 'cursor-progress border-gray-300 bg-white font-bold text-black'
                               } group`}
                             >
-                              {ticket.seat_id[0]?.ordinal_numbers}
+                              {/* SeatIMG */}
+                              <svg
+                                width="60"
+                                height="52"
+                                viewBox="0 0 40 32"
+                                fill="none"
+                                xmlns="http://www.w3.org/200  0/svg"
+                                className=""
+                              >
+                                <rect
+                                  x="8.75"
+                                  y="2.75"
+                                  width="22.5"
+                                  height="26.5"
+                                  rx="2.25"
+                                  fill="#FFF"
+                                  stroke="#B8B8B8"
+                                  stroke-width="1.5"
+                                  stroke-linejoin="round"
+                                ></rect>
+                                <rect
+                                  x="10.25"
+                                  y="11.75"
+                                  width="14.5"
+                                  height="5.5"
+                                  rx="2.25"
+                                  transform="rotate(90 10.25 11.75)"
+                                  fill="#FFF"
+                                  stroke="#B8B8B8"
+                                  stroke-width="1.5"
+                                  stroke-linejoin="round"
+                                ></rect>
+                                <rect
+                                  x="35.25"
+                                  y="11.75"
+                                  width="14.5"
+                                  height="5.5"
+                                  rx="2.25"
+                                  transform="rotate(90 35.25 11.75)"
+                                  fill="#FFF"
+                                  stroke="#B8B8B8"
+                                  stroke-width="1.5"
+                                  stroke-linejoin="round"
+                                ></rect>
+                                <rect
+                                  x="8.75"
+                                  y="22.75"
+                                  width="22.5"
+                                  height="6.5"
+                                  rx="2.25"
+                                  fill="#FFF"
+                                  stroke="#B8B8B8"
+                                  stroke-width="1.5"
+                                  stroke-linejoin="round"
+                                ></rect>
+                                <text
+                                  width="20"
+                                  height="20"
+                                  x="20"
+                                  y="18"
+                                  fill="#000"
+                                  font-size="10"
+                                  text-anchor="middle"
+                                >
+                                  {ticket.seat_id[0]?.ordinal_numbers}
+                                </text>
+                              </svg>
                               <div
                                 className={`pointer-events-none absolute bottom-10 left-1/2 z-[99999] w-[100px] -translate-x-1/2 transform rounded bg-white p-2 text-start text-xs text-black opacity-0 shadow-headerMenu shadow-primary transition-opacity duration-200 ease-in-out group-hover:opacity-100`}
                               >
