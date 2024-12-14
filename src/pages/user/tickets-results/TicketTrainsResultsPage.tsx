@@ -85,7 +85,7 @@ const TicketTrainsResultsPage: React.FC = () => {
         setTimeout(() => {
           consecutiveCalls = 0;
         }, 5000);
-      }
+      } 
     };
 
     const updateSeatStatus = () => {
