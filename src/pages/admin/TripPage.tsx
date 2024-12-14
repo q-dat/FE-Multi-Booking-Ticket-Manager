@@ -83,9 +83,12 @@ const TripPage: React.FC = () => {
                 <p className="">
                   <RiListSettingsLine className="text-xl text-white" />
                 </p>
-                <div className="dropdown-content absolute top-[100%] z-10 w-52 space-y-1 rounded-md bg-slate-50 p-2 shadow-headerMenu drop-shadow-md">
+                <div className="dropdown-content absolute top-[100%] z-10 w-[250px] space-y-1 rounded-md bg-slate-50 p-2 shadow-headerMenu drop-shadow-md">
                   {vehicles.map(vehicle => (
-                    <label key={vehicle._id} className="flex items-center">
+                    <label
+                      key={vehicle._id}
+                      className="flex items-center gap-2"
+                    >
                       <input
                         type="checkbox"
                         className="cursor-pointer"
@@ -95,7 +98,7 @@ const TripPage: React.FC = () => {
                           handleSearchByCategory(vehicle._id);
                         }}
                       />
-                      <span className="ml-2">
+                      <span className="">
                         {vehicle?.name} &nbsp;
                         {vehicle?.des}
                       </span>

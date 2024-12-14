@@ -194,126 +194,19 @@ const TicketPage: React.FC = () => {
         <NavtitleAdmin
           Title_NavtitleAdmin="Quản Lý Vé"
           Btn_Create={
-            <div className="flex flex-col items-start justify-center gap-2 md:flex-row md:items-end">
+            <div className="flex flex-row items-start justify-center gap-2 md:items-end">
               {/*  */}
-              <div className="dropdown dropdown-hover relative">
-                <Button
-                  color="error"
-                  className="min-w-[100px] cursor-grab text-sm font-light text-white"
-                >
-                  <MdDeleteSweep className="text-xl" color="white" /> Xoá vé
-                  phương tiện
-                </Button>
-                <div className="dropdown-content absolute top-[100%] z-10 flex min-w-[150px] flex-col gap-5 rounded-md bg-slate-50 px-5 py-2 shadow-headerMenu drop-shadow-md dark:bg-gray-900">
-                  <div className="flex flex-col xl:flex-row">
-                    <p className="flex flex-row items-center gap-1 text-black dark:text-white">
-                      <PiWarningOctagonFill className="text-lg text-warning" />
-                      <strong>Lưu ý: </strong>
-                    </p>
-                    <p>Chỉ chọn 1 phương tiện duy nhất</p>
-                  </div>
-                  <div className="flex flex-col gap-2 xl:flex-row">
-                    <div className="flex flex-col">
-                      <LabelForm title="Tàu Hoả" />
-                      <Select
-                        ref={trainSelectRef}
-                        defaultValue=""
-                        onChange={e => handleSingleSelect(e, 'train')}
-                        className="min-w-[130px] border border-gray-700 border-opacity-50 bg-white text-black focus:border-primary focus:outline-none dark:border-secondary dark:bg-gray-700 dark:text-white dark:focus:border-white md:w-[300px] lg:w-[400px] xl:w-full"
-                      >
-                        <option disabled value="">
-                          Tàu Hoả
-                        </option>
-                        {vehicles
-                          .filter(vehicle =>
-                            vehicle.name.toLowerCase().includes('tàu')
-                          )
-                          .map(vehicle => (
-                            <option value={vehicle._id} key={vehicle.name}>
-                              {vehicle?.name}
-                              &emsp; {vehicle?.des}
-                            </option>
-                          ))}
-                      </Select>
-                    </div>
-                    <div className="flex flex-col">
-                      {' '}
-                      <LabelForm title="Xe Khách" />
-                      <Select
-                        ref={busSelectRef}
-                        defaultValue=""
-                        onChange={e => handleSingleSelect(e, 'bus')}
-                        className="min-w-[130px] border border-gray-700 border-opacity-50 bg-white text-black focus:border-primary focus:outline-none dark:border-secondary dark:bg-gray-700 dark:text-white dark:focus:border-white md:w-[300px] lg:w-[400px] xl:w-full"
-                      >
-                        <option disabled value="">
-                          Xe Khách
-                        </option>
-                        {vehicles
-                          .filter(vehicle =>
-                            vehicle.name.toLowerCase().includes('xe khách')
-                          )
-                          .map(vehicle => (
-                            <option value={vehicle._id} key={vehicle.name}>
-                              {vehicle?.name}
-                            </option>
-                          ))}
-                      </Select>
-                    </div>
-                    <div className="flex flex-col">
-                      <LabelForm title="Máy Bay" />
-                      <Select
-                        ref={planeSelectRef}
-                        defaultValue=""
-                        onChange={e => handleSingleSelect(e, 'plane')}
-                        className="min-w-[130px] border border-gray-700 border-opacity-50 bg-white text-black focus:border-primary focus:outline-none dark:border-secondary dark:bg-gray-700 dark:text-white dark:focus:border-white md:w-[300px] lg:w-[400px] xl:w-full"
-                      >
-                        <option disabled value="">
-                          Máy Bay
-                        </option>
-                        {vehicles
-                          .filter(vehicle =>
-                            vehicle.name.toLowerCase().includes('máy bay')
-                          )
-                          .map(vehicle => (
-                            <option value={vehicle._id} key={vehicle.name}>
-                              {vehicle?.name}
-                            </option>
-                          ))}
-                      </Select>
-                    </div>
-                  </div>
-                  <Button
-                    onClick={handleDeleteSelectedVehicle}
-                    size="sm"
-                    color="error"
-                    className="text-white"
-                  >
-                    <MdDeleteSweep className="text-xl" color="white" /> Xoá Vé
-                    Đã Chọn
-                  </Button>
-                </div>
-              </div>
-
-              {/* */}
-              <div className="flex flex-row gap-2">
-                <Button
-                  color="success"
-                  onClick={openModalCreateAdmin}
-                  className="min-w-[100px] text-sm font-light text-white"
-                >
-                  <RiAddBoxLine className="text-xl" color="white" />
-                  Thêm
-                </Button>
+              <div className="flex flex-col gap-2 md:flex-row">
                 {/*  */}
                 <div className="dropdown dropdown-hover relative flex h-12 min-w-[100px] cursor-grab flex-col items-center justify-center rounded-md bg-primary">
                   <Button color="primary" className="font-light text-white">
                     <LuFilter className="text-xl" color="white" />
                     Lọc
                   </Button>
-                  <div className="dropdown-content absolute top-[100%] z-10 w-[350px] space-y-1 rounded-md bg-slate-50 p-2 shadow-headerMenu drop-shadow-md">
+                  <div className="dropdown-content absolute top-[100%] z-10 w-[400px] space-y-1 rounded-md bg-slate-50 p-2 shadow-headerMenu drop-shadow-md">
                     <div className="flex flex-row gap-4">
                       {/* Loại Vé */}
-                      <div className="flex flex-col">
+                      <div className="flex w-full flex-col">
                         <span className="font-semibold text-primary hover:text-secondary">
                           Loại Vé
                         </span>
@@ -342,7 +235,7 @@ const TicketPage: React.FC = () => {
                       </div>
 
                       {/* Phương Tiện */}
-                      <div className="flex flex-col">
+                      <div className="flex w-full flex-col">
                         <span className="font-semibold text-primary hover:text-secondary">
                           Phương Tiện
                         </span>
@@ -371,7 +264,7 @@ const TicketPage: React.FC = () => {
                       </div>
 
                       {/* Điểm Khởi Hành */}
-                      <div className="flex flex-col">
+                      <div className="flex w-full flex-col">
                         <span className="font-semibold text-primary hover:text-secondary">
                           Điểm Khởi Hành
                         </span>
@@ -429,6 +322,119 @@ const TicketPage: React.FC = () => {
                       </div>
                     ))}
                   </div>
+                </div>
+              </div>
+              {/*  */}
+              <div className="flex flex-col gap-2 md:flex-row">
+                {/*  */}
+                <div className="dropdown dropdown-hover relative">
+                  <Button
+                    color="error"
+                    className="min-w-[100px] cursor-grab text-sm font-light text-white"
+                  >
+                    <MdDeleteSweep className="text-xl" color="white" /> Xoá vé
+                    phương tiện
+                  </Button>
+                  <div className="dropdown-content absolute top-[100%] z-10 flex min-w-[150px] flex-col gap-5 rounded-md bg-slate-50 px-5 py-2 shadow-headerMenu drop-shadow-md dark:bg-gray-900">
+                    <div className="flex flex-col xl:flex-row">
+                      <p className="flex flex-row items-center gap-1 text-black dark:text-white">
+                        <PiWarningOctagonFill className="text-lg text-warning" />
+                        <strong>Lưu ý: </strong>
+                      </p>
+                      <p>Chỉ chọn 1 phương tiện duy nhất</p>
+                    </div>
+                    <div className="flex flex-col gap-2 xl:flex-row">
+                      <div className="flex flex-col">
+                        <LabelForm title="Tàu Hoả" />
+                        <Select
+                          ref={trainSelectRef}
+                          defaultValue=""
+                          onChange={e => handleSingleSelect(e, 'train')}
+                          className="min-w-[130px] border border-gray-700 border-opacity-50 bg-white text-black focus:border-primary focus:outline-none dark:border-secondary dark:bg-gray-700 dark:text-white dark:focus:border-white md:w-[300px] lg:w-[400px] xl:w-full"
+                        >
+                          <option disabled value="">
+                            Tàu Hoả
+                          </option>
+                          {vehicles
+                            .filter(vehicle =>
+                              vehicle.name.toLowerCase().includes('tàu')
+                            )
+                            .map(vehicle => (
+                              <option value={vehicle._id} key={vehicle.name}>
+                                {vehicle?.name}
+                                &emsp; {vehicle?.des}
+                              </option>
+                            ))}
+                        </Select>
+                      </div>
+                      <div className="flex flex-col">
+                        {' '}
+                        <LabelForm title="Xe Khách" />
+                        <Select
+                          ref={busSelectRef}
+                          defaultValue=""
+                          onChange={e => handleSingleSelect(e, 'bus')}
+                          className="min-w-[130px] border border-gray-700 border-opacity-50 bg-white text-black focus:border-primary focus:outline-none dark:border-secondary dark:bg-gray-700 dark:text-white dark:focus:border-white md:w-[300px] lg:w-[400px] xl:w-full"
+                        >
+                          <option disabled value="">
+                            Xe Khách
+                          </option>
+                          {vehicles
+                            .filter(vehicle =>
+                              vehicle.name.toLowerCase().includes('xe khách')
+                            )
+                            .map(vehicle => (
+                              <option value={vehicle._id} key={vehicle.name}>
+                                {vehicle?.name}
+                              </option>
+                            ))}
+                        </Select>
+                      </div>
+                      <div className="flex flex-col">
+                        <LabelForm title="Máy Bay" />
+                        <Select
+                          ref={planeSelectRef}
+                          defaultValue=""
+                          onChange={e => handleSingleSelect(e, 'plane')}
+                          className="min-w-[130px] border border-gray-700 border-opacity-50 bg-white text-black focus:border-primary focus:outline-none dark:border-secondary dark:bg-gray-700 dark:text-white dark:focus:border-white md:w-[300px] lg:w-[400px] xl:w-full"
+                        >
+                          <option disabled value="">
+                            Máy Bay
+                          </option>
+                          {vehicles
+                            .filter(vehicle =>
+                              vehicle.name.toLowerCase().includes('máy bay')
+                            )
+                            .map(vehicle => (
+                              <option value={vehicle._id} key={vehicle.name}>
+                                {vehicle?.name}
+                              </option>
+                            ))}
+                        </Select>
+                      </div>
+                    </div>
+                    <Button
+                      onClick={handleDeleteSelectedVehicle}
+                      size="sm"
+                      color="error"
+                      className="text-white"
+                    >
+                      <MdDeleteSweep className="text-xl" color="white" /> Xoá Vé
+                      Đã Chọn
+                    </Button>
+                  </div>
+                </div>
+
+                {/* */}
+                <div className="flex flex-row gap-2">
+                  <Button
+                    color="success"
+                    onClick={openModalCreateAdmin}
+                    className="min-w-[100px] text-sm font-light text-white"
+                  >
+                    <RiAddBoxLine className="text-xl" color="white" />
+                    Thêm
+                  </Button>
                 </div>
               </div>
             </div>
