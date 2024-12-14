@@ -5,7 +5,7 @@ import LoadingLocal from '../../../components/orther/loading/LoadingLocal';
 import ErrorLoading from '../../../components/orther/error/ErrorLoading';
 import { ITicket } from '../../../types/type/ticket/ticket';
 import { useCart } from '../../../context/cart/CartContext';
-import CartPage from '../CartPage';
+import CartPageFlight from '../CartPageFlight';
 import { Button } from 'react-daisyui';
 
 import { TicketContext } from '../../../context/ticket/TicketContext'; // Thêm import TicketContext
@@ -169,7 +169,7 @@ const TicketFlightsResultsPage: React.FC = () => {
       <HeaderResponsive Title_NavbarMobile={t('UserPage.Navbar.Flights')} />
       <div className="flex w-full flex-col items-start justify-center px-2 xl:flex-row xl:px-[50px]">
         <div className="block w-full xl:hidden">
-          <CartPage />
+          <CartPageFlight />
         </div>
         <div className="w-full">
           <h1 className="mx-2 mb-5 border-[4px] border-b-0 border-r-0 border-t-0 border-primary bg-blue-200 px-5 py-1 text-center text-xl text-black dark:border-white dark:bg-gray-400 dark:text-white xl:text-start">
@@ -374,7 +374,7 @@ const TicketFlightsResultsPage: React.FC = () => {
           )}
         </div>
         <div className="hidden w-full xl:block">
-          <CartPage />
+          <CartPageFlight />
         </div>
       </div>
     </div>
