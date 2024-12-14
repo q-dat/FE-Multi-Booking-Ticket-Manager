@@ -95,7 +95,7 @@ const ContactForm: React.FC = () => {
         }}
       >
         {/*  */}
-        <div className="m-2 space-y-4 rounded-lg border border-primary bg-white p-2">
+        <div className="m-2 space-y-4 rounded-md border border-gray-50 bg-white p-2">
           <div className="flex flex-row items-start justify-between">
             {/*  */}
             <div className="flex flex-row items-center gap-1 text-xl text-primary">
@@ -105,11 +105,7 @@ const ContactForm: React.FC = () => {
             </div>
             {/*  */}
             <div>
-              <img
-                src={Logo}
-                className="h-12 w-12 rounded-full border object-cover"
-                alt="7Teck"
-              />
+              <img src={Logo} className="h-12 w-12 object-cover" alt="7Teck" />
             </div>
           </div>
           <div>
@@ -125,13 +121,13 @@ const ContactForm: React.FC = () => {
                     name="email"
                     type="email"
                     placeholder={t('UserPage.Email')}
-                    className="size-10 w-full border border-black bg-white text-black dark:shadow-none dark:shadow-white"
+                    className="size-10 w-full border border-gray-50 bg-white text-black dark:shadow-none dark:shadow-white"
                     classNameLabel="bg-white dark:peer-placeholder-shown:text-black dark:peer-focus:text-black peer-placeholder-shown:top-[8px]"
                   />
                   <InputForm
                     name="name"
                     type="text"
-                    className="size-10 w-full border border-black bg-white text-black dark:shadow-none dark:shadow-white"
+                    className="size-10 w-full border border-gray-50 bg-white text-black dark:shadow-none dark:shadow-white"
                     placeholder={t('UserPage.YourNameBtn')}
                     classNameLabel="bg-white dark:peer-placeholder-shown:text-black dark:peer-focus:text-black peer-placeholder-shown:top-[8px]"
                   />
@@ -139,7 +135,7 @@ const ContactForm: React.FC = () => {
                 <div className="w-full">
                   <Textarea
                     name="feedback"
-                    className="w-full border border-black bg-white pb-8 text-black focus:outline-none dark:shadow-none dark:shadow-white"
+                    className="w-full border border-gray-50 bg-white pb-8 text-black focus:outline-none dark:shadow-none dark:shadow-white"
                     placeholder={t('UserPage.FeedbackBtn')}
                   />
                   <Button
