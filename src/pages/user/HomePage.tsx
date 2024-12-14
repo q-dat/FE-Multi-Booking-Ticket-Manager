@@ -28,6 +28,7 @@ import { VehicleCatalogContext } from '../../context/vehicleCatalog/VehicleCatal
 import { LocationContext } from '../../context/location/LocationContext';
 import AllTickets from './tickets-filter/AllTickets';
 import ReactSelect from '../../components/orther/react-select/ReactSelect';
+import ReactSelectNone from '../../components/orther/react-select/ReactSelectNone';
 
 interface Option {
   value: string;
@@ -170,7 +171,7 @@ const Home: React.FC = () => {
             {/* Form Mobile 1 */}
             <div className="m-2 flex flex-grow items-center justify-between gap-2 md:m-[10px] md:gap-[20px] xl:m-0 xl:gap-0">
               <div className="flex items-center">
-                <ReactSelect
+                <ReactSelectNone
                   name="departure_point_name"
                   control={control}
                   options={location}
@@ -181,7 +182,7 @@ const Home: React.FC = () => {
                 <MdOutlineArrowRightAlt className="hidden text-xl text-primary xl:flex" />
               </div>
               <div className="flex items-center">
-                <ReactSelect
+                <ReactSelectNone
                   name="destination_point_name"
                   control={control}
                   options={location}

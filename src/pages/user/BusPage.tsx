@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
 import HeaderResponsive from '../../components/UserPage/HeaderResponsive';
-import { Button, Select } from 'react-daisyui';
+import { Button } from 'react-daisyui';
 import InputForm from '../../components/UserPage/InputForm';
 import { useTranslation } from 'react-i18next';
 import { IoSearch } from 'react-icons/io5';
@@ -14,7 +14,13 @@ import { Toastify } from '../../helper/Toastify';
 import { SearchFormData, ITicket } from '../../types/type/ticket/ticket';
 import { BannerBus } from '../../assets/image-represent';
 import BusesTickets from './tickets-filter/BusesTickets';
+import ReactSelect from '../../components/orther/react-select/ReactSelect';
+import ReactSelectNone from '../../components/orther/react-select/ReactSelectNone';
 
+interface Option {
+  value: string;
+  label: string;
+}
 const BusesPage: React.FC = () => {
   const [selectedTicketCatalog, setSelectedTicketCatalog] = useState<
     string | string
@@ -24,7 +30,7 @@ const BusesPage: React.FC = () => {
   const { searchTickets, loading } = useContext(TicketContext);
   const navigate = useNavigate();
 
-  const { register, handleSubmit } = useForm<SearchFormData>();
+  const { control, register, handleSubmit } = useForm<SearchFormData>();
   const onSubmit: SubmitHandler<SearchFormData> = async data => {
     const searchParams: Record<string, string> = Object.entries(data).reduce(
       (acc, [key, value]) => {
@@ -52,11 +58,20 @@ const BusesPage: React.FC = () => {
   useEffect(() => {
     getAllTicketCatalogs();
   }, []);
+  //react-select
+  const ticketCatalog: Option[] = ticketCatalogs.map(ticketCatalog => ({
+    value: ticketCatalog.name,
+    label: ticketCatalog.name
+  }));
   //Get Location
   const { locations, getAllLocations } = useContext(LocationContext);
   useEffect(() => {
     getAllLocations();
   }, []);
+  const location: Option[] = locations.map(location => ({
+    value: location.name,
+    label: location.name
+  }));
   // Tính toán ngày hôm nay
   const today = new Date();
   const yyyy = today.getFullYear();
@@ -97,7 +112,7 @@ const BusesPage: React.FC = () => {
               {/* Form Mobile 1 */}
               <div className="m-2 flex flex-grow items-center justify-between gap-2 md:m-[10px] md:gap-[20px] xl:m-0 xl:gap-0">
                 <div className="flex items-center">
-                  <Select
+                  {/* <Select
                     defaultValue=""
                     className="h-[48px] min-w-[150px] border border-primary bg-white text-sm text-black hover:border-gray-700 hover:border-opacity-50 hover:outline-none focus:outline-none dark:border-primary dark:hover:border-gray-700 dark:hover:border-opacity-50 xs:max-w-[150px] sm:max-w-[300px] md:w-[300px] lg:w-[400px] xl:w-full xl:rounded-r-none"
                     {...register('departure_point_name')}
@@ -110,12 +125,20 @@ const BusesPage: React.FC = () => {
                         {location.name}
                       </option>
                     ))}
-                  </Select>
+                  </Select> */}
+                  <ReactSelectNone
+                    name="departure_point_name"
+                    control={control}
+                    options={location}
+                    placeholder={t('UserPage.DeparturePlaceholder')}
+                    isMulti={false}
+                    className="xl:rounded-r-none"
+                  />
                   <MdOutlineArrowRightAlt className="hidden text-xl text-primary xl:flex" />
                 </div>
 
                 <div className="flex items-center">
-                  <Select
+                  {/* <Select
                     defaultValue=""
                     className="h-[48px] min-w-[150px] border border-primary bg-white text-sm text-black hover:border-gray-700 hover:border-opacity-50 hover:outline-none focus:outline-none dark:border-primary dark:hover:border-gray-700 dark:hover:border-opacity-50 xs:max-w-[150px] sm:max-w-[300px] md:w-[300px] lg:w-[400px] xl:w-full xl:rounded-none"
                     {...register('destination_point_name')}
@@ -128,14 +151,22 @@ const BusesPage: React.FC = () => {
                         {location.name}
                       </option>
                     ))}
-                  </Select>
+                  </Select> */}
+                  <ReactSelectNone
+                    name="destination_point_name"
+                    control={control}
+                    options={location}
+                    placeholder={t('UserPage.DestinationPlaceholder')}
+                    isMulti={false}
+                    className="xl:rounded-none"
+                  />
                   <MdOutlineArrowRightAlt className="hidden text-xl text-primary xl:flex" />
                 </div>
               </div>
               {/* Form Mobile 2 */}
               <div className="m-2 flex flex-grow items-center justify-between gap-2 md:m-[10px] md:gap-[20px] xl:m-0 xl:gap-0">
                 <div className="flex items-center">
-                  <Select
+                  {/* <Select
                     defaultValue=""
                     className="h-[48px] min-w-[150px] border border-primary bg-white text-sm text-black hover:border-gray-700 hover:border-opacity-50 hover:outline-none focus:outline-none dark:border-primary dark:hover:border-gray-700 dark:hover:border-opacity-50 xs:max-w-[150px] sm:max-w-[300px] md:w-[300px] lg:w-[400px] xl:w-full xl:rounded-none"
                     {...register('ticket_catalog_name')}
@@ -152,7 +183,27 @@ const BusesPage: React.FC = () => {
                         {ticketCatalog.name}
                       </option>
                     ))}
-                  </Select>
+                  </Select> */}
+                  <ReactSelect
+                    name="ticket_catalog_name"
+                    control={control}
+                    options={ticketCatalog}
+                    placeholder={t('UserPage.TicketSelectDefault')}
+                    isMulti={false}
+                    className="xl:rounded-none"
+                    onChange={selectedOption => {
+                      if (
+                        typeof selectedOption === 'object' &&
+                        'value' in selectedOption
+                      ) {
+                        setSelectedTicketCatalog(selectedOption.value);
+                      } else if (typeof selectedOption === 'string') {
+                        setSelectedTicketCatalog(selectedOption);
+                      } else {
+                        setSelectedTicketCatalog('');
+                      }
+                    }}
+                  />
                   <MdOutlineArrowRightAlt className="hidden text-xl text-primary xl:flex" />
                   {/* hide */}
                   <InputForm
