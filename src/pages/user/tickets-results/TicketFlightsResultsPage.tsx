@@ -147,10 +147,23 @@ const TicketFlightsResultsPage: React.FC = () => {
     : {};
 
   // Sắp xếp vé theo số ghế
+  // const sortedTicketsByClass = Object.entries(ticketsByClass).reduce(
+  //   (acc, [classId, classTickets]) => {
+  //     acc[classId] = classTickets.sort((a, b) => {
+  //       return a.seat_id[0]?.ordinal_numbers - b.seat_id[0]?.ordinal_numbers;
+  //     });
+  //     return acc;
+  //   },
+  //   {} as { [key: string]: ITicket[] }
+  // );
   const sortedTicketsByClass = Object.entries(ticketsByClass).reduce(
     (acc, [classId, classTickets]) => {
       acc[classId] = classTickets.sort((a, b) => {
-        return a.seat_id[0]?.ordinal_numbers - b.seat_id[0]?.ordinal_numbers;
+        const numA = parseInt(a.seat_id[0]?.ordinal_numbers || '0', 10);
+        const numB = parseInt(b.seat_id[0]?.ordinal_numbers || '0', 10);
+
+        // Xử lý nếu `numA` hoặc `numB` không hợp lệ
+        return (isNaN(numA) ? 0 : numA) - (isNaN(numB) ? 0 : numB);
       });
       return acc;
     },
@@ -181,20 +194,24 @@ const TicketFlightsResultsPage: React.FC = () => {
           <div className="mb-8 flex w-full flex-row items-center justify-center overflow-x-auto scrollbar-hide">
             {Object.entries(ticketsByFlight).map(
               ([flightName, flightTickets]) => (
-                <><div
-                  className="h-[100px] w-[100px] bg-primary bg-opacity-100"
-                  style={{
-                    clipPath:
-                            'polygon(20% 75%, 100% 60%, 100% 100%, 0% 100%)'
-                  }} /><div
+                <>
+                  <div
+                    className="h-[100px] w-[100px] bg-primary bg-opacity-100"
+                    style={{
+                      clipPath: 'polygon(20% 75%, 100% 60%, 100% 100%, 0% 100%)'
+                    }}
+                  />
+                  <div
                     className={`group mb-4 flex h-[300px] w-[180px] cursor-pointer flex-col items-center justify-around gap-1 rounded-[150px] border border-white bg-black bg-opacity-20 p-12 shadow-lg ${selectedFlight === flightName ? 'bg-primary bg-opacity-100' : ''}`}
                     onClick={() => handleFlightChange(flightName)}
                     key={flightName}
                   >
                     <div className="w-[150px] rounded-md bg-white p-2 text-black group-hover:bg-primary group-hover:text-white dark:group-hover:bg-secondary">
                       <p className="truncate text-center text-base font-medium">
-                        {flightTickets[0]?.seat_id[0]?.seat_catalog_id.vehicle_id
-                          .name}
+                        {
+                          flightTickets[0]?.seat_id[0]?.seat_catalog_id
+                            .vehicle_id.name
+                        }
                       </p>
                     </div>
                     <div className="w-[150px] rounded-md bg-white p-2 text-start text-sm font-medium">
@@ -214,34 +231,32 @@ const TicketFlightsResultsPage: React.FC = () => {
                       </p>
                       {flightTickets[0]?.ticket_catalog_id?.name.toLowerCase() !==
                         'một chiều' && (
-                          <>
-                            <p>
-                              <span className="font-semibold">
-                                {t('UserPage.ReturnDatePlaceholder')}:
-                              </span>{' '}
-                              {new Date(
-                                flightTickets[0]?.trip_id?.return_date
-                              ).toLocaleDateString('vi-VN')}
-                            </p>
-                            <p>
-                              <span className="font-semibold">
-                                {t('UserPage.ReturnTimePlaceholder')}:
-                              </span>{' '}
-                              {flightTickets[0]?.trip_id?.return_time}
-                            </p>
-                          </>
-                        )}
+                        <>
+                          <p>
+                            <span className="font-semibold">
+                              {t('UserPage.ReturnDatePlaceholder')}:
+                            </span>{' '}
+                            {new Date(
+                              flightTickets[0]?.trip_id?.return_date
+                            ).toLocaleDateString('vi-VN')}
+                          </p>
+                          <p>
+                            <span className="font-semibold">
+                              {t('UserPage.ReturnTimePlaceholder')}:
+                            </span>{' '}
+                            {flightTickets[0]?.trip_id?.return_time}
+                          </p>
+                        </>
+                      )}
                     </div>
                   </div>
                   <div
-                        className="h-[100px] w-[100px] bg-primary bg-opacity-100"
-                        style={{
-                          clipPath:
-                            'polygon(0 60%, 80% 75%, 100% 100%, 0% 100%)'
-                        }}
-                      />
-                    </>
-                  
+                    className="h-[100px] w-[100px] bg-primary bg-opacity-100"
+                    style={{
+                      clipPath: 'polygon(0 60%, 80% 75%, 100% 100%, 0% 100%)'
+                    }}
+                  />
+                </>
               )
             )}
           </div>

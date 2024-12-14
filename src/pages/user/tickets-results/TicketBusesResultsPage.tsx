@@ -341,11 +341,24 @@ const TicketBusesResultsPage: React.FC = () => {
                     </div>
                     <div className="grid w-[250px] grid-cols-3 gap-4 rounded-xl dark:border-white">
                       {classTickets
-                        .sort(
-                          (a, b) =>
-                            a.seat_id[0]?.ordinal_numbers -
-                            b.seat_id[0]?.ordinal_numbers
-                        )
+                        // .sort(
+                        //   (a, b) =>
+                        //     a.seat_id[0]?.ordinal_numbers -
+                        //     b.seat_id[0]?.ordinal_numbers
+                        // )
+                        .sort((a, b) => {
+                          const numA = parseInt(
+                            a.seat_id[0]?.ordinal_numbers || '0',
+                            10
+                          );
+                          const numB = parseInt(
+                            b.seat_id[0]?.ordinal_numbers || '0',
+                            10
+                          );
+                          return (
+                            (isNaN(numA) ? 0 : numA) - (isNaN(numB) ? 0 : numB)
+                          );
+                        })
                         .map((ticket, index) => {
                           const seatStatus = ticket.seat_id[0]?.status;
                           return (
