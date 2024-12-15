@@ -10,6 +10,7 @@ import { PiMapPinAreaDuotone, PiSeatFill } from 'react-icons/pi';
 import { FaArrowRightArrowLeft, FaCartPlus } from 'react-icons/fa6';
 import Pagination from '../../../components/UserPage/Pagination';
 import { useTranslation } from 'react-i18next';
+import { AiOutlineClockCircle } from 'react-icons/ai';
 
 const FlightTickets: React.FC = () => {
   //Translation
@@ -203,6 +204,12 @@ const FlightTickets: React.FC = () => {
                     {(ticket.price * 1000).toLocaleString('vi-VN')}
                   </span>
                   VND
+                </div>
+                <div className="flex items-center gap-1">
+                  <AiOutlineClockCircle />
+                  {new Date(ticket?.trip_id.departure_date).toLocaleDateString(
+                    'vi-VN'
+                  )}
                 </div>
                 <Button
                   size="sm"

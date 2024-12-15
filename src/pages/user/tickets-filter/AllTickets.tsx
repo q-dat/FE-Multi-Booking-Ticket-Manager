@@ -12,6 +12,7 @@ import { PiMapPinAreaDuotone, PiSeatFill } from 'react-icons/pi';
 import { FaCartPlus } from 'react-icons/fa6';
 import { GrStatusInfo } from 'react-icons/gr';
 import { useTranslation } from 'react-i18next';
+import { AiOutlineClockCircle } from "react-icons/ai";
 const AllTickets: React.FC = () => {
   //Translation
   const { t } = useTranslation();
@@ -252,6 +253,10 @@ const AllTickets: React.FC = () => {
                         {(ticket?.price * 1000).toLocaleString('vi-VN')}
                       </span>
                       <span className="font-semibold text-primary">VND</span>
+                    </div>
+                    <div className="flex items-center gap-1">
+                      <AiOutlineClockCircle/>
+                      { new Date(ticket?.trip_id.departure_date).toLocaleDateString('vi-VN')}
                     </div>
                   </div>
                   <div>
