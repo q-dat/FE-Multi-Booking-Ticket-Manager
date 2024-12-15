@@ -55,7 +55,7 @@ const OrderPage: React.FC = () => {
                 {order.items.map((item, index) => (
                   <div key={index}>
                     <p>
-                      {item.seat} x {item.vehicle} x {item.quantity}
+                      <strong>{item.vehicleCatalog}:</strong> {item.seat} x {item.vehicle} x {item.quantity}
                     </p>
                     <p>
                       <strong>Họ và tên:</strong> {item.name}
