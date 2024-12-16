@@ -72,10 +72,22 @@ const Home: React.FC = () => {
         case 'Tàu':
           navigate('/ticket-trains-results');
           break;
+        case 'Tàu Hoả':
+          navigate('/ticket-trains-results');
+          break;
+        case 'Tàu hoả':
+          navigate('/ticket-trains-results');
+          break;
         case 'Xe khách':
           navigate('/ticket-buses-results');
           break;
+        case 'Xe Khách':
+          navigate('/ticket-buses-results');
+          break;
         case 'Máy bay':
+          navigate('/ticket-flights-results');
+          break;
+        case 'Máy Bay':
           navigate('/ticket-flights-results');
           break;
         default:
