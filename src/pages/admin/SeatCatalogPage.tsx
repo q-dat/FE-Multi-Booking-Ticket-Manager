@@ -69,10 +69,10 @@ const SeatCatalogPage: React.FC = () => {
 
   return (
     <div className="w-full">
-      <NavbarMobile Title_NavbarMobile="Khoang/Toa" />
+      <NavbarMobile Title_NavbarMobile="Phòng/Toa" />
       <div className="px-2 xl:px-0">
         <NavtitleAdmin
-          Title_NavtitleAdmin="Quản Lý Khoang/Toa"
+          Title_NavtitleAdmin="Quản Lý Phòng/Toa"
           Btn_Create={
             <Button
               color="primary"
@@ -91,7 +91,7 @@ const SeatCatalogPage: React.FC = () => {
         table_head={
           <Table.Head className="bg-primary text-center text-white">
             <span>STT</span>
-            <span>Khoang/Toa</span>
+            <span>Phòng/Toa</span>
             <span>Danh Mục</span>
             <span>Hành Động</span>
           </Table.Head>
