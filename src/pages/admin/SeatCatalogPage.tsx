@@ -75,7 +75,7 @@ const SeatCatalogPage: React.FC = () => {
           Title_NavtitleAdmin="Quản Lý Khoang/Toa"
           Btn_Create={
             <Button
-              color="success"
+              color="primary"
               onClick={openModalCreateAdmin}
               className="w-[100px] text-sm font-light text-white"
             >
@@ -127,7 +127,7 @@ const SeatCatalogPage: React.FC = () => {
                     </summary>
                     <div className="flex flex-col items-center justify-center space-y-2">
                       <Button
-                        color="success"
+                        color="primary"
                         onClick={() =>
                           openModalEditAdmin(seatCatalog._id ?? '')
                         }

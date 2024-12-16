@@ -108,7 +108,7 @@ const TripPage: React.FC = () => {
               </div>
               <div>
                 <Button
-                  color="success"
+                  color="primary"
                   onClick={openModalCreateAdmin}
                   className="w-[100px] text-sm font-light text-white"
                 >
@@ -186,7 +186,7 @@ const TripPage: React.FC = () => {
                     </summary>
                     <div className="flex flex-col items-center justify-center space-y-2">
                       <Button
-                        color="success"
+                        color="primary"
                         onClick={() => openModalEditAdmin(trip._id ?? '')}
                         className="w-full max-w-[140px] text-sm font-light text-white"
                       >

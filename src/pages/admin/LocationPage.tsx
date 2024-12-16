@@ -69,7 +69,7 @@ const LocationPage: React.FC = () => {
           Title_NavtitleAdmin="Quản Lý Địa Điểm"
           Btn_Create={
             <Button
-              color="success"
+              color="primary"
               onClick={openModalCreateAdmin}
               className="w-[100px] text-sm font-light text-white"
             >
@@ -104,7 +104,7 @@ const LocationPage: React.FC = () => {
                     </summary>
                     <div className="flex flex-col items-center justify-center space-y-2">
                       <Button
-                        color="success"
+                        color="primary"
                         onClick={() => openModalEditAdmin(location._id ?? '')}
                         className="w-full max-w-[140px] text-sm font-light text-white"
                       >

@@ -428,7 +428,7 @@ const TicketPage: React.FC = () => {
                 {/* */}
                 <div className="flex flex-row gap-2">
                   <Button
-                    color="success"
+                    color="primary"
                     onClick={openModalCreateAdmin}
                     className="min-w-[100px] text-sm font-light text-white"
                   >
@@ -575,7 +575,7 @@ const TicketPage: React.FC = () => {
                       </summary>
                       <div className="flex flex-col items-center justify-center space-y-2">
                         <Button
-                          color="success"
+                          color="primary"
                           onClick={() => openModalEditAdmin(ticket._id ?? '')}
                           className="w-full max-w-[140px] text-sm font-light text-white"
                         >

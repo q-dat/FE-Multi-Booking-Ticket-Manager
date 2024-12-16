@@ -163,7 +163,6 @@ const SeatPage: React.FC = () => {
           Btn_Create={
             <div className="flex w-full flex-col items-start justify-center gap-2 md:items-end xl:flex-row">
               <div className="flex flex-row gap-2">
-                {/*  */}
                 <Button
                   color="error"
                   onClick={openModalDeleteMultiAdmin}
@@ -176,18 +175,6 @@ const SeatPage: React.FC = () => {
                 </Button>
                 {/*  */}
                 <Button
-                  color="success"
-                  onClick={openModalCreateMultiAdmin}
-                  className="text-sm font-light text-white xl:w-[200px]"
-                >
-                  <div className="flex items-center space-x-1">
-                    <RiAddBoxLine className="text-xl" />
-                    <p>Thêm DS Ghế</p>
-                  </div>
-                </Button>
-
-                {/*  */}
-                <Button
                   color="error"
                   onClick={openModalResetAdmin}
                   className="text-sm font-light text-white xl:w-[100px]"
@@ -198,6 +185,18 @@ const SeatPage: React.FC = () => {
                   <p className="hidden xl:block">Reset</p>
                 </Button>
               </div>
+              {/*  */}
+              <Button
+                color="primary"
+                onClick={openModalCreateMultiAdmin}
+                className="text-sm font-light text-white xl:w-[200px]"
+              >
+                <div className="flex items-center space-x-1">
+                  <RiAddBoxLine className="text-xl" />
+                  <p>Thêm DS Ghế</p>
+                </div>
+              </Button>
+              {/*  */}
               {/*  */}
               <div className="flex flex-row gap-2">
                 {/*  */}
@@ -317,7 +316,7 @@ const SeatPage: React.FC = () => {
                 </div>
                 {/*  */}
                 <Button
-                  color="success"
+                  color="primary"
                   onClick={openModalCreateAdmin}
                   className="w-[100px] text-sm font-light text-white"
                 >
@@ -431,7 +430,7 @@ const SeatPage: React.FC = () => {
                       </summary>
                       <div className="flex flex-col items-center justify-center space-y-2">
                         <Button
-                          color="success"
+                          color="primary"
                           onClick={() => openModalEditAdmin(seat._id ?? '')}
                           className="w-full max-w-[140px] text-sm font-light text-white"
                         >

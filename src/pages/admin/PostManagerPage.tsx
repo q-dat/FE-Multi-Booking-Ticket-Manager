@@ -69,7 +69,7 @@ const PostManagerPage: React.FC = () => {
           Btn_Create={
             <div className="flex flex-col items-start justify-center gap-2 md:flex-row md:items-end">
               <Button
-                color="success"
+                color="primary"
                 onClick={openModalCreateAdmin}
                 className="w-[100px] text-sm font-light text-white"
               >
@@ -126,7 +126,7 @@ const PostManagerPage: React.FC = () => {
                     </summary>
                     <div className="flex flex-col items-center justify-center space-y-2">
                       <Button
-                        color="success"
+                        color="primary"
                         onClick={() => openModalEditAdmin(post?._id ?? '')}
                         className="w-full max-w-[140px] text-sm font-light text-white"
                       >

@@ -69,7 +69,7 @@ const VehiclePage: React.FC = () => {
           Title_NavtitleAdmin="Quản Lý Phương Tiện"
           Btn_Create={
             <Button
-              color="success"
+              color="primary"
               onClick={openModalCreateAdmin}
               className="w-[100px] text-sm font-light text-white"
             >
@@ -131,7 +131,7 @@ const VehiclePage: React.FC = () => {
                     </summary>
                     <div className="flex flex-col items-center justify-center space-y-2">
                       <Button
-                        color="success"
+                        color="primary"
                         onClick={() => openModalEditAdmin(vehicle._id ?? '')}
                         className="w-full max-w-[140px] text-sm font-light text-white"
                       >
