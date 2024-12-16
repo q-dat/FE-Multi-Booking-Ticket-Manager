@@ -14,6 +14,8 @@ import {
   offSocketEvents
 } from '../../../socket/seatSocket';
 import { TicketContext } from '../../../context/ticket/TicketContext';
+import { IoMdPricetag } from 'react-icons/io';
+import { IoTicket, IoTrainSharp } from 'react-icons/io5';
 
 const TicketBusesResultsPage: React.FC = () => {
   const { searchTickets } = useContext(TicketContext);
@@ -24,6 +26,7 @@ const TicketBusesResultsPage: React.FC = () => {
   const [selectedBus, setSelectedBus] = useState<string | null>(null);
   // const [selectedClassId, setSelectedClassId] = useState<string | null>(null);
   const { addSeat, selectedSeats } = useCart();
+  const [isHidden, setIsHidden] = useState(true);
 
   useEffect(() => {
     let consecutiveCalls = 0; // Biến đếm số lần gọi liên tiếp
@@ -200,16 +203,20 @@ const TicketBusesResultsPage: React.FC = () => {
   //Ticket by Carriage(SeatCatalog)
   const ticketsByCarriage = selectedBus
     ? ticketsByBus[selectedBus].reduce(
-        (acc, ticket) => {
-          const carriageId = ticket.seat_id[0]?.seat_catalog_id._id;
-          acc[carriageId] = acc[carriageId]
-            ? [...acc[carriageId], ticket]
-            : [ticket];
-          return acc;
-        },
-        {} as Record<string, ITicket[]>
-      )
+      (acc, ticket) => {
+        const carriageId = ticket.seat_id[0]?.seat_catalog_id._id;
+        acc[carriageId] = acc[carriageId]
+          ? [...acc[carriageId], ticket]
+          : [ticket];
+        return acc;
+      },
+      {} as Record<string, ITicket[]>
+    )
     : {};
+  const toggleHidden = () => {
+    setIsHidden(!isHidden);
+  };
+  
 
   // // Khi người dùng chọn một tàu khác, tự động chọn danh mục ghế đầu tiên của tàu đó
   // const handleTrainChange = (busName: string) => {
@@ -227,183 +234,193 @@ const TicketBusesResultsPage: React.FC = () => {
           <CartPage />
         </div>
         <div className="w-full">
-          <h1 className="mx-2 mb-5 border-[4px] border-b-0 border-r-0 border-t-0 border-primary bg-blue-200 px-5 py-1 text-center text-xl text-black dark:border-white dark:bg-gray-400 dark:text-white xl:text-start">
-            Chuyến đi từ <strong>{tripInfo.departure_point.name}</strong> đến{' '}
-            <strong>{tripInfo.destination_point.name}</strong> &nbsp;(
-            <strong>
-              {tickets[0]?.seat_id[0]?.seat_catalog_id.vehicle_id.name}
-            </strong>
-            )
-          </h1>
 
-          <div className="mb-8 flex flex-wrap justify-center space-x-16">
-            {Object.entries(ticketsByBus).map(([busName, busTickets]) => (
-              <div
-                className={`group mb-4 flex h-[200px] w-[200px] cursor-pointer flex-col items-center justify-around rounded-[30px] border bg-black bg-opacity-20 p-1 px-2 shadow-lg hover:bg-white ${selectedBus === busName ? 'bg-primary bg-opacity-100' : ''}`}
-                onClick={() => setSelectedBus(busName)}
-                key={busName}
-              >
-                <div className="h-10 w-[150px] rounded-3xl bg-white text-black group-hover:border group-hover:border-white group-hover:bg-primary group-hover:text-white">
-                  <p className="py-[5px] text-center">
-                    {busTickets[0].seat_id[0]?.seat_catalog_id.vehicle_id.name}
-                  </p>
-                </div>
-                <div className="my-2 h-[150px] w-full rounded-3xl border-2 border-white bg-white p-2 text-start text-lg font-light group-hover:border-gray-400">
-                  <p>
-                    Ngày đi:{' '}
-                    {new Date(
-                      busTickets[0].trip_id?.departure_date
-                    ).toLocaleDateString('vi-VN')}
-                  </p>
-                  <p>Giờ đi: {busTickets[0].trip_id?.departure_time}</p>
-                  {busTickets[0]?.ticket_catalog_id?.name.toLowerCase() !==
-                    'một chiều' && (
-                    <>
-                      <p>
-                        Ngày về:{' '}
-                        {new Date(
-                          busTickets[0].trip_id?.return_date
-                        ).toLocaleDateString('vi-VN')}
+          <div className="mx-auto w-full max-w-4xl rounded-2xl border border-black">
+            <div>
+              {Object.entries(ticketsByBus).map(([busName, busTickets]) => (
+                <div>
+                  <div
+                    className={`group flex flex-col lg:flex-row items-center justify-between p-6 mb-6 rounded-xl border bg-white shadow-md hover:shadow-lg hover:-translate-y-1 transition-transform duration-300 ${selectedBus === busName ? 'border-blue-500' : 'border-gray-300'
+                      }`}
+                    onClick={() => setSelectedBus(busName)}
+                    key={busName}
+                  >
+
+                    {/* Hình ảnh phương tiện */}
+                    <img
+                      src="https://png.pngtree.com/element_our/20190602/ourmid/pngtree-bus-transport-illustration-image_1407203.jpg"
+                      alt="Bus"
+                      className="w-48 h-48 object-cover rounded-lg mb-4 lg:mb-0 lg:mr-6"
+                    />
+
+                    {/* Thông tin chuyến đi */}
+                    <div className="text-center lg:text-left flex-1">
+                      {/* Điểm đi - Điểm đến */}
+                      <div className="mb-4 flex items-center justify-center lg:justify-start gap-3">
+                        <span className="font-bold text-xl text-blue-600">{tripInfo.departure_point.name}</span>
+                        <p className="text-2xl text-gray-500">→</p>
+                        <span className="font-bold text-xl text-blue-600">{tripInfo.destination_point.name}</span>
+                      </div>
+
+                      {/* Giá vé */}
+                      <div className="flex items-center justify-center lg:justify-start gap-3 mb-4">
+                        <IoMdPricetag className="text-blue-500 text-2xl" />
+                        <span className="font-bold text-red-500 text-2xl">
+                          {(tickets[0]?.price * 1000).toLocaleString('vi-VN') || 'N/A'} VND
+                        </span>
+                      </div>
+
+                      {/* Ngày giờ đi */}
+                      <p className="text-base text-gray-700">
+                        Ngày đi: <span className="font-bold text-blue-600">{new Date(busTickets[0]?.trip_id.departure_date).toLocaleDateString('vi-VN')}</span>
                       </p>
-                      <p>Giờ về: {busTickets[0].trip_id?.return_time}</p>
-                    </>
-                  )}
-                </div>
-                <div className="flex items-center gap-6">
-                  <div className="h-6 w-6 rounded-full bg-white group-hover:border group-hover:border-white group-hover:bg-primary dark:group-hover:bg-secondary"></div>
-                  <div className="w-9">
-                    <hr className="w-full border-2 border-white group-hover:border-gray-400" />
-                    <hr className="w-full border-2 border-white group-hover:border-gray-400" />
+                      <p className="text-base text-gray-700">
+                        Giờ đi: <span className="font-bold text-blue-600">{busTickets[0]?.trip_id.departure_time}</span>
+                      </p>
+
+                      {/* Thông tin vé khứ hồi (nếu có) */}
+                      {busTickets[0]?.ticket_catalog_id?.name.toLowerCase() !== 'một chiều' && (
+                        <div className="mt-3">
+                          <p className="text-base text-gray-700">
+                            Ngày về: <span className="font-bold text-blue-600">{new Date(busTickets[0]?.trip_id.return_date).toLocaleDateString('vi-VN')}</span>
+                          </p>
+                          <p className="text-base text-gray-700">
+                            Giờ về: <span className="font-bold text-blue-600">{busTickets[0]?.trip_id.return_time}</span>
+                          </p>
+                        </div>
+                      )}
+                    </div>
+                    {/* Nút chọn chuyến */}
+                    <button
+                      onClick={toggleHidden}
+                      className="mt-6 lg:mt-0 lg:ml-6 rounded-lg bg-blue-500 px-6 py-3 text-lg font-semibold text-white shadow-md transition-all duration-300 hover:bg-blue-600 hover:shadow-lg"
+                    >
+                      Chọn Chuyến
+                    </button>
                   </div>
-                  <div className="h-6 w-6 rounded-full bg-white group-hover:border group-hover:border-white group-hover:bg-primary dark:group-hover:bg-secondary"></div>
                 </div>
-                <div className="relative">
-                  <div
-                    className="absolute bottom-32 left-24 h-[50px] w-[35px] rounded-r-full bg-slate-400 bg-opacity-100"
-                    style={{
-                      clipPath: 'polygon(0 60%, 100% 50%, 100% 100%, 0% 100%)'
-                    }}
-                  />
-                  <div
-                    className="absolute bottom-32 right-24 h-[50px] w-[40px] rounded-l-full bg-slate-400 bg-opacity-100"
-                    style={{
-                      clipPath: 'polygon(0% 50%, 100% 60%, 100% 100%, 0% 100%)'
-                    }}
-                  />
+              ))}
+              <div className={isHidden ? 'hidden' : 'block'}>
+                <div className="mb-4 mt-5 flex w-full flex-row items-center justify-center gap-3">
+                  {selectedBus &&
+                    ticketsByCarriage &&
+                    Object.entries(ticketsByCarriage).map(([classId, classTickets]) => (
+                      <div
+                        key={classId}
+                        className="w-auto sm:w-auto md:w-auto xl:mx-[20px] pl-4 boder"
+                      >
+                        <Button
+                          color="primary"
+                          size="sm"
+                          className="text-xs pointer-events-none mb-3 rounded-sm font-semibold text-white dark:bg-white dark:text-primary"
+                        >
+                          {classTickets[0].seat_id[0]?.seat_catalog_id.name}
+                        </Button>
+                        <p className="p-1 text-sm font-semibold">Vị trí ghế ngồi:</p>
+                        <div className="flex gap-2">
+                          <Button
+                            size="sm"
+                            className="pointer-events-none text-black text-xs shadow-lg"
+                          >
+                            <GiSteeringWheel /> Lái Xe
+                          </Button>
+                          <Button
+                            size="sm"
+                            className="pointer-events-none text-black text-xs shadow-lg"
+                          >
+                            <GiBusDoors /> Cửa Lên
+                          </Button>
+                        </div>
+                        <div className="grid w-[200px] grid-cols-3 gap-2 rounded-xl dark:border-white">
+                          {classTickets
+                            .sort((a, b) => {
+                              const numA = parseInt(
+                                a.seat_id[0]?.ordinal_numbers || '0',
+                                10
+                              );
+                              const numB = parseInt(
+                                b.seat_id[0]?.ordinal_numbers || '0',
+                                10
+                              );
+
+                              return (isNaN(numA) ? 0 : numA) - (isNaN(numB) ? 0 : numB);
+                            })
+                            .map((ticket, index) => {
+                              const seatStatus = ticket.seat_id[0]?.status;
+                              const seatNumber =
+                                ticket.seat_id[0]?.seat_catalog_id?.name === 'Giường Dưới'
+                                  ? `A${ticket.seat_id[0]?.ordinal_numbers}`
+                                  : `B${ticket.seat_id[0]?.ordinal_numbers}`;
+                              return (
+                                <div
+                                  onClick={() => addSeat(ticket)}
+                                  key={index}
+                                  className="group m-1 relative"
+                                >
+                                  <div className="relative">
+                                    {seatStatus === 'Hết chỗ' ? (
+                                      <img
+                                        src="https://futabus.vn/images/icons/seat_disabled.svg"
+                                        alt="seat icon"
+                                        width="32"
+                                        className="rounded"
+                                      />
+                                    ) : seatStatus === 'Còn chỗ' ? (
+                                      <img
+                                        src="https://futabus.vn/images/icons/seat_active.svg"
+                                        alt="seat icon"
+                                        width="32"
+                                        className="rounded"
+                                      />
+                                    ) : (
+                                      <img
+                                        src="https://futabus.vn/images/icons/seat_selecting.svg"
+                                        alt="seat icon"
+                                        width="32"
+                                        className="rounded"
+                                      />
+                                    )}
+
+                                    {/* Hiển thị số ghế ở giữa hình ảnh ghế */}
+                                    <div className="absolute inset-0 flex items-center justify-center text-black text-xs font-semibold mr-4">
+                                      {seatNumber}
+                                    </div>
+                                  </div>
+
+                                  {/* Tooltip khi hover */}
+                                  <div
+                                    className={`absolute -bottom-2 left-1/2 z-10 w-[100px] -translate-x-1/2 transform rounded bg-white p-1 text-center text-xs text-black opacity-0 shadow-headerMenu transition-opacity duration-200 ease-in-out group-hover:opacity-100`}
+                                  >
+                                    {seatStatus === 'Còn chỗ' ? (
+                                      <>
+                                        <strong>{ticket.seat_id[0]?.name}</strong>
+                                        <p>
+                                          <strong>Giá:</strong>{' '}
+                                          {(ticket.price * 1000).toLocaleString('vi-VN')} VNĐ
+                                        </p>
+                                      </>
+                                    ) : (
+                                      <p>{seatStatus}</p>
+                                    )}
+                                  </div>
+                                </div>
+                              );
+                            })}
+                        </div>
+                      </div>
+                    ))}
+
                 </div>
               </div>
-            ))}
-          </div>
-          <div className="mb-10 flex w-full flex-row items-center justify-center gap-5">
-            <div className="flex items-center justify-center gap-1">
-              <p className="h-5 w-5 rounded-md border border-black bg-blue-500"></p>
-              <p>{t('UserPage.TicketTrainsResults.EmptySeats')}</p>
-            </div>
-            <div className="flex items-center justify-center gap-1">
-              <p className="h-5 w-5 rounded-md border border-black bg-orange-500"></p>
-              <p>{t('UserPage.TicketTrainsResults.NoSeats')}</p>
-            </div>
-            <div className="flex items-center justify-center gap-1">
-              <p className="h-5 w-5 rounded-md border border-black bg-gray-500"></p>
-              <p>{t('UserPage.TicketTrainsResults.Selecting')}</p>
             </div>
           </div>
-          <div className="flex flex-col justify-center sm:flex-row">
-            {selectedBus &&
-              ticketsByCarriage &&
-              Object.entries(ticketsByCarriage).map(
-                ([classId, classTickets]) => (
-                  <div
-                    key={classId}
-                    className="mb-6 w-full pl-10 sm:w-[90%] md:w-[45%] xl:mx-[20px]"
-                  >
-                    <Button
-                      color="primary"
-                      size="sm"
-                      className="text-md pointer-events-none mb-10 rounded-sm font-semibold text-white dark:bg-white dark:text-primary"
-                    >
-                      {classTickets[0].seat_id[0]?.seat_catalog_id.name}
-                    </Button>
-                    <p className="p-1 font-bold">Vị trí ghế ngồi:</p>
-                    <div className="flex">
-                      <Button
-                        size="sm"
-                        className="pointer-events-none text-black shadow-xl"
-                      >
-                        <GiSteeringWheel /> Lái Xe
-                      </Button>
-                      <Button
-                        size="sm"
-                        className="pointer-events-none mb-2 ml-10 text-black shadow-xl"
-                      >
-                        <GiBusDoors /> Cửa Lên
-                      </Button>
-                    </div>
-                    <div className="grid w-[250px] grid-cols-3 gap-4 rounded-xl dark:border-white">
-                      {classTickets
-                        // .sort(
-                        //   (a, b) =>
-                        //     a.seat_id[0]?.ordinal_numbers -
-                        //     b.seat_id[0]?.ordinal_numbers
-                        // )
-                        .sort((a, b) => {
-                          const numA = parseInt(
-                            a.seat_id[0]?.ordinal_numbers || '0',
-                            10
-                          );
-                          const numB = parseInt(
-                            b.seat_id[0]?.ordinal_numbers || '0',
-                            10
-                          );
-                          return (
-                            (isNaN(numA) ? 0 : numA) - (isNaN(numB) ? 0 : numB)
-                          );
-                        })
-                        .map((ticket, index) => {
-                          const seatStatus = ticket.seat_id[0]?.status;
-                          return (
-                            <div
-                              onClick={() => addSeat(ticket)}
-                              key={index}
-                              className={`relative flex h-12 w-12 items-center justify-center rounded-md border transition-all duration-200 ease-in-out ${
-                                seatStatus === 'Hết chỗ'
-                                  ? 'cursor-not-allowed border-orange-400 bg-orange-400 text-white'
-                                  : seatStatus === 'Còn chỗ'
-                                    ? 'cursor-pointer border-blue-500 bg-blue-300 text-black hover:bg-blue-400'
-                                    : 'cursor-not-allowed border-gray-500 bg-gray-500 text-white'
-                              } group m-1`}
-                            >
-                              {ticket.seat_id[0]?.ordinal_numbers}
-                              <div
-                                className={`absolute -bottom-2 left-1/2 z-10 w-[120px] -translate-x-1/2 transform rounded bg-white p-2 text-center text-xs text-black opacity-0 shadow-headerMenu shadow-primary transition-opacity duration-200 ease-in-out group-hover:opacity-100`}
-                              >
-                                {seatStatus === 'Còn chỗ' ? (
-                                  <>
-                                    <strong>{ticket.seat_id[0]?.name}</strong>
-                                    <p>
-                                      <strong>Giá:</strong>{' '}
-                                      {(ticket.price * 1000).toLocaleString(
-                                        'vi-VN'
-                                      )}{' '}
-                                      VNĐ
-                                    </p>
-                                  </>
-                                ) : (
-                                  <p>{seatStatus}</p>
-                                )}
-                              </div>
-                            </div>
-                          );
-                        })}
-                    </div>
-                  </div>
-                )
-              )}
-          </div>
+
         </div>
-        <div className="hidden w-full xl:block">
+        <div className="hidden xl:block w-[50%] mx-auto">
           <CartPage />
         </div>
+
+
       </div>
     </div>
   );
