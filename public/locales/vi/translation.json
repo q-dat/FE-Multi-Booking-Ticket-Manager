@@ -148,7 +148,8 @@
       "EmptySeats": "Còn chỗ",
       "NoSeats": "Hết chỗ",
       "Selecting": "Đang chọn",
-      "TripFrom": "Chuyến đi từ",
+      "TripFrom": "Chiều đi",
+      "TripReturn": "Chiều về",
       "To": "Đến",
       "Location": "Vị Trí"
     },

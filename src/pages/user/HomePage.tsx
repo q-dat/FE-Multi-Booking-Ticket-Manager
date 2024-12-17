@@ -57,6 +57,7 @@ const Home: React.FC = () => {
       },
       {} as Record<string, string>
     );
+    searchParams.ticket_catalog_name = 'Một chiều';
 
     //
     const searchResults: ITicket[] = await searchTickets(searchParams);

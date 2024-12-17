@@ -18,7 +18,7 @@ const CartPage: React.FC = () => {
 
     selectedSeats.forEach(ticket => {
       const storedStartTime = localStorage.getItem(`startTime_${ticket._id}`);
-      const countdownDuration = 600; // Đặt thời gian 600s = 10p
+      const countdownDuration = 300; // Đặt thời gian 300s = 5p
 
       if (storedStartTime) {
         const startTime = parseInt(storedStartTime, 10);
