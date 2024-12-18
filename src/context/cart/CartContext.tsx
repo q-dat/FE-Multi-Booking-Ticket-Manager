@@ -68,6 +68,24 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({
           );
           localStorage.setItem('searchResults', JSON.stringify(updatedTickets));
         }
+        //
+        const storedAlternateTickets = localStorage.getItem(
+          'searchResultsAlternate'
+        );
+        if (storedAlternateTickets) {
+          const parsedAlternateTickets = JSON.parse(
+            storedAlternateTickets
+          ) as ITicket[];
+          const updatedAlternateTickets = parsedAlternateTickets.map(t =>
+            t._id === ticket._id
+              ? { ...t, seat_id: [{ ...t.seat_id[0], status: 'Đang chọn' }] }
+              : t
+          );
+          localStorage.setItem(
+            'searchResultsAlternate',
+            JSON.stringify(updatedAlternateTickets)
+          );
+        }
 
         Toastify(`Đã thêm ${ticket.seat_id[0]?.name} vào giỏ vé!`, 200);
       } else {
@@ -108,6 +126,25 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({
         );
         localStorage.setItem('searchResults', JSON.stringify(updatedTickets));
       }
+      //
+      const storedAlternateTickets = localStorage.getItem(
+        'searchResultsAlternate'
+      );
+      if (storedAlternateTickets) {
+        const parsedAlternateTickets = JSON.parse(
+          storedAlternateTickets
+        ) as ITicket[];
+        const updatedAlternateTickets = parsedAlternateTickets.map(t =>
+          t._id === ticketId
+            ? { ...t, seat_id: [{ ...t.seat_id[0], status: 'Còn chỗ' }] }
+            : t
+        );
+        localStorage.setItem(
+          'searchResultsAlternate',
+          JSON.stringify(updatedAlternateTickets)
+        );
+      }
+      //
       console.log('Đã xoá ghế khỏi giỏ vé!');
     },
     [selectedSeats]
@@ -136,6 +173,25 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({
       );
       localStorage.setItem('searchResults', JSON.stringify(updatedTickets));
     }
+    //
+    const storedAlternateTickets = localStorage.getItem(
+      'searchResultsAlternate'
+    );
+    if (storedAlternateTickets) {
+      const parsedAlternateTickets = JSON.parse(
+        storedAlternateTickets
+      ) as ITicket[];
+      const updatedAlternateTickets = parsedAlternateTickets.map(t =>
+        selectedSeats.some(seat => seat._id === t._id)
+          ? { ...t, seat_id: [{ ...t.seat_id[0], status: 'Còn chỗ' }] }
+          : t
+      );
+      localStorage.setItem(
+        'searchResultsAlternate',
+        JSON.stringify(updatedAlternateTickets)
+      );
+    }
+    //
     setSelectedSeats([]);
     localStorage.setItem('cart', JSON.stringify([]));
     Toastify('Đã xóa tất cả ghế khỏi giỏ vé!', 200);
