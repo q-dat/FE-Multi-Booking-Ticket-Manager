@@ -180,15 +180,15 @@
       "ip15": "Đường",
       "ip16": "Quận/ Huyện",
       "ip17": "Tĩnh/ Thành phố",
-      "ip18": "Thông tin người mua",
+      "ip18": "Thông tin thanh toán",
       "ip19": "Phương thức thanh toán",
       "ip20": "Thanh toán khi nhận vé",
       "ip21": "Thanh toán"
     },
     "CheckInvoiceCodePage": {
       "NotificationTitle": "Quên mã hoá đơn",
-      "title": "Điền đúng email và chúng tôi sẽ gửi mã hoá đơn về email cho bạn",
-      "EmailPlaceholder": "Nhập email mua vé",
+      "title": "Điền đúng thông tin chúng tôi sẽ gửi mã hoá đơn về email cho bạn",
+      "EmailOrPhonePlaceholder": "Nhập email hoặc số điện thoại mua vé",
       "buttonform": "Tra cứu"
     },
     "TicketType": "Loại vé:",

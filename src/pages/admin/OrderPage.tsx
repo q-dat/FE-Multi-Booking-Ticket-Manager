@@ -46,12 +46,13 @@ const OrderPage: React.FC = () => {
         <NavtitleAdmin Title_NavtitleAdmin="Quản Lý Đơn Vé" Btn_Create={''} />
         {orders.map(order => (
           <div
-            className="my-3 grid grid-cols-1 items-start gap-3 border-2 border-gray-200 p-5 text-xs text-gray-700 sm:grid-cols-[0.5fr_2fr_1fr] sm:text-sm md:my-4 md:p-8 lg:grid-cols-[0.5fr_2fr_1fr_1fr_1fr]"
+            className="my-3 grid grid-cols-1 items-start gap-3 border-2 border-gray-200 p-5 text-xs text-gray-700 sm:grid-cols-[0.5fr_2fr_1fr] sm:text-sm md:my-4 md:p-8 lg:grid-cols-[0.5fr_1.5fr_1.5fr_1fr_1fr]"
             key={order._id}
           >
             <img src={LogoOrder} className="w-12" alt="" />
             <div>
               <div>
+                <h2 className='text-base font-bold text-primary pb-1'>Thông tin hành khách</h2>
                 {order.items.map((item, index) => (
                   <div key={index}>
                     <p>
@@ -59,6 +60,9 @@ const OrderPage: React.FC = () => {
                     </p>
                     <p>
                       <strong>Họ và tên:</strong> {item.name}
+                    </p>
+                    <p>
+                      <strong>Số điện thoại:</strong> {item.phone ? item.phone : "Chưa cung cấp"}
                     </p>
                     <p>
                       <strong>Đối tượng:</strong> {item.discount}
@@ -71,8 +75,16 @@ const OrderPage: React.FC = () => {
                       {item.ticketCode}
                     </p>
                     <p>
+                      <strong>Giá vé:</strong> {(item.price * 1000).toLocaleString('vi-VN')} VNĐ
+                    </p>
+                    <p>
                       <strong>Trạng thái vé: </strong>
-                      {item.status}
+                      <span className={`inline-block rounded-lg font-medium ${item?.status === 'Đã đặt'
+                        ? '  text-green-600'
+                        : item?.status === 'Đã hoàn trả vé'
+                          ? ' text-red-600'
+                          : ' '
+                        }`}>  {item.status}</span>
                     </p>
                     {index < order.items.length - 1 && ','}
                   </div>
@@ -80,6 +92,7 @@ const OrderPage: React.FC = () => {
               </div>
             </div>
             <div>
+              <h2 className='text-base font-bold text-primary pb-1'>Thông tin thanh toán</h2>
               <p>
                 <strong>Số lượng:</strong> {order.items.length}
               </p>
@@ -98,6 +111,10 @@ const OrderPage: React.FC = () => {
                 {order.address.phone}
               </p>
               <p>
+                <strong>Email: </strong>
+                {order.address.email}
+              </p>
+              <p>
                 <strong>Địa chỉ:</strong>{' '}
                 {order.address.street +
                   ', ' +
@@ -106,13 +123,18 @@ const OrderPage: React.FC = () => {
                   order.address.country}
               </p>
             </div>
-            <p className="text-sm text-red-600 sm:text-[15px]">
-              {(order.amount * 1000).toLocaleString('vi-VN')} VNĐ
-            </p>
-            <p>
-              <strong>Tình trạng:</strong>{' '}
-              {order.payment ? 'Đã thanh toán' : 'Chưa thanh toán'}
-            </p>
+            <div>
+              <h2 className='text-base font-bold text-primary pb-1'>Tổng tiền</h2>
+              <p className='font-bold'>
+                {(order.amount * 1000).toLocaleString('vi-VN')} VNĐ
+              </p>
+            </div>
+            <div>
+              <h2 className='text-base font-bold text-primary pb-1'>Tình trạng đơn vé</h2>
+              <p className='font-bold text-green-500'>
+                {order.payment ? 'Đã thanh toán' : 'Chưa thanh toán'}
+              </p>
+            </div>
           </div>
         ))}
       </div>

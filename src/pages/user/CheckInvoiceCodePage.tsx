@@ -10,20 +10,30 @@ import { useNavigate } from 'react-router-dom';
 
 const CheckInvoiceCodePage: React.FC = () => {
   const { t } = useTranslation();
-  const [email, setEmail] = useState('');
+  const [contactInfo, setContactInfo] = useState('');
   const navigate = useNavigate();
 
   const handleCheckInvoiceCodePage = async (e: React.FormEvent) => {
     e.preventDefault();
 
+    const isEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(contactInfo);
+    const isPhone = /^[0-9]{10,15}$/.test(contactInfo);
+
+    if (!isEmail && !isPhone) {
+      Toastify('Email hoặc số điện thoại không hợp lệ', 500);
+      return;
+    }
+
     try {
-      await axios.post('api/order/forgot-invoice-code', { email });
+      const requestData = isEmail ? { email: contactInfo } : { phone: contactInfo };
+      await axios.post('api/order/forgot-invoice-code', requestData);
+
       Toastify('Mã hóa đơn đã được gửi tới email của bạn', 200);
       navigate('/check-ticket');
     } catch (error) {
       const errorMessage = isIErrorResponse(error)
         ? error.data?.message
-        : 'Email sai hoặc mã hoá đơn đã hết hạn';
+        : 'Thông tin không chính xác hoặc mã hóa đơn đã hết hạn';
       Toastify(`${errorMessage}`, 500);
     }
   };
@@ -50,10 +60,10 @@ const CheckInvoiceCodePage: React.FC = () => {
                   {t('UserPage.CheckInvoiceCodePage.title')}
                 </p>
                 <InputForm
-                  type="email"
-                  placeholder={`${t('UserPage.CheckInvoiceCodePage.EmailPlaceholder')}`}
-                  value={email}
-                  onChange={e => setEmail(e.target.value)}
+                  type="text"
+                  placeholder={`${t('UserPage.CheckInvoiceCodePage.EmailOrPhonePlaceholder')}`}
+                  value={contactInfo}
+                  onChange={e => setContactInfo(e.target.value)}
                   className="border border-gray-300 bg-white text-black focus:border-primary xs:w-[300px] sm:w-[350px] md:w-[650px] xl:w-[800px]"
                   classNameLabel="bg-white dark:peer-placeholder-shown:text-black dark:peer-focus:text-black"
                 />

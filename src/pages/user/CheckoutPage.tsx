@@ -39,8 +39,12 @@ const CheckoutPage: React.FC = () => {
     [key: string]: string;
   }>({});
   const [userDetails, setUserDetails] = useState<{
-    [key: string]: { name: string; cccd: string; phone: string };
+    [key: string]: { name: string; phone: string };
   }>({});
+  const [userDetailsErrors, setUserDetailsErrors] = useState<{
+    [key: string]: { name?: string; phone?: string };
+  }>({});
+
   const [errors, setErrors] = useState<{ [key: string]: string }>({});
 
   const validateInput = (name: string, value: string) => {
@@ -62,6 +66,11 @@ const CheckoutPage: React.FC = () => {
       }
     }
     return error;
+  };
+
+  const validateTicketPhone = (value: string) => {
+    const phoneRegex = /^[0-9]{10,11}$/;
+    return phoneRegex.test(value) ? '' : 'Số điện thoại phải có 10-11 chữ số';
   };
 
   useEffect(() => {
@@ -90,6 +99,17 @@ const CheckoutPage: React.FC = () => {
         [field]: value
       }
     }));
+
+    if (field === 'phone') {
+      const error = validateTicketPhone(value);
+      setUserDetailsErrors(prevErrors => ({
+        ...prevErrors,
+        [ticketId]: {
+          ...prevErrors[ticketId],
+          phone: error
+        }
+      }));
+    }
   };
 
   const calculateDiscountedPrice = (
@@ -148,7 +168,6 @@ const CheckoutPage: React.FC = () => {
       const orderItems = selectedSeats.map(seat => {
         const ticketDetails = userDetails[seat._id] || {
           name: '',
-          cccd: '',
           phone: ''
         };
         const selectedDiscount = selectedDiscounts[seat._id] || 'Người lớn';
@@ -158,7 +177,6 @@ const CheckoutPage: React.FC = () => {
         );
         return {
           name: ticketDetails.name,
-          cccd: ticketDetails.cccd,
           phone: ticketDetails.phone,
           departureDate: seat.trip_id.departure_date,
           destinationDate: seat.trip_id.return_date,
@@ -203,7 +221,7 @@ const CheckoutPage: React.FC = () => {
     } catch (error) {
       const errorMessage = isIErrorResponse(error)
         ? error.data?.message
-        : 'Vui lòng nhập thông hành khách';
+        : 'Xin lỗi, ghế mà bạn chọn đã hết chỗ. Vui lòng chọn ghế khác và thử lại';
       Toastify(`${errorMessage}`, 500);
     }
   };
@@ -274,16 +292,11 @@ const CheckoutPage: React.FC = () => {
                   }
                   className="w-full rounded border px-3 py-2 sm:w-2/3"
                 />
-                <input
-                  type="text"
-                  name="cccd"
-                  value={ticketDetails.cccd}
-                  placeholder={t('UserPage.CheckoutPage.ip9')}
-                  onChange={e =>
-                    handleInputChange(ticket._id, 'cccd', e.target.value)
-                  }
-                  className="w-full rounded border px-3 py-2 sm:w-2/3"
-                />
+                {userDetailsErrors[ticket._id]?.phone && (
+                  <p className="text-sm text-red-500">
+                    {userDetailsErrors[ticket._id]?.phone}
+                  </p>
+                )}
                 <div className="flex items-center gap-2 sm:gap-0">
                   <select
                     value={selectedDiscount}

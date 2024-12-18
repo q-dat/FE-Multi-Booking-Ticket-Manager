@@ -188,6 +188,8 @@ interface Resources {
       },
       "CheckInvoiceCodePage": {
         "NotificationTitle": "Forgot Invoice Code",
+        "title": "Enter the correct information and we will send the invoice code to your email",
+        "EmailOrPhonePlaceholder": "Enter the ticket purchase email or phone",
         "title": "Enter the correct email, and we will send the invoice code to your email.",
         "EmailPlaceholder": "Enter the ticket purchase email",
         "buttonform": "Look Up"
