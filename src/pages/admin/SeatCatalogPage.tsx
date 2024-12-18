@@ -43,7 +43,17 @@ const SeatCatalogPage: React.FC = () => {
     setIsModalEditOpen(true);
   };
   const closeModalEditAdmin = () => setIsModalEditOpen(false);
-
+  // 
+  const [sortedSeatCatalogs, setSortedSeatCatalogs] = useState<ISeatCatalog[]>([]);
+  useEffect(() => {
+    if (seatCatalogs) {
+      const sorted = [...seatCatalogs].sort((a, b) =>
+        a.name.localeCompare(b.name)
+      );
+      setSortedSeatCatalogs(sorted);
+    }
+  }, [seatCatalogs]);
+  // 
   useEffect(() => {
     getAllSeatCatalogs();
   }, [getAllSeatCatalogs]);
@@ -98,7 +108,7 @@ const SeatCatalogPage: React.FC = () => {
         }
         table_body={
           <Table.Body className="text-center text-sm">
-            {seatCatalogs.map((seatCatalog: ISeatCatalog, index: number) => (
+            {sortedSeatCatalogs.map((seatCatalog: ISeatCatalog, index: number) => (
               <Table.Row key={index}>
                 <span className="line-clamp-1">#{index + 1}</span>
                 <span className="line-clamp-1">{seatCatalog?.name}</span>

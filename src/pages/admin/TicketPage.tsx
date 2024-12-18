@@ -49,7 +49,17 @@ const TicketPage: React.FC = () => {
     setIsModalEditOpen(true);
   };
   const closeModalEditAdmin = () => setIsModalEditOpen(false);
-
+// 
+const [sortedTicketCatalogs, setSortedTicketCatalogs] = useState<ITicket[]>([]);
+useEffect(() => {
+  if (tickets) {
+    const sorted = [...tickets].sort((a, b) =>
+      a.vehicle_catalog_id.name.localeCompare(b.vehicle_catalog_id.name)
+    );
+    setSortedTicketCatalogs(sorted);
+  }
+}, [tickets]);
+// 
   //
   const trainSelectRef = useRef<HTMLSelectElement>(null);
   const busSelectRef = useRef<HTMLSelectElement>(null);
@@ -462,7 +472,7 @@ const TicketPage: React.FC = () => {
         }
         table_body={
           <Table.Body className="table-sm text-center text-sm">
-            {tickets.map((ticket: ITicket, index: number) => (
+            {sortedTicketCatalogs.map((ticket: ITicket, index: number) => (
               <Table.Row key={ticket._id}>
                 {fillter[0] === 'STT' ? (
                   <span className="line-clamp-1">#{index + 1}</span>
