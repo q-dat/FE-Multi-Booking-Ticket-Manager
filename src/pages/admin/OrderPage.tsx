@@ -68,9 +68,6 @@ const OrderPage: React.FC = () => {
                       <strong>Đối tượng:</strong> {item.discount}
                     </p>
                     <p>
-                      <strong>Loại vé:</strong> {item.ticketCatalog}
-                    </p>
-                    <p>
                       <strong>Mã vé: </strong>
                       {item.ticketCode}
                     </p>
