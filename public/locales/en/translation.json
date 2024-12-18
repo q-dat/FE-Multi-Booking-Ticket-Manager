@@ -154,7 +154,7 @@
       "Location": "Location"
     },
     "CartTranlate": {
-      "TicketQuantity": "Ticket Cart - Quantity",
+      "TicketQuantity": "List of selected tickets - Quantity",
       "CartNotification": "Your ticket cart is empty!",
       "Second": "Second",
       "Total": "Total",

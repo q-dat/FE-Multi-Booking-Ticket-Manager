@@ -154,13 +154,13 @@
       "Location": "Vị Trí"
     },
     "CartTranlate": {
-      "TicketQuantity": "Giỏ vé - Số lượng",
-      "CartNotification": "Giỏ vé của bạn đang trống!",
+      "TicketQuantity": "Danh sách vé đã chọn - Số lượng!",
+      "CartNotification": "The list of selected tickets is empty!",
       "Second": "Giây",
       "Total": "Tổng Tiền",
       "DeleteAll": "Xóa tất cả",
       "BuyTickets": "Mua Vé",
-      "DeleteAllTicket": "Đã xóa tất cả ghế khỏi giỏ vé!"
+      "DeleteAllTicket": "Removed all tickets from the selected tickets list!"
     },
     "CheckoutPage": {
       "ip1": "Thông tin hành khách",

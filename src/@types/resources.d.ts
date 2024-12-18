@@ -155,7 +155,7 @@ interface Resources {
         "Location": "Location"
       },
       "CartTranlate": {
-        "TicketQuantity": "Ticket Cart - Quantity",
+        "TicketQuantity": "List of selected tickets - Quantity",
         "CartNotification": "Your ticket cart is empty!",
         "Second": "Second",
         "Total": "Total",
@@ -190,8 +190,6 @@ interface Resources {
         "NotificationTitle": "Forgot Invoice Code",
         "title": "Enter the correct information and we will send the invoice code to your email",
         "EmailOrPhonePlaceholder": "Enter the ticket purchase email or phone",
-        "title": "Enter the correct email, and we will send the invoice code to your email.",
-        "EmailPlaceholder": "Enter the ticket purchase email",
         "buttonform": "Look Up"
       },
       "TicketType": "Ticket:",
