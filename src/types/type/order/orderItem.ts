@@ -2,10 +2,8 @@ export interface OrderItem {
   name: string;
   phone: string;
   departureDate: string;
-  destinationDate: string;
   ticketCatalog: string;
   departureTime: string;
-  returnTime: string;
   departurePoint: string;
   destinationPoint: string;
   seat: string;
@@ -17,7 +15,6 @@ export interface OrderItem {
   ticketCode: string;
   status: string;
   discount: string;
-  hidden?: boolean;
 }
 export interface Address {
   fullName: string;
