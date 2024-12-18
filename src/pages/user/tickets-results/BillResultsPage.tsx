@@ -112,33 +112,15 @@ const BillResultsPage: React.FC = () => {
                     <span>{item.discount}</span>
                   </div>
                   <div className="flex justify-between">
-                    <span className="font-semibold">Loại vé:</span>
-                    <span>{item.ticketCatalog}</span>
-                  </div>
-                  <div className="flex justify-between">
                     <span className="font-semibold">Ngày đi:</span>
                     <span>
                       {new Date(item.departureDate).toLocaleDateString('vi-VN')}
                     </span>
                   </div>
-                  {item.ticketCatalog === 'Khứ hồi' && (
-                    <div className="flex justify-between">
-                      <span className="font-semibold">Ngày về:</span>
-                      <span>
-                        {new Date(item.destinationDate).toLocaleDateString('vi-VN')}
-                      </span>
-                    </div>
-                  )}
                   <div className="flex justify-between">
                     <span className="font-semibold">Giờ đi:</span>
                     <span>{item.departureTime}</span>
                   </div>
-                  {item.ticketCatalog === 'Khứ hồi' && (
-                    <div className="flex justify-between">
-                      <span className="font-semibold">Giờ về:</span>
-                      <span>{item.returnTime}</span>
-                    </div>
-                  )}
                   <div className="flex justify-between">
                     <span className="font-semibold">Điểm đi:</span>
                     <span>{item.departurePoint}</span>
@@ -148,23 +130,23 @@ const BillResultsPage: React.FC = () => {
                     <span>{item.destinationPoint}</span>
                   </div>
                   <div className="flex justify-between">
-                    <span className="font-semibold">Ghế:</span>
-                    <span>{item.seat}</span>
+                    <span className="font-semibold">Phương tiện:</span>
+                    <span>{item.vehicle}</span>
                   </div>
                   <div className="flex justify-between">
                     <span className="font-semibold">Toa/Khoang:</span>
                     <span>{item.seatCatalog}</span>
                   </div>
                   <div className="flex justify-between">
-                    <span className="font-semibold">Phương tiện:</span>
-                    <span>{item.vehicle}</span>
+                    <span className="font-semibold">Ghế:</span>
+                    <span>{item.seat}</span>
                   </div>
                   <div className="flex justify-between">
                     <span className="font-semibold">Mã vé:</span>
                     <span>{item.ticketCode}</span>
                   </div>
                   <div className="flex justify-between">
-                    <span className="font-semibold">Giá:</span>
+                    <span className="font-semibold">Giá vé:</span>
                     <span>
                       {(item.price * 1000).toLocaleString('vi-VN')} VNĐ
                     </span>
