@@ -125,9 +125,7 @@ const BillResultsPage: React.FC = () => {
                     <div className="flex justify-between">
                       <span className="font-semibold">Ngày về:</span>
                       <span>
-                        {new Date(item.destinationDate).toLocaleDateString(
-                          'vi-VN'
-                        )}
+                        {new Date(item.destinationDate).toLocaleDateString('vi-VN')}
                       </span>
                     </div>
                   )}
@@ -216,7 +214,7 @@ const BillResultsPage: React.FC = () => {
               <div className="mt-4 text-center">
                 <button
                   onClick={handleReturnTickets}
-                  className="w-full rounded-md bg-red-500 py-2 text-white hover:bg-red-600"
+                  className="w-full rounded-md bg-primary py-2 text-white"
                 >
                   Trả vé
                 </button>
