@@ -21,21 +21,24 @@ const TicketTrainsReturnTrip: React.FC = () => {
   const { addSeat, selectedSeats } = useCart();
 
   useEffect(() => {
-    let consecutiveCalls = 0; // Biến đếm số lần gọi liên tiếp
-    const MAX_CONSECUTIVE_CALLS = 2; // Số lần gọi tối đa liên tiếp cho phép
+    let consecutiveCalls = 0;
+    const MAX_CONSECUTIVE_CALLS = 2;
+
     const fetchTickets = async () => {
       if (consecutiveCalls >= MAX_CONSECUTIVE_CALLS) {
         console.warn('Đã vượt quá số lần gọi liên tiếp cho phép.');
-        return; // Dừng nếu gọi quá số lần cho phép
+        return;
       }
 
-      consecutiveCalls++; // Tăng biến đếm khi gọi API
-
+      consecutiveCalls++;
       setLoading(true);
+
       try {
         const searchParams = sessionStorage.getItem('searchParams');
         if (!searchParams) {
-          throw new Error('Không tìm thấy tham số tìm kiếm trong session.');
+          throw new Error(
+            'Không tìm thấy tham số tìm kiếm trong session searchParams.'
+          );
         }
 
         const parsedSearchParams = JSON.parse(searchParams);
@@ -47,79 +50,61 @@ const TicketTrainsReturnTrip: React.FC = () => {
           vehicle_catalog_name
         } = parsedSearchParams;
 
-        //return_date == ''
+        // Kiểm tra nếu return_date rỗng
         if (!return_date) {
           localStorage.removeItem('searchResultsAlternate');
-          console.log('Dữ liệu searchResultsAlternate đã được xóa do return_date rỗng.');
-          return; 
-        }
-        //return_date !== ''
-        if (return_date) {
-          const alternateParams = {
-            departure_date: return_date,
-            departure_point_name: destination_point_name,
-            destination_point_name: departure_point_name,
-            return_date: '',
-            ticket_catalog_name,
-            vehicle_catalog_name
-          };
-
-          sessionStorage.setItem(
-            'searchParamsAlternate',
-            JSON.stringify(alternateParams)
+          console.log(
+            'Dữ liệu searchResultsAlternate đã được xóa do return_date rỗng.'
           );
-
-          const alternateTickets = await searchTickets(alternateParams);
-
-          localStorage.setItem(
-            'searchResultsAlternate',
-            JSON.stringify(alternateTickets)
-          );
-
-          setAlternateTickets(alternateTickets);
+          return;
         }
+
+        // Tạo searchParamsAlternate nếu return_date có giá trị
+        const alternateParams = {
+          departure_date: return_date,
+          departure_point_name: destination_point_name,
+          destination_point_name: departure_point_name,
+          return_date: '',
+          ticket_catalog_name,
+          vehicle_catalog_name
+        };
+
+        sessionStorage.setItem(
+          'searchParamsAlternate',
+          JSON.stringify(alternateParams)
+        );
+
+        const alternateTickets = await searchTickets(alternateParams);
+
+        const storedListID = localStorage.getItem('listID');
+        const listID = storedListID ? JSON.parse(storedListID) : [];
+
+        const updatedTickets = alternateTickets.map(ticket => ({
+          ...ticket,
+          seat_id: ticket.seat_id.map(seat => ({
+            ...seat,
+            status: listID.includes(seat._id) ? 'Đang chọn' : seat.status
+          }))
+        }));
+
+        localStorage.setItem(
+          'searchResultsAlternate',
+          JSON.stringify(updatedTickets)
+        );
+
+        setAlternateTickets(updatedTickets);
       } catch (err) {
         console.error(err);
-        setError('Lỗi khi tải vé.');
+        setError('Lỗi khi tải vé từ searchParamsAlternate.');
       } finally {
         setLoading(false);
-        updateSeatStatus();
 
         setTimeout(() => {
           consecutiveCalls = 0;
         }, 5000);
       }
     };
-    const updateSeatStatus = () => {
-      const storedListID = localStorage.getItem('listID');
-      if (!storedListID) return;
 
-      const listID = JSON.parse(storedListID) as string[];
-
-      const storedSearchResults = localStorage.getItem(
-        'searchResultsAlternate'
-      );
-      if (!storedSearchResults) return;
-
-      const searchResults = JSON.parse(storedSearchResults) as ITicket[];
-
-      const updatedResults = searchResults.map(ticket => {
-        const isSeatSelected = listID.includes(ticket.seat_id[0]?._id || '');
-        return {
-          ...ticket,
-          seat_id: ticket.seat_id.map(seat => ({
-            ...seat,
-            status: isSeatSelected ? 'Đang chọn' : seat.status
-          }))
-        };
-      });
-
-      localStorage.setItem(
-        'searchResultsAlternate',
-        JSON.stringify(updatedResults)
-      );
-      setAlternateTickets(updatedResults);
-    };
     fetchTickets();
 
     const handleNewTicket = () => {
@@ -132,6 +117,7 @@ const TicketTrainsReturnTrip: React.FC = () => {
       offSocketEvents();
     };
   }, []);
+
   //
 
   useEffect(() => {
@@ -236,8 +222,9 @@ const TicketTrainsReturnTrip: React.FC = () => {
     );
   };
   return (
-    <div className={`${alternateTickets.length === 0 ? 'hidden' : 'flex w-full flex-col items-start justify-center px-2 xl:flex-row'}`}>
-
+    <div
+      className={`${alternateTickets.length === 0 ? 'hidden' : 'flex w-full flex-col items-start justify-center px-2 xl:flex-row'}`}
+    >
       {/*  */}
       <div className="w-full">
         {/* Return Trip */}
