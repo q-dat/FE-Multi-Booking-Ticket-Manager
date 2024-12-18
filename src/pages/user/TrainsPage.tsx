@@ -39,7 +39,8 @@ const TrainsPage: React.FC = () => {
       },
       {} as Record<string, string>
     );
-
+    searchParams.ticket_catalog_name = 'Một chiều';
+    //
     const searchResults: ITicket[] = await searchTickets(searchParams);
     sessionStorage.setItem('searchParams', JSON.stringify(searchParams));
 
@@ -58,11 +59,11 @@ const TrainsPage: React.FC = () => {
   useEffect(() => {
     getAllTicketCatalogs();
   }, []);
-    //react-select
-    const ticketCatalog: Option[] = ticketCatalogs.map(ticketCatalog => ({
-      value: ticketCatalog.name,
-      label: ticketCatalog.name
-    }));
+  //react-select
+  const ticketCatalog: Option[] = ticketCatalogs.map(ticketCatalog => ({
+    value: ticketCatalog.name,
+    label: ticketCatalog.name
+  }));
 
   //Get Location
   const { locations, getAllLocations } = useContext(LocationContext);
@@ -155,14 +156,14 @@ const TrainsPage: React.FC = () => {
                       </option>
                     ))}
                   </Select> */}
-                   <ReactSelectNone
-                  name="destination_point_name"
-                  control={control}
-                  options={location}
-                  placeholder={t('UserPage.DestinationPlaceholder')}
-                  isMulti={false}
-                  className="xl:rounded-none"
-                />
+                  <ReactSelectNone
+                    name="destination_point_name"
+                    control={control}
+                    options={location}
+                    placeholder={t('UserPage.DestinationPlaceholder')}
+                    isMulti={false}
+                    className="xl:rounded-none"
+                  />
                   <MdOutlineArrowRightAlt className="hidden text-xl text-primary xl:flex" />
                 </div>
               </div>
@@ -187,26 +188,26 @@ const TrainsPage: React.FC = () => {
                       </option>
                     ))}
                   </Select> */}
-                   <ReactSelect
-                  name="ticket_catalog_name"
-                  control={control}
-                  options={ticketCatalog}
-                  placeholder={t('UserPage.TicketSelectDefault')}
-                  isMulti={false}
-                  className="xl:rounded-none"
-                  onChange={selectedOption => {
-                    if (
-                      typeof selectedOption === 'object' &&
-                      'value' in selectedOption
-                    ) {
-                      setSelectedTicketCatalog(selectedOption.value);
-                    } else if (typeof selectedOption === 'string') {
-                      setSelectedTicketCatalog(selectedOption);
-                    } else {
-                      setSelectedTicketCatalog('');
-                    }
-                  }}
-                />
+                  <ReactSelect
+                    name="ticket_catalog_name"
+                    control={control}
+                    options={ticketCatalog}
+                    placeholder={t('UserPage.TicketSelectDefault')}
+                    isMulti={false}
+                    className="xl:rounded-none"
+                    onChange={selectedOption => {
+                      if (
+                        typeof selectedOption === 'object' &&
+                        'value' in selectedOption
+                      ) {
+                        setSelectedTicketCatalog(selectedOption.value);
+                      } else if (typeof selectedOption === 'string') {
+                        setSelectedTicketCatalog(selectedOption);
+                      } else {
+                        setSelectedTicketCatalog('');
+                      }
+                    }}
+                  />
                   <MdOutlineArrowRightAlt className="hidden text-xl text-primary xl:flex" />
                   {/* hide */}
                   <InputForm

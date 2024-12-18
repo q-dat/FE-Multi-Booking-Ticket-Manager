@@ -216,7 +216,7 @@ const TicketBusesResultsPage: React.FC = () => {
   const toggleHidden = () => {
     setIsHidden(!isHidden);
   };
-  
+
 
   // // Khi người dùng chọn một tàu khác, tự động chọn danh mục ghế đầu tiên của tàu đó
   // const handleTrainChange = (busName: string) => {
@@ -234,21 +234,19 @@ const TicketBusesResultsPage: React.FC = () => {
           <CartPage />
         </div>
         <div className="w-full">
-
-          <div className="mx-auto w-full max-w-4xl rounded-2xl border border-black">
+          <div className="mx-auto w-full max-w-2xl rounded-2xl">
             <div>
               {Object.entries(ticketsByBus).map(([busName, busTickets]) => (
                 <div>
                   <div
-                    className={`group flex flex-col lg:flex-row items-center justify-between p-6 mb-6 rounded-xl border bg-white shadow-md hover:shadow-lg hover:-translate-y-1 transition-transform duration-300 ${selectedBus === busName ? 'border-blue-500' : 'border-gray-300'
+                    className={`group flex flex-col lg:flex-row items-center justify-between p-4 mb-4 rounded-xl  shadow-md hover:shadow-lg hover:-translate-y-1 transition-transform duration-300 ${selectedBus === busName ? 'border-blue-500' : 'border-gray-300'
                       }`}
                     onClick={() => setSelectedBus(busName)}
                     key={busName}
                   >
-
                     {/* Hình ảnh phương tiện */}
                     <img
-                      src="https://png.pngtree.com/element_our/20190602/ourmid/pngtree-bus-transport-illustration-image_1407203.jpg"
+                      src="https://photo.znews.vn/w660/Uploaded/OFH_oazszstq/2017_06_13/2_mercedes_bus.jpg"
                       alt="Bus"
                       className="w-48 h-48 object-cover rounded-lg mb-4 lg:mb-0 lg:mr-6"
                     />
@@ -269,7 +267,22 @@ const TicketBusesResultsPage: React.FC = () => {
                           {(tickets[0]?.price * 1000).toLocaleString('vi-VN') || 'N/A'} VND
                         </span>
                       </div>
-
+                      {/* Loại vé */}
+                      <div className="flex items-center gap-2 mb-3">
+                        <IoTicket className="text-blue-600" />
+                        <p className="text-sm text-gray-600">{t('UserPage.TicketType')}</p>
+                        <span className="font-semibold text-blue-600">
+                          {tickets[0]?.ticket_catalog_id?.name || 'N/A'}
+                        </span>
+                      </div>
+                      {/* Loại phương tiện */}
+                      <div className="flex items-center gap-2 mb-3">
+                        <IoTrainSharp className="text-blue-600" />
+                        <p className="text-sm text-gray-600">{t('UserPage.Vehicle')}</p>
+                        <span className="font-semibold text-blue-600">
+                          {busTickets[0].seat_id[0]?.seat_catalog_id.vehicle_id.name}
+                        </span>
+                      </div>
                       {/* Ngày giờ đi */}
                       <p className="text-base text-gray-700">
                         Ngày đi: <span className="font-bold text-blue-600">{new Date(busTickets[0]?.trip_id.departure_date).toLocaleDateString('vi-VN')}</span>
@@ -293,7 +306,7 @@ const TicketBusesResultsPage: React.FC = () => {
                     {/* Nút chọn chuyến */}
                     <button
                       onClick={toggleHidden}
-                      className="mt-6 lg:mt-0 lg:ml-6 rounded-lg bg-blue-500 px-6 py-3 text-lg font-semibold text-white shadow-md transition-all duration-300 hover:bg-blue-600 hover:shadow-lg"
+                      className="mt-6 lg:mt-0 lg:ml-6 rounded-lg bg-blue-500 px-4 py-3 text-sm font-semibold text-white shadow-md transition-all duration-300 hover:bg-blue-600 hover:shadow-lg"
                     >
                       Chọn Chuyến
                     </button>
@@ -302,6 +315,35 @@ const TicketBusesResultsPage: React.FC = () => {
               ))}
               <div className={isHidden ? 'hidden' : 'block'}>
                 <div className="mb-4 mt-5 flex w-full flex-row items-center justify-center gap-3">
+                  <div className="flex items-center justify-center gap-1">
+                    <img
+                      src="https://futabus.vn/images/icons/seat_active.svg"
+                      alt="seat icon"
+                      width="25"
+                      className="rounded"
+                    />
+                    <p>{t('UserPage.TicketTrainsResults.EmptySeats')}</p>
+                  </div>
+                  <div className="flex items-center justify-center gap-1">
+                    <img
+                      src="https://futabus.vn/images/icons/seat_disabled.svg"
+                      alt="seat icon"
+                      width="25"
+                      className="rounded"
+                    />
+                    <p>{t('UserPage.TicketTrainsResults.NoSeats')}</p>
+                  </div>
+                  <div className="flex items-center justify-center gap-1">
+                    <img
+                      src="https://futabus.vn/images/icons/seat_selecting.svg"
+                      alt="seat icon"
+                      width="25"
+                      className="rounded"
+                    />
+                    <p>{t('UserPage.TicketTrainsResults.Selecting')}</p>
+                  </div>
+                </div>
+                <div className="flex flex-col justify-center sm:flex-row">
                   {selectedBus &&
                     ticketsByCarriage &&
                     Object.entries(ticketsByCarriage).map(([classId, classTickets]) => (
@@ -409,7 +451,6 @@ const TicketBusesResultsPage: React.FC = () => {
                         </div>
                       </div>
                     ))}
-
                 </div>
               </div>
             </div>
